@@ -545,57 +545,110 @@ async function prepareQuestionGroup(candidates: Question[], projectName: string)
     const model = providerSettings[provider]?.model || (typeof preferences.model === "string" ? preferences.model : definition.models[0]?.value || "");
     if (!baseUrl || !model) return { questions: fallback, source: "本地规则", message: "未配置 AI，已使用本地题库与标准答案。" };
     const apiKey = sessionStorage.getItem(`vision-interview-ai-key-${provider}`) || "";
-    const response = await fetch("/api/ai/chat", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      // 前端独立超时：留在服务端 60s 之上，让服务端的超时先触发，
-      // 这样能拿到具体错误信息而不是笼统的 abort。仅在服务端/网络
-      // 整体挂起时兜底，避免「正在准备本题组」无限转圈。
-      signal: AbortSignal.timeout(70000),
-      body: JSON.stringify({
-        // 10 道题 × (标准答案 + 技术原理 + 关键词) 用 1800 tokens 容易被截断，
-        // 截断后 JSON 不完整会解析失败并整组降级。放宽到 3600。
-        provider, baseUrl, model, maxTokens: 3600, temperature: 0.15, ...(apiKey ? { apiKey } : {}),
-        messages: [
-          {
-            role: "system",
-            content: "你是机器视觉面试题库整理器。请在用户开始本题组前，一次性整理全部题目对应的标准回答重点和技术原理。优先依据公开题库、官方文档和可靠工程实践；不要编造项目事实。只返回 JSON，不要 Markdown。",
-          },
-          {
-            role: "user",
-            content: JSON.stringify({
-              task: "预取当前面试题组的题目、标准回答和技术原理",
-              project: projectName,
-              questions: candidates.map((question) => ({
-                question: question.title,
-                type: question.type,
-                category: question.category,
-                source: question.source,
-                keywords: question.keywords,
-                basis: question.basis,
-                reference: question.reference,
-              })),
-              outputSchema: {
-                questions: [{ question: "原题目", bestAnswer: "标准回答重点", principle: "技术原理；非技术题可为空", keywords: ["关键词"] }],
-              },
-            }),
-          },
-        ],
-      }),
+
+    // 分批并行预取。
+    // 整组 10 题塞进单次请求需要生成 3000+ tokens，实测常超过 60s 而中断，
+    // 且一旦失败整组全废。改为每批 BATCH_SIZE 题独立请求、并行发出：
+    //   - 单批生成量小，通常 10-20s 完成
+    //   - 各批互不影响，某批失败只有那几题回退本地题库
+    const BATCH_SIZE = 3;
+    const batches: Question[][] = [];
+    for (let i = 0; i < candidates.length; i += BATCH_SIZE) {
+      batches.push(candidates.slice(i, i + BATCH_SIZE));
+    }
+
+    async function fetchBatch(batch: Question[]): Promise<Record<string, unknown>[]> {
+      const response = await fetch("/api/ai/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        // 单批负载小，45s 足够；留在服务端 60s 之下由前端先行放弃该批。
+        signal: AbortSignal.timeout(45000),
+        body: JSON.stringify({
+          provider, baseUrl, model,
+          // 每题约 300-400 tokens，3 题给 1600 有充裕余量，避免 JSON 截断。
+          maxTokens: 1600, temperature: 0.15, ...(apiKey ? { apiKey } : {}),
+          messages: [
+            {
+              role: "system",
+              content: "你是机器视觉面试题库整理器。请整理给定题目对应的标准回答重点和技术原理。优先依据公开题库、官方文档和可靠工程实践；不要编造项目事实。只返回 JSON，不要 Markdown。",
+            },
+            {
+              role: "user",
+              content: JSON.stringify({
+                task: "预取面试题目的标准回答和技术原理",
+                project: projectName,
+                questions: batch.map((question) => ({
+                  question: question.title,
+                  type: question.type,
+                  category: question.category,
+                  source: question.source,
+                  keywords: question.keywords,
+                  basis: question.basis,
+                  reference: question.reference,
+                })),
+                outputSchema: {
+                  questions: [{ question: "原题目", bestAnswer: "标准回答重点", principle: "技术原理；非技术题可为空", keywords: ["关键词"] }],
+                },
+              }),
+            },
+          ],
+        }),
+      });
+      const result = await response.json() as { ok?: boolean; content?: string; message?: string };
+      if (!response.ok || !result.ok || !result.content) throw new Error(result.message || "批次预取失败");
+      return parsePreparedQuestions(result.content)
+        .filter((item): item is Record<string, unknown> => Boolean(item) && typeof item === "object");
+    }
+
+    // allSettled：个别批次失败不影响其余批次
+    const settled = await Promise.allSettled(batches.map(fetchBatch));
+
+    // 按题目标题建索引，避免批次内顺序错位导致张冠李戴
+    const byTitle = new Map<string, Record<string, unknown>>();
+    let okBatches = 0;
+    let lastError = "";
+    settled.forEach((outcome, batchIndex) => {
+      if (outcome.status === "rejected") {
+        lastError = outcome.reason instanceof Error ? outcome.reason.message : String(outcome.reason);
+        return;
+      }
+      okBatches += 1;
+      const batch = batches[batchIndex];
+      outcome.value.forEach((entry, entryIndex) => {
+        const matched = typeof entry.question === "string"
+          ? batch.find((item) => item.title === entry.question)
+          : undefined;
+        const target = matched ?? batch[entryIndex];
+        if (target) byTitle.set(target.title, entry);
+      });
     });
-    const result = await response.json() as { ok?: boolean; content?: string; message?: string };
-    if (!response.ok || !result.ok || !result.content) return { questions: fallback, source: "本地规则", message: result.message || "AI 题组预取失败，已使用本地题库与标准答案。" };
-    const entries = parsePreparedQuestions(result.content).filter((item): item is Record<string, unknown> => Boolean(item) && typeof item === "object");
-    if (!entries.length) return { questions: fallback, source: "本地规则", message: "AI 未返回有效题组，已使用本地题库与标准答案。" };
+
+    if (!byTitle.size) {
+      return { questions: fallback, source: "本地规则", message: lastError || "AI 题组预取失败，已使用本地题库与标准答案。" };
+    }
+
+    // 逐题合并：AI 有结果就用 AI 的，缺失的沿用本地题库，做到部分成功也可用
+    let aiCount = 0;
     const prepared = candidates.map((question, index) => {
-      const entry = entries[index] || entries.find((item) => item.question === question.title) || {};
-      const title = typeof entry.question === "string" && entry.question.trim() ? entry.question.trim() : question.title;
+      const entry = byTitle.get(question.title);
+      if (!entry) return fallback[index];
+      aiCount += 1;
       const bestAnswer = typeof entry.bestAnswer === "string" && entry.bestAnswer.trim() ? entry.bestAnswer.trim() : fallback[index].bestAnswer;
       const principle = typeof entry.principle === "string" && entry.principle.trim() ? entry.principle.trim() : fallback[index].principle;
-      const keywords = Array.isArray(entry.keywords) ? entry.keywords.filter((item): item is string => typeof item === "string" && item.trim()).map((item) => item.trim()).slice(0, 12) : question.keywords;
-      return { ...question, title, bestAnswer, principle, keywords: keywords.length ? keywords : question.keywords };
+      const keywords = Array.isArray(entry.keywords)
+        ? entry.keywords.filter((item): item is string => typeof item === "string" && Boolean(item.trim())).map((item) => item.trim()).slice(0, 12)
+        : question.keywords;
+      return { ...question, bestAnswer, principle, keywords: keywords.length ? keywords : question.keywords };
     });
-    return { questions: prepared, source: "AI", message: "本题组题目、标准回答和技术原理已一次性准备完成。" };
+
+    const allOk = okBatches === batches.length && aiCount === candidates.length;
+    return {
+      questions: prepared,
+      source: "AI",
+      message: allOk
+        ? "本题组题目、标准回答和技术原理已准备完成。"
+        : `本题组已准备（${aiCount}/${candidates.length} 题来自 AI，其余使用本地题库）。`,
+    };
   } catch {
     return { questions: fallback, source: "本地规则", message: "AI 题组预取暂不可用，已使用本地题库与标准答案。" };
   }
