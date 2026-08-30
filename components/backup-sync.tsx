@@ -97,9 +97,11 @@ export function BackupSync() {
           writeLocal(remote);
           lastSent.current = JSON.stringify(remote);
           setStatus("saved");
-          setDetail(`已恢复 ${remoteCount} 条学习记录`);
-          // 让页面用恢复后的数据重新初始化
-          window.location.reload();
+          setDetail(`已恢复 ${remoteCount} 条学习记录，刷新后生效`);
+          // 注意：这里绝对不能调用 window.location.reload()。
+          // 页面在渲染期间会持续写 localStorage，恢复→reload→再恢复
+          // 会形成无限重载循环，表现为「正在准备本题组」永远转圈。
+          // 数据已写入 localStorage，用户下次刷新自然生效。
           return;
         }
 

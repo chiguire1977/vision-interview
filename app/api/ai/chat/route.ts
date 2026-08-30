@@ -43,7 +43,9 @@ export async function POST(request: Request) {
         stream: false,
       }),
       redirect: "manual",
-      signal: AbortSignal.timeout(90000),
+      // 90s 过长：前端会一直卡在「正在准备本题组」。
+      // 缩短到 25s，超时后前端立即降级到本地题库。
+      signal: AbortSignal.timeout(25000),
     });
     if (response.status >= 300 && response.status < 400) return Response.json({ ok: false, message: "AI 地址发生重定向，请填写最终 HTTPS 地址。" }, { status: 502 });
     const payload = await response.json() as { choices?: Array<{ message?: { content?: unknown } }>; error?: { message?: string } };

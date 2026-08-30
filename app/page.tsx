@@ -548,6 +548,9 @@ async function prepareQuestionGroup(candidates: Question[], projectName: string)
     const response = await fetch("/api/ai/chat", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
+      // 前端独立超时：即使服务端或网络挂起，30s 后也会 abort 并降级到
+      // 本地题库，不会让「正在准备本题组」无限转圈。
+      signal: AbortSignal.timeout(30000),
       body: JSON.stringify({
         provider, baseUrl, model, maxTokens: 1800, temperature: 0.15, ...(apiKey ? { apiKey } : {}),
         messages: [
