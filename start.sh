@@ -180,6 +180,34 @@ if command -v lsof >/dev/null 2>&1 && lsof -ti tcp:"$PORT" >/dev/null 2>&1; then
   sleep 1
 fi
 
+BACKUP_PORT="${BACKUP_PORT:-8787}"
+if command -v lsof >/dev/null 2>&1 && lsof -ti tcp:"$BACKUP_PORT" >/dev/null 2>&1; then
+  lsof -ti tcp:"$BACKUP_PORT" | xargs -r kill -9 2>/dev/null || true
+  sleep 1
+fi
+
+# 存档服务：Workers 运行时禁止写文件，落盘交给这个旁路 Node 进程
+mkdir -p data .sites-runtime
+BACKUP_PORT="$BACKUP_PORT" node scripts/backup-server.mjs \
+  >.sites-runtime/backup.log 2>&1 &
+BACKUP_PID=$!
+sleep 1
+if kill -0 "$BACKUP_PID" 2>/dev/null; then
+  c_ok "存档服务已启动 (pid $BACKUP_PID, 端口 $BACKUP_PORT)"
+  if [ -f data/vision-interview-data.json ]; then
+    n=$(node -e "try{const d=require('./data/vision-interview-data.json');console.log((d.data?.['vision-interview-records']||[]).length)}catch(e){console.log(0)}" 2>/dev/null || echo 0)
+    c_ok "已有存档：${n} 条学习记录，启动后自动加载"
+  else
+    c_ok "尚无存档，首次使用后自动创建"
+  fi
+else
+  c_warn "存档服务启动失败，学习记录将只存在浏览器本地"
+  cat .sites-runtime/backup.log 2>/dev/null | tail -3
+fi
+
+# 主服务退出时一并收走存档服务
+trap 'kill "$BACKUP_PID" 2>/dev/null || true' EXIT INT TERM
+
 echo
 echo "════════════════════════════════════════════════"
 echo "  启动开发服务器 → http://localhost:${PORT}/"
@@ -188,4 +216,5 @@ echo "════════════════════════�
 echo
 
 export WRANGLER_LOG_PATH=.wrangler/wrangler.log
-exec npm run dev -- --port "$PORT"
+export BACKUP_PORT
+npm run dev -- --port "$PORT"

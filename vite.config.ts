@@ -50,6 +50,13 @@ export default defineConfig(async () => {
       strictPort: true,
       allowedHosts: true,
       hmr: { clientPort: 443, protocol: "wss" },
+      // 学习数据存档：Workers 运行时禁止写文件，转发给旁路 Node 服务落盘
+      proxy: {
+        "/api/backup": {
+          target: `http://127.0.0.1:${process.env.BACKUP_PORT || 8787}`,
+          changeOrigin: true,
+        },
+      },
       ...(isCodexSeatbeltSandbox
         ? { watch: { useFsEvents: false, usePolling: true } }
         : {}),

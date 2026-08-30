@@ -84,6 +84,12 @@ fi
 # ── 2. 展示改动 ─────────────────────────────────────────────
 step "[2/5] 待同步的改动"
 
+# 学习数据存档一并纳入版本控制
+if [ -f data/vision-interview-data.json ]; then
+  n=$(node -e "try{const d=require('./data/vision-interview-data.json');console.log((d.data?.['vision-interview-records']||[]).length)}catch(e){console.log(0)}" 2>/dev/null || echo 0)
+  c_ok "学习存档：${n} 条记录，将一并备份"
+fi
+
 if [ -z "$(git status --porcelain)" ]; then
   c_ok "工作区干净，没有需要提交的内容"
   CHANGES=0
@@ -131,8 +137,14 @@ else
   echo "     查看: https://github.com/${REPO_SLUG}/commit/$SHA"
 fi
 
-# 确保 origin 是干净的 https 地址（不含 token）
-git remote set-url origin "https://github.com/${REPO_SLUG}.git" 2>/dev/null || true
+# 确保 origin 存在且是干净的 https 地址（不含 token）
+CLEAN_URL="https://github.com/${REPO_SLUG}.git"
+if git remote get-url origin >/dev/null 2>&1; then
+  git remote set-url origin "$CLEAN_URL"
+else
+  git remote add origin "$CLEAN_URL"
+fi
+git fetch --quiet origin "$BRANCH" 2>/dev/null || true
 
 # ── 5. 重启服务 ─────────────────────────────────────────────
 step "[5/5] 重启开发服务器"
