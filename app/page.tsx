@@ -68,17 +68,6 @@ type SessionAnswer = {
   bestAnswer: string; review: AnswerReview; mastery: MasteryLevel;
   masteryReason?: string; reviewSource?: "AI" | "本地规则";
 };
-type WorkspacePermission = "none" | "read" | "readwrite";
-type WorkspaceFile = { path: string; size: number; extension: string; kind: "code" | "config" | "document" };
-type GeneratedWorkspaceQuestion = { question: string; reason?: string; followUp?: string; sources?: string[] };
-type LocalWorkspaceEntry = {
-  kind: "file" | "directory";
-  name: string;
-  getFile?: () => Promise<File>;
-  values?: () => AsyncIterableIterator<LocalWorkspaceEntry>;
-  requestPermission?: (options: { mode: "read" | "readwrite" }) => Promise<"granted" | "denied" | "prompt">;
-};
-type LocalWorkspaceHandle = LocalWorkspaceEntry & { kind: "directory"; queryPermission?: (options: { mode: "read" | "readwrite" }) => Promise<"granted" | "denied" | "prompt"> };
 type SpeechRecognitionLike = {
   continuous: boolean;
   interimResults: boolean;
@@ -99,8 +88,6 @@ type ProjectConfig = {
   name: string;
   category: string;
   progress: number;
-  folderName?: string;
-  folderPermission?: WorkspacePermission;
 };
 
 const defaultProjects: ProjectConfig[] = [
@@ -109,17 +96,6 @@ const defaultProjects: ProjectConfig[] = [
   { id: "glass-chipping", name: "前盖玻璃崩边检测", category: "外观检测", progress: 74 },
   { id: "vision-workflow", name: "视觉工作流框架", category: "软件架构", progress: 61 },
 ];
-
-const workspaceIgnoredDirectories = new Set([".git", ".vs", ".idea", "bin", "obj", "packages", "node_modules", "debug", "release", "dist", "build"]);
-const workspaceExtensions = new Set([".cs", ".csproj", ".sln", ".json", ".xml", ".config", ".md", ".txt", ".yaml", ".yml", ".props", ".targets"]);
-
-function isSafeWorkspaceSegment(segment: string) {
-  return Boolean(segment) && segment !== "." && segment !== ".." && !segment.includes("/") && !segment.includes("\\") && !/^[A-Za-z]:$/.test(segment);
-}
-
-function isSafeWorkspacePath(path: string) {
-  return path.split("/").every(isSafeWorkspaceSegment);
-}
 
 const techStackFilters = ["随机技术栈", "通用原理", "HALCON", "OpenCV", "VisionPro", "C#视觉开发"] as const;
 const difficultyFilters = ["随机难度", "基础", "中等", "困难"] as const;
@@ -876,8 +852,6 @@ export default function Home() {
         name: item.name.trim(),
         category: typeof item.category === "string" && item.category.trim() ? item.category.trim() : "未分类",
         progress: typeof item.progress === "number" && Number.isFinite(item.progress) ? Math.max(0, Math.min(100, Math.round(item.progress))) : 0,
-        folderName: typeof item.folderName === "string" ? item.folderName : undefined,
-        folderPermission: item.folderPermission === "readwrite" || item.folderPermission === "read" ? item.folderPermission : undefined,
       }));
       if (!restored.length) return;
       setProjectCatalog(restored);
@@ -1587,54 +1561,15 @@ type ProjectManagementProps = {
 type ProjectDraft = { id?: string; name: string; category: string; progress: number };
 
 function ProjectManagement({ project, setProject, projects: projectItems, onProjectsChange }: ProjectManagementProps) {
-  const [workspaceHandle, setWorkspaceHandle] = useState<LocalWorkspaceHandle | null>(null);
-  const [workspacePermission, setWorkspacePermission] = useState<WorkspacePermission>("none");
-  const [workspaceFiles, setWorkspaceFiles] = useState<WorkspaceFile[]>([]);
-  const [workspaceStatus, setWorkspaceStatus] = useState("尚未连接本地工作区");
-  const [workspaceError, setWorkspaceError] = useState("");
-  const [scanning, setScanning] = useState(false);
-  const [workspaceQuestions, setWorkspaceQuestions] = useState<GeneratedWorkspaceQuestion[]>([]);
-  const [generatingQuestions, setGeneratingQuestions] = useState(false);
   const [projectView, setProjectView] = useState<"card" | "list">("card");
   const [projectDraft, setProjectDraft] = useState<ProjectDraft | null>(null);
   const [projectFormError, setProjectFormError] = useState("");
-
-  const activeProject = projectItems.find((item) => item.name === project) || projectItems[0];
 
   useEffect(() => {
     const savedView = localStorage.getItem("vision-interview-project-view");
     if (savedView === "card" || savedView === "list") setProjectView(savedView);
   }, []);
 
-  useEffect(() => {
-    const saved = localStorage.getItem(`vision-interview-workspace-${project}`);
-    const savedQuestions = localStorage.getItem(`vision-interview-workspace-questions-${project}`);
-    try {
-      const parsedQuestions = savedQuestions ? JSON.parse(savedQuestions) : [];
-      setWorkspaceQuestions(Array.isArray(parsedQuestions) ? parsedQuestions : []);
-    } catch {
-      setWorkspaceQuestions([]);
-    }
-    if (!saved) {
-      setWorkspaceHandle(null);
-      setWorkspacePermission("none");
-      setWorkspaceFiles([]);
-      setWorkspaceStatus("尚未连接本地工作区");
-      return;
-    }
-    try {
-      const parsed = JSON.parse(saved) as { name?: string; files?: WorkspaceFile[]; scannedAt?: string };
-      const files = Array.isArray(parsed.files) ? parsed.files : [];
-      setWorkspaceFiles(files);
-      setWorkspaceStatus(parsed.name ? `已记录 ${parsed.name} 的上次扫描结果${parsed.scannedAt ? ` · ${parsed.scannedAt}` : ""}` : "已记录上次扫描结果");
-    } catch {
-      localStorage.removeItem(`vision-interview-workspace-${project}`);
-    }
-  }, [project]);
-
-  function updateProject(projectName: string, patch: Partial<ProjectConfig>) {
-    onProjectsChange(projectItems.map((item) => item.name === projectName ? { ...item, ...patch } : item));
-  }
 
   function changeProjectView(view: "card" | "list") {
     setProjectView(view);
@@ -1669,17 +1604,7 @@ function ProjectManagement({ project, setProject, projects: projectItems, onProj
       const previous = projectItems.find((item) => item.id === projectDraft.id);
       const nextProjects = projectItems.map((item) => item.id === projectDraft.id ? { ...item, name, category, progress: Math.max(0, Math.min(100, Math.round(projectDraft.progress))) } : item);
       onProjectsChange(nextProjects);
-      if (previous && previous.name !== name) {
-        const oldWorkspaceKey = `vision-interview-workspace-${previous.name}`;
-        const oldQuestionsKey = `vision-interview-workspace-questions-${previous.name}`;
-        const workspace = localStorage.getItem(oldWorkspaceKey);
-        const questions = localStorage.getItem(oldQuestionsKey);
-        if (workspace) localStorage.setItem(`vision-interview-workspace-${name}`, workspace);
-        if (questions) localStorage.setItem(`vision-interview-workspace-questions-${name}`, questions);
-        localStorage.removeItem(oldWorkspaceKey);
-        localStorage.removeItem(oldQuestionsKey);
-        if (project === previous.name) setProject(name);
-      }
+      if (previous && previous.name !== name && project === previous.name) setProject(name);
     } else {
       const next: ProjectConfig = { id: `project-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 7)}`, name, category, progress: Math.max(0, Math.min(100, Math.round(projectDraft.progress))) };
       onProjectsChange([...projectItems, next]);
@@ -1697,221 +1622,38 @@ function ProjectManagement({ project, setProject, projects: projectItems, onProj
     if (!window.confirm(`确定从项目管理中删除“${item.name}”吗？这不会删除磁盘中的项目文件。`)) return;
     const nextProjects = projectItems.filter((candidate) => candidate.id !== item.id);
     onProjectsChange(nextProjects);
-    localStorage.removeItem(`vision-interview-workspace-${item.name}`);
-    localStorage.removeItem(`vision-interview-workspace-questions-${item.name}`);
     if (project === item.name) setProject(nextProjects[0].name);
   }
 
-  async function scanWorkspace(handle: LocalWorkspaceHandle, permission: WorkspacePermission = workspacePermission) {
-    setScanning(true);
-    setWorkspaceError("");
-    try {
-      const files: WorkspaceFile[] = [];
-      const walk = async (entry: LocalWorkspaceEntry, parentPath: string) => {
-        if (!isSafeWorkspaceSegment(entry.name)) return;
-        const relativePath = parentPath ? `${parentPath}/${entry.name}` : entry.name;
-        if (!isSafeWorkspacePath(relativePath)) return;
-        if (entry.kind === "directory") {
-          if (workspaceIgnoredDirectories.has(entry.name.toLowerCase()) || !entry.values) return;
-          for await (const child of entry.values()) await walk(child, relativePath);
-          return;
-        }
-        const dotIndex = entry.name.lastIndexOf(".");
-        const extension = dotIndex >= 0 ? entry.name.slice(dotIndex).toLowerCase() : "";
-        if (!workspaceExtensions.has(extension) || !entry.getFile || files.length >= 5000) return;
-        const file = await entry.getFile();
-        const kind: WorkspaceFile["kind"] = extension === ".cs" || extension === ".csproj" || extension === ".sln" ? "code" : extension === ".md" || extension === ".txt" ? "document" : "config";
-        files.push({ path: relativePath, size: file.size, extension, kind });
-      };
-      if (!handle.values) throw new Error("当前浏览器无法读取文件夹内容。");
-      for await (const entry of handle.values()) await walk(entry, "");
-      files.sort((left, right) => left.path.localeCompare(right.path));
-      const scannedAt = new Date().toLocaleString("zh-CN");
-      setWorkspaceFiles(files);
-      setWorkspaceStatus(`已扫描 ${handle.name} · ${files.length} 个可分析文件 · ${scannedAt}`);
-      localStorage.setItem(`vision-interview-workspace-${project}`, JSON.stringify({ name: handle.name, files, scannedAt }));
-      updateProject(project, { folderName: handle.name, folderPermission: permission === "readwrite" ? "readwrite" : "read" });
-    } catch (error) {
-      setWorkspaceError(error instanceof Error ? error.message : "扫描工作区失败，请重新选择文件夹。");
-    } finally {
-      setScanning(false);
-    }
-  }
-
-  async function chooseWorkspace() {
-    const pickerWindow = window as Window & { showDirectoryPicker?: (options?: { mode?: "read" | "readwrite" }) => Promise<LocalWorkspaceHandle> };
-    if (!pickerWindow.showDirectoryPicker) {
-      setWorkspaceError("当前浏览器不支持文件夹授权，请使用最新版 Edge 或 Chrome。");
-      return;
-    }
-    try {
-      const handle = await pickerWindow.showDirectoryPicker({ mode: "read" });
-      setWorkspaceHandle(handle);
-      setWorkspacePermission("read");
-      updateProject(project, { folderName: handle.name, folderPermission: "read" });
-      setWorkspaceStatus(`已选择 ${handle.name}，正在扫描…`);
-      await scanWorkspace(handle, "read");
-    } catch (error) {
-      if (error instanceof Error && error.name === "AbortError") return;
-      setWorkspaceError(error instanceof Error ? error.message : "无法打开所选文件夹。");
-    }
-  }
-
-  async function requestWritePermission() {
-    if (!workspaceHandle?.requestPermission) {
-      setWorkspaceError("当前浏览器不支持写入授权。");
-      return;
-    }
-    try {
-      const result = await workspaceHandle.requestPermission({ mode: "readwrite" });
-      if (result === "granted") {
-        setWorkspacePermission("readwrite");
-        updateProject(project, { folderPermission: "readwrite" });
-        setWorkspaceStatus(`已获得 ${workspaceHandle.name} 的读写授权；修改文件前仍需逐项确认。`);
-      } else {
-        setWorkspaceError("未获得写入授权，当前仍保持只读模式。");
-      }
-    } catch {
-      setWorkspaceError("申请写入授权失败，当前仍保持只读模式。");
-    }
-  }
-
-  function redactWorkspaceText(value: string) {
-    return value
-      .replace(/(["']?(?:api[_-]?key|token|password|secret|connectionstring)["']?\s*[:=]\s*["'])([^"']+)(["'])/gi, "$1[已隐藏]$3")
-      .replace(/\b(?:sk|key|token|pat)-[A-Za-z0-9_-]{16,}\b/g, "[已隐藏凭据]");
-  }
-
-  async function generateWorkspaceQuestions() {
-    if (!workspaceHandle) {
-      setWorkspaceError("请先选择项目文件夹。");
-      return;
-    }
-    setGeneratingQuestions(true);
-    setWorkspaceError("");
-    try {
-      const storedPreferences = localStorage.getItem("vision-interview-ai-preferences");
-      const preferences = storedPreferences ? JSON.parse(storedPreferences) as Partial<AiPreferences> : {};
-      const provider = typeof preferences.provider === "string" ? preferences.provider : "deepseek";
-      const providerSettings = readAiProviderSettings();
-      const providerDefinition = getProviderDefinition(provider, providerSettings);
-      const baseUrl = provider === "deepseek" ? providerDefinition.baseUrl : (providerSettings[provider]?.baseUrl || providerSettings[provider]?.openaiBaseUrl || preferences.openaiBaseUrl || providerDefinition.baseUrl);
-      const model = providerSettings[provider]?.model || (typeof preferences.model === "string" ? preferences.model : providerDefinition.models[0]?.value || "");
-      const apiKey = sessionStorage.getItem(`vision-interview-ai-key-${provider}`) || "";
-      if (!baseUrl || !model || !apiKey) {
-        setWorkspaceError("请先在“设置”中配置当前 AI 服务商、模型和 API Key。");
-        return;
-      }
-
-      const excerpts: string[] = [];
-      let totalCharacters = 0;
-      const collect = async (entry: LocalWorkspaceEntry, parentPath: string) => {
-        if (!isSafeWorkspaceSegment(entry.name)) return;
-        const relativePath = parentPath ? `${parentPath}/${entry.name}` : entry.name;
-        if (!isSafeWorkspacePath(relativePath)) return;
-        if (entry.kind === "directory") {
-          if (workspaceIgnoredDirectories.has(entry.name.toLowerCase()) || !entry.values) return;
-          for await (const child of entry.values()) await collect(child, relativePath);
-          return;
-        }
-        if (excerpts.length >= 60 || totalCharacters >= 140000) return;
-        const dotIndex = entry.name.lastIndexOf(".");
-        const extension = dotIndex >= 0 ? entry.name.slice(dotIndex).toLowerCase() : "";
-        if (!workspaceExtensions.has(extension) || !entry.getFile) return;
-        const file = await entry.getFile();
-        if (file.size > 240000) return;
-        const content = redactWorkspaceText((await file.text()).slice(0, 12000));
-        if (!content.trim()) return;
-        excerpts.push(`\n### 文件：${relativePath}\n${content}`);
-        totalCharacters += content.length;
-      };
-      if (!workspaceHandle.values) throw new Error("当前浏览器无法读取文件夹内容。");
-      for await (const entry of workspaceHandle.values()) await collect(entry, "");
-      if (!excerpts.length) throw new Error("没有找到可供分析的文本文件。");
-
-      const response = await fetch("/api/ai/chat", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          provider, baseUrl, apiKey, model,
-          messages: [
-            { role: "system", content: "你是机器视觉工程师面试官，只能依据给定项目资料出题，不得编造项目事实。" },
-            { role: "user", content: `请根据项目“${project}”的文件摘要和代码片段，生成 8 道项目面试题。覆盖项目背景、个人职责、架构、视觉算法、C#实现、设备/PLC通讯、异常处理、性能优化和现场问题。每道题给出追问、出题理由和来源文件。只返回 JSON 数组，格式为 [{"question":"...","reason":"...","followUp":"...","sources":["相对路径"]}]。\n\n项目资料：${excerpts.join("\n")}` },
-          ],
-        }),
-      });
-      const result = await response.json() as { ok?: boolean; content?: string; message?: string };
-      if (!response.ok || !result.ok || !result.content) throw new Error(result.message || "AI 未返回有效题目。");
-      const jsonText = result.content.replace(/^```(?:json)?\s*/i, "").replace(/\s*```$/i, "").trim();
-      const start = jsonText.indexOf("[");
-      const end = jsonText.lastIndexOf("]");
-      const parsed = JSON.parse(start >= 0 && end >= start ? jsonText.slice(start, end + 1) : jsonText) as GeneratedWorkspaceQuestion[];
-      const questions = parsed.filter((item) => item && typeof item.question === "string").slice(0, 20);
-      if (!questions.length) throw new Error("AI 返回的题目格式不正确。");
-      setWorkspaceQuestions(questions);
-      localStorage.setItem(`vision-interview-workspace-questions-${project}`, JSON.stringify(questions));
-    } catch (error) {
-      setWorkspaceError(error instanceof Error ? error.message : "AI 扫描失败，请检查服务商配置。");
-    } finally {
-      setGeneratingQuestions(false);
-    }
-  }
-
-  return <PageShell title="项目管理" subtitle="集中管理项目资料、工作区位置和浏览器读写授权，开始学习会使用当前选中的项目生成答辩题。">
+  return <PageShell title="项目管理" subtitle="集中管理面试项目，开始学习会使用当前选中的项目生成答辩题。">
     <div className="mb-5 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
       <div><div className="flex items-center gap-2"><span className="grid size-9 place-items-center rounded-lg bg-blue-600 text-white"><FolderKanban className="size-4" /></span><div><p className="text-sm font-semibold text-slate-900">我的项目</p><p className="text-xs text-slate-500">{projectItems.length} 个项目 · 仅在当前浏览器保存管理信息</p></div></div></div>
       <Button type="button" onClick={openCreateProject} className="w-fit bg-blue-600 hover:bg-blue-700"><Plus />添加项目</Button>
     </div>
     {projectFormError && !projectDraft && <p className="mb-4 flex items-center gap-2 rounded-md border border-rose-100 bg-rose-50 px-3 py-2 text-xs text-rose-700"><CircleAlert className="size-4" />{projectFormError}</p>}
     {projectDraft && <section className="panel mb-5 border-blue-200 bg-blue-50/45 p-5">
-      <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between"><div><h2 className="font-semibold text-slate-900">{projectDraft.id ? "编辑项目" : "添加项目"}</h2><p className="mt-1 text-xs leading-5 text-slate-500">项目名称和分类用于生成项目答辩题；文件夹授权仅对你选择的工作区生效。</p></div><button type="button" onClick={() => { setProjectDraft(null); setProjectFormError(""); }} className="w-fit rounded px-2 py-1 text-xs text-slate-500 hover:bg-white hover:text-slate-800">取消</button></div>
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between"><div><h2 className="font-semibold text-slate-900">{projectDraft.id ? "编辑项目" : "添加项目"}</h2><p className="mt-1 text-xs leading-5 text-slate-500">项目名称和分类用于组织项目答辩题，档案完整度用于记录准备进度。</p></div><button type="button" onClick={() => { setProjectDraft(null); setProjectFormError(""); }} className="w-fit rounded px-2 py-1 text-xs text-slate-500 hover:bg-white hover:text-slate-800">取消</button></div>
       <div className="mt-4 grid gap-3 md:grid-cols-3">
         <label className="space-y-2 text-sm font-medium text-slate-700"><span>项目名称</span><Input value={projectDraft.name} onChange={(event) => setProjectDraft((current) => current && { ...current, name: event.target.value })} placeholder="例如：手机玻璃外观检测" className="bg-white" /></label>
         <label className="space-y-2 text-sm font-medium text-slate-700"><span>项目分类</span><Input value={projectDraft.category} onChange={(event) => setProjectDraft((current) => current && { ...current, category: event.target.value })} placeholder="例如：外观检测、点胶引导" className="bg-white" /></label>
         <label className="space-y-2 text-sm font-medium text-slate-700"><span>档案完整度（{projectDraft.progress}%）</span><Input type="number" min={0} max={100} value={projectDraft.progress} onChange={(event) => setProjectDraft((current) => current && { ...current, progress: Number(event.target.value) || 0 })} className="bg-white" /></label>
       </div>
-      {projectDraft.id && <div className="mt-4 flex flex-col gap-3 rounded-md border border-blue-100 bg-white/80 p-3 text-xs text-slate-600 sm:flex-row sm:items-center sm:justify-between"><span><strong className="font-semibold text-slate-800">文件夹位置：</strong>{activeProject?.folderName || "尚未选择项目文件夹"}{activeProject?.folderPermission === "readwrite" ? " · 已记录读写授权" : activeProject?.folderPermission === "read" ? " · 已记录读取授权" : ""}</span><div className="flex flex-wrap gap-2"><Button type="button" variant="outline" size="sm" onClick={chooseWorkspace} className="w-fit bg-white"><FolderKanban />选择/更换文件夹</Button>{workspaceHandle && workspacePermission === "read" && <Button type="button" variant="outline" size="sm" onClick={requestWritePermission} className="w-fit bg-white"><ShieldCheck />开启写入授权</Button>}</div></div>}
       {projectFormError && <p className="mt-3 flex items-center gap-2 text-xs text-rose-600"><CircleAlert className="size-4" />{projectFormError}</p>}
       <div className="mt-4 flex justify-end"><Button type="button" onClick={saveProjectDraft} className="bg-blue-600 hover:bg-blue-700"><Save />保存项目</Button></div>
     </section>}
 
     <section className="panel overflow-hidden">
-      <div className="flex flex-col gap-3 border-b border-slate-200 px-5 py-4 sm:flex-row sm:items-center sm:justify-between"><div><h2 className="font-semibold text-slate-900">项目列表</h2><p className="mt-1 text-xs text-slate-500">选择项目后可在下方连接本地工作区；删除项目不会删除磁盘文件。</p></div><div className="flex items-center gap-1 rounded-md border border-slate-200 bg-slate-50 p-1"><button type="button" onClick={() => changeProjectView("card")} aria-pressed={projectView === "card"} className={`rounded px-2.5 py-1.5 text-xs ${projectView === "card" ? "bg-white font-medium text-blue-700 shadow-sm" : "text-slate-500 hover:text-slate-800"}`}><FolderKanban className="mr-1 inline size-3.5" />卡片</button><button type="button" onClick={() => changeProjectView("list")} aria-pressed={projectView === "list"} className={`rounded px-2.5 py-1.5 text-xs ${projectView === "list" ? "bg-white font-medium text-blue-700 shadow-sm" : "text-slate-500 hover:text-slate-800"}`}><ListTree className="mr-1 inline size-3.5" />列表</button></div></div>
+      <div className="flex flex-col gap-3 border-b border-slate-200 px-5 py-4 sm:flex-row sm:items-center sm:justify-between"><div><h2 className="font-semibold text-slate-900">项目列表</h2><p className="mt-1 text-xs text-slate-500">选择项目后会将其设为当前项目，用于后续项目答辩训练。</p></div><div className="flex items-center gap-1 rounded-md border border-slate-200 bg-slate-50 p-1"><button type="button" onClick={() => changeProjectView("card")} aria-pressed={projectView === "card"} className={`rounded px-2.5 py-1.5 text-xs ${projectView === "card" ? "bg-white font-medium text-blue-700 shadow-sm" : "text-slate-500 hover:text-slate-800"}`}><FolderKanban className="mr-1 inline size-3.5" />卡片</button><button type="button" onClick={() => changeProjectView("list")} aria-pressed={projectView === "list"} className={`rounded px-2.5 py-1.5 text-xs ${projectView === "list" ? "bg-white font-medium text-blue-700 shadow-sm" : "text-slate-500 hover:text-slate-800"}`}><ListTree className="mr-1 inline size-3.5" />列表</button></div></div>
       {projectItems.length === 0 ? <div className="grid min-h-40 place-items-center p-8 text-center text-sm text-slate-500">还没有项目，请先添加一个项目。</div> : projectView === "card" ? <div className="grid gap-4 p-5 md:grid-cols-2">
         {projectItems.map((item) => <div key={item.id} className={`rounded-lg border bg-white transition ${project === item.name ? "border-blue-300 ring-2 ring-blue-500/15" : "border-slate-200 hover:border-blue-200"}`}>
-          <button type="button" onClick={() => setProject(item.name)} className="w-full p-5 text-left"><div className="flex items-start justify-between gap-3"><span className={`grid size-10 place-items-center rounded-lg ${project === item.name ? "bg-blue-600 text-white" : "bg-blue-50 text-blue-600"}`}><FolderKanban className="size-5" /></span>{project === item.name && <Badge className="bg-blue-600">当前项目</Badge>}</div><h3 className="mt-5 font-semibold text-slate-900">{item.name}</h3><p className="mt-1 text-sm text-slate-500">{item.category} · 已整理需求、方案、难点与结果</p><div className="mt-4 flex items-center gap-3"><Progress value={item.progress} className="h-1.5 flex-1 bg-slate-100 [&_[data-slot=progress-indicator]]:bg-blue-600" /><span className="text-xs font-medium text-slate-600">{item.progress}%</span></div><p className="mt-3 truncate text-xs text-slate-400">{item.folderName ? `工作区：${item.folderName} · ${item.folderPermission === "readwrite" ? "读写" : "只读"}` : "尚未连接工作区"}</p></button>
+          <button type="button" onClick={() => setProject(item.name)} className="w-full p-5 text-left"><div className="flex items-start justify-between gap-3"><span className={`grid size-10 place-items-center rounded-lg ${project === item.name ? "bg-blue-600 text-white" : "bg-blue-50 text-blue-600"}`}><FolderKanban className="size-5" /></span>{project === item.name && <Badge className="bg-blue-600">当前项目</Badge>}</div><h3 className="mt-5 font-semibold text-slate-900">{item.name}</h3><p className="mt-1 text-sm text-slate-500">{item.category} · 已整理需求、方案、难点与结果</p><div className="mt-4 flex items-center gap-3"><Progress value={item.progress} className="h-1.5 flex-1 bg-slate-100 [&_[data-slot=progress-indicator]]:bg-blue-600" /><span className="text-xs font-medium text-slate-600">{item.progress}%</span></div></button>
           <div className="flex justify-end gap-1 border-t border-slate-100 px-4 py-2"><button type="button" onClick={() => openEditProject(item)} className="inline-flex items-center gap-1 rounded px-2 py-1 text-xs text-slate-500 hover:bg-slate-100 hover:text-slate-800"><Pencil className="size-3.5" />编辑</button><button type="button" onClick={() => deleteProject(item)} className="inline-flex items-center gap-1 rounded px-2 py-1 text-xs text-rose-600 hover:bg-rose-50"><Trash2 className="size-3.5" />删除</button></div>
         </div>)}
       </div> : <div className="divide-y divide-slate-100">
-        {projectItems.map((item) => <div key={item.id} className={`flex flex-col gap-3 px-5 py-4 sm:flex-row sm:items-center ${project === item.name ? "bg-blue-50/45" : "bg-white"}`}><button type="button" onClick={() => setProject(item.name)} className="flex min-w-0 flex-1 items-center gap-3 text-left"><span className={`grid size-9 shrink-0 place-items-center rounded-md ${project === item.name ? "bg-blue-600 text-white" : "bg-slate-100 text-slate-600"}`}><FolderKanban className="size-4" /></span><span className="min-w-0 flex-1"><span className="flex flex-wrap items-center gap-2"><strong className="text-sm font-semibold text-slate-900">{item.name}</strong>{project === item.name && <Badge className="bg-blue-600">当前项目</Badge>}</span><span className="mt-1 block truncate text-xs text-slate-500">{item.category} · {item.folderName ? `工作区：${item.folderName} · ${item.folderPermission === "readwrite" ? "读写" : "只读"}` : "尚未连接工作区"}</span></span><span className="hidden w-32 items-center gap-2 md:flex"><Progress value={item.progress} className="h-1.5 flex-1 bg-slate-100 [&_[data-slot=progress-indicator]]:bg-blue-600" /><span className="text-xs text-slate-500">{item.progress}%</span></span></button><div className="flex shrink-0 justify-end gap-1"><button type="button" onClick={() => openEditProject(item)} className="inline-flex items-center gap-1 rounded px-2 py-1 text-xs text-slate-500 hover:bg-slate-100 hover:text-slate-800"><Pencil className="size-3.5" />编辑</button><button type="button" onClick={() => deleteProject(item)} className="inline-flex items-center gap-1 rounded px-2 py-1 text-xs text-rose-600 hover:bg-rose-50"><Trash2 className="size-3.5" />删除</button></div></div>)}
+        {projectItems.map((item) => <div key={item.id} className={`flex flex-col gap-3 px-5 py-4 sm:flex-row sm:items-center ${project === item.name ? "bg-blue-50/45" : "bg-white"}`}><button type="button" onClick={() => setProject(item.name)} className="flex min-w-0 flex-1 items-center gap-3 text-left"><span className={`grid size-9 shrink-0 place-items-center rounded-md ${project === item.name ? "bg-blue-600 text-white" : "bg-slate-100 text-slate-600"}`}><FolderKanban className="size-4" /></span><span className="min-w-0 flex-1"><span className="flex flex-wrap items-center gap-2"><strong className="text-sm font-semibold text-slate-900">{item.name}</strong>{project === item.name && <Badge className="bg-blue-600">当前项目</Badge>}</span><span className="mt-1 block truncate text-xs text-slate-500">{item.category}</span></span><span className="hidden w-32 items-center gap-2 md:flex"><Progress value={item.progress} className="h-1.5 flex-1 bg-slate-100 [&_[data-slot=progress-indicator]]:bg-blue-600" /><span className="text-xs text-slate-500">{item.progress}%</span></span></button><div className="flex shrink-0 justify-end gap-1"><button type="button" onClick={() => openEditProject(item)} className="inline-flex items-center gap-1 rounded px-2 py-1 text-xs text-slate-500 hover:bg-slate-100 hover:text-slate-800"><Pencil className="size-3.5" />编辑</button><button type="button" onClick={() => deleteProject(item)} className="inline-flex items-center gap-1 rounded px-2 py-1 text-xs text-rose-600 hover:bg-rose-50"><Trash2 className="size-3.5" />删除</button></div></div>)}
       </div>}
     </section>
 
-    <section className="panel mt-5 overflow-hidden">
-      <div className="flex flex-col gap-3 border-b border-slate-200 px-5 py-4 sm:flex-row sm:items-start sm:justify-between">
-        <div><h2 className="flex items-center gap-2 font-semibold text-slate-900"><HardDrive className="size-4 text-blue-600" />本地项目工作区</h2><p className="mt-1 text-xs leading-5 text-slate-500">选择项目文件夹后，网页只在浏览器授权范围内读取文件名和元数据，供后续 AI 分析项目结构。</p></div>
-        <Badge variant="outline" className={`w-fit rounded-md ${workspacePermission === "readwrite" ? "border-amber-200 bg-amber-50 text-amber-700" : workspacePermission === "read" ? "border-emerald-200 bg-emerald-50 text-emerald-700" : "border-slate-200 bg-slate-50 text-slate-500"}`}>{workspacePermission === "readwrite" ? "已授权读写" : workspacePermission === "read" ? "已授权读取" : "未连接"}</Badge>
-      </div>
-      <div className="space-y-4 p-5">
-        <div className="flex flex-wrap gap-2">
-          <Button type="button" onClick={chooseWorkspace} className="bg-blue-600 hover:bg-blue-700"><FolderKanban />选择项目文件夹</Button>
-          {workspaceHandle && workspacePermission === "read" && <Button type="button" variant="outline" onClick={requestWritePermission} className="bg-white"><ShieldCheck />开启写入授权</Button>}
-          {workspaceHandle && <Button type="button" variant="outline" onClick={() => scanWorkspace(workspaceHandle)} disabled={scanning} className="bg-white"><RotateCcw />{scanning ? "扫描中…" : "重新扫描"}</Button>}
-          {workspaceHandle && <Button type="button" variant="outline" onClick={generateWorkspaceQuestions} disabled={generatingQuestions} className="bg-white"><Sparkles />{generatingQuestions ? "AI分析中…" : "AI扫描并生成问题"}</Button>}
-        </div>
-        <p className="text-xs leading-5 text-slate-500">安全边界：AI只会读取授权文件夹中的受支持文本文件，并在发送前隐藏常见密钥字段；不会获得系统命令执行、删除文件或访问其他目录的权限。</p>
-        <div className="rounded-lg border border-slate-200 bg-slate-50/70 p-4"><p className="text-sm font-medium text-slate-700">{workspaceStatus}</p>{workspaceFiles.length > 0 && <div className="mt-3 flex flex-wrap gap-2 text-xs text-slate-500"><Badge variant="outline" className="rounded-md bg-white">代码 {workspaceFiles.filter((file) => file.kind === "code").length}</Badge><Badge variant="outline" className="rounded-md bg-white">配置 {workspaceFiles.filter((file) => file.kind === "config").length}</Badge><Badge variant="outline" className="rounded-md bg-white">文档 {workspaceFiles.filter((file) => file.kind === "document").length}</Badge></div>}</div>
-        {workspaceFiles.length > 0 && <div className="max-h-56 overflow-auto rounded-lg border border-slate-200 bg-white"><div className="border-b border-slate-100 px-4 py-2 text-xs font-semibold text-slate-500">待分析文件（已忽略 bin、obj、.git、node_modules 等目录）</div><div className="divide-y divide-slate-100">{workspaceFiles.slice(0, 80).map((file) => <div key={file.path} className="flex items-center justify-between gap-3 px-4 py-2 text-xs"><span className="min-w-0 truncate font-mono text-slate-700">{file.path}</span><span className="shrink-0 text-slate-400">{Math.ceil(file.size / 1024)} KB</span></div>)}</div></div>}
-        {workspaceQuestions.length > 0 && <div className="space-y-3"><div className="flex items-center justify-between"><h3 className="text-sm font-semibold text-slate-800">AI生成的项目面试题</h3><Badge variant="outline" className="rounded-md">{workspaceQuestions.length} 道</Badge></div>{workspaceQuestions.map((item, index) => <div key={`${item.question}-${index}`} className="rounded-lg border border-blue-100 bg-blue-50/50 p-4"><div className="flex gap-3"><span className="grid size-6 shrink-0 place-items-center rounded-full bg-blue-600 text-xs font-semibold text-white">{index + 1}</span><div className="min-w-0"><p className="text-sm font-medium leading-6 text-slate-800">{item.question}</p>{item.reason && <p className="mt-1 text-xs leading-5 text-slate-500">出题理由：{item.reason}</p>}{item.followUp && <p className="mt-1 text-xs leading-5 text-slate-600">追问：{item.followUp}</p>}{item.sources?.length ? <p className="mt-2 text-[11px] text-blue-700">来源：{item.sources.join("、")}</p> : null}</div></div></div>)}</div>}
-        {workspaceError && <p className="flex items-center gap-2 text-xs text-rose-600"><CircleAlert className="size-4" />{workspaceError}</p>}
-      </div>
-    </section>
-
-    <section className="panel mt-5 p-5"><h2 className="font-semibold text-slate-900">项目证据清单</h2>
-      <div className="mt-4 grid gap-3 md:grid-cols-3">{["检测指标与统计口径", "个人职责与技术决策", "现场问题与验证结果"].map((item, i) => <div key={item} className="flex items-center gap-3 rounded-md border border-slate-200 p-3 text-sm text-slate-700">
-        <span className={`grid size-7 place-items-center rounded-full ${i === 0 ? "bg-amber-50 text-amber-600" : "bg-emerald-50 text-emerald-600"}`}>{i === 0 ? <CircleAlert className="size-4" /> : <Check className="size-4" />}</span>{item}
-      </div>)}</div>
-    </section>
   </PageShell>;
 }
 
@@ -2391,7 +2133,7 @@ function SettingsPage() {
   const settingsSections: { key: SettingsSection; title: string; description: string; icon: typeof Settings }[] = [
     { key: "model", title: "模型服务", description: "服务商、地址、密钥与模型", icon: Bot },
     { key: "training", title: "训练偏好", description: "AI 能力与学习方式", icon: BrainCircuit },
-    { key: "privacy", title: "隐私与数据", description: "本地存储与工作区边界", icon: ShieldCheck },
+    { key: "privacy", title: "隐私与数据", description: "本地存储与密钥安全", icon: ShieldCheck },
     { key: "about", title: "关于应用", description: "版本与使用说明", icon: FileText },
   ];
 
@@ -2487,15 +2229,14 @@ function SettingsPage() {
         {settingsSection === "privacy" && <section className="panel overflow-hidden">
           <div className="border-b border-slate-200 px-5 py-4"><h2 className="font-semibold text-slate-900">隐私与数据</h2><p className="mt-1 text-xs text-slate-500">了解网页保存什么、AI 能读取什么，以及如何控制本地数据。</p></div>
           <div className="divide-y divide-slate-100">
-            <div className="flex gap-4 px-5 py-5"><span className="grid size-9 shrink-0 place-items-center rounded-md bg-emerald-50 text-emerald-600"><HardDrive className="size-4" /></span><div><h3 className="text-sm font-semibold text-slate-800">浏览器本地数据</h3><p className="mt-1 text-sm leading-6 text-slate-600">项目配置、学习记录、题组缓存和已扫描的文件名元数据保存在当前浏览器，不会自动上传到网站。</p></div></div>
-            <div className="flex gap-4 px-5 py-5"><span className="grid size-9 shrink-0 place-items-center rounded-md bg-blue-50 text-blue-600"><FolderKanban className="size-4" /></span><div><h3 className="text-sm font-semibold text-slate-800">项目工作区边界</h3><p className="mt-1 text-sm leading-6 text-slate-600">只有你主动选择并授权的文件夹会被扫描；系统会跳过 .git、bin、obj、node_modules 等目录，也不会访问工作区之外的路径。</p></div></div>
-            <div className="flex gap-4 px-5 py-5"><span className="grid size-9 shrink-0 place-items-center rounded-md bg-amber-50 text-amber-600"><ShieldCheck className="size-4" /></span><div><h3 className="text-sm font-semibold text-slate-800">密钥与 AI 请求</h3><p className="mt-1 text-sm leading-6 text-slate-600">API Key 只保存在当前会话；AI 请求通过网站后端转发。发送项目片段前会隐藏常见的 key、token、password 和 connection string 字段。</p></div></div>
+            <div className="flex gap-4 px-5 py-5"><span className="grid size-9 shrink-0 place-items-center rounded-md bg-emerald-50 text-emerald-600"><HardDrive className="size-4" /></span><div><h3 className="text-sm font-semibold text-slate-800">浏览器本地数据</h3><p className="mt-1 text-sm leading-6 text-slate-600">项目配置、学习记录和题组缓存保存在当前浏览器，不会自动上传到网站。</p></div></div>
+            <div className="flex gap-4 px-5 py-5"><span className="grid size-9 shrink-0 place-items-center rounded-md bg-amber-50 text-amber-600"><ShieldCheck className="size-4" /></span><div><h3 className="text-sm font-semibold text-slate-800">密钥与 AI 请求</h3><p className="mt-1 text-sm leading-6 text-slate-600">API Key 只保存在当前会话；AI 请求通过网站后端转发，不会写入学习记录或项目配置。</p></div></div>
           </div>
         </section>}
 
         {settingsSection === "about" && <section className="panel overflow-hidden">
           <div className="border-b border-slate-200 px-5 py-4"><h2 className="font-semibold text-slate-900">关于 VisionInterview</h2><p className="mt-1 text-xs text-slate-500">面向机器视觉工程师的项目答辩、专业知识和回答审阅训练工具。</p></div>
-          <div className="space-y-4 p-5"><div className="flex items-center gap-3 rounded-lg border border-blue-100 bg-blue-50/60 p-4"><span className="grid size-10 place-items-center rounded-lg bg-blue-600 text-white"><Gauge className="size-5" /></span><div><p className="font-semibold text-slate-900">VisionInterview</p><p className="mt-1 text-xs text-slate-500">机器视觉面试训练台 · 本地优先版本</p></div></div><div className="grid gap-3 sm:grid-cols-2"><div className="rounded-lg border border-slate-200 bg-slate-50 p-4"><p className="text-xs font-semibold text-slate-500">核心流程</p><p className="mt-2 text-sm leading-6 text-slate-700">开始学习 → 完成回答 → AI/本地规则审阅 → 学习记录与温故知新。</p></div><div className="rounded-lg border border-slate-200 bg-slate-50 p-4"><p className="text-xs font-semibold text-slate-500">适用技术</p><p className="mt-2 text-sm leading-6 text-slate-700">HALCON、OpenCV、VisionPro、C#视觉开发、相机光源、标定和 PLC 现场协同。</p></div></div><p className="text-xs leading-5 text-slate-500">建议在面试前先准备一组专业题，再切换到项目管理连接真实项目资料，最后在温故知新中集中补齐低掌握度题目。</p></div>
+          <div className="space-y-4 p-5"><div className="flex items-center gap-3 rounded-lg border border-blue-100 bg-blue-50/60 p-4"><span className="grid size-10 place-items-center rounded-lg bg-blue-600 text-white"><Gauge className="size-5" /></span><div><p className="font-semibold text-slate-900">VisionInterview</p><p className="mt-1 text-xs text-slate-500">机器视觉面试训练台 · 本地优先版本</p></div></div><div className="grid gap-3 sm:grid-cols-2"><div className="rounded-lg border border-slate-200 bg-slate-50 p-4"><p className="text-xs font-semibold text-slate-500">核心流程</p><p className="mt-2 text-sm leading-6 text-slate-700">开始学习 → 完成回答 → AI/本地规则审阅 → 学习记录与温故知新。</p></div><div className="rounded-lg border border-slate-200 bg-slate-50 p-4"><p className="text-xs font-semibold text-slate-500">适用技术</p><p className="mt-2 text-sm leading-6 text-slate-700">HALCON、OpenCV、VisionPro、C#视觉开发、相机光源、标定和 PLC 现场协同。</p></div></div><p className="text-xs leading-5 text-slate-500">建议在面试前先准备一组专业题，再整理项目管理中的答辩项目，最后在温故知新中集中补齐低掌握度题目。</p></div>
         </section>}
 
         <div className="flex flex-wrap items-center justify-end gap-3">
