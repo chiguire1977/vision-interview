@@ -39,7 +39,7 @@ export async function POST(request: Request) {
         model,
         messages,
         temperature: typeof body.temperature === "number" ? Math.max(0, Math.min(body.temperature, 1)) : 0.2,
-        ...(typeof body.maxTokens === "number" && body.maxTokens > 0 ? { max_tokens: Math.min(Math.floor(body.maxTokens), 4000) } : {}),
+        ...(typeof body.maxTokens === "number" && body.maxTokens > 0 ? { max_tokens: Math.min(Math.floor(body.maxTokens), 8000) } : {}),
         stream: false,
         // DeepSeek V4（v4-flash / v4-pro）默认开启思考模式，token 预算会被
         // reasoning_content 吃光，导致 content 返回空字符串，前端表现为

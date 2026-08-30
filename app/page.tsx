@@ -20,6 +20,14 @@ import {
   SidebarMenuButton, SidebarMenuItem, SidebarProvider, SidebarTrigger,
 } from "@/components/ui/sidebar";
 import { Textarea } from "@/components/ui/textarea";
+import {
+  collectAiQuestionGroup,
+  createQuestionBankArchiveEntries,
+  fillQuestionGroup,
+  mergeQuestionBankArchive,
+  type AiGeneratedQuestion,
+  type QuestionBankArchiveEntry,
+} from "@/lib/ai-question-bank";
 
 type TrainingMode = "专业专项" | "项目答辩" | "综合模拟";
 type TechStack = "通用原理" | "HALCON" | "OpenCV" | "VisionPro" | "C#视觉开发";
@@ -50,6 +58,7 @@ type Question = {
   keywords: string[]; followUp: string; hint: string; basis?: string; techStacks?: TechStack[];
   reference?: { title: string; url: string };
   bestAnswer?: string; principle?: string;
+  origin?: "AI" | "本地题库";
 };
 type TrainingRecord = {
   id?: string; question: string; score?: number; project: string; date: string;
@@ -512,82 +521,256 @@ function getQuestionPrinciple(question: Question, projectName: string) {
   return `基本原理：${context}`;
 }
 
-type PreparedGroupResult = { questions: Question[]; source: "AI" | "本地规则"; message?: string };
+type QuestionGenerationSelection = {
+  trainingMode: TrainingMode;
+  category: string;
+  difficulty: string;
+  techStack: string;
+};
+
+type PreparedGroupResult = {
+  questions: Question[];
+  source: "AI" | "本地规则";
+  message?: string;
+  aiCount?: number;
+};
+
 const pendingQuestionGroupRequests = new Map<string, Promise<PreparedGroupResult>>();
+const pendingAiQuestionBackupKey = "vision-interview-ai-question-bank-pending";
+const supportedTechStacks = new Set<TechStack>(["通用原理", "HALCON", "OpenCV", "VisionPro", "C#视觉开发"]);
+
+function isTechStack(value: string): value is TechStack {
+  return supportedTechStacks.has(value as TechStack);
+}
 
 function parsePreparedQuestions(content: string) {
   const cleaned = content.replace(/^```(?:json)?\s*/i, "").replace(/\s*```$/i, "").trim();
-  const start = cleaned.indexOf("{");
-  const end = cleaned.lastIndexOf("}");
-  const objectText = start >= 0 && end >= start ? cleaned.slice(start, end + 1) : cleaned;
-  const parsed = JSON.parse(objectText) as unknown;
+  const objectStart = cleaned.indexOf("{");
+  const objectEnd = cleaned.lastIndexOf("}");
+  const arrayStart = cleaned.indexOf("[");
+  const arrayEnd = cleaned.lastIndexOf("]");
+  const jsonText = objectStart >= 0 && objectEnd >= objectStart
+    ? cleaned.slice(objectStart, objectEnd + 1)
+    : arrayStart >= 0 && arrayEnd >= arrayStart
+      ? cleaned.slice(arrayStart, arrayEnd + 1)
+      : cleaned;
+  const parsed = JSON.parse(jsonText) as unknown;
   if (Array.isArray(parsed)) return parsed;
-  if (parsed && typeof parsed === "object" && Array.isArray((parsed as { questions?: unknown }).questions)) return (parsed as { questions: unknown[] }).questions;
+  if (parsed && typeof parsed === "object" && Array.isArray((parsed as { questions?: unknown }).questions)) {
+    return (parsed as { questions: unknown[] }).questions;
+  }
   return [];
 }
 
-async function prepareQuestionGroup(candidates: Question[], projectName: string): Promise<PreparedGroupResult> {
-  const fallback = candidates.map((question) => ({
-    ...question,
-    bestAnswer: getBestAnswer({ ...question, bestAnswer: undefined }, projectName),
-    principle: getQuestionPrinciple(question, projectName),
-  }));
+function normalizeGeneratedDifficulty(value: string, selection: QuestionGenerationSelection) {
+  if (value === "基础" || value === "中等" || value === "困难") return value;
+  return selection.difficulty === "基础" || selection.difficulty === "中等" || selection.difficulty === "困难"
+    ? selection.difficulty
+    : "中等";
+}
+
+function toAppQuestion(question: AiGeneratedQuestion, selection: QuestionGenerationSelection): Question {
+  const source: Question["source"] = selection.trainingMode === "专业专项"
+    ? "专业"
+    : selection.trainingMode === "项目答辩"
+      ? "项目"
+      : question.source === "项目"
+        ? "项目"
+        : "专业";
+  const generatedStacks = (question.techStacks ?? []).filter(isTechStack);
+  const techStacks = isTechStack(selection.techStack) ? [selection.techStack] : generatedStacks;
+  const difficulty = selection.difficulty === "基础" || selection.difficulty === "中等" || selection.difficulty === "困难"
+    ? selection.difficulty
+    : normalizeGeneratedDifficulty(question.difficulty, selection);
+  const category = selection.category !== "随机类型" ? selection.category : question.category;
+  return {
+    title: question.title,
+    type: question.type,
+    category,
+    source,
+    difficulty,
+    tags: question.tags,
+    keywords: question.keywords,
+    followUp: question.followUp,
+    hint: question.hint,
+    ...(question.basis ? { basis: question.basis } : {}),
+    ...(techStacks.length ? { techStacks } : {}),
+    ...(question.reference ? { reference: question.reference } : {}),
+    bestAnswer: question.bestAnswer,
+    principle: question.principle,
+    origin: "AI",
+  };
+}
+
+function buildQuestionFallbackPool(
+  candidates: Question[],
+  projectName: string,
+  selection: QuestionGenerationSelection,
+) {
+  const professional = questionBank.filter((item) => item.source === "专业");
+  const projectQuestions = buildLocalProjectQuestions(projectName);
+  const supplemental = selection.trainingMode === "专业专项"
+    ? professional
+    : selection.trainingMode === "项目答辩"
+      ? projectQuestions
+      : [...professional, ...projectQuestions];
+  const seen = new Set<string>();
+  return [...candidates, ...supplemental]
+    .filter((question) => {
+      const key = question.title.trim().toLocaleLowerCase();
+      if (!key || seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    })
+    .map((question) => ({
+      ...question,
+      bestAnswer: getBestAnswer({ ...question, bestAnswer: undefined }, projectName),
+      principle: getQuestionPrinciple(question, projectName)
+        || `本题主要考察“${question.title}”的工程判断与表达，请结合输入、处理、验证和异常边界说明。`,
+    }));
+}
+
+async function syncAiQuestionBankBackup(entries: QuestionBankArchiveEntry[]) {
+  let previous: unknown[] = [];
+  try {
+    const saved = JSON.parse(localStorage.getItem(pendingAiQuestionBackupKey) || "[]") as unknown;
+    previous = Array.isArray(saved) ? saved : [];
+  } catch {
+    previous = [];
+  }
+
+  const pending = mergeQuestionBankArchive(previous, entries).slice(-500);
+  if (!pending.length) return;
+
+  try {
+    localStorage.setItem(pendingAiQuestionBackupKey, JSON.stringify(pending));
+  } catch {
+    // Server sync can still succeed when browser storage is unavailable.
+  }
+
+  try {
+    const response = await fetch("/api/question-bank/sync", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ entries: pending }),
+    });
+    const body = await response.json() as { archived?: boolean };
+    if (response.ok && body.archived) {
+      localStorage.removeItem(pendingAiQuestionBackupKey);
+    }
+  } catch {
+    // Keep the pending browser copy and retry when another group is prepared.
+  }
+}
+
+async function prepareQuestionGroup(
+  candidates: Question[],
+  projectName: string,
+  selection: QuestionGenerationSelection,
+): Promise<PreparedGroupResult> {
+  const targetCount = 10;
+  const fallbackPool = buildQuestionFallbackPool(candidates, projectName, selection);
+  const fallback = fillQuestionGroup([], fallbackPool, targetCount).questions
+    .map((question) => ({ ...toAppQuestion(question, selection), origin: "本地题库" as const }));
+
   try {
     const storedPreferences = localStorage.getItem("vision-interview-ai-preferences");
     const preferences = storedPreferences ? JSON.parse(storedPreferences) as Partial<AiPreferences> : {};
-    if (preferences.webQuestions === false) return { questions: fallback, source: "本地规则", message: "已关闭联网题组预取，使用本地题库与标准答案。" };
+    if (preferences.webQuestions === false) {
+      return {
+        questions: fallback,
+        source: "本地规则",
+        message: "已关闭 AI 题组生成，使用本地题库与标准答案。",
+        aiCount: 0,
+      };
+    }
+
     const provider = typeof preferences.provider === "string" ? preferences.provider : "deepseek";
     const providerSettings = readAiProviderSettings();
     const definition = getProviderDefinition(provider, providerSettings);
     const baseUrl = provider === "deepseek"
       ? definition.baseUrl
-      : providerSettings[provider]?.baseUrl || providerSettings[provider]?.openaiBaseUrl || preferences.openaiBaseUrl || definition.baseUrl;
-    const model = providerSettings[provider]?.model || (typeof preferences.model === "string" ? preferences.model : definition.models[0]?.value || "");
-    if (!baseUrl || !model) return { questions: fallback, source: "本地规则", message: "未配置 AI，已使用本地题库与标准答案。" };
-    const apiKey = sessionStorage.getItem(`vision-interview-ai-key-${provider}`) || "";
-
-    // 分批并行预取。
-    // 整组 10 题塞进单次请求需要生成 3000+ tokens，实测常超过 60s 而中断，
-    // 且一旦失败整组全废。改为每批 BATCH_SIZE 题独立请求、并行发出：
-    //   - 单批生成量小，通常 10-20s 完成
-    //   - 各批互不影响，某批失败只有那几题回退本地题库
-    const BATCH_SIZE = 3;
-    const batches: Question[][] = [];
-    for (let i = 0; i < candidates.length; i += BATCH_SIZE) {
-      batches.push(candidates.slice(i, i + BATCH_SIZE));
+      : providerSettings[provider]?.baseUrl
+        || providerSettings[provider]?.openaiBaseUrl
+        || preferences.openaiBaseUrl
+        || definition.baseUrl;
+    const model = providerSettings[provider]?.model
+      || (typeof preferences.model === "string" ? preferences.model : definition.models[0]?.value || "");
+    if (!baseUrl || !model) {
+      return {
+        questions: fallback,
+        source: "本地规则",
+        message: "未配置 AI，已使用本地题库与标准答案。",
+        aiCount: 0,
+      };
     }
 
-    async function fetchBatch(batch: Question[]): Promise<Record<string, unknown>[]> {
+    const apiKey = sessionStorage.getItem(`vision-interview-ai-key-${provider}`) || "";
+    const requestedSource = selection.trainingMode === "项目答辩"
+      ? "项目"
+      : selection.trainingMode === "专业专项"
+        ? "专业"
+        : "专业或项目";
+    const projectProfile = localProjectProfiles[projectName];
+
+    const requestGeneratedQuestions = async (
+      count: number,
+      excludedTitles: string[],
+      attempt: number,
+    ) => {
       const response = await fetch("/api/ai/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        // 单批负载小，45s 足够；留在服务端 60s 之下由前端先行放弃该批。
-        signal: AbortSignal.timeout(45000),
+        signal: AbortSignal.timeout(65000),
         body: JSON.stringify({
-          provider, baseUrl, model,
-          // 每题约 300-400 tokens，3 题给 1600 有充裕余量，避免 JSON 截断。
-          maxTokens: 1600, temperature: 0.15, ...(apiKey ? { apiKey } : {}),
+          provider,
+          baseUrl,
+          model,
+          maxTokens: 7000,
+          temperature: attempt === 1 ? 0.45 : 0.6,
+          ...(apiKey ? { apiKey } : {}),
           messages: [
             {
               role: "system",
-              content: "你是机器视觉面试题库整理器。请整理给定题目对应的标准回答重点和技术原理。优先依据公开题库、官方文档和可靠工程实践；不要编造项目事实。只返回 JSON，不要 Markdown。",
+              content: "你是资深机器视觉工程师面试官。直接生成新的机器视觉面试题，不要改写给定题库。每道题必须包含完整题目、追问、回答提示、关键词、标准回答和技术原理。项目题只能使用提供的项目资料，不得编造具体指标、设备型号或现场事实。只返回 JSON，不要 Markdown。",
             },
             {
               role: "user",
               content: JSON.stringify({
-                task: "预取面试题目的标准回答和技术原理",
+                task: "生成完整机器视觉面试题组",
+                targetCount: count,
+                retryAttempt: attempt,
                 project: projectName,
-                questions: batch.map((question) => ({
-                  question: question.title,
-                  type: question.type,
-                  category: question.category,
-                  source: question.source,
-                  keywords: question.keywords,
-                  basis: question.basis,
-                  reference: question.reference,
-                })),
+                projectProfile: projectProfile ?? null,
+                trainingMode: selection.trainingMode,
+                requestedSource,
+                category: selection.category,
+                difficulty: selection.difficulty,
+                techStack: selection.techStack,
+                excludeTitles: excludedTitles,
+                requirements: [
+                  "题目之间不得重复，也不能只是换一种说法",
+                  "优先覆盖工程理解、算法原理、参数影响、现场排障和方案取舍",
+                  "遵守当前分类、难度和技术栈筛选；随机筛选时保持题目多样性",
+                  "标准回答控制在 120-220 字，技术原理控制在 100-200 字",
+                  "source 只能填写“专业”或“项目”；difficulty 只能填写“基础”“中等”“困难”",
+                  "项目类题目只能基于 projectProfile，不得添加 projectProfile 中不存在的项目数据",
+                ],
                 outputSchema: {
-                  questions: [{ question: "原题目", bestAnswer: "标准回答重点", principle: "技术原理；非技术题可为空", keywords: ["关键词"] }],
+                  questions: [{
+                    title: "完整面试题",
+                    type: "算法原理/工程实践/现场故障/项目深挖等",
+                    category: "题目分类",
+                    source: "专业",
+                    difficulty: "中等",
+                    tags: ["标签"],
+                    keywords: ["回答关键点"],
+                    followUp: "针对本题的进一步追问",
+                    hint: "回答组织思路",
+                    techStacks: ["HALCON"],
+                    bestAnswer: "完整标准回答",
+                    principle: "对应技术原理",
+                  }],
                 },
               }),
             },
@@ -595,62 +778,57 @@ async function prepareQuestionGroup(candidates: Question[], projectName: string)
         }),
       });
       const result = await response.json() as { ok?: boolean; content?: string; message?: string };
-      if (!response.ok || !result.ok || !result.content) throw new Error(result.message || "批次预取失败");
-      return parsePreparedQuestions(result.content)
-        .filter((item): item is Record<string, unknown> => Boolean(item) && typeof item === "object");
-    }
-
-    // allSettled：个别批次失败不影响其余批次
-    const settled = await Promise.allSettled(batches.map(fetchBatch));
-
-    // 按题目标题建索引，避免批次内顺序错位导致张冠李戴
-    const byTitle = new Map<string, Record<string, unknown>>();
-    let okBatches = 0;
-    let lastError = "";
-    settled.forEach((outcome, batchIndex) => {
-      if (outcome.status === "rejected") {
-        lastError = outcome.reason instanceof Error ? outcome.reason.message : String(outcome.reason);
-        return;
+      if (!response.ok || !result.ok || !result.content) {
+        throw new Error(result.message || "AI 题组生成失败");
       }
-      okBatches += 1;
-      const batch = batches[batchIndex];
-      outcome.value.forEach((entry, entryIndex) => {
-        const matched = typeof entry.question === "string"
-          ? batch.find((item) => item.title === entry.question)
-          : undefined;
-        const target = matched ?? batch[entryIndex];
-        if (target) byTitle.set(target.title, entry);
-      });
-    });
+      return parsePreparedQuestions(result.content);
+    };
 
-    if (!byTitle.size) {
-      return { questions: fallback, source: "本地规则", message: lastError || "AI 题组预取失败，已使用本地题库与标准答案。" };
+    const generated = await collectAiQuestionGroup(requestGeneratedQuestions, targetCount, 2);
+    const completed = fillQuestionGroup(generated, fallbackPool, targetCount);
+    const aiCount = completed.aiCount;
+    const questions = completed.questions.map((question, index) => ({
+      ...toAppQuestion(question, selection),
+      origin: index < aiCount ? "AI" as const : "本地题库" as const,
+    }));
+
+    if (aiCount) {
+      const entries = createQuestionBankArchiveEntries(generated.slice(0, aiCount), {
+        provider,
+        model,
+        project: projectName,
+        trainingMode: selection.trainingMode,
+        categoryFilter: selection.category,
+        difficultyFilter: selection.difficulty,
+        techStackFilter: selection.techStack,
+      });
+      void syncAiQuestionBankBackup(entries);
     }
 
-    // 逐题合并：AI 有结果就用 AI 的，缺失的沿用本地题库，做到部分成功也可用
-    let aiCount = 0;
-    const prepared = candidates.map((question, index) => {
-      const entry = byTitle.get(question.title);
-      if (!entry) return fallback[index];
-      aiCount += 1;
-      const bestAnswer = typeof entry.bestAnswer === "string" && entry.bestAnswer.trim() ? entry.bestAnswer.trim() : fallback[index].bestAnswer;
-      const principle = typeof entry.principle === "string" && entry.principle.trim() ? entry.principle.trim() : fallback[index].principle;
-      const keywords = Array.isArray(entry.keywords)
-        ? entry.keywords.filter((item): item is string => typeof item === "string" && Boolean(item.trim())).map((item) => item.trim()).slice(0, 12)
-        : question.keywords;
-      return { ...question, bestAnswer, principle, keywords: keywords.length ? keywords : question.keywords };
-    });
+    if (!aiCount) {
+      return {
+        questions: fallback,
+        source: "本地规则",
+        message: "AI 两次生成均未获得有效题目，已使用本地题库与标准答案。",
+        aiCount: 0,
+      };
+    }
 
-    const allOk = okBatches === batches.length && aiCount === candidates.length;
     return {
-      questions: prepared,
+      questions,
       source: "AI",
-      message: allOk
-        ? "本题组题目、标准回答和技术原理已准备完成。"
-        : `本题组已准备（${aiCount}/${candidates.length} 题来自 AI，其余使用本地题库）。`,
+      aiCount,
+      message: aiCount === targetCount
+        ? "AI 已生成完整 10 道题目、标准回答和技术原理；生成题已加入 GitHub 备份队列。"
+        : `AI 自动重试后获得 ${aiCount}/10 道完整题目，其余使用本地题库兜底；已生成题已加入 GitHub 备份队列。`,
     };
   } catch {
-    return { questions: fallback, source: "本地规则", message: "AI 题组预取暂不可用，已使用本地题库与标准答案。" };
+    return {
+      questions: fallback,
+      source: "本地规则",
+      message: "AI 题组生成暂不可用，已使用本地题库与标准答案。",
+      aiCount: 0,
+    };
   }
 }
 
@@ -960,7 +1138,7 @@ export default function Home() {
       aiSelectionSignature = localStorage.getItem("vision-interview-ai-preferences") || "";
     } catch { /* 忽略浏览器存储限制 */ }
   }
-  const groupPreparationKey = useMemo(() => [project, trainingMode, category, difficulty, techStack, groupRound, aiSelectionSignature, ...groupQuestionSeed.map((item) => item.title)].join("|"), [project, trainingMode, category, difficulty, techStack, groupRound, aiSelectionSignature, groupQuestionSeed]);
+  const groupPreparationKey = useMemo(() => ["ai-generated-v2", project, trainingMode, category, difficulty, techStack, groupRound, aiSelectionSignature, ...groupQuestionSeed.map((item) => item.title)].join("|"), [project, trainingMode, category, difficulty, techStack, groupRound, aiSelectionSignature, groupQuestionSeed]);
   const groupQuestions = preparedGroupQuestions?.length ? preparedGroupQuestions : groupQuestionSeed;
   const question = groupQuestions[questionIndex % groupQuestions.length];
   const currentEvaluation = sessionAnswers.find((item) => item.question.title === question.title);
@@ -1103,7 +1281,7 @@ export default function Home() {
     setPreparingGroup(true);
     setPreparedGroupQuestions(null);
     setGroupPreparationSource("本地规则");
-    setGroupPreparationMessage("正在一次性准备本题组的题目、标准回答和技术原理…");
+    setGroupPreparationMessage("正在优先让 AI 生成完整 10 道题目、标准回答和技术原理…");
     setQuestionIndex(0);
     setAnswer("");
     setSubmitted(false);
@@ -1114,14 +1292,16 @@ export default function Home() {
     setSessionAnswers([]);
     setGroupCompleted(false);
 
+    void syncAiQuestionBankBackup([]);
+
     const cacheKey = `vision-interview-prepared-group-${encodeURIComponent(groupPreparationKey)}`;
     try {
       const cached = JSON.parse(localStorage.getItem(cacheKey) || "null") as { questions?: unknown[] } | null;
-      if (cached?.questions && cached.questions.length === groupQuestionSeed.length && cached.questions.every((item) => item && typeof item === "object" && typeof (item as { title?: unknown }).title === "string")) {
+      if (cached?.questions && cached.questions.length === 10 && cached.questions.every((item) => item && typeof item === "object" && typeof (item as { title?: unknown }).title === "string")) {
         if (active) {
           setPreparedGroupQuestions(cached.questions as Question[]);
           setGroupPreparationSource("缓存");
-          setGroupPreparationMessage("本题组题目、标准回答和技术原理已从本机缓存恢复。进入面试前无需逐题请求。 ");
+          setGroupPreparationMessage("AI 生成题组已从本机缓存恢复。进入面试前无需重新生成。");
           setPreparingGroup(false);
         }
         return () => { active = false; };
@@ -1130,7 +1310,7 @@ export default function Home() {
 
     let request = pendingQuestionGroupRequests.get(groupPreparationKey);
     if (!request) {
-      request = prepareQuestionGroup(groupQuestionSeed, project);
+      request = prepareQuestionGroup(groupQuestionSeed, project, { trainingMode, category, difficulty, techStack });
       pendingQuestionGroupRequests.set(groupPreparationKey, request);
       void request.finally(() => {
         if (pendingQuestionGroupRequests.get(groupPreparationKey) === request) pendingQuestionGroupRequests.delete(groupPreparationKey);
@@ -1147,13 +1327,13 @@ export default function Home() {
       }
     }).catch(() => {
       if (!active) return;
-      setPreparedGroupQuestions(groupQuestionSeed);
+      setPreparedGroupQuestions(buildQuestionFallbackPool(groupQuestionSeed, project, { trainingMode, category, difficulty, techStack }).slice(0, 10));
       setGroupPreparationSource("本地规则");
-      setGroupPreparationMessage("题组预取失败，已切换为本地题库与标准答案。 ");
+      setGroupPreparationMessage("AI 题组准备失败，已切换为本地题库与标准答案。");
       setPreparingGroup(false);
     });
     return () => { active = false; };
-  }, [groupPreparationKey, groupQuestionSeed, project]);
+  }, [groupPreparationKey, groupQuestionSeed, project, trainingMode, category, difficulty, techStack]);
 
   useEffect(() => {
     stopRecognition();
@@ -1370,7 +1550,7 @@ function TrainingCenter(props: TrainingProps) {
     { name: "项目答辩", description: "围绕真实项目连续追问", icon: FolderKanban },
     { name: "综合模拟", description: "模拟完整面试题目组合", icon: Sparkles },
   ];
-  const questionReference = props.question.reference ?? webQuestionSources[props.question.category];
+  const questionReference = props.question.origin === "AI" ? props.question.reference : props.question.reference ?? webQuestionSources[props.question.category];
   const questionTechStacks = props.question.techStacks ?? (["通用原理"] as TechStack[]);
   const questionPrinciple = props.question.principle || getQuestionPrinciple(props.question, props.project);
   return (
@@ -1386,8 +1566,8 @@ function TrainingCenter(props: TrainingProps) {
               </button>)}
             </div>
             <div className="mt-3 grid gap-2 rounded-lg border border-slate-200 bg-slate-50 p-3 text-xs md:grid-cols-2">
-              <div className="flex items-start gap-2 text-slate-600"><Globe2 className="mt-0.5 size-4 shrink-0 text-blue-600" /><span><strong className="font-semibold text-slate-800">专业知识：</strong>AI 联网搜索面试题库，去重、分类并保留原始来源。</span></div>
-              <div className="flex items-start gap-2 text-slate-600"><HardDrive className="mt-0.5 size-4 shrink-0 text-emerald-600" /><span><strong className="font-semibold text-slate-800">项目答辩：</strong>只读取本地项目资料和历史回答，不从网络拼接项目经历。</span></div>
+              <div className="flex items-start gap-2 text-slate-600"><Globe2 className="mt-0.5 size-4 shrink-0 text-blue-600" /><span><strong className="font-semibold text-slate-800">专业知识：</strong>AI 按当前分类、难度和技术栈优先生成完整 10 题，数量不足时自动重试。</span></div>
+              <div className="flex items-start gap-2 text-slate-600"><HardDrive className="mt-0.5 size-4 shrink-0 text-emerald-600" /><span><strong className="font-semibold text-slate-800">项目答辩：</strong>AI 只基于当前项目档案出题，不补写项目档案中不存在的事实。</span></div>
             </div>
             <div className="mt-4 space-y-3 border-t border-slate-100 pt-4">
               <div className="flex flex-wrap items-center gap-2">
@@ -1415,15 +1595,19 @@ function TrainingCenter(props: TrainingProps) {
           <section className="panel p-5 md:p-6">
             <div className={`mb-4 flex items-start gap-2 rounded-md border p-3 text-xs leading-5 ${props.preparingGroup ? "border-blue-100 bg-blue-50 text-blue-800" : props.groupPreparationSource === "AI" ? "border-emerald-100 bg-emerald-50 text-emerald-800" : "border-amber-100 bg-amber-50 text-amber-800"}`}>
               {props.preparingGroup ? <Bot className="mt-0.5 size-4 shrink-0 animate-pulse" /> : <BookOpenCheck className="mt-0.5 size-4 shrink-0" />}
-              <span><strong className="font-semibold">{props.preparingGroup ? "正在准备本题组" : `本题组已准备（${props.groupPreparationSource === "AI" ? "AI联网预取" : props.groupPreparationSource === "缓存" ? "本机缓存" : "本地题库"}）`}</strong><span className="ml-1">{props.groupPreparationMessage}</span></span>
+              <span><strong className="font-semibold">{props.preparingGroup ? "正在准备本题组" : `本题组已准备（${props.groupPreparationSource === "AI" ? "AI生成题组" : props.groupPreparationSource === "缓存" ? "本机缓存" : "本地题库"}）`}</strong><span className="ml-1">{props.groupPreparationMessage}</span></span>
             </div>
             <div className="flex flex-wrap items-center gap-2">
               <Badge className="rounded-md bg-blue-50 text-blue-700 hover:bg-blue-50">{props.question.type} · 第 {props.questionIndex + 1} 题</Badge>
               <Badge variant="outline" className="rounded-md border-amber-200 bg-amber-50 text-amber-700">{props.question.difficulty}</Badge>
               <Badge variant="outline" className="rounded-md border-slate-200 bg-slate-50 text-slate-600">{props.question.category}</Badge>
               {props.question.source === "专业" && questionTechStacks.map((stack) => <Badge key={stack} variant="outline" className="rounded-md border-violet-200 bg-violet-50 text-violet-700">{stack}</Badge>)}
-              <Badge variant="outline" className={`rounded-md ${props.question.source === "专业" ? "border-blue-200 bg-blue-50 text-blue-700" : "border-emerald-200 bg-emerald-50 text-emerald-700"}`}>{props.question.source === "专业" ? "网络题库" : "本地项目"}</Badge>
-              {props.question.source === "专业" && <span className="inline-flex min-w-0 items-center gap-1 text-xs text-slate-500"><Globe2 className="size-3.5 shrink-0 text-blue-600" /><span className="truncate">来源：{questionReference?.title ?? "机器视觉面试题库"}</span>{questionReference && <a href={questionReference.url} target="_blank" rel="noreferrer" className="shrink-0 font-medium text-blue-700 hover:underline">查看来源 ↗</a>}</span>}
+              <Badge variant="outline" className={`rounded-md ${props.question.origin === "AI" ? "border-violet-200 bg-violet-50 text-violet-700" : props.question.source === "专业" ? "border-blue-200 bg-blue-50 text-blue-700" : "border-emerald-200 bg-emerald-50 text-emerald-700"}`}>{props.question.origin === "AI" ? "AI生成" : props.question.source === "专业" ? "本地题库" : "本地项目"}</Badge>
+              {props.question.origin === "AI" ? (
+                <span className="inline-flex min-w-0 items-center gap-1 text-xs text-slate-500"><Bot className="size-3.5 shrink-0 text-violet-600" /><span>来源：AI 生成</span></span>
+              ) : props.question.source === "专业" && (
+                <span className="inline-flex min-w-0 items-center gap-1 text-xs text-slate-500"><Globe2 className="size-3.5 shrink-0 text-blue-600" /><span className="truncate">来源：{questionReference?.title ?? "机器视觉面试题库"}</span>{questionReference && <a href={questionReference.url} target="_blank" rel="noreferrer" className="shrink-0 font-medium text-blue-700 hover:underline">查看来源 ↗</a>}</span>
+              )}
               <div className="ml-auto flex items-center gap-3">
                 <span className="text-xs text-slate-400">当前题组 {props.questionIndex + 1}/{props.totalQuestions}</span>
                 <Button variant="outline" size="sm" onClick={props.onNext} disabled={props.preparingGroup || props.evaluating} className="h-8 border-slate-200 bg-white text-slate-600">
@@ -1433,7 +1617,7 @@ function TrainingCenter(props: TrainingProps) {
             </div>
             <h1 className="mt-5 text-xl font-semibold tracking-tight text-slate-950 md:text-[26px]">{props.question.title}</h1>
             <div className="mt-4 flex flex-wrap gap-2">{props.question.tags.map((tag) => <span key={tag} className="rounded-md border border-slate-200 bg-slate-50 px-2.5 py-1 text-xs text-slate-600">{tag}</span>)}</div>
-            {props.question.source !== "专业" && (
+            {props.question.source !== "专业" && props.question.origin !== "AI" && (
               <div className="mt-5 flex items-start gap-2 rounded-md border border-emerald-100 bg-emerald-50/60 p-3 text-xs leading-5 text-slate-600">
                 <HardDrive className="mt-0.5 size-4 shrink-0 text-emerald-600" />
                 <span><strong className="font-medium text-emerald-800">本地提问依据：</strong>{props.question.basis ?? projectQuestionBasis[props.question.title] ?? `来自“${props.project}”项目资料中的技术方案与职责记录`}</span>

@@ -1,0 +1,92 @@
+import assert from "node:assert/strict";
+import test, { after } from "node:test";
+import { createServer } from "vite";
+import { fileURLToPath } from "node:url";
+
+const root = fileURLToPath(new URL("..", import.meta.url));
+const vite = await createServer({
+  appType: "custom",
+  configFile: false,
+  root,
+  resolve: { alias: { "@": root } },
+  server: { middlewareMode: true },
+});
+after(async () => { await vite.close(); });
+
+function entry(title) {
+  return {
+    id: `id-${title}`,
+    title,
+    type: "Algorithm",
+    category: "Matching",
+    source: "professional",
+    difficulty: "medium",
+    tags: ["NCC"],
+    keywords: ["NCC"],
+    followUp: "Follow up",
+    hint: "Hint",
+    techStacks: ["general"],
+    bestAnswer: "Answer",
+    principle: "Principle",
+    generatedAt: "2026-08-31T00:00:00.000Z",
+    provider: "deepseek",
+    model: "test-model",
+  };
+}
+
+test("question bank sync degrades safely when GitHub token is absent", async () => {
+  const previous = process.env.VISION_INTERVIEW_GITHUB_TOKEN;
+  delete process.env.VISION_INTERVIEW_GITHUB_TOKEN;
+  try {
+    const route = await vite.ssrLoadModule("/app/api/question-bank/sync/route.ts");
+    const response = await route.POST(new Request("http://localhost/api/question-bank/sync", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ entries: [entry("Q1")] }),
+    }));
+    const body = await response.json();
+    assert.equal(response.status, 202);
+    assert.equal(body.archived, false);
+    assert.equal(body.reason, "github_not_configured");
+  } finally {
+    if (previous === undefined) delete process.env.VISION_INTERVIEW_GITHUB_TOKEN;
+    else process.env.VISION_INTERVIEW_GITHUB_TOKEN = previous;
+  }
+});
+
+test("question bank sync creates the GitHub archive through the contents API", async () => {
+  const route = await vite.ssrLoadModule("/app/api/question-bank/sync/route.ts");
+  const previousToken = process.env.VISION_INTERVIEW_GITHUB_TOKEN;
+  const previousFetch = globalThis.fetch;
+  const calls = [];
+  process.env.VISION_INTERVIEW_GITHUB_TOKEN = "test-token";
+  globalThis.fetch = async (url, init = {}) => {
+    calls.push({ url: String(url), init });
+    if (!init.method || init.method === "GET") return new Response("not found", { status: 404 });
+    return Response.json({ commit: { sha: "abc123" } }, { status: 200 });
+  };
+
+  try {
+    const response = await route.POST(new Request("http://localhost/api/question-bank/sync", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ entries: [entry("Q1"), entry("Q2")] }),
+    }));
+    const body = await response.json();
+    assert.equal(response.status, 200);
+    assert.equal(body.archived, true);
+    assert.equal(body.total, 2);
+    assert.equal(calls.length, 2);
+    assert.match(calls[0].url, /repos\/chiguire1977\/vision-interview\/contents\/data%2Fai-question-bank\.json/);
+    assert.equal(calls[1].init.method, "PUT");
+    const putBody = JSON.parse(calls[1].init.body);
+    const archiveJson = Buffer.from(putBody.content, "base64").toString("utf8");
+    const archive = JSON.parse(archiveJson);
+    assert.equal(archive.questions.length, 2);
+    assert.equal(archive.questions[0].title, "Q1");
+  } finally {
+    globalThis.fetch = previousFetch;
+    if (previousToken === undefined) delete process.env.VISION_INTERVIEW_GITHUB_TOKEN;
+    else process.env.VISION_INTERVIEW_GITHUB_TOKEN = previousToken;
+  }
+});
