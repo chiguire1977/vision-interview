@@ -16,7 +16,7 @@ import { Progress } from "@/components/ui/progress";
 import { Switch } from "@/components/ui/switch";
 import {
   Sidebar, SidebarContent, SidebarFooter, SidebarGroup, SidebarGroupContent,
-  SidebarGroupLabel, SidebarHeader, SidebarInset, SidebarMenu,
+  SidebarHeader, SidebarInset, SidebarMenu,
   SidebarMenuButton, SidebarMenuItem, SidebarProvider, SidebarTrigger,
 } from "@/components/ui/sidebar";
 import { Textarea } from "@/components/ui/textarea";
@@ -1260,17 +1260,6 @@ export default function Home() {
                   </SidebarMenuItem>
                 ))}
               </SidebarMenu>
-            </SidebarGroupContent>
-          </SidebarGroup>
-          <SidebarGroup className="mt-auto border-t border-white/8 pt-4">
-            <SidebarGroupLabel className="px-3 text-[11px] tracking-wider text-slate-500">当前项目</SidebarGroupLabel>
-            <SidebarGroupContent>
-              <div className="mx-1 mt-1 rounded-lg border border-blue-400/15 bg-blue-500/10 p-3">
-                <div className="flex items-start gap-2.5"><Archive className="mt-0.5 size-4 text-blue-400" />
-                  <div className="min-w-0 flex-1"><p className="truncate text-sm font-medium text-slate-100">{project}</p><p className="mt-1 text-[11px] text-slate-400">项目资料完整度 {projectCatalog.find((item) => item.name === project)?.progress ?? 0}%</p></div>
-                  <ChevronRight className="size-4 text-slate-500" />
-                </div>
-              </div>
             </SidebarGroupContent>
           </SidebarGroup>
         </SidebarContent>
