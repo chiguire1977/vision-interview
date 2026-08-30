@@ -46,7 +46,10 @@ export default defineConfig(async () => {
   return {
     server: {
       host: "0.0.0.0",
-      allowedHosts: ["terminal.local"],
+      port: 3000,
+      strictPort: true,
+      allowedHosts: true,
+      hmr: { clientPort: 443, protocol: "wss" },
       ...(isCodexSeatbeltSandbox
         ? { watch: { useFsEvents: false, usePolling: true } }
         : {}),
