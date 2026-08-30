@@ -126,13 +126,33 @@ fi
 TOKEN="$(cat "$TOKEN_FILE")"
 PUSH_URL="https://x-access-token:${TOKEN}@github.com/${REPO_SLUG}.git"
 
-if [ "$(git rev-list --count "origin/${BRANCH}..HEAD" 2>/dev/null || echo 1)" -eq 0 ]; then
+# 先同步远程，避免因分叉被拒
+git fetch --quiet "$PUSH_URL" "$BRANCH" 2>/dev/null || true
+if [ -n "$(git rev-list --count "FETCH_HEAD..HEAD" 2>/dev/null)" ] && \
+   [ "$(git rev-list --count "HEAD..FETCH_HEAD" 2>/dev/null || echo 0)" -gt 0 ]; then
+  c_warn "远程有新提交，先 rebase"
+  if ! git rebase FETCH_HEAD 2>&1 | tail -3; then
+    c_err "rebase 冲突，请手动处理后重试"
+    exit 1
+  fi
+fi
+
+if [ "$(git rev-list --count "FETCH_HEAD..HEAD" 2>/dev/null || echo 1)" -eq 0 ]; then
   c_ok "远程已是最新，无需推送"
 else
-  # 用 credential-less 的一次性 URL 推送，避免 token 落进 .git/config
-  if git push --quiet "$PUSH_URL" "HEAD:${BRANCH}" 2>&1 | grep -v '^remote:' ; then :; fi
-  c_ok "推送完成"
+  # 一次性 URL 注入凭据，避免 token 落进 .git/config
+  # 注意：必须检查真实退出码，管道会掩盖失败
+  set +e
+  push_out="$(git push "$PUSH_URL" "HEAD:${BRANCH}" 2>&1)"
+  push_rc=$?
+  set -e
+  echo "$push_out" | grep -vE '^remote:|x-access-token' | sed 's/^/     /'
+  if [ $push_rc -ne 0 ]; then
+    c_err "推送失败（退出码 $push_rc）"
+    exit 1
+  fi
   SHA="$(git rev-parse --short HEAD)"
+  c_ok "推送完成"
   echo "     提交: $SHA"
   echo "     查看: https://github.com/${REPO_SLUG}/commit/$SHA"
 fi
