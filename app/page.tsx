@@ -548,11 +548,14 @@ async function prepareQuestionGroup(candidates: Question[], projectName: string)
     const response = await fetch("/api/ai/chat", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      // 前端独立超时：即使服务端或网络挂起，30s 后也会 abort 并降级到
-      // 本地题库，不会让「正在准备本题组」无限转圈。
-      signal: AbortSignal.timeout(30000),
+      // 前端独立超时：留在服务端 60s 之上，让服务端的超时先触发，
+      // 这样能拿到具体错误信息而不是笼统的 abort。仅在服务端/网络
+      // 整体挂起时兜底，避免「正在准备本题组」无限转圈。
+      signal: AbortSignal.timeout(70000),
       body: JSON.stringify({
-        provider, baseUrl, model, maxTokens: 1800, temperature: 0.15, ...(apiKey ? { apiKey } : {}),
+        // 10 道题 × (标准答案 + 技术原理 + 关键词) 用 1800 tokens 容易被截断，
+        // 截断后 JSON 不完整会解析失败并整组降级。放宽到 3600。
+        provider, baseUrl, model, maxTokens: 3600, temperature: 0.15, ...(apiKey ? { apiKey } : {}),
         messages: [
           {
             role: "system",

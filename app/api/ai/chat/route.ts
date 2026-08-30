@@ -47,9 +47,10 @@ export async function POST(request: Request) {
         ...(provider === "deepseek" ? { thinking: { type: "disabled" } } : {}),
       }),
       redirect: "manual",
-      // 90s 过长：前端会一直卡在「正在准备本题组」。
-      // 缩短到 25s，超时后前端立即降级到本地题库。
-      signal: AbortSignal.timeout(25000),
+      // 超时取值权衡：原 90s 过长（失败时干等太久），25s 又过短
+      // ——题组预取要为 10 道题生成标准答案+原理+关键词（上限 1800 tokens），
+      // 实测常需 30-50s。取 60s：足够正常完成，失败时也不会久等。
+      signal: AbortSignal.timeout(60000),
     });
     if (response.status >= 300 && response.status < 400) return Response.json({ ok: false, message: "AI 地址发生重定向，请填写最终 HTTPS 地址。" }, { status: 502 });
     const payload = await response.json() as {
