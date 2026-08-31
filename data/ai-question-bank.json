@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-31T16:00:13.098Z",
+  "updatedAt": "2026-08-31T16:01:55.942Z",
   "questions": [
     {
       "title": "在轮胎字符深度OCR项目中，HALCON的深度OCR模型相比传统OCR在抗磨损和倾斜方面有哪些本质优势？",
@@ -12535,6 +12535,441 @@
       "trainingMode": "专业知识",
       "categoryFilter": "标定与坐标",
       "difficultyFilter": "困难",
+      "techStackFilter": "随机技术栈"
+    },
+    {
+      "title": "在C#机器视觉软件中，如何设计可扩展的图像处理流水线架构以支持算法模块灵活组合？",
+      "type": "工程实践",
+      "category": "C#与软件架构",
+      "source": "专业",
+      "sourceType": "AI知识整理",
+      "knowledgePoints": [
+        "管道-过滤器架构模式",
+        "依赖注入与策略模式",
+        "插件化模块加载",
+        "图像处理流程的可配置化"
+      ],
+      "difficulty": "中等",
+      "tags": [
+        "软件架构",
+        "C#",
+        "图像处理流水线",
+        "可扩展性"
+      ],
+      "keywords": [
+        "管道-过滤器",
+        "依赖注入",
+        "插件化",
+        "配置驱动"
+      ],
+      "followUp": "如果新增一个算法模块，需要修改哪些代码？如何做到不修改现有代码？",
+      "hint": "从架构模式入手，说明如何将图像采集、预处理、定位、测量等步骤抽象为独立过滤器，并通过配置或依赖注入组合。",
+      "techStacks": [
+        "C#",
+        ".NET",
+        "HALCON"
+      ],
+      "bestAnswer": "设计可扩展图像处理流水线，核心是采用管道-过滤器架构。将图像处理分解为采集、预处理、定位、测量等独立过滤器，每个过滤器实现统一接口（如IFilter），接收图像数据并输出结果。通过依赖注入容器（如Microsoft.Extensions.DependencyInjection）注册各过滤器，利用配置文件或数据库定义流水线顺序和参数。新算法模块只需实现接口并注册，无需修改现有代码。同时，使用策略模式封装算法变体，通过工厂类动态创建过滤器实例，实现运行时切换。此外，可采用消息队列或Channel实现过滤器间解耦，支持并行处理。",
+      "principle": "管道-过滤器架构将系统分解为多个独立处理阶段，每个阶段对输入数据进行变换并传递给下一阶段，具有高内聚低耦合特性。依赖注入通过构造器注入将过滤器依赖外部化，避免硬编码。策略模式定义算法家族并使其可互换，结合工厂模式可根据配置动态选择实现。这种设计符合开闭原则，便于扩展和维护。",
+      "id": "aiq-6259215a",
+      "generatedAt": "2026-08-31T16:02:02.625Z",
+      "provider": "custom-mtfsd2qj-i4ox3z",
+      "model": "deepseek-v4-flash",
+      "project": "机器视觉专业知识",
+      "trainingMode": "专业知识",
+      "categoryFilter": "C#与软件架构",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "随机技术栈"
+    },
+    {
+      "title": "C#调用HALCON图像处理库时，如何正确释放HObject等非托管资源以避免内存泄漏？",
+      "type": "工程实践",
+      "category": "C#与软件架构",
+      "source": "专业",
+      "sourceType": "AI知识整理",
+      "knowledgePoints": [
+        "HALCON .NET接口的资源管理",
+        "IDisposable与using语句",
+        "HObject.Dispose方法",
+        "GC与终结器"
+      ],
+      "difficulty": "中等",
+      "tags": [
+        "内存管理",
+        "HALCON",
+        "C#",
+        "非托管资源"
+      ],
+      "keywords": [
+        "HObject",
+        "Dispose",
+        "using",
+        "内存泄漏"
+      ],
+      "followUp": "在长时间运行的视觉程序中，如果发现内存持续增长，你会如何定位和排查？",
+      "hint": "从HALCON .NET接口的封装机制出发，说明HObject继承自IDisposable，需要显式释放，并注意图像复制时的引用计数。",
+      "techStacks": [
+        "C#",
+        "HALCON"
+      ],
+      "bestAnswer": "HALCON的HObject等类型封装了非托管图像内存，必须显式释放。在C#中，应使用using语句或try-finally调用Dispose方法，确保HObject在使用后立即释放。对于批量处理，避免在循环中反复创建HObject而不释放。此外，注意HObject的赋值是引用赋值，使用Clone方法复制图像时需同时管理多个引用。还可以调用GC.Collect强制回收，但应谨慎使用。建议使用HALCON提供的HOperatorSet.ClearXld等清理方法，并配合性能分析工具（如JetBrains dotMemory）监控内存趋势。",
+      "principle": "HALCON .NET接口通过P/Invoke调用底层C库，HObject对象持有指向原生图像数据的句柄。由于托管GC无法感知非托管内存压力，若未显式释放，会导致原生内存泄漏。IDisposable模式允许确定性释放，using语句在编译时自动生成try-finally调用Dispose。引用计数机制要求每个引用都需释放，否则底层数据不会回收。",
+      "id": "aiq-d57fb440",
+      "generatedAt": "2026-08-31T16:02:02.625Z",
+      "provider": "custom-mtfsd2qj-i4ox3z",
+      "model": "deepseek-v4-flash",
+      "project": "机器视觉专业知识",
+      "trainingMode": "专业知识",
+      "categoryFilter": "C#与软件架构",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "随机技术栈"
+    },
+    {
+      "title": "在C#多相机视觉系统中，如何设计并发处理架构以保证实时性和数据一致性？",
+      "type": "算法原理",
+      "category": "C#与软件架构",
+      "source": "专业",
+      "sourceType": "AI知识整理",
+      "knowledgePoints": [
+        "生产者-消费者模式",
+        "Task并行库与线程池",
+        "并发集合与同步原语",
+        "双缓冲机制"
+      ],
+      "difficulty": "困难",
+      "tags": [
+        "多线程",
+        "并发架构",
+        "C#",
+        "实时性"
+      ],
+      "keywords": [
+        "Channel",
+        "BlockingCollection",
+        "SemaphoreSlim",
+        "双缓冲"
+      ],
+      "followUp": "如果两个相机需要协同处理（如拼接），你如何保证它们采集的图像在时间上对齐？",
+      "hint": "从并发模型入手，说明每个相机对应一个采集线程，图像放入队列，处理线程从队列消费。使用Channel或BlockingCollection实现线程安全通信，并通过信号量控制处理速率。",
+      "techStacks": [
+        "C#",
+        ".NET",
+        "HALCON"
+      ],
+      "bestAnswer": "多相机系统可采用生产者-消费者模式。每个相机采集线程作为生产者，将图像帧封装为带有时间戳的Frame对象，写入Channel<Frame>或BlockingCollection。处理线程作为消费者，从队列中取出图像执行算法。使用Channel时，可设置BoundedCapacity实现背压，防止内存溢出。为保证数据一致性，使用SemaphoreSlim或lock保护共享状态。对于多相机协同，采用时间戳对齐策略，或使用硬件触发同步采集。此外，利用Task并行库将不同相机的处理任务并行化，避免线程阻塞。双缓冲可用于显示或存储，减少锁竞争。",
+      "principle": "生产者-消费者模式通过线程安全队列解耦采集与处理，Channel是.NET中基于异步的生产者-消费者实现，支持背压和取消。BlockingCollection封装了并发集合的阻塞操作。时间戳对齐需要全局时钟或硬件同步信号。Task基于线程池，能根据CPU核心数动态调度，减少线程创建开销。双缓冲通过交替读写缓冲区，避免图像显示时与处理线程冲突。",
+      "id": "aiq-6ba5fd2a",
+      "generatedAt": "2026-08-31T16:02:02.625Z",
+      "provider": "custom-mtfsd2qj-i4ox3z",
+      "model": "deepseek-v4-flash",
+      "project": "机器视觉专业知识",
+      "trainingMode": "专业知识",
+      "categoryFilter": "C#与软件架构",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "随机技术栈"
+    },
+    {
+      "title": "在C#机器视觉应用中，如何设计一个支持多相机并行采集与处理的架构？请结合异步编程和线程安全说明关键设计要点。",
+      "type": "工程实践",
+      "category": "C#与软件架构",
+      "source": "专业",
+      "sourceType": "技术教程整理",
+      "knowledgePoints": [
+        "异步编程模型",
+        "线程安全集合",
+        "生产者-消费者模式",
+        "相机SDK回调处理"
+      ],
+      "difficulty": "困难",
+      "tags": [
+        "多相机",
+        "异步",
+        "线程安全"
+      ],
+      "keywords": [
+        "async/await",
+        "Task",
+        "Channel",
+        "ConcurrentQueue",
+        "相机回调",
+        "UI线程"
+      ],
+      "followUp": "如果其中一个相机采集速度较慢，如何避免阻塞其他相机的处理？",
+      "hint": "从解耦采集与处理、使用独立任务、线程安全集合、避免死锁等角度回答。",
+      "techStacks": [
+        "C#",
+        ".NET",
+        "相机SDK"
+      ],
+      "bestAnswer": "设计时采用生产者-消费者模式，每个相机对应一个采集任务，通过Channel或ConcurrentQueue传递图像帧。采集任务使用async/await封装相机SDK的异步回调，避免阻塞。处理任务从队列中取出帧进行算法处理，并通过进度报告或事件通知UI。关键点包括：使用CancellationToken支持取消、使用SemaphoreSlim控制资源、确保UI更新通过Dispatcher或SynchronizationContext封送。对于慢速相机，可为其单独设置队列容量和丢弃策略，防止内存溢出。",
+      "principle": "异步编程避免线程阻塞，提高吞吐量；生产者-消费者模式解耦采集与处理，使不同速度的组件独立运行；线程安全集合保证数据一致性；UI线程封送避免跨线程访问异常。通过背压机制控制队列长度，防止内存溢出。",
+      "id": "aiq-c3b7698a",
+      "generatedAt": "2026-08-31T16:02:02.625Z",
+      "provider": "custom-mtfsd2qj-i4ox3z",
+      "model": "deepseek-v4-flash",
+      "project": "机器视觉专业知识",
+      "trainingMode": "专业知识",
+      "categoryFilter": "C#与软件架构",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "随机技术栈"
+    },
+    {
+      "title": "在C#视觉软件中，如何实现一个可扩展的算法插件架构，使新算法无需修改主程序即可集成？",
+      "type": "工程实践",
+      "category": "C#与软件架构",
+      "source": "专业",
+      "sourceType": "技术教程整理",
+      "knowledgePoints": [
+        "依赖倒置",
+        "反射",
+        "插件模式",
+        "接口设计"
+      ],
+      "difficulty": "中等",
+      "tags": [
+        "插件架构",
+        "反射",
+        "可扩展性"
+      ],
+      "keywords": [
+        "interface",
+        "Assembly.LoadFrom",
+        "依赖注入",
+        "策略模式"
+      ],
+      "followUp": "如何保证插件版本兼容性？如果插件抛出异常，主程序如何隔离？",
+      "hint": "从定义公共接口、使用MEF或自定义反射加载、异常隔离、沙箱等角度回答。",
+      "techStacks": [
+        "C#",
+        ".NET"
+      ],
+      "bestAnswer": "首先定义算法接口，如IVisionAlgorithm，包含输入图像、参数和输出结果的方法。主程序通过Assembly.LoadFrom或MEF扫描指定目录下的DLL，反射创建实现该接口的实例，并注册到算法工厂。采用依赖注入将日志、配置等服务传递给插件。为保证隔离，可在独立AppDomain或进程中运行插件，捕获异常并记录，不影响主程序稳定性。版本兼容可通过强名称签名和版本策略控制。",
+      "principle": "依赖倒置原则使主程序不依赖具体算法实现；反射提供运行时类型发现和实例化能力；插件模式支持开闭原则，对扩展开放、对修改关闭；异常隔离通过进程边界或AppDomain边界实现故障隔离。",
+      "id": "aiq-d446667c",
+      "generatedAt": "2026-08-31T16:02:02.625Z",
+      "provider": "custom-mtfsd2qj-i4ox3z",
+      "model": "deepseek-v4-flash",
+      "project": "机器视觉专业知识",
+      "trainingMode": "专业知识",
+      "categoryFilter": "C#与软件架构",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "随机技术栈"
+    },
+    {
+      "title": "在C#机器视觉应用中，使用WPF开发界面时，如何避免图像显示和处理造成UI卡顿？请说明异步更新UI的正确方式。",
+      "type": "现场故障",
+      "category": "C#与软件架构",
+      "source": "专业",
+      "sourceType": "技术教程整理",
+      "knowledgePoints": [
+        "WPF渲染线程",
+        "async/await",
+        "Dispatcher",
+        "数据绑定"
+      ],
+      "difficulty": "中等",
+      "tags": [
+        "WPF",
+        "异步",
+        "UI线程"
+      ],
+      "keywords": [
+        "Dispatcher",
+        "async/await",
+        "INotifyPropertyChanged",
+        "Freeze"
+      ],
+      "followUp": "如果图像数据量很大，直接绑定到Image控件会有什么问题？如何优化？",
+      "hint": "从UI线程职责、异步处理、使用WriteableBitmap、冻结图像等角度回答。",
+      "techStacks": [
+        "WPF",
+        "C#"
+      ],
+      "bestAnswer": "WPF的UI线程负责渲染和交互，耗时操作应放在后台线程。使用async/await将图像处理任务放入线程池，完成后通过await回到UI线程更新UI。更新UI时使用Dispatcher.InvokeAsync或绑定到实现INotifyPropertyChanged的属性。对于大图像，使用WriteableBitmap并直接写入像素数据，避免频繁的BitmapSource转换。图像对象可调用Freeze()使其跨线程共享，减少复制开销。避免在UI线程中执行循环或阻塞操作。",
+      "principle": "WPF的Dispatcher维护UI线程的消息循环，异步操作通过SynchronizationContext封送回调；WriteableBitmap允许在后台线程直接更新像素，减少UI线程负担；Freeze将Freezable对象变为只读，可安全跨线程访问，提高性能。",
+      "id": "aiq-910123a8",
+      "generatedAt": "2026-08-31T16:02:02.625Z",
+      "provider": "custom-mtfsd2qj-i4ox3z",
+      "model": "deepseek-v4-flash",
+      "project": "机器视觉专业知识",
+      "trainingMode": "专业知识",
+      "categoryFilter": "C#与软件架构",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "随机技术栈"
+    },
+    {
+      "title": "在C#机器视觉应用中，如何利用System.Threading.Channels设计一个生产者-消费者管道，以解耦相机采集与图像处理并控制背压？",
+      "type": "工程实践",
+      "category": "C#与软件架构",
+      "source": "专业",
+      "sourceType": "AI知识整理",
+      "knowledgePoints": [
+        "Channel有界通道的背压机制",
+        "异步生产者-消费者模式",
+        "与BlockingCollection的对比及适用场景"
+      ],
+      "difficulty": "中等",
+      "tags": [
+        "C#",
+        "Channel",
+        "并发",
+        "机器视觉"
+      ],
+      "keywords": [
+        "Channel.CreateBounded",
+        "WriteAsync",
+        "ReadAllAsync",
+        "FullMode"
+      ],
+      "followUp": "如果消费者处理速度跟不上，如何动态调整通道容量？如何监控通道积压情况？若生产者异常退出，如何保证消费者不永久阻塞？",
+      "hint": "先说明使用有界通道，再说明FullMode.Wait实现背压，然后说明异步消费，最后提及异常处理与监控。",
+      "techStacks": [
+        "C#/.NET"
+      ],
+      "bestAnswer": "在C#机器视觉应用中，可使用System.Threading.Channels的Channel.CreateBounded<T>创建有界通道，相机采集线程通过WriteAsync将图像帧写入通道，图像处理线程通过ReadAllAsync异步消费。设置容量（如10）和FullMode.Wait，当通道满时生产者异步等待，实现背压控制，避免内存无限增长。相比BlockingCollection，Channel支持异步API、更高的吞吐量和更清晰的生产者-消费者解耦，适合实时图像流。同时应处理消费者异常，确保管道不中断。",
+      "principle": "Channel是.NET中基于异步数据流模型的生产者-消费者通道，内部使用异步同步原语（如AsyncWaitNode）实现等待和唤醒。有界通道在容量满时根据FullMode策略（Wait/DropNewest/DropOldest等）控制写入行为，从而将背压传递给生产者。ReadAllAsync返回IAsyncEnumerable<T>，消费者可用await foreach消费，实现非阻塞的流式处理。相比BlockingCollection的同步阻塞，Channel避免了线程阻塞，减少上下文切换，更适合高吞吐低延迟的视觉应用。",
+      "id": "aiq-9c52ed38",
+      "generatedAt": "2026-08-31T16:02:02.625Z",
+      "provider": "custom-mtfsd2qj-i4ox3z",
+      "model": "deepseek-v4-flash",
+      "project": "机器视觉专业知识",
+      "trainingMode": "专业知识",
+      "categoryFilter": "C#与软件架构",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "随机技术栈"
+    },
+    {
+      "title": "在C#机器视觉应用中，如何设计一个健壮的图像处理任务调度器，以管理多个图像源的处理请求并保证资源可控？",
+      "type": "工程实践",
+      "category": "C#与软件架构",
+      "source": "专业",
+      "sourceType": "AI知识整理",
+      "knowledgePoints": [
+        "生产者-消费者模式在图像处理任务队列中的应用",
+        "ConcurrentQueue与BlockingCollection的线程安全特性",
+        "CancellationToken实现任务取消与超时控制",
+        "SemaphoreSlim限制并发处理数量以保护资源"
+      ],
+      "difficulty": "中等",
+      "tags": [
+        "任务调度",
+        "并发",
+        "线程安全",
+        "资源控制"
+      ],
+      "keywords": [
+        "生产者消费者",
+        "ConcurrentQueue",
+        "CancellationToken",
+        "SemaphoreSlim"
+      ],
+      "followUp": "如果某个图像处理任务长时间运行导致后续任务堆积，你会如何优化调度策略？",
+      "hint": "从任务队列的线程安全、并发上限、取消机制三个层面展开，说明如何避免资源耗尽和任务丢失。",
+      "techStacks": [
+        "C#",
+        ".NET"
+      ],
+      "bestAnswer": "设计任务调度器时，我采用生产者-消费者模式：图像采集线程作为生产者，将处理请求封装为任务对象放入线程安全的BlockingCollection队列；消费者线程池从队列中取出任务执行。使用CancellationTokenSource控制任务取消，每个任务传入取消令牌，支持超时和系统关闭时优雅终止。同时用SemaphoreSlim限制最大并发处理数，避免图像处理占用过多CPU或内存。队列可设置上限，防止积压导致内存膨胀，超过上限时采取丢弃或阻塞策略。消费者采用独立线程或Task循环，确保异常时能捕获并记录，保持调度器稳定运行。",
+      "principle": "BlockingCollection基于ConcurrentQueue实现，提供线程安全的添加和取出操作，并支持阻塞等待和取消令牌，适合多生产者多消费者场景。SemaphoreSlim通过计数信号量控制同时访问资源的线程数，避免过载。CancellationToken协作式取消机制允许任务在执行中响应取消请求，及时释放资源。生产者-消费者模式解耦了采集与处理，使系统能平滑应对突发请求，并通过队列缓冲平衡生产与消费速率。",
+      "id": "aiq-e103a6dd",
+      "generatedAt": "2026-08-31T16:02:02.625Z",
+      "provider": "custom-mtfsd2qj-i4ox3z",
+      "model": "deepseek-v4-flash",
+      "project": "机器视觉专业知识",
+      "trainingMode": "专业知识",
+      "categoryFilter": "C#与软件架构",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "随机技术栈"
+    },
+    {
+      "title": "在C#机器视觉应用中，如何设计一个相机抽象层，使不同厂商的相机（如Basler、海康、大恒）能够通过统一接口调用，并在不修改上层算法逻辑的情况下实现相机切换？",
+      "type": "工程实践",
+      "category": "C#与软件架构",
+      "source": "专业",
+      "sourceType": "AI知识整理",
+      "knowledgePoints": [
+        "适配器模式在相机SDK封装中的应用",
+        "依赖注入与工厂模式实现相机热切换",
+        "相机参数配置的序列化与反序列化",
+        "异常处理与相机状态管理"
+      ],
+      "difficulty": "中等",
+      "tags": [
+        "相机抽象层",
+        "适配器模式",
+        "依赖注入",
+        "软件架构"
+      ],
+      "keywords": [
+        "ICamera接口",
+        "相机工厂",
+        "适配器",
+        "依赖注入",
+        "配置驱动"
+      ],
+      "followUp": "如何保证不同相机SDK的异常行为一致性？如果新增一个相机品牌，需要修改哪些代码？",
+      "hint": "先定义统一的相机接口（连接、采集、参数设置），再为每个品牌实现适配器，通过工厂或DI容器注册，配置驱动创建实例。注意异常转换和资源释放。",
+      "techStacks": [
+        "C#",
+        "Microsoft.Extensions.DependencyInjection"
+      ],
+      "bestAnswer": "设计一个ICamera接口，定义连接、断开、开始采集、停止采集、读取参数、设置参数等核心方法。为每个相机品牌（如Basler、海康）实现一个适配器，内部封装厂商SDK的差异。使用依赖注入容器注册这些适配器，并通过配置文件（如appsettings.json）指定当前使用的相机类型，由工厂或DI容器根据配置创建实例。上层算法只依赖ICamera接口，切换相机时只需修改配置或注册新适配器，无需改动算法逻辑。同时，每个适配器需将SDK异常转换为统一的CameraException，并实现IDisposable以释放非托管资源。",
+      "principle": "适配器模式将不同厂商SDK的接口转换为统一接口，隔离外部依赖。依赖注入和工厂模式将对象创建与使用解耦，使系统遵循开闭原则。配置驱动使得系统在运行时能动态选择具体实现，提高可维护性。同时，通过统一异常和资源管理，保证系统健壮性。",
+      "id": "aiq-fd465a80",
+      "generatedAt": "2026-08-31T16:02:02.625Z",
+      "provider": "custom-mtfsd2qj-i4ox3z",
+      "model": "deepseek-v4-flash",
+      "project": "机器视觉专业知识",
+      "trainingMode": "专业知识",
+      "categoryFilter": "C#与软件架构",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "随机技术栈"
+    },
+    {
+      "title": "在C#机器视觉应用中，如何设计一个图像缓冲区池（Buffer Pool）以避免频繁分配大数组导致的GC性能问题？",
+      "type": "工程实践",
+      "category": "C#与软件架构",
+      "source": "专业",
+      "sourceType": "AI知识整理",
+      "knowledgePoints": [
+        "大对象堆（LOH）的分配与GC性能影响",
+        "对象池模式（Object Pool）的核心设计",
+        "System.Buffers.ArrayPool<T> 的使用与限制",
+        "线程安全与缓冲区租约（Lease）机制"
+      ],
+      "difficulty": "中等",
+      "tags": [
+        "C#",
+        "内存管理",
+        "对象池",
+        "GC优化",
+        "性能调优"
+      ],
+      "keywords": [
+        "LOH",
+        "GC压力",
+        "ArrayPool",
+        "租约",
+        "线程安全",
+        "内存复用"
+      ],
+      "followUp": "如果使用ArrayPool<T>，如何处理不同尺寸的图像？如果池中的缓冲区被外部长期持有，如何避免池膨胀？",
+      "hint": "先指出大数组分配在LOH上的问题，再引出对象池设计，重点讨论ArrayPool和自定义池的取舍，以及线程安全和归还机制。",
+      "techStacks": [
+        "C#",
+        ".NET Core",
+        "System.Buffers"
+      ],
+      "bestAnswer": "在C#机器视觉中，图像帧通常是几MB到几十MB的大数组，频繁分配会在大对象堆（LOH）上产生碎片和GC压力。设计上可采用对象池复用缓冲区：定义租约（Lease）机制，使用方从池中借出缓冲区，用完后归还。优先使用System.Buffers.ArrayPool<T>，它已针对此场景优化，支持按桶管理不同尺寸数组。对于固定尺寸的相机帧，可自定义环形池以避免ArrayPool的尺寸匹配开销。池需支持线程安全，可使用ConcurrentQueue或Semaphore控制并发访问，并处理缓冲区归还时的清空（如Array.Clear）以防数据泄露。此外，要设置最大池大小，避免高负载下池无限增长。",
+      "principle": "大对象堆（LOH）上的对象不会被压缩，频繁分配和释放大数组会导致内存碎片化，且GC扫描成本高。对象池通过复用已分配的内存减少分配次数，降低GC压力。ArrayPool<T>内部按2的幂次分桶，提供共享和线程私有数组，减少锁竞争。租约模式通过IDisposable确保归还，避免内存泄漏。设计时需平衡池大小与内存占用，并考虑缓冲区尺寸多样性。",
+      "id": "aiq-c154ffcc",
+      "generatedAt": "2026-08-31T16:02:02.625Z",
+      "provider": "custom-mtfsd2qj-i4ox3z",
+      "model": "deepseek-v4-flash",
+      "project": "机器视觉专业知识",
+      "trainingMode": "专业知识",
+      "categoryFilter": "C#与软件架构",
+      "difficultyFilter": "随机难度",
       "techStackFilter": "随机技术栈"
     }
   ]
