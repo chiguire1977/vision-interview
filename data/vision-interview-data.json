@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-08-31T16:02:26.588Z",
+  "updatedAt": "2026-08-31T16:02:45.011Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1833,6 +1833,62 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788192167359-pmiinxxf",
+        "timestamp": "2026-08-31T16:02:47.359Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788191832589-2rrvv7qm",
+        "event": "question-group.prepare.completed",
+        "message": "AI 已生成完整 10 道题目、标准回答和技术原理；远程题库正在后台同步。",
+        "context": {
+          "source": "AI",
+          "questionCount": 10
+        }
+      },
+      {
+        "id": "1788192167354-445e06p5",
+        "timestamp": "2026-08-31T16:02:47.354Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788191832589-2rrvv7qm",
+        "event": "github.backup.started",
+        "message": "开始备份数据到 GitHub",
+        "context": {
+          "operation": "ai-question-bank",
+          "entryCount": 10,
+          "pendingCount": 10
+        }
+      },
+      {
+        "id": "1788192167349-86es6sc8",
+        "timestamp": "2026-08-31T16:02:47.349Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788191832589-2rrvv7qm",
+        "event": "question-bank.ai-request.completed",
+        "message": "第 3/6 轮：AI 已返回 10/10 道有效题目。",
+        "context": {
+          "attempt": 3,
+          "maxAttempts": 6,
+          "collectedCount": 10,
+          "targetCount": 10,
+          "parallelRequests": 3,
+          "requestedCount": 2
+        }
+      },
+      {
+        "id": "1788192155945-j1aiskjc",
+        "timestamp": "2026-08-31T16:02:35.945Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "596e1bda4a13"
+        }
+      },
       {
         "id": "1788192152866-kue8m86i",
         "timestamp": "2026-08-31T16:02:32.866Z",
@@ -18088,75 +18144,6 @@
           "workerIndex": 2,
           "parallelRequests": 3,
           "requestedCount": 3
-        }
-      },
-      {
-        "id": "1788186147133-4igudalt",
-        "timestamp": "2026-08-31T14:22:27.133Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788185400191-3fe71itf",
-        "event": "question-bank.web-search.started",
-        "message": "开始联网检索本轮题目资料",
-        "context": {
-          "attempt": 3,
-          "query": "机器视觉 边缘与特征 C#视觉开发 原理 工程实践",
-          "mode": "专业知识",
-          "excludedCount": 0,
-          "workerIndex": 1,
-          "parallelRequests": 3,
-          "requestedCount": 4
-        }
-      },
-      {
-        "id": "1788186147130-wv8r466k",
-        "timestamp": "2026-08-31T14:22:27.130Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788185400191-3fe71itf",
-        "event": "question-bank.attempt.failed",
-        "message": "第 2/6 轮（并行 3/3）：本轮请求失败：请先配置当前 AI 服务商的 API Key。，准备下一轮…",
-        "context": {
-          "attempt": 2,
-          "maxAttempts": 6,
-          "collectedCount": 0,
-          "workerIndex": 3,
-          "parallelRequests": 3,
-          "error": "请先配置当前 AI 服务商的 API Key。"
-        }
-      },
-      {
-        "id": "1788186147127-od0nxv0x",
-        "timestamp": "2026-08-31T14:22:27.127Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788185400191-3fe71itf",
-        "event": "question-bank.attempt.failed",
-        "message": "第 2/6 轮（并行 2/3）：本轮请求失败：请先配置当前 AI 服务商的 API Key。，准备下一轮…",
-        "context": {
-          "attempt": 2,
-          "maxAttempts": 6,
-          "collectedCount": 0,
-          "workerIndex": 2,
-          "parallelRequests": 3,
-          "error": "请先配置当前 AI 服务商的 API Key。"
-        }
-      },
-      {
-        "id": "1788186147124-lbt5430y",
-        "timestamp": "2026-08-31T14:22:27.124Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788185400191-3fe71itf",
-        "event": "question-bank.attempt.failed",
-        "message": "第 2/6 轮（并行 1/3）：本轮请求失败：请先配置当前 AI 服务商的 API Key。，准备下一轮…",
-        "context": {
-          "attempt": 2,
-          "maxAttempts": 6,
-          "collectedCount": 0,
-          "workerIndex": 1,
-          "parallelRequests": 3,
-          "error": "请先配置当前 AI 服务商的 API Key。"
         }
       }
     ]
