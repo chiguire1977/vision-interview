@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-08-31T10:51:04.827Z",
+  "updatedAt": "2026-08-31T10:51:11.650Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1385,6 +1385,46 @@
     },
     "vision-interview-project-view": "card",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788173473526-kz3m2az9",
+        "timestamp": "2026-08-31T10:51:13.526Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "27d5a4645088"
+        }
+      },
+      {
+        "id": "1788173468477-4nad4u5r",
+        "timestamp": "2026-08-31T10:51:08.477Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788173431526-0jc1t5h7",
+        "event": "question-group.prepare.completed",
+        "message": "AI 多轮联网搜索与生成后仍未获得有效题目，已使用本地题库与标准答案。",
+        "context": {
+          "source": "本地规则",
+          "questionCount": 10
+        }
+      },
+      {
+        "id": "1788173468470-rp1s67nc",
+        "timestamp": "2026-08-31T10:51:08.470Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788173431526-0jc1t5h7",
+        "event": "question-bank.attempt.failed",
+        "message": "第 6/6 轮：本轮请求失败：请先配置当前 AI 服务商的 API Key。，准备下一轮…",
+        "context": {
+          "attempt": 6,
+          "maxAttempts": 6,
+          "collectedCount": 0,
+          "error": "请先配置当前 AI 服务商的 API Key。"
+        }
+      },
       {
         "id": "1788173467886-xfj7vj1d",
         "timestamp": "2026-08-31T10:51:07.886Z",
@@ -13734,44 +13774,6 @@
           "question": "在轮胎字符OCR项目中，数据增强对模型性能提升有多大作用？请列举至少三种适合该场景的数据增强方法。",
           "mode": "专业专项",
           "project": "轮胎字符深度 OCR"
-        }
-      },
-      {
-        "id": "1788144473420-ng9nln6p",
-        "timestamp": "2026-08-31T02:47:53.420Z",
-        "level": "WARN",
-        "kind": "user",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "在轮胎字符OCR项目中，局部对比度增强是如何实现的？请说明其原理和参数选择对识别效果的影响。",
-          "mode": "专业专项",
-          "project": "轮胎字符深度 OCR"
-        }
-      },
-      {
-        "id": "1788144472533-cq5vaqlq",
-        "timestamp": "2026-08-31T02:47:52.533Z",
-        "level": "WARN",
-        "kind": "user",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "在轮胎字符深度OCR项目中，为什么选择HALCON的深度OCR而不是传统OCR？请从算法原理和工程实践两方面说明。",
-          "mode": "专业专项",
-          "project": "轮胎字符深度 OCR"
-        }
-      },
-      {
-        "id": "1788144448892-7w744dfa",
-        "timestamp": "2026-08-31T02:47:28.892Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "question-group.prepare.completed",
-        "message": "AI 已生成完整 10 道题目、标准回答和技术原理；生成题已加入 GitHub 备份队列。",
-        "context": {
-          "source": "AI",
-          "questionCount": 10
         }
       }
     ]
