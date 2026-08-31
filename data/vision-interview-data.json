@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-08-31T12:09:00.675Z",
+  "updatedAt": "2026-08-31T12:09:10.981Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1818,6 +1818,75 @@
     },
     "vision-interview-project-view": "card",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788178155063-5ymuxo91",
+        "timestamp": "2026-08-31T12:09:15.063Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788176733288-egduzojh",
+        "event": "question-bank.ai-request.started",
+        "message": "第 1/6 轮：正在请求 AI 生成题目…",
+        "context": {
+          "attempt": 1,
+          "maxAttempts": 6,
+          "collectedCount": 0
+        }
+      },
+      {
+        "id": "1788178155060-q6x45350",
+        "timestamp": "2026-08-31T12:09:15.060Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788176733288-egduzojh",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 1,
+          "query": "机器视觉 面试知识点 HALCON 原理 工程实践",
+          "sourceCount": 8
+        }
+      },
+      {
+        "id": "1788178153954-eafxp6i8",
+        "timestamp": "2026-08-31T12:09:13.954Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788176733288-egduzojh",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 1,
+          "query": "机器视觉 面试知识点 HALCON 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 0
+        }
+      },
+      {
+        "id": "1788178153951-97k8rrob",
+        "timestamp": "2026-08-31T12:09:13.951Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788176733288-egduzojh",
+        "event": "question-group.prepare.started",
+        "message": "开始准备题组",
+        "context": {
+          "project": "轮胎字符深度 OCR",
+          "mode": "专业知识",
+          "questionCount": 3
+        }
+      },
+      {
+        "id": "1788178149684-3yn5yfqe",
+        "timestamp": "2026-08-31T12:09:09.684Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "650157d7a758"
+        }
+      },
       {
         "id": "1788178146024-p9phbakk",
         "timestamp": "2026-08-31T12:09:06.024Z",
@@ -15068,58 +15137,6 @@
         "kind": "system",
         "event": "backup.close.flush",
         "message": "页面关闭或进入后台，提交最后一次备份"
-      },
-      {
-        "id": "1788165148117-4ljdu5hb",
-        "timestamp": "2026-08-31T08:32:28.117Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "1e0039b487f7"
-        }
-      },
-      {
-        "id": "1788165145540-hclw8ifb",
-        "timestamp": "2026-08-31T08:32:25.540Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "8ffe376d5451"
-        }
-      },
-      {
-        "id": "1788165143228-tpigtxzi",
-        "timestamp": "2026-08-31T08:32:23.228Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.close.flush",
-        "message": "页面关闭或进入后台，提交最后一次备份"
-      },
-      {
-        "id": "1788165137698-i3xgm32k",
-        "timestamp": "2026-08-31T08:32:17.698Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.close.flush",
-        "message": "页面关闭或进入后台，提交最后一次备份"
-      },
-      {
-        "id": "1788165052614-94sn3hut",
-        "timestamp": "2026-08-31T08:30:52.614Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "7ac6b59e0a28"
-        }
       }
     ]
   }
