@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-08-31T12:48:40.387Z",
+  "updatedAt": "2026-08-31T12:48:43.918Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1818,6 +1818,46 @@
     },
     "vision-interview-project-view": "card",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788180529377-mw6x972x",
+        "timestamp": "2026-08-31T12:48:49.377Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "e75b031fa120"
+        }
+      },
+      {
+        "id": "1788180526303-cj1pxhsb",
+        "timestamp": "2026-08-31T12:48:46.303Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788180465290-hkmcrs6i",
+        "event": "question-bank.ai-request.started",
+        "message": "第 2/6 轮：正在请求 AI 生成题目…",
+        "context": {
+          "attempt": 2,
+          "maxAttempts": 6,
+          "collectedCount": 0
+        }
+      },
+      {
+        "id": "1788180526300-6z3ctqed",
+        "timestamp": "2026-08-31T12:48:46.300Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788180465290-hkmcrs6i",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 2,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "sourceCount": 0
+        }
+      },
       {
         "id": "1788180525972-3qcci1vc",
         "timestamp": "2026-08-31T12:48:45.972Z",
@@ -15091,43 +15131,6 @@
         "context": {
           "reason": "change",
           "commit": "cc051803e287"
-        }
-      },
-      {
-        "id": "1788166924621-xb3xeec4",
-        "timestamp": "2026-08-31T09:02:04.621Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "ef2f9544ecf8"
-        }
-      },
-      {
-        "id": "1788166922401-rizc4atl",
-        "timestamp": "2026-08-31T09:02:02.401Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "5e2e2e425693"
-        }
-      },
-      {
-        "id": "1788166921747-d87e61qk",
-        "timestamp": "2026-08-31T09:02:01.747Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788166885160-rwxfoopb",
-        "event": "question-group.prepare.completed",
-        "message": "AI 多轮联网搜索与生成后仍未获得有效题目，已使用本地题库与标准答案。",
-        "context": {
-          "source": "本地规则",
-          "questionCount": 10
         }
       }
     ]
