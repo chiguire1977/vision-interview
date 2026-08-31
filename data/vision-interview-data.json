@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-08-31T10:05:51.788Z",
+  "updatedAt": "2026-08-31T10:05:52.435Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1337,97 +1337,114 @@
     "vision-interview-project-view": "card",
     "vision-interview-runtime-logs": [
       {
-        "id": "1788170753917-1zxvg44x",
-        "timestamp": "2026-08-31T10:05:53.917Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788169988616-qqc3c3wb",
-        "event": "question-bank.cache.saved",
-        "message": "AI 题库已完成远程同步",
-        "context": {
-          "questionCount": 10,
-          "pendingCount": 0
-        }
-      },
-      {
-        "id": "1788170753914-pcv1ntjf",
-        "timestamp": "2026-08-31T10:05:53.914Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788169988616-qqc3c3wb",
-        "event": "github.backup.succeeded",
-        "message": "数据已成功备份到 GitHub",
-        "context": {
-          "operation": "ai-question-bank",
-          "entryCount": 10,
-          "pendingCount": 0,
-          "status": 200
-        }
-      },
-      {
-        "id": "1788170748656-rn45nxn6",
-        "timestamp": "2026-08-31T10:05:48.656Z",
+        "id": "1788170747114-e65ney67",
+        "timestamp": "2026-08-31T10:05:47.114Z",
         "level": "INFO",
         "kind": "system",
         "event": "backup.push.saved",
         "message": "运行数据已备份到 GitHub",
         "context": {
           "reason": "change",
-          "commit": "112747615a49"
+          "commit": "a99b92c43870"
         }
       },
       {
-        "id": "1788170741483-o6mlekxs",
-        "timestamp": "2026-08-31T10:05:41.483Z",
+        "id": "1788170744887-y5gviod4",
+        "timestamp": "2026-08-31T10:05:44.886Z",
         "level": "INFO",
         "kind": "system",
-        "sessionId": "1788169988616-qqc3c3wb",
-        "event": "question-group.prepare.completed",
-        "message": "AI 已生成完整 10 道题目、标准回答和技术原理；远程题库正在后台同步。",
+        "sessionId": "1788170737293-lq2t7wjd",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
         "context": {
-          "source": "AI",
+          "attempt": 2,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 0
+        }
+      },
+      {
+        "id": "1788170744875-dnnjx971",
+        "timestamp": "2026-08-31T10:05:44.875Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788170737293-lq2t7wjd",
+        "event": "question-bank.attempt.failed",
+        "message": "第 1/6 轮：本轮请求失败：请先配置当前 AI 服务商的 API Key。，准备下一轮…",
+        "context": {
+          "attempt": 1,
+          "maxAttempts": 6,
+          "collectedCount": 0,
+          "error": "请先配置当前 AI 服务商的 API Key。"
+        }
+      },
+      {
+        "id": "1788170741418-tawmcybj",
+        "timestamp": "2026-08-31T10:05:41.418Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788170737293-lq2t7wjd",
+        "event": "question-bank.ai-request.started",
+        "message": "第 1/6 轮：正在请求 AI 生成题目…",
+        "context": {
+          "attempt": 1,
+          "maxAttempts": 6,
+          "collectedCount": 0
+        }
+      },
+      {
+        "id": "1788170741398-i3z3ve3a",
+        "timestamp": "2026-08-31T10:05:41.398Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788170737293-lq2t7wjd",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 1,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "sourceCount": 8
+        }
+      },
+      {
+        "id": "1788170737478-9txqg18u",
+        "timestamp": "2026-08-31T10:05:37.478Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788170737293-lq2t7wjd",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 1,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 0
+        }
+      },
+      {
+        "id": "1788170737448-0s2z3kgi",
+        "timestamp": "2026-08-31T10:05:37.448Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788170737293-lq2t7wjd",
+        "event": "question-group.prepare.started",
+        "message": "开始准备题组",
+        "context": {
+          "project": "轮胎字符深度 OCR",
+          "mode": "专业知识",
           "questionCount": 10
         }
       },
       {
-        "id": "1788170741480-aupy05ke",
-        "timestamp": "2026-08-31T10:05:41.480Z",
+        "id": "1788170737273-z2ajt3hr",
+        "timestamp": "2026-08-31T10:05:37.271Z",
         "level": "INFO",
         "kind": "system",
-        "sessionId": "1788169988616-qqc3c3wb",
-        "event": "github.backup.started",
-        "message": "开始备份数据到 GitHub",
+        "event": "backup.startup.loaded",
+        "message": "启动配置加载完成",
         "context": {
-          "operation": "ai-question-bank",
-          "entryCount": 10,
-          "pendingCount": 10
-        }
-      },
-      {
-        "id": "1788170741476-hf37gd9j",
-        "timestamp": "2026-08-31T10:05:41.476Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788169988616-qqc3c3wb",
-        "event": "question-bank.ai-request.completed",
-        "message": "第 2/6 轮：AI 已返回 10/10 道有效题目。",
-        "context": {
-          "attempt": 2,
-          "maxAttempts": 6,
-          "collectedCount": 10,
-          "targetCount": 10
-        }
-      },
-      {
-        "id": "1788170702934-wlhq64ei",
-        "timestamp": "2026-08-31T10:05:02.934Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "84049aaec75b"
+          "source": "github",
+          "updatedAt": "2026-08-31T10:04:54.658Z"
         }
       },
       {
@@ -13811,19 +13828,6 @@
         "message": "当前题目已跳过",
         "context": {
           "question": "在轮胎字符OCR项目中，Modbus TCP通信如何与PLC协同工作？请描述数据流和时序控制。",
-          "mode": "专业专项",
-          "project": "轮胎字符深度 OCR"
-        }
-      },
-      {
-        "id": "1788145024828-mrpj482f",
-        "timestamp": "2026-08-31T02:57:04.828Z",
-        "level": "WARN",
-        "kind": "user",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "在轮胎字符OCR项目中，数据增强具体采用了哪些方法？这些方法如何帮助模型应对倾斜和磨损？",
           "mode": "专业专项",
           "project": "轮胎字符深度 OCR"
         }
