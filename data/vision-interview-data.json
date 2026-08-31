@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-08-31T11:37:18.827Z",
+  "updatedAt": "2026-08-31T11:37:24.975Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1802,6 +1802,74 @@
     },
     "vision-interview-project-view": "card",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788176247286-tf486fhp",
+        "timestamp": "2026-08-31T11:37:27.286Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "1879d75f30ac"
+        }
+      },
+      {
+        "id": "1788176245004-2ujt1ff6",
+        "timestamp": "2026-08-31T11:37:25.004Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788176203438-ysmpqxee",
+        "event": "question-group.prepare.completed",
+        "message": "AI 多轮联网搜索与生成后仍未获得有效题目，已使用本地题库与标准答案。",
+        "context": {
+          "source": "本地规则",
+          "questionCount": 10
+        }
+      },
+      {
+        "id": "1788176245001-tma73q6n",
+        "timestamp": "2026-08-31T11:37:25.001Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788176203438-ysmpqxee",
+        "event": "question-bank.attempt.failed",
+        "message": "第 6/6 轮：本轮请求失败：请先配置当前 AI 服务商的 API Key。，准备下一轮…",
+        "context": {
+          "attempt": 6,
+          "maxAttempts": 6,
+          "collectedCount": 0,
+          "error": "请先配置当前 AI 服务商的 API Key。"
+        }
+      },
+      {
+        "id": "1788176242099-1owlmzed",
+        "timestamp": "2026-08-31T11:37:22.099Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788176203438-ysmpqxee",
+        "event": "question-bank.ai-request.started",
+        "message": "第 6/6 轮：正在请求 AI 生成题目…",
+        "context": {
+          "attempt": 6,
+          "maxAttempts": 6,
+          "collectedCount": 0
+        }
+      },
+      {
+        "id": "1788176242097-r1gsmax4",
+        "timestamp": "2026-08-31T11:37:22.097Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788176203438-ysmpqxee",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 6,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "sourceCount": 0
+        }
+      },
       {
         "id": "1788176241370-oyex1fva",
         "timestamp": "2026-08-31T11:37:21.370Z",
@@ -14203,64 +14271,6 @@
         "message": "运行数据备份请求失败",
         "context": {
           "error": "Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON"
-        }
-      },
-      {
-        "id": "1788146667298-cgn046zc",
-        "timestamp": "2026-08-31T03:24:27.298Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.close.flush",
-        "message": "页面关闭或进入后台，提交最后一次备份"
-      },
-      {
-        "id": "1788146656294-82wt6pnz",
-        "timestamp": "2026-08-31T03:24:16.294Z",
-        "level": "ERROR",
-        "kind": "system",
-        "event": "records.upload.failed",
-        "message": "学习记录上传失败：GitHub 读取失败（HTTP 403）：\r\nRequest forbidden by administrative rules. Please make sure your request has a User-Agent header (https://docs.github.com/en/rest/overview/resources-in-the-rest-api#user-agent-required). Check https://developer.github.com for other possib",
-        "context": {
-          "status": 502,
-          "reason": "GitHub 读取失败（HTTP 403）：\r\nRequest forbidden by administrative rules. Please make sure your request has a User-Agent header (https://docs.github.com/en/rest/overview/resources-in-the-rest-api#user-agent-required). Check https://developer.github.com for other possib",
-          "recordCount": 32
-        }
-      },
-      {
-        "id": "1788146656101-94fljzo7",
-        "timestamp": "2026-08-31T03:24:16.101Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "records.upload.started",
-        "message": "开始统一上传学习记录",
-        "context": {
-          "recordCount": 32
-        }
-      },
-      {
-        "id": "1788146643269-vjy8fyvh",
-        "timestamp": "2026-08-31T03:24:03.269Z",
-        "level": "WARN",
-        "kind": "user",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "在HALCON中，进行边缘提取时，常用的算子有sobel_amp、canny和edges_sub_pix，它们各自的特点和适用场景是什么？",
-          "mode": "专业知识",
-          "project": "轮胎字符深度 OCR"
-        }
-      },
-      {
-        "id": "1788146642749-ft9fom34",
-        "timestamp": "2026-08-31T03:24:02.749Z",
-        "level": "WARN",
-        "kind": "user",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "在HALCON中，使用blob分析进行缺陷检测时，如果目标缺陷与背景灰度差异很小，你会采用哪些图像预处理方法增强对比度？",
-          "mode": "专业知识",
-          "project": "轮胎字符深度 OCR"
         }
       }
     ]
