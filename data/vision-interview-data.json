@@ -1,5 +1,920 @@
 {
   "version": 2,
-  "updatedAt": "",
-  "data": {}
+  "updatedAt": "2026-08-31T03:29:07.071Z",
+  "data": {
+    "vision-interview-ai-preferences": {
+      "provider": "deepseek",
+      "model": "deepseek-v4-flash",
+      "openaiBaseUrl": "https://api.deepseek.com",
+      "aiScoring": true,
+      "bestAnswer": true,
+      "smartFollowUp": true,
+      "webQuestions": true
+    },
+    "vision-interview-ai-provider-settings": {
+      "deepseek": {
+        "model": "deepseek-v4-flash",
+        "baseUrl": "https://api.deepseek.com",
+        "openaiBaseUrl": "https://api.deepseek.com",
+        "availableModels": [
+          {
+            "label": "deepseek-v4-flash",
+            "value": "deepseek-v4-flash"
+          },
+          {
+            "label": "deepseek-v4-flash-vision-exp",
+            "value": "deepseek-v4-flash-vision-exp"
+          },
+          {
+            "label": "deepseek-v4-pro",
+            "value": "deepseek-v4-pro"
+          }
+        ]
+      }
+    },
+    "vision-interview-runtime-logs": [
+      {
+        "id": "1788146892760-2f5fq9db",
+        "timestamp": "2026-08-31T03:28:12.760Z",
+        "level": "INFO",
+        "event": "backup.close.flush",
+        "message": "页面关闭或进入后台，提交最后一次备份"
+      },
+      {
+        "id": "1788146856410-4ve0faek",
+        "timestamp": "2026-08-31T03:27:36.410Z",
+        "level": "INFO",
+        "event": "backup.close.flush",
+        "message": "页面关闭或进入后台，提交最后一次备份"
+      },
+      {
+        "id": "1788146799833-pt6pa9ii",
+        "timestamp": "2026-08-31T03:26:39.833Z",
+        "level": "INFO",
+        "event": "backup.close.flush",
+        "message": "页面关闭或进入后台，提交最后一次备份"
+      },
+      {
+        "id": "1788146774209-59aez6tv",
+        "timestamp": "2026-08-31T03:26:14.209Z",
+        "level": "INFO",
+        "event": "backup.close.flush",
+        "message": "页面关闭或进入后台，提交最后一次备份"
+      },
+      {
+        "id": "1788146694707-vsfnhqqh",
+        "timestamp": "2026-08-31T03:24:54.707Z",
+        "level": "INFO",
+        "event": "backup.close.flush",
+        "message": "页面关闭或进入后台，提交最后一次备份"
+      },
+      {
+        "id": "1788146667298-cgn046zc",
+        "timestamp": "2026-08-31T03:24:27.298Z",
+        "level": "INFO",
+        "event": "backup.close.flush",
+        "message": "页面关闭或进入后台，提交最后一次备份"
+      },
+      {
+        "id": "1788146656294-82wt6pnz",
+        "timestamp": "2026-08-31T03:24:16.294Z",
+        "level": "ERROR",
+        "event": "records.upload.failed",
+        "message": "学习记录上传失败：GitHub 读取失败（HTTP 403）：\r\nRequest forbidden by administrative rules. Please make sure your request has a User-Agent header (https://docs.github.com/en/rest/overview/resources-in-the-rest-api#user-agent-required). Check https://developer.github.com for other possib",
+        "context": {
+          "status": 502,
+          "reason": "GitHub 读取失败（HTTP 403）：\r\nRequest forbidden by administrative rules. Please make sure your request has a User-Agent header (https://docs.github.com/en/rest/overview/resources-in-the-rest-api#user-agent-required). Check https://developer.github.com for other possib",
+          "recordCount": 32
+        }
+      },
+      {
+        "id": "1788146656101-94fljzo7",
+        "timestamp": "2026-08-31T03:24:16.101Z",
+        "level": "INFO",
+        "event": "records.upload.started",
+        "message": "开始统一上传学习记录",
+        "context": {
+          "recordCount": 32
+        }
+      },
+      {
+        "id": "1788146643269-vjy8fyvh",
+        "timestamp": "2026-08-31T03:24:03.269Z",
+        "level": "WARN",
+        "event": "answer.skipped",
+        "message": "当前题目已跳过",
+        "context": {
+          "question": "在HALCON中，进行边缘提取时，常用的算子有sobel_amp、canny和edges_sub_pix，它们各自的特点和适用场景是什么？",
+          "mode": "专业知识",
+          "project": "轮胎字符深度 OCR"
+        }
+      },
+      {
+        "id": "1788146642749-ft9fom34",
+        "timestamp": "2026-08-31T03:24:02.749Z",
+        "level": "WARN",
+        "event": "answer.skipped",
+        "message": "当前题目已跳过",
+        "context": {
+          "question": "在HALCON中，使用blob分析进行缺陷检测时，如果目标缺陷与背景灰度差异很小，你会采用哪些图像预处理方法增强对比度？",
+          "mode": "专业知识",
+          "project": "轮胎字符深度 OCR"
+        }
+      },
+      {
+        "id": "1788146642077-bxt74kks",
+        "timestamp": "2026-08-31T03:24:02.077Z",
+        "level": "WARN",
+        "event": "answer.skipped",
+        "message": "当前题目已跳过",
+        "context": {
+          "question": "在HALCON中，进行相机标定时，如何评估标定结果的准确性？如果重投影误差较大，可能的原因有哪些？",
+          "mode": "专业知识",
+          "project": "轮胎字符深度 OCR"
+        }
+      },
+      {
+        "id": "1788146641589-xc9e4ajr",
+        "timestamp": "2026-08-31T03:24:01.589Z",
+        "level": "WARN",
+        "event": "answer.skipped",
+        "message": "当前题目已跳过",
+        "context": {
+          "question": "在HALCON中，使用create_shape_model进行模板匹配时，金字塔层数（NumLevels）对匹配速度和精度有何影响？如何确定最佳层数？",
+          "mode": "专业知识",
+          "project": "轮胎字符深度 OCR"
+        }
+      },
+      {
+        "id": "1788146640554-aosdz915",
+        "timestamp": "2026-08-31T03:24:00.554Z",
+        "level": "WARN",
+        "event": "answer.skipped",
+        "message": "当前题目已跳过",
+        "context": {
+          "question": "在HALCON中，如何区分使用阈值分割（threshold）和动态阈值分割（dyn_threshold）？请结合实际应用场景说明选择依据。",
+          "mode": "专业知识",
+          "project": "轮胎字符深度 OCR"
+        }
+      },
+      {
+        "id": "1788146635924-otmwawgc",
+        "timestamp": "2026-08-31T03:23:55.924Z",
+        "level": "INFO",
+        "event": "question-group.prepare.completed",
+        "message": "AI 已生成完整 10 道题目、标准回答和技术原理；已缓存到远程题库。",
+        "context": {
+          "source": "AI",
+          "questionCount": 10
+        }
+      },
+      {
+        "id": "1788146635923-1795i59h",
+        "timestamp": "2026-08-31T03:23:55.923Z",
+        "level": "INFO",
+        "event": "question-bank.cache.saved",
+        "message": "已缓存到远程题库",
+        "context": {
+          "questionCount": 10,
+          "pendingCount": 0
+        }
+      },
+      {
+        "id": "1788146617377-cxi2u9u7",
+        "timestamp": "2026-08-31T03:23:37.377Z",
+        "level": "INFO",
+        "event": "backup.close.flush",
+        "message": "页面关闭或进入后台，提交最后一次备份"
+      },
+      {
+        "id": "1788146605958-tu3uyih9",
+        "timestamp": "2026-08-31T03:23:25.958Z",
+        "level": "INFO",
+        "event": "question-group.prepare.started",
+        "message": "开始准备题组",
+        "context": {
+          "project": "轮胎字符深度 OCR",
+          "mode": "专业知识",
+          "questionCount": 3
+        }
+      },
+      {
+        "id": "1788146579800-iefe9ffu",
+        "timestamp": "2026-08-31T03:22:59.800Z",
+        "level": "ERROR",
+        "event": "backup.push.failed",
+        "message": "运行数据备份失败",
+        "context": {
+          "status": 502,
+          "reason": "GitHub 读取失败（HTTP 403）：\r\nRequest forbidden by administrative rules. Please make sure your request has a User-Agent header (https://docs.github.com/en/rest/overview/resources-in-the-rest-api#user-agent-required). Check https://developer.github.com for other possib"
+        }
+      },
+      {
+        "id": "1788146579425-oldnl0sn",
+        "timestamp": "2026-08-31T03:22:59.425Z",
+        "level": "INFO",
+        "event": "question-group.prepare.completed",
+        "message": "AI 两次生成均未获得有效题目，已使用本地题库与标准答案。",
+        "context": {
+          "source": "本地规则",
+          "questionCount": 0
+        }
+      },
+      {
+        "id": "1788146579127-ydp1be52",
+        "timestamp": "2026-08-31T03:22:59.127Z",
+        "level": "INFO",
+        "event": "question-group.prepare.started",
+        "message": "开始准备题组",
+        "context": {
+          "project": "轮胎字符深度 OCR",
+          "mode": "专业知识",
+          "questionCount": 10
+        }
+      },
+      {
+        "id": "1788146576953-ymshb3z8",
+        "timestamp": "2026-08-31T03:22:56.953Z",
+        "level": "INFO",
+        "event": "question-group.prepare.completed",
+        "message": "AI 两次生成均未获得有效题目，已使用本地题库与标准答案。",
+        "context": {
+          "source": "本地规则",
+          "questionCount": 10
+        }
+      },
+      {
+        "id": "1788146576642-p2fxz1vu",
+        "timestamp": "2026-08-31T03:22:56.642Z",
+        "level": "INFO",
+        "event": "question-group.prepare.started",
+        "message": "开始准备题组",
+        "context": {
+          "project": "轮胎字符深度 OCR",
+          "mode": "专业知识",
+          "questionCount": 10
+        }
+      },
+      {
+        "id": "1788146576210-vfgd21ro",
+        "timestamp": "2026-08-31T03:22:56.210Z",
+        "level": "WARN",
+        "event": "backup.startup.offline",
+        "message": "启动时未能读取 GitHub 配置",
+        "context": {
+          "status": 502,
+          "reason": "GitHub 读取失败（HTTP 403）：\r\nRequest forbidden by administrative rules. Please make sure your request has a User-Agent header (https://docs.github.com/en/rest/overview/resources-in-the-rest-api#user-agent-required). Check https://developer.github.com for other possib"
+        }
+      },
+      {
+        "id": "1788145973482-1z0or14g",
+        "timestamp": "2026-08-31T03:12:53.482Z",
+        "level": "ERROR",
+        "event": "backup.push.failed",
+        "message": "运行数据备份失败",
+        "context": {
+          "status": 503,
+          "reason": "未配置 GitHub 备份凭据。"
+        }
+      },
+      {
+        "id": "1788145970343-zcy0db6a",
+        "timestamp": "2026-08-31T03:12:50.343Z",
+        "level": "INFO",
+        "event": "question-group.prepare.cached",
+        "message": "题组已从本机缓存恢复",
+        "context": {
+          "questionCount": 10
+        }
+      },
+      {
+        "id": "1788145970340-7pobjkl1",
+        "timestamp": "2026-08-31T03:12:50.340Z",
+        "level": "INFO",
+        "event": "question-group.prepare.started",
+        "message": "开始准备题组",
+        "context": {
+          "project": "轮胎字符深度 OCR",
+          "mode": "专业专项",
+          "questionCount": 10
+        }
+      },
+      {
+        "id": "1788145970328-aurwtcs4",
+        "timestamp": "2026-08-31T03:12:50.328Z",
+        "level": "WARN",
+        "event": "backup.startup.offline",
+        "message": "启动时未能读取 GitHub 配置",
+        "context": {
+          "status": 502,
+          "reason": "GitHub 读取失败（HTTP 403）：\r\nRequest forbidden by administrative rules. Please make sure your request has a User-Agent header (https://docs.github.com/en/rest/overview/resources-in-the-rest-api#user-agent-required). Check https://developer.github.com for other possib"
+        }
+      },
+      {
+        "id": "1788145715532-l292vae3",
+        "timestamp": "2026-08-31T03:08:35.532Z",
+        "level": "ERROR",
+        "event": "backup.push.failed",
+        "message": "运行数据备份失败",
+        "context": {
+          "status": 503,
+          "reason": "未配置 GitHub 备份凭据。"
+        }
+      },
+      {
+        "id": "1788145712326-zyxh21nh",
+        "timestamp": "2026-08-31T03:08:32.326Z",
+        "level": "INFO",
+        "event": "question-group.prepare.cached",
+        "message": "题组已从本机缓存恢复",
+        "context": {
+          "questionCount": 10
+        }
+      },
+      {
+        "id": "1788145712322-fx3p44j3",
+        "timestamp": "2026-08-31T03:08:32.322Z",
+        "level": "INFO",
+        "event": "question-group.prepare.started",
+        "message": "开始准备题组",
+        "context": {
+          "project": "轮胎字符深度 OCR",
+          "mode": "专业专项",
+          "questionCount": 10
+        }
+      },
+      {
+        "id": "1788145711899-j464x8re",
+        "timestamp": "2026-08-31T03:08:31.899Z",
+        "level": "WARN",
+        "event": "backup.startup.offline",
+        "message": "启动时未能读取 GitHub 配置",
+        "context": {
+          "status": 502,
+          "reason": "GitHub 读取失败（HTTP 403）：\r\nRequest forbidden by administrative rules. Please make sure your request has a User-Agent header (https://docs.github.com/en/rest/overview/resources-in-the-rest-api#user-agent-required). Check https://developer.github.com for other possib"
+        }
+      },
+      {
+        "id": "1788145026772-bs16aw08",
+        "timestamp": "2026-08-31T02:57:06.772Z",
+        "level": "WARN",
+        "event": "answer.skipped",
+        "message": "当前题目已跳过",
+        "context": {
+          "question": "在轮胎字符深度OCR项目中，如何利用HALCON的深度学习工具进行模型训练和部署？请描述流程。",
+          "mode": "专业专项",
+          "project": "轮胎字符深度 OCR"
+        }
+      },
+      {
+        "id": "1788145026581-cjtb84ez",
+        "timestamp": "2026-08-31T02:57:06.581Z",
+        "level": "WARN",
+        "event": "answer.skipped",
+        "message": "当前题目已跳过",
+        "context": {
+          "question": "在轮胎字符OCR项目中，为什么选择Modbus TCP而不是其他通信协议？请比较Modbus TCP与EtherCAT的适用场景。",
+          "mode": "专业专项",
+          "project": "轮胎字符深度 OCR"
+        }
+      },
+      {
+        "id": "1788145026365-3prt8va8",
+        "timestamp": "2026-08-31T02:57:06.365Z",
+        "level": "WARN",
+        "event": "answer.skipped",
+        "message": "当前题目已跳过",
+        "context": {
+          "question": "在轮胎字符OCR项目中，如果PLC发送触发信号的频率高于视觉系统的处理速度，会发生什么？如何解决？",
+          "mode": "专业专项",
+          "project": "轮胎字符深度 OCR"
+        }
+      },
+      {
+        "id": "1788145026180-fz7xjsh7",
+        "timestamp": "2026-08-31T02:57:06.180Z",
+        "level": "WARN",
+        "event": "answer.skipped",
+        "message": "当前题目已跳过",
+        "context": {
+          "question": "在轮胎字符深度OCR项目中，如何评估模型性能？除了准确率，还需要关注哪些指标？",
+          "mode": "专业专项",
+          "project": "轮胎字符深度 OCR"
+        }
+      },
+      {
+        "id": "1788145025974-tzd5sbmg",
+        "timestamp": "2026-08-31T02:57:05.974Z",
+        "level": "WARN",
+        "event": "answer.skipped",
+        "message": "当前题目已跳过",
+        "context": {
+          "question": "在轮胎字符OCR中，字符阴影对识别影响很大，请分析阴影产生的机理及消除方法。",
+          "mode": "专业专项",
+          "project": "轮胎字符深度 OCR"
+        }
+      },
+      {
+        "id": "1788145025204-ljn1ifp5",
+        "timestamp": "2026-08-31T02:57:05.204Z",
+        "level": "WARN",
+        "event": "answer.skipped",
+        "message": "当前题目已跳过",
+        "context": {
+          "question": "现场轮胎字符出现严重磨损，导致OCR准确率下降，你会如何排查和解决？请给出步骤。",
+          "mode": "专业专项",
+          "project": "轮胎字符深度 OCR"
+        }
+      },
+      {
+        "id": "1788145025028-94r6kw9p",
+        "timestamp": "2026-08-31T02:57:05.028Z",
+        "level": "WARN",
+        "event": "answer.skipped",
+        "message": "当前题目已跳过",
+        "context": {
+          "question": "在轮胎字符OCR项目中，Modbus TCP通信如何与PLC协同工作？请描述数据流和时序控制。",
+          "mode": "专业专项",
+          "project": "轮胎字符深度 OCR"
+        }
+      },
+      {
+        "id": "1788145024828-mrpj482f",
+        "timestamp": "2026-08-31T02:57:04.828Z",
+        "level": "WARN",
+        "event": "answer.skipped",
+        "message": "当前题目已跳过",
+        "context": {
+          "question": "在轮胎字符OCR项目中，数据增强具体采用了哪些方法？这些方法如何帮助模型应对倾斜和磨损？",
+          "mode": "专业专项",
+          "project": "轮胎字符深度 OCR"
+        }
+      },
+      {
+        "id": "1788145024492-wlv0c4np",
+        "timestamp": "2026-08-31T02:57:04.492Z",
+        "level": "WARN",
+        "event": "answer.skipped",
+        "message": "当前题目已跳过",
+        "context": {
+          "question": "在轮胎字符深度OCR项目中，局部对比度增强是如何实现的？请说明其原理和对识别准确率的影响。",
+          "mode": "专业专项",
+          "project": "轮胎字符深度 OCR"
+        }
+      },
+      {
+        "id": "1788145024053-gkqhjgqs",
+        "timestamp": "2026-08-31T02:57:04.053Z",
+        "level": "WARN",
+        "event": "answer.skipped",
+        "message": "当前题目已跳过",
+        "context": {
+          "question": "在轮胎字符深度OCR项目中，为什么选择HALCON的深度OCR而非传统OCR？请从算法原理和工程实践两方面说明。",
+          "mode": "专业专项",
+          "project": "轮胎字符深度 OCR"
+        }
+      },
+      {
+        "id": "1788144998162-m6yiw1v8",
+        "timestamp": "2026-08-31T02:56:38.162Z",
+        "level": "INFO",
+        "event": "question-group.prepare.completed",
+        "message": "AI 已生成完整 10 道题目、标准回答和技术原理；生成题已加入 GitHub 备份队列。",
+        "context": {
+          "source": "AI",
+          "questionCount": 10
+        }
+      },
+      {
+        "id": "1788144969685-avpmpen5",
+        "timestamp": "2026-08-31T02:56:09.685Z",
+        "level": "INFO",
+        "event": "question-group.prepare.started",
+        "message": "开始准备题组",
+        "context": {
+          "project": "轮胎字符深度 OCR",
+          "mode": "专业专项",
+          "questionCount": 3
+        }
+      },
+      {
+        "id": "1788144808615-vbevfq0d",
+        "timestamp": "2026-08-31T02:53:28.615Z",
+        "level": "INFO",
+        "event": "question-group.prepare.cached",
+        "message": "题组已从本机缓存恢复",
+        "context": {
+          "questionCount": 10
+        }
+      },
+      {
+        "id": "1788144808614-77vhsjp7",
+        "timestamp": "2026-08-31T02:53:28.614Z",
+        "level": "INFO",
+        "event": "question-group.prepare.started",
+        "message": "开始准备题组",
+        "context": {
+          "project": "轮胎字符深度 OCR",
+          "mode": "专业专项",
+          "questionCount": 3
+        }
+      },
+      {
+        "id": "1788144807981-27fuw5hx",
+        "timestamp": "2026-08-31T02:53:27.981Z",
+        "level": "INFO",
+        "event": "question-group.prepare.started",
+        "message": "开始准备题组",
+        "context": {
+          "project": "轮胎字符深度 OCR",
+          "mode": "专业专项",
+          "questionCount": 3
+        }
+      },
+      {
+        "id": "1788144800647-320dyl0q",
+        "timestamp": "2026-08-31T02:53:20.647Z",
+        "level": "INFO",
+        "event": "question-group.prepare.completed",
+        "message": "AI 已生成完整 10 道题目、标准回答和技术原理；生成题已加入 GitHub 备份队列。",
+        "context": {
+          "source": "AI",
+          "questionCount": 10
+        }
+      },
+      {
+        "id": "1788144773606-jaxap8nj",
+        "timestamp": "2026-08-31T02:52:53.606Z",
+        "level": "ERROR",
+        "event": "backup.push.failed",
+        "message": "运行数据备份失败",
+        "context": {
+          "status": 503,
+          "reason": "未配置 GitHub 备份凭据。"
+        }
+      },
+      {
+        "id": "1788144773190-12x80dme",
+        "timestamp": "2026-08-31T02:52:53.190Z",
+        "level": "INFO",
+        "event": "question-group.prepare.started",
+        "message": "开始准备题组",
+        "context": {
+          "project": "轮胎字符深度 OCR",
+          "mode": "专业专项",
+          "questionCount": 3
+        }
+      },
+      {
+        "id": "1788144772601-mxfqcjro",
+        "timestamp": "2026-08-31T02:52:52.601Z",
+        "level": "INFO",
+        "event": "question-group.prepare.cached",
+        "message": "题组已从本机缓存恢复",
+        "context": {
+          "questionCount": 10
+        }
+      },
+      {
+        "id": "1788144772600-9eud4687",
+        "timestamp": "2026-08-31T02:52:52.600Z",
+        "level": "INFO",
+        "event": "question-group.prepare.started",
+        "message": "开始准备题组",
+        "context": {
+          "project": "轮胎字符深度 OCR",
+          "mode": "专业专项",
+          "questionCount": 10
+        }
+      },
+      {
+        "id": "1788144769614-wqy5qsud",
+        "timestamp": "2026-08-31T02:52:49.614Z",
+        "level": "INFO",
+        "event": "question-group.prepare.cached",
+        "message": "题组已从本机缓存恢复",
+        "context": {
+          "questionCount": 10
+        }
+      },
+      {
+        "id": "1788144769611-dsbr4vbj",
+        "timestamp": "2026-08-31T02:52:49.611Z",
+        "level": "INFO",
+        "event": "question-group.prepare.started",
+        "message": "开始准备题组",
+        "context": {
+          "project": "轮胎字符深度 OCR",
+          "mode": "专业专项",
+          "questionCount": 10
+        }
+      },
+      {
+        "id": "1788144769602-1c5h9tbo",
+        "timestamp": "2026-08-31T02:52:49.602Z",
+        "level": "WARN",
+        "event": "backup.startup.offline",
+        "message": "启动时未能读取 GitHub 配置",
+        "context": {
+          "status": 502,
+          "reason": "GitHub 读取失败（HTTP 403）：\r\nRequest forbidden by administrative rules. Please make sure your request has a User-Agent header (https://docs.github.com/en/rest/overview/resources-in-the-rest-api#user-agent-required). Check https://developer.github.com for other possib"
+        }
+      },
+      {
+        "id": "1788144730514-ohcj91lz",
+        "timestamp": "2026-08-31T02:52:10.514Z",
+        "level": "ERROR",
+        "event": "backup.push.failed",
+        "message": "运行数据备份失败",
+        "context": {
+          "status": 503,
+          "reason": "未配置 GitHub 备份凭据。"
+        }
+      },
+      {
+        "id": "1788144727226-zdzgba78",
+        "timestamp": "2026-08-31T02:52:07.226Z",
+        "level": "INFO",
+        "event": "question-group.prepare.cached",
+        "message": "题组已从本机缓存恢复",
+        "context": {
+          "questionCount": 10
+        }
+      },
+      {
+        "id": "1788144727224-oyw2286a",
+        "timestamp": "2026-08-31T02:52:07.224Z",
+        "level": "INFO",
+        "event": "question-group.prepare.started",
+        "message": "开始准备题组",
+        "context": {
+          "project": "轮胎字符深度 OCR",
+          "mode": "专业专项",
+          "questionCount": 10
+        }
+      },
+      {
+        "id": "1788144727205-6lqp73tg",
+        "timestamp": "2026-08-31T02:52:07.205Z",
+        "level": "WARN",
+        "event": "backup.startup.offline",
+        "message": "启动时未能读取 GitHub 配置",
+        "context": {
+          "status": 502,
+          "reason": "GitHub 读取失败（HTTP 403）：\r\nRequest forbidden by administrative rules. Please make sure your request has a User-Agent header (https://docs.github.com/en/rest/overview/resources-in-the-rest-api#user-agent-required). Check https://developer.github.com for other possib"
+        }
+      },
+      {
+        "id": "1788144485903-9bek17qs",
+        "timestamp": "2026-08-31T02:48:05.903Z",
+        "level": "INFO",
+        "event": "question-group.prepare.cached",
+        "message": "题组已从本机缓存恢复",
+        "context": {
+          "questionCount": 10
+        }
+      },
+      {
+        "id": "1788144485902-w7vmh3fj",
+        "timestamp": "2026-08-31T02:48:05.902Z",
+        "level": "INFO",
+        "event": "question-group.prepare.started",
+        "message": "开始准备题组",
+        "context": {
+          "project": "轮胎字符深度 OCR",
+          "mode": "专业专项",
+          "questionCount": 10
+        }
+      },
+      {
+        "id": "1788144485900-h6ph1tph",
+        "timestamp": "2026-08-31T02:48:05.900Z",
+        "level": "INFO",
+        "event": "training.mode.changed",
+        "message": "训练模式已切换",
+        "context": {
+          "mode": "专业专项"
+        }
+      },
+      {
+        "id": "1788144482454-4tjvyxh1",
+        "timestamp": "2026-08-31T02:48:02.454Z",
+        "level": "INFO",
+        "event": "question-group.prepare.started",
+        "message": "开始准备题组",
+        "context": {
+          "project": "轮胎字符深度 OCR",
+          "mode": "项目答辩",
+          "questionCount": 4
+        }
+      },
+      {
+        "id": "1788144482452-f535f7tm",
+        "timestamp": "2026-08-31T02:48:02.452Z",
+        "level": "INFO",
+        "event": "training.mode.changed",
+        "message": "训练模式已切换",
+        "context": {
+          "mode": "项目答辩"
+        }
+      },
+      {
+        "id": "1788144475612-ot1tfebz",
+        "timestamp": "2026-08-31T02:47:55.612Z",
+        "level": "WARN",
+        "event": "answer.skipped",
+        "message": "当前题目已跳过",
+        "context": {
+          "question": "在轮胎字符OCR项目中，为什么选择HALCON而不是OpenCV？请从开发效率、算法库和部署方面比较。",
+          "mode": "专业专项",
+          "project": "轮胎字符深度 OCR"
+        }
+      },
+      {
+        "id": "1788144475340-zse4v7zb",
+        "timestamp": "2026-08-31T02:47:55.340Z",
+        "level": "WARN",
+        "event": "answer.skipped",
+        "message": "当前题目已跳过",
+        "context": {
+          "question": "在轮胎字符OCR项目中，如果字符识别准确率不达标，你会如何排查？请从算法和工程两个角度分析。",
+          "mode": "专业专项",
+          "project": "轮胎字符深度 OCR"
+        }
+      },
+      {
+        "id": "1788144474804-0mbwfem9",
+        "timestamp": "2026-08-31T02:47:54.804Z",
+        "level": "WARN",
+        "event": "answer.skipped",
+        "message": "当前题目已跳过",
+        "context": {
+          "question": "在轮胎字符OCR项目中，字符识别准确率99.2%是如何测得的？请设计一个评估方案。",
+          "mode": "专业专项",
+          "project": "轮胎字符深度 OCR"
+        }
+      },
+      {
+        "id": "1788144474308-tvo8quob",
+        "timestamp": "2026-08-31T02:47:54.308Z",
+        "level": "WARN",
+        "event": "answer.skipped",
+        "message": "当前题目已跳过",
+        "context": {
+          "question": "在轮胎字符OCR项目中，Modbus TCP通信的时序如何与PLC协同？请描述可能出现的时序问题及解决方案。",
+          "mode": "专业专项",
+          "project": "轮胎字符深度 OCR"
+        }
+      },
+      {
+        "id": "1788144473908-uqbjvlzo",
+        "timestamp": "2026-08-31T02:47:53.908Z",
+        "level": "WARN",
+        "event": "answer.skipped",
+        "message": "当前题目已跳过",
+        "context": {
+          "question": "在轮胎字符OCR项目中，数据增强对模型性能提升有多大作用？请列举至少三种适合该场景的数据增强方法。",
+          "mode": "专业专项",
+          "project": "轮胎字符深度 OCR"
+        }
+      },
+      {
+        "id": "1788144473420-ng9nln6p",
+        "timestamp": "2026-08-31T02:47:53.420Z",
+        "level": "WARN",
+        "event": "answer.skipped",
+        "message": "当前题目已跳过",
+        "context": {
+          "question": "在轮胎字符OCR项目中，局部对比度增强是如何实现的？请说明其原理和参数选择对识别效果的影响。",
+          "mode": "专业专项",
+          "project": "轮胎字符深度 OCR"
+        }
+      },
+      {
+        "id": "1788144472533-cq5vaqlq",
+        "timestamp": "2026-08-31T02:47:52.533Z",
+        "level": "WARN",
+        "event": "answer.skipped",
+        "message": "当前题目已跳过",
+        "context": {
+          "question": "在轮胎字符深度OCR项目中，为什么选择HALCON的深度OCR而不是传统OCR？请从算法原理和工程实践两方面说明。",
+          "mode": "专业专项",
+          "project": "轮胎字符深度 OCR"
+        }
+      },
+      {
+        "id": "1788144448892-7w744dfa",
+        "timestamp": "2026-08-31T02:47:28.892Z",
+        "level": "INFO",
+        "event": "question-group.prepare.completed",
+        "message": "AI 已生成完整 10 道题目、标准回答和技术原理；生成题已加入 GitHub 备份队列。",
+        "context": {
+          "source": "AI",
+          "questionCount": 10
+        }
+      },
+      {
+        "id": "1788144421206-ff9sior6",
+        "timestamp": "2026-08-31T02:47:01.206Z",
+        "level": "INFO",
+        "event": "question-group.prepare.started",
+        "message": "开始准备题组",
+        "context": {
+          "project": "轮胎字符深度 OCR",
+          "mode": "专业专项",
+          "questionCount": 10
+        }
+      },
+      {
+        "id": "1788144410120-5t3e8agw",
+        "timestamp": "2026-08-31T02:46:50.120Z",
+        "level": "INFO",
+        "event": "question-group.prepare.completed",
+        "message": "AI 已生成完整 10 道题目、标准回答和技术原理；生成题已加入 GitHub 备份队列。",
+        "context": {
+          "source": "AI",
+          "questionCount": 10
+        }
+      },
+      {
+        "id": "1788144382627-20m8gl1a",
+        "timestamp": "2026-08-31T02:46:22.627Z",
+        "level": "ERROR",
+        "event": "backup.push.failed",
+        "message": "运行数据备份失败",
+        "context": {
+          "status": 503,
+          "reason": "未配置 GitHub 备份凭据。"
+        }
+      },
+      {
+        "id": "1788144379477-yl3pm617",
+        "timestamp": "2026-08-31T02:46:19.477Z",
+        "level": "INFO",
+        "event": "question-group.prepare.started",
+        "message": "开始准备题组",
+        "context": {
+          "project": "轮胎字符深度 OCR",
+          "mode": "专业专项",
+          "questionCount": 10
+        }
+      },
+      {
+        "id": "1788144379466-zj27ls7g",
+        "timestamp": "2026-08-31T02:46:19.466Z",
+        "level": "WARN",
+        "event": "backup.startup.offline",
+        "message": "启动时未能读取 GitHub 配置",
+        "context": {
+          "status": 502,
+          "reason": "GitHub 读取失败（HTTP 403）：\r\nRequest forbidden by administrative rules. Please make sure your request has a User-Agent header (https://docs.github.com/en/rest/overview/resources-in-the-rest-api#user-agent-required). Check https://developer.github.com for other possib"
+        }
+      },
+      {
+        "id": "1788144357214-2cleh1zg",
+        "timestamp": "2026-08-31T02:45:57.214Z",
+        "level": "ERROR",
+        "event": "backup.push.failed",
+        "message": "运行数据备份失败",
+        "context": {
+          "status": 503,
+          "reason": "未配置 GitHub 备份凭据。"
+        }
+      },
+      {
+        "id": "1788144354376-0cn878q2",
+        "timestamp": "2026-08-31T02:45:54.376Z",
+        "level": "INFO",
+        "event": "question-group.prepare.completed",
+        "message": "AI 两次生成均未获得有效题目，已使用本地题库与标准答案。",
+        "context": {
+          "source": "本地规则",
+          "questionCount": 10
+        }
+      },
+      {
+        "id": "1788144354069-mdcr57tb",
+        "timestamp": "2026-08-31T02:45:54.069Z",
+        "level": "INFO",
+        "event": "question-group.prepare.started",
+        "message": "开始准备题组",
+        "context": {
+          "project": "轮胎字符深度 OCR",
+          "mode": "专业专项",
+          "questionCount": 10
+        }
+      },
+      {
+        "id": "1788144354057-qh5a9la2",
+        "timestamp": "2026-08-31T02:45:54.057Z",
+        "level": "WARN",
+        "event": "backup.startup.offline",
+        "message": "启动时未能读取 GitHub 配置",
+        "context": {
+          "status": 502,
+          "reason": "GitHub 读取失败（HTTP 403）：\r\nRequest forbidden by administrative rules. Please make sure your request has a User-Agent header (https://docs.github.com/en/rest/overview/resources-in-the-rest-api#user-agent-required). Check https://developer.github.com for other possib"
+        }
+      }
+    ]
+  }
 }
