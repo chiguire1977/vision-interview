@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-08-31T09:53:57.981Z",
+  "updatedAt": "2026-08-31T09:54:59.247Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1073,9 +1073,9 @@
       }
     ],
     "vision-interview-ai-preferences": {
-      "provider": "deepseek",
-      "model": "deepseek-v4-flash",
-      "openaiBaseUrl": "https://api.deepseek.com",
+      "provider": "custom-mtfsd2qj-i4ox3z",
+      "model": "qwen3.8-max",
+      "openaiBaseUrl": "https://opencode.ai/zen/go/v1",
       "aiScoring": true,
       "bestAnswer": true,
       "smartFollowUp": true,
@@ -1336,6 +1336,76 @@
     },
     "vision-interview-project-view": "card",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788170102999-catqrsv5",
+        "timestamp": "2026-08-31T09:55:02.999Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788169988616-qqc3c3wb",
+        "event": "question-bank.ai-request.started",
+        "message": "第 2/6 轮：正在请求 AI 生成题目…",
+        "context": {
+          "attempt": 2,
+          "maxAttempts": 6,
+          "collectedCount": 0
+        }
+      },
+      {
+        "id": "1788170102997-luho2u3z",
+        "timestamp": "2026-08-31T09:55:02.997Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788169988616-qqc3c3wb",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 2,
+          "query": "机器视觉 面试知识点 通用原理 原理 工程实践",
+          "sourceCount": 0
+        }
+      },
+      {
+        "id": "1788170101060-bq320doj",
+        "timestamp": "2026-08-31T09:55:01.060Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788169988616-qqc3c3wb",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 2,
+          "query": "机器视觉 面试知识点 通用原理 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 0
+        }
+      },
+      {
+        "id": "1788170101058-2t60jtq0",
+        "timestamp": "2026-08-31T09:55:01.058Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788169988616-qqc3c3wb",
+        "event": "question-bank.attempt.failed",
+        "message": "第 1/6 轮：本轮请求失败：AI 请求超时，请稍后重试。，准备下一轮…",
+        "context": {
+          "attempt": 1,
+          "maxAttempts": 6,
+          "collectedCount": 0,
+          "error": "AI 请求超时，请稍后重试。"
+        }
+      },
+      {
+        "id": "1788170046285-3bvchkez",
+        "timestamp": "2026-08-31T09:54:06.285Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "416f5f391bce"
+        }
+      },
       {
         "id": "1788170040934-gwzvonnt",
         "timestamp": "2026-08-31T09:54:00.934Z",
@@ -2974,64 +3044,6 @@
         "message": "本轮联网检索完成",
         "context": {
           "attempt": 2,
-          "query": "机器视觉 面试知识点 原理 工程实践",
-          "sourceCount": 0
-        }
-      },
-      {
-        "id": "1788169985346-qinqzstf",
-        "timestamp": "2026-08-31T09:53:05.346Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788169978256-pc8xysam",
-        "event": "question-bank.web-search.started",
-        "message": "开始联网检索本轮题目资料",
-        "context": {
-          "attempt": 2,
-          "query": "机器视觉 面试知识点 原理 工程实践",
-          "mode": "专业知识",
-          "excludedCount": 0
-        }
-      },
-      {
-        "id": "1788169985342-7p4s5own",
-        "timestamp": "2026-08-31T09:53:05.342Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788169978256-pc8xysam",
-        "event": "question-bank.attempt.failed",
-        "message": "第 1/6 轮：本轮请求失败：请先配置当前 AI 服务商的 API Key。，准备下一轮…",
-        "context": {
-          "attempt": 1,
-          "maxAttempts": 6,
-          "collectedCount": 0,
-          "error": "请先配置当前 AI 服务商的 API Key。"
-        }
-      },
-      {
-        "id": "1788169981900-ub4s5ysj",
-        "timestamp": "2026-08-31T09:53:01.900Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788169978256-pc8xysam",
-        "event": "question-bank.ai-request.started",
-        "message": "第 1/6 轮：正在请求 AI 生成题目…",
-        "context": {
-          "attempt": 1,
-          "maxAttempts": 6,
-          "collectedCount": 0
-        }
-      },
-      {
-        "id": "1788169981896-zj47lkd0",
-        "timestamp": "2026-08-31T09:53:01.896Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788169978256-pc8xysam",
-        "event": "question-bank.web-search.completed",
-        "message": "本轮联网检索完成",
-        "context": {
-          "attempt": 1,
           "query": "机器视觉 面试知识点 原理 工程实践",
           "sourceCount": 0
         }
