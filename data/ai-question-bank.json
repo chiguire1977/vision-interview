@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-31T03:23:55.468Z",
+  "updatedAt": "2026-08-31T03:38:57.705Z",
   "questions": [
     {
       "title": "在轮胎字符深度OCR项目中，HALCON的深度OCR模型相比传统OCR在抗磨损和倾斜方面有哪些本质优势？",
@@ -2401,6 +2401,352 @@
       "categoryFilter": "随机类型",
       "difficultyFilter": "随机难度",
       "techStackFilter": "HALCON"
+    },
+    {
+      "title": "在机器视觉项目中，如何根据检测任务选择合适的照明方式？请结合具体场景说明。",
+      "type": "工程实践",
+      "category": "成像系统",
+      "source": "专业",
+      "difficulty": "基础",
+      "tags": [
+        "照明",
+        "成像",
+        "光源选择"
+      ],
+      "keywords": [
+        "任务类型",
+        "光源类型",
+        "光路设计",
+        "环境干扰"
+      ],
+      "followUp": "如果被测物体是反光强烈的金属表面，你会如何调整照明方案？",
+      "hint": "从任务需求出发，分析不同光源的适用场景，并考虑环境因素。",
+      "techStacks": [
+        "HALCON",
+        "VisionPro"
+      ],
+      "bestAnswer": "选择照明方式需根据检测任务：对于高对比度表面缺陷，使用低角度环形光或同轴光减少反光；对于透明物体，使用背光突出轮廓；对于字符识别，使用条形光或穹顶光均匀照明。同时考虑环境光干扰，使用滤光片或遮光罩。例如，金属表面反光强，采用漫射光源或偏振光消除眩光。",
+      "principle": "照明影响图像对比度和信噪比，不同光源角度和类型改变物体表面反射特性，从而影响特征提取的稳定性。",
+      "id": "aiq-40fe11fa",
+      "generatedAt": "2026-08-31T03:38:56.807Z",
+      "provider": "deepseek",
+      "model": "deepseek-v4-flash",
+      "project": "轮胎字符深度 OCR",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "随机技术栈"
+    },
+    {
+      "title": "解释图像预处理中的高斯滤波原理，并说明其参数σ对滤波效果的影响。",
+      "type": "算法原理",
+      "category": "图像处理",
+      "source": "专业",
+      "difficulty": "基础",
+      "tags": [
+        "高斯滤波",
+        "平滑",
+        "参数影响"
+      ],
+      "keywords": [
+        "卷积核",
+        "标准差",
+        "模糊程度",
+        "边缘保留"
+      ],
+      "followUp": "在边缘检测前使用高斯滤波，σ过大或过小分别会导致什么问题？",
+      "hint": "从高斯函数定义出发，分析σ对频域和空域的影响。",
+      "techStacks": [
+        "OpenCV"
+      ],
+      "bestAnswer": "高斯滤波通过卷积核加权平均像素值，权重由高斯函数决定。σ控制核的分布范围：σ越大，核越宽，平滑效果越强，但细节丢失；σ越小，保留细节但去噪能力弱。实际中需平衡噪声去除和边缘保留，通常σ取1-2。",
+      "principle": "高斯滤波是线性低通滤波，σ决定频域截止频率，σ大则截止频率低，保留低频成分，抑制高频噪声。",
+      "id": "aiq-9c1b7c8e",
+      "generatedAt": "2026-08-31T03:38:56.807Z",
+      "provider": "deepseek",
+      "model": "deepseek-v4-flash",
+      "project": "轮胎字符深度 OCR",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "随机技术栈"
+    },
+    {
+      "title": "在视觉定位中，模板匹配的相似度度量方法有哪些？各有什么优缺点？",
+      "type": "算法原理",
+      "category": "定位",
+      "source": "专业",
+      "difficulty": "中等",
+      "tags": [
+        "模板匹配",
+        "相似度",
+        "归一化"
+      ],
+      "keywords": [
+        "SAD",
+        "SSD",
+        "NCC",
+        "鲁棒性"
+      ],
+      "followUp": "当目标存在旋转或缩放时，如何改进模板匹配方法？",
+      "hint": "列举常见度量，分析对光照和遮挡的敏感性。",
+      "techStacks": [
+        "HALCON",
+        "OpenCV"
+      ],
+      "bestAnswer": "常用度量包括SAD（绝对差和）、SSD（平方差和）和NCC（归一化互相关）。SAD和SSD计算简单但对光照敏感；NCC对线性光照变化鲁棒，但计算量大。实际中NCC更常用。对于旋转缩放，可使用多尺度模板或特征点匹配。",
+      "principle": "NCC通过归一化消除线性光照影响，而SAD/SSD直接比较灰度值，易受光照干扰。",
+      "id": "aiq-08cd288f",
+      "generatedAt": "2026-08-31T03:38:56.807Z",
+      "provider": "deepseek",
+      "model": "deepseek-v4-flash",
+      "project": "轮胎字符深度 OCR",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "随机技术栈"
+    },
+    {
+      "title": "在工业现场，相机采集图像出现条纹干扰，可能的原因及排查步骤是什么？",
+      "type": "现场故障",
+      "category": "成像系统",
+      "source": "专业",
+      "difficulty": "中等",
+      "tags": [
+        "故障排查",
+        "图像噪声",
+        "硬件"
+      ],
+      "keywords": [
+        "电源干扰",
+        "频率不匹配",
+        "线缆",
+        "接地"
+      ],
+      "followUp": "如果条纹是随机的，而不是固定的，排查方向有何不同？",
+      "hint": "从硬件和软件两方面分析，先检查电源和线缆，再检查相机设置。",
+      "techStacks": [
+        "HALCON",
+        "Basler"
+      ],
+      "bestAnswer": "条纹干扰常见原因：电源波动或接地不良导致模拟信号干扰；相机帧率与光源频率不匹配（如工频50Hz）；线缆屏蔽层损坏。排查步骤：先更换电源和线缆，检查接地；调整相机曝光时间或帧率；使用软件滤波。若条纹随机，可能为电磁干扰，需加磁环或改善屏蔽。",
+      "principle": "条纹干扰源于周期性噪声，可能来自电源纹波或外部电磁场，影响传感器读出电路。",
+      "id": "aiq-2d05df31",
+      "generatedAt": "2026-08-31T03:38:56.807Z",
+      "provider": "deepseek",
+      "model": "deepseek-v4-flash",
+      "project": "轮胎字符深度 OCR",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "随机技术栈"
+    },
+    {
+      "title": "在缺陷检测中，如何区分真实缺陷与噪声？请结合图像处理技术说明。",
+      "type": "算法原理",
+      "category": "缺陷检测",
+      "source": "专业",
+      "difficulty": "中等",
+      "tags": [
+        "缺陷检测",
+        "噪声抑制",
+        "形态学"
+      ],
+      "keywords": [
+        "形态学操作",
+        "连通域",
+        "阈值",
+        "特征提取"
+      ],
+      "followUp": "如果缺陷和噪声的灰度特征相似，你会如何设计算法？",
+      "hint": "从空间特征和灰度特征两方面考虑，使用形态学或滤波。",
+      "techStacks": [
+        "HALCON",
+        "OpenCV"
+      ],
+      "bestAnswer": "真实缺陷通常具有连续性和一定面积，而噪声是孤立的。可通过形态学开运算去除小噪声，或使用连通域分析，筛选面积、形状等特征。若灰度相似，可利用纹理或上下文信息，如缺陷在特定区域出现。",
+      "principle": "形态学操作基于结构元素，开运算去除小物体，保留大结构；连通域分析基于像素连通性，区分孤立点。",
+      "id": "aiq-508ce1b4",
+      "generatedAt": "2026-08-31T03:38:56.807Z",
+      "provider": "deepseek",
+      "model": "deepseek-v4-flash",
+      "project": "轮胎字符深度 OCR",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "随机技术栈"
+    },
+    {
+      "title": "在视觉测量中，如何标定相机以获得准确的像素当量？请描述基本步骤。",
+      "type": "工程实践",
+      "category": "标定",
+      "source": "专业",
+      "difficulty": "中等",
+      "tags": [
+        "相机标定",
+        "像素当量",
+        "畸变校正"
+      ],
+      "keywords": [
+        "标定板",
+        "内参",
+        "外参",
+        "畸变"
+      ],
+      "followUp": "如果测量精度要求达到微米级，标定过程中需要注意哪些细节？",
+      "hint": "从标定板选择、图像采集和算法处理三方面回答。",
+      "techStacks": [
+        "HALCON",
+        "OpenCV"
+      ],
+      "bestAnswer": "步骤：1. 使用高精度标定板（如棋盘格）采集多角度图像；2. 提取角点；3. 计算相机内参（焦距、主点）和畸变系数；4. 校正畸变；5. 根据标定板实际尺寸计算像素当量。注意标定板平面度、光照均匀和足够多的图像。",
+      "principle": "相机标定基于针孔模型，通过已知3D点和2D投影关系求解参数，畸变校正消除镜头非线性误差。",
+      "id": "aiq-edff1b8f",
+      "generatedAt": "2026-08-31T03:38:56.807Z",
+      "provider": "deepseek",
+      "model": "deepseek-v4-flash",
+      "project": "轮胎字符深度 OCR",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "随机技术栈"
+    },
+    {
+      "title": "在视觉系统中，如何选择工业相机和镜头的分辨率？请给出决策依据。",
+      "type": "工程实践",
+      "category": "成像系统",
+      "source": "专业",
+      "difficulty": "基础",
+      "tags": [
+        "相机选型",
+        "镜头",
+        "分辨率"
+      ],
+      "keywords": [
+        "视场",
+        "精度",
+        "传感器尺寸",
+        "工作距离"
+      ],
+      "followUp": "如果检测目标很小但视场很大，你会如何平衡分辨率和成本？",
+      "hint": "从精度需求出发，计算所需像素数，再考虑镜头匹配。",
+      "techStacks": [
+        "Basler",
+        "HALCON"
+      ],
+      "bestAnswer": "首先确定视场（FOV）和最小检测特征尺寸，计算所需分辨率：像素数 = FOV / 精度。例如，FOV为100mm，精度0.1mm，需1000像素。然后选择相机分辨率略高于此值，镜头需匹配传感器尺寸和工作距离，确保成像清晰。",
+      "principle": "分辨率决定最小可分辨尺寸，镜头放大倍率影响成像大小，需匹配传感器尺寸避免边缘暗角。",
+      "id": "aiq-ea1aa5b1",
+      "generatedAt": "2026-08-31T03:38:56.807Z",
+      "provider": "deepseek",
+      "model": "deepseek-v4-flash",
+      "project": "轮胎字符深度 OCR",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "随机技术栈"
+    },
+    {
+      "title": "在视觉检测中，如何利用HALCON实现快速Blob分析？请描述关键步骤和优化策略。",
+      "type": "工程实践",
+      "category": "图像处理",
+      "source": "专业",
+      "difficulty": "中等",
+      "tags": [
+        "HALCON",
+        "Blob分析",
+        "性能优化"
+      ],
+      "keywords": [
+        "阈值分割",
+        "连通域",
+        "特征提取",
+        "ROI"
+      ],
+      "followUp": "如果图像中有多个目标且形状各异，如何提高Blob分析的准确性？",
+      "hint": "从预处理、分割和后处理三方面回答，并提到HALCON算子。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "bestAnswer": "步骤：1. 使用threshold进行阈值分割；2. 使用connection计算连通域；3. 使用select_shape筛选特征。优化：先设置ROI减少处理区域，使用灰度直方图自动阈值，或使用形态学操作合并断裂区域。对于复杂形状，可结合区域特征和分类器。",
+      "principle": "Blob分析基于像素灰度阈值分割，连通域标记算法将相邻像素分组，特征提取基于区域属性。",
+      "id": "aiq-a96d90ca",
+      "generatedAt": "2026-08-31T03:38:56.807Z",
+      "provider": "deepseek",
+      "model": "deepseek-v4-flash",
+      "project": "轮胎字符深度 OCR",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "随机技术栈"
+    },
+    {
+      "title": "在视觉定位中，如果目标物体被部分遮挡，模板匹配失败，你会如何解决？",
+      "type": "算法原理",
+      "category": "定位",
+      "source": "专业",
+      "difficulty": "困难",
+      "tags": [
+        "遮挡处理",
+        "模板匹配",
+        "特征点"
+      ],
+      "keywords": [
+        "局部特征",
+        "RANSAC",
+        "形状匹配"
+      ],
+      "followUp": "如果遮挡是动态变化的，如何设计鲁棒的定位算法？",
+      "hint": "从特征点匹配和形状匹配角度思考，考虑使用局部特征。",
+      "techStacks": [
+        "HALCON",
+        "OpenCV"
+      ],
+      "bestAnswer": "当部分遮挡时，全局模板匹配失效。可改用基于局部特征的方法，如SIFT或ORB提取关键点，然后使用RANSAC剔除误匹配，估计变换矩阵。HALCON的shape_model也支持部分遮挡，通过训练多视角模型。动态遮挡时，可结合跟踪算法。",
+      "principle": "局部特征对遮挡鲁棒，因为特征点独立描述局部区域；RANSAC通过迭代拟合模型，容忍外点。",
+      "id": "aiq-a927b7cf",
+      "generatedAt": "2026-08-31T03:38:56.807Z",
+      "provider": "deepseek",
+      "model": "deepseek-v4-flash",
+      "project": "轮胎字符深度 OCR",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "随机技术栈"
+    },
+    {
+      "title": "在视觉项目中，如何评估视觉系统的检测精度和稳定性？请设计一个验证方案。",
+      "type": "工程实践",
+      "category": "系统评估",
+      "source": "专业",
+      "difficulty": "中等",
+      "tags": [
+        "精度评估",
+        "稳定性",
+        "重复性"
+      ],
+      "keywords": [
+        "GR&R",
+        "重复性",
+        "再现性",
+        "样本量"
+      ],
+      "followUp": "如果评估结果显示重复性差，你会从哪些方面排查原因？",
+      "hint": "从测量系统分析（MSA）角度回答，包括重复性和再现性。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "bestAnswer": "方案：1. 选取标准件，多次测量同一位置，计算重复性（标准差）；2. 不同操作员或不同时间测量，计算再现性；3. 使用GR&R分析，确保测量系统可接受。同时测试不同光照和位置下的稳定性。若重复性差，检查机械振动、光源波动或算法阈值。",
+      "principle": "测量系统分析基于方差分解，评估测量变差占总变差的比例，确保系统能力。",
+      "id": "aiq-d8ccdecc",
+      "generatedAt": "2026-08-31T03:38:56.807Z",
+      "provider": "deepseek",
+      "model": "deepseek-v4-flash",
+      "project": "轮胎字符深度 OCR",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "随机技术栈"
     }
   ]
 }
