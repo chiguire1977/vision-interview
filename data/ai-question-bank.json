@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-31T08:27:06.731Z",
+  "updatedAt": "2026-08-31T08:28:10.469Z",
   "questions": [
     {
       "title": "在轮胎字符深度OCR项目中，HALCON的深度OCR模型相比传统OCR在抗磨损和倾斜方面有哪些本质优势？",
@@ -5532,6 +5532,357 @@
       "categoryFilter": "随机类型",
       "difficultyFilter": "随机难度",
       "techStackFilter": "VisionPro"
+    },
+    {
+      "title": "在HALCON中，如何区分使用阈值分割（threshold）和动态阈值分割（dyn_threshold）？请结合具体场景说明选择依据。",
+      "type": "算法原理",
+      "category": "图像分割",
+      "source": "专业",
+      "difficulty": "中等",
+      "tags": [
+        "阈值分割",
+        "动态阈值",
+        "图像分割"
+      ],
+      "keywords": [
+        "全局阈值",
+        "局部光照变化",
+        "背景不均匀",
+        "dyn_threshold参数"
+      ],
+      "followUp": "如果图像中存在阴影，但目标与背景灰度差异明显，你会选择哪种方法？为什么？",
+      "hint": "从光照均匀性、目标与背景对比度、计算效率三个维度对比。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "bestAnswer": "当图像光照均匀、目标与背景灰度差异稳定时，优先使用threshold进行全局分割，速度快且参数简单。当图像存在光照不均、阴影或背景灰度渐变时，全局阈值无法适应局部变化，应使用dyn_threshold，它通过比较每个像素与邻域均值或中值来动态确定阈值，能有效抵抗局部光照影响。选择时还需考虑实时性：dyn_threshold涉及滤波和逐像素比较，计算量较大。若场景光照可控且稳定，threshold更高效；若环境复杂，dyn_threshold更鲁棒。",
+      "principle": "threshold基于全局灰度直方图选取固定阈值，将像素分为前景和背景。dyn_threshold则利用平滑滤波（如mean_image）生成背景估计，然后通过比较原图与背景图的灰度差（Offset）进行分割，阈值随局部区域变化，适应光照不均。",
+      "id": "aiq-95f33eaf",
+      "generatedAt": "2026-08-31T08:28:09.060Z",
+      "provider": "deepseek",
+      "model": "deepseek-v4-flash",
+      "project": "轮胎字符深度 OCR",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "HALCON"
+    },
+    {
+      "title": "在HALCON中，使用边缘检测算子（如canny）后，如何通过亚像素轮廓提取（edges_sub_pix）获得精确边缘？请说明关键参数的影响。",
+      "type": "算法原理",
+      "category": "边缘提取",
+      "source": "专业",
+      "difficulty": "中等",
+      "tags": [
+        "亚像素",
+        "边缘检测",
+        "canny",
+        "edges_sub_pix"
+      ],
+      "keywords": [
+        "Sigma",
+        "滞后阈值",
+        "亚像素插值",
+        "轮廓平滑"
+      ],
+      "followUp": "如果提取的轮廓出现断裂，你会调整哪些参数？",
+      "hint": "从Sigma、滞后阈值、轮廓连接性角度回答。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "bestAnswer": "edges_sub_pix基于Canny算法，通过高斯滤波平滑图像（Sigma控制平滑程度），计算梯度幅值和方向，采用滞后阈值（High和Low）检测强、弱边缘，并通过亚像素插值精确定位边缘位置。Sigma越大，平滑越强，噪声抑制越好，但边缘定位精度下降；High阈值控制边缘起始，Low阈值用于连接断裂边缘。若轮廓断裂，可降低Low阈值或增大Sigma，但需权衡精度。提取后可用fuzzy_measure_pairs等进一步优化。",
+      "principle": "Canny边缘检测包括高斯滤波、梯度计算、非极大值抑制和双阈值连接。亚像素提取通过梯度方向的抛物线插值或矩方法获得边缘的亚像素坐标，提高定位精度。",
+      "id": "aiq-b1ba2709",
+      "generatedAt": "2026-08-31T08:28:09.060Z",
+      "provider": "deepseek",
+      "model": "deepseek-v4-flash",
+      "project": "轮胎字符深度 OCR",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "HALCON"
+    },
+    {
+      "title": "在HALCON中，模板匹配（如find_scaled_shape_model）在目标发生旋转和缩放时，如何设置参数以保证匹配鲁棒性？",
+      "type": "工程实践",
+      "category": "模板匹配",
+      "source": "专业",
+      "difficulty": "中等",
+      "tags": [
+        "模板匹配",
+        "缩放",
+        "旋转",
+        "find_scaled_shape_model"
+      ],
+      "keywords": [
+        "AngleStart",
+        "AngleExtent",
+        "ScaleMin",
+        "ScaleMax",
+        "MinScore",
+        "NumLevels"
+      ],
+      "followUp": "匹配速度过慢时，你会如何优化？",
+      "hint": "从搜索空间、金字塔层数、评分阈值角度回答。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "bestAnswer": "使用find_scaled_shape_model时，需根据目标可能的旋转范围设置AngleStart和AngleExtent，缩放范围设置ScaleMin和ScaleMax。MinScore控制匹配阈值，过低会增加误匹配，过高可能漏检。NumLevels决定金字塔层数，层数越多速度越快，但过大会丢失细节。为提高鲁棒性，可适当降低MinScore并增加搜索范围，但需平衡速度。若速度慢，可增大NumLevels、缩小搜索范围或使用贪婪参数Greediness提高效率。",
+      "principle": "形状模板匹配基于边缘点梯度方向，通过图像金字塔分层搜索，在旋转和缩放空间内计算相似度，利用最小二乘优化定位目标。",
+      "id": "aiq-12c88420",
+      "generatedAt": "2026-08-31T08:28:09.060Z",
+      "provider": "deepseek",
+      "model": "deepseek-v4-flash",
+      "project": "轮胎字符深度 OCR",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "HALCON"
+    },
+    {
+      "title": "在HALCON中，测量工具（如measure_pos）的测量精度受哪些因素影响？如何通过参数调整提高重复性？",
+      "type": "工程实践",
+      "category": "测量",
+      "source": "专业",
+      "difficulty": "中等",
+      "tags": [
+        "measure_pos",
+        "测量",
+        "精度",
+        "重复性"
+      ],
+      "keywords": [
+        "Sigma",
+        "Threshold",
+        "边缘位置",
+        "ROI宽度"
+      ],
+      "followUp": "如果测量结果波动大，你会从哪些方面排查？",
+      "hint": "从图像质量、边缘提取参数、ROI设置角度回答。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "bestAnswer": "测量精度主要受图像分辨率、边缘清晰度、光照稳定性影响。measure_pos中Sigma控制平滑程度，影响边缘定位；Threshold决定边缘强度阈值，过高可能漏检，过低引入噪声。ROI宽度（Width）影响采样区域，过窄可能丢失边缘，过宽引入干扰。提高重复性可固定光源和相机参数，适当增大Sigma抑制噪声，但需注意边缘模糊。同时可多次测量取平均，或使用亚像素测量算子如measure_pairs提高精度。",
+      "principle": "measure_pos沿ROI中心线计算灰度剖面，通过高斯滤波和导数计算边缘位置，亚像素插值提高定位精度。参数影响边缘检测的灵敏度和稳定性。",
+      "id": "aiq-18a90bcb",
+      "generatedAt": "2026-08-31T08:28:09.060Z",
+      "provider": "deepseek",
+      "model": "deepseek-v4-flash",
+      "project": "轮胎字符深度 OCR",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "HALCON"
+    },
+    {
+      "title": "在HALCON中，使用Blob分析时，如果目标与背景灰度接近，你会采用哪些预处理方法增强对比度？",
+      "type": "算法原理",
+      "category": "图像预处理",
+      "source": "专业",
+      "difficulty": "中等",
+      "tags": [
+        "Blob分析",
+        "对比度增强",
+        "预处理",
+        "灰度变换"
+      ],
+      "keywords": [
+        "灰度拉伸",
+        "直方图均衡",
+        "形态学",
+        "背景抑制"
+      ],
+      "followUp": "如果增强后仍无法分割，你会怎么办？",
+      "hint": "从灰度变换、滤波、背景建模角度回答。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "bestAnswer": "当目标与背景灰度接近时，可先通过灰度拉伸（scale_image）或直方图均衡（equ_histo_image）扩大灰度范围。使用高通滤波（如highpass_image）增强边缘，或通过形态学顶帽（top_hat）提取亮目标、底帽（bottom_hat）提取暗目标。也可利用背景估计（如mean_image）做差分，抑制背景。若仍无法分割，可考虑使用多通道信息或机器学习分类，或改用基于边缘的分割方法。",
+      "principle": "灰度变换调整灰度分布，增强对比度；滤波和形态学操作突出目标特征，背景抑制通过估计背景并差分，使目标与背景差异更明显。",
+      "id": "aiq-fee8b33b",
+      "generatedAt": "2026-08-31T08:28:09.060Z",
+      "provider": "deepseek",
+      "model": "deepseek-v4-flash",
+      "project": "轮胎字符深度 OCR",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "HALCON"
+    },
+    {
+      "title": "在HALCON中，相机标定（calibrate_cameras）时，标定板图像采集数量和质量对结果有何影响？如何判断标定是否成功？",
+      "type": "工程实践",
+      "category": "相机标定",
+      "source": "专业",
+      "difficulty": "中等",
+      "tags": [
+        "相机标定",
+        "标定板",
+        "calibrate_cameras",
+        "重投影误差"
+      ],
+      "keywords": [
+        "图像数量",
+        "姿态多样性",
+        "重投影误差",
+        "标定板覆盖"
+      ],
+      "followUp": "标定后测量结果仍有畸变，可能是什么原因？",
+      "hint": "从标定板覆盖、图像清晰度、误差评估角度回答。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "bestAnswer": "标定板图像应覆盖整个视场，且姿态多样（倾斜、旋转、平移），数量建议10-20张，过少会导致参数不准确。图像需清晰，避免运动模糊。标定成功可通过重投影误差（平均误差小于0.1像素）判断，同时检查内参是否合理。若标定后仍有畸变，可能是标定板不平整、图像数量不足或标定板角点提取不准，需重新采集。",
+      "principle": "相机标定通过求解内参、外参和畸变系数，使三维点投影到图像平面的误差最小化。重投影误差衡量标定精度。",
+      "id": "aiq-ccc2b10a",
+      "generatedAt": "2026-08-31T08:28:09.060Z",
+      "provider": "deepseek",
+      "model": "deepseek-v4-flash",
+      "project": "轮胎字符深度 OCR",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "HALCON"
+    },
+    {
+      "title": "在HALCON中，使用OCR识别字符时，如果识别率低，你会如何优化？请从图像预处理和识别参数两方面说明。",
+      "type": "工程实践",
+      "category": "OCR识别",
+      "source": "专业",
+      "difficulty": "中等",
+      "tags": [
+        "OCR",
+        "字符识别",
+        "预处理",
+        "识别参数"
+      ],
+      "keywords": [
+        "二值化",
+        "字符分割",
+        "字体训练",
+        "识别模式"
+      ],
+      "followUp": "如果字符有倾斜，你会如何处理？",
+      "hint": "从图像增强、分割、训练样本角度回答。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "bestAnswer": "识别率低时，首先优化图像预处理：使用灰度变换增强对比度，通过二值化（threshold或dyn_threshold）分离字符，用形态学操作去除噪声。确保字符分割正确，避免粘连或断裂。识别参数方面，可调整字符宽度、高度范围，或使用更精确的识别模式（如自动模式）。若字体特殊，可训练自定义OCR分类器，增加样本多样性。对于倾斜字符，需进行旋转校正（如text_line_orientation）。",
+      "principle": "OCR识别基于字符特征提取和分类器匹配，预处理影响字符分割质量，识别参数决定搜索空间，训练样本决定分类器准确性。",
+      "id": "aiq-706ff36c",
+      "generatedAt": "2026-08-31T08:28:09.060Z",
+      "provider": "deepseek",
+      "model": "deepseek-v4-flash",
+      "project": "轮胎字符深度 OCR",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "HALCON"
+    },
+    {
+      "title": "在HALCON中，使用形态学操作（如opening、closing）时，如何选择结构元素的大小和形状？",
+      "type": "算法原理",
+      "category": "形态学",
+      "source": "专业",
+      "difficulty": "基础",
+      "tags": [
+        "形态学",
+        "结构元素",
+        "开运算",
+        "闭运算"
+      ],
+      "keywords": [
+        "结构元素形状",
+        "尺寸",
+        "目标大小",
+        "噪声"
+      ],
+      "followUp": "如果目标形状不规则，结构元素如何选择？",
+      "hint": "从目标尺寸、形状、噪声大小角度回答。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "bestAnswer": "结构元素的选择需根据目标形状和尺寸。圆形结构元素适用于各向同性目标，矩形适用于矩形目标。尺寸应略大于噪声颗粒但小于目标特征，开运算可去除小噪声，闭运算可填补小孔。若目标形状不规则，可使用椭圆形或多边形结构元素，或采用多次不同尺寸操作。实际中可通过实验调整，观察效果。",
+      "principle": "形态学操作通过结构元素与图像进行集合运算，开运算先腐蚀后膨胀，去除小物体；闭运算先膨胀后腐蚀，填补小孔。结构元素决定操作的空间范围。",
+      "id": "aiq-242f9d13",
+      "generatedAt": "2026-08-31T08:28:09.060Z",
+      "provider": "deepseek",
+      "model": "deepseek-v4-flash",
+      "project": "轮胎字符深度 OCR",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "HALCON"
+    },
+    {
+      "title": "在HALCON中，使用光流法（如optical_flow_mg）检测运动目标时，参数设置对结果有何影响？如何选择合适的参数？",
+      "type": "算法原理",
+      "category": "运动分析",
+      "source": "专业",
+      "difficulty": "困难",
+      "tags": [
+        "光流法",
+        "运动检测",
+        "optical_flow_mg",
+        "参数"
+      ],
+      "keywords": [
+        "平滑项",
+        "金字塔层数",
+        "迭代次数",
+        "运动范围"
+      ],
+      "followUp": "如果场景中光照变化，光流结果会受影响吗？",
+      "hint": "从光流算法原理、参数作用角度回答。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "bestAnswer": "optical_flow_mg基于多网格光流算法，参数包括平滑项权重（控制运动场平滑度）、金字塔层数（处理大位移）、迭代次数（收敛精度）。平滑项过大导致运动场过度平滑，丢失细节；过小则噪声多。金字塔层数多可处理大位移，但计算量大。迭代次数多精度高但耗时。选择时需根据运动速度、场景复杂度调整，通常先默认参数，再根据结果微调。光照变化会影响灰度假设，导致光流误差，可先进行光照归一化。",
+      "principle": "光流法基于亮度恒定假设，通过优化能量函数估计运动场。多网格方法在金字塔各层求解，平滑项约束运动场连续性。",
+      "id": "aiq-b2750afd",
+      "generatedAt": "2026-08-31T08:28:09.060Z",
+      "provider": "deepseek",
+      "model": "deepseek-v4-flash",
+      "project": "轮胎字符深度 OCR",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "HALCON"
+    },
+    {
+      "title": "在HALCON中，使用3D视觉（如binocular_disparity）进行深度测量时，如何提高深度图的精度和鲁棒性？",
+      "type": "工程实践",
+      "category": "3D视觉",
+      "source": "专业",
+      "difficulty": "困难",
+      "tags": [
+        "3D视觉",
+        "双目立体",
+        "视差",
+        "深度图"
+      ],
+      "keywords": [
+        "标定精度",
+        "极线校正",
+        "匹配窗口",
+        "遮挡处理"
+      ],
+      "followUp": "如果场景中有反光表面，深度图会出现什么问题？",
+      "hint": "从标定、立体匹配、后处理角度回答。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "bestAnswer": "提高深度图精度，首先确保双目相机标定准确，重投影误差小。使用极线校正减少搜索维度。立体匹配时，调整匹配窗口大小（窗口大则平滑但细节丢失），设置合适的视差范围。后处理可用视差滤波（如中值滤波）去除噪声，利用左右一致性检查去除遮挡点。对于反光表面，可增加纹理投影或使用多视角融合。",
+      "principle": "双目立体视觉通过三角测量原理，根据左右图像对应点视差计算深度。匹配质量直接影响视差精度，标定误差会传播到深度计算。",
+      "id": "aiq-d710c075",
+      "generatedAt": "2026-08-31T08:28:09.060Z",
+      "provider": "deepseek",
+      "model": "deepseek-v4-flash",
+      "project": "轮胎字符深度 OCR",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "HALCON"
     }
   ]
 }
