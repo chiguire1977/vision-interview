@@ -1,8 +1,424 @@
 {
   "version": 2,
-  "updatedAt": "2026-08-31T11:10:57.211Z",
+  "updatedAt": "2026-08-31T11:18:46.706Z",
   "data": {
     "vision-interview-records": [
+      {
+        "question": "“轮胎字符深度 OCR”的检测结果和性能指标是如何验证的？",
+        "project": "轮胎字符深度 OCR",
+        "date": "2026/8/31",
+        "timestamp": "2026/8/31 07:37:38",
+        "action": "跳过题目",
+        "mode": "项目答辩",
+        "category": "项目答辩",
+        "source": "项目",
+        "seconds": 0,
+        "answer": "",
+        "bestAnswer": "验证应围绕样本集、测试流程、指标口径和现场复现展开：1）构建覆盖正常件、倾斜件、磨损件、阴影干扰件、脏污件和不同批次轮胎的测试样本集，并以人工标注或已确认产线结果作为真值；2）先做离线评测，对字符定位、识别结果逐条比对，统计字符识别准确率、误检率、漏检率和典型错误类型；3）再做在线试运行，结合相机触发、PLC 交互和产线节拍进行连续验证，确认单件处理耗时、结果上传时延和稳定运行能力；4）依据本地指标记录，该项目字符识别准确率达到 99.2%，目标节拍为 60 件/分钟；5）最终通过抽样复检、错误样本回溯、连续跑件和异常样本注入等方式确认指标可复现，并保留图像、日志和判定结果作为验证证据。",
+        "mastery": "低",
+        "masteryUpdatedAt": "2026/8/31 07:37:38",
+        "reviewIssues": [
+          "本题未作答，无法判断你是否真正掌握了知识点。"
+        ],
+        "reviewSuggestions": [
+          "先用一句话给出结论，再围绕“样本、测试、指标”展开说明。"
+        ],
+        "masteryReason": "跳过题目，尚未提交回答。",
+        "reviewSource": "本地规则",
+        "answerKeywords": [
+          "样本",
+          "测试",
+          "指标",
+          "准确率",
+          "节拍",
+          "误检",
+          "漏检",
+          "验证"
+        ],
+        "principle": "OCR 性能验证通常基于真值比对：将算法输出的字符内容与人工标注或可靠业务真值进行匹配，计算准确率、误检率和漏检率。准确率反映正确识别能力，误检率反映错误输出或错误匹配风险，漏检率反映应检未检风险。节拍验证需要统计图像采集触发、图像处理、结果判定和 PLC/系统通信的端到端耗时，并确认在连续触发下不丢帧、不阻塞、不超时。工程上还会通过混淆矩阵、错误样本分类、置信度分布和时序日志分析，定位识别错误是来自图像质量、字符形态变化、模型泛化不足，还是来自触发时序或通信异常。",
+        "id": "1788133058337-1b5db71dd69d2",
+        "bestAnswerViewed": false
+      },
+      {
+        "question": "OpenCV 中 cv::Mat 赋值、clone 和 copyTo 有什么区别？",
+        "project": "轮胎字符深度 OCR",
+        "date": "2026/8/31",
+        "timestamp": "2026/8/31 00:55:08",
+        "action": "跳过题目",
+        "mode": "专业知识",
+        "category": "C#与软件架构",
+        "source": "专业",
+        "seconds": 0,
+        "answer": "",
+        "bestAnswer": "cv::Mat 由矩阵头和底层数据组成，直接赋值通常只复制矩阵头并增加数据引用计数，两个 Mat 共享同一块像素数据，修改像素会互相影响。clone 创建完整独立副本；copyTo 把数据复制到目标 Mat，还可配合掩膜。只读传递可以利用浅拷贝降低开销；跨线程、需要修改或生命周期边界不清时，应创建独立副本。",
+        "mastery": "低",
+        "masteryUpdatedAt": "2026/8/31 00:55:08",
+        "reviewIssues": [
+          "本题未作答，无法判断你是否真正掌握了知识点。"
+        ],
+        "reviewSuggestions": [
+          "先用一句话给出结论，再围绕“引用计数、数据共享、浅拷贝”展开说明。"
+        ],
+        "masteryReason": "跳过题目，尚未提交回答。",
+        "reviewSource": "本地规则",
+        "answerKeywords": [
+          "引用计数",
+          "数据共享",
+          "浅拷贝",
+          "深拷贝",
+          "clone",
+          "copyTo",
+          "生命周期"
+        ],
+        "principle": "基本原理：围绕“引用计数、数据共享、浅拷贝、深拷贝、clone”说明输入、处理过程、输出和适用边界。",
+        "id": "1788108908051-07602bc0d9d26",
+        "bestAnswerViewed": false
+      },
+      {
+        "question": "VisionPro 中 CogCaliper 如何稳定找到边缘，多个卡尺点如何用于直线拟合？",
+        "project": "轮胎字符深度 OCR",
+        "date": "2026/8/31",
+        "timestamp": "2026/8/31 00:55:07",
+        "action": "跳过题目",
+        "mode": "专业知识",
+        "category": "边缘与特征",
+        "source": "专业",
+        "seconds": 0,
+        "answer": "",
+        "bestAnswer": "CogCaliper 沿卡尺方向对灰度进行一维投影，根据边缘极性、对比度阈值和期望位置选择边缘。FindLine 类工具会在多个卡尺位置独立得到边缘点，再对点集拟合直线。稳定性的关键是让卡尺方向垂直于真实边缘、限制搜索范围与极性，并通过异常点剔除或稳健拟合降低毛刺、缺口和反光点的影响。",
+        "mastery": "低",
+        "masteryUpdatedAt": "2026/8/31 00:55:07",
+        "reviewIssues": [
+          "本题未作答，无法判断你是否真正掌握了知识点。"
+        ],
+        "reviewSuggestions": [
+          "先用一句话给出结论，再围绕“投影、边缘极性、对比度”展开说明。"
+        ],
+        "masteryReason": "跳过题目，尚未提交回答。",
+        "reviewSource": "本地规则",
+        "answerKeywords": [
+          "投影",
+          "边缘极性",
+          "对比度",
+          "卡尺",
+          "异常点",
+          "拟合",
+          "阈值"
+        ],
+        "principle": "基本原理：卡尺沿测量方向把二维图像投影为一维灰度剖面，通过极性和对比度阈值寻找边缘；多位置采样得到点集后，使用剔除异常点的拟合得到稳定直线。",
+        "id": "1788108907799-6eb9cb844c1cc8",
+        "bestAnswerViewed": false
+      },
+      {
+        "question": "Modbus TCP 与 PLC 进行视觉握手时应包含哪些信号？",
+        "project": "轮胎字符深度 OCR",
+        "date": "2026/8/31",
+        "timestamp": "2026/8/31 00:55:07",
+        "action": "跳过题目",
+        "mode": "专业知识",
+        "category": "PLC与现场",
+        "source": "专业",
+        "seconds": 0,
+        "answer": "",
+        "bestAnswer": "典型握手包含触发、视觉忙、处理完成、结果值、PLC确认和复位，同时建议增加心跳、超时与工件序号。视觉只在检测到触发边沿且当前允许执行时拍照，置忙后完成处理，再写结果与完成信号；PLC读取后写确认，双方按约定复位。工件序号可避免异步处理时结果错位。",
+        "mastery": "低",
+        "masteryUpdatedAt": "2026/8/31 00:55:07",
+        "reviewIssues": [
+          "本题未作答，无法判断你是否真正掌握了知识点。"
+        ],
+        "reviewSuggestions": [
+          "先用一句话给出结论，再围绕“触发、忙碌、完成”展开说明。"
+        ],
+        "masteryReason": "跳过题目，尚未提交回答。",
+        "reviewSource": "本地规则",
+        "answerKeywords": [
+          "触发",
+          "忙碌",
+          "完成",
+          "结果",
+          "复位",
+          "超时",
+          "心跳",
+          "序号"
+        ],
+        "principle": "基本原理：用触发、忙碌、完成、结果、确认和复位形成状态机，并通过超时、心跳和工件序号处理异常与异步错位，避免重复拍照或结果串件。",
+        "id": "1788108907498-b45729a1fc5f4",
+        "bestAnswerViewed": false
+      },
+      {
+        "question": "OpenCV findContours 的检索模式和轮廓近似方式如何选择？",
+        "project": "轮胎字符深度 OCR",
+        "date": "2026/8/31",
+        "timestamp": "2026/8/31 00:55:07",
+        "action": "跳过题目",
+        "mode": "专业知识",
+        "category": "边缘与特征",
+        "source": "专业",
+        "seconds": 0,
+        "answer": "",
+        "bestAnswer": "RETR_EXTERNAL 只保留最外层轮廓，适合只关心物体外形；RETR_LIST 返回全部轮廓但不建立层级；RETR_CCOMP 建立两级结构；RETR_TREE 保留完整父子层级，适合孔洞和嵌套结构。CHAIN_APPROX_NONE 保存所有边界点，信息最完整但占内存；CHAIN_APPROX_SIMPLE 会压缩水平、垂直和斜线段，只保留端点，通常更适合常规形状分析。",
+        "mastery": "低",
+        "masteryUpdatedAt": "2026/8/31 00:55:07",
+        "reviewIssues": [
+          "本题未作答，无法判断你是否真正掌握了知识点。"
+        ],
+        "reviewSuggestions": [
+          "先用一句话给出结论，再围绕“外轮廓、层级、RETR_EXTERNAL”展开说明。"
+        ],
+        "masteryReason": "跳过题目，尚未提交回答。",
+        "reviewSource": "本地规则",
+        "answerKeywords": [
+          "外轮廓",
+          "层级",
+          "RETR_EXTERNAL",
+          "RETR_TREE",
+          "CHAIN_APPROX_NONE",
+          "CHAIN_APPROX_SIMPLE",
+          "内存"
+        ],
+        "principle": "基本原理：围绕“外轮廓、层级、RETR_EXTERNAL、RETR_TREE、CHAIN_APPROX_NONE”说明输入、处理过程、输出和适用边界。",
+        "id": "1788108907381-462a120108625",
+        "bestAnswerViewed": false
+      },
+      {
+        "question": "NCC 模板匹配为什么要先对图像和模板去均值？",
+        "project": "轮胎字符深度 OCR",
+        "date": "2026/8/31",
+        "timestamp": "2026/8/31 01:02:08",
+        "action": "跳过题目",
+        "mode": "专业知识",
+        "category": "模板与定位",
+        "source": "专业",
+        "seconds": 0,
+        "answer": "",
+        "bestAnswer": "NCC 先分别减去模板和搜索窗口的平均灰度，使参与比较的是灰度相对均值的变化，而不是整体亮度。随后再用两侧能量进行归一化，把相关值限制到统一范围。因此它对整体亮度偏移更稳健，但局部阴影、强非线性光照和形变仍可能导致匹配下降。",
+        "mastery": "低",
+        "masteryUpdatedAt": "2026/8/31 01:02:08",
+        "reviewIssues": [
+          "本题未作答，无法判断你是否真正掌握了知识点。"
+        ],
+        "reviewSuggestions": [
+          "先用一句话给出结论，再围绕“均值、亮度、相关性”展开说明。"
+        ],
+        "masteryReason": "跳过题目，尚未提交回答。",
+        "reviewSource": "本地规则",
+        "answerKeywords": [
+          "均值",
+          "亮度",
+          "相关性",
+          "归一化",
+          "灰度",
+          "偏移",
+          "分子",
+          "分母"
+        ],
+        "principle": "基本原理：先减去模板和搜索窗口的平均灰度，再用归一化内积比较灰度变化方向，从而降低整体亮度偏移的影响；局部阴影和形变仍需要光学或算法补偿。",
+        "id": "1788108907187-4a863b89a8c7e",
+        "bestAnswerViewed": false
+      },
+      {
+        "question": "形状模板匹配与 NCC 灰度模板匹配有什么区别？",
+        "project": "轮胎字符深度 OCR",
+        "date": "2026/8/31",
+        "timestamp": "2026/8/31 01:02:07",
+        "action": "跳过题目",
+        "mode": "专业知识",
+        "category": "模板与定位",
+        "source": "专业",
+        "seconds": 0,
+        "answer": "",
+        "bestAnswer": "NCC 比较模板与搜索窗口的灰度分布，适合纹理稳定、旋转尺度变化较小的目标。形状模板通常使用轮廓或梯度方向，对整体亮度变化更稳健，也更适合存在旋转、一定遮挡的工业目标。纹理丰富但轮廓不稳定时倾向 NCC；轮廓稳定、光照变化明显时倾向形状模板，最终仍需用现场样本验证。",
+        "mastery": "低",
+        "masteryUpdatedAt": "2026/8/31 01:02:07",
+        "reviewIssues": [
+          "本题未作答，无法判断你是否真正掌握了知识点。"
+        ],
+        "reviewSuggestions": [
+          "先用一句话给出结论，再围绕“灰度、轮廓、梯度”展开说明。"
+        ],
+        "masteryReason": "跳过题目，尚未提交回答。",
+        "reviewSource": "本地规则",
+        "answerKeywords": [
+          "灰度",
+          "轮廓",
+          "梯度",
+          "旋转",
+          "光照",
+          "纹理",
+          "遮挡",
+          "尺度"
+        ],
+        "principle": "基本原理：围绕“灰度、轮廓、梯度、旋转、光照”说明输入、处理过程、输出和适用边界。",
+        "id": "1788108907054-7bc4ff0f459eb8",
+        "bestAnswerViewed": false
+      },
+      {
+        "question": "VisionPro 中 CogFixture 的作用是什么？为什么定位后要建立夹具坐标系？",
+        "project": "轮胎字符深度 OCR",
+        "date": "2026/8/31",
+        "timestamp": "2026/8/31 01:02:04",
+        "action": "跳过题目",
+        "mode": "专业知识",
+        "category": "标定与坐标",
+        "source": "专业",
+        "seconds": 0,
+        "answer": "",
+        "bestAnswer": "CogFixture 根据上游定位得到的位置和角度，在图像空间树中建立随工件运动的新坐标系。下游卡尺、测量和检测 ROI 都在该 Fixture 空间中定义，因此工件发生平移或旋转时，工具区域仍能跟随目标。Fixture 不会自动改变单位：建立在像素空间时下游仍是像素，建立在已标定空间时才可按毫米或英寸测量。",
+        "mastery": "低",
+        "masteryUpdatedAt": "2026/8/31 01:02:04",
+        "reviewIssues": [
+          "本题未作答，无法判断你是否真正掌握了知识点。"
+        ],
+        "reviewSuggestions": [
+          "先用一句话给出结论，再围绕“坐标系、变换、定位结果”展开说明。"
+        ],
+        "masteryReason": "跳过题目，尚未提交回答。",
+        "reviewSource": "本地规则",
+        "answerKeywords": [
+          "坐标系",
+          "变换",
+          "定位结果",
+          "Fixture",
+          "测量区域",
+          "跟随",
+          "标定空间"
+        ],
+        "principle": "基本原理：围绕“坐标系、变换、定位结果、Fixture、测量区域”说明输入、处理过程、输出和适用边界。",
+        "id": "1788108906491-ed18f0776406c8",
+        "bestAnswerViewed": false
+      },
+      {
+        "question": "曝光时间和增益分别会对检测结果产生什么影响？",
+        "project": "轮胎字符深度 OCR",
+        "date": "2026/8/31",
+        "timestamp": "2026/8/31 01:01:58",
+        "action": "跳过题目",
+        "mode": "专业知识",
+        "category": "相机镜头光源",
+        "source": "专业",
+        "seconds": 0,
+        "answer": "",
+        "bestAnswer": "曝光时间决定传感器积累光子的时间，增加曝光会提高亮度和信噪比，但会降低可用帧率并增加运动模糊。增益是在采集后放大电信号，能够快速增亮，但信号和噪声会一起放大。高速场景应优先改善光源、光圈和曝光，在仍不足时再谨慎增加增益。",
+        "bestAnswerViewed": true,
+        "reviewIssues": [
+          "本题未作答，无法判断你是否真正掌握了知识点。"
+        ],
+        "reviewSuggestions": [
+          "先用一句话给出结论，再围绕“亮度、曝光、增益”展开说明。"
+        ],
+        "id": "1788090931418-923ecb35655d6",
+        "mastery": "低",
+        "masteryUpdatedAt": "2026/8/31 01:01:58",
+        "masteryReason": "跳过题目，尚未提交回答。",
+        "reviewSource": "本地规则",
+        "answerKeywords": [
+          "亮度",
+          "曝光",
+          "增益",
+          "噪声",
+          "运动模糊",
+          "信噪比",
+          "光源",
+          "光圈"
+        ],
+        "principle": "基本原理：围绕“亮度、曝光、增益、噪声、运动模糊”说明输入、处理过程、输出和适用边界。"
+      },
+      {
+        "question": "HALCON 形状模板匹配中的金字塔、角度范围和 Greediness 如何影响结果？",
+        "project": "轮胎字符深度 OCR",
+        "date": "2026/8/30",
+        "timestamp": "2026/8/30 18:27:10",
+        "action": "完成答题",
+        "mode": "专业知识",
+        "category": "模板与定位",
+        "source": "专业",
+        "seconds": 0,
+        "answer": "1232",
+        "bestAnswerViewed": false,
+        "reviewIssues": [
+          "可能遗漏关键要点：金字塔、角度范围、步长、Greediness。",
+          "回答偏短，只有结论时容易被认为是背诵，缺少原理或实施过程。 ",
+          "回答结构不够明显，面试官难以快速判断你的核心观点。 ",
+          "没有说明方案的适用条件或局限，回答显得不够工程化。 "
+        ],
+        "reviewSuggestions": [
+          "补充“金字塔、角度范围、步长、Greediness”，并说明它们与当前结论之间的因果关系。",
+          "扩展为“结论—原理或步骤—实际场景—局限”四段，每段一到两句。",
+          "使用“先说结论；其次解释原因；最后说明验证结果或局限”的表达顺序。",
+          "最后补一句：该方案适合什么条件、在哪些情况下会失败，以及你的补救措施。"
+        ],
+        "id": "1788085630661-10836d63f67638",
+        "mastery": "低"
+      },
+      {
+        "question": "HALCON 的 dyn_threshold 与普通 threshold 有什么区别？",
+        "project": "轮胎字符深度 OCR",
+        "date": "2026/8/31",
+        "timestamp": "2026/8/31 01:02:07",
+        "action": "跳过题目",
+        "mode": "专业知识",
+        "category": "图像处理基础",
+        "source": "专业",
+        "seconds": 0,
+        "answer": "",
+        "bestAnswerViewed": true,
+        "reviewIssues": [
+          "本题未作答，无法判断你是否真正掌握了知识点。"
+        ],
+        "reviewSuggestions": [
+          "先用一句话给出结论，再围绕“全局阈值、平滑图像、局部”展开说明。"
+        ],
+        "id": "1788085626555-d142aead3849e",
+        "mastery": "低",
+        "bestAnswer": "threshold 用固定灰度范围对整幅图做全局分割，适合背景稳定、直方图可分的场景。dyn_threshold 将原图与通常经过平滑的参考图逐点比较，根据两者灰度差和 Offset 提取比局部背景更亮或更暗的区域，因此更适合光照不均。平滑尺度应大于目标特征尺度；核太小会把缺陷一起平滑掉，Offset 太小则容易把噪声分出来。",
+        "masteryUpdatedAt": "2026/8/31 01:02:07",
+        "masteryReason": "跳过题目，尚未提交回答。",
+        "reviewSource": "本地规则",
+        "answerKeywords": [
+          "全局阈值",
+          "平滑图像",
+          "局部",
+          "灰度差",
+          "光照不均",
+          "Offset"
+        ],
+        "principle": "基本原理：threshold 用固定灰度范围做全局分割；dyn_threshold 将原图与平滑得到的局部背景逐点比较，用灰度差和 Offset 判断目标比背景更亮或更暗，所以更适合光照不均。"
+      },
+      {
+        "question": "HALCON 中 Image、Region 和 XLD 的区别是什么？",
+        "project": "轮胎字符深度 OCR",
+        "date": "2026/8/31",
+        "timestamp": "2026/8/31 01:02:06",
+        "action": "跳过题目",
+        "mode": "专业知识",
+        "category": "图像处理基础",
+        "source": "专业",
+        "seconds": 0,
+        "answer": "",
+        "bestAnswerViewed": false,
+        "reviewIssues": [
+          "本题未作答，无法判断你是否真正掌握了知识点。"
+        ],
+        "reviewSuggestions": [
+          "先用一句话给出结论，再围绕“灰度、区域、轮廓”展开说明。"
+        ],
+        "id": "1788085558555-b653a98f900298",
+        "mastery": "低",
+        "bestAnswer": "Image 保存规则像素网格上的灰度或多通道数据，是滤波、增强和灰度运算的输入；Region 表示由像素集合构成的区域，不保存灰度，适合连通域、面积、形态学等区域运算；XLD 是亚像素轮廓或多边形数据，适合边缘、几何拟合和轮廓匹配。需要亚像素测量时通常使用 XLD，需要掩膜和区域统计时使用 Region。",
+        "masteryUpdatedAt": "2026/8/31 01:02:06",
+        "masteryReason": "跳过题目，尚未提交回答。",
+        "reviewSource": "本地规则",
+        "answerKeywords": [
+          "灰度",
+          "区域",
+          "轮廓",
+          "像素",
+          "几何",
+          "亚像素",
+          "运算对象"
+        ],
+        "principle": "基本原理：围绕“灰度、区域、轮廓、像素、几何”说明输入、处理过程、输出和适用边界。"
+      },
       {
         "question": "在HALCON中，进行边缘提取时，常用的算子有sobel_amp、canny和edges_sub_pix，它们各自的特点和适用场景是什么？",
         "project": "轮胎字符深度 OCR",
@@ -710,6 +1126,22 @@
         "bestAnswerViewed": false
       },
       {
+        "question": "九点标定解决了什么问题？完整实施步骤是什么？",
+        "score": 58,
+        "project": "轮胎字符深度 OCR",
+        "date": "2026/8/30",
+        "timestamp": "2026/8/30 16:29:04",
+        "action": "完成答题",
+        "mode": "专业知识",
+        "category": "标定与坐标",
+        "source": "专业",
+        "seconds": 0,
+        "answer": "123132123123123",
+        "bestAnswerViewed": false,
+        "id": "1788078544875-4d51e5c1e3ecd8",
+        "mastery": "低"
+      },
+      {
         "question": "VisionPro 中 CogCaliper 如何稳定找到边缘，多个卡尺点如何用于直线拟合？",
         "project": "轮胎字符深度 OCR",
         "date": "2026/8/31",
@@ -1028,22 +1460,6 @@
           "光圈"
         ],
         "principle": "曝光时间决定光子累积量，影响信噪比和动态范围；增益放大信号的同时放大噪声，降低图像质量。运动模糊与曝光时间成正比，需根据物体运动速度限制曝光时间。"
-      },
-      {
-        "question": "九点标定解决了什么问题？完整实施步骤是什么？",
-        "score": 58,
-        "project": "轮胎字符深度 OCR",
-        "date": "2026/8/30",
-        "timestamp": "2026/8/30 16:29:04",
-        "action": "完成答题",
-        "mode": "专业知识",
-        "category": "标定与坐标",
-        "source": "专业",
-        "seconds": 0,
-        "answer": "123132123123123",
-        "bestAnswerViewed": false,
-        "id": "1788078544875-4d51e5c1e3ecd8",
-        "mastery": "低"
       }
     ],
     "vision-interview-projects": [
