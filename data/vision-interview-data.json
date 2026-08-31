@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-08-31T13:29:34.448Z",
+  "updatedAt": "2026-08-31T13:29:46.211Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1784,6 +1784,32 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788182989874-6ti35a0w",
+        "timestamp": "2026-08-31T13:29:49.874Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788182515885-iy17aubu",
+        "event": "github.backup.started",
+        "message": "开始备份数据到 GitHub",
+        "context": {
+          "operation": "ai-question-bank",
+          "entryCount": 10,
+          "pendingCount": 10
+        }
+      },
+      {
+        "id": "1788182983243-rqch8u3r",
+        "timestamp": "2026-08-31T13:29:43.243Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "586a0318ae14"
+        }
+      },
       {
         "id": "1788182977712-v0e6pi88",
         "timestamp": "2026-08-31T13:29:37.712Z",
@@ -15006,34 +15032,6 @@
           "maxAttempts": 6,
           "collectedCount": 0,
           "error": "请先配置当前 AI 服务商的 API Key。"
-        }
-      },
-      {
-        "id": "1788170007102-ug3u9oqi",
-        "timestamp": "2026-08-31T09:53:27.102Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788169988616-qqc3c3wb",
-        "event": "question-bank.ai-request.started",
-        "message": "第 6/6 轮：正在请求 AI 生成题目…",
-        "context": {
-          "attempt": 6,
-          "maxAttempts": 6,
-          "collectedCount": 0
-        }
-      },
-      {
-        "id": "1788170007099-b9jzveyp",
-        "timestamp": "2026-08-31T09:53:27.099Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788169988616-qqc3c3wb",
-        "event": "question-bank.web-search.completed",
-        "message": "本轮联网检索完成",
-        "context": {
-          "attempt": 6,
-          "query": "机器视觉 面试知识点 HALCON 原理 工程实践",
-          "sourceCount": 0
         }
       }
     ]
