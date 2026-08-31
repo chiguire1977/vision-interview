@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-08-31T11:08:53.359Z",
+  "updatedAt": "2026-08-31T11:08:56.176Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1402,6 +1402,46 @@
     },
     "vision-interview-project-view": "card",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788174541325-dkk9en4n",
+        "timestamp": "2026-08-31T11:09:01.325Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "f4dbd6d5e90b"
+        }
+      },
+      {
+        "id": "1788174537830-iev6k5it",
+        "timestamp": "2026-08-31T11:08:57.830Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788174221322-o6ij9hv5",
+        "event": "question-bank.ai-request.started",
+        "message": "第 5/6 轮：正在请求 AI 生成题目…",
+        "context": {
+          "attempt": 5,
+          "maxAttempts": 6,
+          "collectedCount": 0
+        }
+      },
+      {
+        "id": "1788174537827-ojqahdxl",
+        "timestamp": "2026-08-31T11:08:57.827Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788174221322-o6ij9hv5",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 5,
+          "query": "机器视觉 面试知识点 HALCON 原理 工程实践",
+          "sourceCount": 0
+        }
+      },
       {
         "id": "1788174534331-4906frpz",
         "timestamp": "2026-08-31T11:08:54.331Z",
@@ -14531,37 +14571,6 @@
         "kind": "system",
         "event": "backup.close.flush",
         "message": "页面关闭或进入后台，提交最后一次备份"
-      },
-      {
-        "id": "1788161387472-os3zc2tr",
-        "timestamp": "2026-08-31T07:29:47.472Z",
-        "level": "ERROR",
-        "kind": "system",
-        "event": "backup.push.failed",
-        "message": "运行数据备份请求失败",
-        "context": {
-          "error": "Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON"
-        }
-      },
-      {
-        "id": "1788161383422-8tumgcvf",
-        "timestamp": "2026-08-31T07:29:43.422Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.close.flush",
-        "message": "页面关闭或进入后台，提交最后一次备份"
-      },
-      {
-        "id": "1788161350250-2sqlcdmw",
-        "timestamp": "2026-08-31T07:29:10.250Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "19f282700d77"
-        }
       }
     ]
   }
