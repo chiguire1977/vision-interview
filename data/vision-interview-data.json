@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-08-31T10:23:08.409Z",
+  "updatedAt": "2026-08-31T10:23:46.970Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1401,6 +1401,46 @@
     },
     "vision-interview-project-view": "card",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788171826116-mvvtfbay",
+        "timestamp": "2026-08-31T10:23:46.116Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788169988616-qqc3c3wb",
+        "event": "question-group.prepare.completed",
+        "message": "AI 多轮联网搜索与生成后仍未获得有效题目，已使用本地题库与标准答案。",
+        "context": {
+          "source": "本地规则",
+          "questionCount": 3
+        }
+      },
+      {
+        "id": "1788171826106-oeaw33bf",
+        "timestamp": "2026-08-31T10:23:46.106Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788169988616-qqc3c3wb",
+        "event": "question-bank.attempt.failed",
+        "message": "第 6/6 轮：本轮请求失败：AI 请求超时，请稍后重试。，准备下一轮…",
+        "context": {
+          "attempt": 6,
+          "maxAttempts": 6,
+          "collectedCount": 0,
+          "error": "AI 请求超时，请稍后重试。"
+        }
+      },
+      {
+        "id": "1788171797000-aufrdqo0",
+        "timestamp": "2026-08-31T10:23:17.000Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "6fe769fddeef"
+        }
+      },
       {
         "id": "1788171789532-mic4w5ca",
         "timestamp": "2026-08-31T10:23:09.532Z",
@@ -14143,34 +14183,6 @@
         "context": {
           "reason": "change",
           "commit": "eeca1f0742b1"
-        }
-      },
-      {
-        "id": "1788147783240-kp348ws4",
-        "timestamp": "2026-08-31T03:43:03.240Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.close.flush",
-        "message": "页面关闭或进入后台，提交最后一次备份"
-      },
-      {
-        "id": "1788147780857-cp8429wh",
-        "timestamp": "2026-08-31T03:43:00.857Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.close.flush",
-        "message": "页面关闭或进入后台，提交最后一次备份"
-      },
-      {
-        "id": "1788147780745-l224mkyk",
-        "timestamp": "2026-08-31T03:43:00.745Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "3eac533b58c7"
         }
       }
     ]
