@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-08-31T12:42:17.228Z",
+  "updatedAt": "2026-08-31T12:42:23.879Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1802,6 +1802,76 @@
     },
     "vision-interview-project-view": "card",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788180146498-wazx3e6b",
+        "timestamp": "2026-08-31T12:42:26.498Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "cab261c2afb4"
+        }
+      },
+      {
+        "id": "1788180144156-tan18fzf",
+        "timestamp": "2026-08-31T12:42:24.156Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788180120217-75gv1oc0",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 5,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 0
+        }
+      },
+      {
+        "id": "1788180144154-yp4l3miy",
+        "timestamp": "2026-08-31T12:42:24.154Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788180120217-75gv1oc0",
+        "event": "question-bank.attempt.failed",
+        "message": "第 4/6 轮：本轮请求失败：请先配置当前 AI 服务商的 API Key。，准备下一轮…",
+        "context": {
+          "attempt": 4,
+          "maxAttempts": 6,
+          "collectedCount": 0,
+          "error": "请先配置当前 AI 服务商的 API Key。"
+        }
+      },
+      {
+        "id": "1788180142244-b6igy0y4",
+        "timestamp": "2026-08-31T12:42:22.244Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788180120217-75gv1oc0",
+        "event": "question-bank.ai-request.started",
+        "message": "第 4/6 轮：正在请求 AI 生成题目…",
+        "context": {
+          "attempt": 4,
+          "maxAttempts": 6,
+          "collectedCount": 0
+        }
+      },
+      {
+        "id": "1788180142242-21o91m8g",
+        "timestamp": "2026-08-31T12:42:22.242Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788180120217-75gv1oc0",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 4,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "sourceCount": 0
+        }
+      },
       {
         "id": "1788180140098-5jx5kodj",
         "timestamp": "2026-08-31T12:42:20.098Z",
@@ -14292,54 +14362,6 @@
           "source": "github",
           "updatedAt": "2026-08-31T03:38:28.954Z"
         }
-      },
-      {
-        "id": "1788147512567-r7uu6loo",
-        "timestamp": "2026-08-31T03:38:32.567Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.startup.loaded",
-        "message": "启动配置加载完成",
-        "context": {
-          "source": "github",
-          "updatedAt": "2026-08-31T03:38:28.954Z"
-        }
-      },
-      {
-        "id": "1788147506632-7m4smtuz",
-        "timestamp": "2026-08-31T03:38:26.632Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.close.flush",
-        "message": "页面关闭或进入后台，提交最后一次备份"
-      },
-      {
-        "id": "1788147504626-jdw0b1ir",
-        "timestamp": "2026-08-31T03:38:24.626Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.close.flush",
-        "message": "页面关闭或进入后台，提交最后一次备份"
-      },
-      {
-        "id": "1788147329702-y54rl0ba",
-        "timestamp": "2026-08-31T03:35:29.702Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "915ed660bdfd"
-        }
-      },
-      {
-        "id": "1788147324017-qlyplkq1",
-        "timestamp": "2026-08-31T03:35:24.017Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.close.flush",
-        "message": "页面关闭或进入后台，提交最后一次备份"
       }
     ]
   }
