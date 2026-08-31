@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-08-31T10:21:58.374Z",
+  "updatedAt": "2026-08-31T10:22:13.538Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1401,6 +1401,48 @@
     },
     "vision-interview-project-view": "card",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788171735286-ywx2182z",
+        "timestamp": "2026-08-31T10:22:15.286Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788169988616-qqc3c3wb",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 4,
+          "query": "机器视觉 面试知识点 HALCON 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 0
+        }
+      },
+      {
+        "id": "1788171735283-canrceos",
+        "timestamp": "2026-08-31T10:22:15.283Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788169988616-qqc3c3wb",
+        "event": "question-bank.attempt.failed",
+        "message": "第 3/6 轮：本轮请求失败：AI 请求超时，请稍后重试。，准备下一轮…",
+        "context": {
+          "attempt": 3,
+          "maxAttempts": 6,
+          "collectedCount": 0,
+          "error": "AI 请求超时，请稍后重试。"
+        }
+      },
+      {
+        "id": "1788171727045-h1k1h1te",
+        "timestamp": "2026-08-31T10:22:07.045Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "a2d454adb26d"
+        }
+      },
       {
         "id": "1788171718894-wcd10z6g",
         "timestamp": "2026-08-31T10:21:58.894Z",
@@ -14109,42 +14151,6 @@
         "context": {
           "reason": "change",
           "commit": "4fc1f8eca595"
-        }
-      },
-      {
-        "id": "1788147738382-oq512los",
-        "timestamp": "2026-08-31T03:42:18.382Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "bf6321b55ec9"
-        }
-      },
-      {
-        "id": "1788147736065-oy5uz98w",
-        "timestamp": "2026-08-31T03:42:16.065Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "48685adcf288"
-        }
-      },
-      {
-        "id": "1788147733840-edckgo6s",
-        "timestamp": "2026-08-31T03:42:13.840Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "800508984b6f"
         }
       }
     ]
