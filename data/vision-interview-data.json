@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-08-31T12:12:46.967Z",
+  "updatedAt": "2026-08-31T12:27:21.802Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1818,6 +1818,146 @@
     },
     "vision-interview-project-view": "card",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788178458800-qdnsa527",
+        "timestamp": "2026-08-31T12:14:18.800Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788176733288-egduzojh",
+        "event": "question-bank.cache.saved",
+        "message": "AI 题库已完成远程同步",
+        "context": {
+          "questionCount": 10,
+          "pendingCount": 0
+        }
+      },
+      {
+        "id": "1788178458797-y6rxp5fi",
+        "timestamp": "2026-08-31T12:14:18.797Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788176733288-egduzojh",
+        "event": "github.backup.succeeded",
+        "message": "数据已成功备份到 GitHub",
+        "context": {
+          "operation": "ai-question-bank",
+          "entryCount": 10,
+          "pendingCount": 0,
+          "status": 200
+        }
+      },
+      {
+        "id": "1788178448963-wtnnjruq",
+        "timestamp": "2026-08-31T12:14:08.963Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788176733288-egduzojh",
+        "event": "question-group.prepare.completed",
+        "message": "AI 已生成完整 10 道题目、标准回答和技术原理；远程题库正在后台同步。",
+        "context": {
+          "source": "AI",
+          "questionCount": 10
+        }
+      },
+      {
+        "id": "1788178448956-tmg3c02l",
+        "timestamp": "2026-08-31T12:14:08.956Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788176733288-egduzojh",
+        "event": "github.backup.started",
+        "message": "开始备份数据到 GitHub",
+        "context": {
+          "operation": "ai-question-bank",
+          "entryCount": 10,
+          "pendingCount": 10
+        }
+      },
+      {
+        "id": "1788178448948-f7ayay96",
+        "timestamp": "2026-08-31T12:14:08.948Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788176733288-egduzojh",
+        "event": "question-bank.ai-request.completed",
+        "message": "第 5/6 轮：AI 已返回 10/10 道有效题目。",
+        "context": {
+          "attempt": 5,
+          "maxAttempts": 6,
+          "collectedCount": 10,
+          "targetCount": 10
+        }
+      },
+      {
+        "id": "1788178406888-skyxpm9o",
+        "timestamp": "2026-08-31T12:13:26.888Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788176733288-egduzojh",
+        "event": "question-bank.ai-request.started",
+        "message": "第 5/6 轮：正在请求 AI 生成题目…",
+        "context": {
+          "attempt": 5,
+          "maxAttempts": 6,
+          "collectedCount": 0
+        }
+      },
+      {
+        "id": "1788178406882-70qukmhd",
+        "timestamp": "2026-08-31T12:13:26.882Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788176733288-egduzojh",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 5,
+          "query": "机器视觉 面试知识点 HALCON 原理 工程实践",
+          "sourceCount": 0
+        }
+      },
+      {
+        "id": "1788178406109-ue88a27g",
+        "timestamp": "2026-08-31T12:13:26.109Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788176733288-egduzojh",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 5,
+          "query": "机器视觉 面试知识点 HALCON 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 0
+        }
+      },
+      {
+        "id": "1788178406104-23pe4ogb",
+        "timestamp": "2026-08-31T12:13:26.104Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788176733288-egduzojh",
+        "event": "question-bank.attempt.failed",
+        "message": "第 4/6 轮：本轮请求失败：AI 请求超时，请稍后重试。，准备下一轮…",
+        "context": {
+          "attempt": 4,
+          "maxAttempts": 6,
+          "collectedCount": 0,
+          "error": "AI 请求超时，请稍后重试。"
+        }
+      },
+      {
+        "id": "1788178376071-fihybvr8",
+        "timestamp": "2026-08-31T12:12:56.071Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "102bbfd82a59"
+        }
+      },
       {
         "id": "1788178345845-8cmtilyu",
         "timestamp": "2026-08-31T12:12:25.845Z",
@@ -15018,142 +15158,6 @@
           "question": "现场视觉系统出现图像对比度不足，影响检测稳定性，请列出排查步骤和调整方案。",
           "mode": "专业知识",
           "project": "轮胎字符深度 OCR"
-        }
-      },
-      {
-        "id": "1788165253559-juaqffka",
-        "timestamp": "2026-08-31T08:34:13.559Z",
-        "level": "WARN",
-        "kind": "user",
-        "sessionId": "1788164727758-4j1db2oj",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "在视觉检测中，形态学操作的核大小和形状对检测结果有什么影响？如何确定最佳参数？",
-          "mode": "专业知识",
-          "project": "轮胎字符深度 OCR"
-        }
-      },
-      {
-        "id": "1788165253399-medbt6bx",
-        "timestamp": "2026-08-31T08:34:13.399Z",
-        "level": "WARN",
-        "kind": "user",
-        "sessionId": "1788164727758-4j1db2oj",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "在图像分割中，阈值分割和边缘检测的适用场景有何不同？如何选择？",
-          "mode": "专业知识",
-          "project": "轮胎字符深度 OCR"
-        }
-      },
-      {
-        "id": "1788165253207-mcsqjbbv",
-        "timestamp": "2026-08-31T08:34:13.207Z",
-        "level": "WARN",
-        "kind": "user",
-        "sessionId": "1788164727758-4j1db2oj",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "在机器视觉项目中，如何根据被测物体特性选择工业相机与镜头的组合？请给出选型流程。",
-          "mode": "专业知识",
-          "project": "轮胎字符深度 OCR"
-        }
-      },
-      {
-        "id": "1788165253071-93irhv3o",
-        "timestamp": "2026-08-31T08:34:13.071Z",
-        "level": "WARN",
-        "kind": "user",
-        "sessionId": "1788164727758-4j1db2oj",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "在视觉测量中，如何标定相机以获取准确的像素当量？请说明标定板的选择和操作要点。",
-          "mode": "专业知识",
-          "project": "轮胎字符深度 OCR"
-        }
-      },
-      {
-        "id": "1788165252911-4n37qmn5",
-        "timestamp": "2026-08-31T08:34:12.911Z",
-        "level": "WARN",
-        "kind": "user",
-        "sessionId": "1788164727758-4j1db2oj",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "现场视觉系统出现图像模糊，可能的原因有哪些？请列出排查步骤。",
-          "mode": "专业知识",
-          "project": "轮胎字符深度 OCR"
-        }
-      },
-      {
-        "id": "1788165252567-exqarejf",
-        "timestamp": "2026-08-31T08:34:12.567Z",
-        "level": "WARN",
-        "kind": "user",
-        "sessionId": "1788164727758-4j1db2oj",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "在视觉检测中，如何通过参数调整来平衡过拟合与欠拟合？请以缺陷检测为例。",
-          "mode": "专业知识",
-          "project": "轮胎字符深度 OCR"
-        }
-      },
-      {
-        "id": "1788165252407-7o17x79f",
-        "timestamp": "2026-08-31T08:34:12.407Z",
-        "level": "WARN",
-        "kind": "user",
-        "sessionId": "1788164727758-4j1db2oj",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "解释图像滤波中高斯滤波与中值滤波的区别，并说明各自适用的噪声类型。",
-          "mode": "专业知识",
-          "project": "轮胎字符深度 OCR"
-        }
-      },
-      {
-        "id": "1788165252240-c9begnji",
-        "timestamp": "2026-08-31T08:34:12.240Z",
-        "level": "WARN",
-        "kind": "user",
-        "sessionId": "1788164727758-4j1db2oj",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "在机器视觉项目中，如何选择合适的光源颜色和照明方式？请结合具体场景说明。",
-          "mode": "专业知识",
-          "project": "轮胎字符深度 OCR"
-        }
-      },
-      {
-        "id": "1788165251004-3jrpcxmw",
-        "timestamp": "2026-08-31T08:34:11.004Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "b89c9dc23f2c"
-        }
-      },
-      {
-        "id": "1788165248945-8lw1vpvt",
-        "timestamp": "2026-08-31T08:34:08.945Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788164727758-4j1db2oj",
-        "event": "question-group.prepare.cached",
-        "message": "题组已从本机缓存恢复",
-        "context": {
-          "questionCount": 10
         }
       }
     ]
