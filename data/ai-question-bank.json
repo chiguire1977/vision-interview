@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-31T15:59:49.545Z",
+  "updatedAt": "2026-08-31T16:00:05.767Z",
   "questions": [
     {
       "title": "在轮胎字符深度OCR项目中，HALCON的深度OCR模型相比传统OCR在抗磨损和倾斜方面有哪些本质优势？",
@@ -11695,6 +11695,434 @@
       "trainingMode": "专业知识",
       "categoryFilter": "相机镜头光源",
       "difficultyFilter": "困难",
+      "techStackFilter": "随机技术栈"
+    },
+    {
+      "title": "GigE Vision 图像传输偶发撕裂，如何从协议层面定位是丢包还是丢帧？",
+      "type": "现场故障",
+      "category": "通讯协议",
+      "source": "专业",
+      "sourceType": "AI知识整理",
+      "knowledgePoints": [
+        "GVCP控制通道与GVSP数据通道的分工",
+        "GVSP包结构中的块ID与包序号",
+        "丢包重传机制与网卡缓冲区配置"
+      ],
+      "difficulty": "中等",
+      "tags": [
+        "GigE Vision",
+        "GVSP",
+        "网络排障"
+      ],
+      "keywords": [
+        "块ID",
+        "包序号",
+        "巨型帧",
+        "Wireshark"
+      ],
+      "followUp": "如何区分是网络丢包还是相机端采集丢帧？请给出具体判断步骤。",
+      "hint": "先抓包确认GVSP包序号连续性，再检查相机帧率与网络带宽余量。",
+      "techStacks": [
+        "C++",
+        "Wireshark"
+      ],
+      "bestAnswer": "首先使用Wireshark抓取GVSP数据包，检查每个图像块的包序号是否连续。若发现包序号跳变，说明网络丢包，此时应开启网卡巨型帧、增大GVSP包大小以减少包数量，并调大网卡接收缓冲区。若包序号连续但图像仍撕裂，则可能是相机端丢帧，需检查相机帧率设置、曝光时间是否超出带宽限制，以及采集端是否及时读取数据。",
+      "principle": "GigE Vision使用GVCP控制通道和GVSP数据通道。GVSP将图像分成多个数据包，每个包携带块ID和包序号；接收端通过检测包序号跳变可识别丢包。GVCP支持重传请求，但需在接收缓冲区溢出前完成。巨型帧可减少包数量，降低丢包概率。",
+      "id": "aiq-f7a233b7",
+      "generatedAt": "2026-08-31T16:00:12.438Z",
+      "provider": "custom-mtfsd2qj-i4ox3z",
+      "model": "deepseek-v4-flash",
+      "project": "机器视觉专业知识",
+      "trainingMode": "专业知识",
+      "categoryFilter": "通讯协议",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "随机技术栈"
+    },
+    {
+      "title": "Camera Link 相机输出图像出现水平条纹和行丢失，如何排查？",
+      "type": "现场故障",
+      "category": "通讯协议",
+      "source": "专业",
+      "sourceType": "AI知识整理",
+      "knowledgePoints": [
+        "Camera Link的Channel Link串行化原理",
+        "LVDS信号完整性与线缆长度",
+        "像素时钟频率与采集卡配置匹配"
+      ],
+      "difficulty": "困难",
+      "tags": [
+        "Camera Link",
+        "LVDS",
+        "信号完整性"
+      ],
+      "keywords": [
+        "Channel Link",
+        "LVDS",
+        "像素时钟",
+        "线缆"
+      ],
+      "followUp": "如果降低像素时钟频率后故障消失，说明什么？下一步如何优化？",
+      "hint": "从信号完整性角度分析，先检查物理连接，再调整时钟频率。",
+      "techStacks": [
+        "HALCON",
+        "C++"
+      ],
+      "bestAnswer": "先确认相机输出配置与采集卡完全一致，包括像素格式、通道数、像素时钟频率。然后检查Camera Link线缆是否紧固、有无弯折，必要时更换高质量线缆。若故障依旧，可尝试降低像素时钟频率，观察故障是否消失。若消失，说明是信号完整性不足，需缩短线缆长度或选用更高等级线缆。同时用示波器测量LVDS差分信号，确认眼图是否合格。",
+      "principle": "Camera Link基于Channel Link技术，将并行数据串行化后通过LVDS差分对传输。像素时钟频率越高，信号边沿越陡，对线缆带宽和连接器质量要求越高。线缆过长或屏蔽不良会导致信号衰减和串扰，造成数据采样错误，表现为行丢失或条纹。",
+      "id": "aiq-2487b027",
+      "generatedAt": "2026-08-31T16:00:12.438Z",
+      "provider": "custom-mtfsd2qj-i4ox3z",
+      "model": "deepseek-v4-flash",
+      "project": "机器视觉专业知识",
+      "trainingMode": "专业知识",
+      "categoryFilter": "通讯协议",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "随机技术栈"
+    },
+    {
+      "title": "高速视觉检测中，如何根据场景选择USB3 Vision还是GigE Vision？",
+      "type": "工程实践",
+      "category": "通讯协议",
+      "source": "专业",
+      "sourceType": "AI知识整理",
+      "knowledgePoints": [
+        "USB3 Vision与GigE Vision的带宽差异",
+        "线缆长度与供电方式",
+        "多相机同步与CPU占用"
+      ],
+      "difficulty": "基础",
+      "tags": [
+        "USB3 Vision",
+        "GigE Vision",
+        "方案选型"
+      ],
+      "keywords": [
+        "带宽",
+        "线缆长度",
+        "PoE",
+        "CPU占用"
+      ],
+      "followUp": "如果相机距离主机超过10米，你会如何设计传输方案？",
+      "hint": "从带宽、距离、供电、同步和成本五个维度对比。",
+      "techStacks": [
+        "Python",
+        "HALCON"
+      ],
+      "bestAnswer": "若单相机带宽需求高且距离在3米以内，优先选USB3 Vision，其实际带宽约3.2Gbps，适合高分辨率高帧率；若相机距离超过5米，或多相机需要硬同步，选GigE Vision，支持PoE供电和标准网线，最长100米。还需考虑CPU占用：USB3 Vision通常需要较高CPU处理，而GigE Vision可依赖网卡卸载。最后结合成本，GigE Vision网卡和线缆更便宜。",
+      "principle": "USB3 Vision基于USB3.0 SuperSpeed，理论带宽5Gbps，实际有效带宽约3.2Gbps，但线缆长度受限（推荐3米内）。GigE Vision基于千兆以太网，实际带宽约1.1Gbps，但支持PoE、长距离和标准网络基础设施，多相机同步可通过IEEE 1588或触发线实现。",
+      "id": "aiq-8d55a0fb",
+      "generatedAt": "2026-08-31T16:00:12.438Z",
+      "provider": "custom-mtfsd2qj-i4ox3z",
+      "model": "deepseek-v4-flash",
+      "project": "机器视觉专业知识",
+      "trainingMode": "专业知识",
+      "categoryFilter": "通讯协议",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "随机技术栈"
+    },
+    {
+      "title": "GenICam的GenApi如何实现跨厂商相机参数统一配置？",
+      "type": "算法原理",
+      "category": "通讯协议",
+      "source": "专业",
+      "sourceType": "AI知识整理",
+      "knowledgePoints": [
+        "GenApi节点结构与XML描述",
+        "SFNC标准特征命名",
+        "寄存器映射与转换器"
+      ],
+      "difficulty": "中等",
+      "tags": [
+        "GenICam",
+        "GenApi",
+        "SFNC"
+      ],
+      "keywords": [
+        "XML",
+        "节点",
+        "寄存器",
+        "SFNC"
+      ],
+      "followUp": "SFNC对相机功能命名做了哪些标准化？举例说明。",
+      "hint": "从抽象层角度解释GenApi如何屏蔽硬件差异。",
+      "techStacks": [
+        "C++",
+        "C#"
+      ],
+      "bestAnswer": "GenICam通过GenApi定义了一套与传输协议无关的相机配置接口。相机厂商提供XML文件，描述每个参数节点的名称、类型、访问权限以及对应的寄存器地址和转换规则。SDK加载XML后，应用程序通过统一的节点树读写参数，无需关心底层寄存器。SFNC则规定了标准特征名，如Width、Height、ExposureTime，确保不同厂商的相机提供一致的接口。",
+      "principle": "GenApi采用树形节点模型，节点类型包括Integer、Float、Enum、Boolean等，通过转换器（Converter）将逻辑值映射为寄存器原始值。SFNC（Standard Features Naming Convention）统一了功能命名和单位，使上层软件可以跨厂商复用。GenApi与传输层（GigE、USB3、Camera Link）解耦，但需要传输层提供设备访问接口。",
+      "id": "aiq-b849fb61",
+      "generatedAt": "2026-08-31T16:00:12.438Z",
+      "provider": "custom-mtfsd2qj-i4ox3z",
+      "model": "deepseek-v4-flash",
+      "project": "机器视觉专业知识",
+      "trainingMode": "专业知识",
+      "categoryFilter": "通讯协议",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "随机技术栈"
+    },
+    {
+      "title": "GigE Vision相机图像传输随机丢包，如何从协议和工程配置层面定位并解决？",
+      "type": "工程实践",
+      "category": "通讯协议",
+      "source": "专业",
+      "sourceType": "技术教程整理",
+      "knowledgePoints": [
+        "GVSP数据流与包序号机制",
+        "UDP传输的不可靠性",
+        "巨型帧与MTU配置",
+        "网卡接收缓冲区与流量控制"
+      ],
+      "difficulty": "中等",
+      "tags": [
+        "GigE Vision",
+        "GVSP",
+        "UDP",
+        "丢包排障"
+      ],
+      "keywords": [
+        "丢包",
+        "GVSP",
+        "UDP",
+        "Jumbo Frame",
+        "MTU",
+        "Ring Buffer",
+        "重传"
+      ],
+      "followUp": "如果开启Jumbo Frame后丢包依旧，且网卡和交换机均支持，下一步你会检查哪些参数？",
+      "hint": "从物理链路、相机流通道设置、接收端缓冲区、协议层抓包分析四个层面组织回答。",
+      "techStacks": [
+        "C++"
+      ],
+      "bestAnswer": "首先确认物理链路（网线、交换机、网卡）支持千兆及以上，并启用巨型帧（MTU 9000），因为GVSP默认包大小可能超过标准MTU。其次检查相机端流通道设置，如包大小（Packet Size）和包间隔（Packet Delay），确保不超过网络MTU。然后检查接收端网卡接收缓冲区（Ring Buffer）是否过小，以及是否启用了流量控制。若仍丢包，可尝试降低带宽或开启GVSP重传（如果相机支持）。最后用Wireshark抓包分析GVSP包序号连续性，定位丢包点。",
+      "principle": "GigE Vision使用UDP传输图像数据，UDP不保证可靠交付，因此丢包会导致图像数据缺失。GVSP协议在数据包头部携带包序号，接收端可据此检测丢包。通过调整MTU、包大小和接收缓冲区，可以减少因IP分片和缓冲区溢出导致的丢包。",
+      "id": "aiq-cc288ba2",
+      "generatedAt": "2026-08-31T16:00:12.438Z",
+      "provider": "custom-mtfsd2qj-i4ox3z",
+      "model": "deepseek-v4-flash",
+      "project": "机器视觉专业知识",
+      "trainingMode": "专业知识",
+      "categoryFilter": "通讯协议",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "随机技术栈"
+    },
+    {
+      "title": "USB3 Vision与GigE Vision在图像传输机制上的本质区别是什么？为什么USB3在短距离高带宽场景占优，而GigE在长距离场景更合适？",
+      "type": "算法原理",
+      "category": "通讯协议",
+      "source": "专业",
+      "sourceType": "AI知识整理",
+      "knowledgePoints": [
+        "USB3 Bulk传输与硬件重传",
+        "GigE Vision基于UDP的传输机制",
+        "协议开销与带宽利用率",
+        "物理层距离限制"
+      ],
+      "difficulty": "中等",
+      "tags": [
+        "USB3 Vision",
+        "GigE Vision",
+        "传输机制",
+        "带宽",
+        "距离"
+      ],
+      "keywords": [
+        "Bulk传输",
+        "UDP",
+        "协议开销",
+        "带宽",
+        "距离限制",
+        "重传机制"
+      ],
+      "followUp": "如果要在超过10米的距离传输4K/60fps图像，你会选择哪种协议？为什么？",
+      "hint": "从传输层可靠性、协议开销、物理层特性三个维度对比。",
+      "techStacks": [
+        "C#"
+      ],
+      "bestAnswer": "USB3 Vision基于USB3.0 SuperSpeed，采用Bulk传输，利用USB协议的错误检测和重传机制，数据可靠性高，且协议开销小，理论带宽5Gbps，实际可达3.5Gbps左右。GigE Vision基于千兆以太网，使用UDP，协议开销较大，理论带宽1Gbps，实际约900Mbps，但通过多网卡聚合可提升。USB3传输距离通常限制在5米以内（加延长器可达10米），而以太网可达100米。因此USB3适合短距离高带宽场景，GigE适合长距离分布式场景。",
+      "principle": "USB3 Bulk传输采用流式管道，硬件级重传保证数据完整性，且USB3协议层开销较低。GigE Vision使用UDP/IP，每个包需加上以太网头、IP头、UDP头和GVSP头，开销约50字节，且UDP无重传，需要应用层处理。物理层上，USB3的差分信号对线缆长度敏感，而以太网使用变压器隔离，支持更长距离。",
+      "id": "aiq-2ce0935c",
+      "generatedAt": "2026-08-31T16:00:12.438Z",
+      "provider": "custom-mtfsd2qj-i4ox3z",
+      "model": "deepseek-v4-flash",
+      "project": "机器视觉专业知识",
+      "trainingMode": "专业知识",
+      "categoryFilter": "通讯协议",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "随机技术栈"
+    },
+    {
+      "title": "机器视觉系统中相机与PLC通过RS-232串口偶发数据帧错乱或超时，如何设计健壮通信协议并现场排障？",
+      "type": "现场故障",
+      "category": "通讯协议",
+      "source": "专业",
+      "sourceType": "工程案例整理",
+      "knowledgePoints": [
+        "串口异步通信与波特率配置",
+        "帧格式设计（帧头、长度、校验）",
+        "CRC校验与错误检测",
+        "超时重试机制"
+      ],
+      "difficulty": "困难",
+      "tags": [
+        "RS-232",
+        "串口通信",
+        "帧协议",
+        "CRC",
+        "现场排障"
+      ],
+      "keywords": [
+        "帧错乱",
+        "超时",
+        "CRC",
+        "帧头",
+        "波特率",
+        "重试"
+      ],
+      "followUp": "如果现场电磁干扰较强，你会如何改进物理层和协议层？",
+      "hint": "从帧结构、波特率、校验方式、握手流程、异常处理等方面组织回答。",
+      "techStacks": [
+        "Python"
+      ],
+      "bestAnswer": "可能原因包括波特率不匹配、数据位/停止位配置错误、线缆过长或干扰导致电平畸变、发送方与接收方缓冲区溢出、缺乏帧同步机制。设计健壮协议时，应定义固定帧头（如0xAA 0x55）、长度字段、命令字、数据区、CRC16校验和帧尾。接收方采用状态机解析，检测帧头后按长度接收，校验CRC，错误则丢弃并请求重发。同时设置超时时间，超时后重试或报警。针对电磁干扰，可降低波特率、使用屏蔽双绞线、增加奇偶校验或CRC、采用差分信号（RS-422/485）。",
+      "principle": "串口通信是异步串行传输，无时钟线，依赖双方约定的波特率采样。干扰会导致电平跳变，造成帧错误。通过帧头同步和CRC校验，可以识别并丢弃错误帧。超时重试机制保证通信可靠性。",
+      "id": "aiq-ae3b84f8",
+      "generatedAt": "2026-08-31T16:00:12.438Z",
+      "provider": "custom-mtfsd2qj-i4ox3z",
+      "model": "deepseek-v4-flash",
+      "project": "机器视觉专业知识",
+      "trainingMode": "专业知识",
+      "categoryFilter": "通讯协议",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "随机技术栈"
+    },
+    {
+      "title": "GigE Vision协议中GVCP和GVSP分别承担什么角色？实际部署中如何应对网络丢包导致的图像数据不完整？",
+      "type": "算法原理",
+      "category": "通讯协议",
+      "source": "专业",
+      "sourceType": "官方文档整理",
+      "knowledgePoints": [
+        "GVCP（GigE Vision Control Protocol）负责设备控制、寄存器读写、流通道配置等命令交互",
+        "GVSP（GigE Vision Streaming Protocol）负责图像数据的流式传输，包含数据包重组和帧结束标记",
+        "丢包重传机制：GVCP支持重传请求，GVSP通过块ID和包ID检测丢包",
+        "实际工程中需结合网络交换机IGMP snooping、巨型帧、带宽预留和重传策略保证图像完整性"
+      ],
+      "difficulty": "中等",
+      "tags": [
+        "GigE Vision",
+        "GVCP",
+        "GVSP",
+        "网络丢包"
+      ],
+      "keywords": [
+        "GVCP控制",
+        "GVSP流传输",
+        "丢包重传",
+        "网络配置"
+      ],
+      "followUp": "如果使用千兆网传输500万像素、8位深度的图像，理论帧率是多少？实际帧率受哪些因素限制？",
+      "hint": "先区分两个子协议的功能，再说明丢包检测与重传流程，最后提及网络工程配置。",
+      "techStacks": [
+        "HALCON",
+        "C++"
+      ],
+      "bestAnswer": "GVCP是控制面协议，用于相机参数配置、采集开始/停止、设备发现等命令交互，基于UDP但带确认机制；GVSP是数据面协议，负责将图像分割为多个数据包并添加块ID和包ID，接收端据此重组图像。丢包时，接收端通过检测包ID缺失向相机发送重传请求，相机重发对应数据包。工程上还需启用交换机的IGMP snooping避免广播风暴，开启巨型帧降低包数量，并预留足够带宽，否则即使有重传也会因延迟导致帧率下降。",
+      "principle": "GigE Vision基于UDP实现低延迟传输，但UDP不保证可靠交付。GVCP通过请求-应答机制保证控制命令可靠，GVSP则利用数据包头的块ID和包ID实现顺序检测和丢包识别。接收端发现丢包后，通过GVCP的重传命令要求相机重新发送指定包，从而在不增加TCP开销的情况下实现图像完整传输。",
+      "id": "aiq-7f16d35c",
+      "generatedAt": "2026-08-31T16:00:12.438Z",
+      "provider": "custom-mtfsd2qj-i4ox3z",
+      "model": "deepseek-v4-flash",
+      "project": "机器视觉专业知识",
+      "trainingMode": "专业知识",
+      "categoryFilter": "通讯协议",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "随机技术栈"
+    },
+    {
+      "title": "在视觉检测系统中，视觉控制器与PLC之间常用的通讯协议有哪些？如何设计握手信号确保检测结果可靠传递？",
+      "type": "工程实践",
+      "category": "通讯协议",
+      "source": "专业",
+      "sourceType": "技术教程整理",
+      "knowledgePoints": [
+        "常用协议：TCP/IP、UDP、Modbus TCP、Profinet、EtherNet/IP等",
+        "握手信号设计：PLC发送请求信号，视觉系统返回就绪/完成信号，避免数据竞争",
+        "数据格式约定：结果字节、状态字、时间戳、图像ID等",
+        "异常处理：超时重发、心跳检测、断线重连机制"
+      ],
+      "difficulty": "中等",
+      "tags": [
+        "PLC通讯",
+        "TCP/IP",
+        "Modbus",
+        "握手协议"
+      ],
+      "keywords": [
+        "协议选型",
+        "握手信号",
+        "数据一致性",
+        "超时重传"
+      ],
+      "followUp": "如果现场存在强电磁干扰，你会选择哪种协议？为什么？",
+      "hint": "从协议特点、实时性、可靠性出发，重点说明握手信号的状态机设计。",
+      "techStacks": [
+        "C#",
+        "PLC"
+      ],
+      "bestAnswer": "常用协议有Modbus TCP和Profinet，前者简单易调试，后者与西门子PLC集成度高。握手设计采用四步：PLC发送“请求检测”信号，视觉系统收到后回复“收到”并开始采集；检测完成后视觉系统将结果写入数据区并置位“完成”信号；PLC读取结果后复位“请求”信号，视觉系统检测到复位后清除“完成”信号。同时设置超时定时器，若视觉系统超时未回复，PLC报警并重新发送；心跳包用于检测链路中断。",
+      "principle": "握手信号本质是状态同步机制，通过电平或位状态变化触发状态机转换，避免双方同时读写导致的数据不一致。Modbus TCP基于TCP提供可靠传输，Profinet基于实时以太网保证确定性。超时与重试机制用于应对网络瞬断或设备故障，心跳包则持续监测链路健康状态。",
+      "id": "aiq-5c9fd1da",
+      "generatedAt": "2026-08-31T16:00:12.438Z",
+      "provider": "custom-mtfsd2qj-i4ox3z",
+      "model": "deepseek-v4-flash",
+      "project": "机器视觉专业知识",
+      "trainingMode": "专业知识",
+      "categoryFilter": "通讯协议",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "随机技术栈"
+    },
+    {
+      "title": "多相机视觉系统中，如何通过硬件触发和IEEE 1588 PTP协议实现多相机图像采集的精确同步？同步误差主要来源有哪些？",
+      "type": "现场故障",
+      "category": "通讯协议",
+      "source": "专业",
+      "sourceType": "论文整理",
+      "knowledgePoints": [
+        "硬件触发：通过外部信号线同时触发多个相机曝光，同步精度可达微秒级",
+        "IEEE 1588 PTP：网络时间同步协议，通过最佳主时钟算法和同步报文实现亚微秒级时钟对齐",
+        "同步误差来源：触发信号传输延迟、相机曝光延迟差异、PTP时钟偏差、网络抖动",
+        "工程补偿：使用PTP同步时间戳，在软件中根据时间戳对齐图像"
+      ],
+      "difficulty": "困难",
+      "tags": [
+        "多相机同步",
+        "PTP",
+        "硬件触发",
+        "时间戳"
+      ],
+      "keywords": [
+        "硬件触发",
+        "IEEE 1588",
+        "同步误差",
+        "时间戳对齐"
+      ],
+      "followUp": "如果现场相机不支持PTP，你如何实现软同步？",
+      "hint": "先说明硬件触发和PTP的机制，再分析误差来源，最后给出补偿策略。",
+      "techStacks": [
+        "HALCON",
+        "C++"
+      ],
+      "bestAnswer": "硬件触发通过将同一触发信号分发给所有相机，使曝光起始时刻一致，精度受信号线长度和驱动器延迟影响，通常为微秒级。IEEE 1588 PTP通过主从时钟同步，从机根据Sync报文计算偏移并调整本地时钟，精度可达亚微秒。同步误差主要来自触发信号传输延迟差异、相机内部曝光延迟不一致、PTP时钟同步周期内的漂移以及网络排队延迟。工程上可结合PTP时间戳，在图像采集时记录每个相机的曝光起始时间，然后在软件中按时间戳对齐图像，补偿固定延迟。",
+      "principle": "硬件触发利用物理信号边沿同时触发多个相机，消除软件启动延迟。PTP协议通过周期交换Sync、Follow_Up、Delay_Req等报文，计算主从时钟偏移和网络延迟，并利用硬件时间戳减少抖动。多相机同步的最终精度取决于触发信号路径的一致性和PTP同步的收敛性。",
+      "id": "aiq-0e9f520f",
+      "generatedAt": "2026-08-31T16:00:12.438Z",
+      "provider": "custom-mtfsd2qj-i4ox3z",
+      "model": "deepseek-v4-flash",
+      "project": "机器视觉专业知识",
+      "trainingMode": "专业知识",
+      "categoryFilter": "通讯协议",
+      "difficultyFilter": "随机难度",
       "techStackFilter": "随机技术栈"
     }
   ]
