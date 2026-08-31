@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-08-31T11:23:35.268Z",
+  "updatedAt": "2026-08-31T11:23:41.999Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1802,6 +1802,104 @@
     },
     "vision-interview-project-view": "card",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788175424290-rt1cgw9o",
+        "timestamp": "2026-08-31T11:23:44.290Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "43dc7976a63f"
+        }
+      },
+      {
+        "id": "1788175423920-qovdyqcf",
+        "timestamp": "2026-08-31T11:23:43.920Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788175400619-coejkd41",
+        "event": "question-bank.ai-request.started",
+        "message": "第 4/6 轮：正在请求 AI 生成题目…",
+        "context": {
+          "attempt": 4,
+          "maxAttempts": 6,
+          "collectedCount": 0
+        }
+      },
+      {
+        "id": "1788175423917-scu0wy15",
+        "timestamp": "2026-08-31T11:23:43.917Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788175400619-coejkd41",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 4,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "sourceCount": 0
+        }
+      },
+      {
+        "id": "1788175420525-gjd4cu7l",
+        "timestamp": "2026-08-31T11:23:40.525Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788175400619-coejkd41",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 4,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 0
+        }
+      },
+      {
+        "id": "1788175420521-ni223uat",
+        "timestamp": "2026-08-31T11:23:40.521Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788175400619-coejkd41",
+        "event": "question-bank.attempt.failed",
+        "message": "第 3/6 轮：本轮请求失败：请先配置当前 AI 服务商的 API Key。，准备下一轮…",
+        "context": {
+          "attempt": 3,
+          "maxAttempts": 6,
+          "collectedCount": 0,
+          "error": "请先配置当前 AI 服务商的 API Key。"
+        }
+      },
+      {
+        "id": "1788175418562-ldic8t3p",
+        "timestamp": "2026-08-31T11:23:38.562Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788175400619-coejkd41",
+        "event": "question-bank.ai-request.started",
+        "message": "第 3/6 轮：正在请求 AI 生成题目…",
+        "context": {
+          "attempt": 3,
+          "maxAttempts": 6,
+          "collectedCount": 0
+        }
+      },
+      {
+        "id": "1788175418556-4ivmg3ez",
+        "timestamp": "2026-08-31T11:23:38.556Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788175400619-coejkd41",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 3,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "sourceCount": 0
+        }
+      },
       {
         "id": "1788175417615-x7iq1pm0",
         "timestamp": "2026-08-31T11:23:37.615Z",
@@ -14113,91 +14211,6 @@
         "context": {
           "source": "AI",
           "questionCount": 10
-        }
-      },
-      {
-        "id": "1788144773606-jaxap8nj",
-        "timestamp": "2026-08-31T02:52:53.606Z",
-        "level": "ERROR",
-        "kind": "system",
-        "event": "backup.push.failed",
-        "message": "运行数据备份失败",
-        "context": {
-          "status": 503,
-          "reason": "未配置 GitHub 备份凭据。"
-        }
-      },
-      {
-        "id": "1788144773190-12x80dme",
-        "timestamp": "2026-08-31T02:52:53.190Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "question-group.prepare.started",
-        "message": "开始准备题组",
-        "context": {
-          "project": "轮胎字符深度 OCR",
-          "mode": "专业专项",
-          "questionCount": 3
-        }
-      },
-      {
-        "id": "1788144772601-mxfqcjro",
-        "timestamp": "2026-08-31T02:52:52.601Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "question-group.prepare.cached",
-        "message": "题组已从本机缓存恢复",
-        "context": {
-          "questionCount": 10
-        }
-      },
-      {
-        "id": "1788144772600-9eud4687",
-        "timestamp": "2026-08-31T02:52:52.600Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "question-group.prepare.started",
-        "message": "开始准备题组",
-        "context": {
-          "project": "轮胎字符深度 OCR",
-          "mode": "专业专项",
-          "questionCount": 10
-        }
-      },
-      {
-        "id": "1788144769614-wqy5qsud",
-        "timestamp": "2026-08-31T02:52:49.614Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "question-group.prepare.cached",
-        "message": "题组已从本机缓存恢复",
-        "context": {
-          "questionCount": 10
-        }
-      },
-      {
-        "id": "1788144769611-dsbr4vbj",
-        "timestamp": "2026-08-31T02:52:49.611Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "question-group.prepare.started",
-        "message": "开始准备题组",
-        "context": {
-          "project": "轮胎字符深度 OCR",
-          "mode": "专业专项",
-          "questionCount": 10
-        }
-      },
-      {
-        "id": "1788144769602-1c5h9tbo",
-        "timestamp": "2026-08-31T02:52:49.602Z",
-        "level": "WARN",
-        "kind": "system",
-        "event": "backup.startup.offline",
-        "message": "启动时未能读取 GitHub 配置",
-        "context": {
-          "status": 502,
-          "reason": "GitHub 读取失败（HTTP 403）：\r\nRequest forbidden by administrative rules. Please make sure your request has a User-Agent header (https://docs.github.com/en/rest/overview/resources-in-the-rest-api#user-agent-required). Check https://developer.github.com for other possib"
         }
       }
     ]
