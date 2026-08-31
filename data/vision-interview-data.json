@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-08-31T13:54:54.936Z",
+  "updatedAt": "2026-08-31T13:54:57.893Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1493,34 +1493,16 @@
     ],
     "vision-interview-projects": [
       {
-        "id": "tire-ocr",
-        "name": "轮胎字符深度 OCR",
-        "category": "字符识别",
-        "progress": 82
-      },
-      {
-        "id": "battery-defect",
-        "name": "锂电池极片缺陷分类",
-        "category": "缺陷分类",
-        "progress": 68
-      },
-      {
-        "id": "glass-chipping",
-        "name": "前盖玻璃崩边检测",
-        "category": "外观检测",
-        "progress": 74
-      },
-      {
         "id": "vision-workflow",
-        "name": "视觉工作流框架",
+        "name": "PLC模拟软件",
         "category": "软件架构",
         "progress": 61
       }
     ],
     "vision-interview-ai-preferences": {
-      "provider": "deepseek",
+      "provider": "custom-mtfsd2qj-i4ox3z",
       "model": "deepseek-v4-flash",
-      "openaiBaseUrl": "https://api.deepseek.com",
+      "openaiBaseUrl": "https://opencode.ai/zen/go/v1",
       "aiScoring": true,
       "bestAnswer": true,
       "smartFollowUp": true,
@@ -1641,7 +1623,7 @@
       "custom-mtfsd2qj-i4ox3z": {
         "name": "OpenCodeGo",
         "description": "兼容 OpenAI 格式的自定义服务商",
-        "model": "qwen3.8-max",
+        "model": "deepseek-v4-flash",
         "baseUrl": "https://opencode.ai/zen/go/v1",
         "openaiBaseUrl": "https://opencode.ai/zen/go/v1",
         "availableModels": [
@@ -1829,11 +1811,115 @@
         ]
       }
     },
-    "vision-interview-project-view": "card",
+    "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788184503291-8zt4q716",
+        "timestamp": "2026-08-31T13:55:03.291Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.close.flush",
+        "message": "页面关闭或进入后台，提交最后一次备份"
+      },
+      {
+        "id": "1788184503237-tjq3w952",
+        "timestamp": "2026-08-31T13:55:03.237Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788184503206-3lfplbbv",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 1,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 0,
+          "workerIndex": 3,
+          "parallelRequests": 3,
+          "requestedCount": 3
+        }
+      },
+      {
+        "id": "1788184503234-c9wtatj1",
+        "timestamp": "2026-08-31T13:55:03.234Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788184503206-3lfplbbv",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 1,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 0,
+          "workerIndex": 2,
+          "parallelRequests": 3,
+          "requestedCount": 3
+        }
+      },
+      {
+        "id": "1788184503229-lvr44044",
+        "timestamp": "2026-08-31T13:55:03.229Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788184503206-3lfplbbv",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 1,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 0,
+          "workerIndex": 1,
+          "parallelRequests": 3,
+          "requestedCount": 4
+        }
+      },
+      {
+        "id": "1788184503221-va6t4lwu",
+        "timestamp": "2026-08-31T13:55:03.221Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788184503206-3lfplbbv",
+        "event": "question-group.prepare.started",
+        "message": "开始准备题组",
+        "context": {
+          "project": "机器视觉专业知识",
+          "mode": "专业知识",
+          "questionCount": 10
+        }
+      },
+      {
+        "id": "1788184503201-z45cp3hl",
+        "timestamp": "2026-08-31T13:55:03.201Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.startup.loaded",
+        "message": "启动配置加载完成",
+        "context": {
+          "source": "github",
+          "updatedAt": "2026-08-31T13:54:46.377Z"
+        }
+      },
+      {
+        "id": "1788184500661-s1396hk8",
+        "timestamp": "2026-08-31T13:55:00.661Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.close.flush",
+        "message": "页面关闭或进入后台，提交最后一次备份"
+      },
       {
         "id": "1788184499099-vjaco29v",
         "timestamp": "2026-08-31T13:54:59.099Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.close.flush",
+        "message": "页面关闭或进入后台，提交最后一次备份"
+      },
+      {
+        "id": "1788184495997-8o1qnh9g",
+        "timestamp": "2026-08-31T13:54:55.997Z",
         "level": "INFO",
         "kind": "system",
         "event": "backup.close.flush",
@@ -3208,6 +3294,2335 @@
         "context": {
           "source": "github",
           "updatedAt": "2026-08-31T13:51:05.411Z"
+        }
+      },
+      {
+        "id": "1788184276824-rpl61lf9",
+        "timestamp": "2026-08-31T13:51:16.824Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "ea28281ac207"
+        }
+      },
+      {
+        "id": "1788184267421-gdkn0bx2",
+        "timestamp": "2026-08-31T13:51:07.421Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.close.flush",
+        "message": "页面关闭或进入后台，提交最后一次备份"
+      },
+      {
+        "id": "1788184146249-fdfutwcd",
+        "timestamp": "2026-08-31T13:49:06.249Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "fff0d32907e1"
+        }
+      },
+      {
+        "id": "1788184135955-dyez39d5",
+        "timestamp": "2026-08-31T13:48:55.955Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.close.flush",
+        "message": "页面关闭或进入后台，提交最后一次备份"
+      },
+      {
+        "id": "1788184086316-47hyfizj",
+        "timestamp": "2026-08-31T13:48:06.316Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "c35bfb6ed667"
+        }
+      },
+      {
+        "id": "1788184083095-kjfltzfs",
+        "timestamp": "2026-08-31T13:48:03.095Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "beba5df224a4"
+        }
+      },
+      {
+        "id": "1788184079042-nvzama54",
+        "timestamp": "2026-08-31T13:47:59.042Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788184074892-nmqsnr9k",
+        "event": "question-group.prepare.completed",
+        "message": "AI 多轮联网搜索与生成后仍未获得有效题目，已使用本地题库与标准答案。",
+        "context": {
+          "source": "本地规则",
+          "questionCount": 10
+        }
+      },
+      {
+        "id": "1788184079040-jbchp3fj",
+        "timestamp": "2026-08-31T13:47:59.040Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788184074892-nmqsnr9k",
+        "event": "question-bank.attempt.failed",
+        "message": "第 6/6 轮（并行 3/3）：本轮请求失败：请先配置当前 AI 服务商的 API Key。，准备下一轮…",
+        "context": {
+          "attempt": 6,
+          "maxAttempts": 6,
+          "collectedCount": 0,
+          "workerIndex": 3,
+          "parallelRequests": 3,
+          "error": "请先配置当前 AI 服务商的 API Key。"
+        }
+      },
+      {
+        "id": "1788184079037-r0nikv54",
+        "timestamp": "2026-08-31T13:47:59.037Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788184074892-nmqsnr9k",
+        "event": "question-bank.attempt.failed",
+        "message": "第 6/6 轮（并行 2/3）：本轮请求失败：请先配置当前 AI 服务商的 API Key。，准备下一轮…",
+        "context": {
+          "attempt": 6,
+          "maxAttempts": 6,
+          "collectedCount": 0,
+          "workerIndex": 2,
+          "parallelRequests": 3,
+          "error": "请先配置当前 AI 服务商的 API Key。"
+        }
+      },
+      {
+        "id": "1788184079035-f54vwdfe",
+        "timestamp": "2026-08-31T13:47:59.035Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788184074892-nmqsnr9k",
+        "event": "question-bank.attempt.failed",
+        "message": "第 6/6 轮（并行 1/3）：本轮请求失败：请先配置当前 AI 服务商的 API Key。，准备下一轮…",
+        "context": {
+          "attempt": 6,
+          "maxAttempts": 6,
+          "collectedCount": 0,
+          "workerIndex": 1,
+          "parallelRequests": 3,
+          "error": "请先配置当前 AI 服务商的 API Key。"
+        }
+      },
+      {
+        "id": "1788184078857-j9rtxykk",
+        "timestamp": "2026-08-31T13:47:58.857Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788184074892-nmqsnr9k",
+        "event": "question-bank.ai-request.started",
+        "message": "第 6/6 轮（并行 3/3）：正在请求 AI 生成题目（3 道）…",
+        "context": {
+          "attempt": 6,
+          "maxAttempts": 6,
+          "collectedCount": 0,
+          "workerIndex": 3,
+          "parallelRequests": 3,
+          "requestedCount": 3
+        }
+      },
+      {
+        "id": "1788184078854-ewjdc653",
+        "timestamp": "2026-08-31T13:47:58.854Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788184074892-nmqsnr9k",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 6,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "sourceCount": 0,
+          "workerIndex": 3,
+          "parallelRequests": 3
+        }
+      },
+      {
+        "id": "1788184078844-q2ukczey",
+        "timestamp": "2026-08-31T13:47:58.844Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788184074892-nmqsnr9k",
+        "event": "question-bank.ai-request.started",
+        "message": "第 6/6 轮（并行 2/3）：正在请求 AI 生成题目（3 道）…",
+        "context": {
+          "attempt": 6,
+          "maxAttempts": 6,
+          "collectedCount": 0,
+          "workerIndex": 2,
+          "parallelRequests": 3,
+          "requestedCount": 3
+        }
+      },
+      {
+        "id": "1788184078842-tx5z0ssv",
+        "timestamp": "2026-08-31T13:47:58.842Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788184074892-nmqsnr9k",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 6,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "sourceCount": 0,
+          "workerIndex": 2,
+          "parallelRequests": 3
+        }
+      },
+      {
+        "id": "1788184078833-q23rxepp",
+        "timestamp": "2026-08-31T13:47:58.833Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788184074892-nmqsnr9k",
+        "event": "question-bank.ai-request.started",
+        "message": "第 6/6 轮（并行 1/3）：正在请求 AI 生成题目（4 道）…",
+        "context": {
+          "attempt": 6,
+          "maxAttempts": 6,
+          "collectedCount": 0,
+          "workerIndex": 1,
+          "parallelRequests": 3,
+          "requestedCount": 4
+        }
+      },
+      {
+        "id": "1788184078830-sd2hi03v",
+        "timestamp": "2026-08-31T13:47:58.830Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788184074892-nmqsnr9k",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 6,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "sourceCount": 0,
+          "workerIndex": 1,
+          "parallelRequests": 3
+        }
+      },
+      {
+        "id": "1788184078653-v6af8jkv",
+        "timestamp": "2026-08-31T13:47:58.653Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788184074892-nmqsnr9k",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 6,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "sourceCount": 0,
+          "workerIndex": 2,
+          "parallelRequests": 3
+        }
+      },
+      {
+        "id": "1788184078640-cwh8hx8n",
+        "timestamp": "2026-08-31T13:47:58.640Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788184074892-nmqsnr9k",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 6,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "sourceCount": 0,
+          "workerIndex": 3,
+          "parallelRequests": 3
+        }
+      },
+      {
+        "id": "1788184078637-o1mr93jc",
+        "timestamp": "2026-08-31T13:47:58.637Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788184074892-nmqsnr9k",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 6,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "sourceCount": 0,
+          "workerIndex": 1,
+          "parallelRequests": 3
+        }
+      },
+      {
+        "id": "1788184078488-13kkt9fw",
+        "timestamp": "2026-08-31T13:47:58.488Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788184074892-nmqsnr9k",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 6,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 0,
+          "workerIndex": 3,
+          "parallelRequests": 3,
+          "requestedCount": 3
+        }
+      },
+      {
+        "id": "1788184078485-hwn0gkv1",
+        "timestamp": "2026-08-31T13:47:58.485Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788184074892-nmqsnr9k",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 6,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 0,
+          "workerIndex": 2,
+          "parallelRequests": 3,
+          "requestedCount": 3
+        }
+      },
+      {
+        "id": "1788184078482-25drlc46",
+        "timestamp": "2026-08-31T13:47:58.482Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788184074892-nmqsnr9k",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 6,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 0,
+          "workerIndex": 1,
+          "parallelRequests": 3,
+          "requestedCount": 4
+        }
+      },
+      {
+        "id": "1788184078480-x92j4apu",
+        "timestamp": "2026-08-31T13:47:58.480Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788184074892-nmqsnr9k",
+        "event": "question-bank.attempt.failed",
+        "message": "第 5/6 轮（并行 3/3）：本轮请求失败：请先配置当前 AI 服务商的 API Key。，准备下一轮…",
+        "context": {
+          "attempt": 5,
+          "maxAttempts": 6,
+          "collectedCount": 0,
+          "workerIndex": 3,
+          "parallelRequests": 3,
+          "error": "请先配置当前 AI 服务商的 API Key。"
+        }
+      },
+      {
+        "id": "1788184078478-ed1cvx29",
+        "timestamp": "2026-08-31T13:47:58.478Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788184074892-nmqsnr9k",
+        "event": "question-bank.attempt.failed",
+        "message": "第 5/6 轮（并行 2/3）：本轮请求失败：请先配置当前 AI 服务商的 API Key。，准备下一轮…",
+        "context": {
+          "attempt": 5,
+          "maxAttempts": 6,
+          "collectedCount": 0,
+          "workerIndex": 2,
+          "parallelRequests": 3,
+          "error": "请先配置当前 AI 服务商的 API Key。"
+        }
+      },
+      {
+        "id": "1788184078475-ny7wyv44",
+        "timestamp": "2026-08-31T13:47:58.475Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788184074892-nmqsnr9k",
+        "event": "question-bank.attempt.failed",
+        "message": "第 5/6 轮（并行 1/3）：本轮请求失败：请先配置当前 AI 服务商的 API Key。，准备下一轮…",
+        "context": {
+          "attempt": 5,
+          "maxAttempts": 6,
+          "collectedCount": 0,
+          "workerIndex": 1,
+          "parallelRequests": 3,
+          "error": "请先配置当前 AI 服务商的 API Key。"
+        }
+      },
+      {
+        "id": "1788184078273-3s411695",
+        "timestamp": "2026-08-31T13:47:58.273Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788184074892-nmqsnr9k",
+        "event": "question-bank.ai-request.started",
+        "message": "第 5/6 轮（并行 2/3）：正在请求 AI 生成题目（3 道）…",
+        "context": {
+          "attempt": 5,
+          "maxAttempts": 6,
+          "collectedCount": 0,
+          "workerIndex": 2,
+          "parallelRequests": 3,
+          "requestedCount": 3
+        }
+      },
+      {
+        "id": "1788184078271-szgdttco",
+        "timestamp": "2026-08-31T13:47:58.271Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788184074892-nmqsnr9k",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 5,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "sourceCount": 0,
+          "workerIndex": 2,
+          "parallelRequests": 3
+        }
+      },
+      {
+        "id": "1788184078268-jqmbbanm",
+        "timestamp": "2026-08-31T13:47:58.268Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788184074892-nmqsnr9k",
+        "event": "question-bank.ai-request.started",
+        "message": "第 5/6 轮（并行 3/3）：正在请求 AI 生成题目（3 道）…",
+        "context": {
+          "attempt": 5,
+          "maxAttempts": 6,
+          "collectedCount": 0,
+          "workerIndex": 3,
+          "parallelRequests": 3,
+          "requestedCount": 3
+        }
+      },
+      {
+        "id": "1788184078266-i44lojlw",
+        "timestamp": "2026-08-31T13:47:58.266Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788184074892-nmqsnr9k",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 5,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "sourceCount": 0,
+          "workerIndex": 3,
+          "parallelRequests": 3
+        }
+      },
+      {
+        "id": "1788184078259-byjh9a8d",
+        "timestamp": "2026-08-31T13:47:58.259Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788184074892-nmqsnr9k",
+        "event": "question-bank.ai-request.started",
+        "message": "第 5/6 轮（并行 1/3）：正在请求 AI 生成题目（4 道）…",
+        "context": {
+          "attempt": 5,
+          "maxAttempts": 6,
+          "collectedCount": 0,
+          "workerIndex": 1,
+          "parallelRequests": 3,
+          "requestedCount": 4
+        }
+      },
+      {
+        "id": "1788184078256-j2jgacq7",
+        "timestamp": "2026-08-31T13:47:58.256Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788184074892-nmqsnr9k",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 5,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "sourceCount": 0,
+          "workerIndex": 1,
+          "parallelRequests": 3
+        }
+      },
+      {
+        "id": "1788184078227-ga8zoqbq",
+        "timestamp": "2026-08-31T13:47:58.227Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788184074892-nmqsnr9k",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 6,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 0,
+          "workerIndex": 3,
+          "parallelRequests": 3,
+          "requestedCount": 3
+        }
+      },
+      {
+        "id": "1788184078225-48qwu3yu",
+        "timestamp": "2026-08-31T13:47:58.225Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788184074892-nmqsnr9k",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 6,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 0,
+          "workerIndex": 2,
+          "parallelRequests": 3,
+          "requestedCount": 3
+        }
+      },
+      {
+        "id": "1788184078222-s7uhm62c",
+        "timestamp": "2026-08-31T13:47:58.222Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788184074892-nmqsnr9k",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 6,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 0,
+          "workerIndex": 1,
+          "parallelRequests": 3,
+          "requestedCount": 4
+        }
+      },
+      {
+        "id": "1788184078025-52el49m1",
+        "timestamp": "2026-08-31T13:47:58.025Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788184074892-nmqsnr9k",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 5,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "sourceCount": 0,
+          "workerIndex": 3,
+          "parallelRequests": 3
+        }
+      },
+      {
+        "id": "1788184078022-hw1j8ba7",
+        "timestamp": "2026-08-31T13:47:58.022Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788184074892-nmqsnr9k",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 5,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "sourceCount": 0,
+          "workerIndex": 2,
+          "parallelRequests": 3
+        }
+      },
+      {
+        "id": "1788184078005-xy5sr0ql",
+        "timestamp": "2026-08-31T13:47:58.005Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788184074892-nmqsnr9k",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 5,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "sourceCount": 0,
+          "workerIndex": 1,
+          "parallelRequests": 3
+        }
+      },
+      {
+        "id": "1788184077889-8keenkc9",
+        "timestamp": "2026-08-31T13:47:57.889Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788184074892-nmqsnr9k",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 5,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 0,
+          "workerIndex": 3,
+          "parallelRequests": 3,
+          "requestedCount": 3
+        }
+      },
+      {
+        "id": "1788184077886-69l99nyc",
+        "timestamp": "2026-08-31T13:47:57.886Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788184074892-nmqsnr9k",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 5,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 0,
+          "workerIndex": 2,
+          "parallelRequests": 3,
+          "requestedCount": 3
+        }
+      },
+      {
+        "id": "1788184077882-p6cvae99",
+        "timestamp": "2026-08-31T13:47:57.882Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788184074892-nmqsnr9k",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 5,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 0,
+          "workerIndex": 1,
+          "parallelRequests": 3,
+          "requestedCount": 4
+        }
+      },
+      {
+        "id": "1788184077880-zybg1a74",
+        "timestamp": "2026-08-31T13:47:57.880Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788184074892-nmqsnr9k",
+        "event": "question-bank.attempt.failed",
+        "message": "第 4/6 轮（并行 3/3）：本轮请求失败：请先配置当前 AI 服务商的 API Key。，准备下一轮…",
+        "context": {
+          "attempt": 4,
+          "maxAttempts": 6,
+          "collectedCount": 0,
+          "workerIndex": 3,
+          "parallelRequests": 3,
+          "error": "请先配置当前 AI 服务商的 API Key。"
+        }
+      },
+      {
+        "id": "1788184077878-hp4997at",
+        "timestamp": "2026-08-31T13:47:57.878Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788184074892-nmqsnr9k",
+        "event": "question-bank.attempt.failed",
+        "message": "第 4/6 轮（并行 2/3）：本轮请求失败：请先配置当前 AI 服务商的 API Key。，准备下一轮…",
+        "context": {
+          "attempt": 4,
+          "maxAttempts": 6,
+          "collectedCount": 0,
+          "workerIndex": 2,
+          "parallelRequests": 3,
+          "error": "请先配置当前 AI 服务商的 API Key。"
+        }
+      },
+      {
+        "id": "1788184077875-q3ylpz2n",
+        "timestamp": "2026-08-31T13:47:57.875Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788184074892-nmqsnr9k",
+        "event": "question-bank.attempt.failed",
+        "message": "第 4/6 轮（并行 1/3）：本轮请求失败：请先配置当前 AI 服务商的 API Key。，准备下一轮…",
+        "context": {
+          "attempt": 4,
+          "maxAttempts": 6,
+          "collectedCount": 0,
+          "workerIndex": 1,
+          "parallelRequests": 3,
+          "error": "请先配置当前 AI 服务商的 API Key。"
+        }
+      },
+      {
+        "id": "1788184077633-8pfecisn",
+        "timestamp": "2026-08-31T13:47:57.633Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788184074892-nmqsnr9k",
+        "event": "question-bank.ai-request.started",
+        "message": "第 4/6 轮（并行 3/3）：正在请求 AI 生成题目（3 道）…",
+        "context": {
+          "attempt": 4,
+          "maxAttempts": 6,
+          "collectedCount": 0,
+          "workerIndex": 3,
+          "parallelRequests": 3,
+          "requestedCount": 3
+        }
+      },
+      {
+        "id": "1788184077631-zmyvgcr9",
+        "timestamp": "2026-08-31T13:47:57.631Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788184074892-nmqsnr9k",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 4,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "sourceCount": 0,
+          "workerIndex": 3,
+          "parallelRequests": 3
+        }
+      },
+      {
+        "id": "1788184077622-thxofzuc",
+        "timestamp": "2026-08-31T13:47:57.622Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788184074892-nmqsnr9k",
+        "event": "question-bank.ai-request.started",
+        "message": "第 4/6 轮（并行 2/3）：正在请求 AI 生成题目（3 道）…",
+        "context": {
+          "attempt": 4,
+          "maxAttempts": 6,
+          "collectedCount": 0,
+          "workerIndex": 2,
+          "parallelRequests": 3,
+          "requestedCount": 3
+        }
+      },
+      {
+        "id": "1788184077620-xxdzcz59",
+        "timestamp": "2026-08-31T13:47:57.620Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788184074892-nmqsnr9k",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 4,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "sourceCount": 0,
+          "workerIndex": 2,
+          "parallelRequests": 3
+        }
+      },
+      {
+        "id": "1788184077614-xzxio347",
+        "timestamp": "2026-08-31T13:47:57.614Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788184074892-nmqsnr9k",
+        "event": "question-bank.ai-request.started",
+        "message": "第 4/6 轮（并行 1/3）：正在请求 AI 生成题目（4 道）…",
+        "context": {
+          "attempt": 4,
+          "maxAttempts": 6,
+          "collectedCount": 0,
+          "workerIndex": 1,
+          "parallelRequests": 3,
+          "requestedCount": 4
+        }
+      },
+      {
+        "id": "1788184077612-wc0koiq0",
+        "timestamp": "2026-08-31T13:47:57.612Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788184074892-nmqsnr9k",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 4,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "sourceCount": 0,
+          "workerIndex": 1,
+          "parallelRequests": 3
+        }
+      },
+      {
+        "id": "1788184077602-mk73g9ow",
+        "timestamp": "2026-08-31T13:47:57.602Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788184074892-nmqsnr9k",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 5,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 0,
+          "workerIndex": 3,
+          "parallelRequests": 3,
+          "requestedCount": 3
+        }
+      },
+      {
+        "id": "1788184077600-59elxc9i",
+        "timestamp": "2026-08-31T13:47:57.600Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788184074892-nmqsnr9k",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 5,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 0,
+          "workerIndex": 2,
+          "parallelRequests": 3,
+          "requestedCount": 3
+        }
+      },
+      {
+        "id": "1788184077597-we1jimm6",
+        "timestamp": "2026-08-31T13:47:57.597Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788184074892-nmqsnr9k",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 5,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 0,
+          "workerIndex": 1,
+          "parallelRequests": 3,
+          "requestedCount": 4
+        }
+      },
+      {
+        "id": "1788184077418-tdx0iwdd",
+        "timestamp": "2026-08-31T13:47:57.418Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788184074892-nmqsnr9k",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 4,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "sourceCount": 0,
+          "workerIndex": 2,
+          "parallelRequests": 3
+        }
+      },
+      {
+        "id": "1788184077385-frd27yu3",
+        "timestamp": "2026-08-31T13:47:57.385Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788184074892-nmqsnr9k",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 4,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "sourceCount": 0,
+          "workerIndex": 3,
+          "parallelRequests": 3
+        }
+      },
+      {
+        "id": "1788184077374-s7dmrx4a",
+        "timestamp": "2026-08-31T13:47:57.374Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788184074892-nmqsnr9k",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 4,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "sourceCount": 0,
+          "workerIndex": 1,
+          "parallelRequests": 3
+        }
+      },
+      {
+        "id": "1788184077286-qaxuhp52",
+        "timestamp": "2026-08-31T13:47:57.286Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788184074892-nmqsnr9k",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 4,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 0,
+          "workerIndex": 3,
+          "parallelRequests": 3,
+          "requestedCount": 3
+        }
+      },
+      {
+        "id": "1788184077283-lxn5kpv0",
+        "timestamp": "2026-08-31T13:47:57.283Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788184074892-nmqsnr9k",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 4,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 0,
+          "workerIndex": 2,
+          "parallelRequests": 3,
+          "requestedCount": 3
+        }
+      },
+      {
+        "id": "1788184077280-b6mmgzx4",
+        "timestamp": "2026-08-31T13:47:57.280Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788184074892-nmqsnr9k",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 4,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 0,
+          "workerIndex": 1,
+          "parallelRequests": 3,
+          "requestedCount": 4
+        }
+      },
+      {
+        "id": "1788184077278-j0a2e1b3",
+        "timestamp": "2026-08-31T13:47:57.277Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788184074892-nmqsnr9k",
+        "event": "question-bank.attempt.failed",
+        "message": "第 3/6 轮（并行 3/3）：本轮请求失败：请先配置当前 AI 服务商的 API Key。，准备下一轮…",
+        "context": {
+          "attempt": 3,
+          "maxAttempts": 6,
+          "collectedCount": 0,
+          "workerIndex": 3,
+          "parallelRequests": 3,
+          "error": "请先配置当前 AI 服务商的 API Key。"
+        }
+      },
+      {
+        "id": "1788184077274-ealqzwpu",
+        "timestamp": "2026-08-31T13:47:57.274Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788184074892-nmqsnr9k",
+        "event": "question-bank.attempt.failed",
+        "message": "第 3/6 轮（并行 2/3）：本轮请求失败：请先配置当前 AI 服务商的 API Key。，准备下一轮…",
+        "context": {
+          "attempt": 3,
+          "maxAttempts": 6,
+          "collectedCount": 0,
+          "workerIndex": 2,
+          "parallelRequests": 3,
+          "error": "请先配置当前 AI 服务商的 API Key。"
+        }
+      },
+      {
+        "id": "1788184077272-ntzlicti",
+        "timestamp": "2026-08-31T13:47:57.272Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788184074892-nmqsnr9k",
+        "event": "question-bank.attempt.failed",
+        "message": "第 3/6 轮（并行 1/3）：本轮请求失败：请先配置当前 AI 服务商的 API Key。，准备下一轮…",
+        "context": {
+          "attempt": 3,
+          "maxAttempts": 6,
+          "collectedCount": 0,
+          "workerIndex": 1,
+          "parallelRequests": 3,
+          "error": "请先配置当前 AI 服务商的 API Key。"
+        }
+      },
+      {
+        "id": "1788184077079-5tjlseko",
+        "timestamp": "2026-08-31T13:47:57.079Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788184074892-nmqsnr9k",
+        "event": "question-bank.ai-request.started",
+        "message": "第 3/6 轮（并行 3/3）：正在请求 AI 生成题目（3 道）…",
+        "context": {
+          "attempt": 3,
+          "maxAttempts": 6,
+          "collectedCount": 0,
+          "workerIndex": 3,
+          "parallelRequests": 3,
+          "requestedCount": 3
+        }
+      },
+      {
+        "id": "1788184077076-0mt4npbx",
+        "timestamp": "2026-08-31T13:47:57.076Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788184074892-nmqsnr9k",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 3,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "sourceCount": 0,
+          "workerIndex": 3,
+          "parallelRequests": 3
+        }
+      },
+      {
+        "id": "1788184077072-uppmum96",
+        "timestamp": "2026-08-31T13:47:57.072Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788184074892-nmqsnr9k",
+        "event": "question-bank.ai-request.started",
+        "message": "第 3/6 轮（并行 2/3）：正在请求 AI 生成题目（3 道）…",
+        "context": {
+          "attempt": 3,
+          "maxAttempts": 6,
+          "collectedCount": 0,
+          "workerIndex": 2,
+          "parallelRequests": 3,
+          "requestedCount": 3
+        }
+      },
+      {
+        "id": "1788184077069-5xftctju",
+        "timestamp": "2026-08-31T13:47:57.069Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788184074892-nmqsnr9k",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 3,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "sourceCount": 0,
+          "workerIndex": 2,
+          "parallelRequests": 3
+        }
+      },
+      {
+        "id": "1788184077058-n9c39wr7",
+        "timestamp": "2026-08-31T13:47:57.058Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788184074892-nmqsnr9k",
+        "event": "question-bank.ai-request.started",
+        "message": "第 3/6 轮（并行 1/3）：正在请求 AI 生成题目（4 道）…",
+        "context": {
+          "attempt": 3,
+          "maxAttempts": 6,
+          "collectedCount": 0,
+          "workerIndex": 1,
+          "parallelRequests": 3,
+          "requestedCount": 4
+        }
+      },
+      {
+        "id": "1788184077055-ymow0q8q",
+        "timestamp": "2026-08-31T13:47:57.055Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788184074892-nmqsnr9k",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 3,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "sourceCount": 0,
+          "workerIndex": 1,
+          "parallelRequests": 3
+        }
+      },
+      {
+        "id": "1788184077049-3cghb8lh",
+        "timestamp": "2026-08-31T13:47:57.049Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788184074892-nmqsnr9k",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 4,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 0,
+          "workerIndex": 3,
+          "parallelRequests": 3,
+          "requestedCount": 3
+        }
+      },
+      {
+        "id": "1788184077046-ojn0a56h",
+        "timestamp": "2026-08-31T13:47:57.046Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788184074892-nmqsnr9k",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 4,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 0,
+          "workerIndex": 2,
+          "parallelRequests": 3,
+          "requestedCount": 3
+        }
+      },
+      {
+        "id": "1788184077044-qf2ym7dw",
+        "timestamp": "2026-08-31T13:47:57.044Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788184074892-nmqsnr9k",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 4,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 0,
+          "workerIndex": 1,
+          "parallelRequests": 3,
+          "requestedCount": 4
+        }
+      },
+      {
+        "id": "1788184076859-qim3qzbi",
+        "timestamp": "2026-08-31T13:47:56.859Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788184074892-nmqsnr9k",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 3,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "sourceCount": 0,
+          "workerIndex": 3,
+          "parallelRequests": 3
+        }
+      },
+      {
+        "id": "1788184076839-xwfocvx0",
+        "timestamp": "2026-08-31T13:47:56.839Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788184074892-nmqsnr9k",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 3,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "sourceCount": 0,
+          "workerIndex": 2,
+          "parallelRequests": 3
+        }
+      },
+      {
+        "id": "1788184076833-yrg4xxxc",
+        "timestamp": "2026-08-31T13:47:56.833Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788184074892-nmqsnr9k",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 3,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "sourceCount": 0,
+          "workerIndex": 1,
+          "parallelRequests": 3
+        }
+      },
+      {
+        "id": "1788184076715-4kw2tdqc",
+        "timestamp": "2026-08-31T13:47:56.715Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788184074892-nmqsnr9k",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 3,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 0,
+          "workerIndex": 3,
+          "parallelRequests": 3,
+          "requestedCount": 3
+        }
+      },
+      {
+        "id": "1788184076712-2jq3an57",
+        "timestamp": "2026-08-31T13:47:56.712Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788184074892-nmqsnr9k",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 3,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 0,
+          "workerIndex": 2,
+          "parallelRequests": 3,
+          "requestedCount": 3
+        }
+      },
+      {
+        "id": "1788184076710-zb2byzxu",
+        "timestamp": "2026-08-31T13:47:56.710Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788184074892-nmqsnr9k",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 3,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 0,
+          "workerIndex": 1,
+          "parallelRequests": 3,
+          "requestedCount": 4
+        }
+      },
+      {
+        "id": "1788184076707-zv9gnt6p",
+        "timestamp": "2026-08-31T13:47:56.707Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788184074892-nmqsnr9k",
+        "event": "question-bank.attempt.failed",
+        "message": "第 2/6 轮（并行 3/3）：本轮请求失败：请先配置当前 AI 服务商的 API Key。，准备下一轮…",
+        "context": {
+          "attempt": 2,
+          "maxAttempts": 6,
+          "collectedCount": 0,
+          "workerIndex": 3,
+          "parallelRequests": 3,
+          "error": "请先配置当前 AI 服务商的 API Key。"
+        }
+      },
+      {
+        "id": "1788184076705-nabh2i6z",
+        "timestamp": "2026-08-31T13:47:56.705Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788184074892-nmqsnr9k",
+        "event": "question-bank.attempt.failed",
+        "message": "第 2/6 轮（并行 2/3）：本轮请求失败：请先配置当前 AI 服务商的 API Key。，准备下一轮…",
+        "context": {
+          "attempt": 2,
+          "maxAttempts": 6,
+          "collectedCount": 0,
+          "workerIndex": 2,
+          "parallelRequests": 3,
+          "error": "请先配置当前 AI 服务商的 API Key。"
+        }
+      },
+      {
+        "id": "1788184076702-038yfg0y",
+        "timestamp": "2026-08-31T13:47:56.702Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788184074892-nmqsnr9k",
+        "event": "question-bank.attempt.failed",
+        "message": "第 2/6 轮（并行 1/3）：本轮请求失败：请先配置当前 AI 服务商的 API Key。，准备下一轮…",
+        "context": {
+          "attempt": 2,
+          "maxAttempts": 6,
+          "collectedCount": 0,
+          "workerIndex": 1,
+          "parallelRequests": 3,
+          "error": "请先配置当前 AI 服务商的 API Key。"
+        }
+      },
+      {
+        "id": "1788184076508-2hli0vb7",
+        "timestamp": "2026-08-31T13:47:56.508Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788184074892-nmqsnr9k",
+        "event": "question-bank.ai-request.started",
+        "message": "第 2/6 轮（并行 2/3）：正在请求 AI 生成题目（3 道）…",
+        "context": {
+          "attempt": 2,
+          "maxAttempts": 6,
+          "collectedCount": 0,
+          "workerIndex": 2,
+          "parallelRequests": 3,
+          "requestedCount": 3
+        }
+      },
+      {
+        "id": "1788184076505-7oqvuknj",
+        "timestamp": "2026-08-31T13:47:56.505Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788184074892-nmqsnr9k",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 2,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "sourceCount": 0,
+          "workerIndex": 2,
+          "parallelRequests": 3
+        }
+      },
+      {
+        "id": "1788184076502-0r98ys12",
+        "timestamp": "2026-08-31T13:47:56.502Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788184074892-nmqsnr9k",
+        "event": "question-bank.ai-request.started",
+        "message": "第 2/6 轮（并行 3/3）：正在请求 AI 生成题目（3 道）…",
+        "context": {
+          "attempt": 2,
+          "maxAttempts": 6,
+          "collectedCount": 0,
+          "workerIndex": 3,
+          "parallelRequests": 3,
+          "requestedCount": 3
+        }
+      },
+      {
+        "id": "1788184076499-y52nr0lo",
+        "timestamp": "2026-08-31T13:47:56.499Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788184074892-nmqsnr9k",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 2,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "sourceCount": 0,
+          "workerIndex": 3,
+          "parallelRequests": 3
+        }
+      },
+      {
+        "id": "1788184076496-p5qz43iq",
+        "timestamp": "2026-08-31T13:47:56.496Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788184074892-nmqsnr9k",
+        "event": "question-bank.ai-request.started",
+        "message": "第 2/6 轮（并行 1/3）：正在请求 AI 生成题目（4 道）…",
+        "context": {
+          "attempt": 2,
+          "maxAttempts": 6,
+          "collectedCount": 0,
+          "workerIndex": 1,
+          "parallelRequests": 3,
+          "requestedCount": 4
+        }
+      },
+      {
+        "id": "1788184076493-qeme1ad3",
+        "timestamp": "2026-08-31T13:47:56.493Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788184074892-nmqsnr9k",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 2,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "sourceCount": 0,
+          "workerIndex": 1,
+          "parallelRequests": 3
+        }
+      },
+      {
+        "id": "1788184076488-m3171dw3",
+        "timestamp": "2026-08-31T13:47:56.488Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788184074892-nmqsnr9k",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 3,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 0,
+          "workerIndex": 3,
+          "parallelRequests": 3,
+          "requestedCount": 3
+        }
+      },
+      {
+        "id": "1788184076485-znzxoezk",
+        "timestamp": "2026-08-31T13:47:56.485Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788184074892-nmqsnr9k",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 3,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 0,
+          "workerIndex": 2,
+          "parallelRequests": 3,
+          "requestedCount": 3
+        }
+      },
+      {
+        "id": "1788184076482-a4fls7ew",
+        "timestamp": "2026-08-31T13:47:56.482Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788184074892-nmqsnr9k",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 3,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 0,
+          "workerIndex": 1,
+          "parallelRequests": 3,
+          "requestedCount": 4
+        }
+      },
+      {
+        "id": "1788184076139-n6v5dyv1",
+        "timestamp": "2026-08-31T13:47:56.139Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788184074892-nmqsnr9k",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 2,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "sourceCount": 0,
+          "workerIndex": 3,
+          "parallelRequests": 3
+        }
+      },
+      {
+        "id": "1788184076123-ln00luel",
+        "timestamp": "2026-08-31T13:47:56.123Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788184074892-nmqsnr9k",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 2,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "sourceCount": 0,
+          "workerIndex": 2,
+          "parallelRequests": 3
+        }
+      },
+      {
+        "id": "1788184076119-okuograi",
+        "timestamp": "2026-08-31T13:47:56.119Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788184074892-nmqsnr9k",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 2,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "sourceCount": 0,
+          "workerIndex": 1,
+          "parallelRequests": 3
+        }
+      },
+      {
+        "id": "1788184076096-vj273de0",
+        "timestamp": "2026-08-31T13:47:56.096Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788184074892-nmqsnr9k",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 2,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 0,
+          "workerIndex": 3,
+          "parallelRequests": 3,
+          "requestedCount": 3
+        }
+      },
+      {
+        "id": "1788184076091-gm4z9fcg",
+        "timestamp": "2026-08-31T13:47:56.091Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788184074892-nmqsnr9k",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 2,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 0,
+          "workerIndex": 2,
+          "parallelRequests": 3,
+          "requestedCount": 3
+        }
+      },
+      {
+        "id": "1788184076088-8jc8ji9i",
+        "timestamp": "2026-08-31T13:47:56.088Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788184074892-nmqsnr9k",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 2,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 0,
+          "workerIndex": 1,
+          "parallelRequests": 3,
+          "requestedCount": 4
+        }
+      },
+      {
+        "id": "1788184076085-yirshccj",
+        "timestamp": "2026-08-31T13:47:56.085Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788184074892-nmqsnr9k",
+        "event": "question-bank.attempt.failed",
+        "message": "第 1/6 轮（并行 3/3）：本轮请求失败：请先配置当前 AI 服务商的 API Key。，准备下一轮…",
+        "context": {
+          "attempt": 1,
+          "maxAttempts": 6,
+          "collectedCount": 0,
+          "workerIndex": 3,
+          "parallelRequests": 3,
+          "error": "请先配置当前 AI 服务商的 API Key。"
+        }
+      },
+      {
+        "id": "1788184076083-252c0k1l",
+        "timestamp": "2026-08-31T13:47:56.083Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788184074892-nmqsnr9k",
+        "event": "question-bank.attempt.failed",
+        "message": "第 1/6 轮（并行 2/3）：本轮请求失败：请先配置当前 AI 服务商的 API Key。，准备下一轮…",
+        "context": {
+          "attempt": 1,
+          "maxAttempts": 6,
+          "collectedCount": 0,
+          "workerIndex": 2,
+          "parallelRequests": 3,
+          "error": "请先配置当前 AI 服务商的 API Key。"
+        }
+      },
+      {
+        "id": "1788184076080-mj2410tp",
+        "timestamp": "2026-08-31T13:47:56.080Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788184074892-nmqsnr9k",
+        "event": "question-bank.attempt.failed",
+        "message": "第 1/6 轮（并行 1/3）：本轮请求失败：请先配置当前 AI 服务商的 API Key。，准备下一轮…",
+        "context": {
+          "attempt": 1,
+          "maxAttempts": 6,
+          "collectedCount": 0,
+          "workerIndex": 1,
+          "parallelRequests": 3,
+          "error": "请先配置当前 AI 服务商的 API Key。"
+        }
+      },
+      {
+        "id": "1788184075903-bc2oqt9d",
+        "timestamp": "2026-08-31T13:47:55.903Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788184074892-nmqsnr9k",
+        "event": "question-bank.ai-request.started",
+        "message": "第 1/6 轮（并行 1/3）：正在请求 AI 生成题目（4 道）…",
+        "context": {
+          "attempt": 1,
+          "maxAttempts": 6,
+          "collectedCount": 0,
+          "workerIndex": 1,
+          "parallelRequests": 3,
+          "requestedCount": 4
+        }
+      },
+      {
+        "id": "1788184075900-ck52n0nc",
+        "timestamp": "2026-08-31T13:47:55.900Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788184074892-nmqsnr9k",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 1,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "sourceCount": 8,
+          "workerIndex": 1,
+          "parallelRequests": 3
+        }
+      },
+      {
+        "id": "1788184075778-1cla0lut",
+        "timestamp": "2026-08-31T13:47:55.778Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788184074892-nmqsnr9k",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 2,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 0,
+          "workerIndex": 3,
+          "parallelRequests": 3,
+          "requestedCount": 3
+        }
+      },
+      {
+        "id": "1788184075775-quw0oyot",
+        "timestamp": "2026-08-31T13:47:55.775Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788184074892-nmqsnr9k",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 2,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 0,
+          "workerIndex": 2,
+          "parallelRequests": 3,
+          "requestedCount": 3
+        }
+      },
+      {
+        "id": "1788184075772-1j8bkdlt",
+        "timestamp": "2026-08-31T13:47:55.772Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788184074892-nmqsnr9k",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 2,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 0,
+          "workerIndex": 1,
+          "parallelRequests": 3,
+          "requestedCount": 4
+        }
+      },
+      {
+        "id": "1788184075580-tepz8ud2",
+        "timestamp": "2026-08-31T13:47:55.580Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788184074892-nmqsnr9k",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 1,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "sourceCount": 0,
+          "workerIndex": 3,
+          "parallelRequests": 3
+        }
+      },
+      {
+        "id": "1788184075572-zqsw6qvl",
+        "timestamp": "2026-08-31T13:47:55.572Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788184074892-nmqsnr9k",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 1,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "sourceCount": 0,
+          "workerIndex": 2,
+          "parallelRequests": 3
+        }
+      },
+      {
+        "id": "1788184075478-63lhe0ae",
+        "timestamp": "2026-08-31T13:47:55.478Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788184074892-nmqsnr9k",
+        "event": "question-bank.ai-request.started",
+        "message": "第 1/6 轮（并行 2/3）：正在请求 AI 生成题目（3 道）…",
+        "context": {
+          "attempt": 1,
+          "maxAttempts": 6,
+          "collectedCount": 0,
+          "workerIndex": 2,
+          "parallelRequests": 3,
+          "requestedCount": 3
+        }
+      },
+      {
+        "id": "1788184075476-39hxamrg",
+        "timestamp": "2026-08-31T13:47:55.475Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788184074892-nmqsnr9k",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 1,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "sourceCount": 0,
+          "workerIndex": 2,
+          "parallelRequests": 3
+        }
+      },
+      {
+        "id": "1788184075473-d3c6vrs6",
+        "timestamp": "2026-08-31T13:47:55.473Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788184074892-nmqsnr9k",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 1,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "sourceCount": 0,
+          "workerIndex": 1,
+          "parallelRequests": 3
+        }
+      },
+      {
+        "id": "1788184075462-azvjam16",
+        "timestamp": "2026-08-31T13:47:55.462Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788184074892-nmqsnr9k",
+        "event": "question-bank.ai-request.started",
+        "message": "第 1/6 轮（并行 3/3）：正在请求 AI 生成题目（3 道）…",
+        "context": {
+          "attempt": 1,
+          "maxAttempts": 6,
+          "collectedCount": 0,
+          "workerIndex": 3,
+          "parallelRequests": 3,
+          "requestedCount": 3
+        }
+      },
+      {
+        "id": "1788184075459-bj9dvf1r",
+        "timestamp": "2026-08-31T13:47:55.459Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788184074892-nmqsnr9k",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 1,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "sourceCount": 0,
+          "workerIndex": 3,
+          "parallelRequests": 3
+        }
+      },
+      {
+        "id": "1788184074932-32oce4s3",
+        "timestamp": "2026-08-31T13:47:54.932Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788184074892-nmqsnr9k",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 1,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 0,
+          "workerIndex": 3,
+          "parallelRequests": 3,
+          "requestedCount": 3
+        }
+      },
+      {
+        "id": "1788184074928-nlchzr34",
+        "timestamp": "2026-08-31T13:47:54.928Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788184074892-nmqsnr9k",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 1,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 0,
+          "workerIndex": 2,
+          "parallelRequests": 3,
+          "requestedCount": 3
+        }
+      },
+      {
+        "id": "1788184074925-9uy4wqs2",
+        "timestamp": "2026-08-31T13:47:54.925Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788184074892-nmqsnr9k",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 1,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 0,
+          "workerIndex": 1,
+          "parallelRequests": 3,
+          "requestedCount": 4
+        }
+      },
+      {
+        "id": "1788184074921-y0a77s7e",
+        "timestamp": "2026-08-31T13:47:54.921Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788184074892-nmqsnr9k",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 1,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 0,
+          "workerIndex": 3,
+          "parallelRequests": 3,
+          "requestedCount": 3
+        }
+      },
+      {
+        "id": "1788184074918-1s8eez0f",
+        "timestamp": "2026-08-31T13:47:54.918Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788184074892-nmqsnr9k",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 1,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 0,
+          "workerIndex": 2,
+          "parallelRequests": 3,
+          "requestedCount": 3
+        }
+      },
+      {
+        "id": "1788184074915-p3cqv3yu",
+        "timestamp": "2026-08-31T13:47:54.915Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788184074892-nmqsnr9k",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 1,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 0,
+          "workerIndex": 1,
+          "parallelRequests": 3,
+          "requestedCount": 4
+        }
+      },
+      {
+        "id": "1788184074911-vh2dvx8a",
+        "timestamp": "2026-08-31T13:47:54.911Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788184074892-nmqsnr9k",
+        "event": "question-group.prepare.started",
+        "message": "开始准备题组",
+        "context": {
+          "project": "PLC模拟软件",
+          "mode": "专业知识",
+          "questionCount": 10
+        }
+      },
+      {
+        "id": "1788184074904-0w3zti6a",
+        "timestamp": "2026-08-31T13:47:54.904Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788184074892-nmqsnr9k",
+        "event": "question-group.prepare.started",
+        "message": "开始准备题组",
+        "context": {
+          "project": "轮胎字符深度 OCR",
+          "mode": "专业知识",
+          "questionCount": 10
+        }
+      },
+      {
+        "id": "1788184074888-gzlbjun5",
+        "timestamp": "2026-08-31T13:47:54.888Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.startup.loaded",
+        "message": "启动配置加载完成",
+        "context": {
+          "source": "github",
+          "updatedAt": "2026-08-31T13:43:24.497Z"
+        }
+      },
+      {
+        "id": "1788184072873-a5lryln6",
+        "timestamp": "2026-08-31T13:47:52.873Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.close.flush",
+        "message": "页面关闭或进入后台，提交最后一次备份"
+      },
+      {
+        "id": "1788184072870-uas32ejh",
+        "timestamp": "2026-08-31T13:47:52.869Z",
+        "level": "ERROR",
+        "kind": "system",
+        "event": "backup.push.failed",
+        "message": "运行数据备份请求失败",
+        "context": {
+          "error": "Failed to fetch"
+        }
+      },
+      {
+        "id": "1788184068327-g76b0sa5",
+        "timestamp": "2026-08-31T13:47:48.327Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.close.flush",
+        "message": "页面关闭或进入后台，提交最后一次备份"
+      },
+      {
+        "id": "1788183813929-t640rnye",
+        "timestamp": "2026-08-31T13:43:33.929Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "808fff83707c"
+        }
+      },
+      {
+        "id": "1788183805828-9azdghux",
+        "timestamp": "2026-08-31T13:43:25.828Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.close.flush",
+        "message": "页面关闭或进入后台，提交最后一次备份"
+      },
+      {
+        "id": "1788183797964-yq86dzvb",
+        "timestamp": "2026-08-31T13:43:17.964Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "fcd4e9c75ecf"
+        }
+      },
+      {
+        "id": "1788183792211-5fiip9gs",
+        "timestamp": "2026-08-31T13:43:12.211Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788183751443-mt5bdkmw",
+        "event": "favorite.added",
+        "message": "题目已加入收藏夹",
+        "context": {
+          "question": "曝光时间和增益分别会对检测结果产生什么影响？",
+          "source": "专业"
+        }
+      },
+      {
+        "id": "1788183771530-pnpstuwp",
+        "timestamp": "2026-08-31T13:42:51.530Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "7e7f5e193aef"
+        }
+      },
+      {
+        "id": "1788183767574-lqhbr4vh",
+        "timestamp": "2026-08-31T13:42:47.574Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "0420c94341f3"
+        }
+      },
+      {
+        "id": "1788183762062-gfmz3o8g",
+        "timestamp": "2026-08-31T13:42:42.062Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788183751443-mt5bdkmw",
+        "event": "question-group.prepare.completed",
+        "message": "AI 多轮联网搜索与生成后仍未获得有效题目，已使用本地题库与标准答案。",
+        "context": {
+          "source": "本地规则",
+          "questionCount": 10
+        }
+      },
+      {
+        "id": "1788183762056-4xskk06k",
+        "timestamp": "2026-08-31T13:42:42.056Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788183751443-mt5bdkmw",
+        "event": "question-bank.attempt.failed",
+        "message": "第 6/6 轮（并行 3/3）：本轮请求失败：请先配置当前 AI 服务商的 API Key。，准备下一轮…",
+        "context": {
+          "attempt": 6,
+          "maxAttempts": 6,
+          "collectedCount": 0,
+          "workerIndex": 3,
+          "parallelRequests": 3,
+          "error": "请先配置当前 AI 服务商的 API Key。"
+        }
+      },
+      {
+        "id": "1788183762052-mqyx2snf",
+        "timestamp": "2026-08-31T13:42:42.052Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788183751443-mt5bdkmw",
+        "event": "question-bank.attempt.failed",
+        "message": "第 6/6 轮（并行 2/3）：本轮请求失败：请先配置当前 AI 服务商的 API Key。，准备下一轮…",
+        "context": {
+          "attempt": 6,
+          "maxAttempts": 6,
+          "collectedCount": 0,
+          "workerIndex": 2,
+          "parallelRequests": 3,
+          "error": "请先配置当前 AI 服务商的 API Key。"
+        }
+      },
+      {
+        "id": "1788183762048-hrb53jeh",
+        "timestamp": "2026-08-31T13:42:42.048Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788183751443-mt5bdkmw",
+        "event": "question-bank.attempt.failed",
+        "message": "第 6/6 轮（并行 1/3）：本轮请求失败：请先配置当前 AI 服务商的 API Key。，准备下一轮…",
+        "context": {
+          "attempt": 6,
+          "maxAttempts": 6,
+          "collectedCount": 0,
+          "workerIndex": 1,
+          "parallelRequests": 3,
+          "error": "请先配置当前 AI 服务商的 API Key。"
+        }
+      },
+      {
+        "id": "1788183761816-d0pi82z3",
+        "timestamp": "2026-08-31T13:42:41.816Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788183751443-mt5bdkmw",
+        "event": "question-bank.ai-request.started",
+        "message": "第 6/6 轮（并行 3/3）：正在请求 AI 生成题目（3 道）…",
+        "context": {
+          "attempt": 6,
+          "maxAttempts": 6,
+          "collectedCount": 0,
+          "workerIndex": 3,
+          "parallelRequests": 3,
+          "requestedCount": 3
+        }
+      },
+      {
+        "id": "1788183761810-1eo4abzg",
+        "timestamp": "2026-08-31T13:42:41.810Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788183751443-mt5bdkmw",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 6,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "sourceCount": 0,
+          "workerIndex": 3,
+          "parallelRequests": 3
+        }
+      },
+      {
+        "id": "1788183761767-2k6ugrp1",
+        "timestamp": "2026-08-31T13:42:41.767Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788183751443-mt5bdkmw",
+        "event": "question-bank.ai-request.started",
+        "message": "第 6/6 轮（并行 2/3）：正在请求 AI 生成题目（3 道）…",
+        "context": {
+          "attempt": 6,
+          "maxAttempts": 6,
+          "collectedCount": 0,
+          "workerIndex": 2,
+          "parallelRequests": 3,
+          "requestedCount": 3
+        }
+      },
+      {
+        "id": "1788183761760-x6cbdndh",
+        "timestamp": "2026-08-31T13:42:41.760Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788183751443-mt5bdkmw",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 6,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "sourceCount": 0,
+          "workerIndex": 2,
+          "parallelRequests": 3
+        }
+      },
+      {
+        "id": "1788183761745-kyctpcl4",
+        "timestamp": "2026-08-31T13:42:41.745Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788183751443-mt5bdkmw",
+        "event": "question-bank.ai-request.started",
+        "message": "第 6/6 轮（并行 1/3）：正在请求 AI 生成题目（4 道）…",
+        "context": {
+          "attempt": 6,
+          "maxAttempts": 6,
+          "collectedCount": 0,
+          "workerIndex": 1,
+          "parallelRequests": 3,
+          "requestedCount": 4
+        }
+      },
+      {
+        "id": "1788183761738-83gwv0wh",
+        "timestamp": "2026-08-31T13:42:41.738Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788183751443-mt5bdkmw",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 6,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "sourceCount": 0,
+          "workerIndex": 1,
+          "parallelRequests": 3
+        }
+      },
+      {
+        "id": "1788183761423-j2z0w67q",
+        "timestamp": "2026-08-31T13:42:41.423Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "86a17c760b64"
+        }
+      },
+      {
+        "id": "1788183761398-j5tdhnah",
+        "timestamp": "2026-08-31T13:42:41.398Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788183751443-mt5bdkmw",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 6,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 0,
+          "workerIndex": 3,
+          "parallelRequests": 3,
+          "requestedCount": 3
+        }
+      },
+      {
+        "id": "1788183761390-d093759b",
+        "timestamp": "2026-08-31T13:42:41.390Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788183751443-mt5bdkmw",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 6,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 0,
+          "workerIndex": 2,
+          "parallelRequests": 3,
+          "requestedCount": 3
+        }
+      },
+      {
+        "id": "1788183761383-l0vulw4n",
+        "timestamp": "2026-08-31T13:42:41.383Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788183751443-mt5bdkmw",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 6,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 0,
+          "workerIndex": 1,
+          "parallelRequests": 3,
+          "requestedCount": 4
+        }
+      },
+      {
+        "id": "1788183761377-5savv91i",
+        "timestamp": "2026-08-31T13:42:41.377Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788183751443-mt5bdkmw",
+        "event": "question-bank.attempt.failed",
+        "message": "第 5/6 轮（并行 3/3）：本轮请求失败：请先配置当前 AI 服务商的 API Key。，准备下一轮…",
+        "context": {
+          "attempt": 5,
+          "maxAttempts": 6,
+          "collectedCount": 0,
+          "workerIndex": 3,
+          "parallelRequests": 3,
+          "error": "请先配置当前 AI 服务商的 API Key。"
+        }
+      },
+      {
+        "id": "1788183761368-ney0mbe7",
+        "timestamp": "2026-08-31T13:42:41.368Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788183751443-mt5bdkmw",
+        "event": "question-bank.attempt.failed",
+        "message": "第 5/6 轮（并行 2/3）：本轮请求失败：请先配置当前 AI 服务商的 API Key。，准备下一轮…",
+        "context": {
+          "attempt": 5,
+          "maxAttempts": 6,
+          "collectedCount": 0,
+          "workerIndex": 2,
+          "parallelRequests": 3,
+          "error": "请先配置当前 AI 服务商的 API Key。"
+        }
+      },
+      {
+        "id": "1788183761361-plrttqm0",
+        "timestamp": "2026-08-31T13:42:41.360Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788183751443-mt5bdkmw",
+        "event": "question-bank.attempt.failed",
+        "message": "第 5/6 轮（并行 1/3）：本轮请求失败：请先配置当前 AI 服务商的 API Key。，准备下一轮…",
+        "context": {
+          "attempt": 5,
+          "maxAttempts": 6,
+          "collectedCount": 0,
+          "workerIndex": 1,
+          "parallelRequests": 3,
+          "error": "请先配置当前 AI 服务商的 API Key。"
         }
       },
       {
@@ -13215,1882 +15630,6 @@
           "reason": "change",
           "commit": "368331cbfe35"
         }
-      },
-      {
-        "id": "1788164922884-7uzuxk7q",
-        "timestamp": "2026-08-31T08:28:42.884Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.close.flush",
-        "message": "页面关闭或进入后台，提交最后一次备份"
-      },
-      {
-        "id": "1788164920819-9ococjfd",
-        "timestamp": "2026-08-31T08:28:40.819Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.close.flush",
-        "message": "页面关闭或进入后台，提交最后一次备份"
-      },
-      {
-        "id": "1788164912029-njll5r79",
-        "timestamp": "2026-08-31T08:28:32.029Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "f088dcfc388b"
-        }
-      },
-      {
-        "id": "1788164908266-bu807jzr",
-        "timestamp": "2026-08-31T08:28:28.266Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "12d863518245"
-        }
-      },
-      {
-        "id": "1788164907786-uc1z2m73",
-        "timestamp": "2026-08-31T08:28:27.786Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788164727758-4j1db2oj",
-        "event": "question-group.prepare.cached",
-        "message": "题组已从本机缓存恢复",
-        "context": {
-          "questionCount": 10
-        }
-      },
-      {
-        "id": "1788164907785-xnb3fj92",
-        "timestamp": "2026-08-31T08:28:27.785Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788164727758-4j1db2oj",
-        "event": "question-group.prepare.started",
-        "message": "开始准备题组",
-        "context": {
-          "project": "轮胎字符深度 OCR",
-          "mode": "专业知识",
-          "questionCount": 10
-        }
-      },
-      {
-        "id": "1788164903059-xtl953xo",
-        "timestamp": "2026-08-31T08:28:23.059Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788164727758-4j1db2oj",
-        "event": "question-group.prepare.cached",
-        "message": "题组已从本机缓存恢复",
-        "context": {
-          "questionCount": 10
-        }
-      },
-      {
-        "id": "1788164903058-q1mehal4",
-        "timestamp": "2026-08-31T08:28:23.058Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788164727758-4j1db2oj",
-        "event": "question-group.prepare.started",
-        "message": "开始准备题组",
-        "context": {
-          "project": "轮胎字符深度 OCR",
-          "mode": "专业知识",
-          "questionCount": 10
-        }
-      },
-      {
-        "id": "1788164899615-rdt0kqg6",
-        "timestamp": "2026-08-31T08:28:19.615Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "5ad28a167282"
-        }
-      },
-      {
-        "id": "1788164894387-qw6avb6m",
-        "timestamp": "2026-08-31T08:28:14.387Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788164727758-4j1db2oj",
-        "event": "question-group.prepare.completed",
-        "message": "AI 已生成完整 10 道题目、标准回答和技术原理；已缓存到远程题库。",
-        "context": {
-          "source": "AI",
-          "questionCount": 10
-        }
-      },
-      {
-        "id": "1788164894385-40f29x12",
-        "timestamp": "2026-08-31T08:28:14.385Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788164727758-4j1db2oj",
-        "event": "question-bank.cache.saved",
-        "message": "已缓存到远程题库",
-        "context": {
-          "questionCount": 10,
-          "pendingCount": 0
-        }
-      },
-      {
-        "id": "1788164862290-jvs1mxi0",
-        "timestamp": "2026-08-31T08:27:42.290Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "f4e14665ef6b"
-        }
-      },
-      {
-        "id": "1788164859831-p8e569sh",
-        "timestamp": "2026-08-31T08:27:39.831Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "5884fb1ee41a"
-        }
-      },
-      {
-        "id": "1788164855370-cz92ga1l",
-        "timestamp": "2026-08-31T08:27:35.370Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788164727758-4j1db2oj",
-        "event": "question-group.prepare.started",
-        "message": "开始准备题组",
-        "context": {
-          "project": "轮胎字符深度 OCR",
-          "mode": "专业知识",
-          "questionCount": 3
-        }
-      },
-      {
-        "id": "1788164853296-79j77xkg",
-        "timestamp": "2026-08-31T08:27:33.296Z",
-        "level": "WARN",
-        "kind": "user",
-        "sessionId": "1788164727758-4j1db2oj",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "在HALCON中，如何实现3D视觉的相机标定？与2D标定有何不同？",
-          "mode": "专业知识",
-          "project": "轮胎字符深度 OCR"
-        }
-      },
-      {
-        "id": "1788164853056-030bhng5",
-        "timestamp": "2026-08-31T08:27:33.056Z",
-        "level": "WARN",
-        "kind": "user",
-        "sessionId": "1788164727758-4j1db2oj",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "在HALCON中，使用OCR识别字符时，如果识别率低，你会从哪些方面进行优化？",
-          "mode": "专业知识",
-          "project": "轮胎字符深度 OCR"
-        }
-      },
-      {
-        "id": "1788164852887-lisqhivn",
-        "timestamp": "2026-08-31T08:27:32.887Z",
-        "level": "WARN",
-        "kind": "user",
-        "sessionId": "1788164727758-4j1db2oj",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "在HALCON中，进行图像拼接时，如何解决图像之间的光照差异和重叠区域的重合问题？",
-          "mode": "专业知识",
-          "project": "轮胎字符深度 OCR"
-        }
-      },
-      {
-        "id": "1788164852728-5v9j2dct",
-        "timestamp": "2026-08-31T08:27:32.728Z",
-        "level": "WARN",
-        "kind": "user",
-        "sessionId": "1788164727758-4j1db2oj",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "在HALCON中，如何实现多模板匹配？当目标物体存在多种形态时，如何处理以提高匹配鲁棒性？",
-          "mode": "专业知识",
-          "project": "轮胎字符深度 OCR"
-        }
-      },
-      {
-        "id": "1788164852560-lu1l21nw",
-        "timestamp": "2026-08-31T08:27:32.560Z",
-        "level": "WARN",
-        "kind": "user",
-        "sessionId": "1788164727758-4j1db2oj",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "在HALCON中，使用measure_pos进行一维测量时，如果测量结果不稳定（如位置波动），可能的原因有哪些？如何提高稳定性？",
-          "mode": "专业知识",
-          "project": "轮胎字符深度 OCR"
-        }
-      },
-      {
-        "id": "1788164852392-jhdl22ik",
-        "timestamp": "2026-08-31T08:27:32.392Z",
-        "level": "WARN",
-        "kind": "user",
-        "sessionId": "1788164727758-4j1db2oj",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "在HALCON中，进行边缘提取时，常用的算子有sobel_amp、canny和edges_sub_pix，它们各自的特点和适用场景是什么？",
-          "mode": "专业知识",
-          "project": "轮胎字符深度 OCR"
-        }
-      },
-      {
-        "id": "1788164852223-v353uzsu",
-        "timestamp": "2026-08-31T08:27:32.223Z",
-        "level": "WARN",
-        "kind": "user",
-        "sessionId": "1788164727758-4j1db2oj",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "在HALCON中，使用blob分析进行缺陷检测时，如果目标缺陷与背景灰度差异很小，你会采用哪些图像预处理方法增强对比度？",
-          "mode": "专业知识",
-          "project": "轮胎字符深度 OCR"
-        }
-      },
-      {
-        "id": "1788164852040-j7koqiin",
-        "timestamp": "2026-08-31T08:27:32.040Z",
-        "level": "WARN",
-        "kind": "user",
-        "sessionId": "1788164727758-4j1db2oj",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "在HALCON中，进行相机标定时，如何评估标定结果的准确性？如果重投影误差较大，可能的原因有哪些？",
-          "mode": "专业知识",
-          "project": "轮胎字符深度 OCR"
-        }
-      },
-      {
-        "id": "1788164851367-0ceh38s9",
-        "timestamp": "2026-08-31T08:27:31.367Z",
-        "level": "WARN",
-        "kind": "user",
-        "sessionId": "1788164727758-4j1db2oj",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "在HALCON中，使用create_shape_model进行模板匹配时，金字塔层数（NumLevels）对匹配速度和精度有何影响？如何确定最佳层数？",
-          "mode": "专业知识",
-          "project": "轮胎字符深度 OCR"
-        }
-      },
-      {
-        "id": "1788164851184-3fy51z4d",
-        "timestamp": "2026-08-31T08:27:31.184Z",
-        "level": "WARN",
-        "kind": "user",
-        "sessionId": "1788164727758-4j1db2oj",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "在HALCON中，如何区分使用阈值分割（threshold）和动态阈值分割（dyn_threshold）？请结合实际应用场景说明选择依据。",
-          "mode": "专业知识",
-          "project": "轮胎字符深度 OCR"
-        }
-      },
-      {
-        "id": "1788164837525-ehtdv5gm",
-        "timestamp": "2026-08-31T08:27:17.525Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "eaf286cc7827"
-        }
-      },
-      {
-        "id": "1788164834634-6c66gov5",
-        "timestamp": "2026-08-31T08:27:14.634Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788164727758-4j1db2oj",
-        "event": "question-group.prepare.cached",
-        "message": "题组已从本机缓存恢复",
-        "context": {
-          "questionCount": 10
-        }
-      },
-      {
-        "id": "1788164834633-eqmxz3vp",
-        "timestamp": "2026-08-31T08:27:14.633Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788164727758-4j1db2oj",
-        "event": "question-group.prepare.started",
-        "message": "开始准备题组",
-        "context": {
-          "project": "轮胎字符深度 OCR",
-          "mode": "专业知识",
-          "questionCount": 3
-        }
-      },
-      {
-        "id": "1788164834534-xd776xkc",
-        "timestamp": "2026-08-31T08:27:14.534Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "93b07d125bf5"
-        }
-      },
-      {
-        "id": "1788164829684-93qryg5g",
-        "timestamp": "2026-08-31T08:27:09.684Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788164727758-4j1db2oj",
-        "event": "question-group.prepare.completed",
-        "message": "AI 已生成完整 10 道题目、标准回答和技术原理；已缓存到远程题库。",
-        "context": {
-          "source": "AI",
-          "questionCount": 10
-        }
-      },
-      {
-        "id": "1788164829683-mq35nsn1",
-        "timestamp": "2026-08-31T08:27:09.683Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788164727758-4j1db2oj",
-        "event": "question-bank.cache.saved",
-        "message": "已缓存到远程题库",
-        "context": {
-          "questionCount": 10,
-          "pendingCount": 0
-        }
-      },
-      {
-        "id": "1788164801167-r8en5wq3",
-        "timestamp": "2026-08-31T08:26:41.167Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "94972eb8128d"
-        }
-      },
-      {
-        "id": "1788164798853-6l6lvye5",
-        "timestamp": "2026-08-31T08:26:38.853Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "1f9ff13420d3"
-        }
-      },
-      {
-        "id": "1788164794705-vgd0w6rg",
-        "timestamp": "2026-08-31T08:26:34.705Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788164727758-4j1db2oj",
-        "event": "question-group.prepare.started",
-        "message": "开始准备题组",
-        "context": {
-          "project": "轮胎字符深度 OCR",
-          "mode": "专业知识",
-          "questionCount": 3
-        }
-      },
-      {
-        "id": "1788164790794-n0sg0xzm",
-        "timestamp": "2026-08-31T08:26:30.794Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788164727758-4j1db2oj",
-        "event": "question-group.prepare.cached",
-        "message": "题组已从本机缓存恢复",
-        "context": {
-          "questionCount": 10
-        }
-      },
-      {
-        "id": "1788164790793-hskohs47",
-        "timestamp": "2026-08-31T08:26:30.793Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788164727758-4j1db2oj",
-        "event": "question-group.prepare.started",
-        "message": "开始准备题组",
-        "context": {
-          "project": "轮胎字符深度 OCR",
-          "mode": "专业知识",
-          "questionCount": 10
-        }
-      },
-      {
-        "id": "1788164764776-b91u6o7a",
-        "timestamp": "2026-08-31T08:26:04.776Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "9fcc9f3f8ef5"
-        }
-      },
-      {
-        "id": "1788164759714-9l3740jj",
-        "timestamp": "2026-08-31T08:25:59.714Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788164727758-4j1db2oj",
-        "event": "question-group.prepare.cached",
-        "message": "题组已从本机缓存恢复",
-        "context": {
-          "questionCount": 10
-        }
-      },
-      {
-        "id": "1788164759713-k8sirnic",
-        "timestamp": "2026-08-31T08:25:59.713Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788164727758-4j1db2oj",
-        "event": "question-group.prepare.started",
-        "message": "开始准备题组",
-        "context": {
-          "project": "轮胎字符深度 OCR",
-          "mode": "专业知识",
-          "questionCount": 3
-        }
-      },
-      {
-        "id": "1788164746702-1l8sbq3n",
-        "timestamp": "2026-08-31T08:25:46.702Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "b2f8f5129536"
-        }
-      },
-      {
-        "id": "1788164741218-9k0wbck2",
-        "timestamp": "2026-08-31T08:25:41.218Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788164727758-4j1db2oj",
-        "event": "question-group.prepare.cached",
-        "message": "题组已从本机缓存恢复",
-        "context": {
-          "questionCount": 10
-        }
-      },
-      {
-        "id": "1788164741217-5vjqc5eh",
-        "timestamp": "2026-08-31T08:25:41.217Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788164727758-4j1db2oj",
-        "event": "question-group.prepare.started",
-        "message": "开始准备题组",
-        "context": {
-          "project": "轮胎字符深度 OCR",
-          "mode": "专业知识",
-          "questionCount": 3
-        }
-      },
-      {
-        "id": "1788164740351-rzb6lj48",
-        "timestamp": "2026-08-31T08:25:40.351Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "7da9ce4b2a11"
-        }
-      },
-      {
-        "id": "1788164735243-g2sis656",
-        "timestamp": "2026-08-31T08:25:35.243Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788164727758-4j1db2oj",
-        "event": "question-group.prepare.cached",
-        "message": "题组已从本机缓存恢复",
-        "context": {
-          "questionCount": 10
-        }
-      },
-      {
-        "id": "1788164735243-i7zucnhy",
-        "timestamp": "2026-08-31T08:25:35.243Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788164727758-4j1db2oj",
-        "event": "question-group.prepare.started",
-        "message": "开始准备题组",
-        "context": {
-          "project": "轮胎字符深度 OCR",
-          "mode": "专业知识",
-          "questionCount": 3
-        }
-      },
-      {
-        "id": "1788164734382-e7i2luj6",
-        "timestamp": "2026-08-31T08:25:34.382Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "a0bb71e2efb2"
-        }
-      },
-      {
-        "id": "1788164727769-s07g6uzr",
-        "timestamp": "2026-08-31T08:25:27.769Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788164727758-4j1db2oj",
-        "event": "question-group.prepare.cached",
-        "message": "题组已从本机缓存恢复",
-        "context": {
-          "questionCount": 10
-        }
-      },
-      {
-        "id": "1788164727768-y6fau2ll",
-        "timestamp": "2026-08-31T08:25:27.768Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788164727758-4j1db2oj",
-        "event": "question-group.prepare.started",
-        "message": "开始准备题组",
-        "context": {
-          "project": "轮胎字符深度 OCR",
-          "mode": "专业知识",
-          "questionCount": 10
-        }
-      },
-      {
-        "id": "1788164727757-1o4rdey3",
-        "timestamp": "2026-08-31T08:25:27.757Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.startup.loaded",
-        "message": "启动配置加载完成",
-        "context": {
-          "source": "github",
-          "updatedAt": "2026-08-31T08:25:26.516Z"
-        }
-      },
-      {
-        "id": "1788164726708-5bdz3a2z",
-        "timestamp": "2026-08-31T08:25:26.708Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.close.flush",
-        "message": "页面关闭或进入后台，提交最后一次备份"
-      },
-      {
-        "id": "1788164726707-bmzjnlua",
-        "timestamp": "2026-08-31T08:25:26.707Z",
-        "level": "ERROR",
-        "kind": "system",
-        "event": "backup.push.failed",
-        "message": "运行数据备份请求失败",
-        "context": {
-          "error": "Failed to fetch"
-        }
-      },
-      {
-        "id": "1788164722250-qy7nxdlj",
-        "timestamp": "2026-08-31T08:25:22.250Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788164673987-kp9my2ml",
-        "event": "question-group.prepare.cached",
-        "message": "题组已从本机缓存恢复",
-        "context": {
-          "questionCount": 10
-        }
-      },
-      {
-        "id": "1788164722249-mrq4o4wm",
-        "timestamp": "2026-08-31T08:25:22.249Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788164673987-kp9my2ml",
-        "event": "question-group.prepare.started",
-        "message": "开始准备题组",
-        "context": {
-          "project": "轮胎字符深度 OCR",
-          "mode": "专业知识",
-          "questionCount": 3
-        }
-      },
-      {
-        "id": "1788164697685-qj8wa64h",
-        "timestamp": "2026-08-31T08:24:57.685Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "9230319d69ba"
-        }
-      },
-      {
-        "id": "1788164692290-pr7qbc5b",
-        "timestamp": "2026-08-31T08:24:52.290Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788164673987-kp9my2ml",
-        "event": "question-group.prepare.cached",
-        "message": "题组已从本机缓存恢复",
-        "context": {
-          "questionCount": 10
-        }
-      },
-      {
-        "id": "1788164692290-5zkhe2jx",
-        "timestamp": "2026-08-31T08:24:52.290Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788164673987-kp9my2ml",
-        "event": "question-group.prepare.started",
-        "message": "开始准备题组",
-        "context": {
-          "project": "轮胎字符深度 OCR",
-          "mode": "专业知识",
-          "questionCount": 3
-        }
-      },
-      {
-        "id": "1788164688277-8d0jio8g",
-        "timestamp": "2026-08-31T08:24:48.277Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "4ad491126a5f"
-        }
-      },
-      {
-        "id": "1788164686135-ghamfyqu",
-        "timestamp": "2026-08-31T08:24:46.135Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "1f8029757725"
-        }
-      },
-      {
-        "id": "1788164680930-joj0s691",
-        "timestamp": "2026-08-31T08:24:40.930Z",
-        "level": "ERROR",
-        "kind": "system",
-        "event": "backup.push.failed",
-        "message": "运行数据备份失败",
-        "context": {
-          "status": 502,
-          "reason": "GitHub 备份失败（HTTP 409）：{\"message\":\"data/vision-interview-data.json does not match dd2a23f63ca9be89d3d6376e439a8f5899a96dc5\",\"documentation_url\":\"https://docs.github.com/rest/repos/contents#create-or-update-file-contents\",\"status\":\"409\"}"
-        }
-      },
-      {
-        "id": "1788164680688-xroaetfw",
-        "timestamp": "2026-08-31T08:24:40.688Z",
-        "level": "ERROR",
-        "kind": "system",
-        "event": "backup.push.failed",
-        "message": "运行数据备份失败",
-        "context": {
-          "status": 502,
-          "reason": "GitHub 备份失败（HTTP 409）：{\"message\":\"data/vision-interview-data.json does not match dd2a23f63ca9be89d3d6376e439a8f5899a96dc5\",\"documentation_url\":\"https://docs.github.com/rest/repos/contents#create-or-update-file-contents\",\"status\":\"409\"}"
-        }
-      },
-      {
-        "id": "1788164674307-vv2d6va0",
-        "timestamp": "2026-08-31T08:24:34.307Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "b7fad51bb965"
-        }
-      },
-      {
-        "id": "1788164674007-24jpefua",
-        "timestamp": "2026-08-31T08:24:34.007Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788164673987-kp9my2ml",
-        "event": "question-group.prepare.cached",
-        "message": "题组已从本机缓存恢复",
-        "context": {
-          "questionCount": 10
-        }
-      },
-      {
-        "id": "1788164674005-j5e786id",
-        "timestamp": "2026-08-31T08:24:34.005Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788164673987-kp9my2ml",
-        "event": "question-group.prepare.started",
-        "message": "开始准备题组",
-        "context": {
-          "project": "轮胎字符深度 OCR",
-          "mode": "专业知识",
-          "questionCount": 10
-        }
-      },
-      {
-        "id": "1788164673984-sek4uprt",
-        "timestamp": "2026-08-31T08:24:33.984Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.startup.loaded",
-        "message": "启动配置加载完成",
-        "context": {
-          "source": "github",
-          "updatedAt": "2026-08-31T07:51:16.721Z"
-        }
-      },
-      {
-        "id": "1788164672796-6hqp3ii7",
-        "timestamp": "2026-08-31T08:24:32.796Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.close.flush",
-        "message": "页面关闭或进入后台，提交最后一次备份"
-      },
-      {
-        "id": "1788164672106-brc1e666",
-        "timestamp": "2026-08-31T08:24:32.106Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788164666527-9gc4c068",
-        "event": "question-group.prepare.completed",
-        "message": "AI 两次生成均未获得有效题目，已使用本地题库与标准答案。",
-        "context": {
-          "source": "本地规则",
-          "questionCount": 10
-        }
-      },
-      {
-        "id": "1788164671245-syqdkui3",
-        "timestamp": "2026-08-31T08:24:31.245Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.close.flush",
-        "message": "页面关闭或进入后台，提交最后一次备份"
-      },
-      {
-        "id": "1788164666561-sein3tjl",
-        "timestamp": "2026-08-31T08:24:26.561Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788164666527-9gc4c068",
-        "event": "question-group.prepare.started",
-        "message": "开始准备题组",
-        "context": {
-          "project": "轮胎字符深度 OCR",
-          "mode": "专业知识",
-          "questionCount": 10
-        }
-      },
-      {
-        "id": "1788164666524-pbswgsg9",
-        "timestamp": "2026-08-31T08:24:26.523Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.startup.loaded",
-        "message": "启动配置加载完成",
-        "context": {
-          "source": "github",
-          "updatedAt": "2026-08-31T07:51:16.721Z"
-        }
-      },
-      {
-        "id": "1788164374079-7bdtjr60",
-        "timestamp": "2026-08-31T08:19:34.079Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.close.flush",
-        "message": "页面关闭或进入后台，提交最后一次备份"
-      },
-      {
-        "id": "1788164374078-i07a7sj4",
-        "timestamp": "2026-08-31T08:19:34.078Z",
-        "level": "ERROR",
-        "kind": "system",
-        "event": "backup.push.failed",
-        "message": "运行数据备份请求失败",
-        "context": {
-          "error": "Failed to fetch"
-        }
-      },
-      {
-        "id": "1788164357265-64g628k0",
-        "timestamp": "2026-08-31T08:19:17.265Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788162608770-pf75wyuo",
-        "event": "question-group.prepare.completed",
-        "message": "AI 两次生成均未获得有效题目，已使用本地题库与标准答案。",
-        "context": {
-          "source": "本地规则",
-          "questionCount": 4
-        }
-      },
-      {
-        "id": "1788164356594-hfdt8f02",
-        "timestamp": "2026-08-31T08:19:16.594Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788162608770-pf75wyuo",
-        "event": "question-group.prepare.started",
-        "message": "开始准备题组",
-        "context": {
-          "project": "轮胎字符深度 OCR",
-          "mode": "专业知识",
-          "questionCount": 4
-        }
-      },
-      {
-        "id": "1788164352754-1k3fg7tk",
-        "timestamp": "2026-08-31T08:19:12.754Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788162608770-pf75wyuo",
-        "event": "question-group.prepare.completed",
-        "message": "AI 两次生成均未获得有效题目，已使用本地题库与标准答案。",
-        "context": {
-          "source": "本地规则",
-          "questionCount": 0
-        }
-      },
-      {
-        "id": "1788164351947-jomdepbz",
-        "timestamp": "2026-08-31T08:19:11.947Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788162608770-pf75wyuo",
-        "event": "question-group.prepare.started",
-        "message": "开始准备题组",
-        "context": {
-          "project": "轮胎字符深度 OCR",
-          "mode": "专业知识",
-          "questionCount": 10
-        }
-      },
-      {
-        "id": "1788164298430-hhnmds0s",
-        "timestamp": "2026-08-31T08:18:18.430Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.close.flush",
-        "message": "页面关闭或进入后台，提交最后一次备份"
-      },
-      {
-        "id": "1788164256497-w2utw1cf",
-        "timestamp": "2026-08-31T08:17:36.497Z",
-        "level": "WARN",
-        "kind": "user",
-        "sessionId": "1788162608770-pf75wyuo",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "HALCON 中 Image、Region 和 XLD 的区别是什么？",
-          "mode": "专业知识",
-          "project": "轮胎字符深度 OCR"
-        }
-      },
-      {
-        "id": "1788164255881-nf5287o3",
-        "timestamp": "2026-08-31T08:17:35.881Z",
-        "level": "WARN",
-        "kind": "user",
-        "sessionId": "1788162608770-pf75wyuo",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "Sobel 算子为什么要分别计算 X 和 Y 方向梯度？",
-          "mode": "专业知识",
-          "project": "轮胎字符深度 OCR"
-        }
-      },
-      {
-        "id": "1788164255705-2j83ak32",
-        "timestamp": "2026-08-31T08:17:35.705Z",
-        "level": "WARN",
-        "kind": "user",
-        "sessionId": "1788162608770-pf75wyuo",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "VisionPro 中 CogCaliper 如何稳定找到边缘，多个卡尺点如何用于直线拟合？",
-          "mode": "专业知识",
-          "project": "轮胎字符深度 OCR"
-        }
-      },
-      {
-        "id": "1788164255520-fhl0mz3o",
-        "timestamp": "2026-08-31T08:17:35.520Z",
-        "level": "WARN",
-        "kind": "user",
-        "sessionId": "1788162608770-pf75wyuo",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "OpenCV findContours 的检索模式和轮廓近似方式如何选择？",
-          "mode": "专业知识",
-          "project": "轮胎字符深度 OCR"
-        }
-      },
-      {
-        "id": "1788164255360-jen1bosa",
-        "timestamp": "2026-08-31T08:17:35.360Z",
-        "level": "WARN",
-        "kind": "user",
-        "sessionId": "1788162608770-pf75wyuo",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "Otsu 阈值分割为什么要让类间方差最大？",
-          "mode": "专业知识",
-          "project": "轮胎字符深度 OCR"
-        }
-      },
-      {
-        "id": "1788164255201-4ika6v13",
-        "timestamp": "2026-08-31T08:17:35.201Z",
-        "level": "WARN",
-        "kind": "user",
-        "sessionId": "1788162608770-pf75wyuo",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "曝光时间和增益分别会对检测结果产生什么影响？",
-          "mode": "专业知识",
-          "project": "轮胎字符深度 OCR"
-        }
-      },
-      {
-        "id": "1788164255033-uvw82hgd",
-        "timestamp": "2026-08-31T08:17:35.033Z",
-        "level": "WARN",
-        "kind": "user",
-        "sessionId": "1788162608770-pf75wyuo",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "Eye-in-hand 与 Eye-to-hand 手眼标定有什么区别？",
-          "mode": "专业知识",
-          "project": "轮胎字符深度 OCR"
-        }
-      },
-      {
-        "id": "1788164254865-cruaoobj",
-        "timestamp": "2026-08-31T08:17:34.865Z",
-        "level": "WARN",
-        "kind": "user",
-        "sessionId": "1788162608770-pf75wyuo",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "C# 视觉程序为什么适合用有界 Channel 连接采集与处理？",
-          "mode": "专业知识",
-          "project": "轮胎字符深度 OCR"
-        }
-      },
-      {
-        "id": "1788164249835-fp7tstud",
-        "timestamp": "2026-08-31T08:17:29.835Z",
-        "level": "INFO",
-        "kind": "user",
-        "sessionId": "1788162608770-pf75wyuo",
-        "event": "answer.submit.completed",
-        "message": "回答审阅完成",
-        "context": {
-          "question": "VisionPro 中 CogFixture 的作用是什么？为什么定位后要建立夹具坐标系？",
-          "mastery": "低",
-          "reviewSource": "本地规则",
-          "seconds": 0
-        }
-      },
-      {
-        "id": "1788164249513-65fpt6qh",
-        "timestamp": "2026-08-31T08:17:29.513Z",
-        "level": "INFO",
-        "kind": "user",
-        "sessionId": "1788162608770-pf75wyuo",
-        "event": "answer.submit.started",
-        "message": "开始审阅回答",
-        "context": {
-          "question": "VisionPro 中 CogFixture 的作用是什么？为什么定位后要建立夹具坐标系？",
-          "mode": "专业知识",
-          "project": "轮胎字符深度 OCR",
-          "answerLength": 155
-        }
-      },
-      {
-        "id": "1788164233937-lqzgadqk",
-        "timestamp": "2026-08-31T08:17:13.937Z",
-        "level": "INFO",
-        "kind": "user",
-        "sessionId": "1788162608770-pf75wyuo",
-        "event": "answer.submit.completed",
-        "message": "回答审阅完成",
-        "context": {
-          "question": "HALCON 的 dyn_threshold 与普通 threshold 有什么区别？",
-          "mastery": "低",
-          "reviewSource": "本地规则",
-          "seconds": 0
-        }
-      },
-      {
-        "id": "1788164233681-cwk7mf20",
-        "timestamp": "2026-08-31T08:17:13.681Z",
-        "level": "INFO",
-        "kind": "user",
-        "sessionId": "1788162608770-pf75wyuo",
-        "event": "answer.submit.started",
-        "message": "开始审阅回答",
-        "context": {
-          "question": "HALCON 的 dyn_threshold 与普通 threshold 有什么区别？",
-          "mode": "专业知识",
-          "project": "轮胎字符深度 OCR",
-          "answerLength": 3
-        }
-      },
-      {
-        "id": "1788164224724-7fz2t46s",
-        "timestamp": "2026-08-31T08:17:04.724Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788162608770-pf75wyuo",
-        "event": "question-group.prepare.completed",
-        "message": "AI 两次生成均未获得有效题目，已使用本地题库与标准答案。",
-        "context": {
-          "source": "本地规则",
-          "questionCount": 0
-        }
-      },
-      {
-        "id": "1788164224116-v82thzaa",
-        "timestamp": "2026-08-31T08:17:04.116Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788162608770-pf75wyuo",
-        "event": "question-group.prepare.started",
-        "message": "开始准备题组",
-        "context": {
-          "project": "轮胎字符深度 OCR",
-          "mode": "专业知识",
-          "questionCount": 10
-        }
-      },
-      {
-        "id": "1788164199329-ivdbwlnt",
-        "timestamp": "2026-08-31T08:16:39.329Z",
-        "level": "WARN",
-        "kind": "user",
-        "sessionId": "1788162608770-pf75wyuo",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "在视觉测量中，如何通过标定消除镜头畸变对测量精度的影响？请说明标定流程。",
-          "mode": "专业知识",
-          "project": "轮胎字符深度 OCR"
-        }
-      },
-      {
-        "id": "1788164198905-v4jln5tt",
-        "timestamp": "2026-08-31T08:16:38.905Z",
-        "level": "WARN",
-        "kind": "user",
-        "sessionId": "1788162608770-pf75wyuo",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "现场视觉系统出现图像对比度不足，影响检测稳定性，请列出排查步骤和调整方案。",
-          "mode": "专业知识",
-          "project": "轮胎字符深度 OCR"
-        }
-      },
-      {
-        "id": "1788164198273-j6a83b9y",
-        "timestamp": "2026-08-31T08:16:38.273Z",
-        "level": "WARN",
-        "kind": "user",
-        "sessionId": "1788162608770-pf75wyuo",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "在视觉检测中，形态学操作的核大小和形状对检测结果有什么影响？如何确定最佳参数？",
-          "mode": "专业知识",
-          "project": "轮胎字符深度 OCR"
-        }
-      },
-      {
-        "id": "1788164197649-ec030m4i",
-        "timestamp": "2026-08-31T08:16:37.649Z",
-        "level": "WARN",
-        "kind": "user",
-        "sessionId": "1788162608770-pf75wyuo",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "在图像分割中，阈值分割和边缘检测的适用场景有何不同？如何选择？",
-          "mode": "专业知识",
-          "project": "轮胎字符深度 OCR"
-        }
-      },
-      {
-        "id": "1788164196577-24sipkte",
-        "timestamp": "2026-08-31T08:16:36.577Z",
-        "level": "WARN",
-        "kind": "user",
-        "sessionId": "1788162608770-pf75wyuo",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "在机器视觉项目中，如何根据被测物体特性选择工业相机与镜头的组合？请给出选型流程。",
-          "mode": "专业知识",
-          "project": "轮胎字符深度 OCR"
-        }
-      },
-      {
-        "id": "1788164196385-unessxj6",
-        "timestamp": "2026-08-31T08:16:36.385Z",
-        "level": "WARN",
-        "kind": "user",
-        "sessionId": "1788162608770-pf75wyuo",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "在视觉测量中，如何标定相机以获取准确的像素当量？请说明标定板的选择和操作要点。",
-          "mode": "专业知识",
-          "project": "轮胎字符深度 OCR"
-        }
-      },
-      {
-        "id": "1788164195721-u3wmby3v",
-        "timestamp": "2026-08-31T08:16:35.721Z",
-        "level": "WARN",
-        "kind": "user",
-        "sessionId": "1788162608770-pf75wyuo",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "现场视觉系统出现图像模糊，可能的原因有哪些？请列出排查步骤。",
-          "mode": "专业知识",
-          "project": "轮胎字符深度 OCR"
-        }
-      },
-      {
-        "id": "1788164195538-6ekny3is",
-        "timestamp": "2026-08-31T08:16:35.538Z",
-        "level": "WARN",
-        "kind": "user",
-        "sessionId": "1788162608770-pf75wyuo",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "在视觉检测中，如何通过参数调整来平衡过拟合与欠拟合？请以缺陷检测为例。",
-          "mode": "专业知识",
-          "project": "轮胎字符深度 OCR"
-        }
-      },
-      {
-        "id": "1788164178995-kcxqfljw",
-        "timestamp": "2026-08-31T08:16:18.995Z",
-        "level": "INFO",
-        "kind": "user",
-        "sessionId": "1788162608770-pf75wyuo",
-        "event": "answer.submit.completed",
-        "message": "回答审阅完成",
-        "context": {
-          "question": "解释图像滤波中高斯滤波与中值滤波的区别，并说明各自适用的噪声类型。",
-          "mastery": "低",
-          "reviewSource": "本地规则",
-          "seconds": 0
-        }
-      },
-      {
-        "id": "1788164178761-a9mfqxkp",
-        "timestamp": "2026-08-31T08:16:18.761Z",
-        "level": "INFO",
-        "kind": "user",
-        "sessionId": "1788162608770-pf75wyuo",
-        "event": "answer.submit.started",
-        "message": "开始审阅回答",
-        "context": {
-          "question": "解释图像滤波中高斯滤波与中值滤波的区别，并说明各自适用的噪声类型。",
-          "mode": "专业知识",
-          "project": "轮胎字符深度 OCR",
-          "answerLength": 6
-        }
-      },
-      {
-        "id": "1788164163548-q407mvci",
-        "timestamp": "2026-08-31T08:16:03.548Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.close.flush",
-        "message": "页面关闭或进入后台，提交最后一次备份"
-      },
-      {
-        "id": "1788164153197-au4gtk7c",
-        "timestamp": "2026-08-31T08:15:53.197Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.close.flush",
-        "message": "页面关闭或进入后台，提交最后一次备份"
-      },
-      {
-        "id": "1788164144635-zwqj510j",
-        "timestamp": "2026-08-31T08:15:44.635Z",
-        "level": "ERROR",
-        "kind": "system",
-        "event": "backup.push.failed",
-        "message": "运行数据备份请求失败",
-        "context": {
-          "error": "Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON"
-        }
-      },
-      {
-        "id": "1788164144299-8snr3t93",
-        "timestamp": "2026-08-31T08:15:44.299Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.close.flush",
-        "message": "页面关闭或进入后台，提交最后一次备份"
-      },
-      {
-        "id": "1788164137348-muqcf9da",
-        "timestamp": "2026-08-31T08:15:37.347Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.close.flush",
-        "message": "页面关闭或进入后台，提交最后一次备份"
-      },
-      {
-        "id": "1788164054828-7ejsy06r",
-        "timestamp": "2026-08-31T08:14:14.828Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.close.flush",
-        "message": "页面关闭或进入后台，提交最后一次备份"
-      },
-      {
-        "id": "1788164053645-hiewgo9r",
-        "timestamp": "2026-08-31T08:14:13.645Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.close.flush",
-        "message": "页面关闭或进入后台，提交最后一次备份"
-      },
-      {
-        "id": "1788164051574-lwwmy6ft",
-        "timestamp": "2026-08-31T08:14:11.574Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.close.flush",
-        "message": "页面关闭或进入后台，提交最后一次备份"
-      },
-      {
-        "id": "1788162803705-opw82sln",
-        "timestamp": "2026-08-31T07:53:23.705Z",
-        "level": "ERROR",
-        "kind": "system",
-        "event": "backup.push.failed",
-        "message": "运行数据备份请求失败",
-        "context": {
-          "error": "Failed to fetch"
-        }
-      },
-      {
-        "id": "1788162799929-ntjjh89i",
-        "timestamp": "2026-08-31T07:53:19.929Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.close.flush",
-        "message": "页面关闭或进入后台，提交最后一次备份"
-      },
-      {
-        "id": "1788162798501-x10w7vry",
-        "timestamp": "2026-08-31T07:53:18.501Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.close.flush",
-        "message": "页面关闭或进入后台，提交最后一次备份"
-      },
-      {
-        "id": "1788162793582-xr3980t8",
-        "timestamp": "2026-08-31T07:53:13.582Z",
-        "level": "INFO",
-        "kind": "user",
-        "sessionId": "1788162608770-pf75wyuo",
-        "event": "answer.submit.completed",
-        "message": "回答审阅完成",
-        "context": {
-          "question": "在机器视觉项目中，如何选择合适的光源颜色和照明方式？请结合具体场景说明。",
-          "mastery": "低",
-          "reviewSource": "本地规则",
-          "seconds": 0
-        }
-      },
-      {
-        "id": "1788162793163-npqmp5af",
-        "timestamp": "2026-08-31T07:53:13.163Z",
-        "level": "INFO",
-        "kind": "user",
-        "sessionId": "1788162608770-pf75wyuo",
-        "event": "answer.submit.started",
-        "message": "开始审阅回答",
-        "context": {
-          "question": "在机器视觉项目中，如何选择合适的光源颜色和照明方式？请结合具体场景说明。",
-          "mode": "专业知识",
-          "project": "轮胎字符深度 OCR",
-          "answerLength": 6
-        }
-      },
-      {
-        "id": "1788162686275-9ln33tfq",
-        "timestamp": "2026-08-31T07:51:26.275Z",
-        "level": "ERROR",
-        "kind": "system",
-        "event": "backup.push.failed",
-        "message": "运行数据备份请求失败",
-        "context": {
-          "error": "Failed to fetch"
-        }
-      },
-      {
-        "id": "1788162682828-2cy62b9u",
-        "timestamp": "2026-08-31T07:51:22.828Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788162608770-pf75wyuo",
-        "event": "question-group.prepare.completed",
-        "message": "AI 已生成完整 10 道题目、标准回答和技术原理；已保存到本地待同步队列（10 条）。",
-        "context": {
-          "source": "AI",
-          "questionCount": 10
-        }
-      },
-      {
-        "id": "1788162682826-xo9d4uwz",
-        "timestamp": "2026-08-31T07:51:22.826Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788162608770-pf75wyuo",
-        "event": "question-bank.cache.pending",
-        "message": "已保存到本地待同步队列（10 条）",
-        "context": {
-          "questionCount": 10,
-          "pendingCount": 10
-        }
-      },
-      {
-        "id": "1788162678266-g5tice3g",
-        "timestamp": "2026-08-31T07:51:18.266Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "5eba59cf5dc7"
-        }
-      },
-      {
-        "id": "1788162671795-fomnkhjv",
-        "timestamp": "2026-08-31T07:51:11.795Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.close.flush",
-        "message": "页面关闭或进入后台，提交最后一次备份"
-      },
-      {
-        "id": "1788162644595-mefkpj7w",
-        "timestamp": "2026-08-31T07:50:44.595Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "65440d98f164"
-        }
-      },
-      {
-        "id": "1788162639026-fiq51z6s",
-        "timestamp": "2026-08-31T07:50:39.026Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788162608770-pf75wyuo",
-        "event": "question-group.prepare.started",
-        "message": "开始准备题组",
-        "context": {
-          "project": "轮胎字符深度 OCR",
-          "mode": "专业知识",
-          "questionCount": 10
-        }
-      },
-      {
-        "id": "1788162617286-mi742ida",
-        "timestamp": "2026-08-31T07:50:17.286Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "91abe96d2e3a"
-        }
-      },
-      {
-        "id": "1788162613976-o5pdin2m",
-        "timestamp": "2026-08-31T07:50:13.976Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "926aa7bd23a6"
-        }
-      },
-      {
-        "id": "1788162610391-qsflxm7h",
-        "timestamp": "2026-08-31T07:50:10.391Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "4fa2f9acc8ad"
-        }
-      },
-      {
-        "id": "1788162608788-xwxhkt09",
-        "timestamp": "2026-08-31T07:50:08.788Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788162608770-pf75wyuo",
-        "event": "question-group.prepare.cached",
-        "message": "题组已从本机缓存恢复",
-        "context": {
-          "questionCount": 10
-        }
-      },
-      {
-        "id": "1788162608787-daic5jsq",
-        "timestamp": "2026-08-31T07:50:08.787Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788162608770-pf75wyuo",
-        "event": "question-group.prepare.started",
-        "message": "开始准备题组",
-        "context": {
-          "project": "轮胎字符深度 OCR",
-          "mode": "专业知识",
-          "questionCount": 10
-        }
-      },
-      {
-        "id": "1788162608767-q57vbzrp",
-        "timestamp": "2026-08-31T07:50:08.766Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.startup.loaded",
-        "message": "启动配置加载完成",
-        "context": {
-          "source": "github",
-          "updatedAt": "2026-08-31T07:50:06.460Z"
-        }
-      },
-      {
-        "id": "1788162604285-l22dzu5i",
-        "timestamp": "2026-08-31T07:50:04.285Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788162599222-ivieime7",
-        "event": "question-group.prepare.completed",
-        "message": "AI 两次生成均未获得有效题目，已使用本地题库与标准答案。",
-        "context": {
-          "source": "本地规则",
-          "questionCount": 10
-        }
-      },
-      {
-        "id": "1788162602172-bfn7z920",
-        "timestamp": "2026-08-31T07:50:02.172Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.close.flush",
-        "message": "页面关闭或进入后台，提交最后一次备份"
-      },
-      {
-        "id": "1788162599239-mhqf79bl",
-        "timestamp": "2026-08-31T07:49:59.239Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788162599222-ivieime7",
-        "event": "question-group.prepare.started",
-        "message": "开始准备题组",
-        "context": {
-          "project": "轮胎字符深度 OCR",
-          "mode": "专业知识",
-          "questionCount": 10
-        }
-      },
-      {
-        "id": "1788162599218-l6wmwhf6",
-        "timestamp": "2026-08-31T07:49:59.218Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.startup.loaded",
-        "message": "启动配置加载完成",
-        "context": {
-          "source": "github",
-          "updatedAt": "2026-08-31T07:36:45.216Z"
-        }
-      },
-      {
-        "id": "1788161800611-x5w5wm3l",
-        "timestamp": "2026-08-31T07:36:40.611Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.close.flush",
-        "message": "页面关闭或进入后台，提交最后一次备份"
-      },
-      {
-        "id": "1788161783806-0tlf6ie9",
-        "timestamp": "2026-08-31T07:36:23.806Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "59efb6d96d1c"
-        }
-      },
-      {
-        "id": "1788161781007-2kkzu20p",
-        "timestamp": "2026-08-31T07:36:21.007Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788161676000-66t0dkyq",
-        "event": "question-group.prepare.completed",
-        "message": "AI 两次生成均未获得有效题目，已使用本地题库与标准答案。",
-        "context": {
-          "source": "本地规则",
-          "questionCount": 0
-        }
-      },
-      {
-        "id": "1788161774926-dwzl6h5e",
-        "timestamp": "2026-08-31T07:36:14.926Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788161676000-66t0dkyq",
-        "event": "question-group.prepare.started",
-        "message": "开始准备题组",
-        "context": {
-          "project": "轮胎字符深度 OCR",
-          "mode": "专业知识",
-          "questionCount": 10
-        }
-      },
-      {
-        "id": "1788161770365-vq8xx8nj",
-        "timestamp": "2026-08-31T07:36:10.364Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "37c338785bd8"
-        }
-      },
-      {
-        "id": "1788161724764-j0cy3ric",
-        "timestamp": "2026-08-31T07:35:24.764Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "a35b6c0ec0f2"
-        }
-      },
-      {
-        "id": "1788161721650-3e3p6g6w",
-        "timestamp": "2026-08-31T07:35:21.650Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.close.flush",
-        "message": "页面关闭或进入后台，提交最后一次备份"
-      },
-      {
-        "id": "1788161718907-qzk6tkg8",
-        "timestamp": "2026-08-31T07:35:18.907Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "56c4bdb917cd"
-        }
-      },
-      {
-        "id": "1788161715411-tdm57p9f",
-        "timestamp": "2026-08-31T07:35:15.411Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788161676000-66t0dkyq",
-        "event": "question-group.prepare.completed",
-        "message": "AI 两次生成均未获得有效题目，已使用本地题库与标准答案。",
-        "context": {
-          "source": "本地规则",
-          "questionCount": 0
-        }
-      },
-      {
-        "id": "1788161709165-5isxfcad",
-        "timestamp": "2026-08-31T07:35:09.165Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788161676000-66t0dkyq",
-        "event": "question-group.prepare.started",
-        "message": "开始准备题组",
-        "context": {
-          "project": "轮胎字符深度 OCR",
-          "mode": "专业知识",
-          "questionCount": 10
-        }
-      },
-      {
-        "id": "1788161690721-5nb0w10w",
-        "timestamp": "2026-08-31T07:34:50.721Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "328c5cc03641"
-        }
-      },
-      {
-        "id": "1788161684583-tazgm5du",
-        "timestamp": "2026-08-31T07:34:44.583Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "e5321903e995"
-        }
-      },
-      {
-        "id": "1788161680985-7qtra5fu",
-        "timestamp": "2026-08-31T07:34:40.985Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788161676000-66t0dkyq",
-        "event": "question-group.prepare.completed",
-        "message": "AI 两次生成均未获得有效题目，已使用本地题库与标准答案。",
-        "context": {
-          "source": "本地规则",
-          "questionCount": 10
-        }
-      },
-      {
-        "id": "1788161676053-vlaaamdy",
-        "timestamp": "2026-08-31T07:34:36.053Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788161676000-66t0dkyq",
-        "event": "question-group.prepare.started",
-        "message": "开始准备题组",
-        "context": {
-          "project": "轮胎字符深度 OCR",
-          "mode": "专业知识",
-          "questionCount": 10
-        }
-      },
-      {
-        "id": "1788161675993-x2k0lets",
-        "timestamp": "2026-08-31T07:34:35.991Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.startup.loaded",
-        "message": "启动配置加载完成",
-        "context": {
-          "source": "github",
-          "updatedAt": "2026-08-31T07:30:56.526Z"
-        }
-      },
-      {
-        "id": "1788161449705-xd71wjzu",
-        "timestamp": "2026-08-31T07:30:49.705Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788161213022-bbhn6euc",
-        "event": "question-group.prepare.completed",
-        "message": "AI 已生成完整 10 道题目、标准回答和技术原理；已缓存到远程题库。",
-        "context": {
-          "source": "AI",
-          "questionCount": 10
-        }
-      },
-      {
-        "id": "1788161449695-vgo8i64w",
-        "timestamp": "2026-08-31T07:30:49.695Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788161213022-bbhn6euc",
-        "event": "question-bank.cache.saved",
-        "message": "已缓存到远程题库",
-        "context": {
-          "questionCount": 10,
-          "pendingCount": 0
-        }
-      },
-      {
-        "id": "1788161434450-25v4n79i",
-        "timestamp": "2026-08-31T07:30:34.450Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "b57c98245af8"
-        }
-      },
-      {
-        "id": "1788161426109-jr1s375r",
-        "timestamp": "2026-08-31T07:30:26.109Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788161213022-bbhn6euc",
-        "event": "question-bank.cache.saved",
-        "message": "已缓存到远程题库",
-        "context": {
-          "questionCount": 3,
-          "pendingCount": 0
-        }
-      },
-      {
-        "id": "1788161413890-xb2an5ox",
-        "timestamp": "2026-08-31T07:30:13.890Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "a047d72765ff"
-        }
-      },
-      {
-        "id": "1788161405918-6ggh91su",
-        "timestamp": "2026-08-31T07:30:05.918Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788161213022-bbhn6euc",
-        "event": "question-group.prepare.started",
-        "message": "开始准备题组",
-        "context": {
-          "project": "轮胎字符深度 OCR",
-          "mode": "专业知识",
-          "questionCount": 3
-        }
-      },
-      {
-        "id": "1788161396403-3qck4szz",
-        "timestamp": "2026-08-31T07:29:56.403Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "dc3e29527587"
-        }
-      },
-      {
-        "id": "1788161391657-870cl1mf",
-        "timestamp": "2026-08-31T07:29:51.657Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.close.flush",
-        "message": "页面关闭或进入后台，提交最后一次备份"
       }
     ]
   }
