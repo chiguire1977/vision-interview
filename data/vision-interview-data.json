@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-08-31T13:21:05.022Z",
+  "updatedAt": "2026-08-31T13:21:08.778Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1802,6 +1802,48 @@
     },
     "vision-interview-project-view": "card",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788182474584-e5crgbyt",
+        "timestamp": "2026-08-31T13:21:14.584Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "23468d546d46"
+        }
+      },
+      {
+        "id": "1788182473254-2tp7lnpu",
+        "timestamp": "2026-08-31T13:21:13.254Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788182430549-13c4pfti",
+        "event": "ai.connection-test.failed",
+        "message": "AI 没有返回有效内容。",
+        "context": {
+          "provider": "custom-mtfsd2qj-i4ox3z",
+          "model": "qwen3.8-flash",
+          "upstreamFormat": "anthropic-messages",
+          "status": 502,
+          "durationMs": 1832
+        }
+      },
+      {
+        "id": "1788182471422-4benjumf",
+        "timestamp": "2026-08-31T13:21:11.422Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788182430549-13c4pfti",
+        "event": "ai.connection-test.started",
+        "message": "开始真实聊天连接测试",
+        "context": {
+          "provider": "custom-mtfsd2qj-i4ox3z",
+          "model": "qwen3.8-flash",
+          "upstreamFormat": "anthropic-messages"
+        }
+      },
       {
         "id": "1788182470835-r6ohmdiz",
         "timestamp": "2026-08-31T13:21:10.835Z",
@@ -15123,47 +15165,6 @@
           "query": "机器视觉 面试知识点 原理 工程实践",
           "mode": "专业知识",
           "excludedCount": 0
-        }
-      },
-      {
-        "id": "1788169007703-6d9wseau",
-        "timestamp": "2026-08-31T09:36:47.703Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788168985896-v7dlz0a7",
-        "event": "question-bank.attempt.failed",
-        "message": "第 3/6 轮：本轮请求失败：请先配置当前 AI 服务商的 API Key。，准备下一轮…",
-        "context": {
-          "attempt": 3,
-          "maxAttempts": 6,
-          "collectedCount": 0,
-          "error": "请先配置当前 AI 服务商的 API Key。"
-        }
-      },
-      {
-        "id": "1788169007673-w7l6imiv",
-        "timestamp": "2026-08-31T09:36:47.673Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "17f8fbc459c2"
-        }
-      },
-      {
-        "id": "1788169004070-q6i1hckw",
-        "timestamp": "2026-08-31T09:36:44.070Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788168985896-v7dlz0a7",
-        "event": "question-bank.ai-request.started",
-        "message": "第 3/6 轮：正在请求 AI 生成题目…",
-        "context": {
-          "attempt": 3,
-          "maxAttempts": 6,
-          "collectedCount": 0
         }
       }
     ]
