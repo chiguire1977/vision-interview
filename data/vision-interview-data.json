@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-08-31T09:53:06.740Z",
+  "updatedAt": "2026-08-31T09:53:07.525Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1073,9 +1073,9 @@
       }
     ],
     "vision-interview-ai-preferences": {
-      "provider": "custom-mtfsd2qj-i4ox3z",
-      "model": "qwen3.8-max",
-      "openaiBaseUrl": "https://opencode.ai/zen/go/v1",
+      "provider": "deepseek",
+      "model": "deepseek-v4-flash",
+      "openaiBaseUrl": "https://api.deepseek.com",
       "aiScoring": true,
       "bestAnswer": true,
       "smartFollowUp": true,
@@ -1569,6 +1569,18 @@
         }
       },
       {
+        "id": "1788169989432-fxw65m6b",
+        "timestamp": "2026-08-31T09:53:09.432Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "f538e51e9e76"
+        }
+      },
+      {
         "id": "1788169989210-yxu5zbuu",
         "timestamp": "2026-08-31T09:53:09.210Z",
         "level": "INFO",
@@ -1665,6 +1677,64 @@
         "context": {
           "source": "github",
           "updatedAt": "2026-08-31T09:52:58.966Z"
+        }
+      },
+      {
+        "id": "1788169988276-ejfm83at",
+        "timestamp": "2026-08-31T09:53:08.276Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788169978256-pc8xysam",
+        "event": "question-bank.ai-request.started",
+        "message": "第 2/6 轮：正在请求 AI 生成题目…",
+        "context": {
+          "attempt": 2,
+          "maxAttempts": 6,
+          "collectedCount": 0
+        }
+      },
+      {
+        "id": "1788169988273-q1ss9moe",
+        "timestamp": "2026-08-31T09:53:08.273Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788169978256-pc8xysam",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 2,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "sourceCount": 0
+        }
+      },
+      {
+        "id": "1788169985346-qinqzstf",
+        "timestamp": "2026-08-31T09:53:05.346Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788169978256-pc8xysam",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 2,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 0
+        }
+      },
+      {
+        "id": "1788169985342-7p4s5own",
+        "timestamp": "2026-08-31T09:53:05.342Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788169978256-pc8xysam",
+        "event": "question-bank.attempt.failed",
+        "message": "第 1/6 轮：本轮请求失败：请先配置当前 AI 服务商的 API Key。，准备下一轮…",
+        "context": {
+          "attempt": 1,
+          "maxAttempts": 6,
+          "collectedCount": 0,
+          "error": "请先配置当前 AI 服务商的 API Key。"
         }
       },
       {
