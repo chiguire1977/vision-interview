@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-08-31T10:06:50.835Z",
+  "updatedAt": "2026-08-31T10:06:55.619Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1074,7 +1074,7 @@
     ],
     "vision-interview-ai-preferences": {
       "provider": "custom-mth2q5s2-c9pbzd",
-      "model": "codex-auto-review",
+      "model": "gpt-5.6-sol",
       "openaiBaseUrl": "https://dingdangapii.cn",
       "aiScoring": true,
       "bestAnswer": true,
@@ -1336,7 +1336,7 @@
       "custom-mth2q5s2-c9pbzd": {
         "name": "dingdang",
         "description": "兼容 OpenAI 格式的自定义服务商",
-        "model": "codex-auto-review",
+        "model": "gpt-5.6-sol",
         "baseUrl": "https://dingdangapii.cn",
         "openaiBaseUrl": "https://dingdangapii.cn",
         "availableModels": [
@@ -1385,6 +1385,18 @@
     },
     "vision-interview-project-view": "card",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788170819133-hgjlklc5",
+        "timestamp": "2026-08-31T10:06:59.133Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "f2976dc55ecf"
+        }
+      },
       {
         "id": "1788170810413-hej80a7h",
         "timestamp": "2026-08-31T10:06:50.413Z",
@@ -13858,19 +13870,6 @@
         "message": "当前题目已跳过",
         "context": {
           "question": "在轮胎字符OCR中，字符阴影对识别影响很大，请分析阴影产生的机理及消除方法。",
-          "mode": "专业专项",
-          "project": "轮胎字符深度 OCR"
-        }
-      },
-      {
-        "id": "1788145025204-ljn1ifp5",
-        "timestamp": "2026-08-31T02:57:05.204Z",
-        "level": "WARN",
-        "kind": "user",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "现场轮胎字符出现严重磨损，导致OCR准确率下降，你会如何排查和解决？请给出步骤。",
           "mode": "专业专项",
           "project": "轮胎字符深度 OCR"
         }
