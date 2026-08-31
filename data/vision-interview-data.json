@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-08-31T11:23:41.999Z",
+  "updatedAt": "2026-08-31T11:23:47.551Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1802,6 +1802,48 @@
     },
     "vision-interview-project-view": "card",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788175430095-qbm8w4g7",
+        "timestamp": "2026-08-31T11:23:50.095Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "9b02c144bbfd"
+        }
+      },
+      {
+        "id": "1788175427127-sf88ns30",
+        "timestamp": "2026-08-31T11:23:47.127Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788175400619-coejkd41",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 5,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 0
+        }
+      },
+      {
+        "id": "1788175427123-6p99mkfu",
+        "timestamp": "2026-08-31T11:23:47.123Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788175400619-coejkd41",
+        "event": "question-bank.attempt.failed",
+        "message": "第 4/6 轮：本轮请求失败：请先配置当前 AI 服务商的 API Key。，准备下一轮…",
+        "context": {
+          "attempt": 4,
+          "maxAttempts": 6,
+          "collectedCount": 0,
+          "error": "请先配置当前 AI 服务商的 API Key。"
+        }
+      },
       {
         "id": "1788175424290-rt1cgw9o",
         "timestamp": "2026-08-31T11:23:44.290Z",
@@ -14172,44 +14214,6 @@
         "event": "question-group.prepare.cached",
         "message": "题组已从本机缓存恢复",
         "context": {
-          "questionCount": 10
-        }
-      },
-      {
-        "id": "1788144808614-77vhsjp7",
-        "timestamp": "2026-08-31T02:53:28.614Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "question-group.prepare.started",
-        "message": "开始准备题组",
-        "context": {
-          "project": "轮胎字符深度 OCR",
-          "mode": "专业专项",
-          "questionCount": 3
-        }
-      },
-      {
-        "id": "1788144807981-27fuw5hx",
-        "timestamp": "2026-08-31T02:53:27.981Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "question-group.prepare.started",
-        "message": "开始准备题组",
-        "context": {
-          "project": "轮胎字符深度 OCR",
-          "mode": "专业专项",
-          "questionCount": 3
-        }
-      },
-      {
-        "id": "1788144800647-320dyl0q",
-        "timestamp": "2026-08-31T02:53:20.647Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "question-group.prepare.completed",
-        "message": "AI 已生成完整 10 道题目、标准回答和技术原理；生成题已加入 GitHub 备份队列。",
-        "context": {
-          "source": "AI",
           "questionCount": 10
         }
       }
