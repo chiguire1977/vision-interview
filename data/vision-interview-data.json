@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-08-31T11:37:13.176Z",
+  "updatedAt": "2026-08-31T11:37:18.827Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1802,6 +1802,48 @@
     },
     "vision-interview-project-view": "card",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788176241370-oyex1fva",
+        "timestamp": "2026-08-31T11:37:21.370Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "a5cad242e1f1"
+        }
+      },
+      {
+        "id": "1788176238665-w2xarq66",
+        "timestamp": "2026-08-31T11:37:18.665Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788176203438-ysmpqxee",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 6,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 0
+        }
+      },
+      {
+        "id": "1788176238662-ldeoxho9",
+        "timestamp": "2026-08-31T11:37:18.662Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788176203438-ysmpqxee",
+        "event": "question-bank.attempt.failed",
+        "message": "第 5/6 轮：本轮请求失败：请先配置当前 AI 服务商的 API Key。，准备下一轮…",
+        "context": {
+          "attempt": 5,
+          "maxAttempts": 6,
+          "collectedCount": 0,
+          "error": "请先配置当前 AI 服务商的 API Key。"
+        }
+      },
       {
         "id": "1788176235780-xtl776dl",
         "timestamp": "2026-08-31T11:37:15.780Z",
@@ -14217,45 +14259,6 @@
         "message": "当前题目已跳过",
         "context": {
           "question": "在HALCON中，使用blob分析进行缺陷检测时，如果目标缺陷与背景灰度差异很小，你会采用哪些图像预处理方法增强对比度？",
-          "mode": "专业知识",
-          "project": "轮胎字符深度 OCR"
-        }
-      },
-      {
-        "id": "1788146642077-bxt74kks",
-        "timestamp": "2026-08-31T03:24:02.077Z",
-        "level": "WARN",
-        "kind": "user",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "在HALCON中，进行相机标定时，如何评估标定结果的准确性？如果重投影误差较大，可能的原因有哪些？",
-          "mode": "专业知识",
-          "project": "轮胎字符深度 OCR"
-        }
-      },
-      {
-        "id": "1788146641589-xc9e4ajr",
-        "timestamp": "2026-08-31T03:24:01.589Z",
-        "level": "WARN",
-        "kind": "user",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "在HALCON中，使用create_shape_model进行模板匹配时，金字塔层数（NumLevels）对匹配速度和精度有何影响？如何确定最佳层数？",
-          "mode": "专业知识",
-          "project": "轮胎字符深度 OCR"
-        }
-      },
-      {
-        "id": "1788146640554-aosdz915",
-        "timestamp": "2026-08-31T03:24:00.554Z",
-        "level": "WARN",
-        "kind": "user",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "在HALCON中，如何区分使用阈值分割（threshold）和动态阈值分割（dyn_threshold）？请结合实际应用场景说明选择依据。",
           "mode": "专业知识",
           "project": "轮胎字符深度 OCR"
         }
