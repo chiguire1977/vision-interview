@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-08-31T03:38:48.985Z",
+  "updatedAt": "2026-08-31T03:38:52.322Z",
   "data": {
     "vision-interview-ai-preferences": {
       "provider": "deepseek",
@@ -34,6 +34,17 @@
     },
     "vision-interview-runtime-logs": [
       {
+        "id": "1788147528853-lf8sprq6",
+        "timestamp": "2026-08-31T03:38:48.853Z",
+        "level": "INFO",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "bcdd997d0cf9"
+        }
+      },
+      {
         "id": "1788147527907-z9d65svr",
         "timestamp": "2026-08-31T03:38:47.907Z",
         "level": "ERROR",
@@ -42,6 +53,17 @@
         "context": {
           "status": 502,
           "reason": "GitHub 备份失败（HTTP 409）：{\"message\":\"is at 1a1094d2130bcc0016d3580e94c8af659be755f8 but expected 949cc4e2de75e7486779b4343308e93bc1d6f658\",\"documentation_url\":\"https://docs.github.com/rest/repos/contents#create-or-update-file-contents\",\"status\":\"409\"}"
+        }
+      },
+      {
+        "id": "1788147525846-31q6eulk",
+        "timestamp": "2026-08-31T03:38:45.846Z",
+        "level": "ERROR",
+        "event": "backup.push.failed",
+        "message": "运行数据备份失败",
+        "context": {
+          "status": 502,
+          "reason": "GitHub 备份失败（HTTP 409）：{\"message\":\"is at 949cc4e2de75e7486779b4343308e93bc1d6f658 but expected 3b750e88673a46794d2b064c054ad36d263febd2\",\"documentation_url\":\"https://docs.github.com/rest/repos/contents#create-or-update-file-contents\",\"status\":\"409\"}"
         }
       },
       {
