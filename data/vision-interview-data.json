@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-08-31T05:17:48.806Z",
+  "updatedAt": "2026-08-31T05:18:06.796Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1077,6 +1077,44 @@
       }
     },
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788153483052-k5wvyu9o",
+        "timestamp": "2026-08-31T05:18:03.052Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788153428850-5wizrklw",
+        "event": "question-group.prepare.completed",
+        "message": "AI 自动重试后获得 7/10 道完整题目，其余使用本地题库兜底；已缓存到远程题库。",
+        "context": {
+          "source": "AI",
+          "questionCount": 7
+        }
+      },
+      {
+        "id": "1788153483051-zonuxcwh",
+        "timestamp": "2026-08-31T05:18:03.051Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788153428850-5wizrklw",
+        "event": "question-bank.cache.saved",
+        "message": "已缓存到远程题库",
+        "context": {
+          "questionCount": 7,
+          "pendingCount": 0
+        }
+      },
+      {
+        "id": "1788153470150-11d1aoqa",
+        "timestamp": "2026-08-31T05:17:50.150Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "49bc273ddb5d"
+        }
+      },
       {
         "id": "1788153465111-thf9gwtn",
         "timestamp": "2026-08-31T05:17:45.111Z",
