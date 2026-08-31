@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-08-31T14:03:05.005Z",
+  "updatedAt": "2026-08-31T14:03:05.799Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1831,14 +1831,6 @@
     },
     "vision-interview-project-view": "card",
     "vision-interview-runtime-logs": [
-      {
-        "id": "1788184988438-yd4slnqw",
-        "timestamp": "2026-08-31T14:03:08.438Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.close.flush",
-        "message": "页面关闭或进入后台，提交最后一次备份"
-      },
       {
         "id": "1788184988146-cx5oylu4",
         "timestamp": "2026-08-31T14:03:08.146Z",
@@ -15409,6 +15401,18 @@
       {
         "id": "1788164680930-joj0s691",
         "timestamp": "2026-08-31T08:24:40.930Z",
+        "level": "ERROR",
+        "kind": "system",
+        "event": "backup.push.failed",
+        "message": "运行数据备份失败",
+        "context": {
+          "status": 502,
+          "reason": "GitHub 备份失败（HTTP 409）：{\"message\":\"data/vision-interview-data.json does not match dd2a23f63ca9be89d3d6376e439a8f5899a96dc5\",\"documentation_url\":\"https://docs.github.com/rest/repos/contents#create-or-update-file-contents\",\"status\":\"409\"}"
+        }
+      },
+      {
+        "id": "1788164680688-xroaetfw",
+        "timestamp": "2026-08-31T08:24:40.688Z",
         "level": "ERROR",
         "kind": "system",
         "event": "backup.push.failed",
