@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-08-31T10:36:30.582Z",
+  "updatedAt": "2026-08-31T10:36:36.818Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1386,6 +1386,46 @@
     "vision-interview-project-view": "card",
     "vision-interview-runtime-logs": [
       {
+        "id": "1788172599125-6ibtjs7f",
+        "timestamp": "2026-08-31T10:36:39.125Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "187f2552d425"
+        }
+      },
+      {
+        "id": "1788172594542-ei7xfzh0",
+        "timestamp": "2026-08-31T10:36:34.542Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788172541127-xjerort8",
+        "event": "question-group.prepare.completed",
+        "message": "AI 多轮联网搜索与生成后仍未获得有效题目，已使用本地题库与标准答案。",
+        "context": {
+          "source": "本地规则",
+          "questionCount": 10
+        }
+      },
+      {
+        "id": "1788172594540-j18rcotc",
+        "timestamp": "2026-08-31T10:36:34.540Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788172541127-xjerort8",
+        "event": "question-bank.attempt.failed",
+        "message": "第 6/6 轮：本轮请求失败：请先配置当前 AI 服务商的 API Key。，准备下一轮…",
+        "context": {
+          "attempt": 6,
+          "maxAttempts": 6,
+          "collectedCount": 0,
+          "error": "请先配置当前 AI 服务商的 API Key。"
+        }
+      },
+      {
         "id": "1788172592409-umlrd1xa",
         "timestamp": "2026-08-31T10:36:32.409Z",
         "level": "INFO",
@@ -2105,34 +2145,6 @@
           "reason": "change",
           "commit": "a2d454adb26d"
         }
-      },
-      {
-        "id": "1788171718894-wcd10z6g",
-        "timestamp": "2026-08-31T10:21:58.894Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.close.flush",
-        "message": "页面关闭或进入后台，提交最后一次备份"
-      },
-      {
-        "id": "1788171693954-pntuq9yv",
-        "timestamp": "2026-08-31T10:21:33.954Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "354bd6fa97ef"
-        }
-      },
-      {
-        "id": "1788171686856-ax46k934",
-        "timestamp": "2026-08-31T10:21:26.856Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.close.flush",
-        "message": "页面关闭或进入后台，提交最后一次备份"
       },
       {
         "id": "1788171176126-atnfuv8f",
