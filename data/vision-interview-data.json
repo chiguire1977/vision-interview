@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-08-31T13:20:54.990Z",
+  "updatedAt": "2026-08-31T13:20:58.781Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1490,7 +1490,7 @@
     ],
     "vision-interview-ai-preferences": {
       "provider": "custom-mtfsd2qj-i4ox3z",
-      "model": "qwen3.8-max",
+      "model": "qwen3.8-flash",
       "openaiBaseUrl": "https://opencode.ai/zen/go/v1",
       "aiScoring": true,
       "bestAnswer": true,
@@ -1612,7 +1612,7 @@
       "custom-mtfsd2qj-i4ox3z": {
         "name": "OpenCodeGo",
         "description": "兼容 OpenAI 格式的自定义服务商",
-        "model": "qwen3.8-max",
+        "model": "qwen3.8-flash",
         "baseUrl": "https://opencode.ai/zen/go/v1",
         "openaiBaseUrl": "https://opencode.ai/zen/go/v1",
         "availableModels": [
@@ -1802,6 +1802,32 @@
     },
     "vision-interview-project-view": "card",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788182464481-k2ycpuka",
+        "timestamp": "2026-08-31T13:21:04.481Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "13e5e91aa982"
+        }
+      },
+      {
+        "id": "1788182464415-nem3o4k3",
+        "timestamp": "2026-08-31T13:21:04.415Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788182430549-13c4pfti",
+        "event": "ai.connection-test.started",
+        "message": "开始真实聊天连接测试",
+        "context": {
+          "provider": "custom-mtfsd2qj-i4ox3z",
+          "model": "qwen3.8-flash",
+          "upstreamFormat": "anthropic-messages"
+        }
+      },
       {
         "id": "1788182460673-px1dvgu5",
         "timestamp": "2026-08-31T13:21:00.673Z",
@@ -15140,35 +15166,6 @@
           "query": "机器视觉 面试知识点 原理 工程实践",
           "mode": "专业知识",
           "excludedCount": 0
-        }
-      },
-      {
-        "id": "1788169000539-bebxuuyk",
-        "timestamp": "2026-08-31T09:36:40.539Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788168985896-v7dlz0a7",
-        "event": "question-bank.attempt.failed",
-        "message": "第 2/6 轮：本轮请求失败：请先配置当前 AI 服务商的 API Key。，准备下一轮…",
-        "context": {
-          "attempt": 2,
-          "maxAttempts": 6,
-          "collectedCount": 0,
-          "error": "请先配置当前 AI 服务商的 API Key。"
-        }
-      },
-      {
-        "id": "1788168997549-7fw828tm",
-        "timestamp": "2026-08-31T09:36:37.549Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788168985896-v7dlz0a7",
-        "event": "question-bank.ai-request.started",
-        "message": "第 2/6 轮：正在请求 AI 生成题目…",
-        "context": {
-          "attempt": 2,
-          "maxAttempts": 6,
-          "collectedCount": 0
         }
       }
     ]
