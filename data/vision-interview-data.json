@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-08-31T15:19:31.869Z",
+  "updatedAt": "2026-08-31T15:25:48.301Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1816,12 +1816,35 @@
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
       {
+        "id": "1788189669833-mk10qrbp",
+        "timestamp": "2026-08-31T15:21:09.833Z",
+        "level": "ERROR",
+        "kind": "system",
+        "event": "backup.push.failed",
+        "message": "运行数据备份请求失败",
+        "context": {
+          "error": "Failed to fetch"
+        }
+      },
+      {
         "id": "1788189576478-r5ceal2o",
         "timestamp": "2026-08-31T15:19:36.478Z",
         "level": "INFO",
         "kind": "system",
         "event": "backup.close.flush",
         "message": "页面关闭或进入后台，提交最后一次备份"
+      },
+      {
+        "id": "1788189566997-7od25cz3",
+        "timestamp": "2026-08-31T15:19:26.997Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "6c9369f53e6c"
+        }
       },
       {
         "id": "1788189547432-z69m18gn",
@@ -18265,39 +18288,6 @@
           "workerIndex": 2,
           "parallelRequests": 3,
           "requestedCount": 3
-        }
-      },
-      {
-        "id": "1788186072279-772d50la",
-        "timestamp": "2026-08-31T14:21:12.279Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788185400191-3fe71itf",
-        "event": "question-bank.web-search.completed",
-        "message": "本轮联网检索完成",
-        "context": {
-          "attempt": 3,
-          "query": "机器视觉 模板与定位 原理 工程实践",
-          "sourceCount": 0,
-          "workerIndex": 2,
-          "parallelRequests": 3
-        }
-      },
-      {
-        "id": "1788186072272-kd2x185z",
-        "timestamp": "2026-08-31T14:21:12.272Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788185400191-3fe71itf",
-        "event": "question-bank.ai-request.started",
-        "message": "第 3/6 轮（并行 1/3）：正在请求 AI 生成题目（4 道）…",
-        "context": {
-          "attempt": 3,
-          "maxAttempts": 6,
-          "collectedCount": 0,
-          "workerIndex": 1,
-          "parallelRequests": 3,
-          "requestedCount": 4
         }
       }
     ]
