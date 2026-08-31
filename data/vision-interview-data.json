@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-08-31T03:39:01.044Z",
+  "updatedAt": "2026-08-31T03:39:04.015Z",
   "data": {
     "vision-interview-ai-preferences": {
       "provider": "deepseek",
@@ -34,6 +34,28 @@
     },
     "vision-interview-runtime-logs": [
       {
+        "id": "1788147540791-jvydc7e9",
+        "timestamp": "2026-08-31T03:39:00.791Z",
+        "level": "INFO",
+        "event": "question-group.prepare.completed",
+        "message": "AI 已生成完整 10 道题目、标准回答和技术原理；已缓存到远程题库。",
+        "context": {
+          "source": "AI",
+          "questionCount": 10
+        }
+      },
+      {
+        "id": "1788147540791-1w8jqnql",
+        "timestamp": "2026-08-31T03:39:00.791Z",
+        "level": "INFO",
+        "event": "question-bank.cache.saved",
+        "message": "已缓存到远程题库",
+        "context": {
+          "questionCount": 10,
+          "pendingCount": 0
+        }
+      },
+      {
         "id": "1788147535086-p35hsp4j",
         "timestamp": "2026-08-31T03:38:55.086Z",
         "level": "INFO",
@@ -53,6 +75,17 @@
         "context": {
           "reason": "change",
           "commit": "18e99c917224"
+        }
+      },
+      {
+        "id": "1788147530858-es67iwqj",
+        "timestamp": "2026-08-31T03:38:50.858Z",
+        "level": "INFO",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "89ceaeb72f2c"
         }
       },
       {
