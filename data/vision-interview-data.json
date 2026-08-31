@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-08-31T13:25:44.052Z",
+  "updatedAt": "2026-08-31T13:25:49.994Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1784,6 +1784,47 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788182754474-j3mlyx3m",
+        "timestamp": "2026-08-31T13:25:54.474Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "18ca9c384447"
+        }
+      },
+      {
+        "id": "1788182750541-5t69nb2j",
+        "timestamp": "2026-08-31T13:25:50.541Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788182515885-iy17aubu",
+        "event": "question-bank.ai-request.started",
+        "message": "第 2/6 轮：正在请求 AI 生成题目…",
+        "context": {
+          "attempt": 2,
+          "maxAttempts": 6,
+          "collectedCount": 0
+        }
+      },
+      {
+        "id": "1788182750538-fjgavq5s",
+        "timestamp": "2026-08-31T13:25:50.538Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788182515885-iy17aubu",
+        "event": "question-bank.attempt.failed",
+        "message": "第 1/6 轮：本轮请求失败：AI 请求超时，请稍后重试。，准备下一轮…",
+        "context": {
+          "attempt": 1,
+          "maxAttempts": 6,
+          "collectedCount": 0,
+          "error": "AI 请求超时，请稍后重试。"
+        }
+      },
       {
         "id": "1788182749765-gd4fogch",
         "timestamp": "2026-08-31T13:25:49.765Z",
@@ -15040,50 +15081,6 @@
           "attempt": 2,
           "query": "机器视觉 面试知识点 通用原理 原理 工程实践",
           "sourceCount": 0
-        }
-      },
-      {
-        "id": "1788169996785-aleumrxz",
-        "timestamp": "2026-08-31T09:53:16.785Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788169988616-qqc3c3wb",
-        "event": "question-bank.web-search.started",
-        "message": "开始联网检索本轮题目资料",
-        "context": {
-          "attempt": 2,
-          "query": "机器视觉 面试知识点 通用原理 原理 工程实践",
-          "mode": "专业知识",
-          "excludedCount": 0
-        }
-      },
-      {
-        "id": "1788169996783-89nqdhfx",
-        "timestamp": "2026-08-31T09:53:16.783Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788169988616-qqc3c3wb",
-        "event": "question-bank.attempt.failed",
-        "message": "第 1/6 轮：本轮请求失败：请先配置当前 AI 服务商的 API Key。，准备下一轮…",
-        "context": {
-          "attempt": 1,
-          "maxAttempts": 6,
-          "collectedCount": 0,
-          "error": "请先配置当前 AI 服务商的 API Key。"
-        }
-      },
-      {
-        "id": "1788169996675-1u9squd3",
-        "timestamp": "2026-08-31T09:53:16.675Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788169988616-qqc3c3wb",
-        "event": "question-bank.ai-request.started",
-        "message": "第 1/6 轮：正在请求 AI 生成题目…",
-        "context": {
-          "attempt": 1,
-          "maxAttempts": 6,
-          "collectedCount": 0
         }
       }
     ]
