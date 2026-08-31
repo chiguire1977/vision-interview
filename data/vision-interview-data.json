@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-08-31T11:04:40.202Z",
+  "updatedAt": "2026-08-31T11:05:42.191Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1402,6 +1402,48 @@
     },
     "vision-interview-project-view": "card",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788174344453-zjk62obo",
+        "timestamp": "2026-08-31T11:05:44.453Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788174221322-o6ij9hv5",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 2,
+          "query": "机器视觉 面试知识点 HALCON 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 0
+        }
+      },
+      {
+        "id": "1788174344448-4h5t8ttr",
+        "timestamp": "2026-08-31T11:05:44.448Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788174221322-o6ij9hv5",
+        "event": "question-bank.attempt.failed",
+        "message": "第 1/6 轮：本轮请求失败：AI 请求超时，请稍后重试。，准备下一轮…",
+        "context": {
+          "attempt": 1,
+          "maxAttempts": 6,
+          "collectedCount": 0,
+          "error": "AI 请求超时，请稍后重试。"
+        }
+      },
+      {
+        "id": "1788174288164-x0u8b2ic",
+        "timestamp": "2026-08-31T11:04:48.164Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "c7fbc58f8c50"
+        }
+      },
       {
         "id": "1788174285323-0inufoxw",
         "timestamp": "2026-08-31T11:04:45.323Z",
@@ -14481,39 +14523,6 @@
           "questionCount": 10,
           "pendingCount": 0
         }
-      },
-      {
-        "id": "1788153546947-dzq2oc8n",
-        "timestamp": "2026-08-31T05:19:06.947Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788153428850-5wizrklw",
-        "event": "question-bank.cache.saved",
-        "message": "已缓存到远程题库",
-        "context": {
-          "questionCount": 10,
-          "pendingCount": 0
-        }
-      },
-      {
-        "id": "1788153526383-z3umli8r",
-        "timestamp": "2026-08-31T05:18:46.383Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "2a9ef77e62a6"
-        }
-      },
-      {
-        "id": "1788153523640-vvb03z9z",
-        "timestamp": "2026-08-31T05:18:43.639Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.close.flush",
-        "message": "页面关闭或进入后台，提交最后一次备份"
       }
     ]
   }
