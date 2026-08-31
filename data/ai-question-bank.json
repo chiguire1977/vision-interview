@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-31T10:05:43.296Z",
+  "updatedAt": "2026-08-31T11:19:51.462Z",
   "questions": [
     {
       "title": "在轮胎字符深度OCR项目中，HALCON的深度OCR模型相比传统OCR在抗磨损和倾斜方面有哪些本质优势？",
@@ -7538,6 +7538,417 @@
       "categoryFilter": "随机类型",
       "difficultyFilter": "随机难度",
       "techStackFilter": "OpenCV"
+    },
+    {
+      "title": "基于形状的模板匹配中，min_score 和 greediness 对匹配结果与耗时分别有什么影响？实际调试时如何平衡？",
+      "type": "算法原理",
+      "category": "模板匹配",
+      "source": "专业",
+      "sourceType": "官方文档整理",
+      "knowledgePoints": [
+        "形状匹配基于边缘梯度方向搜索",
+        "金字塔层数决定粗定位效率",
+        "min_score控制匹配阈值",
+        "greediness控制搜索剪枝策略"
+      ],
+      "difficulty": "中等",
+      "tags": [
+        "模板匹配",
+        "HALCON",
+        "参数调优"
+      ],
+      "keywords": [
+        "min_score",
+        "greediness",
+        "金字塔",
+        "边缘梯度"
+      ],
+      "followUp": "如果现场存在遮挡和杂散边缘，你会优先调低 min_score 还是调整 contrast？为什么？",
+      "hint": "先说明匹配原理，再分别解释两个参数，最后给出调试顺序。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "bestAnswer": "基于形状的模板匹配先在金字塔顶层用边缘梯度方向进行粗匹配，再逐层精确定位。min_score 是接受匹配的最低分数，降低它可容忍遮挡和噪声，但会增加误匹配；greediness 是贪心搜索剪枝程度，增大可跳过大量候选以提速，但可能漏掉真实目标。调试时先保证图像质量与对比度，再以略低于正常分数的 min_score 起步，逐步降低；若耗时超标再增大 greediness，并用真实样本验证不漏检。",
+      "principle": "HALCON 的 shape-based matching 将模板边缘点的梯度方向作为特征，在搜索图像中计算相似度。金字塔层数越高，图像越小，粗定位越快。min_score 与归一化互相关得分比较，低于阈值直接拒绝。greediness 控制搜索树剪枝：值越大，提前终止的候选越多，速度越快，但风险是真实目标因局部相似度低被剪掉。",
+      "id": "aiq-a540b81d",
+      "generatedAt": "2026-08-31T11:19:54.879Z",
+      "provider": "custom-mtfsd2qj-i4ox3z",
+      "model": "deepseek-v4-flash",
+      "project": "轮胎字符深度 OCR",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "HALCON"
+    },
+    {
+      "title": "在 Halcon 中做 Blob 分析时，threshold、dyn_threshold 和 binary_threshold 分别适用什么场景？如何选择？",
+      "type": "工程实践",
+      "category": "图像分割",
+      "source": "专业",
+      "sourceType": "技术教程整理",
+      "knowledgePoints": [
+        "全局阈值适用均匀光照",
+        "局部阈值适应光照不均",
+        "binary_threshold自动选择全局阈值",
+        "形态学与连通域筛选"
+      ],
+      "difficulty": "基础",
+      "tags": [
+        "Blob分析",
+        "阈值分割",
+        "HALCON"
+      ],
+      "keywords": [
+        "threshold",
+        "dyn_threshold",
+        "binary_threshold",
+        "连通域"
+      ],
+      "followUp": "当目标与背景灰度接近且光照不均时，你会用 dyn_threshold 的哪些参数来改善分割？",
+      "hint": "从光照条件、目标灰度差异、实时性三个维度比较。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "bestAnswer": "threshold 适合光照均匀、目标与背景灰度差稳定的场景，速度快。binary_threshold 使用直方图自动选择全局阈值，适合灰度双峰明显的情况。dyn_threshold 是局部阈值，通过比较原图与平滑后图像或背景图像来分割，适合光照不均、背景渐变或目标灰度局部变化的场景。选择时先看图像灰度直方图是否双峰，再看光照是否均匀；若光照不均优先 dyn_threshold，并配合形态学操作和 select_shape 筛选连通域。",
+      "principle": "threshold 按固定灰度区间划分像素。binary_threshold 基于直方图统计方法（如最大类间方差）自动计算阈值。dyn_threshold 对每个像素比较原图与滤波图像，若差异超过 Offset 则判定为目标，因此能跟随背景灰度变化，抑制低频光照影响；但会放大噪声，需要先用均值滤波或高斯滤波平滑背景。",
+      "id": "aiq-8a5cba27",
+      "generatedAt": "2026-08-31T11:19:54.879Z",
+      "provider": "custom-mtfsd2qj-i4ox3z",
+      "model": "deepseek-v4-flash",
+      "project": "轮胎字符深度 OCR",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "HALCON"
+    },
+    {
+      "title": "Halcon 标定中，标定板图像数量、位置姿态对标定精度有什么影响？现场采集标定板图像有哪些注意事项？",
+      "type": "工程实践",
+      "category": "相机标定",
+      "source": "专业",
+      "sourceType": "官方文档整理",
+      "knowledgePoints": [
+        "标定板需覆盖视场多个位置",
+        "不同姿态提高内参稳定性",
+        "避免反光和模糊",
+        "重投影误差评估精度"
+      ],
+      "difficulty": "中等",
+      "tags": [
+        "相机标定",
+        "HALCON",
+        "标定板"
+      ],
+      "keywords": [
+        "标定板",
+        "姿态",
+        "重投影误差",
+        "calibrate_cameras"
+      ],
+      "followUp": "如果标定后测量结果出现边缘畸变，你会优先怀疑标定板图像采集的哪个环节？",
+      "hint": "从覆盖范围、姿态多样性、图像质量、标定板平整度展开。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "bestAnswer": "标定板图像应覆盖整个视场，并在不同位置、不同倾斜角度采集 10-20 张，避免所有图像集中在视场中心或同一姿态。采集时标定板要平整、无反光，曝光合适，不能出现运动模糊或离焦。标定后要检查重投影误差，通常应小于 0.1 像素；若边缘畸变明显，说明视场边缘标定板覆盖不足或镜头畸变模型未正确拟合，需要补充边缘位置的标定板图像并重新标定。",
+      "principle": "Halcon 的相机标定通过多点对应关系求解内参、外参和畸变系数。标定板在不同位置和姿态提供不同视角的约束，使方程组更稳定，避免退化。重投影误差是标定板特征点投影到图像坐标与实际检测坐标的偏差，反映标定模型与真实成像的拟合程度。边缘区域畸变最大，必须有足够样本约束畸变参数。",
+      "id": "aiq-3b6c31dc",
+      "generatedAt": "2026-08-31T11:19:54.879Z",
+      "provider": "custom-mtfsd2qj-i4ox3z",
+      "model": "deepseek-v4-flash",
+      "project": "轮胎字符深度 OCR",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "HALCON"
+    },
+    {
+      "title": "现场视觉系统出现周期性丢帧或图像卡顿，你会如何定位是相机、采集卡、接口带宽还是 Halcon 处理耗时导致的？",
+      "type": "现场故障",
+      "category": "图像采集",
+      "source": "专业",
+      "sourceType": "工程案例整理",
+      "knowledgePoints": [
+        "采集超时与异步抓图",
+        "接口带宽与像素格式",
+        "处理耗时与队列积压",
+        "日志与时间戳定位"
+      ],
+      "difficulty": "中等",
+      "tags": [
+        "现场排障",
+        "图像采集",
+        "HALCON"
+      ],
+      "keywords": [
+        "丢帧",
+        "带宽",
+        "异步采集",
+        "timeout"
+      ],
+      "followUp": "如果确认是 Halcon 处理耗时超过采集周期，你会优先优化算子还是改用多线程异步采集？",
+      "hint": "先区分采集端和处理端，再按链路逐段排查。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "bestAnswer": "先观察丢帧是否固定周期出现，并记录采集耗时、处理耗时和队列长度。若采集本身超时，检查相机帧率、像素格式、带宽和触发模式；若采集正常但处理端积压，说明 Halcon 处理耗时超过帧周期。可用 grab_image_async 配合队列实现异步采集，将采集与处理分离；同时用 profile 工具定位耗时算子，优先优化 ROI、减少图像尺寸或改用更快的匹配方法。",
+      "principle": "grab_image_async 使用内部缓冲区队列，使相机采集与图像处理并行，避免串行等待。丢帧通常发生在采集端缓冲区溢出或处理端来不及取图。接口带宽由像素深度、帧率、通道数决定，超带宽会丢包。通过分阶段计时可以确定瓶颈位于传输、采集还是处理，从而针对性优化。",
+      "id": "aiq-97bba900",
+      "generatedAt": "2026-08-31T11:19:54.879Z",
+      "provider": "custom-mtfsd2qj-i4ox3z",
+      "model": "deepseek-v4-flash",
+      "project": "轮胎字符深度 OCR",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "HALCON"
+    },
+    {
+      "title": "Halcon 中亚像素边缘提取的原理是什么？edges_sub_pix 和 extract_edges 有什么区别？",
+      "type": "算法原理",
+      "category": "边缘提取",
+      "source": "专业",
+      "sourceType": "官方文档整理",
+      "knowledgePoints": [
+        "亚像素插值原理",
+        "边缘幅值与方向",
+        "Canny/Deriche算法",
+        "滞后阈值"
+      ],
+      "difficulty": "中等",
+      "tags": [
+        "亚像素",
+        "边缘提取",
+        "HALCON"
+      ],
+      "keywords": [
+        "edges_sub_pix",
+        "extract_edges",
+        "亚像素",
+        "滞后阈值"
+      ],
+      "followUp": "测量场景中边缘有毛刺，你会调整哪些参数来稳定亚像素边缘？",
+      "hint": "先说明亚像素原理，再比较两个算子的差异，最后讲参数。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "bestAnswer": "edges_sub_pix 提取亚像素精度边缘，输出为亚像素轮廓，适合高精度测量；extract_edges 是较旧的接口，功能类似但参数和输出格式不同。亚像素边缘通过在梯度方向对灰度或梯度幅值进行插值，找到极值点位置。常用 Canny 或 Deriche 算子，配合滞后阈值抑制噪声。若边缘有毛刺，可提高平滑系数、增大滞后阈值，或提取后用 smooth_contours_xld 处理。",
+      "principle": "亚像素边缘定位假设边缘附近灰度变化符合某种模型，通过插值或拟合得到比像素更精确的位置。Canny 算子先高斯平滑，再计算梯度幅值和方向，非极大值抑制后使用双阈值连接边缘。Deriche 滤波器具有递归实现，计算效率高且定位精度好。Halcon 的 edges_sub_pix 返回 XLD 轮廓，后续测量基于轮廓几何计算，因此精度可达亚像素级。",
+      "id": "aiq-60302f66",
+      "generatedAt": "2026-08-31T11:19:54.879Z",
+      "provider": "custom-mtfsd2qj-i4ox3z",
+      "model": "deepseek-v4-flash",
+      "project": "轮胎字符深度 OCR",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "HALCON"
+    },
+    {
+      "title": "在 Halcon 中做表面缺陷检测时，频域滤波和纹理特征分别适合什么缺陷？请给出一个可落地的方案思路。",
+      "type": "工程实践",
+      "category": "缺陷检测",
+      "source": "专业",
+      "sourceType": "技术教程整理",
+      "knowledgePoints": [
+        "频域滤波去除背景纹理",
+        "FFT带阻滤波突出周期性缺陷",
+        "纹理特征描述局部灰度变化",
+        "Blob分析定位缺陷"
+      ],
+      "difficulty": "困难",
+      "tags": [
+        "缺陷检测",
+        "频域滤波",
+        "纹理分析",
+        "HALCON"
+      ],
+      "keywords": [
+        "fft_generic",
+        "纹理",
+        "缺陷分割",
+        "带阻滤波"
+      ],
+      "followUp": "如果缺陷与正常纹理在频域重叠严重，你会改用哪种特征或方法？",
+      "hint": "先区分缺陷类型，再选择频域或纹理方法，最后给出流程。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "bestAnswer": "对于周期性背景纹理上的缺陷，可先对图像做 FFT 得到频谱，设计带阻滤波器去除周期纹理对应的频点，再反变换回空间域，使缺陷在残差图中凸显，最后用阈值和 Blob 分析定位。对于随机纹理表面的缺陷，更适合提取纹理特征，如 cooc_feature_image 的对比度、熵、能量等，或使用局部二值模式，再训练分类器。落地时先采集正常样本建立纹理模型，再根据缺陷样本调整分割阈值。",
+      "principle": "傅里叶变换将图像分解为不同频率成分，周期性纹理在频谱中表现为离散亮点，带阻滤波器可抑制这些频率，保留缺陷对应的低频或宽频成分。纹理特征通过灰度共生矩阵统计像素对的空间关系，描述粗糙度、方向性和均匀性。频域方法适合规则纹理，纹理特征适合随机纹理；两者结合可提高鲁棒性。",
+      "id": "aiq-d3815da8",
+      "generatedAt": "2026-08-31T11:19:54.879Z",
+      "provider": "custom-mtfsd2qj-i4ox3z",
+      "model": "deepseek-v4-flash",
+      "project": "轮胎字符深度 OCR",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "HALCON"
+    },
+    {
+      "title": "使用 Halcon 深度学习分类模型时，预处理阶段为什么要做 normalize 和 resize？推理时如何与常规 Blob 分析配合？",
+      "type": "算法原理",
+      "category": "深度学习",
+      "source": "专业",
+      "sourceType": "官方文档整理",
+      "knowledgePoints": [
+        "深度学习预处理要求固定尺寸",
+        "归一化加速收敛",
+        "推理输出置信度",
+        "传统视觉与深度学习结合"
+      ],
+      "difficulty": "中等",
+      "tags": [
+        "深度学习",
+        "HALCON",
+        "图像预处理"
+      ],
+      "keywords": [
+        "preprocess_dl_model",
+        "normalize",
+        "resize",
+        "apply_dl_model"
+      ],
+      "followUp": "如果深度学习模型在 Halcon 中推理速度慢，你会从哪些方面优化？",
+      "hint": "先解释预处理必要性，再说明推理流程和与Blob结合方式。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "bestAnswer": "深度学习模型通常要求输入尺寸固定，因此需要 resize 到模型指定大小；normalize 将像素值缩放到模型训练时的范围，避免数值分布偏移影响推理。Halcon 中通过 preprocess_dl_model 完成缩放和归一化，再用 apply_dl_model 推理得到分类置信度。实际项目中可先使用 Blob 分析快速提取 ROI，再对每个 ROI 做深度学习分类，这样既保留传统方法的实时性，又利用深度模型处理复杂纹理和语义。",
+      "principle": "卷积神经网络输入张量形状固定，resize 保证张量维度一致。归一化将像素分布映射到模型训练时的统计范围，使激活值处于合理区间，避免梯度异常。Halcon 的 DL 推理基于训练好的模型文件，apply_dl_model 输出每个类别的概率。传统 Blob 分析擅长几何和灰度特征，深度学习擅长语义特征，两者串联可降低计算量并提高准确率。",
+      "id": "aiq-5c05a38b",
+      "generatedAt": "2026-08-31T11:19:54.879Z",
+      "provider": "custom-mtfsd2qj-i4ox3z",
+      "model": "deepseek-v4-flash",
+      "project": "轮胎字符深度 OCR",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "HALCON"
+    },
+    {
+      "title": "手眼标定中，眼在手上和眼在手外两种方式在 Halcon 中的标定流程有什么区别？标定结果如何验证？",
+      "type": "工程实践",
+      "category": "手眼标定",
+      "source": "专业",
+      "sourceType": "官方文档整理",
+      "knowledgePoints": [
+        "眼在手上与眼在手外的坐标变换",
+        "calibrate_hand_eye 使用",
+        "标定板固定在机器人工作空间",
+        "验证重投影误差"
+      ],
+      "difficulty": "困难",
+      "tags": [
+        "手眼标定",
+        "机器人",
+        "HALCON"
+      ],
+      "keywords": [
+        "calibrate_hand_eye",
+        "眼在手上",
+        "眼在手外",
+        "位姿变换"
+      ],
+      "followUp": "如果标定后机器人抓取位置有固定偏移，你会检查标定板平面与机器人基座的关系吗？",
+      "hint": "先说明两种安装方式的变换链，再讲标定步骤和验证方法。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "bestAnswer": "眼在手外时，相机固定，标定板安装在机器人末端，通过移动机器人获取多组标定板位姿和机器人位姿，求解相机到机器人基座的变换。眼在手上时，相机随机器人运动，标定板固定在工作空间，求解相机到机器人末端的变换。Halcon 使用 calibrate_hand_eye 分别处理两种模型。标定后可用标定板在多个位置计算重投影误差，或让机器人抓取已知物体验证抓取精度。",
+      "principle": "手眼标定本质是求解 AX=XB 形式的矩阵方程，其中 A 是机器人末端运动，B 是相机观察到的标定板运动，X 是待求的手眼变换矩阵。眼在手外时 X 为相机到机器人基座的变换；眼在手上时 X 为相机到机器人末端的变换。Halcon 通过多组位姿最小化重投影误差，得到最优刚体变换。验证时用未参与标定的位姿计算误差，避免过拟合。",
+      "id": "aiq-250ff01a",
+      "generatedAt": "2026-08-31T11:19:54.879Z",
+      "provider": "custom-mtfsd2qj-i4ox3z",
+      "model": "deepseek-v4-flash",
+      "project": "轮胎字符深度 OCR",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "HALCON"
+    },
+    {
+      "title": "多相机测量系统中，如何将不同相机的测量结果统一到同一个世界坐标系？Halcon 中有哪些工具可用？",
+      "type": "工程实践",
+      "category": "多相机系统",
+      "source": "专业",
+      "sourceType": "技术教程整理",
+      "knowledgePoints": [
+        "各相机独立标定",
+        "标定板建立公共坐标",
+        "位姿变换合成",
+        "拼接误差评估"
+      ],
+      "difficulty": "困难",
+      "tags": [
+        "多相机",
+        "坐标统一",
+        "HALCON"
+      ],
+      "keywords": [
+        "世界坐标系",
+        "标定板",
+        "位姿",
+        "拼接"
+      ],
+      "followUp": "如果两个相机视场有重叠，你会如何优化公共区域的坐标一致性？",
+      "hint": "先说明单相机标定，再讲公共基准和变换合成。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "bestAnswer": "先对每个相机单独标定，获得内参和畸变系数。然后将一块大标定板或多个标定板同时放置在公共视场，使相邻相机都能看到共同特征，通过 detect_calibration_object 提取特征点，计算各相机到公共世界坐标系的位姿。Halcon 中可用 bundle_adjustment 对多相机位姿联合优化，减小拼接误差。测量时每个相机先算出局部坐标，再通过刚体变换转换到公共坐标系。",
+      "principle": "每个相机成像遵循针孔模型，单相机标定得到内参和外参。公共世界坐标系通过标定板特征点建立，相机外参描述相机到世界坐标的旋转和平移。多相机联合优化通过最小化所有特征点的重投影误差，同时优化相机位姿和世界点坐标，使公共区域测量一致。拼接误差主要来自标定误差和机械安装误差，重叠区域可做加权融合。",
+      "id": "aiq-78981015",
+      "generatedAt": "2026-08-31T11:19:54.879Z",
+      "provider": "custom-mtfsd2qj-i4ox3z",
+      "model": "deepseek-v4-flash",
+      "project": "轮胎字符深度 OCR",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "HALCON"
+    },
+    {
+      "title": "Halcon 程序运行速度慢，如何用系统化方法定位耗时算子并优化？请给出具体步骤。",
+      "type": "工程实践",
+      "category": "性能优化",
+      "source": "专业",
+      "sourceType": "官方文档整理",
+      "knowledgePoints": [
+        "HDevelop Profile 工具",
+        "算子耗时统计",
+        "ROI缩小与图像缩放",
+        "并行与异步优化"
+      ],
+      "difficulty": "中等",
+      "tags": [
+        "性能优化",
+        "HALCON",
+        "调试"
+      ],
+      "keywords": [
+        "Profile",
+        "耗时",
+        "ROI",
+        "并行"
+      ],
+      "followUp": "如果耗时集中在 find_shape_model，你会优先减小搜索区域还是降低金字塔层数？",
+      "hint": "按测量-定位-优化-验证四步展开。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "bestAnswer": "先用 HDevelop 的 Profile 功能运行程序，得到每个算子的耗时排序，找出占比最高的算子。然后针对热点算子优化：缩小 ROI、减少图像尺寸、降低搜索范围、调整金字塔层数或使用更快的匹配方法。对于重复性操作，可提前创建模板和初始化参数。若 CPU 多核可用，可启用 Halcon 的并行执行或使用异步采集与处理流水线。最后用相同测试集对比优化前后的耗时和精度。",
+      "principle": "Halcon 算子内部已做优化，但耗时与输入图像大小、搜索范围、模板复杂度和算法复杂度相关。Profile 通过插桩统计每个算子执行时间，帮助定位瓶颈。缩小 ROI 直接减少像素处理量；金字塔层数影响搜索粗定位效率；并行执行利用多核加速独立计算。异步采集将采集与处理重叠，隐藏 I/O 等待时间。",
+      "id": "aiq-74eb1c73",
+      "generatedAt": "2026-08-31T11:19:54.879Z",
+      "provider": "custom-mtfsd2qj-i4ox3z",
+      "model": "deepseek-v4-flash",
+      "project": "轮胎字符深度 OCR",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "HALCON"
     }
   ]
 }
