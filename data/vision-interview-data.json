@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-08-31T11:05:42.191Z",
+  "updatedAt": "2026-08-31T11:05:45.827Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1402,6 +1402,46 @@
     },
     "vision-interview-project-view": "card",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788174350983-dnp7dymq",
+        "timestamp": "2026-08-31T11:05:50.983Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "95a22062577c"
+        }
+      },
+      {
+        "id": "1788174347533-42n399ex",
+        "timestamp": "2026-08-31T11:05:47.533Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788174221322-o6ij9hv5",
+        "event": "question-bank.ai-request.started",
+        "message": "第 2/6 轮：正在请求 AI 生成题目…",
+        "context": {
+          "attempt": 2,
+          "maxAttempts": 6,
+          "collectedCount": 0
+        }
+      },
+      {
+        "id": "1788174347528-kr6z0j38",
+        "timestamp": "2026-08-31T11:05:47.528Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788174221322-o6ij9hv5",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 2,
+          "query": "机器视觉 面试知识点 HALCON 原理 工程实践",
+          "sourceCount": 0
+        }
+      },
       {
         "id": "1788174344453-zjk62obo",
         "timestamp": "2026-08-31T11:05:44.453Z",
@@ -14483,45 +14523,6 @@
         "context": {
           "reason": "change",
           "commit": "97bcb6e0f288"
-        }
-      },
-      {
-        "id": "1788153551759-5vig038s",
-        "timestamp": "2026-08-31T05:19:11.759Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788153428850-5wizrklw",
-        "event": "question-bank.cache.pending",
-        "message": "已保存到本地待同步队列（10 条）",
-        "context": {
-          "questionCount": 10,
-          "pendingCount": 10
-        }
-      },
-      {
-        "id": "1788153551481-7w4p8aqi",
-        "timestamp": "2026-08-31T05:19:11.481Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788153428850-5wizrklw",
-        "event": "question-group.prepare.completed",
-        "message": "AI 已生成完整 10 道题目、标准回答和技术原理；已缓存到远程题库。",
-        "context": {
-          "source": "AI",
-          "questionCount": 10
-        }
-      },
-      {
-        "id": "1788153551480-f9lrlkx0",
-        "timestamp": "2026-08-31T05:19:11.480Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788153428850-5wizrklw",
-        "event": "question-bank.cache.saved",
-        "message": "已缓存到远程题库",
-        "context": {
-          "questionCount": 10,
-          "pendingCount": 0
         }
       }
     ]
