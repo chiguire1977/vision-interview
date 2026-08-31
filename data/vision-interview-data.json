@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-08-31T11:10:37.819Z",
+  "updatedAt": "2026-08-31T11:10:57.211Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1402,6 +1402,46 @@
     },
     "vision-interview-project-view": "card",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788174658757-lxsbqner",
+        "timestamp": "2026-08-31T11:10:58.757Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788174221322-o6ij9hv5",
+        "event": "question-group.prepare.completed",
+        "message": "AI 多轮联网搜索与生成后仍未获得有效题目，已使用本地题库与标准答案。",
+        "context": {
+          "source": "本地规则",
+          "questionCount": 3
+        }
+      },
+      {
+        "id": "1788174658747-rb9uwdmy",
+        "timestamp": "2026-08-31T11:10:58.747Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788174221322-o6ij9hv5",
+        "event": "question-bank.attempt.failed",
+        "message": "第 6/6 轮：本轮请求失败：AI 请求超时，请稍后重试。，准备下一轮…",
+        "context": {
+          "attempt": 6,
+          "maxAttempts": 6,
+          "collectedCount": 0,
+          "error": "AI 请求超时，请稍后重试。"
+        }
+      },
+      {
+        "id": "1788174646175-jvtgg8t4",
+        "timestamp": "2026-08-31T11:10:46.175Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "2376a6271c4c"
+        }
+      },
       {
         "id": "1788174638606-md4iqnli",
         "timestamp": "2026-08-31T11:10:38.606Z",
@@ -14532,45 +14572,6 @@
         "context": {
           "reason": "change",
           "commit": "328c5cc03641"
-        }
-      },
-      {
-        "id": "1788161684583-tazgm5du",
-        "timestamp": "2026-08-31T07:34:44.583Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "e5321903e995"
-        }
-      },
-      {
-        "id": "1788161680985-7qtra5fu",
-        "timestamp": "2026-08-31T07:34:40.985Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788161676000-66t0dkyq",
-        "event": "question-group.prepare.completed",
-        "message": "AI 两次生成均未获得有效题目，已使用本地题库与标准答案。",
-        "context": {
-          "source": "本地规则",
-          "questionCount": 10
-        }
-      },
-      {
-        "id": "1788161676053-vlaaamdy",
-        "timestamp": "2026-08-31T07:34:36.053Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788161676000-66t0dkyq",
-        "event": "question-group.prepare.started",
-        "message": "开始准备题组",
-        "context": {
-          "project": "轮胎字符深度 OCR",
-          "mode": "专业知识",
-          "questionCount": 10
         }
       }
     ]
