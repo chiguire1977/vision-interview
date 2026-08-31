@@ -3,6 +3,8 @@ export type AiGeneratedQuestion = {
   type: string;
   category: string;
   source: string;
+  sourceType?: string;
+  knowledgePoints?: string[];
   difficulty: string;
   tags: string[];
   keywords: string[];
@@ -39,6 +41,20 @@ export type QuestionBankArchiveMetadata = {
 };
 
 export type AiQuestionSourceFilter = "专业" | "项目" | "专业或项目";
+export const AI_QUESTION_MAX_ATTEMPTS = 6;
+export type AiQuestionGroupProgressPhase = "requesting" | "searching" | "search-completed" | "search-failed" | "ai-requesting" | "received" | "failed";
+export type AiQuestionGroupProgress = {
+  phase: AiQuestionGroupProgressPhase;
+  attempt: number;
+  maxAttempts: number;
+  targetCount: number;
+  collectedCount: number;
+  workerIndex?: number;
+  parallelRequests?: number;
+  requestedCount?: number;
+  searchSourceCount?: number;
+  error?: string;
+};
 export type AiQuestionSelectionFilter = {
   source: AiQuestionSourceFilter;
   category?: string;
@@ -110,6 +126,8 @@ export function filterAiGeneratedQuestions(values: unknown[], selection: AiQuest
         question.title,
         question.type,
         question.category,
+        question.sourceType,
+        ...(question.knowledgePoints ?? []),
         ...question.tags,
         ...question.keywords,
         question.followUp,
@@ -117,6 +135,8 @@ export function filterAiGeneratedQuestions(values: unknown[], selection: AiQuest
         question.basis,
         question.bestAnswer,
         question.principle,
+        question.reference?.title,
+        question.reference?.url,
       ].filter(Boolean).join("|"));
       if (forbiddenPhrases.some((phrase) => searchable.includes(phrase))) return false;
     }
@@ -159,6 +179,8 @@ function normalizeAiGeneratedQuestion(value: unknown): AiGeneratedQuestion | nul
   const type = cleanString(record.type);
   const category = cleanString(record.category);
   const source = cleanString(record.source);
+  const sourceType = cleanString(record.sourceType);
+  const knowledgePoints = cleanStringArray(record.knowledgePoints ?? record.knowledgePoint, 8);
   const difficulty = cleanString(record.difficulty);
   const tags = cleanStringArray(record.tags);
   const keywords = cleanStringArray(record.keywords);
@@ -178,6 +200,8 @@ function normalizeAiGeneratedQuestion(value: unknown): AiGeneratedQuestion | nul
     type,
     category,
     source,
+    ...(sourceType ? { sourceType } : {}),
+    ...(knowledgePoints.length ? { knowledgePoints } : {}),
     difficulty,
     tags,
     keywords,
@@ -205,22 +229,137 @@ export function normalizeAiGeneratedQuestions(values: unknown[]) {
   return result;
 }
 
+function safeAttemptError(error: unknown) {
+  const message = error instanceof Error ? error.message : typeof error === "string" ? error : "请求发生异常";
+  return message
+    .replace(/(api[_-]?key|authorization|bearer)\s*[:=]\s*[^\s,;]+/gi, "$1=[已隐藏]")
+    .trim()
+    .slice(0, 240) || "请求发生异常";
+}
+
+export async function runWithOptionalWebResearch<T, R>(
+  needsWebResearch: boolean,
+  search: () => Promise<T>,
+  generate: (research: { value?: T; error?: string }) => Promise<R>,
+) {
+  if (!needsWebResearch) return generate({});
+  let value: T;
+  try {
+    value = await search();
+  } catch (error) {
+    return generate({ error: safeAttemptError(error) });
+  }
+  return generate({ value });
+}
+
+export function formatAiQuestionGroupProgress(progress: AiQuestionGroupProgress) {
+  const round = `第 ${progress.attempt}/${progress.maxAttempts} 轮`;
+  const worker = progress.workerIndex && progress.parallelRequests && progress.parallelRequests > 1
+    ? `（并行 ${progress.workerIndex}/${progress.parallelRequests}）`
+    : "";
+  if (progress.phase === "searching") return `${round}：正在联网搜索题目资料…`;
+  if (progress.phase === "search-completed") return `${round}：联网搜索完成（${progress.searchSourceCount ?? 0} 条），正在请求 AI…`;
+  if (progress.phase === "search-failed") return `${round}：联网检索不可用${progress.error ? `（${progress.error}）` : ""}，继续请求 AI…`;
+  if (progress.phase === "ai-requesting") return `${round}${worker}：正在请求 AI 生成题目${progress.requestedCount ? `（${progress.requestedCount} 道）` : ""}…`;
+  if (progress.phase === "received") {
+    return `${round}：AI 已返回 ${progress.collectedCount}/${progress.targetCount} 道有效题目${progress.collectedCount < progress.targetCount ? "，继续补齐…" : "。"}`;
+  }
+  if (progress.phase === "failed") {
+    return `${round}${worker}：本轮请求失败${progress.error ? `：${progress.error}` : ""}，准备下一轮…`;
+  }
+  return `${round}：开始准备本轮题目…`;
+}
+
+export function deferAsyncTask<T>(
+  task: () => Promise<T> | T,
+  onSuccess?: (value: T) => void,
+  onFailure?: (error: Error) => void,
+) {
+  void Promise.resolve().then(task).then(
+    (value) => {
+      try { onSuccess?.(value); } catch { /* 后台回调不能影响主流程 */ }
+    },
+    (error) => {
+      try {
+        onFailure?.(error instanceof Error ? error : new Error(safeAttemptError(error)));
+      } catch { /* 后台回调不能影响主流程 */ }
+    },
+  );
+}
+
 export async function collectAiQuestionGroup(
-  request: (count: number, excludedTitles: string[], attempt: number) => Promise<unknown[]>,
+  request: (count: number, excludedTitles: string[], attempt: number, workerIndex?: number) => Promise<unknown[]>,
   targetCount: number,
-  maxAttempts = 2,
+  maxAttempts = AI_QUESTION_MAX_ATTEMPTS,
+  onProgress?: (progress: AiQuestionGroupProgress) => void,
+  options: { parallelRequests?: number } = {},
 ) {
   const target = Math.max(0, Math.floor(targetCount));
   const attempts = Math.max(1, Math.floor(maxAttempts));
+  const parallelRequests = Math.max(1, Math.floor(options.parallelRequests ?? 1));
   let collected: AiGeneratedQuestion[] = [];
+  const report = (progress: AiQuestionGroupProgress) => {
+    try { onProgress?.(progress); } catch { /* 进度回调不能影响题组生成 */ }
+  };
   for (let attempt = 1; attempt <= attempts && collected.length < target; attempt += 1) {
     const missing = target - collected.length;
-    try {
-      const batch = await request(missing, collected.map((question) => question.title), attempt);
-      collected = normalizeAiGeneratedQuestions([...collected, ...(Array.isArray(batch) ? batch : [])]).slice(0, target);
-    } catch {
-      // Retry until maxAttempts is reached; caller will apply local fallback afterward.
+    report({ phase: "requesting", attempt, maxAttempts: attempts, targetCount: target, collectedCount: collected.length });
+
+    const workerCount = Math.min(parallelRequests, missing);
+    const baseCount = Math.floor(missing / workerCount);
+    const remainder = missing % workerCount;
+    const excludedTitles = collected.map((question) => question.title);
+    const workerRequests = Array.from({ length: workerCount }, (_, workerOffset) => {
+      const workerIndex = workerOffset + 1;
+      const count = baseCount + (workerOffset < remainder ? 1 : 0);
+      return Promise.resolve().then(() => request(count, excludedTitles, attempt, workerIndex));
+    });
+    const results = await Promise.allSettled(workerRequests);
+    const received: unknown[] = [];
+    const errors: string[] = [];
+    results.forEach((result, workerOffset) => {
+      const workerIndex = workerOffset + 1;
+      if (result.status === "fulfilled") {
+        if (Array.isArray(result.value)) received.push(...result.value);
+        return;
+      }
+      const error = safeAttemptError(result.reason);
+      errors.push(error);
+      report({
+        phase: "failed",
+        attempt,
+        maxAttempts: attempts,
+        targetCount: target,
+        collectedCount: collected.length,
+        workerIndex,
+        parallelRequests,
+        error,
+      });
+    });
+
+    collected = normalizeAiGeneratedQuestions([...collected, ...received]).slice(0, target);
+    if (received.length > 0) {
+      report({
+        phase: "received",
+        attempt,
+        maxAttempts: attempts,
+        targetCount: target,
+        collectedCount: collected.length,
+        parallelRequests,
+        requestedCount: missing,
+      });
+    } else if (errors.length === 0) {
+      report({
+        phase: "failed",
+        attempt,
+        maxAttempts: attempts,
+        targetCount: target,
+        collectedCount: collected.length,
+        parallelRequests,
+        error: "AI 未返回有效题目",
+      });
     }
+    // Retry until maxAttempts is reached; caller will apply local fallback afterward.
   }
   return collected;
 }
@@ -319,4 +458,83 @@ export function mergeQuestionBankArchive(existingValues: unknown[], incomingValu
     merged.set(normalizeQuestionTitleKey(entry.title), entry);
   }
   return [...merged.values()];
+}
+
+function markdownInline(value: unknown) {
+  return cleanString(value).replace(/[\\`*_[\]{}<>]/g, "\\$&") || "未填写";
+}
+
+function markdownBody(value: unknown) {
+  return cleanText(value).replace(/\r\n?/g, "\n") || "未填写";
+}
+
+function markdownReference(value: QuestionBankArchiveEntry["reference"]) {
+  if (!value) return "未提供";
+  const title = markdownInline(value.title);
+  const url = value.url.trim();
+  return /^https?:\/\//i.test(url) ? `[${title}](${url.replace(/[()]/g, "\\$&")})` : `${title}：${markdownInline(url)}`;
+}
+
+export function createQuestionBankMarkdown(values: unknown[], updatedAt = new Date().toISOString()) {
+  const entries = values
+    .map((value) => normalizeArchiveEntry(value))
+    .filter((entry): entry is QuestionBankArchiveEntry => Boolean(entry));
+  const groups = new Map<string, QuestionBankArchiveEntry[]>();
+  for (const entry of entries) {
+    const current = groups.get(entry.category) ?? [];
+    current.push(entry);
+    groups.set(entry.category, current);
+  }
+  const sections = [...groups.entries()].sort(([left], [right]) => left.localeCompare(right, "zh-CN")).map(([category, categoryEntries]) => [
+    `## ${markdownInline(category)}`,
+    "",
+    `> 本分类共 ${categoryEntries.length} 道题`,
+    "",
+    categoryEntries.map((entry, index) => [
+      `### ${index + 1}. ${markdownInline(entry.title)}`,
+      "",
+      `- **题型**：${markdownInline(entry.type)}`,
+      `- **来源**：${markdownInline(entry.source)}`,
+      ...(entry.sourceType ? [`- **题源类型**：${markdownInline(entry.sourceType)}`] : []),
+      `- **分类**：${markdownInline(entry.category)}`,
+      `- **难度**：${markdownInline(entry.difficulty)}`,
+      `- **技术栈**：${entry.techStacks?.length ? entry.techStacks.map(markdownInline).join("、") : "未填写"}`,
+      ...(entry.knowledgePoints?.length ? [`- **知识点**：${entry.knowledgePoints.map(markdownInline).join("、")}`] : []),
+      `- **标签**：${entry.tags.map(markdownInline).join("、")}`,
+      `- **关键词**：${entry.keywords.map(markdownInline).join("、")}`,
+      `- **生成时间**：${markdownInline(entry.generatedAt)}`,
+      ...(entry.provider || entry.model ? [`- **生成模型**：${[entry.provider, entry.model].filter(Boolean).map(markdownInline).join(" / ")}`] : []),
+      ...(entry.project ? [`- **关联项目**：${markdownInline(entry.project)}`] : []),
+      ...(entry.trainingMode ? [`- **训练模式**：${markdownInline(entry.trainingMode)}`] : []),
+      "",
+      "### 最佳答案",
+      "",
+      markdownBody(entry.bestAnswer),
+      "",
+      "### 原理",
+      "",
+      markdownBody(entry.principle),
+      "",
+      "### 回答提示",
+      "",
+      markdownBody(entry.hint),
+      "",
+      "### 追问",
+      "",
+      markdownBody(entry.followUp),
+      "",
+      "### 参考资料",
+      "",
+      markdownReference(entry.reference),
+      "",
+    ].join("\n")).join("\n"),
+  ].join("\n"));
+
+  return [
+    "# AI 生成题库",
+    "",
+    `> 共 ${entries.length} 道题 · 最后更新：${markdownInline(updatedAt)}`,
+    "",
+    sections.join("\n"),
+  ].join("\n").trimEnd() + "\n";
 }

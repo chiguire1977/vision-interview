@@ -87,6 +87,21 @@ test("normalizes and deduplicates AI generated questions", () => {
   assert.equal(result[0].title, "Why subtract the NCC mean?");
   assert.equal(result[1].difficulty, "hard");
 });
+
+test("preserves knowledge-driven source metadata in normalized questions and markdown", () => {
+  const question = bank.normalizeAiGeneratedQuestions([generated("What does Otsu optimize?", {
+    sourceType: "官方文档整理",
+    knowledgePoints: ["类间方差", "前景背景分离"],
+    reference: { title: "OpenCV Thresholding", url: "https://docs.opencv.org/" },
+  })])[0];
+
+  assert.deepEqual(question.knowledgePoints, ["类间方差", "前景背景分离"]);
+  assert.equal(question.sourceType, "官方文档整理");
+  const markdown = bank.createQuestionBankMarkdown([question], "2026-08-31T00:00:00.000Z");
+  assert.match(markdown, /- \*\*题源类型\*\*：官方文档整理/);
+  assert.match(markdown, /- \*\*知识点\*\*：类间方差、前景背景分离/);
+});
+
 test("fills only the missing slots with local fallback", () => {
   const ai = Array.from({ length: 7 }, (_, i) => generated(`AI-${i + 1}`));
   const fallback = Array.from({ length: 10 }, (_, i) => generated(`LOCAL-${i + 1}`));
@@ -107,6 +122,27 @@ test("merges GitHub archive entries by stable normalized title", () => {
   assert.ok(merged.some((q) => q.title === "A new question"));
 });
 
+test("renders sanitized AI question archive entries as readable markdown", () => {
+  const markdown = bank.createQuestionBankMarkdown([
+    {
+      ...generated("Why subtract the NCC mean?"),
+      id: "aiq-1",
+      generatedAt: "2026-08-31T01:00:00.000Z",
+      provider: "deepseek",
+      model: "test-model",
+      apiKey: "must-not-be-rendered",
+    },
+  ], "2026-08-31T01:05:00.000Z");
+
+  assert.match(markdown, /^# AI 生成题库/m);
+  assert.match(markdown, /^## Matching/m);
+  assert.match(markdown, /### 1\. Why subtract the NCC mean\?/);
+  assert.match(markdown, /- \*\*分类\*\*：Matching/);
+  assert.match(markdown, /### 最佳答案\n\nA complete standard answer\./);
+  assert.match(markdown, /### 原理\n\nA complete technical principle\./);
+  assert.doesNotMatch(markdown, /apiKey|must-not-be-rendered/);
+});
+
 test("collects a full AI group before falling back", async () => {
   const calls = [];
   const request = async (count, excludedTitles) => {
@@ -118,4 +154,123 @@ test("collects a full AI group before falling back", async () => {
   assert.equal(result.length, 10);
   assert.deepEqual(calls.map((call) => call.count), [10, 4]);
   assert.equal(calls[1].excludedTitles.length, 6);
+});
+
+test("runs multiple AI workers in parallel and merges their unique questions", async () => {
+  let active = 0;
+  let peak = 0;
+  const calls = [];
+  const request = async (count, _excludedTitles, attempt, workerIndex) => {
+    calls.push({ count, attempt, workerIndex });
+    active += 1;
+    peak = Math.max(peak, active);
+    await new Promise((resolve) => setTimeout(resolve, 10));
+    active -= 1;
+    return Array.from({ length: count }, (_, index) => generated(`parallel-${workerIndex}-${index + 1}`));
+  };
+
+  const result = await bank.collectAiQuestionGroup(request, 6, 1, undefined, { parallelRequests: 3 });
+
+  assert.equal(result.length, 6);
+  assert.equal(peak, 3);
+  assert.deepEqual(calls.map((call) => call.count), [2, 2, 2]);
+  assert.deepEqual(calls.map((call) => call.workerIndex), [1, 2, 3]);
+});
+
+test("continues parallel rounds when one worker fails", async () => {
+  const calls = [];
+  const request = async (count, _excludedTitles, attempt, workerIndex) => {
+    calls.push({ count, attempt, workerIndex });
+    if (attempt === 1 && workerIndex === 1) throw new Error("worker unavailable");
+    return Array.from({ length: count }, (_, index) => generated(`recovered-${attempt}-${workerIndex}-${index + 1}`));
+  };
+
+  const result = await bank.collectAiQuestionGroup(request, 4, 2, undefined, { parallelRequests: 2 });
+
+  assert.equal(result.length, 4);
+  assert.equal(calls.length, 4);
+  assert.deepEqual(calls.map((call) => [call.attempt, call.workerIndex]), [[1, 1], [1, 2], [2, 1], [2, 2]]);
+});
+
+test("keeps requesting missing questions beyond the first two network attempts", async () => {
+  const calls = [];
+  const request = async (count, excludedTitles, attempt) => {
+    calls.push({ count, excludedTitles, attempt });
+    if (attempt < 3) return [];
+    return Array.from({ length: count }, (_, i) => generated(`AI-after-retry-${i + 1}`));
+  };
+  const result = await bank.collectAiQuestionGroup(request, 10);
+  assert.equal(result.length, 10);
+  assert.equal(calls.length, 3);
+  assert.deepEqual(calls.map((call) => call.attempt), [1, 2, 3]);
+});
+
+test("reports each AI attempt so the UI can show progress and safe failures", async () => {
+  const progress = [];
+  const request = async (count, _excludedTitles, attempt) => {
+    if (attempt === 1) throw new Error("AI gateway rejected the request");
+    return Array.from({ length: count }, (_, i) => generated(`AI-progress-${i + 1}`));
+  };
+
+  const result = await bank.collectAiQuestionGroup(request, 10, 2, (event) => progress.push(event));
+
+  assert.equal(result.length, 10);
+  assert.deepEqual(progress.map((event) => event.phase), ["requesting", "failed", "requesting", "received"]);
+  assert.equal(progress[0].attempt, 1);
+  assert.equal(progress[1].error, "AI gateway rejected the request");
+  assert.equal(progress[3].collectedCount, 10);
+});
+
+test("continues to the AI generator when optional web research fails", async () => {
+  let aiCalls = 0;
+  const result = await bank.runWithOptionalWebResearch(
+    true,
+    async () => { throw new Error("网络检索超时，请稍后重试。"); },
+    async (research) => {
+      aiCalls += 1;
+      return research;
+    },
+  );
+
+  assert.equal(aiCalls, 1);
+  assert.equal(result.value, undefined);
+  assert.equal(result.error, "网络检索超时，请稍后重试。");
+});
+
+test("formats an attempt-specific preparation message", () => {
+  assert.equal(bank.formatAiQuestionGroupProgress({
+    phase: "search-completed",
+    attempt: 2,
+    maxAttempts: 6,
+    targetCount: 10,
+    collectedCount: 0,
+    searchSourceCount: 5,
+  }), "第 2/6 轮：联网搜索完成（5 条），正在请求 AI…");
+  assert.equal(bank.formatAiQuestionGroupProgress({
+    phase: "search-failed",
+    attempt: 2,
+    maxAttempts: 6,
+    targetCount: 10,
+    collectedCount: 0,
+    error: "网络检索超时，请稍后重试。",
+  }), "第 2/6 轮：联网检索不可用（网络检索超时，请稍后重试。），继续请求 AI…");
+});
+
+test("starts question-bank synchronization without waiting for it", async () => {
+  let finish;
+  const sync = new Promise((resolve) => { finish = resolve; });
+  const events = [];
+
+  const returned = bank.deferAsyncTask(
+    () => sync,
+    () => events.push("succeeded"),
+    (error) => events.push(`failed:${error.message}`),
+  );
+  assert.equal(returned, undefined);
+  assert.deepEqual(events, []);
+
+  finish("saved");
+  await sync;
+  await new Promise((resolve) => setTimeout(resolve, 0));
+  assert.deepEqual(events, ["succeeded"]);
 });

@@ -51,6 +51,15 @@ import { shouldShowTrainingSettings } from "@/lib/training-ui.mjs";
 import { AI_UPSTREAM_FORMAT_OPTIONS, DEFAULT_AI_UPSTREAM_FORMAT, normalizeAiUpstreamFormat } from "@/lib/ai-settings.mjs";
 import { resolveAiUpstreamFormat } from "@/lib/ai-adapters.mjs";
 import {
+  DEFAULT_PARALLEL_REQUESTS,
+  DEFAULT_QUESTION_GROUP_SIZE,
+  MAX_PARALLEL_REQUESTS,
+  MAX_QUESTION_GROUP_SIZE,
+  MIN_PARALLEL_REQUESTS,
+  MIN_QUESTION_GROUP_SIZE,
+  normalizeQuestionGroupSettings,
+} from "@/lib/question-group-settings.mjs";
+import {
   FAVORITES_STORAGE_KEY,
   filterFavoriteQuestions,
   groupFavoriteQuestions,
@@ -82,6 +91,8 @@ type AiPreferences = {
   bestAnswer: boolean;
   smartFollowUp: boolean;
   webQuestions: boolean;
+  questionGroupSize: number;
+  parallelRequests: number;
 };
 type AiModelOption = { label: string; value: string; upstreamFormat?: AiUpstreamFormat };
 type AiProviderDefinition = { id: AiProvider; name: string; description: string; baseUrl: string; models: AiModelOption[]; builtin?: boolean };
@@ -769,7 +780,9 @@ async function prepareQuestionGroup(
   selection: QuestionGenerationSelection,
   onProgress: (progress: AiQuestionGroupProgress) => void = () => {},
 ): Promise<PreparedGroupResult> {
-  const targetCount = 10;
+  const groupSettings = readQuestionGroupSettings();
+  const targetCount = groupSettings.questionGroupSize;
+  const parallelRequests = groupSettings.parallelRequests;
   const fallbackPool = buildQuestionFallbackPool(candidates, projectName, selection);
   const fallback = fillQuestionGroup([], fallbackPool, targetCount).questions
     .map((question) => ({ ...toAppQuestion(question, selection), origin: "本地题库" as const }));
@@ -830,6 +843,7 @@ async function prepareQuestionGroup(
       count: number,
       excludedTitles: string[],
       attempt: number,
+      workerIndex = 1,
     ) => runWithOptionalWebResearch(
       needsWebResearch,
       async () => {
@@ -839,12 +853,18 @@ async function prepareQuestionGroup(
           maxAttempts: AI_QUESTION_MAX_ATTEMPTS,
           targetCount,
           collectedCount: excludedTitles.length,
+          workerIndex,
+          parallelRequests,
+          requestedCount: count,
         });
         recordRuntimeEvent("INFO", "question-bank.web-search.started", "开始联网检索本轮题目资料", {
           attempt,
           query: researchQuery,
           mode: selection.trainingMode,
           excludedCount: excludedTitles.length,
+          workerIndex,
+          parallelRequests,
+          requestedCount: count,
         });
         const searchResponse = await fetch("/api/web-search", {
           method: "POST",
@@ -865,12 +885,17 @@ async function prepareQuestionGroup(
           maxAttempts: AI_QUESTION_MAX_ATTEMPTS,
           targetCount,
           collectedCount: excludedTitles.length,
+          workerIndex,
+          parallelRequests,
+          requestedCount: count,
           searchSourceCount: webSources.length,
         });
         recordRuntimeEvent("INFO", "question-bank.web-search.completed", "本轮联网检索完成", {
           attempt,
           query: researchQuery,
           sourceCount: webSources.length,
+          workerIndex,
+          parallelRequests,
         });
         return webSources;
       },
@@ -883,6 +908,9 @@ async function prepareQuestionGroup(
             maxAttempts: AI_QUESTION_MAX_ATTEMPTS,
             targetCount,
             collectedCount: excludedTitles.length,
+            workerIndex,
+            parallelRequests,
+            requestedCount: count,
             searchSourceCount: 0,
             error: research.error,
           });
@@ -890,6 +918,8 @@ async function prepareQuestionGroup(
             attempt,
             query: researchQuery,
             continueToAi: true,
+            workerIndex,
+            parallelRequests,
           });
         }
 
@@ -899,6 +929,9 @@ async function prepareQuestionGroup(
           maxAttempts: AI_QUESTION_MAX_ATTEMPTS,
           targetCount,
           collectedCount: excludedTitles.length,
+          workerIndex,
+          parallelRequests,
+          requestedCount: count,
           searchSourceCount: webSources.length,
         });
         const response = await fetch("/api/ai/chat", {
@@ -923,6 +956,9 @@ async function prepareQuestionGroup(
               content: JSON.stringify({
                 task: "生成完整机器视觉面试题组",
                 targetCount: count,
+                groupSize: targetCount,
+                parallelRequests,
+                parallelWorker: workerIndex,
                 retryAttempt: attempt,
                 project: isProfessionalKnowledge ? null : projectName,
                 projectProfile: projectProfile ?? null,
@@ -952,6 +988,7 @@ async function prepareQuestionGroup(
                   "knowledgePoints 必须填写 2-5 个具体知识点；sourceType 必须填写题源类型；reference 只有在能确认标题和 URL 时填写，不能猜测链接",
                   `题目 source 必须为“${requestedSource}”；专业知识模式绝对禁止使用当前项目名称、项目档案或项目经历出题`,
                   `当前题目分类为“${selection.category}”，当前难度为“${selection.difficulty}”，当前技术栈为“${selection.techStack}”；非随机选项必须逐题严格匹配`,
+                  `当前题组共 ${targetCount} 道题，本次是第 ${workerIndex} 个并行请求，仅生成分配给本请求的 ${count} 道题`,
                   "标准回答控制在 120-220 字，技术原理控制在 100-200 字",
                   "source 只能填写“专业”或“项目”；difficulty 只能填写“基础”“中等”“困难”",
                   "项目类题目只能基于 projectProfile，不得添加 projectProfile 中不存在的项目数据",
@@ -1009,6 +1046,7 @@ async function prepareQuestionGroup(
         (progress) => {
           if (progress.phase !== "requesting") onProgress(progress);
         },
+        { parallelRequests },
       ),
       aiSelectionFilter,
     );
@@ -1051,8 +1089,8 @@ async function prepareQuestionGroup(
         source: "AI",
         aiCount,
           message: aiCount === targetCount
-            ? `AI 已生成完整 10 道题目、标准回答和技术原理；${cacheMessage}。`
-          : `AI 多轮联网检索后获得 ${aiCount}/10 道完整题目，其余使用本地题库兜底；${cacheMessage}。`,
+            ? `AI 已生成完整 ${targetCount} 道题目、标准回答和技术原理；${cacheMessage}。`
+          : `AI 多轮联网检索后获得 ${aiCount}/${targetCount} 道完整题目，其余使用本地题库兜底；${cacheMessage}。`,
       };
     }
 
@@ -1464,22 +1502,23 @@ export default function Home() {
       : stackFallback.filter((item) => item.difficulty === difficulty);
     return difficultyFallback.length ? difficultyFallback : stackFallback.length ? stackFallback : categoryFallback.length ? categoryFallback : modeFallback;
   }, [trainingMode, category, difficulty, techStack, project]);
+  const questionGroupSettings = readQuestionGroupSettings();
   const groupQuestionSeed = useMemo(() => {
-    const count = Math.min(10, availableQuestions.length);
+    const count = Math.min(questionGroupSettings.questionGroupSize, availableQuestions.length);
     const shouldRandomize = category === "随机类型" || difficulty === "随机难度" || techStack === "随机技术栈";
     const ordered = shouldRandomize
       ? [...availableQuestions].sort((left, right) => randomQuestionRank(left.title, groupRound) - randomQuestionRank(right.title, groupRound))
       : availableQuestions;
     const start = shouldRandomize ? 0 : (groupRound * count) % ordered.length;
     return Array.from({ length: count }, (_, index) => ordered[(start + index) % ordered.length]);
-  }, [availableQuestions, category, difficulty, techStack, groupRound]);
+  }, [availableQuestions, category, difficulty, techStack, groupRound, questionGroupSettings.questionGroupSize]);
   let aiSelectionSignature = "";
   if (typeof window !== "undefined") {
     try {
       aiSelectionSignature = localStorage.getItem("vision-interview-ai-preferences") || "";
     } catch { /* 忽略浏览器存储限制 */ }
   }
-  const groupPreparationKey = useMemo(() => ["ai-generated-v2", project, trainingMode, category, difficulty, techStack, groupRound, aiSelectionSignature, ...groupQuestionSeed.map((item) => item.title)].join("|"), [project, trainingMode, category, difficulty, techStack, groupRound, aiSelectionSignature, groupQuestionSeed]);
+  const groupPreparationKey = useMemo(() => ["ai-generated-v3", project, trainingMode, category, difficulty, techStack, groupRound, questionGroupSettings.questionGroupSize, questionGroupSettings.parallelRequests, aiSelectionSignature, ...groupQuestionSeed.map((item) => item.title)].join("|"), [project, trainingMode, category, difficulty, techStack, groupRound, questionGroupSettings.questionGroupSize, questionGroupSettings.parallelRequests, aiSelectionSignature, groupQuestionSeed]);
   const groupQuestions = preparedGroupQuestions?.length ? preparedGroupQuestions : groupQuestionSeed;
   const question = groupQuestions[questionIndex % groupQuestions.length];
   const currentEvaluation = sessionAnswers.find((item) => item.question.title === question.title);
@@ -1643,7 +1682,7 @@ export default function Home() {
     setPreparingGroup(true);
     setPreparedGroupQuestions(null);
     setGroupPreparationSource("本地规则");
-    setGroupPreparationMessage("正在优先让 AI 生成完整 10 道题目、标准回答和技术原理…");
+    setGroupPreparationMessage(`正在优先让 AI 生成完整 ${questionGroupSettings.questionGroupSize} 道题目、标准回答和技术原理…`);
     recordRuntimeEvent("INFO", "question-group.prepare.started", "开始准备题组", {
       project,
       mode: trainingMode,
@@ -1664,7 +1703,7 @@ export default function Home() {
     const cacheKey = `vision-interview-prepared-group-${encodeURIComponent(groupPreparationKey)}`;
     try {
       const cached = JSON.parse(localStorage.getItem(cacheKey) || "null") as { questions?: unknown[] } | null;
-      if (cached?.questions && cached.questions.length === 10 && cached.questions.every((item) => item && typeof item === "object" && typeof (item as { title?: unknown }).title === "string")) {
+      if (cached?.questions && cached.questions.length === questionGroupSettings.questionGroupSize && cached.questions.every((item) => item && typeof item === "object" && typeof (item as { title?: unknown }).title === "string")) {
         if (active) {
           setPreparedGroupQuestions(cached.questions as Question[]);
           setGroupPreparationSource("缓存");
@@ -1685,6 +1724,9 @@ export default function Home() {
           attempt: progress.attempt,
           maxAttempts: progress.maxAttempts,
           collectedCount: progress.collectedCount,
+          workerIndex: progress.workerIndex,
+          parallelRequests: progress.parallelRequests,
+          requestedCount: progress.requestedCount,
         });
       } else if (progress.phase === "received") {
         recordRuntimeEvent("INFO", "question-bank.ai-request.completed", message, {
@@ -1692,12 +1734,17 @@ export default function Home() {
           maxAttempts: progress.maxAttempts,
           collectedCount: progress.collectedCount,
           targetCount: progress.targetCount,
+          workerIndex: progress.workerIndex,
+          parallelRequests: progress.parallelRequests,
+          requestedCount: progress.requestedCount,
         });
       } else if (progress.phase === "failed") {
         recordRuntimeEvent("WARN", "question-bank.attempt.failed", message, {
           attempt: progress.attempt,
           maxAttempts: progress.maxAttempts,
           collectedCount: progress.collectedCount,
+          workerIndex: progress.workerIndex,
+          parallelRequests: progress.parallelRequests,
           error: progress.error,
         });
       }
@@ -1726,7 +1773,7 @@ export default function Home() {
       }
     }).catch(() => {
       if (!active) return;
-      setPreparedGroupQuestions(buildQuestionFallbackPool(groupQuestionSeed, project, { trainingMode, category, difficulty, techStack }).slice(0, 10));
+      setPreparedGroupQuestions(buildQuestionFallbackPool(groupQuestionSeed, project, { trainingMode, category, difficulty, techStack }).slice(0, questionGroupSettings.questionGroupSize));
       setGroupPreparationSource("本地规则");
       setGroupPreparationMessage("AI 题组准备失败，已切换为本地题库与标准答案。");
       setPreparingGroup(false);
@@ -1978,7 +2025,7 @@ export default function Home() {
         {activeNav === "开始学习" && (groupCompleted ? (
           <GroupReview answers={sessionAnswers} totalQuestions={groupQuestions.length} mode={trainingMode}
             onRestart={restartGroup} onRetry={retryQuestion} />
-        ) : <TrainingCenter question={question} questionIndex={questionIndex} totalQuestions={groupQuestions.length}
+        ) : <TrainingCenter question={question} questionIndex={questionIndex} totalQuestions={groupQuestions.length} questionGroupSize={questionGroupSettings.questionGroupSize} parallelRequests={questionGroupSettings.parallelRequests}
           trainingMode={trainingMode} category={category} difficulty={difficulty} techStack={techStack} project={project}
           isFavorite={isFavoriteQuestion(favoriteQuestions, question)} onToggleFavorite={() => toggleFavorite(question)}
           onModeChange={changeMode} onCategoryChange={(value) => { setCategory(value); setQuestionIndex(0); setAnswer(""); setSubmitted(false); setEvaluating(false); setPreparedGroupQuestions(null); setPreparingGroup(true); setSeconds(0); setSessionAnswers([]); setGroupCompleted(false); setGroupRound(0); }}
@@ -2012,7 +2059,7 @@ export default function Home() {
 }
 
 type TrainingProps = {
-  question: Question; questionIndex: number; totalQuestions: number; trainingMode: TrainingMode; project: string;
+  question: Question; questionIndex: number; totalQuestions: number; questionGroupSize: number; parallelRequests: number; trainingMode: TrainingMode; project: string;
   isFavorite: boolean; onToggleFavorite: () => void;
   category: string; difficulty: string; techStack: (typeof techStackFilters)[number]; onModeChange: (value: TrainingMode) => void;
   onCategoryChange: (value: string) => void; onDifficultyChange: (value: string) => void;
@@ -2060,7 +2107,7 @@ function TrainingCenter(props: TrainingProps) {
                 </button>)}
               </div>
               <div className="mt-3 grid gap-2 rounded-lg border border-slate-200 bg-slate-50 p-3 text-xs md:grid-cols-2">
-                <div className="flex items-start gap-2 text-slate-600"><Globe2 className="mt-0.5 size-4 shrink-0 text-blue-600" /><span><strong className="font-semibold text-slate-800">专业知识：</strong>AI 按当前分类、难度和技术栈优先生成完整 10 题，数量不足时自动重试。</span></div>
+                <div className="flex items-start gap-2 text-slate-600"><Globe2 className="mt-0.5 size-4 shrink-0 text-blue-600" /><span><strong className="font-semibold text-slate-800">专业知识：</strong>AI 按当前分类、难度和技术栈优先生成完整 {props.questionGroupSize} 题，并行请求 {props.parallelRequests} 个，数量不足时自动重试。</span></div>
                 <div className="flex items-start gap-2 text-slate-600"><HardDrive className="mt-0.5 size-4 shrink-0 text-emerald-600" /><span><strong className="font-semibold text-slate-800">项目答辩：</strong>AI 只基于当前项目档案出题，不补写项目档案中不存在的事实。</span></div>
               </div>
               <div className="mt-4 space-y-3 border-t border-slate-100 pt-4">
@@ -2877,7 +2924,21 @@ const defaultAiPreferences: AiPreferences = {
   bestAnswer: true,
   smartFollowUp: true,
   webQuestions: true,
+  questionGroupSize: DEFAULT_QUESTION_GROUP_SIZE,
+  parallelRequests: DEFAULT_PARALLEL_REQUESTS,
 };
+
+function readQuestionGroupSettings() {
+  if (typeof window === "undefined") {
+    return { questionGroupSize: DEFAULT_QUESTION_GROUP_SIZE, parallelRequests: DEFAULT_PARALLEL_REQUESTS };
+  }
+  try {
+    const stored = JSON.parse(localStorage.getItem("vision-interview-ai-preferences") || "{}");
+    return normalizeQuestionGroupSettings(stored);
+  } catch {
+    return { questionGroupSize: DEFAULT_QUESTION_GROUP_SIZE, parallelRequests: DEFAULT_PARALLEL_REQUESTS };
+  }
+}
 
 type AiServerStatus = {
   providers?: Record<AiProvider, { configured: boolean; baseUrl: string; defaultModel: string }>;
@@ -2950,7 +3011,7 @@ function createCustomProviderId() {
 }
 
 type ProviderDraft = { id?: AiProvider; name: string; description: string; baseUrl: string };
-type SettingsSection = "model" | "training" | "privacy" | "about";
+type SettingsSection = "model" | "training" | "group" | "about";
 
 function SettingsPage() {
   const [preferences, setPreferences] = useState<AiPreferences>(defaultAiPreferences);
@@ -2990,6 +3051,7 @@ function SettingsPage() {
         restored = {
           ...defaultAiPreferences,
           ...parsed,
+          ...normalizeQuestionGroupSettings(parsed),
           provider,
           upstreamFormat: normalizeAiUpstreamFormat(parsed.upstreamFormat),
           model: savedProvider?.model || (typeof parsed.model === "string" ? parsed.model : "") || definition.models[0]?.value || defaultAiPreferences.model,
@@ -3150,8 +3212,10 @@ function SettingsPage() {
   }
 
   function savePreferences() {
-    localStorage.setItem("vision-interview-ai-preferences", JSON.stringify(preferences));
-    persistProviderSettings(preferences, availableModels);
+    const nextPreferences = { ...preferences, ...normalizeQuestionGroupSettings(preferences) };
+    setPreferences(nextPreferences);
+    localStorage.setItem("vision-interview-ai-preferences", JSON.stringify(nextPreferences));
+    persistProviderSettings(nextPreferences, availableModels);
     const sessionKey = `vision-interview-ai-key-${preferences.provider}`;
     if (apiKey.trim()) sessionStorage.setItem(sessionKey, apiKey.trim());
     else sessionStorage.removeItem(sessionKey);
@@ -3288,7 +3352,7 @@ function SettingsPage() {
   const settingsSections: { key: SettingsSection; title: string; description: string; icon: typeof Settings }[] = [
     { key: "model", title: "模型服务", description: "服务商、地址、密钥与模型", icon: Bot },
     { key: "training", title: "训练偏好", description: "AI 能力与学习方式", icon: BrainCircuit },
-    { key: "privacy", title: "隐私与数据", description: "GitHub 备份与密钥安全", icon: ShieldCheck },
+    { key: "group", title: "题组设置", description: "题目数量与并行生成", icon: ListTree },
     { key: "about", title: "关于应用", description: "版本与使用说明", icon: FileText },
   ];
 
@@ -3395,11 +3459,14 @@ function SettingsPage() {
           </div>
         </section>}
 
-        {settingsSection === "privacy" && <section className="panel overflow-hidden">
-          <div className="border-b border-slate-200 px-5 py-4"><h2 className="font-semibold text-slate-900">隐私与数据</h2><p className="mt-1 text-xs text-slate-500">了解网页保存什么、GitHub 备份什么，以及哪些敏感内容不会离开浏览器。</p></div>
-          <div className="divide-y divide-slate-100">
-            <div className="flex gap-4 px-5 py-5"><span className="grid size-9 shrink-0 place-items-center rounded-md bg-emerald-50 text-emerald-600"><HardDrive className="size-4" /></span><div><h3 className="text-sm font-semibold text-slate-800">配置与运行数据</h3><p className="mt-1 text-sm leading-6 text-slate-600">项目配置、学习记录、训练偏好和运行日志先保存在当前浏览器，变化后自动备份到 GitHub；网站启动时优先加载 GitHub 存档。</p></div></div>
-            <div className="flex gap-4 px-5 py-5"><span className="grid size-9 shrink-0 place-items-center rounded-md bg-amber-50 text-amber-600"><ShieldCheck className="size-4" /></span><div><h3 className="text-sm font-semibold text-slate-800">密钥与 AI 请求</h3><p className="mt-1 text-sm leading-6 text-slate-600">API Key 只保存在当前会话；AI 请求通过网站后端转发，不会写入学习记录或项目配置。</p></div></div>
+        {settingsSection === "group" && <section className="panel overflow-hidden">
+          <div className="border-b border-slate-200 px-5 py-4"><h2 className="font-semibold text-slate-900">题组设置</h2><p className="mt-1 text-xs text-slate-500">控制每次开始学习准备多少道题，以及同时发起多少个 AI 生成请求。</p></div>
+          <div className="space-y-5 p-5">
+            <div className="grid gap-4 sm:grid-cols-2">
+              <label className="space-y-2 text-sm font-medium text-slate-700"><span>每个题组的题目数量</span><Input type="number" min={MIN_QUESTION_GROUP_SIZE} max={MAX_QUESTION_GROUP_SIZE} step={1} value={preferences.questionGroupSize} onChange={(event) => { const nextPreferences = { ...preferences, questionGroupSize: normalizeQuestionGroupSettings({ questionGroupSize: event.target.value, parallelRequests: preferences.parallelRequests }).questionGroupSize }; setPreferences(nextPreferences); persistActivePreferences(nextPreferences); setSaved(false); }} className="bg-white" /><span className="block text-[11px] font-normal text-slate-500">范围 {MIN_QUESTION_GROUP_SIZE}–{MAX_QUESTION_GROUP_SIZE}，默认 {DEFAULT_QUESTION_GROUP_SIZE} 道。</span></label>
+              <label className="space-y-2 text-sm font-medium text-slate-700"><span>并行 AI 请求数</span><Input type="number" min={MIN_PARALLEL_REQUESTS} max={MAX_PARALLEL_REQUESTS} step={1} value={preferences.parallelRequests} onChange={(event) => { const nextPreferences = { ...preferences, parallelRequests: normalizeQuestionGroupSettings({ questionGroupSize: preferences.questionGroupSize, parallelRequests: event.target.value }).parallelRequests }; setPreferences(nextPreferences); persistActivePreferences(nextPreferences); setSaved(false); }} className="bg-white" /><span className="block text-[11px] font-normal text-slate-500">范围 {MIN_PARALLEL_REQUESTS}–{MAX_PARALLEL_REQUESTS}，默认 {DEFAULT_PARALLEL_REQUESTS} 个；过高可能触发服务商限流。</span></label>
+            </div>
+            <div className="rounded-lg border border-blue-100 bg-blue-50/60 p-4 text-sm leading-6 text-blue-900"><p className="font-semibold">生成策略</p><p className="mt-1">系统会把题目数量拆分给多个 AI 请求，同时生成后自动去重；某个请求失败时，其余请求结果仍会保留，并继续下一轮补齐。</p></div>
           </div>
         </section>}
 
@@ -3436,7 +3503,7 @@ function SettingsPage() {
         </section>
         </>}
         {settingsSection === "training" && <section className="panel p-5"><Sparkles className="size-6 text-blue-600" /><h2 className="mt-4 font-semibold text-slate-900">训练偏好提示</h2><p className="mt-2 text-sm leading-6 text-slate-600">建议保留 AI 回答审阅和联网专业题库；项目答辩始终以你选择的本地项目资料为依据。</p></section>}
-        {settingsSection === "privacy" && <section className="panel p-5"><ShieldCheck className="size-6 text-emerald-600" /><h2 className="mt-4 font-semibold text-slate-900">数据控制</h2><p className="mt-2 text-sm leading-6 text-slate-600">如需清理学习记录或项目缓存，请在浏览器站点数据中删除本应用的本地数据；这不会删除本地磁盘文件。</p></section>}
+        {settingsSection === "group" && <section className="panel p-5"><ListTree className="size-6 text-blue-600" /><h2 className="mt-4 font-semibold text-slate-900">题组生成提示</h2><p className="mt-2 text-sm leading-6 text-slate-600">建议普通服务商使用 2–3 个并行请求；如果出现超时或限流，可以降低并行数，系统仍会自动重试并补齐题目。</p></section>}
         {settingsSection === "about" && <section className="panel p-5"><FileText className="size-6 text-blue-600" /><h2 className="mt-4 font-semibold text-slate-900">使用建议</h2><p className="mt-2 text-sm leading-6 text-slate-600">先独立回答，再展开最佳回答和技术原理；每次完成后查看审阅建议，并在温故知新中重新组织表达。</p></section>}
       </aside>
     </div>
