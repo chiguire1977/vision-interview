@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-31T03:46:36.899Z",
+  "updatedAt": "2026-08-31T05:17:42.362Z",
   "questions": [
     {
       "title": "在轮胎字符深度OCR项目中，HALCON的深度OCR模型相比传统OCR在抗磨损和倾斜方面有哪些本质优势？",
@@ -3085,6 +3085,347 @@
       "categoryFilter": "随机类型",
       "difficultyFilter": "随机难度",
       "techStackFilter": "OpenCV"
+    },
+    {
+      "title": "在HALCON中，如何通过调整参数来优化一个基于形状匹配的模板匹配算法的鲁棒性？请列举至少三个关键参数并说明其影响。",
+      "type": "算法原理",
+      "category": "算法原理",
+      "source": "专业",
+      "difficulty": "中等",
+      "tags": [
+        "形状匹配",
+        "参数优化",
+        "鲁棒性"
+      ],
+      "keywords": [
+        "NumLevels",
+        "AngleStep",
+        "MinScore",
+        "Greediness",
+        "金字塔层级"
+      ],
+      "followUp": "如果目标物体存在轻微形变，你会选择哪种匹配方法？为什么？",
+      "hint": "从金字塔层级、角度步长、评分阈值和贪婪度入手，结合速度与精度权衡。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "bestAnswer": "优化形状匹配鲁棒性时，首先调整NumLevels（金字塔层数），增加层数可提高对模糊和噪声的鲁棒性，但可能丢失细节；其次减小AngleStep（角度步长）可提高旋转目标的匹配精度，但增加计算量；最后降低MinScore（最低评分）能容忍更多遮挡或对比度变化，但可能增加误匹配。此外，Greediness控制搜索贪婪度，较低值提高鲁棒性但速度变慢。实际中需根据图像质量平衡这些参数。",
+      "principle": "形状匹配基于边缘梯度方向，金字塔层数通过降采样减少噪声影响，角度步长决定旋转搜索的离散化精度，评分阈值衡量模板与图像区域的相似度，贪婪度影响搜索剪枝策略，共同决定匹配的鲁棒性与效率。",
+      "id": "aiq-f4c29f72",
+      "generatedAt": "2026-08-31T05:17:41.447Z",
+      "provider": "deepseek",
+      "model": "deepseek-v4-flash",
+      "project": "轮胎字符深度 OCR",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "中等",
+      "techStackFilter": "HALCON"
+    },
+    {
+      "title": "在HALCON中，当使用Blob分析进行缺陷检测时，如果目标缺陷与背景灰度差异不明显，你会如何设计图像预处理流程？请说明步骤和算子选择。",
+      "type": "工程实践",
+      "category": "图像预处理",
+      "source": "专业",
+      "difficulty": "中等",
+      "tags": [
+        "Blob分析",
+        "缺陷检测",
+        "预处理"
+      ],
+      "keywords": [
+        "灰度变换",
+        "滤波",
+        "对比度增强",
+        "阈值分割"
+      ],
+      "followUp": "如果图像存在不均匀光照，你会采用哪种方法？",
+      "hint": "考虑灰度拉伸、直方图均衡、平滑滤波和形态学操作。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "bestAnswer": "首先使用scale_image或equ_histo_image进行灰度拉伸或直方图均衡，增强对比度；然后应用中值滤波或高斯滤波去除噪声，同时保留边缘；若光照不均，可采用动态阈值（dyn_threshold）或背景校正（sub_image）消除背景影响；最后通过阈值分割（threshold）提取缺陷区域。必要时结合形态学闭运算填充小孔。",
+      "principle": "灰度变换扩展灰度范围，直方图均衡重新分布灰度级，滤波平滑噪声，动态阈值利用局部背景对比度分割，背景校正通过减去估计背景消除光照变化，从而提高缺陷与背景的可分性。",
+      "id": "aiq-3e20051c",
+      "generatedAt": "2026-08-31T05:17:41.447Z",
+      "provider": "deepseek",
+      "model": "deepseek-v4-flash",
+      "project": "轮胎字符深度 OCR",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "中等",
+      "techStackFilter": "HALCON"
+    },
+    {
+      "title": "在HALCON中，使用标定板进行相机标定时，如果标定结果的重投影误差较大，可能的原因有哪些？如何排查？",
+      "type": "现场故障",
+      "category": "相机标定",
+      "source": "专业",
+      "difficulty": "中等",
+      "tags": [
+        "标定",
+        "重投影误差",
+        "故障排查"
+      ],
+      "keywords": [
+        "标定板平整度",
+        "图像质量",
+        "标定板姿态",
+        "镜头畸变",
+        "特征提取"
+      ],
+      "followUp": "如果标定板部分区域被遮挡，对标定结果有何影响？",
+      "hint": "从标定板物理状态、图像采集、特征提取和标定模型入手。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "bestAnswer": "重投影误差大可能原因：标定板不平整或反光，导致特征点提取不准确；图像模糊或光照不均；标定板姿态变化不够丰富，导致参数解算不稳定；镜头畸变模型不匹配。排查步骤：检查标定板质量，确保平整无划痕；调整光照和焦距获取清晰图像；采集多姿态图像（倾斜、旋转）；尝试不同畸变模型（如division模型）。",
+      "principle": "相机标定通过最小化重投影误差优化内外参数，误差来源包括特征点定位误差、标定板平面度误差和模型误差，通过改善输入质量和增加约束可降低误差。",
+      "id": "aiq-8e835cdb",
+      "generatedAt": "2026-08-31T05:17:41.447Z",
+      "provider": "deepseek",
+      "model": "deepseek-v4-flash",
+      "project": "轮胎字符深度 OCR",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "中等",
+      "techStackFilter": "HALCON"
+    },
+    {
+      "title": "在HALCON中，对于高精度测量任务，如何选择合适的分割阈值？请比较全局阈值和局部阈值方法，并说明适用场景。",
+      "type": "算法原理",
+      "category": "阈值分割",
+      "source": "专业",
+      "difficulty": "中等",
+      "tags": [
+        "阈值分割",
+        "测量",
+        "全局阈值",
+        "局部阈值"
+      ],
+      "keywords": [
+        "threshold",
+        "dyn_threshold",
+        "局部阈值",
+        "光照不均"
+      ],
+      "followUp": "如果目标区域灰度不均匀，你会如何处理？",
+      "hint": "考虑光照均匀性、目标与背景对比度、计算效率。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "bestAnswer": "全局阈值（threshold）适用于光照均匀、对比度高的场景，速度快；局部阈值（dyn_threshold）通过比较像素与邻域均值，适用于光照不均或背景渐变。对于高精度测量，若光照稳定，全局阈值简单可靠；若光照变化，局部阈值更鲁棒。可结合高斯滤波平滑背景，再使用局部阈值。",
+      "principle": "全局阈值基于灰度直方图峰谷分割，局部阈值利用邻域统计量（如均值）动态调整阈值，适应局部灰度变化，但计算量较大。",
+      "id": "aiq-4063cbcb",
+      "generatedAt": "2026-08-31T05:17:41.447Z",
+      "provider": "deepseek",
+      "model": "deepseek-v4-flash",
+      "project": "轮胎字符深度 OCR",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "中等",
+      "techStackFilter": "HALCON"
+    },
+    {
+      "title": "在HALCON中，如何利用亚像素边缘提取提高测量精度？请描述关键算子和步骤。",
+      "type": "算法原理",
+      "category": "亚像素测量",
+      "source": "专业",
+      "difficulty": "中等",
+      "tags": [
+        "亚像素",
+        "边缘提取",
+        "测量精度"
+      ],
+      "keywords": [
+        "edges_sub_pix",
+        "canny",
+        "亚像素插值",
+        "卡尺工具"
+      ],
+      "followUp": "亚像素边缘提取对噪声敏感，如何抑制？",
+      "hint": "从边缘提取算子和后续拟合步骤说明。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "bestAnswer": "使用edges_sub_pix算子（如canny）提取亚像素边缘，该算子基于灰度梯度插值获得亚像素坐标；然后通过fit_line_contour_xld或fit_circle_contour_xld拟合几何元素，提高测量精度。为抑制噪声，可先进行高斯平滑，或调整Canny算子的滞后阈值。",
+      "principle": "亚像素边缘通过梯度方向的灰度插值（如抛物线拟合）获得，精度高于像素级，但受噪声影响大，平滑可提高稳定性。",
+      "id": "aiq-536d3859",
+      "generatedAt": "2026-08-31T05:17:41.447Z",
+      "provider": "deepseek",
+      "model": "deepseek-v4-flash",
+      "project": "轮胎字符深度 OCR",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "中等",
+      "techStackFilter": "HALCON"
+    },
+    {
+      "title": "在HALCON中，当模板匹配速度过慢时，你会如何优化？请列举至少三种方法。",
+      "type": "工程实践",
+      "category": "性能优化",
+      "source": "专业",
+      "difficulty": "中等",
+      "tags": [
+        "模板匹配",
+        "速度优化",
+        "性能"
+      ],
+      "keywords": [
+        "金字塔",
+        "搜索区域",
+        "降采样",
+        "多线程"
+      ],
+      "followUp": "如果目标在图像中位置随机，如何减少搜索范围？",
+      "hint": "从算法参数和硬件利用两方面考虑。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "bestAnswer": "优化方法：1）增加金字塔层数（NumLevels），在低分辨率层粗定位；2）设置合理的搜索区域（ROI），减少搜索范围；3）使用更粗的角度步长（AngleStep）减少旋转搜索次数；4）利用多线程并行处理（set_system('parallelize_operators',true)）；5）降低MinScore或Greediness，但需权衡鲁棒性。",
+      "principle": "金字塔搜索先粗后精，减少计算量；ROI限制搜索空间；角度步长减少模板旋转数量；多线程利用多核加速。",
+      "id": "aiq-1b8ad92a",
+      "generatedAt": "2026-08-31T05:17:41.447Z",
+      "provider": "deepseek",
+      "model": "deepseek-v4-flash",
+      "project": "轮胎字符深度 OCR",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "中等",
+      "techStackFilter": "HALCON"
+    },
+    {
+      "title": "在HALCON中，如何利用形态学操作去除图像中的小噪声区域？请说明开运算和闭运算的区别及适用场景。",
+      "type": "算法原理",
+      "category": "形态学",
+      "source": "专业",
+      "difficulty": "中等",
+      "tags": [
+        "形态学",
+        "开运算",
+        "闭运算",
+        "噪声去除"
+      ],
+      "keywords": [
+        "opening",
+        "closing",
+        "结构元素",
+        "噪声"
+      ],
+      "followUp": "如果噪声与目标大小相近，如何处理？",
+      "hint": "从结构元素大小和形状选择入手。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "bestAnswer": "开运算（opening）先腐蚀后膨胀，用于去除小的亮噪声（孤立点），平滑目标边界；闭运算（closing）先膨胀后腐蚀，用于填充目标内部小孔和连接邻近区域。选择结构元素大小应略大于噪声尺寸，形状需匹配目标特征。若噪声与目标大小相近，可结合连通域分析（connection）和面积过滤（select_shape）去除。",
+      "principle": "开运算通过腐蚀去除小亮区域，膨胀恢复目标大小；闭运算通过膨胀填充小暗区域，腐蚀恢复边界。结构元素决定操作效果。",
+      "id": "aiq-1311457b",
+      "generatedAt": "2026-08-31T05:17:41.447Z",
+      "provider": "deepseek",
+      "model": "deepseek-v4-flash",
+      "project": "轮胎字符深度 OCR",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "中等",
+      "techStackFilter": "HALCON"
+    },
+    {
+      "title": "在HALCON中，如何检测图像中的直线并测量其角度？请描述使用Hough变换的步骤。",
+      "type": "算法原理",
+      "category": "直线检测",
+      "source": "专业",
+      "difficulty": "中等",
+      "tags": [
+        "Hough变换",
+        "直线检测",
+        "角度测量"
+      ],
+      "keywords": [
+        "hough_lines",
+        "edges_sub_pix",
+        "角度计算"
+      ],
+      "followUp": "如果图像中有多条直线，如何选择目标直线？",
+      "hint": "从边缘提取到Hough变换参数设置。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "bestAnswer": "步骤：1）使用edges_sub_pix提取亚像素边缘；2）使用hough_lines（或hough_lines_dir）检测直线，设置角度分辨率和阈值；3）通过输出直线的端点计算角度（angle_line）。若有多条直线，可根据长度、位置或与参考线的关系筛选。",
+      "principle": "Hough变换将图像空间中的点映射到参数空间，通过累加器峰值检测直线，角度分辨率影响精度。",
+      "id": "aiq-0f31b9ea",
+      "generatedAt": "2026-08-31T05:17:41.447Z",
+      "provider": "deepseek",
+      "model": "deepseek-v4-flash",
+      "project": "轮胎字符深度 OCR",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "中等",
+      "techStackFilter": "HALCON"
+    },
+    {
+      "title": "在HALCON中，当相机与工件相对位置变化时，如何保持测量精度？请说明手眼标定的作用。",
+      "type": "工程实践",
+      "category": "手眼标定",
+      "source": "专业",
+      "difficulty": "中等",
+      "tags": [
+        "手眼标定",
+        "坐标变换",
+        "测量精度"
+      ],
+      "keywords": [
+        "calibrate_hand_eye",
+        "机器人",
+        "坐标变换"
+      ],
+      "followUp": "手眼标定中，标定板固定在机器人末端和固定在工作台上的区别是什么？",
+      "hint": "从相机与机器人关系入手。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "bestAnswer": "手眼标定确定相机坐标系与机器人坐标系之间的变换关系，使得测量结果可转换到机器人坐标系。使用calibrate_hand_eye算子，通过移动机器人拍摄标定板，计算变换矩阵。当相机与工件位置变化时，只要标定关系不变，测量精度可保持。",
+      "principle": "手眼标定基于AX=XB方程，通过多组机器人位姿和标定板位姿求解变换矩阵，实现坐标统一。",
+      "id": "aiq-b8adc5b0",
+      "generatedAt": "2026-08-31T05:17:41.447Z",
+      "provider": "deepseek",
+      "model": "deepseek-v4-flash",
+      "project": "轮胎字符深度 OCR",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "中等",
+      "techStackFilter": "HALCON"
+    },
+    {
+      "title": "在HALCON中，如何利用频域滤波进行图像增强？请说明傅里叶变换在图像处理中的应用。",
+      "type": "算法原理",
+      "category": "频域处理",
+      "source": "专业",
+      "difficulty": "中等",
+      "tags": [
+        "傅里叶变换",
+        "频域滤波",
+        "图像增强"
+      ],
+      "keywords": [
+        "fft_image",
+        "高斯滤波",
+        "频域"
+      ],
+      "followUp": "频域滤波相比空间域滤波有何优缺点？",
+      "hint": "从变换、滤波、逆变换步骤说明。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "bestAnswer": "使用fft_image将图像变换到频域，应用滤波器（如高斯低通或高通）抑制特定频率，再通过ifft_image逆变换回空间域。低通滤波去噪声，高通滤波增强边缘。频域滤波适合处理周期性噪声，但计算量较大。",
+      "principle": "傅里叶变换将图像分解为不同频率成分，滤波通过修改频谱系数实现，逆变换恢复图像。",
+      "id": "aiq-cf750844",
+      "generatedAt": "2026-08-31T05:17:41.447Z",
+      "provider": "deepseek",
+      "model": "deepseek-v4-flash",
+      "project": "轮胎字符深度 OCR",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "中等",
+      "techStackFilter": "HALCON"
     }
   ]
 }
