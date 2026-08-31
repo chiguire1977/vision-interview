@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-08-31T15:57:09.406Z",
+  "updatedAt": "2026-08-31T15:57:12.604Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1833,6 +1833,33 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788191838951-4o0uk9r2",
+        "timestamp": "2026-08-31T15:57:18.951Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "ebfc83af377d"
+        }
+      },
+      {
+        "id": "1788191838050-81js57o0",
+        "timestamp": "2026-08-31T15:57:18.050Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788191832589-2rrvv7qm",
+        "event": "github.backup.succeeded",
+        "message": "数据已成功备份到 GitHub",
+        "context": {
+          "operation": "ai-question-bank",
+          "entryCount": 0,
+          "pendingCount": 0,
+          "status": 200
+        }
+      },
       {
         "id": "1788191832620-11b0vb6h",
         "timestamp": "2026-08-31T15:57:12.620Z",
@@ -18257,40 +18284,6 @@
           "workerIndex": 1,
           "parallelRequests": 3,
           "requestedCount": 4
-        }
-      },
-      {
-        "id": "1788186072526-e89e34y3",
-        "timestamp": "2026-08-31T14:21:12.526Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788185400191-3fe71itf",
-        "event": "question-bank.attempt.failed",
-        "message": "第 3/6 轮（并行 3/3）：本轮请求失败：请先配置当前 AI 服务商的 API Key。，准备下一轮…",
-        "context": {
-          "attempt": 3,
-          "maxAttempts": 6,
-          "collectedCount": 0,
-          "workerIndex": 3,
-          "parallelRequests": 3,
-          "error": "请先配置当前 AI 服务商的 API Key。"
-        }
-      },
-      {
-        "id": "1788186072523-n920dwxr",
-        "timestamp": "2026-08-31T14:21:12.523Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788185400191-3fe71itf",
-        "event": "question-bank.attempt.failed",
-        "message": "第 3/6 轮（并行 2/3）：本轮请求失败：请先配置当前 AI 服务商的 API Key。，准备下一轮…",
-        "context": {
-          "attempt": 3,
-          "maxAttempts": 6,
-          "collectedCount": 0,
-          "workerIndex": 2,
-          "parallelRequests": 3,
-          "error": "请先配置当前 AI 服务商的 API Key。"
         }
       }
     ]
