@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-08-31T09:25:56.693Z",
+  "updatedAt": "2026-08-31T09:26:01.825Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1077,6 +1077,48 @@
       }
     },
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788168358645-z7mzvh9s",
+        "timestamp": "2026-08-31T09:25:58.645Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "95c8f20415d9"
+        }
+      },
+      {
+        "id": "1788168357272-na630awt",
+        "timestamp": "2026-08-31T09:25:57.272Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788168350423-2kpo5iqk",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 2,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 0
+        }
+      },
+      {
+        "id": "1788168357256-bu6vmtw3",
+        "timestamp": "2026-08-31T09:25:57.256Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788168350423-2kpo5iqk",
+        "event": "question-bank.attempt.failed",
+        "message": "第 1/6 轮：本轮请求失败：请先配置当前 AI 服务商的 API Key。，准备下一轮…",
+        "context": {
+          "attempt": 1,
+          "maxAttempts": 6,
+          "collectedCount": 0,
+          "error": "请先配置当前 AI 服务商的 API Key。"
+        }
+      },
       {
         "id": "1788168353158-0dxd80jc",
         "timestamp": "2026-08-31T09:25:53.158Z",
