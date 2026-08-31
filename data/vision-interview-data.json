@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-08-31T10:37:27.038Z",
+  "updatedAt": "2026-08-31T10:37:39.089Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1401,6 +1401,47 @@
     },
     "vision-interview-project-view": "card",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788172661422-eowd19g0",
+        "timestamp": "2026-08-31T10:37:41.422Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788172617026-z2y1eikw",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 1,
+          "query": "机器视觉 面试知识点 通用原理 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 0
+        }
+      },
+      {
+        "id": "1788172661418-np88oxlb",
+        "timestamp": "2026-08-31T10:37:41.418Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788172617026-z2y1eikw",
+        "event": "question-group.prepare.started",
+        "message": "开始准备题组",
+        "context": {
+          "project": "轮胎字符深度 OCR",
+          "mode": "专业知识",
+          "questionCount": 10
+        }
+      },
+      {
+        "id": "1788172658647-vcrpofzg",
+        "timestamp": "2026-08-31T10:37:38.647Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "7546595571a7"
+        }
+      },
       {
         "id": "1788172639464-b13xg32w",
         "timestamp": "2026-08-31T10:37:19.464Z",
@@ -14231,42 +14272,6 @@
         "kind": "system",
         "event": "backup.close.flush",
         "message": "页面关闭或进入后台，提交最后一次备份"
-      },
-      {
-        "id": "1788148002899-48h6rlpf",
-        "timestamp": "2026-08-31T03:46:42.899Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "23d4be3affb1"
-        }
-      },
-      {
-        "id": "1788148000487-d93z1cbb",
-        "timestamp": "2026-08-31T03:46:40.487Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "question-group.prepare.completed",
-        "message": "AI 已生成完整 10 道题目、标准回答和技术原理；已缓存到远程题库。",
-        "context": {
-          "source": "AI",
-          "questionCount": 10
-        }
-      },
-      {
-        "id": "1788148000486-xngd144s",
-        "timestamp": "2026-08-31T03:46:40.486Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "question-bank.cache.saved",
-        "message": "已缓存到远程题库",
-        "context": {
-          "questionCount": 10,
-          "pendingCount": 0
-        }
       }
     ]
   }
