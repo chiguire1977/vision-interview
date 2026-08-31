@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-08-31T03:43:08.340Z",
+  "updatedAt": "2026-08-31T03:43:16.622Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1077,6 +1077,28 @@
       }
     },
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788147791080-n7fz3mrv",
+        "timestamp": "2026-08-31T03:43:11.080Z",
+        "level": "INFO",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "84e909a60f58"
+        }
+      },
+      {
+        "id": "1788147786409-okl4eap3",
+        "timestamp": "2026-08-31T03:43:06.409Z",
+        "level": "ERROR",
+        "event": "backup.push.failed",
+        "message": "运行数据备份失败",
+        "context": {
+          "status": 502,
+          "reason": "GitHub 备份失败（HTTP 409）：{\"message\":\"is at 42ebb284c31e14992ec94dc8e70ad884cda94979 but expected eeca1f0742b15a550e1487cfc1c31d93cedca1ec\",\"documentation_url\":\"https://docs.github.com/rest/repos/contents#create-or-update-file-contents\",\"status\":\"409\"}"
+        }
+      },
       {
         "id": "1788147784584-4i4ht8k0",
         "timestamp": "2026-08-31T03:43:04.584Z",
