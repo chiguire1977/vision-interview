@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-31T05:19:02.959Z",
+  "updatedAt": "2026-08-31T05:19:07.706Z",
   "questions": [
     {
       "title": "在轮胎字符深度OCR项目中，HALCON的深度OCR模型相比传统OCR在抗磨损和倾斜方面有哪些本质优势？",
@@ -4035,6 +4035,340 @@
       "categoryFilter": "随机类型",
       "difficultyFilter": "随机难度",
       "techStackFilter": "随机技术栈"
+    },
+    {
+      "title": "在OpenCV中，Canny边缘检测算法是如何实现非极大值抑制的？请详细说明其梯度方向量化和双阈值处理的具体步骤。",
+      "type": "算法原理",
+      "category": "边缘与特征",
+      "source": "专业",
+      "difficulty": "中等",
+      "tags": [
+        "Canny",
+        "非极大值抑制",
+        "双阈值",
+        "梯度方向"
+      ],
+      "keywords": [
+        "梯度方向量化",
+        "非极大值抑制",
+        "双阈值滞后"
+      ],
+      "followUp": "如果梯度方向恰好落在45度边界上，OpenCV是如何处理的？",
+      "hint": "先说明梯度计算，再解释方向量化到四个扇区，最后描述双阈值连接。",
+      "techStacks": [
+        "OpenCV"
+      ],
+      "bestAnswer": "Canny首先用Sobel算子计算水平和垂直梯度，得到梯度幅值和方向。非极大值抑制时，将梯度方向量化到四个扇区（0°、45°、90°、135°），每个像素与沿梯度方向相邻的两个像素比较幅值，若当前像素不是局部最大值则抑制。双阈值处理中，高阈值TH确定强边缘，低阈值TL确定弱边缘，强边缘直接保留，弱边缘仅当与强边缘连通时保留，以此抑制噪声并保持边缘连续性。",
+      "principle": "非极大值抑制通过细化边缘响应，确保边缘为单像素宽；双阈值滞后利用边缘的连续性，通过高低阈值结合，既抑制噪声又避免边缘断裂。",
+      "id": "aiq-acb2614c",
+      "generatedAt": "2026-08-31T05:19:04.297Z",
+      "provider": "deepseek",
+      "model": "deepseek-v4-flash",
+      "project": "轮胎字符深度 OCR",
+      "trainingMode": "专业知识",
+      "categoryFilter": "边缘与特征",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "OpenCV"
+    },
+    {
+      "title": "在OpenCV中，Sobel算子与Scharr算子有何区别？在什么情况下应优先选择Scharr算子？",
+      "type": "算法原理",
+      "category": "边缘与特征",
+      "source": "专业",
+      "difficulty": "基础",
+      "tags": [
+        "Sobel",
+        "Scharr",
+        "梯度算子"
+      ],
+      "keywords": [
+        "核大小",
+        "精度",
+        "噪声敏感性"
+      ],
+      "followUp": "Scharr算子为什么能提供更精确的梯度方向？",
+      "hint": "对比两者的核系数和权重，说明Scharr对中心像素的加权更大。",
+      "techStacks": [
+        "OpenCV"
+      ],
+      "bestAnswer": "Sobel算子的核大小为3x3时，其中心权重为2，而Scharr算子将中心权重调整为10，并优化了周围权重，使得梯度计算更精确，尤其在边缘方向接近对角线时。Scharr算子对噪声更敏感，但梯度幅值和方向更准确。当图像噪声较低且需要高精度梯度时，优先选择Scharr；在噪声较大或对速度要求高时，Sobel更合适。",
+      "principle": "Sobel基于中心差分，权重较小，对高频响应不足；Scharr通过增大中心权重，提高了旋转对称性，从而更准确地估计梯度方向。",
+      "id": "aiq-97d007c3",
+      "generatedAt": "2026-08-31T05:19:04.297Z",
+      "provider": "deepseek",
+      "model": "deepseek-v4-flash",
+      "project": "轮胎字符深度 OCR",
+      "trainingMode": "专业知识",
+      "categoryFilter": "边缘与特征",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "OpenCV"
+    },
+    {
+      "title": "使用OpenCV的findContours函数时，轮廓检索模式RETR_EXTERNAL与RETR_TREE有何本质区别？在工程中如何选择？",
+      "type": "工程实践",
+      "category": "边缘与特征",
+      "source": "专业",
+      "difficulty": "中等",
+      "tags": [
+        "findContours",
+        "轮廓检索",
+        "RETR_EXTERNAL",
+        "RETR_TREE"
+      ],
+      "keywords": [
+        "层级关系",
+        "轮廓数量",
+        "嵌套结构"
+      ],
+      "followUp": "如果需要提取所有内孔轮廓，应选择哪种模式？",
+      "hint": "先解释两种模式的层级结构，再结合场景需求说明选择依据。",
+      "techStacks": [
+        "OpenCV"
+      ],
+      "bestAnswer": "RETR_EXTERNAL仅提取最外层轮廓，忽略所有内部轮廓，适用于只关注物体外边界的情况，如检测物体数量。RETR_TREE提取所有轮廓并建立完整的层级关系，适用于需要分析嵌套结构（如孔洞、零件内部特征）的场景。选择时需根据任务需求：若只需外边界，用RETR_EXTERNAL减少计算量；若需内部特征，则用RETR_TREE。",
+      "principle": "轮廓检索模式基于拓扑结构，RETR_EXTERNAL只保留最外层，RETR_TREE记录所有父子关系，便于遍历层级。",
+      "id": "aiq-89d041a3",
+      "generatedAt": "2026-08-31T05:19:04.297Z",
+      "provider": "deepseek",
+      "model": "deepseek-v4-flash",
+      "project": "轮胎字符深度 OCR",
+      "trainingMode": "专业知识",
+      "categoryFilter": "边缘与特征",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "OpenCV"
+    },
+    {
+      "title": "在边缘检测中，如果图像存在强烈噪声，直接使用Canny算子会出现什么问题？OpenCV中如何通过参数调整或预处理来改善？",
+      "type": "现场故障",
+      "category": "边缘与特征",
+      "source": "专业",
+      "difficulty": "中等",
+      "tags": [
+        "噪声",
+        "Canny",
+        "高斯滤波",
+        "参数调整"
+      ],
+      "keywords": [
+        "伪边缘",
+        "高斯核",
+        "阈值"
+      ],
+      "followUp": "如果噪声是椒盐噪声，高斯滤波是否有效？",
+      "hint": "先分析噪声对梯度计算的影响，再提出预处理和参数调整策略。",
+      "techStacks": [
+        "OpenCV"
+      ],
+      "bestAnswer": "强噪声会导致梯度幅值异常，产生大量伪边缘，且Canny的双阈值难以区分真实边缘和噪声。改善方法：1）增大高斯滤波核大小或sigma，平滑噪声；2）适当提高高阈值，降低低阈值，减少噪声响应；3）使用中值滤波替代高斯滤波处理椒盐噪声；4）结合形态学操作去除小连通区域。",
+      "principle": "Canny对噪声敏感，高斯滤波抑制高频噪声，但过大会模糊边缘；阈值调整需平衡边缘保留与噪声抑制。",
+      "id": "aiq-e5389538",
+      "generatedAt": "2026-08-31T05:19:04.297Z",
+      "provider": "deepseek",
+      "model": "deepseek-v4-flash",
+      "project": "轮胎字符深度 OCR",
+      "trainingMode": "专业知识",
+      "categoryFilter": "边缘与特征",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "OpenCV"
+    },
+    {
+      "title": "在OpenCV中，Harris角点检测的响应函数R是如何计算的？R值的大小对角点检测有何影响？",
+      "type": "算法原理",
+      "category": "边缘与特征",
+      "source": "专业",
+      "difficulty": "中等",
+      "tags": [
+        "Harris",
+        "角点检测",
+        "响应函数"
+      ],
+      "keywords": [
+        "自相关矩阵",
+        "特征值",
+        "R值"
+      ],
+      "followUp": "如何通过R值区分角点、边缘和平坦区域？",
+      "hint": "先说明自相关矩阵和特征值，再解释R的公式和阈值作用。",
+      "techStacks": [
+        "OpenCV"
+      ],
+      "bestAnswer": "Harris角点检测计算图像梯度的自相关矩阵M，其特征值λ1和λ2反映局部结构。响应函数R = det(M) - k*trace(M)^2，其中det为行列式，trace为迹，k为经验常数（通常0.04-0.06）。当R值大于阈值时，该点为角点；R为负且绝对值大时为边缘；R接近0时为平坦区域。R值越大，角点响应越强。",
+      "principle": "角点处两个特征值都较大，边缘处一个特征值大，平坦区域两者都小；R函数通过组合特征值来区分这些情况。",
+      "id": "aiq-0bbf54d9",
+      "generatedAt": "2026-08-31T05:19:04.297Z",
+      "provider": "deepseek",
+      "model": "deepseek-v4-flash",
+      "project": "轮胎字符深度 OCR",
+      "trainingMode": "专业知识",
+      "categoryFilter": "边缘与特征",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "OpenCV"
+    },
+    {
+      "title": "在OpenCV中，使用Canny边缘检测后，如何统计图像中边缘像素的总数？请写出实现思路和关键代码。",
+      "type": "工程实践",
+      "category": "边缘与特征",
+      "source": "专业",
+      "difficulty": "基础",
+      "tags": [
+        "Canny",
+        "像素统计",
+        "countNonZero"
+      ],
+      "keywords": [
+        "二值图像",
+        "countNonZero",
+        "边缘密度"
+      ],
+      "followUp": "如果边缘像素过多，可能说明什么问题？",
+      "hint": "先说明Canny输出为二值图像，再使用countNonZero统计。",
+      "techStacks": [
+        "OpenCV"
+      ],
+      "bestAnswer": "Canny输出为单通道二值图像，边缘像素值为255，背景为0。使用cv::countNonZero(edges)即可统计非零像素数量，即边缘像素总数。若边缘像素过多，可能由于噪声干扰、阈值设置过低或图像纹理复杂，需要调整高斯滤波参数或阈值。",
+      "principle": "countNonZero遍历图像，统计非零像素个数，适用于二值图像。",
+      "id": "aiq-51258d5d",
+      "generatedAt": "2026-08-31T05:19:04.297Z",
+      "provider": "deepseek",
+      "model": "deepseek-v4-flash",
+      "project": "轮胎字符深度 OCR",
+      "trainingMode": "专业知识",
+      "categoryFilter": "边缘与特征",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "OpenCV"
+    },
+    {
+      "title": "在机器视觉项目中，边缘检测结果出现断裂，如何利用OpenCV的形态学操作进行修复？请说明具体步骤和参数选择。",
+      "type": "工程实践",
+      "category": "边缘与特征",
+      "source": "专业",
+      "difficulty": "中等",
+      "tags": [
+        "形态学",
+        "边缘连接",
+        "膨胀",
+        "闭运算"
+      ],
+      "keywords": [
+        "膨胀",
+        "闭运算",
+        "结构元素"
+      ],
+      "followUp": "如果断裂间隙较大，仅靠膨胀可能产生副作用，如何处理？",
+      "hint": "先分析断裂原因，再提出膨胀或闭运算，并说明结构元素大小选择。",
+      "techStacks": [
+        "OpenCV"
+      ],
+      "bestAnswer": "边缘断裂常因光照不均或噪声导致。使用膨胀操作可以连接邻近边缘，结构元素大小根据断裂间隙选择，通常3x3或5x5。闭运算（先膨胀后腐蚀）能保持边缘宽度。若间隙过大，可先进行膨胀，再使用Hough变换拟合直线或圆来连接边缘。",
+      "principle": "膨胀扩大边缘区域，使断裂部分接触；闭运算平滑边缘并填充小孔。",
+      "id": "aiq-b8ce2fa2",
+      "generatedAt": "2026-08-31T05:19:04.297Z",
+      "provider": "deepseek",
+      "model": "deepseek-v4-flash",
+      "project": "轮胎字符深度 OCR",
+      "trainingMode": "专业知识",
+      "categoryFilter": "边缘与特征",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "OpenCV"
+    },
+    {
+      "title": "在OpenCV中，如何利用边缘检测结果计算图像中物体的周长？请解释实现方法及其精度影响因素。",
+      "type": "工程实践",
+      "category": "边缘与特征",
+      "source": "专业",
+      "difficulty": "中等",
+      "tags": [
+        "周长计算",
+        "轮廓",
+        "arcLength"
+      ],
+      "keywords": [
+        "findContours",
+        "arcLength",
+        "像素精度"
+      ],
+      "followUp": "如果轮廓有噪声，如何提高周长计算精度？",
+      "hint": "先提取轮廓，再使用arcLength，并说明闭合标志。",
+      "techStacks": [
+        "OpenCV"
+      ],
+      "bestAnswer": "使用findContours提取边缘轮廓，然后调用cv::arcLength(contour, true)计算闭合轮廓的周长。精度受轮廓点数和噪声影响，可通过轮廓近似（approxPolyDP）或高斯滤波预处理来减少噪声，提高精度。",
+      "principle": "arcLength计算轮廓上相邻点间的距离之和，闭合轮廓需指定closed参数为true。",
+      "id": "aiq-becfa9dc",
+      "generatedAt": "2026-08-31T05:19:04.297Z",
+      "provider": "deepseek",
+      "model": "deepseek-v4-flash",
+      "project": "轮胎字符深度 OCR",
+      "trainingMode": "专业知识",
+      "categoryFilter": "边缘与特征",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "OpenCV"
+    },
+    {
+      "title": "在OpenCV中，Canny边缘检测的高低阈值如何影响边缘的连续性？请解释双阈值的滞后机制。",
+      "type": "算法原理",
+      "category": "边缘与特征",
+      "source": "专业",
+      "difficulty": "中等",
+      "tags": [
+        "Canny",
+        "双阈值",
+        "滞后"
+      ],
+      "keywords": [
+        "高阈值",
+        "低阈值",
+        "滞后连接"
+      ],
+      "followUp": "如果高阈值设置过高，边缘会如何变化？",
+      "hint": "先解释高低阈值的作用，再说明滞后连接规则。",
+      "techStacks": [
+        "OpenCV"
+      ],
+      "bestAnswer": "高阈值TH确定强边缘，低阈值TL确定弱边缘。滞后机制：强边缘直接保留；弱边缘若与强边缘连通（通过8邻域），则保留，否则丢弃。TH过高会减少强边缘，导致弱边缘无法连接，边缘断裂；TL过低会引入噪声，TL过高则弱边缘减少，同样导致断裂。",
+      "principle": "双阈值滞后利用边缘连续性，通过连通性判断，在噪声抑制和边缘完整性之间取得平衡。",
+      "id": "aiq-b996dc73",
+      "generatedAt": "2026-08-31T05:19:04.297Z",
+      "provider": "deepseek",
+      "model": "deepseek-v4-flash",
+      "project": "轮胎字符深度 OCR",
+      "trainingMode": "专业知识",
+      "categoryFilter": "边缘与特征",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "OpenCV"
+    },
+    {
+      "title": "在OpenCV中，使用Laplacian算子进行边缘检测时，为什么需要先对图像进行高斯滤波？请说明Laplacian的局限性。",
+      "type": "算法原理",
+      "category": "边缘与特征",
+      "source": "专业",
+      "difficulty": "基础",
+      "tags": [
+        "Laplacian",
+        "高斯滤波",
+        "噪声敏感"
+      ],
+      "keywords": [
+        "二阶导数",
+        "噪声放大",
+        "零交叉"
+      ],
+      "followUp": "Laplacian与Canny相比，在边缘定位上有什么不同？",
+      "hint": "先说明Laplacian对噪声敏感，再解释高斯滤波的作用。",
+      "techStacks": [
+        "OpenCV"
+      ],
+      "bestAnswer": "Laplacian是二阶导数算子，对噪声极为敏感，直接使用会放大噪声。因此，通常先进行高斯滤波（即LoG）以平滑图像，再应用Laplacian。Laplacian的局限性包括：对噪声敏感、边缘方向信息丢失、可能产生双边缘响应。",
+      "principle": "高斯滤波抑制高频噪声，Laplacian检测灰度突变，但二阶导数对噪声响应强烈。",
+      "id": "aiq-22ee89b6",
+      "generatedAt": "2026-08-31T05:19:04.297Z",
+      "provider": "deepseek",
+      "model": "deepseek-v4-flash",
+      "project": "轮胎字符深度 OCR",
+      "trainingMode": "专业知识",
+      "categoryFilter": "边缘与特征",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "OpenCV"
     }
   ]
 }
