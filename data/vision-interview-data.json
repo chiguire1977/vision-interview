@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-08-31T09:11:15.812Z",
+  "updatedAt": "2026-08-31T09:25:56.693Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1077,6 +1077,75 @@
       }
     },
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788168353158-0dxd80jc",
+        "timestamp": "2026-08-31T09:25:53.158Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788168350423-2kpo5iqk",
+        "event": "question-bank.ai-request.started",
+        "message": "第 1/6 轮：正在请求 AI 生成题目…",
+        "context": {
+          "attempt": 1,
+          "maxAttempts": 6,
+          "collectedCount": 0
+        }
+      },
+      {
+        "id": "1788168353141-rj5hl566",
+        "timestamp": "2026-08-31T09:25:53.141Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788168350423-2kpo5iqk",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 1,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "sourceCount": 0
+        }
+      },
+      {
+        "id": "1788168350541-w6ws6vjc",
+        "timestamp": "2026-08-31T09:25:50.541Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788168350423-2kpo5iqk",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 1,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 0
+        }
+      },
+      {
+        "id": "1788168350524-vjd3xy30",
+        "timestamp": "2026-08-31T09:25:50.524Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788168350423-2kpo5iqk",
+        "event": "question-group.prepare.started",
+        "message": "开始准备题组",
+        "context": {
+          "project": "轮胎字符深度 OCR",
+          "mode": "专业知识",
+          "questionCount": 10
+        }
+      },
+      {
+        "id": "1788168350404-xme5prfd",
+        "timestamp": "2026-08-31T09:25:50.402Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.startup.loaded",
+        "message": "启动配置加载完成",
+        "context": {
+          "source": "github",
+          "updatedAt": "2026-08-31T09:11:15.812Z"
+        }
+      },
       {
         "id": "1788167471364-u6sukv6y",
         "timestamp": "2026-08-31T09:11:11.364Z",
