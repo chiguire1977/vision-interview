@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-08-31T10:39:50.102Z",
+  "updatedAt": "2026-08-31T10:41:00.795Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1401,6 +1401,76 @@
     },
     "vision-interview-project-view": "card",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788172855722-vpr7bhix",
+        "timestamp": "2026-08-31T10:40:55.722Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788172617026-z2y1eikw",
+        "event": "question-bank.ai-request.started",
+        "message": "第 5/6 轮：正在请求 AI 生成题目…",
+        "context": {
+          "attempt": 5,
+          "maxAttempts": 6,
+          "collectedCount": 0
+        }
+      },
+      {
+        "id": "1788172855712-fmbq9h1q",
+        "timestamp": "2026-08-31T10:40:55.712Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788172617026-z2y1eikw",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 5,
+          "query": "机器视觉 面试知识点 通用原理 原理 工程实践",
+          "sourceCount": 8
+        }
+      },
+      {
+        "id": "1788172851952-lg18bjln",
+        "timestamp": "2026-08-31T10:40:51.952Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788172617026-z2y1eikw",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 5,
+          "query": "机器视觉 面试知识点 通用原理 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 0
+        }
+      },
+      {
+        "id": "1788172851942-q7wys7hp",
+        "timestamp": "2026-08-31T10:40:51.942Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788172617026-z2y1eikw",
+        "event": "question-bank.attempt.failed",
+        "message": "第 4/6 轮：本轮请求失败：AI 请求超时，请稍后重试。，准备下一轮…",
+        "context": {
+          "attempt": 4,
+          "maxAttempts": 6,
+          "collectedCount": 0,
+          "error": "AI 请求超时，请稍后重试。"
+        }
+      },
+      {
+        "id": "1788172798405-jfl0b1n6",
+        "timestamp": "2026-08-31T10:39:58.405Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "78ce84777c61"
+        }
+      },
       {
         "id": "1788172791750-1k5wxw2i",
         "timestamp": "2026-08-31T10:39:51.750Z",
@@ -14291,61 +14361,6 @@
         "context": {
           "reason": "change",
           "commit": "12047446f0d0"
-        }
-      },
-      {
-        "id": "1788148686569-ndl3i6pb",
-        "timestamp": "2026-08-31T03:58:06.569Z",
-        "level": "ERROR",
-        "kind": "system",
-        "event": "backup.startup.failed",
-        "message": "启动配置加载失败",
-        "context": {
-          "error": "Failed to fetch"
-        }
-      },
-      {
-        "id": "1788148680123-dahu7ui3",
-        "timestamp": "2026-08-31T03:58:00.123Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "e3ec7bab0247"
-        }
-      },
-      {
-        "id": "1788148671930-czjitn4a",
-        "timestamp": "2026-08-31T03:57:51.930Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.close.flush",
-        "message": "页面关闭或进入后台，提交最后一次备份"
-      },
-      {
-        "id": "1788148585203-054qi53g",
-        "timestamp": "2026-08-31T03:56:25.203Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "13c15106bfa7"
-        }
-      },
-      {
-        "id": "1788148571147-wc9ir0ud",
-        "timestamp": "2026-08-31T03:56:11.147Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "a42ffffe69d4"
         }
       }
     ]
