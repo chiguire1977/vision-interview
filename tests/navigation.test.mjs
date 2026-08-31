@@ -29,6 +29,9 @@ test("learning flow no longer exposes project or comprehensive training modes", 
   assert.doesNotMatch(page, /name: "项目答辩"/);
   assert.doesNotMatch(page, /name: "综合模拟"/);
   assert.doesNotMatch(page, /筛选范围：/);
+  assert.doesNotMatch(page, /面试官追问/);
+  assert.doesNotMatch(page, /根据你刚才的回答继续深挖/);
+  assert.match(page, /showTrainingSettings && <div className="border-t border-slate-100 px-4 py-3">/);
   assert.match(page.slice(page.indexOf("最佳回答")), /回答思路/);
   assert.match(page, /专业知识/);
 });

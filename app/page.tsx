@@ -2045,8 +2045,8 @@ function TrainingCenter(props: TrainingProps) {
                 {showTrainingSettings ? "收起设置" : "调整设置"}<ChevronDown className={`transition-transform ${showTrainingSettings ? "rotate-180" : ""}`} />
               </Button>
             </div>
-            {showTrainingSettings && <div className="border-t border-slate-100 p-4">
-              <div className="mt-4 space-y-3 border-t border-slate-100 pt-4">
+            {showTrainingSettings && <div className="border-t border-slate-100 px-4 py-3">
+              <div className="space-y-2">
                 <div className="flex flex-wrap items-center gap-2">
                   <span className="mr-1 w-16 shrink-0 text-xs font-medium text-slate-500">知识分类</span>
                   {professionalCategories.map((item) => <button key={item} onClick={() => { setManuallyExpandedSettings(false); props.onCategoryChange(item); }}
@@ -2178,13 +2178,6 @@ function TrainingCenter(props: TrainingProps) {
             </details>
           </section>}
 
-          <section className="panel p-5">
-            <div className="flex items-center gap-2"><span className="grid size-8 place-items-center rounded-md bg-blue-50 text-blue-600"><Bot className="size-4" /></span>
-              <div><h2 className="font-semibold text-slate-900">面试官追问</h2><p className="text-xs text-slate-500">根据你刚才的回答继续深挖</p></div></div>
-            <div className="mt-4 rounded-md border border-blue-100 bg-blue-50/60 p-4 text-[15px] leading-7 text-slate-800">
-              {props.submitted ? props.question.followUp : "完成当前回答后，系统会根据你的内容生成针对性追问。"}
-            </div>
-          </section>
         </div>
       </div>
     </main>
