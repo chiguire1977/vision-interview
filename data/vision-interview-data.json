@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-08-31T11:37:07.125Z",
+  "updatedAt": "2026-08-31T11:37:13.176Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1802,6 +1802,46 @@
     },
     "vision-interview-project-view": "card",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788176235780-xtl776dl",
+        "timestamp": "2026-08-31T11:37:15.780Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "4968225a5b22"
+        }
+      },
+      {
+        "id": "1788176234371-wanew6de",
+        "timestamp": "2026-08-31T11:37:14.371Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788176203438-ysmpqxee",
+        "event": "question-bank.ai-request.started",
+        "message": "第 5/6 轮：正在请求 AI 生成题目…",
+        "context": {
+          "attempt": 5,
+          "maxAttempts": 6,
+          "collectedCount": 0
+        }
+      },
+      {
+        "id": "1788176234368-4c6xthxk",
+        "timestamp": "2026-08-31T11:37:14.368Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788176203438-ysmpqxee",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 5,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "sourceCount": 0
+        }
+      },
       {
         "id": "1788176230281-dr03z87n",
         "timestamp": "2026-08-31T11:37:10.281Z",
@@ -14219,38 +14259,6 @@
           "mode": "专业知识",
           "project": "轮胎字符深度 OCR"
         }
-      },
-      {
-        "id": "1788146635924-otmwawgc",
-        "timestamp": "2026-08-31T03:23:55.924Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "question-group.prepare.completed",
-        "message": "AI 已生成完整 10 道题目、标准回答和技术原理；已缓存到远程题库。",
-        "context": {
-          "source": "AI",
-          "questionCount": 10
-        }
-      },
-      {
-        "id": "1788146635923-1795i59h",
-        "timestamp": "2026-08-31T03:23:55.923Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "question-bank.cache.saved",
-        "message": "已缓存到远程题库",
-        "context": {
-          "questionCount": 10,
-          "pendingCount": 0
-        }
-      },
-      {
-        "id": "1788146629076-0l73j0vj",
-        "timestamp": "2026-08-31T03:23:49.076Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.close.flush",
-        "message": "页面关闭或进入后台，提交最后一次备份"
       }
     ]
   }
