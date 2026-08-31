@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-08-31T10:00:51.791Z",
+  "updatedAt": "2026-08-31T10:01:53.644Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1336,6 +1336,48 @@
     },
     "vision-interview-project-view": "card",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788170515300-9c2sh2nt",
+        "timestamp": "2026-08-31T10:01:55.300Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788169988616-qqc3c3wb",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 4,
+          "query": "机器视觉 面试知识点 OpenCV 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 0
+        }
+      },
+      {
+        "id": "1788170515297-73tgzvyg",
+        "timestamp": "2026-08-31T10:01:55.297Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788169988616-qqc3c3wb",
+        "event": "question-bank.attempt.failed",
+        "message": "第 3/6 轮：本轮请求失败：AI 请求超时，请稍后重试。，准备下一轮…",
+        "context": {
+          "attempt": 3,
+          "maxAttempts": 6,
+          "collectedCount": 0,
+          "error": "AI 请求超时，请稍后重试。"
+        }
+      },
+      {
+        "id": "1788170459857-1jnohncg",
+        "timestamp": "2026-08-31T10:00:59.857Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "7ec99dbfd86e"
+        }
+      },
       {
         "id": "1788170455184-6hj24gre",
         "timestamp": "2026-08-31T10:00:55.184Z",
@@ -13738,45 +13780,6 @@
         "message": "当前题目已跳过",
         "context": {
           "question": "在轮胎字符OCR项目中，Modbus TCP通信的时序如何与PLC协同？请描述可能出现的时序问题及解决方案。",
-          "mode": "专业专项",
-          "project": "轮胎字符深度 OCR"
-        }
-      },
-      {
-        "id": "1788144473908-uqbjvlzo",
-        "timestamp": "2026-08-31T02:47:53.908Z",
-        "level": "WARN",
-        "kind": "user",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "在轮胎字符OCR项目中，数据增强对模型性能提升有多大作用？请列举至少三种适合该场景的数据增强方法。",
-          "mode": "专业专项",
-          "project": "轮胎字符深度 OCR"
-        }
-      },
-      {
-        "id": "1788144473420-ng9nln6p",
-        "timestamp": "2026-08-31T02:47:53.420Z",
-        "level": "WARN",
-        "kind": "user",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "在轮胎字符OCR项目中，局部对比度增强是如何实现的？请说明其原理和参数选择对识别效果的影响。",
-          "mode": "专业专项",
-          "project": "轮胎字符深度 OCR"
-        }
-      },
-      {
-        "id": "1788144472533-cq5vaqlq",
-        "timestamp": "2026-08-31T02:47:52.533Z",
-        "level": "WARN",
-        "kind": "user",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "在轮胎字符深度OCR项目中，为什么选择HALCON的深度OCR而不是传统OCR？请从算法原理和工程实践两方面说明。",
           "mode": "专业专项",
           "project": "轮胎字符深度 OCR"
         }
