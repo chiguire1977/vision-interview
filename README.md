@@ -94,7 +94,7 @@ or enforce explicit server-side membership or allowlist checks.
 Use SIWC for account pages, user-specific dashboards, saved records, and write
 actions tied to the current ChatGPT user. Leave public content anonymous.
 
-## AI Question Bank GitHub Backup
+## GitHub Backups
 
 AI-generated interview questions are queued in the browser and can be merged into `data/ai-question-bank.json` through the server-side sync route. To enable automatic GitHub writes, configure a fine-grained token with Contents read/write permission for this repository:
 
@@ -104,6 +104,8 @@ AI-generated interview questions are queued in the browser and can be merged int
 - `VISION_INTERVIEW_GITHUB_ARCHIVE_PATH`: optional, defaults to `data/ai-question-bank.json`
 
 Do not expose the GitHub token to browser code. Without a server-side token, generated questions remain in the local pending-backup queue and training continues normally.
+
+The same `VISION_INTERVIEW_GITHUB_TOKEN` also backs up approved browser state to `data/vision-interview-data.json`: project configuration, learning records, AI preferences (without keys), project view, and the newest 1000 runtime log entries. The app loads that archive before rendering and sends a final best-effort update when the page is hidden or closed. `GITHUB_BACKUP_TOKEN` remains supported as a runtime-backup-only fallback.
 
 ## Diagnostic Commands
 

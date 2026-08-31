@@ -2,9 +2,9 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import {
-  Archive, BarChart3, BookOpenCheck, Bot, BrainCircuit, Check, ChevronDown,
+  Activity, Archive, BarChart3, BookOpenCheck, Bot, BrainCircuit, Check, ChevronDown,
   ChevronRight, CircleAlert, CircleCheck, Clock3, FileText, FolderKanban,
-  BookOpen, Eye, EyeOff, Gauge, Globe2, HardDrive, Lightbulb, ListTree, Mic, Pause, Play, RotateCcw, Save, Settings,
+  BookOpen, Clipboard, Eye, EyeOff, Gauge, Globe2, HardDrive, Lightbulb, ListTree, Mic, Pause, Play, RotateCcw, Save, Settings,
   Pencil, Plus, ShieldCheck, Sparkles, Target, Trash2, UserRound, Volume2,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
@@ -28,6 +28,13 @@ import {
   type AiGeneratedQuestion,
   type QuestionBankArchiveEntry,
 } from "@/lib/ai-question-bank";
+import {
+  appendRuntimeLog,
+  clearRuntimeLogs,
+  filterRuntimeLogs,
+  normalizeRuntimeLogs,
+  RUNTIME_LOG_STORAGE_KEY,
+} from "@/lib/backup-core.mjs";
 
 type TrainingMode = "专业专项" | "项目答辩" | "综合模拟";
 type TechStack = "通用原理" | "HALCON" | "OpenCV" | "VisionPro" | "C#视觉开发";
@@ -53,6 +60,15 @@ type AiProviderSettings = {
 };
 type AiProviderSettingsStore = Record<string, AiProviderSettings>;
 type MasteryLevel = "低" | "中" | "高";
+type RuntimeLogLevel = "INFO" | "WARN" | "ERROR";
+type RuntimeLog = {
+  id: string;
+  timestamp: string;
+  level: RuntimeLogLevel;
+  event: string;
+  message: string;
+  context?: Record<string, unknown>;
+};
 type Question = {
   title: string; type: string; category: string; source: "专业" | "项目"; difficulty: string; tags: string[];
   keywords: string[]; followUp: string; hint: string; basis?: string; techStacks?: TechStack[];
@@ -838,7 +854,18 @@ const navItems = [
   { label: "问题树", icon: ListTree },
   { label: "温故知新", icon: BookOpenCheck },
   { label: "学习记录", icon: BarChart3 },
+  { label: "运行日志", icon: Activity },
 ];
+
+function recordRuntimeEvent(level: RuntimeLogLevel, event: string, message: string, context?: Record<string, unknown>) {
+  if (typeof window === "undefined") return;
+  try {
+    appendRuntimeLog(localStorage, { level, event, message, context });
+    window.dispatchEvent(new Event("vision-interview-runtime-log-updated"));
+  } catch {
+    // 浏览器存储不可用时不影响训练流程。
+  }
+}
 
 function formatTime(seconds: number) {
   return `${Math.floor(seconds / 60).toString().padStart(2, "0")}:${(seconds % 60).toString().padStart(2, "0")}`;
@@ -1099,6 +1126,7 @@ export default function Home() {
   function updateProjectCatalog(next: ProjectConfig[]) {
     setProjectCatalog(next);
     localStorage.setItem("vision-interview-projects", JSON.stringify(next));
+    recordRuntimeEvent("INFO", "project.catalog.saved", "项目配置已更新", { projectCount: next.length });
   }
   const availableQuestions = useMemo(() => {
     const professional = questionBank.filter((item) => item.source === "专业");
@@ -1171,6 +1199,7 @@ export default function Home() {
     const Recognition = speechWindow.SpeechRecognition || speechWindow.webkitSpeechRecognition;
     if (!Recognition) {
       setSpeechError("当前浏览器不支持语音识别，请使用最新版 Edge 或 Chrome。");
+      recordRuntimeEvent("WARN", "speech.unsupported", "当前浏览器不支持语音识别");
       return;
     }
     if (recognitionRef.current) stopRecognition();
@@ -1185,6 +1214,7 @@ export default function Home() {
     recognition.onstart = () => {
       setRecording(true);
       setSpeechError("");
+      recordRuntimeEvent("INFO", "speech.started", "语音识别已启动");
     };
     recognition.onresult = (event) => {
       const finalTranscripts: string[] = [];
@@ -1215,6 +1245,7 @@ export default function Home() {
         : event.error === "audio-capture" ? "没有检测到可用麦克风，请检查系统输入设备。"
         : event.error === "no-speech" ? "暂未识别到清晰语音，仍会继续聆听，请尽量使用短句。" : "语音识别网络暂时波动，正在尝试继续识别。";
       setSpeechError(message);
+      recordRuntimeEvent(permissionError ? "ERROR" : "WARN", "speech.error", message, { error: event.error || "unknown" });
     };
     recognition.onend = () => {
       if (speechKeepAliveRef.current && recognitionRef.current === recognition) {
@@ -1282,6 +1313,11 @@ export default function Home() {
     setPreparedGroupQuestions(null);
     setGroupPreparationSource("本地规则");
     setGroupPreparationMessage("正在优先让 AI 生成完整 10 道题目、标准回答和技术原理…");
+    recordRuntimeEvent("INFO", "question-group.prepare.started", "开始准备题组", {
+      project,
+      mode: trainingMode,
+      questionCount: groupQuestionSeed.length,
+    });
     setQuestionIndex(0);
     setAnswer("");
     setSubmitted(false);
@@ -1303,6 +1339,7 @@ export default function Home() {
           setGroupPreparationSource("缓存");
           setGroupPreparationMessage("AI 生成题组已从本机缓存恢复。进入面试前无需重新生成。");
           setPreparingGroup(false);
+          recordRuntimeEvent("INFO", "question-group.prepare.cached", "题组已从本机缓存恢复", { questionCount: cached.questions.length });
         }
         return () => { active = false; };
       }
@@ -1322,6 +1359,10 @@ export default function Home() {
       setGroupPreparationSource(result.source);
       setGroupPreparationMessage(result.message || "本题组已准备完成。 ");
       setPreparingGroup(false);
+      recordRuntimeEvent("INFO", "question-group.prepare.completed", result.message || "题组准备完成", {
+        source: result.source,
+        questionCount: result.questions.length,
+      });
       if (result.source === "AI") {
         localStorage.setItem(cacheKey, JSON.stringify({ questions: result.questions, preparedAt: new Date().toISOString() }));
       }
@@ -1331,6 +1372,9 @@ export default function Home() {
       setGroupPreparationSource("本地规则");
       setGroupPreparationMessage("AI 题组准备失败，已切换为本地题库与标准答案。");
       setPreparingGroup(false);
+      recordRuntimeEvent("ERROR", "question-group.prepare.failed", "题组预取失败，已切换为本地题库", {
+        questionCount: groupQuestionSeed.length,
+      });
     });
     return () => { active = false; };
   }, [groupPreparationKey, groupQuestionSeed, project, trainingMode, category, difficulty, techStack]);
@@ -1366,6 +1410,12 @@ export default function Home() {
 
   async function submitAnswer() {
     if (preparingGroup || evaluating || submitted) return;
+    recordRuntimeEvent("INFO", "answer.submit.started", "开始审阅回答", {
+      question: question.title,
+      mode: trainingMode,
+      project,
+      answerLength: answer.trim().length,
+    });
     const localReview = reviewAnswer(answer, question);
     const localMastery = getMasteryLevel(localReview, "answered");
     setEvaluating(true);
@@ -1391,6 +1441,12 @@ export default function Home() {
       bestAnswer, bestAnswerViewed, reviewIssues: review.issues, reviewSuggestions: review.suggestions,
       mastery, masteryUpdatedAt: now.toLocaleString("zh-CN"), masteryReason: reason, reviewSource: source,
       answerKeywords: question.keywords, principle: question.principle || getQuestionPrinciple(question, project),
+    });
+    recordRuntimeEvent("INFO", "answer.submit.completed", "回答审阅完成", {
+      question: question.title,
+      mastery,
+      reviewSource: source,
+      seconds,
     });
   }
 
@@ -1418,6 +1474,11 @@ export default function Home() {
         reviewIssues: skippedReview.issues, reviewSuggestions: skippedReview.suggestions,
         masteryReason: "跳过题目，尚未提交回答。", reviewSource: "本地规则",
         answerKeywords: question.keywords, principle: question.principle || getQuestionPrinciple(question, project),
+      });
+      recordRuntimeEvent("WARN", "answer.skipped", "当前题目已跳过", {
+        question: question.title,
+        mode: trainingMode,
+        project,
       });
     }
     if (questionIndex >= groupQuestions.length - 1) {
@@ -1449,6 +1510,7 @@ export default function Home() {
     setTrainingMode(mode); setCategory("随机类型"); setDifficulty("随机难度"); setTechStack("随机技术栈");
     setQuestionIndex(0); setAnswer(""); setSubmitted(false); setEvaluating(false); setPreparedGroupQuestions(null); setPreparingGroup(true); setShowHint(false); setShowBestAnswer(false); setBestAnswerViewed(false); setSeconds(0);
     setSessionAnswers([]); setGroupCompleted(false); setGroupRound(0);
+    recordRuntimeEvent("INFO", "training.mode.changed", "训练模式已切换", { mode });
   }
 
   return (
@@ -1518,11 +1580,12 @@ export default function Home() {
         {activeNav === "问题树" && <QuestionTree />}
         {activeNav === "温故知新" && <ReviewCenter records={records} onStart={() => setActiveNav("开始学习")} />}
         {activeNav === "学习记录" && <TrainingReport records={records} />}
+        {activeNav === "运行日志" && <RuntimeLogPage />}
         {activeNav === "设置" && <SettingsPage />}
 
         <footer className="flex min-h-11 flex-wrap items-center justify-between gap-3 border-t border-slate-200 bg-white px-5 py-2 text-xs text-slate-500">
           <span className="flex items-center gap-2"><Volume2 className="size-3.5" />麦克风正常 <i className="size-1.5 rounded-full bg-emerald-500" /></span>
-          <span className="flex items-center gap-2"><Save className="size-3.5" />训练记录自动保存在当前设备</span>
+          <span className="flex items-center gap-2"><Save className="size-3.5" />配置、学习记录和运行日志自动备份到 GitHub</span>
           <span className="flex items-center gap-2"><Clock3 className="size-3.5" />建议复习：明天</span>
         </footer>
       </SidebarInset>
@@ -1870,7 +1933,7 @@ function ProjectManagement({ project, setProject, projects: projectItems, onProj
 
   return <PageShell title="项目管理" subtitle="集中管理面试项目，开始学习会使用当前选中的项目生成答辩题。">
     <div className="mb-5 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
-      <div><div className="flex items-center gap-2"><span className="grid size-9 place-items-center rounded-lg bg-blue-600 text-white"><FolderKanban className="size-4" /></span><div><p className="text-sm font-semibold text-slate-900">我的项目</p><p className="text-xs text-slate-500">{projectItems.length} 个项目 · 仅在当前浏览器保存管理信息</p></div></div></div>
+      <div><div className="flex items-center gap-2"><span className="grid size-9 place-items-center rounded-lg bg-blue-600 text-white"><FolderKanban className="size-4" /></span><div><p className="text-sm font-semibold text-slate-900">我的项目</p><p className="text-xs text-slate-500">{projectItems.length} 个项目 · 自动备份到 GitHub</p></div></div></div>
       <Button type="button" onClick={openCreateProject} className="w-fit bg-blue-600 hover:bg-blue-700"><Plus />添加项目</Button>
     </div>
     {projectFormError && !projectDraft && <p className="mb-4 flex items-center gap-2 rounded-md border border-rose-100 bg-rose-50 px-3 py-2 text-xs text-rose-700"><CircleAlert className="size-4" />{projectFormError}</p>}
@@ -1924,6 +1987,97 @@ function ReviewCenter({ records, onStart }: { records: TrainingRecord[]; onStart
     </div>
       <aside className="panel p-5"><Sparkles className="size-6 text-blue-600" /><h2 className="mt-4 font-semibold text-slate-900">掌握程度规则</h2><p className="mt-2 text-sm leading-6 text-slate-600">跳过题目、未覆盖多个关键点或审阅发现三项以上不足，会标记为低掌握度并加入本习题集。</p><Button onClick={onStart} className="mt-5 w-full bg-blue-600 hover:bg-blue-700"><Play />开始学习</Button></aside>
     </div>
+  </PageShell>;
+}
+
+function RuntimeLogPage() {
+  const [logs, setLogs] = useState<RuntimeLog[]>([]);
+  const [level, setLevel] = useState<"ALL" | RuntimeLogLevel>("ALL");
+  const [expandedId, setExpandedId] = useState<string | null>(null);
+  const [copied, setCopied] = useState(false);
+
+  useEffect(() => {
+    const load = () => {
+      try {
+        setLogs(normalizeRuntimeLogs(JSON.parse(localStorage.getItem(RUNTIME_LOG_STORAGE_KEY) || "[]")) as RuntimeLog[]);
+      } catch {
+        setLogs([]);
+      }
+    };
+    load();
+    window.addEventListener("storage", load);
+    window.addEventListener("vision-interview-runtime-log-updated", load);
+    return () => {
+      window.removeEventListener("storage", load);
+      window.removeEventListener("vision-interview-runtime-log-updated", load);
+    };
+  }, []);
+
+  const filtered = filterRuntimeLogs(logs, level) as RuntimeLog[];
+  const counts = {
+    INFO: logs.filter((log) => log.level === "INFO").length,
+    WARN: logs.filter((log) => log.level === "WARN").length,
+    ERROR: logs.filter((log) => log.level === "ERROR").length,
+  };
+
+  async function copyLogs() {
+    await navigator.clipboard.writeText(JSON.stringify(filtered, null, 2));
+    setCopied(true);
+    window.setTimeout(() => setCopied(false), 1800);
+  }
+
+  function clearLogs() {
+    if (!window.confirm("确定清空当前设备中的运行日志吗？清空结果会在下一次备份时同步到 GitHub。")) return;
+    clearRuntimeLogs(localStorage);
+    setLogs([]);
+    setExpandedId(null);
+    window.dispatchEvent(new Event("vision-interview-runtime-log-updated"));
+  }
+
+  const levelClass: Record<RuntimeLogLevel, string> = {
+    INFO: "border-blue-200 bg-blue-50 text-blue-700",
+    WARN: "border-amber-200 bg-amber-50 text-amber-700",
+    ERROR: "border-rose-200 bg-rose-50 text-rose-700",
+  };
+
+  return <PageShell title="运行日志" subtitle="记录题组准备、回答审阅、语音识别和 GitHub 备份状态；最多保留 1000 条，不保存 API Key 或 Token。">
+    <div className="grid gap-4 sm:grid-cols-3">
+      {(["INFO", "WARN", "ERROR"] as RuntimeLogLevel[]).map((item) => <section key={item} className="panel p-4">
+        <div className="flex items-center justify-between"><Badge variant="outline" className={`rounded-md ${levelClass[item]}`}>{item}</Badge><Activity className="size-4 text-slate-400" /></div>
+        <p className="mt-4 text-2xl font-semibold text-slate-950">{counts[item]}</p><p className="mt-1 text-xs text-slate-500">当前设备记录</p>
+      </section>)}
+    </div>
+    <section className="panel mt-5 overflow-hidden">
+      <div className="flex flex-col gap-3 border-b border-slate-200 px-5 py-4 sm:flex-row sm:items-center sm:justify-between">
+        <div><h2 className="font-semibold text-slate-900">日志明细</h2><p className="mt-1 text-xs text-slate-500">共 {logs.length} 条，当前显示 {filtered.length} 条</p></div>
+        <div className="flex flex-wrap items-center gap-2">
+          <NativeSelect value={level} onChange={(event) => setLevel(event.target.value as "ALL" | RuntimeLogLevel)} className="h-9 w-32 bg-white text-xs">
+            <NativeSelectOption value="ALL">全部级别</NativeSelectOption>
+            <NativeSelectOption value="INFO">INFO</NativeSelectOption>
+            <NativeSelectOption value="WARN">WARN</NativeSelectOption>
+            <NativeSelectOption value="ERROR">ERROR</NativeSelectOption>
+          </NativeSelect>
+          <Button type="button" variant="outline" size="sm" onClick={() => void copyLogs()} disabled={!filtered.length}><Clipboard />{copied ? "已复制" : "复制"}</Button>
+          <Button type="button" variant="outline" size="sm" onClick={clearLogs} disabled={!logs.length} className="text-rose-600 hover:bg-rose-50 hover:text-rose-700"><Trash2 />清空</Button>
+        </div>
+      </div>
+      {filtered.length === 0 ? <div className="grid min-h-52 place-items-center p-8 text-center"><div><Activity className="mx-auto size-8 text-slate-300" /><p className="mt-3 text-sm font-medium text-slate-700">当前筛选条件下没有日志</p><p className="mt-1 text-xs text-slate-500">运行训练、切换模式或执行备份后会自动产生记录。</p></div></div> : <div className="divide-y divide-slate-100">
+        {filtered.map((log) => {
+          const expanded = expandedId === log.id;
+          return <div key={log.id} className="px-5 py-3">
+            <button type="button" onClick={() => setExpandedId(expanded ? null : log.id)} className="flex w-full items-start gap-3 text-left" aria-expanded={expanded}>
+              <Badge variant="outline" className={`mt-0.5 shrink-0 rounded-md ${levelClass[log.level]}`}>{log.level}</Badge>
+              <span className="min-w-0 flex-1"><span className="block text-sm font-medium text-slate-800">{log.message}</span><span className="mt-1 block truncate font-mono text-[11px] text-slate-500">{log.event}</span></span>
+              <span className="shrink-0 text-xs text-slate-400">{new Date(log.timestamp).toLocaleString("zh-CN")}</span>
+              <ChevronDown className={`mt-0.5 size-4 shrink-0 text-slate-400 transition-transform ${expanded ? "rotate-180" : ""}`} />
+            </button>
+            {expanded && <div className="ml-16 mt-3 rounded-md border border-slate-200 bg-slate-50 p-3">
+              <dl className="grid gap-2 text-xs sm:grid-cols-[80px_1fr]"><dt className="text-slate-500">事件</dt><dd className="break-all font-mono text-slate-700">{log.event}</dd><dt className="text-slate-500">时间</dt><dd className="text-slate-700">{log.timestamp}</dd>{log.context && <><dt className="text-slate-500">上下文</dt><dd><pre className="overflow-auto whitespace-pre-wrap break-all font-mono text-[11px] leading-5 text-slate-700">{JSON.stringify(log.context, null, 2)}</pre></dd></>}</dl>
+            </div>}
+          </div>;
+        })}
+      </div>}
+    </section>
   </PageShell>;
 }
 
@@ -2376,7 +2530,7 @@ function SettingsPage() {
   const settingsSections: { key: SettingsSection; title: string; description: string; icon: typeof Settings }[] = [
     { key: "model", title: "模型服务", description: "服务商、地址、密钥与模型", icon: Bot },
     { key: "training", title: "训练偏好", description: "AI 能力与学习方式", icon: BrainCircuit },
-    { key: "privacy", title: "隐私与数据", description: "本地存储与密钥安全", icon: ShieldCheck },
+    { key: "privacy", title: "隐私与数据", description: "GitHub 备份与密钥安全", icon: ShieldCheck },
     { key: "about", title: "关于应用", description: "版本与使用说明", icon: FileText },
   ];
 
@@ -2460,7 +2614,7 @@ function SettingsPage() {
         </section>}
 
         {settingsSection === "training" && <section className="panel overflow-hidden">
-          <div className="border-b border-slate-200 px-5 py-4"><h2 className="font-semibold text-slate-900">启用的 AI 能力</h2><p className="mt-1 text-xs text-slate-500">这些开关保存为当前设备的训练偏好，不包含任何密钥。</p></div>
+          <div className="border-b border-slate-200 px-5 py-4"><h2 className="font-semibold text-slate-900">启用的 AI 能力</h2><p className="mt-1 text-xs text-slate-500">这些开关会随配置备份到 GitHub，但不包含任何密钥。</p></div>
           <div className="divide-y divide-slate-100">
             {features.map((feature) => <label key={feature.key} className="flex cursor-pointer items-center gap-4 px-5 py-4">
               <span className="min-w-0 flex-1"><strong className="block text-sm font-medium text-slate-800">{feature.title}</strong><span className="mt-1 block text-xs leading-5 text-slate-500">{feature.description}</span></span>
@@ -2470,9 +2624,9 @@ function SettingsPage() {
         </section>}
 
         {settingsSection === "privacy" && <section className="panel overflow-hidden">
-          <div className="border-b border-slate-200 px-5 py-4"><h2 className="font-semibold text-slate-900">隐私与数据</h2><p className="mt-1 text-xs text-slate-500">了解网页保存什么、AI 能读取什么，以及如何控制本地数据。</p></div>
+          <div className="border-b border-slate-200 px-5 py-4"><h2 className="font-semibold text-slate-900">隐私与数据</h2><p className="mt-1 text-xs text-slate-500">了解网页保存什么、GitHub 备份什么，以及哪些敏感内容不会离开浏览器。</p></div>
           <div className="divide-y divide-slate-100">
-            <div className="flex gap-4 px-5 py-5"><span className="grid size-9 shrink-0 place-items-center rounded-md bg-emerald-50 text-emerald-600"><HardDrive className="size-4" /></span><div><h3 className="text-sm font-semibold text-slate-800">浏览器本地数据</h3><p className="mt-1 text-sm leading-6 text-slate-600">项目配置、学习记录和题组缓存保存在当前浏览器，不会自动上传到网站。</p></div></div>
+            <div className="flex gap-4 px-5 py-5"><span className="grid size-9 shrink-0 place-items-center rounded-md bg-emerald-50 text-emerald-600"><HardDrive className="size-4" /></span><div><h3 className="text-sm font-semibold text-slate-800">配置与运行数据</h3><p className="mt-1 text-sm leading-6 text-slate-600">项目配置、学习记录、训练偏好和运行日志先保存在当前浏览器，变化后自动备份到 GitHub；网站启动时优先加载 GitHub 存档。</p></div></div>
             <div className="flex gap-4 px-5 py-5"><span className="grid size-9 shrink-0 place-items-center rounded-md bg-amber-50 text-amber-600"><ShieldCheck className="size-4" /></span><div><h3 className="text-sm font-semibold text-slate-800">密钥与 AI 请求</h3><p className="mt-1 text-sm leading-6 text-slate-600">API Key 只保存在当前会话；AI 请求通过网站后端转发，不会写入学习记录或项目配置。</p></div></div>
           </div>
         </section>}

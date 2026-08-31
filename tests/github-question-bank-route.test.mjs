@@ -53,7 +53,6 @@ test("question bank sync degrades safely when GitHub token is absent", async () 
     else process.env.VISION_INTERVIEW_GITHUB_TOKEN = previous;
   }
 });
-
 test("question bank sync creates the GitHub archive through the contents API", async () => {
   const route = await vite.ssrLoadModule("/app/api/question-bank/sync/route.ts");
   const previousToken = process.env.VISION_INTERVIEW_GITHUB_TOKEN;

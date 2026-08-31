@@ -41,7 +41,6 @@ export type QuestionBankArchiveMetadata = {
 function cleanString(value: unknown) {
   return typeof value === "string" ? value.trim().replace(/\s+/g, " ") : "";
 }
-
 function cleanText(value: unknown) {
   return typeof value === "string" ? value.trim() : "";
 }

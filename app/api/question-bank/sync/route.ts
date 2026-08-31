@@ -14,7 +14,6 @@ function encodeBase64Utf8(value: string) {
   }
   return btoa(binary);
 }
-
 function decodeBase64Utf8(value: string) {
   const binary = atob(value.replace(/\s+/g, ""));
   const bytes = new Uint8Array(binary.length);

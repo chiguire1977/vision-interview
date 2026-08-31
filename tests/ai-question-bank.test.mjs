@@ -44,7 +44,6 @@ test("normalizes and deduplicates AI generated questions", () => {
   assert.equal(result[0].title, "Why subtract the NCC mean?");
   assert.equal(result[1].difficulty, "hard");
 });
-
 test("fills only the missing slots with local fallback", () => {
   const ai = Array.from({ length: 7 }, (_, i) => generated(`AI-${i + 1}`));
   const fallback = Array.from({ length: 10 }, (_, i) => generated(`LOCAL-${i + 1}`));
