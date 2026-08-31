@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-08-31T11:08:56.176Z",
+  "updatedAt": "2026-08-31T11:09:55.102Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1402,6 +1402,76 @@
     },
     "vision-interview-project-view": "card",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788174598539-vvy0338l",
+        "timestamp": "2026-08-31T11:09:58.539Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788174221322-o6ij9hv5",
+        "event": "question-bank.ai-request.started",
+        "message": "第 6/6 轮：正在请求 AI 生成题目…",
+        "context": {
+          "attempt": 6,
+          "maxAttempts": 6,
+          "collectedCount": 0
+        }
+      },
+      {
+        "id": "1788174598536-i9cygc0w",
+        "timestamp": "2026-08-31T11:09:58.536Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788174221322-o6ij9hv5",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 6,
+          "query": "机器视觉 面试知识点 HALCON 原理 工程实践",
+          "sourceCount": 0
+        }
+      },
+      {
+        "id": "1788174598061-9qg34qmz",
+        "timestamp": "2026-08-31T11:09:58.061Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788174221322-o6ij9hv5",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 6,
+          "query": "机器视觉 面试知识点 HALCON 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 0
+        }
+      },
+      {
+        "id": "1788174598058-d3hmuwtv",
+        "timestamp": "2026-08-31T11:09:58.058Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788174221322-o6ij9hv5",
+        "event": "question-bank.attempt.failed",
+        "message": "第 5/6 轮：本轮请求失败：AI 请求超时，请稍后重试。，准备下一轮…",
+        "context": {
+          "attempt": 5,
+          "maxAttempts": 6,
+          "collectedCount": 0,
+          "error": "AI 请求超时，请稍后重试。"
+        }
+      },
+      {
+        "id": "1788174544487-yuh0vg3n",
+        "timestamp": "2026-08-31T11:09:04.487Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "2cdc802d6a19"
+        }
+      },
       {
         "id": "1788174541325-dkk9en4n",
         "timestamp": "2026-08-31T11:09:01.325Z",
@@ -14512,65 +14582,6 @@
           "reason": "change",
           "commit": "b57c98245af8"
         }
-      },
-      {
-        "id": "1788161426109-jr1s375r",
-        "timestamp": "2026-08-31T07:30:26.109Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788161213022-bbhn6euc",
-        "event": "question-bank.cache.saved",
-        "message": "已缓存到远程题库",
-        "context": {
-          "questionCount": 3,
-          "pendingCount": 0
-        }
-      },
-      {
-        "id": "1788161413890-xb2an5ox",
-        "timestamp": "2026-08-31T07:30:13.890Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "a047d72765ff"
-        }
-      },
-      {
-        "id": "1788161405918-6ggh91su",
-        "timestamp": "2026-08-31T07:30:05.918Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788161213022-bbhn6euc",
-        "event": "question-group.prepare.started",
-        "message": "开始准备题组",
-        "context": {
-          "project": "轮胎字符深度 OCR",
-          "mode": "专业知识",
-          "questionCount": 3
-        }
-      },
-      {
-        "id": "1788161396403-3qck4szz",
-        "timestamp": "2026-08-31T07:29:56.403Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "dc3e29527587"
-        }
-      },
-      {
-        "id": "1788161391657-870cl1mf",
-        "timestamp": "2026-08-31T07:29:51.657Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.close.flush",
-        "message": "页面关闭或进入后台，提交最后一次备份"
       }
     ]
   }
