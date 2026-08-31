@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-31T07:30:22.712Z",
+  "updatedAt": "2026-08-31T07:30:46.998Z",
   "questions": [
     {
       "title": "在轮胎字符深度OCR项目中，HALCON的深度OCR模型相比传统OCR在抗磨损和倾斜方面有哪些本质优势？",
@@ -4478,6 +4478,361 @@
       "categoryFilter": "随机类型",
       "difficultyFilter": "随机难度",
       "techStackFilter": "通用原理"
+    },
+    {
+      "title": "在HALCON中，如何通过调整参数来优化一个边缘检测算子的鲁棒性？请以Canny算子为例说明。",
+      "type": "算法原理",
+      "category": "边缘检测",
+      "source": "专业",
+      "difficulty": "中等",
+      "tags": [
+        "HALCON",
+        "Canny",
+        "参数调优",
+        "鲁棒性"
+      ],
+      "keywords": [
+        "高斯滤波标准差",
+        "滞后阈值",
+        "边缘连接",
+        "噪声抑制"
+      ],
+      "followUp": "如果图像光照不均匀，你会如何调整Canny参数？",
+      "hint": "从Canny算子的三个主要参数（Sigma、高阈值、低阈值）入手，解释每个参数对边缘检测结果的影响，并说明如何根据噪声和光照条件调整。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "bestAnswer": "在HALCON中，Canny边缘检测通过edges_sub_pix实现，关键参数包括Sigma（高斯滤波标准差）、High和Low（滞后阈值）。Sigma控制平滑程度，增大Sigma可抑制噪声但会模糊细节，通常设为1-2。High和Low决定边缘的灵敏度，High用于确定强边缘起始点，Low用于连接弱边缘。为提升鲁棒性，可先使用median_image预处理去除椒盐噪声，再根据图像灰度直方图自适应设置阈值，例如通过gray_histo获取峰值。此外，可结合scale_image调整对比度，使边缘更清晰。",
+      "principle": "Canny算子通过高斯滤波去噪，计算梯度幅值和方向，应用非极大值抑制细化边缘，最后用双阈值（High和Low）连接边缘。Sigma影响高斯核大小，决定去噪强度；阈值影响边缘的连续性，High过低会引入噪声，Low过高会断裂边缘。",
+      "id": "aiq-4cfb9eba",
+      "generatedAt": "2026-08-31T07:30:43.139Z",
+      "provider": "deepseek",
+      "model": "deepseek-v4-flash",
+      "project": "轮胎字符深度 OCR",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "HALCON"
+    },
+    {
+      "title": "在HALCON中，如何使用形状匹配（shape-based matching）实现旋转不变的目标定位？请说明关键步骤和参数。",
+      "type": "算法原理",
+      "category": "模板匹配",
+      "source": "专业",
+      "difficulty": "中等",
+      "tags": [
+        "HALCON",
+        "形状匹配",
+        "旋转不变",
+        "金字塔"
+      ],
+      "keywords": [
+        "create_shape_model",
+        "AngleStart",
+        "AngleExtent",
+        "金字塔层级",
+        "min_contour"
+      ],
+      "followUp": "如果目标在图像中尺度变化较大，你会如何调整匹配策略？",
+      "hint": "重点说明create_shape_model和find_shape_model的参数设置，特别是角度范围和金字塔层数对旋转不变性的影响。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "bestAnswer": "在HALCON中，实现旋转不变匹配需使用create_shape_model创建模板，设置AngleStart和AngleExtent定义角度搜索范围（如-180°到180°），并指定NumLevels金字塔层数（通常4-6）以加速搜索。find_shape_model时，设置AngleStart和AngleExtent与模板一致，并调整MinScore和Greediness平衡速度和精度。为增强鲁棒性，可设置MinContrast忽略低对比度区域。若尺度变化，需使用create_scaled_shape_model或create_aniso_shape_model，设置ScaleMin和ScaleMax。",
+      "principle": "形状匹配基于边缘点集的相似度，通过图像金字塔逐层搜索，利用梯度方向直方图加速。旋转不变性通过角度参数实现，匹配时在角度范围内旋转模板，计算相似度得分。金字塔层级减少计算量，但过高层级可能丢失细节。",
+      "id": "aiq-864b1b56",
+      "generatedAt": "2026-08-31T07:30:43.139Z",
+      "provider": "deepseek",
+      "model": "deepseek-v4-flash",
+      "project": "轮胎字符深度 OCR",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "HALCON"
+    },
+    {
+      "title": "在HALCON中，当图像出现运动模糊时，你会如何恢复图像清晰度？请给出处理流程。",
+      "type": "现场故障",
+      "category": "图像复原",
+      "source": "专业",
+      "difficulty": "困难",
+      "tags": [
+        "HALCON",
+        "运动模糊",
+        "去模糊",
+        "维纳滤波"
+      ],
+      "keywords": [
+        "估计模糊核",
+        "deconvolution",
+        "维纳滤波",
+        "盲去卷积"
+      ],
+      "followUp": "如果模糊方向未知，你会如何估计？",
+      "hint": "从模糊核估计和反卷积两个步骤回答，可提到HALCON中的fft_image和deconvolution算子。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "bestAnswer": "处理运动模糊，首先需估计模糊核（点扩散函数）。若模糊方向已知，可通过radon变换或频谱分析（fft_image）检测暗线确定角度和长度。然后使用deconvolution算子（如deconvolution_wiener）进行维纳滤波，设置信噪比参数。若方向未知，可采用盲去卷积，如使用estimate_noise估计噪声，再迭代优化。HALCON中可结合gen_psf生成PSF，然后调用deconvolution_regularized。最后用emphasize或shock_filter增强边缘。",
+      "principle": "运动模糊是图像与PSF的卷积结果，去模糊需逆卷积。维纳滤波在频域中通过最小化均方误差，加入噪声项防止放大噪声。盲去卷积则同时估计PSF和清晰图像，迭代优化。",
+      "id": "aiq-62791793",
+      "generatedAt": "2026-08-31T07:30:43.139Z",
+      "provider": "deepseek",
+      "model": "deepseek-v4-flash",
+      "project": "轮胎字符深度 OCR",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "HALCON"
+    },
+    {
+      "title": "在HALCON中，如何区分图像中的缺陷是划痕还是污渍？请设计一个检测方案。",
+      "type": "工程实践",
+      "category": "缺陷检测",
+      "source": "专业",
+      "difficulty": "中等",
+      "tags": [
+        "HALCON",
+        "缺陷检测",
+        "划痕",
+        "污渍",
+        "特征提取"
+      ],
+      "keywords": [
+        "形态学",
+        "灰度特征",
+        "形状特征",
+        "分类器"
+      ],
+      "followUp": "如果缺陷形状不规则，你会如何增强特征？",
+      "hint": "从图像预处理、缺陷分割、特征提取和分类四个步骤回答。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "bestAnswer": "首先用高斯滤波或中值滤波去噪，然后通过阈值分割（如threshold或dyn_threshold）提取缺陷区域。划痕通常具有细长形状，污渍多为块状，因此可提取形状特征：划痕的elongation（长宽比）高，而污渍的area和roundness较大。使用select_shape根据长宽比（如>3）筛选划痕。灰度特征上，划痕灰度变化剧烈，污渍较均匀。最后可用MLP或SVM分类器（如create_class_mlp）基于特征向量分类。",
+      "principle": "划痕和污渍在形状和灰度分布上存在差异。划痕具有方向性和高长宽比，污渍则更圆润。通过形态学特征和灰度统计可区分，分类器能融合多特征提高准确率。",
+      "id": "aiq-1f6839b1",
+      "generatedAt": "2026-08-31T07:30:43.139Z",
+      "provider": "deepseek",
+      "model": "deepseek-v4-flash",
+      "project": "轮胎字符深度 OCR",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "HALCON"
+    },
+    {
+      "title": "在HALCON中，如何标定相机以获得准确的像素尺寸测量？请说明标定板的选择和标定流程。",
+      "type": "工程实践",
+      "category": "相机标定",
+      "source": "专业",
+      "difficulty": "中等",
+      "tags": [
+        "HALCON",
+        "相机标定",
+        "标定板",
+        "畸变校正"
+      ],
+      "keywords": [
+        "标定板",
+        "calibrate_cameras",
+        "内参",
+        "外参",
+        "畸变系数"
+      ],
+      "followUp": "如果标定板图像数量不足，会有什么影响？",
+      "hint": "从标定板类型、图像采集要求、标定算子和结果应用四个方面回答。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "bestAnswer": "选择高精度陶瓷或玻璃标定板，如HALCON标准标定板，需已知格距。采集15-20张不同角度和位置的标定板图像，确保覆盖视场。使用find_calib_object自动提取角点，然后调用calibrate_cameras计算内参（焦距、主点、畸变系数）和外参。标定后可用change_radial_distortion_image校正图像，或通过image_to_world_plane将像素坐标转换为世界坐标，实现测量。",
+      "principle": "标定基于针孔模型和畸变模型，通过多张图像对应点求解相机参数。内参描述相机光学特性，外参描述相机位姿。畸变系数校正径向和切向畸变，提高测量精度。",
+      "id": "aiq-06e3dd82",
+      "generatedAt": "2026-08-31T07:30:43.139Z",
+      "provider": "deepseek",
+      "model": "deepseek-v4-flash",
+      "project": "轮胎字符深度 OCR",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "HALCON"
+    },
+    {
+      "title": "在HALCON中，当模板匹配在复杂背景下出现误匹配时，你会如何提高匹配精度？",
+      "type": "现场故障",
+      "category": "模板匹配",
+      "source": "专业",
+      "difficulty": "中等",
+      "tags": [
+        "HALCON",
+        "模板匹配",
+        "误匹配",
+        "鲁棒性"
+      ],
+      "keywords": [
+        "ROI",
+        "特征选择",
+        "Greediness",
+        "金字塔",
+        "掩膜"
+      ],
+      "followUp": "如果目标存在遮挡，你会如何处理？",
+      "hint": "从模板创建、搜索参数和预处理三个方面回答。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "bestAnswer": "首先在创建模板时，使用ROI限定目标区域，避免背景干扰，并设置MinContrast忽略低对比度背景。在find_shape_model中，提高MinScore（如0.8）和降低Greediness（如0.7）以增加搜索精度，但会降低速度。若背景复杂，可创建多个模板或使用create_generic_shape_model。预处理阶段，可用reduce_domain限制搜索区域，或使用gray_erosion等增强目标特征。",
+      "principle": "误匹配源于模板与背景相似度过高。通过减少搜索区域、提高得分阈值或降低贪婪度，可过滤低质量匹配。金字塔层级影响搜索粒度，适当降低层级可提高定位精度。",
+      "id": "aiq-e058883c",
+      "generatedAt": "2026-08-31T07:30:43.139Z",
+      "provider": "deepseek",
+      "model": "deepseek-v4-flash",
+      "project": "轮胎字符深度 OCR",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "HALCON"
+    },
+    {
+      "title": "在HALCON中，如何实现多相机系统的图像拼接？请说明关键步骤。",
+      "type": "工程实践",
+      "category": "图像拼接",
+      "source": "专业",
+      "difficulty": "困难",
+      "tags": [
+        "HALCON",
+        "图像拼接",
+        "多相机",
+        "配准",
+        "融合"
+      ],
+      "keywords": [
+        "特征点匹配",
+        "proj_match_points_ransac",
+        "投影变换",
+        "图像融合"
+      ],
+      "followUp": "如果相机之间存在光照差异，你会如何处理？",
+      "hint": "从特征提取、变换估计和图像融合三个方面回答。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "bestAnswer": "首先用特征点检测（如points_foerstner）提取特征，然后用proj_match_points_ransac进行特征匹配并估计投影变换矩阵。通过gen_projective_mosaic将多幅图像投影到同一坐标系，生成拼接图像。若光照差异大，可先进行直方图均衡化或使用gain_offset校正。最后用blend或multiband融合消除接缝。",
+      "principle": "图像拼接基于特征点匹配估计单应性矩阵，将图像映射到公共平面。RANSAC算法剔除误匹配，提高变换估计鲁棒性。融合算法通过加权平均或金字塔融合减少接缝可见性。",
+      "id": "aiq-ec481b8e",
+      "generatedAt": "2026-08-31T07:30:43.139Z",
+      "provider": "deepseek",
+      "model": "deepseek-v4-flash",
+      "project": "轮胎字符深度 OCR",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "HALCON"
+    },
+    {
+      "title": "在HALCON中，如何检测图像中的圆并测量其半径？请说明可能影响精度的因素。",
+      "type": "算法原理",
+      "category": "几何测量",
+      "source": "专业",
+      "difficulty": "基础",
+      "tags": [
+        "HALCON",
+        "圆检测",
+        "测量",
+        "亚像素"
+      ],
+      "keywords": [
+        "threshold",
+        "边缘提取",
+        "fit_circle_contour_xld",
+        "亚像素精度"
+      ],
+      "followUp": "如果圆有缺陷，如何避免测量偏差？",
+      "hint": "从分割、边缘提取和拟合三个步骤回答，并讨论精度影响因素。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "bestAnswer": "首先通过threshold或dyn_threshold分割出圆区域，然后用boundary提取边缘，转换为XLD轮廓。使用fit_circle_contour_xld拟合圆，得到圆心和半径。精度受图像分辨率、光照均匀性、边缘清晰度影响。为提高精度，可使用亚像素边缘提取（edges_sub_pix），并设置合适的Sigma平滑噪声。若圆有缺陷，可先用select_shape_xld排除异常轮廓，或使用robust拟合算法（如huber权重）。",
+      "principle": "圆拟合基于最小二乘法，通过最小化边缘点到拟合圆的距离平方和。亚像素边缘提取通过插值提高定位精度。噪声和缺陷会引入离群点，鲁棒拟合可降低其影响。",
+      "id": "aiq-423edc0f",
+      "generatedAt": "2026-08-31T07:30:43.139Z",
+      "provider": "deepseek",
+      "model": "deepseek-v4-flash",
+      "project": "轮胎字符深度 OCR",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "HALCON"
+    },
+    {
+      "title": "在HALCON中，如何对实时视频流进行缺陷检测并保证实时性？请给出优化策略。",
+      "type": "工程实践",
+      "category": "性能优化",
+      "source": "专业",
+      "difficulty": "中等",
+      "tags": [
+        "HALCON",
+        "实时性",
+        "缺陷检测",
+        "优化"
+      ],
+      "keywords": [
+        "ROI",
+        "金字塔",
+        "并行处理",
+        "算子选择"
+      ],
+      "followUp": "如果检测速度仍不达标，你会如何进一步优化？",
+      "hint": "从算法层面和系统层面回答，包括减少计算量、使用GPU加速等。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "bestAnswer": "首先通过ROI限制检测区域，减少处理像素。使用图像金字塔或降低分辨率进行粗检测，再在ROI内细检。选择高效算子，如使用fast_threshold代替threshold，或使用reduce_domain。在系统层面，可利用HALCON的并行处理（如par_start）或GPU加速（如open_compute_device）。此外，可优化代码逻辑，避免重复计算，如缓存中间结果。",
+      "principle": "实时性依赖于计算量。ROI和金字塔减少数据量，并行处理利用多核，GPU加速利用并行计算能力。算子选择影响算法复杂度，如快速阈值比自适应阈值更快。",
+      "id": "aiq-34ae271f",
+      "generatedAt": "2026-08-31T07:30:43.139Z",
+      "provider": "deepseek",
+      "model": "deepseek-v4-flash",
+      "project": "轮胎字符深度 OCR",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "HALCON"
+    },
+    {
+      "title": "在HALCON中，如何通过图像处理提取焊点区域并检测其面积？请描述处理流程。",
+      "type": "工程实践",
+      "category": "图像分割",
+      "source": "专业",
+      "difficulty": "中等",
+      "tags": [
+        "HALCON",
+        "焊点检测",
+        "图像分割",
+        "面积测量"
+      ],
+      "keywords": [
+        "阈值分割",
+        "形态学",
+        "连通域",
+        "特征提取"
+      ],
+      "followUp": "如果焊点与背景灰度相似，你会如何改进分割？",
+      "hint": "从预处理、分割、后处理和测量四个步骤回答。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "bestAnswer": "首先使用median_image或高斯滤波去噪，然后通过threshold或dyn_threshold分割焊点区域。若背景复杂，可使用texture_laws或频域滤波增强焊点特征。分割后，用connection获取连通域，通过select_shape根据面积、圆度等特征筛选焊点。最后用area_center计算面积和中心。若灰度相似，可改用边缘检测（如edges_sub_pix）结合形态学闭合形成闭合区域。",
+      "principle": "焊点分割依赖于灰度差异，阈值分割简单快速。形态学操作可去除噪声和填充空洞。特征筛选基于焊点的几何属性，面积测量通过像素计数换算。",
+      "id": "aiq-1018fbe5",
+      "generatedAt": "2026-08-31T07:30:43.139Z",
+      "provider": "deepseek",
+      "model": "deepseek-v4-flash",
+      "project": "轮胎字符深度 OCR",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "HALCON"
     }
   ]
 }
