@@ -96,7 +96,7 @@ actions tied to the current ChatGPT user. Leave public content anonymous.
 
 ## GitHub Backups
 
-AI-generated interview questions are queued in the browser and can be merged into `data/ai-question-bank.json` through the server-side sync route. To enable automatic GitHub writes, configure a fine-grained token with Contents read/write permission for this repository:
+AI-generated interview questions are placed in a local pending queue first and, before the generated group is shown, are sent through the server-side sync route to `data/ai-question-bank.json`. To enable GitHub writes, configure a fine-grained token with Contents read/write permission for this repository:
 
 - `VISION_INTERVIEW_GITHUB_TOKEN`: required for automatic GitHub backup
 - `VISION_INTERVIEW_GITHUB_REPOSITORY`: optional, defaults to `chiguire1977/vision-interview`
@@ -105,7 +105,7 @@ AI-generated interview questions are queued in the browser and can be merged int
 
 Do not expose the GitHub token to browser code. Without a server-side token, generated questions remain in the local pending-backup queue and training continues normally.
 
-The same `VISION_INTERVIEW_GITHUB_TOKEN` also backs up approved browser state to `data/vision-interview-data.json`: project configuration, learning records, AI preferences (without keys), project view, and the newest 1000 runtime log entries. The app loads that archive before rendering and sends a final best-effort update when the page is hidden or closed. `GITHUB_BACKUP_TOKEN` remains supported as a runtime-backup-only fallback.
+The same `VISION_INTERVIEW_GITHUB_TOKEN` also backs up approved browser state to `data/vision-interview-data.json`: project configuration, AI preferences (without keys), project view, and the newest 1000 runtime log entries. The app loads learning records and this archive before rendering; learning records are uploaded as a complete collection from the “学习记录” page with the “上传到 GitHub” button. The app sends a final best-effort update for the automatically backed-up configuration and logs when the page is hidden or closed. `GITHUB_BACKUP_TOKEN` remains supported as a runtime-backup-only fallback.
 
 ## Diagnostic Commands
 

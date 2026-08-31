@@ -4,6 +4,7 @@ import type { ReactNode } from "react";
 import { useEffect, useRef, useState } from "react";
 import {
   appendRuntimeLog,
+  createAutoBackupSnapshot,
   createCloseBackupPayload,
   mergeBackupData,
   readBackupFromStorage,
@@ -12,6 +13,7 @@ import {
 
 const LAST_SYNC_KEY = "vision-interview-last-sync";
 const LAST_SYNC_SNAPSHOT_KEY = "vision-interview-last-sync-snapshot";
+const RECORDS_UPLOADED_SNAPSHOT_KEY = "vision-interview-records-uploaded-snapshot";
 const CLOSE_DEFERRED_KEY = "vision-interview-close-backup-deferred";
 const DEBOUNCE_MS = 2_000;
 const POLL_MS = 1_000;
@@ -20,7 +22,7 @@ const STARTUP_TIMEOUT_MS = 8_000;
 type Status = "loading" | "saving" | "saved" | "offline" | "error";
 
 function snapshotLocal() {
-  return JSON.stringify(readBackupFromStorage(localStorage));
+  return JSON.stringify(createAutoBackupSnapshot(readBackupFromStorage(localStorage)));
 }
 
 function recordLog(level: "INFO" | "WARN" | "ERROR", event: string, message: string, context?: Record<string, unknown>) {
@@ -48,16 +50,23 @@ export function BackupSync({ children }: { children: ReactNode }) {
 
     (async () => {
       const local = readBackupFromStorage(localStorage);
-      const localSnapshot = JSON.stringify(local);
+      const localAutoSnapshot = JSON.stringify(createAutoBackupSnapshot(local));
+      const localRecordsSnapshot = JSON.stringify(local["vision-interview-records"] ?? []);
       let lastSyncedSnapshot = "";
+      let lastUploadedRecordsSnapshot = "";
       try {
         lastSyncedSnapshot = localStorage.getItem(LAST_SYNC_SNAPSHOT_KEY) || "";
+        lastUploadedRecordsSnapshot = localStorage.getItem(RECORDS_UPLOADED_SNAPSHOT_KEY) || "";
       } catch {
         lastSyncedSnapshot = "";
+        lastUploadedRecordsSnapshot = "";
       }
       const localDirty = lastSyncedSnapshot
-        ? lastSyncedSnapshot !== localSnapshot
-        : Object.keys(local).length > 0;
+        ? lastSyncedSnapshot !== localAutoSnapshot
+        : Object.keys(createAutoBackupSnapshot(local)).length > 0;
+      const recordsDirty = lastUploadedRecordsSnapshot
+        ? lastUploadedRecordsSnapshot !== localRecordsSnapshot
+        : Array.isArray(local["vision-interview-records"]) && local["vision-interview-records"].length > 0;
       const controller = new AbortController();
       const timeout = window.setTimeout(() => controller.abort(), STARTUP_TIMEOUT_MS);
       try {
@@ -72,7 +81,7 @@ export function BackupSync({ children }: { children: ReactNode }) {
         if (cancelled) return;
 
         if (!response.ok || !body.ok || !body.available) {
-          lastSent.current = localSnapshot;
+          lastSent.current = localAutoSnapshot;
           setStatus("offline");
           setDetail(body.reason || "GitHub 配置暂不可用，继续使用本地数据");
           recordLog("WARN", "backup.startup.offline", "启动时未能读取 GitHub 配置", {
@@ -83,13 +92,18 @@ export function BackupSync({ children }: { children: ReactNode }) {
         }
 
         const merged = mergeBackupData(local, body.data ?? {}, {
-          preferLocal: localDirty,
+          preferLocal: localDirty || recordsDirty,
           authoritativeCollections: localDirty,
         });
         writeBackupToStorage(localStorage, merged);
-        lastSent.current = localDirty ? JSON.stringify(body.data ?? {}) : JSON.stringify(merged);
+        lastSent.current = JSON.stringify(createAutoBackupSnapshot(localDirty ? body.data ?? {} : merged));
         if (!localDirty) {
-          try { localStorage.setItem(LAST_SYNC_SNAPSHOT_KEY, JSON.stringify(merged)); } catch { /* 本地存储不可用 */ }
+          try { localStorage.setItem(LAST_SYNC_SNAPSHOT_KEY, lastSent.current); } catch { /* 本地存储不可用 */ }
+        }
+        if (!recordsDirty) {
+          try {
+            localStorage.setItem(RECORDS_UPLOADED_SNAPSHOT_KEY, JSON.stringify(merged["vision-interview-records"] ?? []));
+          } catch { /* 本地存储不可用 */ }
         }
         setStatus("saved");
         setDetail(body.updatedAt
@@ -110,7 +124,7 @@ export function BackupSync({ children }: { children: ReactNode }) {
         } catch { /* 本地存储不可用 */ }
       } catch (error) {
         if (cancelled) return;
-        lastSent.current = localSnapshot;
+        lastSent.current = localAutoSnapshot;
         setStatus("offline");
         setDetail(error instanceof DOMException && error.name === "AbortError"
           ? "GitHub 配置读取超时，继续使用本地数据"
@@ -147,7 +161,7 @@ export function BackupSync({ children }: { children: ReactNode }) {
           body: JSON.stringify({
             data: JSON.parse(snapshot),
             merge: true,
-            replaceKeys: ["vision-interview-projects", "vision-interview-records"],
+            replaceKeys: ["vision-interview-projects"],
           }),
         });
         const body = await response.json() as {
@@ -286,7 +300,7 @@ export function BackupSync({ children }: { children: ReactNode }) {
     loading: "读取配置…",
     saving: "备份中…",
     saved: "GitHub 已备份",
-    offline: "仅本地",
+    offline: "仅本地保存",
     error: "备份异常",
   };
 

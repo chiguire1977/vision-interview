@@ -5,6 +5,8 @@ import {
   appendRuntimeLog,
   clearRuntimeLogs,
   createCloseBackupPayload,
+  createAutoBackupSnapshot,
+  createRecordsUploadPayload,
   filterRuntimeLogs,
   mergeBackupData,
   readBackupFromGitHub,
@@ -28,6 +30,43 @@ function createStorage(initial = {}) {
     },
   };
 }
+
+test("createAutoBackupSnapshot excludes learning records but keeps configuration and logs", () => {
+  const snapshot = createAutoBackupSnapshot({
+    "vision-interview-records": [{ id: "record-1" }],
+    "vision-interview-project-view": "grid",
+    "vision-interview-runtime-logs": [{
+      id: "log-1",
+      timestamp: "2026-08-31T00:00:00.000Z",
+      level: "INFO",
+      event: "app.start",
+      message: "启动",
+    }],
+  });
+
+  assert.deepEqual(snapshot, {
+    "vision-interview-project-view": "grid",
+    "vision-interview-runtime-logs": [{
+      id: "log-1",
+      timestamp: "2026-08-31T00:00:00.000Z",
+      level: "INFO",
+      event: "app.start",
+      message: "启动",
+    }],
+  });
+});
+
+test("createRecordsUploadPayload uploads the complete sanitized record collection", () => {
+  const payload = createRecordsUploadPayload([
+    { id: "record-1", question: "Q1", answer: "A1", apiKey: "discard" },
+  ]);
+
+  assert.deepEqual(payload, {
+    data: { "vision-interview-records": [{ id: "record-1", question: "Q1", answer: "A1" }] },
+    merge: true,
+    replaceKeys: ["vision-interview-records"],
+  });
+});
 
 test("sanitizeBackupData keeps approved data and removes nested credentials", () => {
   const result = sanitizeBackupData({
