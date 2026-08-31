@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-08-31T03:30:05.553Z",
+  "updatedAt": "2026-08-31T03:32:24.236Z",
   "data": {
     "vision-interview-ai-preferences": {
       "provider": "deepseek",
@@ -34,11 +34,65 @@
     },
     "vision-interview-runtime-logs": [
       {
+        "id": "1788147078282-chnsd33h",
+        "timestamp": "2026-08-31T03:31:18.282Z",
+        "level": "ERROR",
+        "event": "backup.push.failed",
+        "message": "运行数据备份请求失败",
+        "context": {
+          "error": "Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON"
+        }
+      },
+      {
+        "id": "1788147074597-t1vvepgf",
+        "timestamp": "2026-08-31T03:31:14.597Z",
+        "level": "INFO",
+        "event": "question-group.prepare.completed",
+        "message": "AI 两次生成均未获得有效题目，已使用本地题库与标准答案。",
+        "context": {
+          "source": "本地规则",
+          "questionCount": 10
+        }
+      },
+      {
+        "id": "1788147074110-ospir6x7",
+        "timestamp": "2026-08-31T03:31:14.110Z",
+        "level": "INFO",
+        "event": "question-group.prepare.started",
+        "message": "开始准备题组",
+        "context": {
+          "project": "轮胎字符深度 OCR",
+          "mode": "专业知识",
+          "questionCount": 10
+        }
+      },
+      {
+        "id": "1788147074082-tvk4cz0f",
+        "timestamp": "2026-08-31T03:31:14.082Z",
+        "level": "INFO",
+        "event": "backup.startup.loaded",
+        "message": "启动配置加载完成",
+        "context": {
+          "source": "github",
+          "updatedAt": "2026-08-31T03:30:05.553Z"
+        }
+      },
+      {
         "id": "1788147000473-bkigke78",
         "timestamp": "2026-08-31T03:30:00.473Z",
         "level": "INFO",
         "event": "backup.close.flush",
         "message": "页面关闭或进入后台，提交最后一次备份"
+      },
+      {
+        "id": "1788146998091-qjcoadf2",
+        "timestamp": "2026-08-31T03:29:58.091Z",
+        "level": "ERROR",
+        "event": "backup.startup.failed",
+        "message": "启动配置加载失败",
+        "context": {
+          "error": "Failed to fetch"
+        }
       },
       {
         "id": "1788146947868-p3u9f869",
@@ -85,6 +139,23 @@
         "level": "INFO",
         "event": "backup.close.flush",
         "message": "页面关闭或进入后台，提交最后一次备份"
+      },
+      {
+        "id": "1788146679364-r9lkdc89",
+        "timestamp": "2026-08-31T03:24:39.364Z",
+        "level": "INFO",
+        "event": "backup.close.flush",
+        "message": "页面关闭或进入后台，提交最后一次备份"
+      },
+      {
+        "id": "1788146668458-hp33onzn",
+        "timestamp": "2026-08-31T03:24:28.458Z",
+        "level": "ERROR",
+        "event": "backup.push.failed",
+        "message": "运行数据备份请求失败",
+        "context": {
+          "error": "Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON"
+        }
       },
       {
         "id": "1788146667298-cgn046zc",
@@ -198,6 +269,13 @@
         }
       },
       {
+        "id": "1788146629076-0l73j0vj",
+        "timestamp": "2026-08-31T03:23:49.076Z",
+        "level": "INFO",
+        "event": "backup.close.flush",
+        "message": "页面关闭或进入后台，提交最后一次备份"
+      },
+      {
         "id": "1788146617377-cxi2u9u7",
         "timestamp": "2026-08-31T03:23:37.377Z",
         "level": "INFO",
@@ -214,6 +292,51 @@
           "project": "轮胎字符深度 OCR",
           "mode": "专业知识",
           "questionCount": 3
+        }
+      },
+      {
+        "id": "1788146598851-8roc373a",
+        "timestamp": "2026-08-31T03:23:18.851Z",
+        "level": "ERROR",
+        "event": "backup.push.failed",
+        "message": "运行数据备份失败",
+        "context": {
+          "status": 502,
+          "reason": "GitHub 读取失败（HTTP 403）：\r\nRequest forbidden by administrative rules. Please make sure your request has a User-Agent header (https://docs.github.com/en/rest/overview/resources-in-the-rest-api#user-agent-required). Check https://developer.github.com for other possib"
+        }
+      },
+      {
+        "id": "1788146598752-959hp45b",
+        "timestamp": "2026-08-31T03:23:18.752Z",
+        "level": "INFO",
+        "event": "question-group.prepare.completed",
+        "message": "AI 两次生成均未获得有效题目，已使用本地题库与标准答案。",
+        "context": {
+          "source": "本地规则",
+          "questionCount": 10
+        }
+      },
+      {
+        "id": "1788146592614-r65zd2bo",
+        "timestamp": "2026-08-31T03:23:12.614Z",
+        "level": "INFO",
+        "event": "question-group.prepare.started",
+        "message": "开始准备题组",
+        "context": {
+          "project": "轮胎字符深度 OCR",
+          "mode": "专业知识",
+          "questionCount": 10
+        }
+      },
+      {
+        "id": "1788146592607-s20gm9nk",
+        "timestamp": "2026-08-31T03:23:12.607Z",
+        "level": "WARN",
+        "event": "backup.startup.offline",
+        "message": "启动时未能读取 GitHub 配置",
+        "context": {
+          "status": 502,
+          "reason": "GitHub 读取失败（HTTP 403）：\r\nRequest forbidden by administrative rules. Please make sure your request has a User-Agent header (https://docs.github.com/en/rest/overview/resources-in-the-rest-api#user-agent-required). Check https://developer.github.com for other possib"
         }
       },
       {
@@ -320,6 +443,102 @@
       {
         "id": "1788145970328-aurwtcs4",
         "timestamp": "2026-08-31T03:12:50.328Z",
+        "level": "WARN",
+        "event": "backup.startup.offline",
+        "message": "启动时未能读取 GitHub 配置",
+        "context": {
+          "status": 502,
+          "reason": "GitHub 读取失败（HTTP 403）：\r\nRequest forbidden by administrative rules. Please make sure your request has a User-Agent header (https://docs.github.com/en/rest/overview/resources-in-the-rest-api#user-agent-required). Check https://developer.github.com for other possib"
+        }
+      },
+      {
+        "id": "1788145909458-6ntnnn7y",
+        "timestamp": "2026-08-31T03:11:49.458Z",
+        "level": "INFO",
+        "event": "backup.close.flush",
+        "message": "页面关闭或进入后台，提交最后一次备份"
+      },
+      {
+        "id": "1788145909457-8bn1l047",
+        "timestamp": "2026-08-31T03:11:49.457Z",
+        "level": "INFO",
+        "event": "question-group.prepare.completed",
+        "message": "AI 两次生成均未获得有效题目，已使用本地题库与标准答案。",
+        "context": {
+          "source": "本地规则",
+          "questionCount": 10
+        }
+      },
+      {
+        "id": "1788145909456-51ycyms6",
+        "timestamp": "2026-08-31T03:11:49.456Z",
+        "level": "ERROR",
+        "event": "backup.push.failed",
+        "message": "运行数据备份请求失败",
+        "context": {
+          "error": "Failed to fetch"
+        }
+      },
+      {
+        "id": "1788145905145-ussbpmza",
+        "timestamp": "2026-08-31T03:11:45.145Z",
+        "level": "INFO",
+        "event": "question-group.prepare.started",
+        "message": "开始准备题组",
+        "context": {
+          "project": "轮胎字符深度 OCR",
+          "mode": "专业专项",
+          "questionCount": 10
+        }
+      },
+      {
+        "id": "1788145903380-sk15ywsh",
+        "timestamp": "2026-08-31T03:11:43.380Z",
+        "level": "WARN",
+        "event": "backup.startup.offline",
+        "message": "启动时未能读取 GitHub 配置",
+        "context": {
+          "status": 502,
+          "reason": "GitHub 读取失败（HTTP 403）：\r\nRequest forbidden by administrative rules. Please make sure your request has a User-Agent header (https://docs.github.com/en/rest/overview/resources-in-the-rest-api#user-agent-required). Check https://developer.github.com for other possib"
+        }
+      },
+      {
+        "id": "1788145735880-d9l0x8vf",
+        "timestamp": "2026-08-31T03:08:55.880Z",
+        "level": "INFO",
+        "event": "question-group.prepare.completed",
+        "message": "AI 两次生成均未获得有效题目，已使用本地题库与标准答案。",
+        "context": {
+          "source": "本地规则",
+          "questionCount": 10
+        }
+      },
+      {
+        "id": "1788145733473-9sxo9z6t",
+        "timestamp": "2026-08-31T03:08:53.473Z",
+        "level": "ERROR",
+        "event": "backup.push.failed",
+        "message": "运行数据备份失败",
+        "context": {
+          "status": 503,
+          "reason": "未配置 GitHub 备份凭据。"
+        }
+      },
+      {
+        "id": "1788145726902-w6ts36zx",
+        "timestamp": "2026-08-31T03:08:46.902Z",
+        "level": "INFO",
+        "event": "question-group.prepare.started",
+        "message": "开始准备题组",
+        "context": {
+          "project": "轮胎字符深度 OCR",
+          "mode": "专业专项",
+          "questionCount": 10
+        }
+      },
+      {
+        "id": "1788145726886-je2za7e9",
+        "timestamp": "2026-08-31T03:08:46.886Z",
         "level": "WARN",
         "event": "backup.startup.offline",
         "message": "启动时未能读取 GitHub 配置",
@@ -683,6 +902,51 @@
         }
       },
       {
+        "id": "1788144559683-271phk7c",
+        "timestamp": "2026-08-31T02:49:19.683Z",
+        "level": "INFO",
+        "event": "question-group.prepare.completed",
+        "message": "AI 两次生成均未获得有效题目，已使用本地题库与标准答案。",
+        "context": {
+          "source": "本地规则",
+          "questionCount": 10
+        }
+      },
+      {
+        "id": "1788144558819-cd5zg8hr",
+        "timestamp": "2026-08-31T02:49:18.819Z",
+        "level": "ERROR",
+        "event": "backup.push.failed",
+        "message": "运行数据备份失败",
+        "context": {
+          "status": 503,
+          "reason": "未配置 GitHub 备份凭据。"
+        }
+      },
+      {
+        "id": "1788144552219-1um6bzyq",
+        "timestamp": "2026-08-31T02:49:12.219Z",
+        "level": "INFO",
+        "event": "question-group.prepare.started",
+        "message": "开始准备题组",
+        "context": {
+          "project": "轮胎字符深度 OCR",
+          "mode": "专业专项",
+          "questionCount": 10
+        }
+      },
+      {
+        "id": "1788144552005-r1j89hqy",
+        "timestamp": "2026-08-31T02:49:12.005Z",
+        "level": "WARN",
+        "event": "backup.startup.offline",
+        "message": "启动时未能读取 GitHub 配置",
+        "context": {
+          "status": 502,
+          "reason": "GitHub 读取失败（HTTP 403）：\r\nRequest forbidden by administrative rules. Please make sure your request has a User-Agent header (https://docs.github.com/en/rest/overview/resources-in-the-rest-api#user-agent-required). Check https://developer.github.com for other possib"
+        }
+      },
+      {
         "id": "1788144485903-9bek17qs",
         "timestamp": "2026-08-31T02:48:05.903Z",
         "level": "INFO",
@@ -832,6 +1096,16 @@
         }
       },
       {
+        "id": "1788144433014-2ba6gtc4",
+        "timestamp": "2026-08-31T02:47:13.014Z",
+        "level": "ERROR",
+        "event": "backup.startup.failed",
+        "message": "启动配置加载失败",
+        "context": {
+          "error": "Failed to fetch"
+        }
+      },
+      {
         "id": "1788144421206-ff9sior6",
         "timestamp": "2026-08-31T02:47:01.206Z",
         "level": "INFO",
@@ -925,6 +1199,51 @@
       {
         "id": "1788144354057-qh5a9la2",
         "timestamp": "2026-08-31T02:45:54.057Z",
+        "level": "WARN",
+        "event": "backup.startup.offline",
+        "message": "启动时未能读取 GitHub 配置",
+        "context": {
+          "status": 502,
+          "reason": "GitHub 读取失败（HTTP 403）：\r\nRequest forbidden by administrative rules. Please make sure your request has a User-Agent header (https://docs.github.com/en/rest/overview/resources-in-the-rest-api#user-agent-required). Check https://developer.github.com for other possib"
+        }
+      },
+      {
+        "id": "1788144337301-cifgjb69",
+        "timestamp": "2026-08-31T02:45:37.301Z",
+        "level": "INFO",
+        "event": "question-group.prepare.completed",
+        "message": "AI 两次生成均未获得有效题目，已使用本地题库与标准答案。",
+        "context": {
+          "source": "本地规则",
+          "questionCount": 10
+        }
+      },
+      {
+        "id": "1788144334435-ruhtk2ao",
+        "timestamp": "2026-08-31T02:45:34.435Z",
+        "level": "ERROR",
+        "event": "backup.push.failed",
+        "message": "运行数据备份失败",
+        "context": {
+          "status": 503,
+          "reason": "未配置 GitHub 备份凭据。"
+        }
+      },
+      {
+        "id": "1788144329481-jjca7tp5",
+        "timestamp": "2026-08-31T02:45:29.481Z",
+        "level": "INFO",
+        "event": "question-group.prepare.started",
+        "message": "开始准备题组",
+        "context": {
+          "project": "轮胎字符深度 OCR",
+          "mode": "专业专项",
+          "questionCount": 10
+        }
+      },
+      {
+        "id": "1788144329467-ucxp6uys",
+        "timestamp": "2026-08-31T02:45:29.466Z",
         "level": "WARN",
         "event": "backup.startup.offline",
         "message": "启动时未能读取 GitHub 配置",
