@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-08-31T13:24:38.507Z",
+  "updatedAt": "2026-08-31T13:24:47.128Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1784,6 +1784,58 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788182690287-si2009ps",
+        "timestamp": "2026-08-31T13:24:50.287Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788182515885-iy17aubu",
+        "event": "question-bank.ai-request.started",
+        "message": "第 1/6 轮：正在请求 AI 生成题目…",
+        "context": {
+          "attempt": 1,
+          "maxAttempts": 6,
+          "collectedCount": 0
+        }
+      },
+      {
+        "id": "1788182690284-jtudmfcw",
+        "timestamp": "2026-08-31T13:24:50.284Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788182515885-iy17aubu",
+        "event": "question-group.prepare.started",
+        "message": "开始准备题组",
+        "context": {
+          "project": "PLC模拟软件",
+          "mode": "项目答辩",
+          "questionCount": 4
+        }
+      },
+      {
+        "id": "1788182690279-pha31qcz",
+        "timestamp": "2026-08-31T13:24:50.279Z",
+        "level": "INFO",
+        "kind": "user",
+        "sessionId": "1788182515885-iy17aubu",
+        "event": "training.mode.changed",
+        "message": "训练模式已切换",
+        "context": {
+          "mode": "项目答辩"
+        }
+      },
+      {
+        "id": "1788182688466-u4c2n13p",
+        "timestamp": "2026-08-31T13:24:48.466Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "1b967d2bce84"
+        }
+      },
       {
         "id": "1788182684298-fjg1tgoc",
         "timestamp": "2026-08-31T13:24:44.298Z",
@@ -15042,64 +15094,6 @@
         "message": "第 5/6 轮：正在请求 AI 生成题目…",
         "context": {
           "attempt": 5,
-          "maxAttempts": 6,
-          "collectedCount": 0
-        }
-      },
-      {
-        "id": "1788169991283-r3zy8wtj",
-        "timestamp": "2026-08-31T09:53:11.283Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788169988616-qqc3c3wb",
-        "event": "question-bank.web-search.completed",
-        "message": "本轮联网检索完成",
-        "context": {
-          "attempt": 5,
-          "query": "机器视觉 面试知识点 原理 工程实践",
-          "sourceCount": 0
-        }
-      },
-      {
-        "id": "1788169990952-gy33hljf",
-        "timestamp": "2026-08-31T09:53:10.952Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788169988616-qqc3c3wb",
-        "event": "question-bank.web-search.started",
-        "message": "开始联网检索本轮题目资料",
-        "context": {
-          "attempt": 5,
-          "query": "机器视觉 面试知识点 原理 工程实践",
-          "mode": "专业知识",
-          "excludedCount": 0
-        }
-      },
-      {
-        "id": "1788169990950-0oy77lyh",
-        "timestamp": "2026-08-31T09:53:10.950Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788169988616-qqc3c3wb",
-        "event": "question-bank.attempt.failed",
-        "message": "第 4/6 轮：本轮请求失败：请先配置当前 AI 服务商的 API Key。，准备下一轮…",
-        "context": {
-          "attempt": 4,
-          "maxAttempts": 6,
-          "collectedCount": 0,
-          "error": "请先配置当前 AI 服务商的 API Key。"
-        }
-      },
-      {
-        "id": "1788169990830-zsjpzupb",
-        "timestamp": "2026-08-31T09:53:10.830Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788169988616-qqc3c3wb",
-        "event": "question-bank.ai-request.started",
-        "message": "第 4/6 轮：正在请求 AI 生成题目…",
-        "context": {
-          "attempt": 4,
           "maxAttempts": 6,
           "collectedCount": 0
         }
