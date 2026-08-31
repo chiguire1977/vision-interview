@@ -8,10 +8,12 @@ import {
   createAutoBackupSnapshot,
   createRecordsUploadPayload,
   filterRuntimeLogs,
+  filterRuntimeLogsBySession,
   mergeBackupData,
   readBackupFromGitHub,
   readBackupFromStorage,
   sanitizeBackupData,
+  startRuntimeSession,
   saveBackupToGitHub,
   writeBackupToStorage,
 } from "../lib/backup-core.mjs";
@@ -31,25 +33,29 @@ function createStorage(initial = {}) {
   };
 }
 
-test("createAutoBackupSnapshot excludes learning records but keeps configuration and logs", () => {
+test("createAutoBackupSnapshot keeps favorite questions without credentials", () => {
   const snapshot = createAutoBackupSnapshot({
     "vision-interview-records": [{ id: "record-1" }],
+    "vision-interview-favorite-questions": [{ title: "Otsu", source: "专业", apiKey: "discard" }],
     "vision-interview-project-view": "grid",
     "vision-interview-runtime-logs": [{
       id: "log-1",
       timestamp: "2026-08-31T00:00:00.000Z",
       level: "INFO",
+      kind: "system",
       event: "app.start",
       message: "启动",
     }],
   });
 
   assert.deepEqual(snapshot, {
+    "vision-interview-favorite-questions": [{ title: "Otsu", source: "专业" }],
     "vision-interview-project-view": "grid",
     "vision-interview-runtime-logs": [{
       id: "log-1",
       timestamp: "2026-08-31T00:00:00.000Z",
       level: "INFO",
+      kind: "system",
       event: "app.start",
       message: "启动",
     }],
@@ -83,6 +89,7 @@ test("sanitizeBackupData keeps approved data and removes nested credentials", ()
         id: "log-1",
         timestamp: "2026-08-31T01:00:00.000Z",
         level: "ERROR",
+        kind: "system",
         event: "ai.request.failed",
         message: "请求失败",
         context: { provider: "custom", token: "hidden", status: 502 },
@@ -104,6 +111,7 @@ test("sanitizeBackupData keeps approved data and removes nested credentials", ()
         id: "log-1",
         timestamp: "2026-08-31T01:00:00.000Z",
         level: "ERROR",
+        kind: "system",
         event: "ai.request.failed",
         message: "请求失败",
         context: { provider: "custom", status: 502 },
@@ -150,6 +158,8 @@ test("appendRuntimeLog keeps the newest 1000 sanitized entries", () => {
     storage,
     {
       level: "WARN",
+      kind: "system",
+      sessionId: "session-current",
       event: "backup.retry",
       message: "GitHub 冲突，准备重试",
       context: { attempt: 2, password: "never-store" },
@@ -163,12 +173,61 @@ test("appendRuntimeLog keeps the newest 1000 sanitized entries", () => {
   assert.deepEqual(saved[0], created);
   assert.equal(saved.at(-1).id, "old-998");
   assert.deepEqual(created.context, { attempt: 2 });
+  assert.equal(created.kind, "system");
+  assert.equal(created.sessionId, "session-current");
+});
+
+test("startRuntimeSession creates a new startup session without deleting archived logs", () => {
+  const storage = createStorage({
+    "vision-interview-runtime-logs": JSON.stringify([
+      { id: "old", sessionId: "session-old", timestamp: "2026-08-30T01:00:00.000Z", level: "INFO", event: "app.start", message: "上次启动" },
+    ]),
+  });
+
+  const session = startRuntimeSession(storage, "2026-08-31T01:00:00.000Z", "session-current");
+
+  assert.deepEqual(session, { id: "session-current", startedAt: "2026-08-31T01:00:00.000Z" });
+  assert.deepEqual(JSON.parse(storage.getItem("vision-interview-runtime-logs")), [
+    { id: "old", sessionId: "session-old", timestamp: "2026-08-30T01:00:00.000Z", level: "INFO", event: "app.start", message: "上次启动" },
+  ]);
+});
+
+test("filterRuntimeLogsBySession hides logs from previous startup sessions", () => {
+  const logs = [
+    { id: "current", sessionId: "session-current", timestamp: "2026-08-31T01:00:00.000Z", level: "INFO", event: "app.start", message: "本次启动" },
+    { id: "old", sessionId: "session-old", timestamp: "2026-08-30T01:00:00.000Z", level: "INFO", event: "app.start", message: "上次启动" },
+    { id: "legacy", timestamp: "2026-08-29T01:00:00.000Z", level: "INFO", event: "app.start", message: "旧格式" },
+  ];
+
+  assert.deepEqual(filterRuntimeLogsBySession(logs, "session-current").map((log) => log.id), ["current"]);
+});
+
+test("normalizeRuntimeLogs classifies legacy events and preserves explicit log kinds", async () => {
+  const { normalizeRuntimeLogs } = await import("../lib/backup-core.mjs");
+  const logs = normalizeRuntimeLogs([
+    { id: "system", timestamp: "2026-08-31T01:00:00.000Z", level: "INFO", event: "question-group.prepare.completed", message: "题组完成" },
+    { id: "user", timestamp: "2026-08-31T01:01:00.000Z", level: "INFO", event: "answer.submit.completed", message: "回答完成" },
+    { id: "explicit", timestamp: "2026-08-31T01:02:00.000Z", level: "INFO", kind: "system", event: "project.catalog.saved", message: "项目已保存" },
+  ]);
+
+  assert.deepEqual(logs.map((log) => log.kind), ["system", "user", "system"]);
+});
+
+test("filterRuntimeLogs can filter the selected log category after severity", async () => {
+  const { filterRuntimeLogs } = await import("../lib/backup-core.mjs");
+  const logs = [
+    { id: "system", timestamp: "2026-08-31T01:00:00.000Z", level: "INFO", kind: "system", event: "backup.saved", message: "已备份" },
+    { id: "user", timestamp: "2026-08-31T01:01:00.000Z", level: "INFO", kind: "user", event: "answer.submit.completed", message: "回答完成" },
+  ];
+
+  assert.deepEqual(filterRuntimeLogs(logs, "ALL", "system").map((log) => log.id), ["system"]);
+  assert.deepEqual(filterRuntimeLogs(logs, "INFO", "user").map((log) => log.id), ["user"]);
 });
 
 test("filterRuntimeLogs returns only the selected severity", () => {
   const logs = [
-    { id: "1", timestamp: "2026-08-31T01:00:00.000Z", level: "INFO", event: "app.start", message: "启动" },
-    { id: "2", timestamp: "2026-08-31T01:01:00.000Z", level: "ERROR", event: "backup.failed", message: "失败" },
+    { id: "1", timestamp: "2026-08-31T01:00:00.000Z", level: "INFO", kind: "system", event: "app.start", message: "启动" },
+    { id: "2", timestamp: "2026-08-31T01:01:00.000Z", level: "ERROR", kind: "system", event: "backup.failed", message: "失败" },
   ];
 
   assert.deepEqual(filterRuntimeLogs(logs, "ERROR"), [logs[1]]);
@@ -354,11 +413,15 @@ test("readBackupFromGitHub decodes and sanitizes the repository archive", async 
       },
     },
   };
-  const fetchImpl = async () => new Response(JSON.stringify({
-    sha: "archive-sha",
-    encoding: "base64",
-    content: Buffer.from(JSON.stringify(archive), "utf8").toString("base64"),
-  }), { status: 200 });
+  let requestInit;
+  const fetchImpl = async (_url, init) => {
+    requestInit = init;
+    return new Response(JSON.stringify({
+      sha: "archive-sha",
+      encoding: "base64",
+      content: Buffer.from(JSON.stringify(archive), "utf8").toString("base64"),
+    }), { status: 200 });
+  };
 
   const result = await readBackupFromGitHub({
     fetchImpl,
@@ -380,6 +443,7 @@ test("readBackupFromGitHub decodes and sanitizes the repository archive", async 
       },
     },
   });
+  assert.equal(requestInit.headers["User-Agent"], "vision-interview-site");
 });
 
 test("readBackupFromGitHub treats a missing archive as an empty available backup", async () => {
@@ -428,7 +492,9 @@ test("saveBackupToGitHub refetches the file sha and retries once after a conflic
   assert.equal(result.attempts, 2);
   assert.equal(requests.length, 4);
   assert.equal(requests[0].init.method, "GET");
+  assert.equal(requests[0].init.headers["User-Agent"], "vision-interview-site");
   assert.equal(requests[1].init.method, "PUT");
+  assert.equal(requests[1].init.headers["User-Agent"], "vision-interview-site");
   assert.equal(JSON.parse(requests[1].init.body).sha, "sha-old");
   assert.equal(requests[2].init.method, "GET");
   assert.equal(JSON.parse(requests[3].init.body).sha, "sha-latest");

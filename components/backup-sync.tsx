@@ -96,6 +96,7 @@ export function BackupSync({ children }: { children: ReactNode }) {
           authoritativeCollections: localDirty,
         });
         writeBackupToStorage(localStorage, merged);
+        window.dispatchEvent(new Event("vision-interview-backup-loaded"));
         lastSent.current = JSON.stringify(createAutoBackupSnapshot(localDirty ? body.data ?? {} : merged));
         if (!localDirty) {
           try { localStorage.setItem(LAST_SYNC_SNAPSHOT_KEY, lastSent.current); } catch { /* 本地存储不可用 */ }
