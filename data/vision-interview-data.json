@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-08-31T10:17:26.962Z",
+  "updatedAt": "2026-08-31T10:18:13.673Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1401,6 +1401,76 @@
     },
     "vision-interview-project-view": "card",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788171496736-jmbde21f",
+        "timestamp": "2026-08-31T10:18:16.736Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788169988616-qqc3c3wb",
+        "event": "question-bank.ai-request.started",
+        "message": "第 4/6 轮：正在请求 AI 生成题目…",
+        "context": {
+          "attempt": 4,
+          "maxAttempts": 6,
+          "collectedCount": 0
+        }
+      },
+      {
+        "id": "1788171496733-kaxjn67f",
+        "timestamp": "2026-08-31T10:18:16.733Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788169988616-qqc3c3wb",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 4,
+          "query": "机器视觉 面试知识点 HALCON 原理 工程实践",
+          "sourceCount": 0
+        }
+      },
+      {
+        "id": "1788171496509-w8wfjnyl",
+        "timestamp": "2026-08-31T10:18:16.509Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788169988616-qqc3c3wb",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 4,
+          "query": "机器视觉 面试知识点 HALCON 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 0
+        }
+      },
+      {
+        "id": "1788171496506-4wv99p08",
+        "timestamp": "2026-08-31T10:18:16.506Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788169988616-qqc3c3wb",
+        "event": "question-bank.attempt.failed",
+        "message": "第 3/6 轮：本轮请求失败：AI 请求超时，请稍后重试。，准备下一轮…",
+        "context": {
+          "attempt": 3,
+          "maxAttempts": 6,
+          "collectedCount": 0,
+          "error": "AI 请求超时，请稍后重试。"
+        }
+      },
+      {
+        "id": "1788171454893-sknq3pyd",
+        "timestamp": "2026-08-31T10:17:34.893Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "750d471fadc2"
+        }
+      },
       {
         "id": "1788171449848-j9azcklo",
         "timestamp": "2026-08-31T10:17:29.848Z",
@@ -14036,66 +14106,6 @@
         "context": {
           "reason": "change",
           "commit": "f8e4ca1c81ce"
-        }
-      },
-      {
-        "id": "1788147535086-p35hsp4j",
-        "timestamp": "2026-08-31T03:38:55.086Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "528e9cc6281e"
-        }
-      },
-      {
-        "id": "1788147533173-qvvr1zrb",
-        "timestamp": "2026-08-31T03:38:53.173Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "18e99c917224"
-        }
-      },
-      {
-        "id": "1788147530858-es67iwqj",
-        "timestamp": "2026-08-31T03:38:50.858Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "89ceaeb72f2c"
-        }
-      },
-      {
-        "id": "1788147528853-lf8sprq6",
-        "timestamp": "2026-08-31T03:38:48.853Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "bcdd997d0cf9"
-        }
-      },
-      {
-        "id": "1788147527907-z9d65svr",
-        "timestamp": "2026-08-31T03:38:47.907Z",
-        "level": "ERROR",
-        "kind": "system",
-        "event": "backup.push.failed",
-        "message": "运行数据备份失败",
-        "context": {
-          "status": 502,
-          "reason": "GitHub 备份失败（HTTP 409）：{\"message\":\"is at 1a1094d2130bcc0016d3580e94c8af659be755f8 but expected 949cc4e2de75e7486779b4343308e93bc1d6f658\",\"documentation_url\":\"https://docs.github.com/rest/repos/contents#create-or-update-file-contents\",\"status\":\"409\"}"
         }
       }
     ]
