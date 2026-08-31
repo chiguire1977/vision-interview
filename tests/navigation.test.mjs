@@ -34,4 +34,8 @@ test("learning flow no longer exposes project or comprehensive training modes", 
   assert.match(page, /showTrainingSettings && <div className="border-t border-slate-100 px-4 py-3">/);
   assert.match(page.slice(page.indexOf("最佳回答")), /回答思路/);
   assert.match(page, /专业知识/);
+  assert.match(page, /const techStackFilters = \["随机技术栈", \.\.\.TECH_STACKS\]/);
+  assert.match(page, /const professionalCategories = \["随机类型", \.\.\.KNOWLEDGE_CATEGORIES\]/);
+  assert.doesNotMatch(page, /const techStackFilters = .*通用原理/);
+  assert.doesNotMatch(page, /const professionalCategories = .*PLC与现场/);
 });

@@ -88,6 +88,24 @@ test("normalizes and deduplicates AI generated questions", () => {
   assert.equal(result[1].difficulty, "hard");
 });
 
+test("normalizes legacy taxonomy labels without breaking technology-stack filtering", () => {
+  const [question] = bank.normalizeAiGeneratedQuestions([generated("Legacy communication question", {
+    category: "PLC与现场",
+    techStacks: ["C#视觉开发"],
+  })]);
+
+  assert.equal(question.category, "通讯协议");
+  assert.deepEqual(question.techStacks, ["C#"]);
+  assert.equal(bank.filterAiGeneratedQuestions([{
+    ...question,
+    techStacks: ["C#视觉开发"],
+  }], {
+    source: "专业",
+    category: "通讯协议",
+    techStack: "C#",
+  }).length, 1);
+});
+
 test("preserves knowledge-driven source metadata in normalized questions and markdown", () => {
   const question = bank.normalizeAiGeneratedQuestions([generated("What does Otsu optimize?", {
     sourceType: "官方文档整理",

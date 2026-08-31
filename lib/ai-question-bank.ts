@@ -1,3 +1,5 @@
+import { normalizeKnowledgeCategory, normalizeTechStack } from "./taxonomy.mjs";
+
 export type AiGeneratedQuestion = {
   title: string;
   type: string;
@@ -107,9 +109,9 @@ function matchesDifficulty(value: string, expected: string) {
 }
 
 function matchesTechStack(values: string[] | undefined, expected: string) {
-  const target = normalizedComparison(expected);
+  const target = normalizedComparison(normalizeTechStack(expected));
   if (!target || target === "随机技术栈") return true;
-  return (values ?? []).some((value) => normalizedComparison(value) === target);
+  return (values ?? []).some((value) => normalizedComparison(normalizeTechStack(value)) === target);
 }
 
 export function filterAiGeneratedQuestions(values: unknown[], selection: AiQuestionSelectionFilter) {
@@ -177,7 +179,7 @@ function normalizeAiGeneratedQuestion(value: unknown): AiGeneratedQuestion | nul
   const record = value as Record<string, unknown>;
   const title = cleanString(record.title ?? record.question);
   const type = cleanString(record.type);
-  const category = cleanString(record.category);
+  const category = normalizeKnowledgeCategory(record.category);
   const source = cleanString(record.source);
   const sourceType = cleanString(record.sourceType);
   const knowledgePoints = cleanStringArray(record.knowledgePoints ?? record.knowledgePoint, 8);
@@ -192,7 +194,7 @@ function normalizeAiGeneratedQuestion(value: unknown): AiGeneratedQuestion | nul
     return null;
   }
 
-  const techStacks = cleanStringArray(record.techStacks, 8);
+  const techStacks = cleanStringArray(record.techStacks, 8).map(normalizeTechStack);
   const basis = cleanText(record.basis);
   const reference = normalizeReference(record.reference);
   return {
