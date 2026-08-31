@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-08-31T13:21:43.242Z",
+  "updatedAt": "2026-08-31T13:21:45.469Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1802,6 +1802,121 @@
     },
     "vision-interview-project-view": "card",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788182509800-lvgqwjgu",
+        "timestamp": "2026-08-31T13:21:49.800Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.close.flush",
+        "message": "页面关闭或进入后台，提交最后一次备份"
+      },
+      {
+        "id": "1788182509797-8g22gsq9",
+        "timestamp": "2026-08-31T13:21:49.797Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788182470262-f1pfmywb",
+        "event": "question-group.prepare.completed",
+        "message": "AI 多轮联网搜索与生成后仍未获得有效题目，已使用本地题库与标准答案。",
+        "context": {
+          "source": "本地规则",
+          "questionCount": 10
+        }
+      },
+      {
+        "id": "1788182509793-1rbo2le5",
+        "timestamp": "2026-08-31T13:21:49.793Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788182470262-f1pfmywb",
+        "event": "question-bank.attempt.failed",
+        "message": "第 6/6 轮：本轮请求失败：Failed to fetch，准备下一轮…",
+        "context": {
+          "attempt": 6,
+          "maxAttempts": 6,
+          "collectedCount": 0,
+          "error": "Failed to fetch"
+        }
+      },
+      {
+        "id": "1788182509789-hh512skg",
+        "timestamp": "2026-08-31T13:21:49.789Z",
+        "level": "ERROR",
+        "kind": "system",
+        "event": "backup.push.failed",
+        "message": "运行数据备份请求失败",
+        "context": {
+          "error": "Failed to fetch"
+        }
+      },
+      {
+        "id": "1788182509761-36fncb90",
+        "timestamp": "2026-08-31T13:21:49.761Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "6ef1e6c85441"
+        }
+      },
+      {
+        "id": "1788182507510-dtzy39so",
+        "timestamp": "2026-08-31T13:21:47.510Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788182481875-en8yyxdu",
+        "event": "question-bank.ai-request.started",
+        "message": "第 4/6 轮：正在请求 AI 生成题目…",
+        "context": {
+          "attempt": 4,
+          "maxAttempts": 6,
+          "collectedCount": 0
+        }
+      },
+      {
+        "id": "1788182507507-3o6gph2n",
+        "timestamp": "2026-08-31T13:21:47.507Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788182481875-en8yyxdu",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 4,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "sourceCount": 0
+        }
+      },
+      {
+        "id": "1788182506909-iam3hu9e",
+        "timestamp": "2026-08-31T13:21:46.909Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788182470262-f1pfmywb",
+        "event": "question-bank.ai-request.started",
+        "message": "第 6/6 轮：正在请求 AI 生成题目…",
+        "context": {
+          "attempt": 6,
+          "maxAttempts": 6,
+          "collectedCount": 0
+        }
+      },
+      {
+        "id": "1788182506907-7ed9012b",
+        "timestamp": "2026-08-31T13:21:46.907Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788182470262-f1pfmywb",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 6,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "sourceCount": 0
+        }
+      },
       {
         "id": "1788182505684-99plaw3c",
         "timestamp": "2026-08-31T13:21:45.684Z",
@@ -14437,103 +14552,6 @@
         "context": {
           "reason": "change",
           "commit": "23d4be3affb1"
-        }
-      },
-      {
-        "id": "1788148000487-d93z1cbb",
-        "timestamp": "2026-08-31T03:46:40.487Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "question-group.prepare.completed",
-        "message": "AI 已生成完整 10 道题目、标准回答和技术原理；已缓存到远程题库。",
-        "context": {
-          "source": "AI",
-          "questionCount": 10
-        }
-      },
-      {
-        "id": "1788148000486-xngd144s",
-        "timestamp": "2026-08-31T03:46:40.486Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "question-bank.cache.saved",
-        "message": "已缓存到远程题库",
-        "context": {
-          "questionCount": 10,
-          "pendingCount": 0
-        }
-      },
-      {
-        "id": "1788147997994-tfgrlne1",
-        "timestamp": "2026-08-31T03:46:37.994Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.close.flush",
-        "message": "页面关闭或进入后台，提交最后一次备份"
-      },
-      {
-        "id": "1788147988710-aavhy1cu",
-        "timestamp": "2026-08-31T03:46:28.710Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "027316bb7705"
-        }
-      },
-      {
-        "id": "1788147979347-z7m44wgf",
-        "timestamp": "2026-08-31T03:46:19.347Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.close.flush",
-        "message": "页面关闭或进入后台，提交最后一次备份"
-      },
-      {
-        "id": "1788147974900-pclvcjuf",
-        "timestamp": "2026-08-31T03:46:14.900Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "fac6ef663870"
-        }
-      },
-      {
-        "id": "1788147970497-jucb747h",
-        "timestamp": "2026-08-31T03:46:10.497Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.close.flush",
-        "message": "页面关闭或进入后台，提交最后一次备份"
-      },
-      {
-        "id": "1788147967730-p1vz4zeh",
-        "timestamp": "2026-08-31T03:46:07.730Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "72d6ae5cab2c"
-        }
-      },
-      {
-        "id": "1788147963215-w9iqz7pc",
-        "timestamp": "2026-08-31T03:46:03.215Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "question-group.prepare.started",
-        "message": "开始准备题组",
-        "context": {
-          "project": "轮胎字符深度 OCR",
-          "mode": "专业知识",
-          "questionCount": 3
         }
       }
     ]
