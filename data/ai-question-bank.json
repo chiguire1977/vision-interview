@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-31T13:29:43.836Z",
+  "updatedAt": "2026-08-31T13:35:52.210Z",
   "questions": [
     {
       "title": "在轮胎字符深度OCR项目中，HALCON的深度OCR模型相比传统OCR在抗磨损和倾斜方面有哪些本质优势？",
@@ -10029,6 +10029,418 @@
       "principle": "PLC定时器本质是时基计数器，精度受扫描周期限制；当需要更高分辨率时，必须依赖实时时钟中断，扫描周期只负责读取和更新定时器状态。",
       "id": "aiq-9363690b",
       "generatedAt": "2026-08-31T13:29:49.874Z",
+      "provider": "custom-mtfsd2qj-i4ox3z",
+      "model": "deepseek-v4-flash",
+      "project": "PLC模拟软件",
+      "trainingMode": "项目答辩",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "随机技术栈"
+    },
+    {
+      "title": "PLC模拟软件的核心架构如何设计，才能同时满足视觉系统的信号仿真和调试需求？",
+      "type": "工程实践",
+      "category": "项目架构",
+      "source": "项目",
+      "sourceType": "项目资料",
+      "knowledgePoints": [
+        "PLC扫描周期模拟",
+        "I/O信号抽象",
+        "视觉系统接口解耦"
+      ],
+      "difficulty": "中等",
+      "tags": [
+        "架构设计",
+        "PLC模拟",
+        "视觉系统"
+      ],
+      "keywords": [
+        "扫描周期",
+        "信号抽象",
+        "接口解耦",
+        "实时性"
+      ],
+      "followUp": "如果视觉系统需要毫秒级信号响应，你的架构会做哪些调整？",
+      "hint": "从信号生成、周期控制、对外接口三层回答",
+      "techStacks": [
+        "C#",
+        "Modbus TCP"
+      ],
+      "bestAnswer": "核心架构分为三层：信号层维护I/O点和寄存器状态，周期层按PLC扫描周期刷新信号，接口层通过Modbus TCP或OPC UA等协议对外提供读写服务。视觉系统作为客户端访问模拟器，不感知后端是真实PLC还是模拟器。信号层采用事件驱动加轮询混合方式，保证周期刷新的同时能处理突发信号。这样既便于调试，又能模拟真实PLC行为。",
+      "principle": "PLC以扫描周期循环执行输入采样、程序执行、输出刷新；模拟器需要复现这个周期模型，才能让视觉系统在仿真环境下获得与真实PLC一致的时序行为。接口层使用标准工业协议，使模拟器对视觉系统透明。",
+      "id": "aiq-017d7d52",
+      "generatedAt": "2026-08-31T13:35:54.141Z",
+      "provider": "custom-mtfsd2qj-i4ox3z",
+      "model": "deepseek-v4-flash",
+      "project": "PLC模拟软件",
+      "trainingMode": "项目答辩",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "随机技术栈"
+    },
+    {
+      "title": "在PLC模拟软件中，如何模拟PLC的扫描周期对视觉系统拍照触发信号的影响？",
+      "type": "算法原理",
+      "category": "时序模拟",
+      "source": "项目",
+      "sourceType": "项目资料",
+      "knowledgePoints": [
+        "扫描周期模型",
+        "触发信号抖动",
+        "时序误差分析"
+      ],
+      "difficulty": "中等",
+      "tags": [
+        "扫描周期",
+        "触发信号",
+        "时序模拟"
+      ],
+      "keywords": [
+        "扫描周期",
+        "触发抖动",
+        "时序误差",
+        "信号同步"
+      ],
+      "followUp": "如果视觉系统要求触发信号抖动小于1ms，你会如何验证模拟器的时序精度？",
+      "hint": "从扫描周期组成、信号产生时刻、误差来源回答",
+      "techStacks": [
+        "PLC",
+        "C++"
+      ],
+      "bestAnswer": "PLC扫描周期包括输入采样、程序执行和输出刷新三个阶段，模拟器需要按固定周期循环推进。触发信号通常在输出刷新阶段产生，因此信号上升沿会出现一个扫描周期内的随机延迟。为模拟这一特性，我在模拟器中加入周期定时器和相位偏移，并记录信号实际产生时间，用于评估与视觉系统触发需求的时序偏差。",
+      "principle": "真实PLC的I/O响应存在扫描周期延迟，模拟器若不考虑该延迟，视觉系统在仿真调试中无法暴露触发时序问题。通过周期定时器模拟扫描节拍，并统计信号抖动范围，可以量化模拟器与真实PLC的时序一致性。",
+      "id": "aiq-cf4cde45",
+      "generatedAt": "2026-08-31T13:35:54.141Z",
+      "provider": "custom-mtfsd2qj-i4ox3z",
+      "model": "deepseek-v4-flash",
+      "project": "PLC模拟软件",
+      "trainingMode": "项目答辩",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "随机技术栈"
+    },
+    {
+      "title": "现场调试中，视觉系统连接PLC模拟器时出现通信超时，你会如何排查？",
+      "type": "现场故障",
+      "category": "通信故障",
+      "source": "项目",
+      "sourceType": "项目资料",
+      "knowledgePoints": [
+        "Modbus TCP超时机制",
+        "网络抓包分析",
+        "模拟器负载"
+      ],
+      "difficulty": "困难",
+      "tags": [
+        "通信超时",
+        "故障排查",
+        "Modbus TCP"
+      ],
+      "keywords": [
+        "超时设置",
+        "抓包",
+        "服务端负载",
+        "防火墙"
+      ],
+      "followUp": "如果抓包发现请求已到达但响应延迟，下一步怎么处理？",
+      "hint": "从网络链路、服务端处理、客户端超时设置三个层面排查",
+      "techStacks": [
+        "Modbus TCP",
+        "Wireshark"
+      ],
+      "bestAnswer": "先确认视觉系统与模拟器之间的网络连通性，再检查模拟器服务端口是否监听、防火墙是否拦截。然后用Wireshark抓包，观察请求是否到达、响应是否返回。如果请求到达但响应慢，需要检查模拟器CPU占用、线程池队列和日志，确认是否因扫描周期任务阻塞导致响应延迟。最后核对客户端超时时间是否小于模拟器最坏响应时间。",
+      "principle": "通信超时是分布式系统常见故障，排查要沿请求路径逐段定位。Modbus TCP请求-响应模型下，超时可能由网络丢包、服务端处理延迟、客户端超时配置过小共同导致，抓包可以区分请求未达与响应未回两类情况。",
+      "id": "aiq-b942fbe8",
+      "generatedAt": "2026-08-31T13:35:54.141Z",
+      "provider": "custom-mtfsd2qj-i4ox3z",
+      "model": "deepseek-v4-flash",
+      "project": "PLC模拟软件",
+      "trainingMode": "项目答辩",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "随机技术栈"
+    },
+    {
+      "title": "如何设计PLC模拟软件的I/O点表管理功能，以支持视觉项目现场快速变更信号映射？",
+      "type": "工程实践",
+      "category": "配置管理",
+      "source": "项目",
+      "sourceType": "项目资料",
+      "knowledgePoints": [
+        "点表数据结构",
+        "信号映射",
+        "配置热加载"
+      ],
+      "difficulty": "中等",
+      "tags": [
+        "I/O点表",
+        "配置管理",
+        "信号映射"
+      ],
+      "keywords": [
+        "点表",
+        "地址映射",
+        "热加载",
+        "导入导出"
+      ],
+      "followUp": "如果现场需要在线修改点表而不重启模拟器，你的设计如何保证一致性？",
+      "hint": "从点表模型、导入导出、运行时刷新回答",
+      "techStacks": [
+        "C#",
+        "JSON"
+      ],
+      "bestAnswer": "点表管理采用独立配置模块，以JSON或Excel定义I/O点名称、数据类型、地址和初始值。模拟器启动时加载点表，运行时通过内存映射表维护信号状态。现场变更时提供界面在线编辑点表，并采用双缓冲机制切换映射关系，确保修改期间视觉系统读写请求不会读到中间状态。",
+      "principle": "I/O点表是PLC模拟器与视觉系统之间的契约。将点表与模拟逻辑分离，可以避免硬编码地址，提高现场适配效率。双缓冲或原子切换能保证配置更新时信号访问的一致性，避免读写撕裂。",
+      "id": "aiq-4f782f2a",
+      "generatedAt": "2026-08-31T13:35:54.141Z",
+      "provider": "custom-mtfsd2qj-i4ox3z",
+      "model": "deepseek-v4-flash",
+      "project": "PLC模拟软件",
+      "trainingMode": "项目答辩",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "随机技术栈"
+    },
+    {
+      "title": "PLC模拟软件如何模拟真实PLC的故障状态（如急停、安全光幕触发）来测试视觉系统的异常处理逻辑？",
+      "type": "项目深挖",
+      "category": "故障注入",
+      "source": "项目",
+      "sourceType": "项目资料",
+      "knowledgePoints": [
+        "故障注入",
+        "异常场景脚本",
+        "状态恢复"
+      ],
+      "difficulty": "中等",
+      "tags": [
+        "故障注入",
+        "异常处理",
+        "测试"
+      ],
+      "keywords": [
+        "故障注入",
+        "脚本化场景",
+        "安全信号",
+        "恢复流程"
+      ],
+      "followUp": "你如何保证故障注入不会影响模拟器本身的状态一致性？",
+      "hint": "从故障场景定义、注入方式、恢复机制回答",
+      "techStacks": [
+        "PLC",
+        "Python"
+      ],
+      "bestAnswer": "模拟器提供故障注入接口，通过脚本或界面强制将指定I/O点置为安全状态，比如急停信号置ON、光幕信号置OFF。故障触发后，模拟器按PLC程序逻辑联动相关输出，并记录故障时间线。测试完成后，通过状态快照恢复机制将模拟器恢复到故障前状态，确保视觉系统异常处理逻辑可以被反复验证。",
+      "principle": "故障注入是验证视觉系统安全逻辑的重要手段。模拟器需要在保持扫描周期正常运行的同时，允许外部强制改写I/O状态，并联动内部逻辑，才能真实模拟PLC在故障时的行为。状态快照用于隔离测试用例之间的影响。",
+      "id": "aiq-17a0cdb4",
+      "generatedAt": "2026-08-31T13:35:54.141Z",
+      "provider": "custom-mtfsd2qj-i4ox3z",
+      "model": "deepseek-v4-flash",
+      "project": "PLC模拟软件",
+      "trainingMode": "项目答辩",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "随机技术栈"
+    },
+    {
+      "title": "在PLC模拟软件中，如何实现与视觉系统之间的数据交互性能优化，避免因模拟器处理慢导致视觉检测节拍下降？",
+      "type": "工程实践",
+      "category": "性能优化",
+      "source": "项目",
+      "sourceType": "项目资料",
+      "knowledgePoints": [
+        "通信吞吐量",
+        "异步处理",
+        "数据缓存"
+      ],
+      "difficulty": "困难",
+      "tags": [
+        "性能优化",
+        "数据交互",
+        "视觉节拍"
+      ],
+      "keywords": [
+        "异步I/O",
+        "缓存",
+        "批量读写",
+        "线程模型"
+      ],
+      "followUp": "如果视觉系统每秒需要读写上千个寄存器，你会采用什么方案？",
+      "hint": "从通信模型、数据处理、资源占用回答",
+      "techStacks": [
+        "C#",
+        "Modbus TCP",
+        "异步编程"
+      ],
+      "bestAnswer": "采用异步TCP服务器处理视觉系统请求，避免阻塞线程池；对高频读写的寄存器区域建立内存缓存，读写操作直接操作缓存并定时同步到模拟逻辑。批量读写请求优先于单点读写，减少协议解析开销。同时将通信线程与扫描周期线程分离，确保高负载下扫描周期抖动可控。",
+      "principle": "视觉系统节拍要求PLC模拟器具备高吞吐低延迟的数据交互能力。异步I/O和内存缓存能减少系统调用与锁竞争，批量读写则降低报文数量，线程分离防止通信负载干扰周期模拟，是性能优化的关键手段。",
+      "id": "aiq-e367b203",
+      "generatedAt": "2026-08-31T13:35:54.141Z",
+      "provider": "custom-mtfsd2qj-i4ox3z",
+      "model": "deepseek-v4-flash",
+      "project": "PLC模拟软件",
+      "trainingMode": "项目答辩",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "随机技术栈"
+    },
+    {
+      "title": "如何验证PLC模拟软件的行为与真实PLC一致？你会设计哪些测试用例？",
+      "type": "项目深挖",
+      "category": "测试策略",
+      "source": "项目",
+      "sourceType": "项目资料",
+      "knowledgePoints": [
+        "一致性测试",
+        "对比验证",
+        "边界条件"
+      ],
+      "difficulty": "中等",
+      "tags": [
+        "一致性测试",
+        "PLC模拟",
+        "测试用例"
+      ],
+      "keywords": [
+        "对比测试",
+        "扫描周期",
+        "边界条件",
+        "回归测试"
+      ],
+      "followUp": "如果真实PLC和模拟器在某个边界时序上表现不一致，如何定位是模拟器问题还是测试用例问题？",
+      "hint": "从测试维度、对比方法、边界场景回答",
+      "techStacks": [
+        "PLC",
+        "自动化测试"
+      ],
+      "bestAnswer": "设计三层测试：功能测试验证I/O读写和寄存器运算结果；时序测试对比模拟器与真实PLC在相同程序下的扫描周期和信号延迟；异常测试覆盖通信中断、非法地址、超时等边界场景。测试采用同一套PLC程序分别运行在真实PLC和模拟器上，记录信号波形并比对，偏差超过阈值则视为不一致。",
+      "principle": "PLC模拟器的一致性验证需要以真实PLC为参照物。通过标准化测试程序和信号采集对比，可以量化模拟器在功能、时序和异常行为上的偏差。边界条件测试能暴露模拟器在极端负载和非法输入下的处理缺陷。",
+      "id": "aiq-94cc67dc",
+      "generatedAt": "2026-08-31T13:35:54.141Z",
+      "provider": "custom-mtfsd2qj-i4ox3z",
+      "model": "deepseek-v4-flash",
+      "project": "PLC模拟软件",
+      "trainingMode": "项目答辩",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "随机技术栈"
+    },
+    {
+      "title": "在PLC模拟软件中，如何设计通信协议层以兼容不同品牌PLC的协议？",
+      "type": "工程实践",
+      "category": "协议抽象",
+      "source": "项目",
+      "sourceType": "项目资料",
+      "knowledgePoints": [
+        "协议适配器模式",
+        "Modbus/OPC UA",
+        "协议解析"
+      ],
+      "difficulty": "困难",
+      "tags": [
+        "协议兼容",
+        "适配器",
+        "OPC UA"
+      ],
+      "keywords": [
+        "适配器模式",
+        "协议插件",
+        "地址映射",
+        "OPC UA"
+      ],
+      "followUp": "如果新增一个私有协议，你的架构需要改动哪些部分？",
+      "hint": "从协议接口、插件化、地址映射回答",
+      "techStacks": [
+        "C#",
+        "OPC UA",
+        "Modbus"
+      ],
+      "bestAnswer": "协议层抽象出统一的读写接口，包括连接、读点、写点和订阅四个方法。Modbus TCP、OPC UA等协议以适配器方式实现该接口，并注册到协议工厂中。每种协议维护自己的地址映射表，将协议地址转换为内部点表地址。新增私有协议时只需实现统一接口和地址映射，不需要修改模拟核心。",
+      "principle": "适配器模式可以将不同协议的差异封装在独立组件中，使上层模拟逻辑不依赖具体协议。统一接口和地址映射表是协议兼容的关键，插件化注册进一步降低扩展成本，符合开闭原则。",
+      "id": "aiq-a8676fa5",
+      "generatedAt": "2026-08-31T13:35:54.141Z",
+      "provider": "custom-mtfsd2qj-i4ox3z",
+      "model": "deepseek-v4-flash",
+      "project": "PLC模拟软件",
+      "trainingMode": "项目答辩",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "随机技术栈"
+    },
+    {
+      "title": "PLC模拟软件如何支持视觉系统与PLC联调的“软硬结合”场景？比如先用模拟器调试，再切换到真实PLC。",
+      "type": "项目深挖",
+      "category": "联调切换",
+      "source": "项目",
+      "sourceType": "项目资料",
+      "knowledgePoints": [
+        "透明切换",
+        "状态同步",
+        "接口一致性"
+      ],
+      "difficulty": "中等",
+      "tags": [
+        "软硬结合",
+        "联调",
+        "透明切换"
+      ],
+      "keywords": [
+        "透明切换",
+        "状态同步",
+        "接口一致性",
+        "离线在线"
+      ],
+      "followUp": "切换过程中如何避免视觉系统因连接中断而停机？",
+      "hint": "从接口一致性、状态同步、切换机制回答",
+      "techStacks": [
+        "Modbus TCP",
+        "PLC"
+      ],
+      "bestAnswer": "模拟器和真实PLC对外提供相同的协议接口和点表，视觉系统通过统一配置切换目标地址。切换前将模拟器当前I/O状态导出，并导入到真实PLC中，保证初始状态一致。切换时采用先建连接再断旧连接的方式，减少视觉系统感知到的中断时间。",
+      "principle": "软硬结合联调的关键是接口一致性和状态连续性。模拟器与真实PLC使用相同点表和协议，视觉系统无需修改逻辑即可切换目标。状态同步避免切换后信号跳变，连接管理策略则降低切换对视觉节拍的影响。",
+      "id": "aiq-85ff23a2",
+      "generatedAt": "2026-08-31T13:35:54.141Z",
+      "provider": "custom-mtfsd2qj-i4ox3z",
+      "model": "deepseek-v4-flash",
+      "project": "PLC模拟软件",
+      "trainingMode": "项目答辩",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "随机技术栈"
+    },
+    {
+      "title": "在PLC模拟软件项目中，如何评估模拟器的实时性指标，并证明它满足视觉系统的要求？",
+      "type": "算法原理",
+      "category": "实时性评估",
+      "source": "项目",
+      "sourceType": "项目资料",
+      "knowledgePoints": [
+        "实时性指标",
+        "抖动测量",
+        "负载测试"
+      ],
+      "difficulty": "困难",
+      "tags": [
+        "实时性",
+        "性能测试",
+        "抖动"
+      ],
+      "keywords": [
+        "响应时间",
+        "抖动",
+        "负载测试",
+        "统计评估"
+      ],
+      "followUp": "如果测试发现模拟器在CPU负载升高时抖动明显增大，你会如何优化？",
+      "hint": "从指标定义、测量方法、统计评估回答",
+      "techStacks": [
+        "C++",
+        "实时系统"
+      ],
+      "bestAnswer": "定义两个核心指标：扫描周期误差和I/O响应延迟。通过高精度计时器记录每次扫描周期的实际耗时，统计平均值、最大值和抖动标准差。负载测试模拟视觉系统高频读写，观察指标是否仍在允许范围内。评估结果以报告形式输出，并与视觉系统需求阈值对比，证明模拟器实时性满足要求。",
+      "principle": "实时性不是单次响应快，而是在负载变化下保持稳定。扫描周期误差反映模拟器节拍精度，I/O响应延迟反映通信链路速度。统计分布比极值更能说明问题，但极值决定了系统是否会出现超时，因此两者都要报告。",
+      "id": "aiq-4d226a8a",
+      "generatedAt": "2026-08-31T13:35:54.141Z",
       "provider": "custom-mtfsd2qj-i4ox3z",
       "model": "deepseek-v4-flash",
       "project": "PLC模拟软件",
