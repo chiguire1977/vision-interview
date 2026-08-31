@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-08-31T12:48:50.343Z",
+  "updatedAt": "2026-08-31T12:48:54.533Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1818,6 +1818,46 @@
     },
     "vision-interview-project-view": "card",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788180540374-fzu3lt8e",
+        "timestamp": "2026-08-31T12:49:00.374Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.close.flush",
+        "message": "页面关闭或进入后台，提交最后一次备份"
+      },
+      {
+        "id": "1788180539744-338oylw9",
+        "timestamp": "2026-08-31T12:48:59.744Z",
+        "level": "ERROR",
+        "kind": "system",
+        "event": "backup.push.failed",
+        "message": "运行数据备份失败",
+        "context": {
+          "status": 502,
+          "reason": "GitHub 备份失败（HTTP 409）：{\"message\":\"is at 4e5701200a27ed7bebfdab87854981a3d49d59e0 but expected 093f159130c45818202b5ee5c6d5cb48138c979e\",\"documentation_url\":\"https://docs.github.com/rest/repos/contents#create-or-update-file-contents\",\"status\":\"409\"}"
+        }
+      },
+      {
+        "id": "1788180539563-atpoxhb0",
+        "timestamp": "2026-08-31T12:48:59.563Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "4e5701200a27"
+        }
+      },
+      {
+        "id": "1788180535562-vzcxw1r5",
+        "timestamp": "2026-08-31T12:48:55.562Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.close.flush",
+        "message": "页面关闭或进入后台，提交最后一次备份"
+      },
       {
         "id": "1788180533311-xu4e14mv",
         "timestamp": "2026-08-31T12:48:53.311Z",
@@ -15067,61 +15107,6 @@
         "context": {
           "reason": "change",
           "commit": "12799710eca9"
-        }
-      },
-      {
-        "id": "1788166998565-4ch2fa9c",
-        "timestamp": "2026-08-31T09:03:18.565Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788166894899-0xu488ib",
-        "event": "question-bank.web-search.completed",
-        "message": "本轮联网检索完成",
-        "context": {
-          "attempt": 2,
-          "query": "机器视觉 模板与定位 C#视觉开发 原理 工程实践",
-          "sourceCount": 0
-        }
-      },
-      {
-        "id": "1788166998137-6fvx4utv",
-        "timestamp": "2026-08-31T09:03:18.137Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788166894899-0xu488ib",
-        "event": "question-bank.web-search.started",
-        "message": "开始联网检索本轮题目资料",
-        "context": {
-          "attempt": 2,
-          "query": "机器视觉 模板与定位 C#视觉开发 原理 工程实践",
-          "mode": "专业知识",
-          "excludedCount": 0
-        }
-      },
-      {
-        "id": "1788166963204-3neoaz9m",
-        "timestamp": "2026-08-31T09:02:43.204Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "0eee07aed9fe"
-        }
-      },
-      {
-        "id": "1788166957594-tsk1guna",
-        "timestamp": "2026-08-31T09:02:37.594Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788166894899-0xu488ib",
-        "event": "question-bank.web-search.completed",
-        "message": "本轮联网检索完成",
-        "context": {
-          "attempt": 1,
-          "query": "机器视觉 模板与定位 C#视觉开发 原理 工程实践",
-          "sourceCount": 0
         }
       }
     ]
