@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-08-31T11:23:53.839Z",
+  "updatedAt": "2026-08-31T11:23:59.565Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1802,6 +1802,74 @@
     },
     "vision-interview-project-view": "card",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788175442128-hezocwdy",
+        "timestamp": "2026-08-31T11:24:02.128Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "6c3153b4cdc2"
+        }
+      },
+      {
+        "id": "1788175441601-w4u5thgh",
+        "timestamp": "2026-08-31T11:24:01.601Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788175400619-coejkd41",
+        "event": "question-group.prepare.completed",
+        "message": "AI 多轮联网搜索与生成后仍未获得有效题目，已使用本地题库与标准答案。",
+        "context": {
+          "source": "本地规则",
+          "questionCount": 10
+        }
+      },
+      {
+        "id": "1788175441595-j7m96m6a",
+        "timestamp": "2026-08-31T11:24:01.595Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788175400619-coejkd41",
+        "event": "question-bank.attempt.failed",
+        "message": "第 6/6 轮：本轮请求失败：请先配置当前 AI 服务商的 API Key。，准备下一轮…",
+        "context": {
+          "attempt": 6,
+          "maxAttempts": 6,
+          "collectedCount": 0,
+          "error": "请先配置当前 AI 服务商的 API Key。"
+        }
+      },
+      {
+        "id": "1788175438428-szby1pa4",
+        "timestamp": "2026-08-31T11:23:58.428Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788175400619-coejkd41",
+        "event": "question-bank.ai-request.started",
+        "message": "第 6/6 轮：正在请求 AI 生成题目…",
+        "context": {
+          "attempt": 6,
+          "maxAttempts": 6,
+          "collectedCount": 0
+        }
+      },
+      {
+        "id": "1788175438425-gjinjqa0",
+        "timestamp": "2026-08-31T11:23:58.425Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788175400619-coejkd41",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 6,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "sourceCount": 0
+        }
+      },
       {
         "id": "1788175436313-00tx65gd",
         "timestamp": "2026-08-31T11:23:56.313Z",
@@ -14156,71 +14224,6 @@
         "message": "当前题目已跳过",
         "context": {
           "question": "在轮胎字符OCR项目中，如果PLC发送触发信号的频率高于视觉系统的处理速度，会发生什么？如何解决？",
-          "mode": "专业专项",
-          "project": "轮胎字符深度 OCR"
-        }
-      },
-      {
-        "id": "1788145026180-fz7xjsh7",
-        "timestamp": "2026-08-31T02:57:06.180Z",
-        "level": "WARN",
-        "kind": "user",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "在轮胎字符深度OCR项目中，如何评估模型性能？除了准确率，还需要关注哪些指标？",
-          "mode": "专业专项",
-          "project": "轮胎字符深度 OCR"
-        }
-      },
-      {
-        "id": "1788145025974-tzd5sbmg",
-        "timestamp": "2026-08-31T02:57:05.974Z",
-        "level": "WARN",
-        "kind": "user",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "在轮胎字符OCR中，字符阴影对识别影响很大，请分析阴影产生的机理及消除方法。",
-          "mode": "专业专项",
-          "project": "轮胎字符深度 OCR"
-        }
-      },
-      {
-        "id": "1788145025204-ljn1ifp5",
-        "timestamp": "2026-08-31T02:57:05.204Z",
-        "level": "WARN",
-        "kind": "user",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "现场轮胎字符出现严重磨损，导致OCR准确率下降，你会如何排查和解决？请给出步骤。",
-          "mode": "专业专项",
-          "project": "轮胎字符深度 OCR"
-        }
-      },
-      {
-        "id": "1788145025028-94r6kw9p",
-        "timestamp": "2026-08-31T02:57:05.028Z",
-        "level": "WARN",
-        "kind": "user",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "在轮胎字符OCR项目中，Modbus TCP通信如何与PLC协同工作？请描述数据流和时序控制。",
-          "mode": "专业专项",
-          "project": "轮胎字符深度 OCR"
-        }
-      },
-      {
-        "id": "1788145024828-mrpj482f",
-        "timestamp": "2026-08-31T02:57:04.828Z",
-        "level": "WARN",
-        "kind": "user",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "在轮胎字符OCR项目中，数据增强具体采用了哪些方法？这些方法如何帮助模型应对倾斜和磨损？",
           "mode": "专业专项",
           "project": "轮胎字符深度 OCR"
         }
