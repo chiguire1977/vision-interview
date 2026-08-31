@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-08-31T11:04:00.670Z",
+  "updatedAt": "2026-08-31T11:04:21.218Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1073,13 +1073,14 @@
       }
     ],
     "vision-interview-ai-preferences": {
-      "provider": "custom-mtfsd2qj-i4ox3z",
-      "model": "qwen3.8-max",
-      "openaiBaseUrl": "https://opencode.ai/zen/go/v1",
+      "provider": "custom-mth2q5s2-c9pbzd",
+      "model": "gpt-5.6-sol",
+      "openaiBaseUrl": "https://dingdangapii.cn/v1",
       "aiScoring": true,
       "bestAnswer": true,
       "smartFollowUp": true,
-      "webQuestions": true
+      "webQuestions": true,
+      "upstreamFormat": "chat-completions"
     },
     "vision-interview-ai-provider-settings": {
       "deepseek": {
@@ -1401,6 +1402,18 @@
     },
     "vision-interview-project-view": "card",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788174249618-qycb2s0s",
+        "timestamp": "2026-08-31T11:04:09.618Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "d23ab19311f2"
+        }
+      },
       {
         "id": "1788174245750-6si99c1j",
         "timestamp": "2026-08-31T11:04:05.750Z",
@@ -14497,20 +14510,6 @@
         "message": "训练模式已切换",
         "context": {
           "mode": "专业知识"
-        }
-      },
-      {
-        "id": "1788153511871-e9ac8fsh",
-        "timestamp": "2026-08-31T05:18:31.871Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788153428850-5wizrklw",
-        "event": "question-group.prepare.started",
-        "message": "开始准备题组",
-        "context": {
-          "project": "轮胎字符深度 OCR",
-          "mode": "项目答辩",
-          "questionCount": 4
         }
       }
     ]
