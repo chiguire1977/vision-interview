@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-08-31T10:35:42.717Z",
+  "updatedAt": "2026-08-31T10:35:49.236Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1386,6 +1386,76 @@
     "vision-interview-project-view": "card",
     "vision-interview-runtime-logs": [
       {
+        "id": "1788172551312-fuvze72t",
+        "timestamp": "2026-08-31T10:35:51.312Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "3bdb73316572"
+        }
+      },
+      {
+        "id": "1788172547899-z726rd0c",
+        "timestamp": "2026-08-31T10:35:47.899Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788172541127-xjerort8",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 2,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 0
+        }
+      },
+      {
+        "id": "1788172547897-tub7av07",
+        "timestamp": "2026-08-31T10:35:47.897Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788172541127-xjerort8",
+        "event": "question-bank.attempt.failed",
+        "message": "第 1/6 轮：本轮请求失败：请先配置当前 AI 服务商的 API Key。，准备下一轮…",
+        "context": {
+          "attempt": 1,
+          "maxAttempts": 6,
+          "collectedCount": 0,
+          "error": "请先配置当前 AI 服务商的 API Key。"
+        }
+      },
+      {
+        "id": "1788172544622-ugh2xx6j",
+        "timestamp": "2026-08-31T10:35:44.622Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788172541127-xjerort8",
+        "event": "question-bank.ai-request.started",
+        "message": "第 1/6 轮：正在请求 AI 生成题目…",
+        "context": {
+          "attempt": 1,
+          "maxAttempts": 6,
+          "collectedCount": 0
+        }
+      },
+      {
+        "id": "1788172544619-nt26wqw7",
+        "timestamp": "2026-08-31T10:35:44.619Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788172541127-xjerort8",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 1,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "sourceCount": 0
+        }
+      },
+      {
         "id": "1788172541143-rk4u5vwk",
         "timestamp": "2026-08-31T10:35:41.143Z",
         "level": "INFO",
@@ -2042,78 +2112,6 @@
           "attempt": 5,
           "query": "机器视觉 面试知识点 HALCON 原理 工程实践",
           "sourceCount": 0
-        }
-      },
-      {
-        "id": "1788171556841-77zfcmtx",
-        "timestamp": "2026-08-31T10:19:16.841Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788169988616-qqc3c3wb",
-        "event": "question-bank.web-search.started",
-        "message": "开始联网检索本轮题目资料",
-        "context": {
-          "attempt": 5,
-          "query": "机器视觉 面试知识点 HALCON 原理 工程实践",
-          "mode": "专业知识",
-          "excludedCount": 0
-        }
-      },
-      {
-        "id": "1788171552531-3yj753pl",
-        "timestamp": "2026-08-31T10:19:12.531Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788169988616-qqc3c3wb",
-        "event": "question-bank.ai-request.started",
-        "message": "第 1/6 轮：正在请求 AI 生成题目…",
-        "context": {
-          "attempt": 1,
-          "maxAttempts": 6,
-          "collectedCount": 0
-        }
-      },
-      {
-        "id": "1788171552529-e5kicl0y",
-        "timestamp": "2026-08-31T10:19:12.529Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788169988616-qqc3c3wb",
-        "event": "question-bank.web-search.completed",
-        "message": "本轮联网检索完成",
-        "context": {
-          "attempt": 1,
-          "query": "机器视觉 面试知识点 HALCON 原理 工程实践",
-          "sourceCount": 0
-        }
-      },
-      {
-        "id": "1788171552061-psh3ovsd",
-        "timestamp": "2026-08-31T10:19:12.061Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788169988616-qqc3c3wb",
-        "event": "question-bank.web-search.started",
-        "message": "开始联网检索本轮题目资料",
-        "context": {
-          "attempt": 1,
-          "query": "机器视觉 面试知识点 HALCON 原理 工程实践",
-          "mode": "专业知识",
-          "excludedCount": 0
-        }
-      },
-      {
-        "id": "1788171552058-6dc12drz",
-        "timestamp": "2026-08-31T10:19:12.058Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788169988616-qqc3c3wb",
-        "event": "question-group.prepare.started",
-        "message": "开始准备题组",
-        "context": {
-          "project": "轮胎字符深度 OCR",
-          "mode": "专业知识",
-          "questionCount": 3
         }
       },
       {
