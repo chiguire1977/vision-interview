@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-08-31T13:29:46.211Z",
+  "updatedAt": "2026-08-31T13:29:49.430Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1784,6 +1784,46 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788182995138-sxycyil0",
+        "timestamp": "2026-08-31T13:29:55.138Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "025e1f9b03e9"
+        }
+      },
+      {
+        "id": "1788182993919-zvgqkma4",
+        "timestamp": "2026-08-31T13:29:53.919Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788182515885-iy17aubu",
+        "event": "question-bank.cache.saved",
+        "message": "AI 题库已完成远程同步",
+        "context": {
+          "questionCount": 10,
+          "pendingCount": 0
+        }
+      },
+      {
+        "id": "1788182993917-mi2sg6y8",
+        "timestamp": "2026-08-31T13:29:53.917Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788182515885-iy17aubu",
+        "event": "github.backup.succeeded",
+        "message": "数据已成功备份到 GitHub",
+        "context": {
+          "operation": "ai-question-bank",
+          "entryCount": 10,
+          "pendingCount": 0,
+          "status": 200
+        }
+      },
       {
         "id": "1788182989874-6ti35a0w",
         "timestamp": "2026-08-31T13:29:49.874Z",
@@ -14992,46 +15032,6 @@
         "context": {
           "reason": "change",
           "commit": "aff5f73889b5"
-        }
-      },
-      {
-        "id": "1788170013903-3c4axezt",
-        "timestamp": "2026-08-31T09:53:33.903Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "efbfb7e57ebe"
-        }
-      },
-      {
-        "id": "1788170007374-amdmpn2h",
-        "timestamp": "2026-08-31T09:53:27.374Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788169988616-qqc3c3wb",
-        "event": "question-group.prepare.completed",
-        "message": "AI 多轮联网搜索与生成后仍未获得有效题目，已使用本地题库与标准答案。",
-        "context": {
-          "source": "本地规则",
-          "questionCount": 3
-        }
-      },
-      {
-        "id": "1788170007371-si6fi41c",
-        "timestamp": "2026-08-31T09:53:27.371Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788169988616-qqc3c3wb",
-        "event": "question-bank.attempt.failed",
-        "message": "第 6/6 轮：本轮请求失败：请先配置当前 AI 服务商的 API Key。，准备下一轮…",
-        "context": {
-          "attempt": 6,
-          "maxAttempts": 6,
-          "collectedCount": 0,
-          "error": "请先配置当前 AI 服务商的 API Key。"
         }
       }
     ]
