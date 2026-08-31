@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-08-31T13:34:33.144Z",
+  "updatedAt": "2026-08-31T13:34:53.376Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1784,6 +1784,47 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788183296913-dfy910gd",
+        "timestamp": "2026-08-31T13:34:56.913Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788182515885-iy17aubu",
+        "event": "question-bank.ai-request.started",
+        "message": "第 5/6 轮：正在请求 AI 生成题目…",
+        "context": {
+          "attempt": 5,
+          "maxAttempts": 6,
+          "collectedCount": 0
+        }
+      },
+      {
+        "id": "1788183296910-kdqvd8g3",
+        "timestamp": "2026-08-31T13:34:56.910Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788182515885-iy17aubu",
+        "event": "question-bank.attempt.failed",
+        "message": "第 4/6 轮：本轮请求失败：AI 请求超时，请稍后重试。，准备下一轮…",
+        "context": {
+          "attempt": 4,
+          "maxAttempts": 6,
+          "collectedCount": 0,
+          "error": "AI 请求超时，请稍后重试。"
+        }
+      },
+      {
+        "id": "1788183281360-cohc0pr9",
+        "timestamp": "2026-08-31T13:34:41.360Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "35bdf7f89e33"
+        }
+      },
       {
         "id": "1788183273113-7ovsyqck",
         "timestamp": "2026-08-31T13:34:33.113Z",
@@ -14926,50 +14967,6 @@
           "attempt": 6,
           "maxAttempts": 6,
           "collectedCount": 0
-        }
-      },
-      {
-        "id": "1788170357035-daqe0uq3",
-        "timestamp": "2026-08-31T09:59:17.035Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788169988616-qqc3c3wb",
-        "event": "question-bank.web-search.completed",
-        "message": "本轮联网检索完成",
-        "context": {
-          "attempt": 6,
-          "query": "机器视觉 面试知识点 通用原理 原理 工程实践",
-          "sourceCount": 0
-        }
-      },
-      {
-        "id": "1788170354009-dprpbn6a",
-        "timestamp": "2026-08-31T09:59:14.009Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788169988616-qqc3c3wb",
-        "event": "question-bank.web-search.started",
-        "message": "开始联网检索本轮题目资料",
-        "context": {
-          "attempt": 6,
-          "query": "机器视觉 面试知识点 通用原理 原理 工程实践",
-          "mode": "专业知识",
-          "excludedCount": 0
-        }
-      },
-      {
-        "id": "1788170354007-xtp4lv9r",
-        "timestamp": "2026-08-31T09:59:14.007Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788169988616-qqc3c3wb",
-        "event": "question-bank.attempt.failed",
-        "message": "第 5/6 轮：本轮请求失败：AI 请求超时，请稍后重试。，准备下一轮…",
-        "context": {
-          "attempt": 5,
-          "maxAttempts": 6,
-          "collectedCount": 0,
-          "error": "AI 请求超时，请稍后重试。"
         }
       }
     ]
