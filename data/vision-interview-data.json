@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-08-31T11:23:47.551Z",
+  "updatedAt": "2026-08-31T11:23:53.839Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1802,6 +1802,76 @@
     },
     "vision-interview-project-view": "card",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788175436313-00tx65gd",
+        "timestamp": "2026-08-31T11:23:56.313Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "f38c7a07cbb7"
+        }
+      },
+      {
+        "id": "1788175434737-z5t9dx2g",
+        "timestamp": "2026-08-31T11:23:54.737Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788175400619-coejkd41",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 6,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 0
+        }
+      },
+      {
+        "id": "1788175434734-rfeqyxxt",
+        "timestamp": "2026-08-31T11:23:54.734Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788175400619-coejkd41",
+        "event": "question-bank.attempt.failed",
+        "message": "第 5/6 轮：本轮请求失败：请先配置当前 AI 服务商的 API Key。，准备下一轮…",
+        "context": {
+          "attempt": 5,
+          "maxAttempts": 6,
+          "collectedCount": 0,
+          "error": "请先配置当前 AI 服务商的 API Key。"
+        }
+      },
+      {
+        "id": "1788175430602-27cg8o4l",
+        "timestamp": "2026-08-31T11:23:50.602Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788175400619-coejkd41",
+        "event": "question-bank.ai-request.started",
+        "message": "第 5/6 轮：正在请求 AI 生成题目…",
+        "context": {
+          "attempt": 5,
+          "maxAttempts": 6,
+          "collectedCount": 0
+        }
+      },
+      {
+        "id": "1788175430599-v0q82dr2",
+        "timestamp": "2026-08-31T11:23:50.599Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788175400619-coejkd41",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 5,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "sourceCount": 0
+        }
+      },
       {
         "id": "1788175430095-qbm8w4g7",
         "timestamp": "2026-08-31T11:23:50.095Z",
@@ -14153,68 +14223,6 @@
           "question": "在轮胎字符OCR项目中，数据增强具体采用了哪些方法？这些方法如何帮助模型应对倾斜和磨损？",
           "mode": "专业专项",
           "project": "轮胎字符深度 OCR"
-        }
-      },
-      {
-        "id": "1788145024492-wlv0c4np",
-        "timestamp": "2026-08-31T02:57:04.492Z",
-        "level": "WARN",
-        "kind": "user",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "在轮胎字符深度OCR项目中，局部对比度增强是如何实现的？请说明其原理和对识别准确率的影响。",
-          "mode": "专业专项",
-          "project": "轮胎字符深度 OCR"
-        }
-      },
-      {
-        "id": "1788145024053-gkqhjgqs",
-        "timestamp": "2026-08-31T02:57:04.053Z",
-        "level": "WARN",
-        "kind": "user",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "在轮胎字符深度OCR项目中，为什么选择HALCON的深度OCR而非传统OCR？请从算法原理和工程实践两方面说明。",
-          "mode": "专业专项",
-          "project": "轮胎字符深度 OCR"
-        }
-      },
-      {
-        "id": "1788144998162-m6yiw1v8",
-        "timestamp": "2026-08-31T02:56:38.162Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "question-group.prepare.completed",
-        "message": "AI 已生成完整 10 道题目、标准回答和技术原理；生成题已加入 GitHub 备份队列。",
-        "context": {
-          "source": "AI",
-          "questionCount": 10
-        }
-      },
-      {
-        "id": "1788144969685-avpmpen5",
-        "timestamp": "2026-08-31T02:56:09.685Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "question-group.prepare.started",
-        "message": "开始准备题组",
-        "context": {
-          "project": "轮胎字符深度 OCR",
-          "mode": "专业专项",
-          "questionCount": 3
-        }
-      },
-      {
-        "id": "1788144808615-vbevfq0d",
-        "timestamp": "2026-08-31T02:53:28.615Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "question-group.prepare.cached",
-        "message": "题组已从本机缓存恢复",
-        "context": {
-          "questionCount": 10
         }
       }
     ]
