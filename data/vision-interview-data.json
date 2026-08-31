@@ -1,7 +1,1051 @@
 {
   "version": 2,
-  "updatedAt": "2026-08-31T03:40:43.442Z",
+  "updatedAt": "2026-08-31T03:40:58.789Z",
   "data": {
+    "vision-interview-records": [
+      {
+        "question": "在HALCON中，进行边缘提取时，常用的算子有sobel_amp、canny和edges_sub_pix，它们各自的特点和适用场景是什么？",
+        "project": "轮胎字符深度 OCR",
+        "date": "2026/8/31",
+        "timestamp": "2026/8/31 11:24:03",
+        "action": "跳过题目",
+        "mode": "专业知识",
+        "category": "边缘检测",
+        "source": "专业",
+        "seconds": 0,
+        "answer": "",
+        "bestAnswer": "sobel_amp基于梯度幅值，简单快速，但对噪声敏感，边缘较粗；canny采用高斯滤波、非极大值抑制和双阈值，边缘连续且定位准确，适用于一般场景；edges_sub_pix提取亚像素边缘，精度最高，适用于高精度测量。选择时需权衡精度与速度。",
+        "mastery": "低",
+        "masteryUpdatedAt": "2026/8/31 11:24:03",
+        "reviewIssues": [
+          "本题未作答，无法判断你是否真正掌握了知识点。"
+        ],
+        "reviewSuggestions": [
+          "先用一句话给出结论，再围绕“梯度算子、非极大值抑制、双阈值”展开说明。"
+        ],
+        "masteryReason": "跳过题目，尚未提交回答。",
+        "reviewSource": "本地规则",
+        "answerKeywords": [
+          "梯度算子",
+          "非极大值抑制",
+          "双阈值",
+          "亚像素精度"
+        ],
+        "principle": "Sobel算子通过卷积核计算梯度幅值；Canny在梯度基础上进行非极大值抑制和双阈值连接，提高边缘连续性；亚像素边缘提取利用灰度插值或拟合，将边缘定位到亚像素级别。",
+        "id": "1788146643269-e7bcc838d7e328",
+        "bestAnswerViewed": false
+      },
+      {
+        "question": "在HALCON中，使用blob分析进行缺陷检测时，如果目标缺陷与背景灰度差异很小，你会采用哪些图像预处理方法增强对比度？",
+        "project": "轮胎字符深度 OCR",
+        "date": "2026/8/31",
+        "timestamp": "2026/8/31 11:24:02",
+        "action": "跳过题目",
+        "mode": "专业知识",
+        "category": "图像预处理",
+        "source": "专业",
+        "seconds": 0,
+        "answer": "",
+        "bestAnswer": "可先使用直方图均衡化或灰度拉伸增强全局对比度，再使用高通滤波或边缘增强突出缺陷细节。若噪声明显，可先进行中值滤波或高斯滤波去噪，再增强。也可使用形态学顶帽变换提取亮缺陷或黑帽变换提取暗缺陷。具体需根据缺陷类型和图像特性选择。",
+        "mastery": "低",
+        "masteryUpdatedAt": "2026/8/31 11:24:02",
+        "reviewIssues": [
+          "本题未作答，无法判断你是否真正掌握了知识点。"
+        ],
+        "reviewSuggestions": [
+          "先用一句话给出结论，再围绕“直方图均衡化、滤波、形态学”展开说明。"
+        ],
+        "masteryReason": "跳过题目，尚未提交回答。",
+        "reviewSource": "本地规则",
+        "answerKeywords": [
+          "直方图均衡化",
+          "滤波",
+          "形态学",
+          "灰度变换"
+        ],
+        "principle": "直方图均衡化通过重新分布灰度级提高对比度；高通滤波保留高频分量，增强边缘和细节；形态学顶帽/黑帽变换通过开/闭运算提取与结构元素相关的亮/暗区域，有效增强局部对比度。",
+        "id": "1788146642750-c61b34db1b4fa",
+        "bestAnswerViewed": false
+      },
+      {
+        "question": "在HALCON中，进行相机标定时，如何评估标定结果的准确性？如果重投影误差较大，可能的原因有哪些？",
+        "project": "轮胎字符深度 OCR",
+        "date": "2026/8/31",
+        "timestamp": "2026/8/31 11:24:02",
+        "action": "跳过题目",
+        "mode": "专业知识",
+        "category": "相机标定",
+        "source": "专业",
+        "seconds": 0,
+        "answer": "",
+        "bestAnswer": "评估标定结果主要看重投影误差，一般应小于0.1像素。若误差较大，可能原因包括：标定板图像不清晰（模糊、反光）、标定板平面度不足、拍摄角度过大、相机镜头畸变模型不匹配、标定板特征提取不准确等。应检查图像质量，确保标定板占据画面适当比例，并尝试不同畸变模型。",
+        "mastery": "低",
+        "masteryUpdatedAt": "2026/8/31 11:24:02",
+        "reviewIssues": [
+          "本题未作答，无法判断你是否真正掌握了知识点。"
+        ],
+        "reviewSuggestions": [
+          "先用一句话给出结论，再围绕“重投影误差、标定板、畸变模型”展开说明。"
+        ],
+        "masteryReason": "跳过题目，尚未提交回答。",
+        "reviewSource": "本地规则",
+        "answerKeywords": [
+          "重投影误差",
+          "标定板",
+          "畸变模型",
+          "图像质量"
+        ],
+        "principle": "重投影误差是标定板特征点实际投影与理论投影之间的像素偏差，反映标定参数的准确性。误差来源包括特征点提取误差、相机模型误差、标定板制造误差等。通过优化标定过程可减小误差。",
+        "id": "1788146642077-fa22c1a066f6d8",
+        "bestAnswerViewed": false
+      },
+      {
+        "question": "在HALCON中，使用create_shape_model进行模板匹配时，金字塔层数（NumLevels）对匹配速度和精度有何影响？如何确定最佳层数？",
+        "project": "轮胎字符深度 OCR",
+        "date": "2026/8/31",
+        "timestamp": "2026/8/31 11:24:01",
+        "action": "跳过题目",
+        "mode": "专业知识",
+        "category": "模板匹配",
+        "source": "专业",
+        "seconds": 0,
+        "answer": "",
+        "bestAnswer": "金字塔层数越多，顶层图像分辨率越低，粗匹配速度越快，但可能丢失细节，导致定位精度下降。层数过少则速度慢。最佳层数应使顶层图像中目标仍具有足够特征，通常根据目标尺寸和图像大小确定，可通过HALCON的determine_shape_model_params自动计算。实际中，可先使用自动参数，再根据速度要求调整。",
+        "mastery": "低",
+        "masteryUpdatedAt": "2026/8/31 11:24:01",
+        "reviewIssues": [
+          "本题未作答，无法判断你是否真正掌握了知识点。"
+        ],
+        "reviewSuggestions": [
+          "先用一句话给出结论，再围绕“金字塔层数、匹配速度、匹配精度”展开说明。"
+        ],
+        "masteryReason": "跳过题目，尚未提交回答。",
+        "reviewSource": "本地规则",
+        "answerKeywords": [
+          "金字塔层数",
+          "匹配速度",
+          "匹配精度",
+          "粗匹配",
+          "精匹配"
+        ],
+        "principle": "金字塔图像通过降采样生成多层分辨率图像，匹配时先在低分辨率层快速定位候选区域，再逐层精确定位。层数越多，顶层图像越小，搜索范围缩小，速度提升，但特征信息减少，可能造成漏检或精度下降。",
+        "id": "1788146641589-704d22d549364",
+        "bestAnswerViewed": false
+      },
+      {
+        "question": "在HALCON中，如何区分使用阈值分割（threshold）和动态阈值分割（dyn_threshold）？请结合实际应用场景说明选择依据。",
+        "project": "轮胎字符深度 OCR",
+        "date": "2026/8/31",
+        "timestamp": "2026/8/31 11:24:00",
+        "action": "跳过题目",
+        "mode": "专业知识",
+        "category": "图像分割",
+        "source": "专业",
+        "seconds": 0,
+        "answer": "",
+        "bestAnswer": "阈值分割适用于光照均匀、目标与背景灰度差异明显的图像，通过全局阈值即可有效分离。动态阈值分割则适用于光照不均匀或背景灰度缓慢变化的场景，它通过比较每个像素与其邻域均值的差异来分割，能适应局部灰度变化。选择时需考虑图像质量、目标特征和实时性要求。例如，在印刷品缺陷检测中，若光照不均导致背景灰度变化，应使用dyn_threshold，并设置合适的邻域尺寸和偏移量。",
+        "mastery": "低",
+        "masteryUpdatedAt": "2026/8/31 11:24:00",
+        "reviewIssues": [
+          "本题未作答，无法判断你是否真正掌握了知识点。"
+        ],
+        "reviewSuggestions": [
+          "先用一句话给出结论，再围绕“全局阈值、局部光照变化、背景不均匀”展开说明。"
+        ],
+        "masteryReason": "跳过题目，尚未提交回答。",
+        "reviewSource": "本地规则",
+        "answerKeywords": [
+          "全局阈值",
+          "局部光照变化",
+          "背景不均匀",
+          "dyn_threshold参数"
+        ],
+        "principle": "阈值分割基于全局灰度直方图选取阈值，简单快速但易受光照影响。动态阈值分割利用局部邻域统计（如均值）作为自适应阈值，通过像素灰度与邻域均值的差值进行分割，能有效抑制背景灰度变化，但计算量较大且对邻域尺寸敏感。",
+        "id": "1788146640555-dbeedf96504ed8",
+        "bestAnswerViewed": false
+      },
+      {
+        "question": "在轮胎字符深度OCR项目中，如何利用HALCON的深度学习工具进行模型训练和部署？请描述流程。",
+        "project": "轮胎字符深度 OCR",
+        "date": "2026/8/31",
+        "timestamp": "2026/8/31 10:57:06",
+        "action": "跳过题目",
+        "mode": "专业知识",
+        "category": "HALCON开发",
+        "source": "专业",
+        "seconds": 0,
+        "answer": "",
+        "bestAnswer": "流程包括：标注字符区域和标签；选择预训练模型（如OCR模型），进行迁移学习；设置训练参数，训练并验证；使用HALCON的DL工具评估；导出模型文件，在运行时加载并推理。部署时利用GPU加速，确保节拍。",
+        "mastery": "低",
+        "masteryUpdatedAt": "2026/8/31 10:57:06",
+        "reviewIssues": [
+          "本题未作答，无法判断你是否真正掌握了知识点。"
+        ],
+        "reviewSuggestions": [
+          "先用一句话给出结论，再围绕“数据标注、迁移学习、模型导出”展开说明。"
+        ],
+        "masteryReason": "跳过题目，尚未提交回答。",
+        "reviewSource": "本地规则",
+        "answerKeywords": [
+          "数据标注",
+          "迁移学习",
+          "模型导出",
+          "推理"
+        ],
+        "principle": "HALCON提供深度学习训练接口，基于CNN，通过迁移学习减少数据需求，训练后模型封装为可部署格式。",
+        "id": "1788145026773-4737ee3774f968",
+        "bestAnswerViewed": false
+      },
+      {
+        "question": "在轮胎字符OCR项目中，为什么选择Modbus TCP而不是其他通信协议？请比较Modbus TCP与EtherCAT的适用场景。",
+        "project": "轮胎字符深度 OCR",
+        "date": "2026/8/31",
+        "timestamp": "2026/8/31 10:57:06",
+        "action": "跳过题目",
+        "mode": "专业知识",
+        "category": "通信协议",
+        "source": "专业",
+        "seconds": 0,
+        "answer": "",
+        "bestAnswer": "Modbus TCP简单、兼容性好，适合非实时或毫秒级应用，且PLC普遍支持。EtherCAT实时性高（微秒级），适合运动控制，但开发复杂。本项目节拍为60件/分钟（约1秒/件），Modbus TCP足够，且成本低。",
+        "mastery": "低",
+        "masteryUpdatedAt": "2026/8/31 10:57:06",
+        "reviewIssues": [
+          "本题未作答，无法判断你是否真正掌握了知识点。"
+        ],
+        "reviewSuggestions": [
+          "先用一句话给出结论，再围绕“实时性、复杂度、成本”展开说明。"
+        ],
+        "masteryReason": "跳过题目，尚未提交回答。",
+        "reviewSource": "本地规则",
+        "answerKeywords": [
+          "实时性",
+          "复杂度",
+          "成本",
+          "兼容性"
+        ],
+        "principle": "Modbus TCP基于TCP/IP，实时性受网络延迟影响；EtherCAT采用分布式时钟，实现硬实时同步。",
+        "id": "1788145026581-b92dc091b9a87",
+        "bestAnswerViewed": false
+      },
+      {
+        "question": "在轮胎字符OCR项目中，如果PLC发送触发信号的频率高于视觉系统的处理速度，会发生什么？如何解决？",
+        "project": "轮胎字符深度 OCR",
+        "date": "2026/8/31",
+        "timestamp": "2026/8/31 10:57:06",
+        "action": "跳过题目",
+        "mode": "专业知识",
+        "category": "系统集成",
+        "source": "专业",
+        "seconds": 0,
+        "answer": "",
+        "bestAnswer": "若触发频率高于处理速度，会导致图像堆积或丢帧。解决方法是增加图像采集缓存队列，采用异步处理，并设置背压机制（如当缓存满时暂停触发）。同时优化算法（如GPU加速）提升处理速度，使节拍匹配。",
+        "mastery": "低",
+        "masteryUpdatedAt": "2026/8/31 10:57:06",
+        "reviewIssues": [
+          "本题未作答，无法判断你是否真正掌握了知识点。"
+        ],
+        "reviewSuggestions": [
+          "先用一句话给出结论，再围绕“队列、丢帧、背压机制”展开说明。"
+        ],
+        "masteryReason": "跳过题目，尚未提交回答。",
+        "reviewSource": "本地规则",
+        "answerKeywords": [
+          "队列",
+          "丢帧",
+          "背压机制",
+          "节拍匹配"
+        ],
+        "principle": "系统存在生产者-消费者模型，缓存队列缓冲峰值，背压防止溢出，处理速度需与触发频率匹配。",
+        "id": "1788145026365-fca3b4c7dc34b8",
+        "bestAnswerViewed": false
+      },
+      {
+        "question": "在轮胎字符深度OCR项目中，如何评估模型性能？除了准确率，还需要关注哪些指标？",
+        "project": "轮胎字符深度 OCR",
+        "date": "2026/8/31",
+        "timestamp": "2026/8/31 10:57:06",
+        "action": "跳过题目",
+        "mode": "专业知识",
+        "category": "模型评估",
+        "source": "专业",
+        "seconds": 0,
+        "answer": "",
+        "bestAnswer": "评估指标包括字符识别准确率（99.2%）、召回率、F1分数、误识别率（将背景误判为字符）以及推理时间（需满足60件/分钟）。还需关注置信度分布，设置合适的阈值以平衡准确率和误识别。",
+        "mastery": "低",
+        "masteryUpdatedAt": "2026/8/31 10:57:06",
+        "reviewIssues": [
+          "本题未作答，无法判断你是否真正掌握了知识点。"
+        ],
+        "reviewSuggestions": [
+          "先用一句话给出结论，再围绕“混淆矩阵、置信度阈值、误识别率”展开说明。"
+        ],
+        "masteryReason": "跳过题目，尚未提交回答。",
+        "reviewSource": "本地规则",
+        "answerKeywords": [
+          "混淆矩阵",
+          "置信度阈值",
+          "误识别率",
+          "节拍"
+        ],
+        "principle": "准确率衡量正确识别比例，召回率衡量漏检，F1平衡两者，推理时间影响节拍，多指标综合评估模型鲁棒性。",
+        "id": "1788145026180-60e0fe6a3047f",
+        "bestAnswerViewed": false
+      },
+      {
+        "question": "在轮胎字符OCR中，字符阴影对识别影响很大，请分析阴影产生的机理及消除方法。",
+        "project": "轮胎字符深度 OCR",
+        "date": "2026/8/31",
+        "timestamp": "2026/8/31 10:57:05",
+        "action": "跳过题目",
+        "mode": "专业知识",
+        "category": "图像处理",
+        "source": "专业",
+        "seconds": 0,
+        "answer": "",
+        "bestAnswer": "阴影由轮胎曲面和光照不均产生，属于低频背景变化。可通过同态滤波压缩低频、增强高频，或通过背景估计（如形态学开运算）得到背景，再与原图差分。结合CLAHE增强字符局部对比度，可有效消除阴影干扰。",
+        "mastery": "低",
+        "masteryUpdatedAt": "2026/8/31 10:57:05",
+        "reviewIssues": [
+          "本题未作答，无法判断你是否真正掌握了知识点。"
+        ],
+        "reviewSuggestions": [
+          "先用一句话给出结论，再围绕“光照模型、背景估计、同态滤波”展开说明。"
+        ],
+        "masteryReason": "跳过题目，尚未提交回答。",
+        "reviewSource": "本地规则",
+        "answerKeywords": [
+          "光照模型",
+          "背景估计",
+          "同态滤波",
+          "对比度增强"
+        ],
+        "principle": "同态滤波基于照射-反射模型，照射分量（阴影）是低频，反射分量（字符）是高频，通过频域滤波调整。",
+        "id": "1788145025975-8a79aef495f3c",
+        "bestAnswerViewed": false
+      },
+      {
+        "question": "现场轮胎字符出现严重磨损，导致OCR准确率下降，你会如何排查和解决？请给出步骤。",
+        "project": "轮胎字符深度 OCR",
+        "date": "2026/8/31",
+        "timestamp": "2026/8/31 10:57:05",
+        "action": "跳过题目",
+        "mode": "专业知识",
+        "category": "故障排查",
+        "source": "专业",
+        "seconds": 0,
+        "answer": "",
+        "bestAnswer": "首先检查图像质量，确认磨损是否导致字符对比度极低；其次调整预处理参数（如增强强度）；然后收集磨损样本，进行数据增强并重训模型；最后优化后处理逻辑（如字符匹配容差）。若仍不达标，考虑更换光源或增加3D视觉辅助。",
+        "mastery": "低",
+        "masteryUpdatedAt": "2026/8/31 10:57:05",
+        "reviewIssues": [
+          "本题未作答，无法判断你是否真正掌握了知识点。"
+        ],
+        "reviewSuggestions": [
+          "先用一句话给出结论，再围绕“图像质量、模型重训、预处理调整”展开说明。"
+        ],
+        "masteryReason": "跳过题目，尚未提交回答。",
+        "reviewSource": "本地规则",
+        "answerKeywords": [
+          "图像质量",
+          "模型重训",
+          "预处理调整",
+          "光源优化"
+        ],
+        "principle": "磨损字符灰度变化大，传统预处理可能失效，深度学习模型需要新样本适应分布变化，系统排查可定位瓶颈。",
+        "id": "1788145025204-df4d133523af88",
+        "bestAnswerViewed": false
+      },
+      {
+        "question": "在轮胎字符OCR项目中，Modbus TCP通信如何与PLC协同工作？请描述数据流和时序控制。",
+        "project": "轮胎字符深度 OCR",
+        "date": "2026/8/31",
+        "timestamp": "2026/8/31 10:57:05",
+        "action": "跳过题目",
+        "mode": "专业知识",
+        "category": "通信协议",
+        "source": "专业",
+        "seconds": 0,
+        "answer": "",
+        "bestAnswer": "PLC通过Modbus TCP发送触发信号（如线圈置位），视觉系统接收后采集图像并执行OCR，处理完成后将结果（字符、置信度）写入PLC的寄存器，并置位完成标志。PLC轮询读取结果，实现异步通信。时序上需设置超时，若超时则PLC报警并跳过当前工件。",
+        "mastery": "低",
+        "masteryUpdatedAt": "2026/8/31 10:57:05",
+        "reviewIssues": [
+          "本题未作答，无法判断你是否真正掌握了知识点。"
+        ],
+        "reviewSuggestions": [
+          "先用一句话给出结论，再围绕“触发信号、结果反馈、握手协议”展开说明。"
+        ],
+        "masteryReason": "跳过题目，尚未提交回答。",
+        "reviewSource": "本地规则",
+        "answerKeywords": [
+          "触发信号",
+          "结果反馈",
+          "握手协议",
+          "超时处理"
+        ],
+        "principle": "Modbus TCP基于TCP/IP，采用请求-响应模式，PLC作为客户端，视觉系统作为服务器，通过寄存器读写交换数据，确保实时性。",
+        "id": "1788145025029-046ac788fe7d08",
+        "bestAnswerViewed": false
+      },
+      {
+        "question": "在轮胎字符OCR项目中，数据增强具体采用了哪些方法？这些方法如何帮助模型应对倾斜和磨损？",
+        "project": "轮胎字符深度 OCR",
+        "date": "2026/8/31",
+        "timestamp": "2026/8/31 10:57:04",
+        "action": "跳过题目",
+        "mode": "专业知识",
+        "category": "数据增强",
+        "source": "专业",
+        "seconds": 0,
+        "answer": "",
+        "bestAnswer": "数据增强包括随机旋转（±15°）、弹性形变、添加高斯噪声、模拟磨损的模糊和灰度变化。这些方法让模型学习到倾斜和磨损的变体，增强泛化能力，从而在实际中应对轮胎字符的多样性。",
+        "mastery": "低",
+        "masteryUpdatedAt": "2026/8/31 10:57:04",
+        "reviewIssues": [
+          "本题未作答，无法判断你是否真正掌握了知识点。"
+        ],
+        "reviewSuggestions": [
+          "先用一句话给出结论，再围绕“随机旋转、弹性形变、噪声添加”展开说明。"
+        ],
+        "masteryReason": "跳过题目，尚未提交回答。",
+        "reviewSource": "本地规则",
+        "answerKeywords": [
+          "随机旋转",
+          "弹性形变",
+          "噪声添加",
+          "灰度变化"
+        ],
+        "principle": "数据增强通过生成更多训练样本，扩充数据分布，减少模型对特定姿态和纹理的过拟合，提高鲁棒性。",
+        "id": "1788145024828-42b91fef5b5e88",
+        "bestAnswerViewed": false
+      },
+      {
+        "question": "在轮胎字符深度OCR项目中，局部对比度增强是如何实现的？请说明其原理和对识别准确率的影响。",
+        "project": "轮胎字符深度 OCR",
+        "date": "2026/8/31",
+        "timestamp": "2026/8/31 10:57:04",
+        "action": "跳过题目",
+        "mode": "专业知识",
+        "category": "图像预处理",
+        "source": "专业",
+        "seconds": 0,
+        "answer": "",
+        "bestAnswer": "采用限制对比度自适应直方图均衡化（CLAHE），在局部区域进行直方图均衡，并限制对比度放大倍数，避免噪声放大。这能有效消除轮胎表面的阴影和光照不均，增强字符与背景的灰度差异，从而提升OCR准确率至99.2%。",
+        "mastery": "低",
+        "masteryUpdatedAt": "2026/8/31 10:57:04",
+        "reviewIssues": [
+          "本题未作答，无法判断你是否真正掌握了知识点。"
+        ],
+        "reviewSuggestions": [
+          "先用一句话给出结论，再围绕“CLAHE、局部直方图、阴影消除”展开说明。"
+        ],
+        "masteryReason": "跳过题目，尚未提交回答。",
+        "reviewSource": "本地规则",
+        "answerKeywords": [
+          "CLAHE",
+          "局部直方图",
+          "阴影消除",
+          "字符边缘"
+        ],
+        "principle": "CLAHE将图像划分为多个小区域，分别计算直方图并重分布，裁剪超过限制的直方图高度，再通过插值合并，使局部对比度增强且噪声可控。",
+        "id": "1788145024493-f3e35aae596038",
+        "bestAnswerViewed": false
+      },
+      {
+        "question": "在轮胎字符深度OCR项目中，为什么选择HALCON的深度OCR而非传统OCR？请从算法原理和工程实践两方面说明。",
+        "project": "轮胎字符深度 OCR",
+        "date": "2026/8/31",
+        "timestamp": "2026/8/31 10:57:04",
+        "action": "跳过题目",
+        "mode": "专业知识",
+        "category": "OCR算法选型",
+        "source": "专业",
+        "seconds": 0,
+        "answer": "",
+        "bestAnswer": "传统OCR依赖手工设计的特征（如边缘、连通域），对轮胎字符的倾斜、磨损和阴影鲁棒性差。HALCON深度OCR基于卷积神经网络，自动学习字符的层次化特征，能适应复杂背景和变形。工程上，HALCON提供预训练模型和迁移学习接口，减少数据标注量，且支持GPU加速，满足60件/分钟的节拍。",
+        "mastery": "低",
+        "masteryUpdatedAt": "2026/8/31 10:57:04",
+        "reviewIssues": [
+          "本题未作答，无法判断你是否真正掌握了知识点。"
+        ],
+        "reviewSuggestions": [
+          "先用一句话给出结论，再围绕“深度学习、特征提取、鲁棒性”展开说明。"
+        ],
+        "masteryReason": "跳过题目，尚未提交回答。",
+        "reviewSource": "本地规则",
+        "answerKeywords": [
+          "深度学习",
+          "特征提取",
+          "鲁棒性",
+          "训练数据",
+          "推理速度"
+        ],
+        "principle": "深度OCR利用CNN的卷积层提取局部特征，池化层降维，全连接层分类，通过反向传播优化权重，学习到比手工特征更鲁棒的表示。",
+        "id": "1788145024053-bd9f598db58c7",
+        "bestAnswerViewed": false
+      },
+      {
+        "question": "在轮胎字符OCR项目中，为什么选择HALCON而不是OpenCV？请从开发效率、算法库和部署方面比较。",
+        "project": "轮胎字符深度 OCR",
+        "date": "2026/8/31",
+        "timestamp": "2026/8/31 10:47:55",
+        "action": "跳过题目",
+        "mode": "专业知识",
+        "category": "技术选型",
+        "source": "专业",
+        "seconds": 0,
+        "answer": "",
+        "bestAnswer": "HALCON提供丰富的工业视觉算法，如深度OCR、3D视觉，且针对工业场景优化，开发效率高。其图形化开发环境（HDevelop）便于快速原型验证。部署方面，HALCON支持多种硬件和操作系统，并提供runtime授权。OpenCV开源免费，但算法需自行调优，开发周期长。对于工业项目，HALCON的可靠性和技术支持更具优势。",
+        "mastery": "低",
+        "masteryUpdatedAt": "2026/8/31 10:47:55",
+        "reviewIssues": [
+          "本题未作答，无法判断你是否真正掌握了知识点。"
+        ],
+        "reviewSuggestions": [
+          "先用一句话给出结论，再围绕“算法库、开发效率、工业部署”展开说明。"
+        ],
+        "masteryReason": "跳过题目，尚未提交回答。",
+        "reviewSource": "本地规则",
+        "answerKeywords": [
+          "算法库",
+          "开发效率",
+          "工业部署",
+          "技术支持"
+        ],
+        "principle": "HALCON是商业机器视觉库，算法成熟、文档完善，适合工业应用；OpenCV是开源库，灵活但需更多开发工作。",
+        "id": "1788144475612-f3195d5b658308",
+        "bestAnswerViewed": false
+      },
+      {
+        "question": "在轮胎字符OCR项目中，如果字符识别准确率不达标，你会如何排查？请从算法和工程两个角度分析。",
+        "project": "轮胎字符深度 OCR",
+        "date": "2026/8/31",
+        "timestamp": "2026/8/31 10:47:55",
+        "action": "跳过题目",
+        "mode": "专业知识",
+        "category": "故障排查",
+        "source": "专业",
+        "seconds": 0,
+        "answer": "",
+        "bestAnswer": "排查步骤：1.检查图像质量，确认字符是否清晰、有无遮挡；2.检查预处理参数，如对比度增强是否合适；3.检查模型训练数据是否覆盖现场样本；4.检查模型推理参数，如阈值设置；5.检查通信是否导致数据丢失。若光照变化，可增加光照归一化或采集更多光照样本进行数据增强。",
+        "mastery": "低",
+        "masteryUpdatedAt": "2026/8/31 10:47:55",
+        "reviewIssues": [
+          "本题未作答，无法判断你是否真正掌握了知识点。"
+        ],
+        "reviewSuggestions": [
+          "先用一句话给出结论，再围绕“图像采集、预处理、模型参数”展开说明。"
+        ],
+        "masteryReason": "跳过题目，尚未提交回答。",
+        "reviewSource": "本地规则",
+        "answerKeywords": [
+          "图像采集",
+          "预处理",
+          "模型参数",
+          "数据分布"
+        ],
+        "principle": "准确率下降可能源于图像采集、预处理、模型或通信任一环节。系统化排查需从数据流源头到终端逐步验证。",
+        "id": "1788144475340-9f9798b58aeed8",
+        "bestAnswerViewed": false
+      },
+      {
+        "question": "在轮胎字符OCR项目中，字符识别准确率99.2%是如何测得的？请设计一个评估方案。",
+        "project": "轮胎字符深度 OCR",
+        "date": "2026/8/31",
+        "timestamp": "2026/8/31 10:47:54",
+        "action": "跳过题目",
+        "mode": "专业知识",
+        "category": "性能评估",
+        "source": "专业",
+        "seconds": 0,
+        "answer": "",
+        "bestAnswer": "评估方案：收集大量轮胎字符图像，涵盖不同倾斜、磨损、光照条件，按比例划分训练集、验证集和测试集。测试集应独立于训练集，且包含现场实际样本。准确率计算为正确识别字符数/总字符数。需进行多次测试，确保稳定性。现场验证时，需在真实生产环境运行，统计实际准确率。",
+        "mastery": "低",
+        "masteryUpdatedAt": "2026/8/31 10:47:54",
+        "reviewIssues": [
+          "本题未作答，无法判断你是否真正掌握了知识点。"
+        ],
+        "reviewSuggestions": [
+          "先用一句话给出结论，再围绕“测试集划分、混淆矩阵、重复性”展开说明。"
+        ],
+        "masteryReason": "跳过题目，尚未提交回答。",
+        "reviewSource": "本地规则",
+        "answerKeywords": [
+          "测试集划分",
+          "混淆矩阵",
+          "重复性",
+          "现场验证"
+        ],
+        "principle": "准确率评估需保证测试集代表性，避免数据泄露。混淆矩阵可分析错误类型，指导改进。现场验证考虑环境差异。",
+        "id": "1788144474804-15e4bc9602a9c8",
+        "bestAnswerViewed": false
+      },
+      {
+        "question": "在轮胎字符OCR项目中，Modbus TCP通信的时序如何与PLC协同？请描述可能出现的时序问题及解决方案。",
+        "project": "轮胎字符深度 OCR",
+        "date": "2026/8/31",
+        "timestamp": "2026/8/31 10:47:54",
+        "action": "跳过题目",
+        "mode": "专业知识",
+        "category": "通信与集成",
+        "source": "专业",
+        "seconds": 0,
+        "answer": "",
+        "bestAnswer": "Modbus TCP通信需定义明确的请求-响应时序。PLC发送触发信号后，OCR系统处理并返回结果。时序问题包括：PLC等待超时、数据包丢失、处理延迟。解决方案：采用握手协议（如PLC发送请求，OCR返回确认），设置合理超时和重试机制；使用数据缓存队列，异步处理OCR任务，避免阻塞通信；在PLC侧增加状态机，确保结果时序正确。",
+        "mastery": "低",
+        "masteryUpdatedAt": "2026/8/31 10:47:54",
+        "reviewIssues": [
+          "本题未作答，无法判断你是否真正掌握了知识点。"
+        ],
+        "reviewSuggestions": [
+          "先用一句话给出结论，再围绕“握手协议、超时重试、数据缓存”展开说明。"
+        ],
+        "masteryReason": "跳过题目，尚未提交回答。",
+        "reviewSource": "本地规则",
+        "answerKeywords": [
+          "握手协议",
+          "超时重试",
+          "数据缓存",
+          "同步机制"
+        ],
+        "principle": "Modbus TCP是同步请求-响应协议，但OCR处理是异步的。通过引入缓冲区和解耦通信与处理，可以避免时序冲突。超时和重试机制保证通信可靠性。",
+        "id": "1788144474308-d4655043c6dbd",
+        "bestAnswerViewed": false
+      },
+      {
+        "question": "在轮胎字符OCR项目中，数据增强对模型性能提升有多大作用？请列举至少三种适合该场景的数据增强方法。",
+        "project": "轮胎字符深度 OCR",
+        "date": "2026/8/31",
+        "timestamp": "2026/8/31 10:47:53",
+        "action": "跳过题目",
+        "mode": "专业知识",
+        "category": "数据增强",
+        "source": "专业",
+        "seconds": 0,
+        "answer": "",
+        "bestAnswer": "数据增强能显著提升模型泛化能力，尤其在样本有限时。针对轮胎字符，常用方法包括：随机旋转（模拟倾斜）、亮度/对比度调整（模拟阴影）、添加高斯噪声（模拟磨损）、仿射变换（模拟视角变化）。这些方法增加训练样本多样性，使模型对实际场景中的变化更鲁棒。但过度增强可能引入不真实样本，导致过拟合，需合理控制增强强度。",
+        "mastery": "低",
+        "masteryUpdatedAt": "2026/8/31 10:47:53",
+        "reviewIssues": [
+          "本题未作答，无法判断你是否真正掌握了知识点。"
+        ],
+        "reviewSuggestions": [
+          "先用一句话给出结论，再围绕“随机旋转、亮度变化、噪声添加”展开说明。"
+        ],
+        "masteryReason": "跳过题目，尚未提交回答。",
+        "reviewSource": "本地规则",
+        "answerKeywords": [
+          "随机旋转",
+          "亮度变化",
+          "噪声添加",
+          "仿射变换"
+        ],
+        "principle": "数据增强通过生成新的训练样本，扩大数据分布覆盖范围，减少模型对特定特征的依赖，提升泛化能力。但增强需保持数据真实性，否则模型可能学习到噪声模式。",
+        "id": "1788144473908-1f272b41ebdee8",
+        "bestAnswerViewed": false
+      },
+      {
+        "question": "在轮胎字符OCR项目中，局部对比度增强是如何实现的？请说明其原理和参数选择对识别效果的影响。",
+        "project": "轮胎字符深度 OCR",
+        "date": "2026/8/31",
+        "timestamp": "2026/8/31 10:47:53",
+        "action": "跳过题目",
+        "mode": "专业知识",
+        "category": "图像预处理",
+        "source": "专业",
+        "seconds": 0,
+        "answer": "",
+        "bestAnswer": "局部对比度增强常用CLAHE（限制对比度自适应直方图均衡化），它通过将图像划分为多个tile，在每个tile内进行直方图均衡化，并限制对比度放大倍数，避免噪声放大。参数选择：tile size决定局部区域大小，过小会导致块效应，过大则失去局部性；clip limit控制对比度增强强度，过大会放大噪声，过小则增强不足。在轮胎字符中，适当参数可突出字符边缘，提升识别率。",
+        "mastery": "低",
+        "masteryUpdatedAt": "2026/8/31 10:47:53",
+        "reviewIssues": [
+          "本题未作答，无法判断你是否真正掌握了知识点。"
+        ],
+        "reviewSuggestions": [
+          "先用一句话给出结论，再围绕“CLAHE、局部对比度、参数选择”展开说明。"
+        ],
+        "masteryReason": "跳过题目，尚未提交回答。",
+        "reviewSource": "本地规则",
+        "answerKeywords": [
+          "CLAHE",
+          "局部对比度",
+          "参数选择",
+          "噪声放大"
+        ],
+        "principle": "CLAHE在局部区域应用直方图均衡化，通过裁剪直方图高度并重新分配像素，限制对比度增强幅度。这能增强局部细节，同时抑制噪声放大，适用于光照不均和阴影场景。",
+        "id": "1788144473421-ece361aafccf88",
+        "bestAnswerViewed": false
+      },
+      {
+        "question": "在轮胎字符深度OCR项目中，为什么选择HALCON的深度OCR而不是传统OCR？请从算法原理和工程实践两方面说明。",
+        "project": "轮胎字符深度 OCR",
+        "date": "2026/8/31",
+        "timestamp": "2026/8/31 10:47:52",
+        "action": "跳过题目",
+        "mode": "专业知识",
+        "category": "算法选型",
+        "source": "专业",
+        "seconds": 0,
+        "answer": "",
+        "bestAnswer": "传统OCR依赖手工设计的特征（如边缘、投影），对字符倾斜、磨损和阴影敏感，鲁棒性差。深度OCR通过卷积神经网络自动学习字符的层次化特征，对复杂背景和形变具有更强的泛化能力。在轮胎字符场景中，字符磨损和阴影常见，深度OCR能有效提升识别准确率。工程上，HALCON提供预训练模型和GPU加速，便于快速部署和调优。",
+        "mastery": "低",
+        "masteryUpdatedAt": "2026/8/31 10:47:52",
+        "reviewIssues": [
+          "本题未作答，无法判断你是否真正掌握了知识点。"
+        ],
+        "reviewSuggestions": [
+          "先用一句话给出结论，再围绕“深度学习、特征提取、鲁棒性”展开说明。"
+        ],
+        "masteryReason": "跳过题目，尚未提交回答。",
+        "reviewSource": "本地规则",
+        "answerKeywords": [
+          "深度学习",
+          "特征提取",
+          "鲁棒性",
+          "传统OCR局限"
+        ],
+        "principle": "深度OCR基于CNN，通过多层卷积自动提取从低级到高级的特征，对非线性变换（如光照变化、局部形变）具有不变性。传统OCR依赖人工设计的特征，如HOG或投影直方图，这些特征对噪声和形变敏感，难以覆盖所有变化。",
+        "id": "1788144472533-a824321e7dfd1",
+        "bestAnswerViewed": false
+      },
+      {
+        "question": "VisionPro 中 CogCaliper 如何稳定找到边缘，多个卡尺点如何用于直线拟合？",
+        "project": "轮胎字符深度 OCR",
+        "date": "2026/8/31",
+        "timestamp": "2026/8/31 09:34:23",
+        "action": "跳过题目",
+        "mode": "专业知识",
+        "category": "边缘与特征",
+        "source": "专业",
+        "seconds": 0,
+        "answer": "",
+        "bestAnswer": "CogCaliper 通过沿搜索方向投影图像灰度，计算一阶导数（梯度）或二阶导数，根据设定的边缘极性（亮到暗/暗到亮）和对比度阈值筛选候选边缘点。稳定找边需：1) 设置合适的搜索区域（卡尺长度和宽度）；2) 调整对比度阈值过滤噪声；3) 选择正确的边缘极性；4) 使用亚像素插值提高精度。多个卡尺点（通常 3-5 个）沿直线排列，每个卡尺输出一个边缘点坐标，通过最小二乘法拟合直线，拟合时可用 RANSAC 或剔除异常点（如偏离拟合线超过阈值的点）提高鲁棒性。",
+        "mastery": "低",
+        "masteryUpdatedAt": "2026/8/31 09:34:23",
+        "reviewIssues": [
+          "本题未作答，无法判断你是否真正掌握了知识点。"
+        ],
+        "reviewSuggestions": [
+          "先用一句话给出结论，再围绕“投影、边缘极性、对比度”展开说明。"
+        ],
+        "masteryReason": "跳过题目，尚未提交回答。",
+        "reviewSource": "本地规则",
+        "answerKeywords": [
+          "投影",
+          "边缘极性",
+          "对比度",
+          "卡尺",
+          "异常点",
+          "拟合",
+          "阈值"
+        ],
+        "principle": "CogCaliper 基于投影法，将二维区域内的像素沿搜索方向累加，形成一维灰度剖面，再通过差分计算边缘位置。对比度阈值基于梯度幅值，极性区分上升/下降沿。亚像素通过抛物线插值或重心法获得。直线拟合采用最小二乘，最小化点到直线的垂直距离平方和；异常点剔除可基于残差统计（如 3σ 原则）或 RANSAC 迭代，避免单个噪声点影响拟合角度和位置。",
+        "id": "1788140063719-a487ac3627565",
+        "bestAnswerViewed": false
+      },
+      {
+        "question": "Modbus TCP 与 PLC 进行视觉握手时应包含哪些信号？",
+        "project": "轮胎字符深度 OCR",
+        "date": "2026/8/31",
+        "timestamp": "2026/8/31 09:34:20",
+        "action": "跳过题目",
+        "mode": "专业知识",
+        "category": "PLC与现场",
+        "source": "专业",
+        "seconds": 0,
+        "answer": "",
+        "bestAnswer": "应包含：1) 触发信号（PLC→视觉）：启动拍照；2) 忙碌信号（视觉→PLC）：视觉正在处理，禁止新触发；3) 完成信号（视觉→PLC）：处理结束，结果已就绪；4) 结果信号（视觉→PLC）：OK/NG 及数据（如字符值、置信度）；5) 复位信号（PLC→视觉）：清除当前结果，允许下次触发；6) 超时信号（视觉→PLC）：处理超时报警；7) 心跳信号（双向）：周期性握手，检测通讯中断；8) 序号（双向）：匹配触发与结果，防止错位。",
+        "mastery": "低",
+        "masteryUpdatedAt": "2026/8/31 09:34:20",
+        "reviewIssues": [
+          "本题未作答，无法判断你是否真正掌握了知识点。"
+        ],
+        "reviewSuggestions": [
+          "先用一句话给出结论，再围绕“触发、忙碌、完成”展开说明。"
+        ],
+        "masteryReason": "跳过题目，尚未提交回答。",
+        "reviewSource": "本地规则",
+        "answerKeywords": [
+          "触发",
+          "忙碌",
+          "完成",
+          "结果",
+          "复位",
+          "超时",
+          "心跳",
+          "序号"
+        ],
+        "principle": "视觉握手本质是状态机同步，通过互斥信号（触发/忙碌）避免重复拍照，通过完成/结果信号保证数据有效性，复位信号确保状态循环。心跳和超时用于故障检测，序号用于多任务流水线中结果与工件的对应，防止因延迟导致错配。Modbus TCP 基于请求-响应，需轮询或中断方式读取，信号通常映射到线圈或寄存器，PLC 侧需周期性扫描。",
+        "id": "1788140060663-e93b28a4f73ab",
+        "bestAnswerViewed": false
+      },
+      {
+        "question": "OpenCV findContours 的检索模式和轮廓近似方式如何选择？",
+        "project": "轮胎字符深度 OCR",
+        "date": "2026/8/31",
+        "timestamp": "2026/8/31 09:34:15",
+        "action": "跳过题目",
+        "mode": "专业知识",
+        "category": "边缘与特征",
+        "source": "专业",
+        "seconds": 0,
+        "answer": "",
+        "bestAnswer": "检索模式选择：若只需最外层轮廓（如轮胎字符外边界），用 RETR_EXTERNAL 可忽略内部孔洞，减少计算量；若需完整层级关系（如字符内环），用 RETR_TREE 获取全部轮廓及父子关系。轮廓近似：CHAIN_APPROX_SIMPLE 压缩水平、垂直和对角线段，仅保留端点，节省内存且适合直线拟合；CHAIN_APPROX_NONE 保留所有轮廓点，适合需要精确像素级边缘或曲线拟合的场景。实际中优先用 RETR_EXTERNAL + CHAIN_APPROX_SIMPLE 提取字符外轮廓，再根据字符内部特征决定是否升级为 RETR_TREE。",
+        "mastery": "低",
+        "masteryUpdatedAt": "2026/8/31 09:34:15",
+        "reviewIssues": [
+          "本题未作答，无法判断你是否真正掌握了知识点。"
+        ],
+        "reviewSuggestions": [
+          "先用一句话给出结论，再围绕“外轮廓、层级、RETR_EXTERNAL”展开说明。"
+        ],
+        "masteryReason": "跳过题目，尚未提交回答。",
+        "reviewSource": "本地规则",
+        "answerKeywords": [
+          "外轮廓",
+          "层级",
+          "RETR_EXTERNAL",
+          "RETR_TREE",
+          "CHAIN_APPROX_NONE",
+          "CHAIN_APPROX_SIMPLE",
+          "内存"
+        ],
+        "principle": "findContours 基于拓扑结构分析，RETR_EXTERNAL 仅提取最外层边界，忽略内部孔洞，适合字符外轮廓提取；RETR_TREE 重建完整层级树，便于分析嵌套结构。CHAIN_APPROX_SIMPLE 通过 Douglas-Peucker 算法压缩轮廓点，减少存储和后续计算量，但会丢失微小曲率；CHAIN_APPROX_NONE 保留所有链码点，保留全部几何信息但内存开销大。选择需权衡精度与性能，字符 OCR 通常外轮廓用 SIMPLE 即可满足直线拟合需求。",
+        "id": "1788140055319-9ccad2f0d115c8",
+        "bestAnswerViewed": false
+      },
+      {
+        "question": "形状模板匹配与 NCC 灰度模板匹配有什么区别？",
+        "project": "轮胎字符深度 OCR",
+        "date": "2026/8/31",
+        "timestamp": "2026/8/31 09:34:11",
+        "action": "跳过题目",
+        "mode": "专业知识",
+        "category": "模板与定位",
+        "source": "专业",
+        "seconds": 0,
+        "answer": "",
+        "bestAnswer": "形状模板匹配基于目标的边缘轮廓或梯度信息，通过提取模板的轮廓特征（如亚像素边缘点及其梯度方向）在图像中搜索相似形状，对光照变化、灰度反转、部分遮挡和噪声鲁棒性强，且支持旋转、缩放和尺度变化，但需要目标具有清晰的边缘轮廓。NCC 灰度模板匹配基于像素灰度值的归一化互相关，直接比较模板与搜索窗口的灰度相似度，对纹理丰富、灰度特征明显的目标效果好，但对光照变化敏感，且计算量大，对旋转和尺度变化支持有限。",
+        "mastery": "低",
+        "masteryUpdatedAt": "2026/8/31 09:34:11",
+        "reviewIssues": [
+          "本题未作答，无法判断你是否真正掌握了知识点。"
+        ],
+        "reviewSuggestions": [
+          "先用一句话给出结论，再围绕“灰度、轮廓、梯度”展开说明。"
+        ],
+        "masteryReason": "跳过题目，尚未提交回答。",
+        "reviewSource": "本地规则",
+        "answerKeywords": [
+          "灰度",
+          "轮廓",
+          "梯度",
+          "旋转",
+          "光照",
+          "纹理",
+          "遮挡",
+          "尺度"
+        ],
+        "principle": "形状匹配利用边缘点的梯度方向和位置构建特征描述，通过相似度度量（如 Hausdorff 距离或梯度方向一致性）在搜索空间中匹配，由于不依赖绝对灰度值，因此对光照和灰度偏移不敏感。NCC 通过计算模板与图像窗口的归一化互相关系数，公式为 Σ[(I-μI)(T-μT)] / sqrt(Σ(I-μI)² Σ(T-μT)²)，其值在 [-1,1] 之间，1 表示完全相关。NCC 对线性光照变化（乘性因子和加性偏移）有一定鲁棒性，但对非线性光照和遮挡敏感。",
+        "id": "1788140051463-7ebe9e8e5e28d",
+        "bestAnswerViewed": false
+      },
+      {
+        "question": "HALCON 的 dyn_threshold 与普通 threshold 有什么区别？",
+        "project": "轮胎字符深度 OCR",
+        "date": "2026/8/31",
+        "timestamp": "2026/8/31 09:34:09",
+        "action": "跳过题目",
+        "mode": "专业知识",
+        "category": "图像处理基础",
+        "source": "专业",
+        "seconds": 0,
+        "answer": "",
+        "bestAnswer": "普通 threshold 使用固定灰度阈值对整幅图像进行全局分割，适用于光照均匀、目标与背景灰度差异稳定的场景。dyn_threshold 是局部自适应阈值分割，它通过将原图与平滑后的图像（如 mean_image 或 median_image）逐像素比较，根据局部灰度变化动态确定阈值，能有效处理光照不均、背景灰度缓慢变化的情况。使用 dyn_threshold 时需指定 Offset 参数，用于控制分割的灵敏度，并通常配合 'light' 或 'dark' 等模式选择提取亮或暗区域。",
+        "mastery": "低",
+        "masteryUpdatedAt": "2026/8/31 09:34:09",
+        "reviewIssues": [
+          "本题未作答，无法判断你是否真正掌握了知识点。"
+        ],
+        "reviewSuggestions": [
+          "先用一句话给出结论，再围绕“全局阈值、平滑图像、局部”展开说明。"
+        ],
+        "masteryReason": "跳过题目，尚未提交回答。",
+        "reviewSource": "本地规则",
+        "answerKeywords": [
+          "全局阈值",
+          "平滑图像",
+          "局部",
+          "灰度差",
+          "光照不均",
+          "Offset"
+        ],
+        "principle": "dyn_threshold 的核心原理是：对原图像 f(x,y) 进行平滑滤波得到背景估计 g(x,y)，然后逐像素判断 f(x,y) 与 g(x,y) 的差值是否超过 Offset。若 f - g > Offset 则属于亮区域，若 g - f > Offset 则属于暗区域。由于 g(x,y) 反映了局部背景灰度，因此阈值是随位置变化的，从而克服了全局阈值在光照不均时的失效问题。Offset 的作用是抑制噪声和微小灰度波动，其值越大，分割结果越保守。",
+        "id": "1788140049831-8ab3dad180bc98",
+        "bestAnswerViewed": false
+      },
+      {
+        "question": "HALCON 中 Image、Region 和 XLD 的区别是什么？",
+        "project": "轮胎字符深度 OCR",
+        "date": "2026/8/31",
+        "timestamp": "2026/8/31 09:34:08",
+        "action": "跳过题目",
+        "mode": "专业知识",
+        "category": "图像处理基础",
+        "source": "专业",
+        "seconds": 0,
+        "answer": "",
+        "bestAnswer": "Image 是像素灰度矩阵，用于存储图像数据；Region 是像素级区域，表示感兴趣的区域（如分割结果）；XLD 是亚像素轮廓，用于精确描述边缘或形状。Image 是基础数据，Region 用于区域处理，XLD 用于亚像素精度测量。",
+        "mastery": "低",
+        "masteryUpdatedAt": "2026/8/31 09:34:08",
+        "reviewIssues": [
+          "本题未作答，无法判断你是否真正掌握了知识点。"
+        ],
+        "reviewSuggestions": [
+          "先用一句话给出结论，再围绕“灰度、区域、轮廓”展开说明。"
+        ],
+        "masteryReason": "跳过题目，尚未提交回答。",
+        "reviewSource": "本地规则",
+        "answerKeywords": [
+          "灰度",
+          "区域",
+          "轮廓",
+          "像素",
+          "几何",
+          "亚像素",
+          "运算对象"
+        ],
+        "principle": "Image 以像素为单位存储灰度值；Region 是像素集合，基于图像分割产生；XLD 是亚像素精度的轮廓线，通过边缘提取获得，支持几何变换和测量。三者层次不同，处理精度和用途各异。",
+        "id": "1788140048079-bb91fa9e46788",
+        "bestAnswerViewed": false
+      },
+      {
+        "question": "VisionPro 中 CogFixture 的作用是什么？为什么定位后要建立夹具坐标系？",
+        "project": "轮胎字符深度 OCR",
+        "date": "2026/8/31",
+        "timestamp": "2026/8/31 09:34:07",
+        "action": "跳过题目",
+        "mode": "专业知识",
+        "category": "标定与坐标",
+        "source": "专业",
+        "seconds": 0,
+        "answer": "",
+        "bestAnswer": "CogFixture 用于将定位结果转换为夹具坐标系，使后续测量或检测区域跟随工件位置变化。建立夹具坐标系后，即使工件位置偏移或旋转，检测区域也能自动对准，保证检测稳定性。",
+        "mastery": "低",
+        "masteryUpdatedAt": "2026/8/31 09:34:07",
+        "reviewIssues": [
+          "本题未作答，无法判断你是否真正掌握了知识点。"
+        ],
+        "reviewSuggestions": [
+          "先用一句话给出结论，再围绕“坐标系、变换、定位结果”展开说明。"
+        ],
+        "masteryReason": "跳过题目，尚未提交回答。",
+        "reviewSource": "本地规则",
+        "answerKeywords": [
+          "坐标系",
+          "变换",
+          "定位结果",
+          "Fixture",
+          "测量区域",
+          "跟随",
+          "标定空间"
+        ],
+        "principle": "CogFixture 通过空间变换将图像坐标映射到工件坐标系，实现位置补偿。夹具坐标系基于定位结果建立，后续工具在该坐标系下运行，从而消除工件位置变化的影响。",
+        "id": "1788140047159-21c1761c48e058",
+        "bestAnswerViewed": false
+      },
+      {
+        "question": "NCC 模板匹配为什么要先对图像和模板去均值？",
+        "score": 58,
+        "project": "轮胎字符深度 OCR",
+        "date": "2026/8/31",
+        "timestamp": "2026/8/31 09:34:12",
+        "action": "跳过题目",
+        "mode": "专业知识",
+        "category": "模板与定位",
+        "source": "专业",
+        "seconds": 0,
+        "answer": "",
+        "bestAnswerViewed": false,
+        "id": "1788079651083-2975aab5912ee8",
+        "mastery": "低",
+        "bestAnswer": "去均值是为了消除图像和模板之间的直流分量（即整体亮度偏移）对相关性计算的影响。如果不减去均值，NCC 的结果会受绝对灰度水平影响，导致即使形状相同但亮度不同的区域相关性降低。去均值后，相关性只反映灰度变化模式的相似程度，从而对整体亮度变化（如光照增强或减弱）具有鲁棒性。",
+        "masteryUpdatedAt": "2026/8/31 09:34:12",
+        "reviewIssues": [
+          "本题未作答，无法判断你是否真正掌握了知识点。"
+        ],
+        "reviewSuggestions": [
+          "先用一句话给出结论，再围绕“均值、亮度、相关性”展开说明。"
+        ],
+        "masteryReason": "跳过题目，尚未提交回答。",
+        "reviewSource": "本地规则",
+        "answerKeywords": [
+          "均值",
+          "亮度",
+          "相关性",
+          "归一化",
+          "灰度",
+          "偏移",
+          "分子",
+          "分母"
+        ],
+        "principle": "NCC 公式中的分子 Σ(I-μI)(T-μT) 是协方差，分母是标准差乘积。减去均值后，分子只保留灰度波动（即变化模式）的乘积，而分母对灰度波动幅度进行归一化。这使得 NCC 对加性亮度偏移（即整体灰度加减常数）完全不敏感，对乘性亮度变化（即对比度变化）也有较好的鲁棒性。若不去均值，分子会包含均值乘积项，导致相关性被绝对亮度主导，无法正确反映结构相似性。"
+      },
+      {
+        "question": "曝光时间和增益分别会对检测结果产生什么影响？",
+        "score": 58,
+        "project": "轮胎字符深度 OCR",
+        "date": "2026/8/31",
+        "timestamp": "2026/8/31 09:34:05",
+        "action": "跳过题目",
+        "mode": "专业知识",
+        "category": "相机镜头光源",
+        "source": "专业",
+        "seconds": 0,
+        "answer": "",
+        "bestAnswerViewed": false,
+        "id": "1788078551028-0c3c26febaa91",
+        "mastery": "低",
+        "bestAnswer": "曝光时间控制传感器接收光的时间，影响图像亮度；增益是电子放大信号，影响亮度但会放大噪声。曝光时间过长会导致运动模糊，过短则图像过暗；增益过高会降低信噪比，产生噪点。实际应用中应优先调节光源和光圈，再调整曝光时间，最后才考虑增益。",
+        "masteryUpdatedAt": "2026/8/31 09:34:05",
+        "reviewIssues": [
+          "本题未作答，无法判断你是否真正掌握了知识点。"
+        ],
+        "reviewSuggestions": [
+          "先用一句话给出结论，再围绕“亮度、曝光、增益”展开说明。"
+        ],
+        "masteryReason": "跳过题目，尚未提交回答。",
+        "reviewSource": "本地规则",
+        "answerKeywords": [
+          "亮度",
+          "曝光",
+          "增益",
+          "噪声",
+          "运动模糊",
+          "信噪比",
+          "光源",
+          "光圈"
+        ],
+        "principle": "曝光时间决定光子累积量，影响信噪比和动态范围；增益放大信号的同时放大噪声，降低图像质量。运动模糊与曝光时间成正比，需根据物体运动速度限制曝光时间。"
+      },
+      {
+        "question": "九点标定解决了什么问题？完整实施步骤是什么？",
+        "score": 58,
+        "project": "轮胎字符深度 OCR",
+        "date": "2026/8/30",
+        "timestamp": "2026/8/30 16:29:04",
+        "action": "完成答题",
+        "mode": "专业知识",
+        "category": "标定与坐标",
+        "source": "专业",
+        "seconds": 0,
+        "answer": "123132123123123",
+        "bestAnswerViewed": false,
+        "id": "1788078544875-4d51e5c1e3ecd8",
+        "mastery": "低"
+      }
+    ],
     "vision-interview-ai-preferences": {
       "provider": "deepseek",
       "model": "deepseek-v4-flash",
