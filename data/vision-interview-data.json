@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-08-31T11:58:50.855Z",
+  "updatedAt": "2026-08-31T12:00:46.242Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1818,6 +1818,76 @@
     },
     "vision-interview-project-view": "card",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788177588698-6j927nps",
+        "timestamp": "2026-08-31T11:59:48.697Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788176733288-egduzojh",
+        "event": "question-bank.ai-request.started",
+        "message": "第 3/6 轮：正在请求 AI 生成题目…",
+        "context": {
+          "attempt": 3,
+          "maxAttempts": 6,
+          "collectedCount": 0
+        }
+      },
+      {
+        "id": "1788177588692-hzbqs2hl",
+        "timestamp": "2026-08-31T11:59:48.692Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788176733288-egduzojh",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 3,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "sourceCount": 0
+        }
+      },
+      {
+        "id": "1788177586327-26gzk0x7",
+        "timestamp": "2026-08-31T11:59:46.327Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788176733288-egduzojh",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 3,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 0
+        }
+      },
+      {
+        "id": "1788177586322-ezjtoo09",
+        "timestamp": "2026-08-31T11:59:46.322Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788176733288-egduzojh",
+        "event": "question-bank.attempt.failed",
+        "message": "第 2/6 轮：本轮请求失败：Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON，准备下一轮…",
+        "context": {
+          "attempt": 2,
+          "maxAttempts": 6,
+          "collectedCount": 0,
+          "error": "Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON"
+        }
+      },
+      {
+        "id": "1788177539114-8mepica1",
+        "timestamp": "2026-08-31T11:58:59.114Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "509688e4f0f8"
+        }
+      },
       {
         "id": "1788177536200-nmquxbjp",
         "timestamp": "2026-08-31T11:58:56.200Z",
@@ -15005,76 +15075,6 @@
         "context": {
           "reason": "change",
           "commit": "5884fb1ee41a"
-        }
-      },
-      {
-        "id": "1788164855370-cz92ga1l",
-        "timestamp": "2026-08-31T08:27:35.370Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788164727758-4j1db2oj",
-        "event": "question-group.prepare.started",
-        "message": "开始准备题组",
-        "context": {
-          "project": "轮胎字符深度 OCR",
-          "mode": "专业知识",
-          "questionCount": 3
-        }
-      },
-      {
-        "id": "1788164853296-79j77xkg",
-        "timestamp": "2026-08-31T08:27:33.296Z",
-        "level": "WARN",
-        "kind": "user",
-        "sessionId": "1788164727758-4j1db2oj",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "在HALCON中，如何实现3D视觉的相机标定？与2D标定有何不同？",
-          "mode": "专业知识",
-          "project": "轮胎字符深度 OCR"
-        }
-      },
-      {
-        "id": "1788164853056-030bhng5",
-        "timestamp": "2026-08-31T08:27:33.056Z",
-        "level": "WARN",
-        "kind": "user",
-        "sessionId": "1788164727758-4j1db2oj",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "在HALCON中，使用OCR识别字符时，如果识别率低，你会从哪些方面进行优化？",
-          "mode": "专业知识",
-          "project": "轮胎字符深度 OCR"
-        }
-      },
-      {
-        "id": "1788164852887-lisqhivn",
-        "timestamp": "2026-08-31T08:27:32.887Z",
-        "level": "WARN",
-        "kind": "user",
-        "sessionId": "1788164727758-4j1db2oj",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "在HALCON中，进行图像拼接时，如何解决图像之间的光照差异和重叠区域的重合问题？",
-          "mode": "专业知识",
-          "project": "轮胎字符深度 OCR"
-        }
-      },
-      {
-        "id": "1788164852728-5v9j2dct",
-        "timestamp": "2026-08-31T08:27:32.728Z",
-        "level": "WARN",
-        "kind": "user",
-        "sessionId": "1788164727758-4j1db2oj",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "在HALCON中，如何实现多模板匹配？当目标物体存在多种形态时，如何处理以提高匹配鲁棒性？",
-          "mode": "专业知识",
-          "project": "轮胎字符深度 OCR"
         }
       }
     ]
