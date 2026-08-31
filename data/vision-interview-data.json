@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-08-31T10:06:13.414Z",
+  "updatedAt": "2026-08-31T10:06:19.571Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1336,6 +1336,76 @@
     },
     "vision-interview-project-view": "card",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788170775360-gl2rw10g",
+        "timestamp": "2026-08-31T10:06:15.360Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "30d1bd862f48"
+        }
+      },
+      {
+        "id": "1788170772727-o84wiamg",
+        "timestamp": "2026-08-31T10:06:12.727Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788170737293-lq2t7wjd",
+        "event": "question-bank.ai-request.started",
+        "message": "第 6/6 轮：正在请求 AI 生成题目…",
+        "context": {
+          "attempt": 6,
+          "maxAttempts": 6,
+          "collectedCount": 0
+        }
+      },
+      {
+        "id": "1788170772705-2rll223r",
+        "timestamp": "2026-08-31T10:06:12.705Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788170737293-lq2t7wjd",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 6,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "sourceCount": 0
+        }
+      },
+      {
+        "id": "1788170769585-45nui6cj",
+        "timestamp": "2026-08-31T10:06:09.585Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788170737293-lq2t7wjd",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 6,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 0
+        }
+      },
+      {
+        "id": "1788170769565-zuy2125m",
+        "timestamp": "2026-08-31T10:06:09.565Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788170737293-lq2t7wjd",
+        "event": "question-bank.attempt.failed",
+        "message": "第 5/6 轮：本轮请求失败：请先配置当前 AI 服务商的 API Key。，准备下一轮…",
+        "context": {
+          "attempt": 5,
+          "maxAttempts": 6,
+          "collectedCount": 0,
+          "error": "请先配置当前 AI 服务商的 API Key。"
+        }
+      },
       {
         "id": "1788170769291-apjk2oos",
         "timestamp": "2026-08-31T10:06:09.291Z",
@@ -13799,62 +13869,6 @@
         "message": "题组已从本机缓存恢复",
         "context": {
           "questionCount": 10
-        }
-      },
-      {
-        "id": "1788145970340-7pobjkl1",
-        "timestamp": "2026-08-31T03:12:50.340Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "question-group.prepare.started",
-        "message": "开始准备题组",
-        "context": {
-          "project": "轮胎字符深度 OCR",
-          "mode": "专业专项",
-          "questionCount": 10
-        }
-      },
-      {
-        "id": "1788145970328-aurwtcs4",
-        "timestamp": "2026-08-31T03:12:50.328Z",
-        "level": "WARN",
-        "kind": "system",
-        "event": "backup.startup.offline",
-        "message": "启动时未能读取 GitHub 配置",
-        "context": {
-          "status": 502,
-          "reason": "GitHub 读取失败（HTTP 403）：\r\nRequest forbidden by administrative rules. Please make sure your request has a User-Agent header (https://docs.github.com/en/rest/overview/resources-in-the-rest-api#user-agent-required). Check https://developer.github.com for other possib"
-        }
-      },
-      {
-        "id": "1788145909458-6ntnnn7y",
-        "timestamp": "2026-08-31T03:11:49.458Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.close.flush",
-        "message": "页面关闭或进入后台，提交最后一次备份"
-      },
-      {
-        "id": "1788145909457-8bn1l047",
-        "timestamp": "2026-08-31T03:11:49.457Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "question-group.prepare.completed",
-        "message": "AI 两次生成均未获得有效题目，已使用本地题库与标准答案。",
-        "context": {
-          "source": "本地规则",
-          "questionCount": 10
-        }
-      },
-      {
-        "id": "1788145909456-51ycyms6",
-        "timestamp": "2026-08-31T03:11:49.456Z",
-        "level": "ERROR",
-        "kind": "system",
-        "event": "backup.push.failed",
-        "message": "运行数据备份请求失败",
-        "context": {
-          "error": "Failed to fetch"
         }
       }
     ]
