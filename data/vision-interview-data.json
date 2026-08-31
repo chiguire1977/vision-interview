@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-08-31T15:57:24.445Z",
+  "updatedAt": "2026-08-31T15:57:27.840Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1833,6 +1833,32 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788191854103-jt2ex2rf",
+        "timestamp": "2026-08-31T15:57:34.103Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "ad0976317e6f"
+        }
+      },
+      {
+        "id": "1788191853148-vg3ofc1u",
+        "timestamp": "2026-08-31T15:57:33.148Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788191832589-2rrvv7qm",
+        "event": "ai.connection-test.started",
+        "message": "开始真实聊天连接测试",
+        "context": {
+          "provider": "custom-mtfsd2qj-i4ox3z",
+          "model": "deepseek-v4-flash",
+          "upstreamFormat": "chat-completions"
+        }
+      },
       {
         "id": "1788191848029-pmvtvl6g",
         "timestamp": "2026-08-31T15:57:28.029Z",
@@ -18245,39 +18271,6 @@
           "workerIndex": 1,
           "parallelRequests": 3,
           "error": "请先配置当前 AI 服务商的 API Key。"
-        }
-      },
-      {
-        "id": "1788186073020-ni0zfv4t",
-        "timestamp": "2026-08-31T14:21:13.020Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788185400191-3fe71itf",
-        "event": "question-bank.ai-request.started",
-        "message": "第 4/6 轮（并行 1/3）：正在请求 AI 生成题目（4 道）…",
-        "context": {
-          "attempt": 4,
-          "maxAttempts": 6,
-          "collectedCount": 0,
-          "workerIndex": 1,
-          "parallelRequests": 3,
-          "requestedCount": 4
-        }
-      },
-      {
-        "id": "1788186073017-sw2lrhst",
-        "timestamp": "2026-08-31T14:21:13.017Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788185400191-3fe71itf",
-        "event": "question-bank.web-search.completed",
-        "message": "本轮联网检索完成",
-        "context": {
-          "attempt": 4,
-          "query": "机器视觉 模板与定位 原理 工程实践",
-          "sourceCount": 0,
-          "workerIndex": 1,
-          "parallelRequests": 3
         }
       }
     ]
