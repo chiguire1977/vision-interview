@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-08-31T12:50:16.449Z",
+  "updatedAt": "2026-08-31T12:50:23.649Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1802,6 +1802,76 @@
     },
     "vision-interview-project-view": "card",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788180626208-7mg10nn3",
+        "timestamp": "2026-08-31T12:50:26.208Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "3c1b8335a3e0"
+        }
+      },
+      {
+        "id": "1788180624962-lp6x2z2a",
+        "timestamp": "2026-08-31T12:50:24.962Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788180589343-8t3zhihq",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 6,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 0
+        }
+      },
+      {
+        "id": "1788180624960-kjsczy60",
+        "timestamp": "2026-08-31T12:50:24.960Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788180589343-8t3zhihq",
+        "event": "question-bank.attempt.failed",
+        "message": "第 5/6 轮：本轮请求失败：请先配置当前 AI 服务商的 API Key。，准备下一轮…",
+        "context": {
+          "attempt": 5,
+          "maxAttempts": 6,
+          "collectedCount": 0,
+          "error": "请先配置当前 AI 服务商的 API Key。"
+        }
+      },
+      {
+        "id": "1788180622396-6cpz5ye4",
+        "timestamp": "2026-08-31T12:50:22.396Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788180589343-8t3zhihq",
+        "event": "question-bank.ai-request.started",
+        "message": "第 5/6 轮：正在请求 AI 生成题目…",
+        "context": {
+          "attempt": 5,
+          "maxAttempts": 6,
+          "collectedCount": 0
+        }
+      },
+      {
+        "id": "1788180622394-5furtki2",
+        "timestamp": "2026-08-31T12:50:22.394Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788180589343-8t3zhihq",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 5,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "sourceCount": 0
+        }
+      },
       {
         "id": "1788180618887-43z1inm4",
         "timestamp": "2026-08-31T12:50:18.887Z",
@@ -14359,65 +14429,6 @@
         "context": {
           "reason": "change",
           "commit": "c68245e2f4a4"
-        }
-      },
-      {
-        "id": "1788147661979-0h2dp735",
-        "timestamp": "2026-08-31T03:41:01.979Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "b9a7e10aa20b"
-        }
-      },
-      {
-        "id": "1788147659498-fmlfzmu0",
-        "timestamp": "2026-08-31T03:40:59.498Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "records.upload.saved",
-        "message": "学习记录已统一上传到 GitHub",
-        "context": {
-          "recordCount": 32,
-          "updatedAt": "2026-08-31T03:40:58.789Z"
-        }
-      },
-      {
-        "id": "1788147655077-30ysqvky",
-        "timestamp": "2026-08-31T03:40:55.077Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "records.upload.started",
-        "message": "开始统一上传学习记录",
-        "context": {
-          "recordCount": 32
-        }
-      },
-      {
-        "id": "1788147645571-jqqta6tp",
-        "timestamp": "2026-08-31T03:40:45.571Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "7e4db3d80872"
-        }
-      },
-      {
-        "id": "1788147639258-bvwlwxm8",
-        "timestamp": "2026-08-31T03:40:39.258Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "49eb203ebdeb"
         }
       }
     ]
