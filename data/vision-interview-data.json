@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-08-31T09:53:10.329Z",
+  "updatedAt": "2026-08-31T09:53:15.833Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1073,9 +1073,9 @@
       }
     ],
     "vision-interview-ai-preferences": {
-      "provider": "custom-mtfsd2qj-i4ox3z",
-      "model": "qwen3.8-max",
-      "openaiBaseUrl": "https://opencode.ai/zen/go/v1",
+      "provider": "deepseek",
+      "model": "deepseek-v4-flash",
+      "openaiBaseUrl": "https://api.deepseek.com",
       "aiScoring": true,
       "bestAnswer": true,
       "smartFollowUp": true,
@@ -1337,6 +1337,48 @@
     "vision-interview-project-view": "card",
     "vision-interview-runtime-logs": [
       {
+        "id": "1788169997523-syp2ha7q",
+        "timestamp": "2026-08-31T09:53:17.523Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "b7f03b982795"
+        }
+      },
+      {
+        "id": "1788169995410-1rlylvw1",
+        "timestamp": "2026-08-31T09:53:15.410Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788169978256-pc8xysam",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 4,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 0
+        }
+      },
+      {
+        "id": "1788169995406-n4pmgver",
+        "timestamp": "2026-08-31T09:53:15.406Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788169978256-pc8xysam",
+        "event": "question-bank.attempt.failed",
+        "message": "第 3/6 轮：本轮请求失败：请先配置当前 AI 服务商的 API Key。，准备下一轮…",
+        "context": {
+          "attempt": 3,
+          "maxAttempts": 6,
+          "collectedCount": 0,
+          "error": "请先配置当前 AI 服务商的 API Key。"
+        }
+      },
+      {
         "id": "1788169994994-fl4ni71m",
         "timestamp": "2026-08-31T09:53:14.994Z",
         "level": "INFO",
@@ -1346,6 +1388,34 @@
         "context": {
           "reason": "change",
           "commit": "4b05a2e73d60"
+        }
+      },
+      {
+        "id": "1788169994212-hk1do7bj",
+        "timestamp": "2026-08-31T09:53:14.212Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788169978256-pc8xysam",
+        "event": "question-bank.ai-request.started",
+        "message": "第 3/6 轮：正在请求 AI 生成题目…",
+        "context": {
+          "attempt": 3,
+          "maxAttempts": 6,
+          "collectedCount": 0
+        }
+      },
+      {
+        "id": "1788169994209-xat7ps15",
+        "timestamp": "2026-08-31T09:53:14.209Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788169978256-pc8xysam",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 3,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "sourceCount": 0
         }
       },
       {
@@ -1518,6 +1588,36 @@
           "attempt": 4,
           "query": "机器视觉 面试知识点 原理 工程实践",
           "sourceCount": 0
+        }
+      },
+      {
+        "id": "1788169990515-rmbosbrj",
+        "timestamp": "2026-08-31T09:53:10.515Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788169978256-pc8xysam",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 3,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 0
+        }
+      },
+      {
+        "id": "1788169990511-kvejp2iu",
+        "timestamp": "2026-08-31T09:53:10.511Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788169978256-pc8xysam",
+        "event": "question-bank.attempt.failed",
+        "message": "第 2/6 轮：本轮请求失败：请先配置当前 AI 服务商的 API Key。，准备下一轮…",
+        "context": {
+          "attempt": 2,
+          "maxAttempts": 6,
+          "collectedCount": 0,
+          "error": "请先配置当前 AI 服务商的 API Key。"
         }
       },
       {
