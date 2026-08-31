@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-08-31T13:24:24.098Z",
+  "updatedAt": "2026-08-31T13:24:35.820Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1465,7 +1465,7 @@
     "vision-interview-projects": [
       {
         "id": "vision-workflow",
-        "name": "视觉工作流框架",
+        "name": "PLC模拟软件",
         "category": "软件架构",
         "progress": 61
       }
@@ -1782,8 +1782,61 @@
         ]
       }
     },
-    "vision-interview-project-view": "card",
+    "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788182677196-0r1x4ev3",
+        "timestamp": "2026-08-31T13:24:37.196Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788182515885-iy17aubu",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 1,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 0
+        }
+      },
+      {
+        "id": "1788182677193-iy4awtob",
+        "timestamp": "2026-08-31T13:24:37.193Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788182515885-iy17aubu",
+        "event": "question-group.prepare.started",
+        "message": "开始准备题组",
+        "context": {
+          "project": "PLC模拟软件",
+          "mode": "专业知识",
+          "questionCount": 10
+        }
+      },
+      {
+        "id": "1788182677187-3x43jgxs",
+        "timestamp": "2026-08-31T13:24:37.187Z",
+        "level": "INFO",
+        "kind": "user",
+        "sessionId": "1788182515885-iy17aubu",
+        "event": "project.catalog.saved",
+        "message": "项目配置已更新",
+        "context": {
+          "projectCount": 1
+        }
+      },
+      {
+        "id": "1788182672818-yhspn995",
+        "timestamp": "2026-08-31T13:24:32.818Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "b23a80c9a97c"
+        }
+      },
       {
         "id": "1788182669808-gu55wais",
         "timestamp": "2026-08-31T13:24:29.808Z",
@@ -15050,64 +15103,6 @@
         "message": "第 3/6 轮：本轮请求失败：请先配置当前 AI 服务商的 API Key。，准备下一轮…",
         "context": {
           "attempt": 3,
-          "maxAttempts": 6,
-          "collectedCount": 0,
-          "error": "请先配置当前 AI 服务商的 API Key。"
-        }
-      },
-      {
-        "id": "1788169990084-c7s714rh",
-        "timestamp": "2026-08-31T09:53:10.084Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788169988616-qqc3c3wb",
-        "event": "question-bank.ai-request.started",
-        "message": "第 3/6 轮：正在请求 AI 生成题目…",
-        "context": {
-          "attempt": 3,
-          "maxAttempts": 6,
-          "collectedCount": 0
-        }
-      },
-      {
-        "id": "1788169990083-ytrug8mv",
-        "timestamp": "2026-08-31T09:53:10.083Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788169988616-qqc3c3wb",
-        "event": "question-bank.web-search.completed",
-        "message": "本轮联网检索完成",
-        "context": {
-          "attempt": 3,
-          "query": "机器视觉 面试知识点 原理 工程实践",
-          "sourceCount": 0
-        }
-      },
-      {
-        "id": "1788169989654-t657gp4g",
-        "timestamp": "2026-08-31T09:53:09.654Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788169988616-qqc3c3wb",
-        "event": "question-bank.web-search.started",
-        "message": "开始联网检索本轮题目资料",
-        "context": {
-          "attempt": 3,
-          "query": "机器视觉 面试知识点 原理 工程实践",
-          "mode": "专业知识",
-          "excludedCount": 0
-        }
-      },
-      {
-        "id": "1788169989652-6m69lp0b",
-        "timestamp": "2026-08-31T09:53:09.652Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788169988616-qqc3c3wb",
-        "event": "question-bank.attempt.failed",
-        "message": "第 2/6 轮：本轮请求失败：请先配置当前 AI 服务商的 API Key。，准备下一轮…",
-        "context": {
-          "attempt": 2,
           "maxAttempts": 6,
           "collectedCount": 0,
           "error": "请先配置当前 AI 服务商的 API Key。"
