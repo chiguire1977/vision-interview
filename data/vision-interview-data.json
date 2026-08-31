@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-08-31T16:00:39.495Z",
+  "updatedAt": "2026-08-31T16:00:43.330Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1833,6 +1833,51 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788192049708-0qrovsf2",
+        "timestamp": "2026-08-31T16:00:49.708Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "8b1c2fca9d4c"
+        }
+      },
+      {
+        "id": "1788192046013-9pzze7nk",
+        "timestamp": "2026-08-31T16:00:46.013Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788191832589-2rrvv7qm",
+        "event": "question-bank.ai-request.started",
+        "message": "第 2/6 轮（并行 3/3）：正在请求 AI 生成题目（1 道）…",
+        "context": {
+          "attempt": 2,
+          "maxAttempts": 6,
+          "collectedCount": 6,
+          "workerIndex": 3,
+          "parallelRequests": 3,
+          "requestedCount": 1
+        }
+      },
+      {
+        "id": "1788192046011-2a9beiyj",
+        "timestamp": "2026-08-31T16:00:46.011Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788191832589-2rrvv7qm",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 2,
+          "query": "机器视觉 模板与定位 原理 工程实践",
+          "sourceCount": 0,
+          "workerIndex": 3,
+          "parallelRequests": 3
+        }
+      },
       {
         "id": "1788192045082-k8hc42j3",
         "timestamp": "2026-08-31T16:00:45.082Z",
@@ -18165,42 +18210,6 @@
         "context": {
           "reason": "change",
           "commit": "e70fb745b51a"
-        }
-      },
-      {
-        "id": "1788186134718-fcczkvvm",
-        "timestamp": "2026-08-31T14:22:14.718Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "521c6dd29c2c"
-        }
-      },
-      {
-        "id": "1788186132309-ymlh3unp",
-        "timestamp": "2026-08-31T14:22:12.309Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.close.flush",
-        "message": "页面关闭或进入后台，提交最后一次备份"
-      },
-      {
-        "id": "1788186129415-8a22xypm",
-        "timestamp": "2026-08-31T14:22:09.415Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788185400191-3fe71itf",
-        "event": "question-bank.web-search.completed",
-        "message": "本轮联网检索完成",
-        "context": {
-          "attempt": 5,
-          "query": "机器视觉 边缘与特征 HALCON 原理 工程实践",
-          "sourceCount": 0,
-          "workerIndex": 3,
-          "parallelRequests": 3
         }
       }
     ]
