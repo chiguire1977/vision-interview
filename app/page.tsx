@@ -135,6 +135,12 @@ function isWebResearchSource(value: unknown): value is WebResearchSource {
     && typeof source.url === "string" && /^https?:\/\//i.test(source.url)
     && typeof source.snippet === "string";
 }
+
+function isProfessionalQuestionValue(value: unknown) {
+  if (!value || typeof value !== "object") return false;
+  const source = (value as { source?: unknown }).source;
+  return source === "专业" || source === "professional" || source === "knowledge";
+}
 type TrainingRecord = {
   id?: string; question: string; score?: number; project: string; date: string;
   timestamp?: string; action?: "完成答题" | "跳过题目" | "查看答案"; mode?: TrainingMode;
@@ -1124,7 +1130,6 @@ async function prepareQuestionGroup(
 const navigationIcons: Record<string, typeof BrainCircuit> = {
   "个人中心": UserRound,
   "开始学习": BrainCircuit,
-  "项目管理": FolderKanban,
   "问题树": ListTree,
   "题库": Library,
   "收藏夹": Star,
@@ -1362,9 +1367,8 @@ export default function Home() {
     return activeRuntimeSessionId;
   });
   const [activeNav, setActiveNav] = useState("开始学习");
-  const [projectCatalog, setProjectCatalog] = useState<ProjectConfig[]>(defaultProjects);
-  const [project, setProject] = useState(defaultProjects[0].name);
-  const [trainingMode, setTrainingMode] = useState<TrainingMode>("专业知识");
+  const project = "机器视觉专业知识";
+  const trainingMode: TrainingMode = "专业知识";
   const [category, setCategory] = useState("随机类型");
   const [difficulty, setDifficulty] = useState("随机难度");
   const [techStack, setTechStack] = useState<(typeof techStackFilters)[number]>("随机技术栈");
@@ -1394,24 +1398,6 @@ export default function Home() {
   const speechInterimRef = useRef("");
   const speechKeepAliveRef = useRef(false);
   const speechRestartTimerRef = useRef<number | null>(null);
-
-  useEffect(() => {
-    const stored = localStorage.getItem("vision-interview-projects");
-    if (!stored) return;
-    try {
-      const parsed = JSON.parse(stored) as unknown;
-      if (!Array.isArray(parsed)) return;
-      const restored = parsed.filter((item): item is ProjectConfig => Boolean(item) && typeof item === "object" && typeof (item as { id?: unknown }).id === "string" && typeof (item as { name?: unknown }).name === "string" && Boolean((item as { name: string }).name.trim())).map((item) => ({
-        id: item.id,
-        name: item.name.trim(),
-        category: typeof item.category === "string" && item.category.trim() ? item.category.trim() : "未分类",
-        progress: typeof item.progress === "number" && Number.isFinite(item.progress) ? Math.max(0, Math.min(100, Math.round(item.progress))) : 0,
-      }));
-      if (!restored.length) return;
-      setProjectCatalog(restored);
-      setProject((current) => restored.some((item) => item.name === current) ? current : restored[0].name);
-    } catch { /* 忽略损坏的项目管理配置 */ }
-  }, []);
 
   useEffect(() => {
     let active = true;
@@ -1449,12 +1435,6 @@ export default function Home() {
     return () => { active = false; };
   }, []);
 
-  function updateProjectCatalog(next: ProjectConfig[]) {
-    setProjectCatalog(next);
-    localStorage.setItem("vision-interview-projects", JSON.stringify(next));
-    recordRuntimeEvent("INFO", "project.catalog.saved", "项目配置已更新", { projectCount: next.length });
-  }
-
   function toggleFavorite(questionToToggle: Question) {
     setFavoriteQuestions((current) => {
       const next = toggleFavoriteQuestion(current, questionToToggle) as Question[];
@@ -1470,38 +1450,23 @@ export default function Home() {
 
   const availableQuestions = useMemo(() => {
     const professional = questionBank.filter((item) => item.source === "专业");
-    const localProject = buildLocalProjectQuestions(project);
-    let result = trainingMode === "专业知识"
-      ? professional
-      : trainingMode === "项目答辩"
-        ? localProject
-        : [...professional, ...localProject];
-    if (trainingMode === "专业知识" && category !== "随机类型") {
-      result = result.filter((item) => item.category === category);
-    }
-    if (trainingMode !== "项目答辩" && techStack !== "随机技术栈") {
-      result = result.filter((item) => (item.techStacks ?? []).includes(techStack));
-    }
+    let result = category !== "随机类型"
+      ? professional.filter((item) => item.category === category)
+      : professional;
+    if (techStack !== "随机技术栈") result = result.filter((item) => (item.techStacks ?? []).includes(techStack));
     if (difficulty !== "随机难度") {
       result = result.filter((item) => item.difficulty === difficulty);
     }
     if (result.length) return result;
-    const modeFallback = trainingMode === "专业知识"
-      ? professional
-      : trainingMode === "项目答辩"
-        ? localProject
-        : [...professional, ...localProject];
-    const categoryFallback = category === "随机类型"
-      ? modeFallback
-      : modeFallback.filter((item) => item.category === category);
+    const categoryFallback = category === "随机类型" ? professional : professional.filter((item) => item.category === category);
     const stackFallback = techStack === "随机技术栈"
       ? categoryFallback
       : categoryFallback.filter((item) => (item.techStacks ?? []).includes(techStack));
     const difficultyFallback = difficulty === "随机难度"
       ? stackFallback
       : stackFallback.filter((item) => item.difficulty === difficulty);
-    return difficultyFallback.length ? difficultyFallback : stackFallback.length ? stackFallback : categoryFallback.length ? categoryFallback : modeFallback;
-  }, [trainingMode, category, difficulty, techStack, project]);
+    return difficultyFallback.length ? difficultyFallback : stackFallback.length ? stackFallback : categoryFallback.length ? categoryFallback : professional;
+  }, [category, difficulty, techStack]);
   const questionGroupSettings = readQuestionGroupSettings();
   const groupQuestionSeed = useMemo(() => {
     const count = Math.min(questionGroupSettings.questionGroupSize, availableQuestions.length);
@@ -1523,8 +1488,8 @@ export default function Home() {
   const question = groupQuestions[questionIndex % groupQuestions.length];
   const currentEvaluation = sessionAnswers.find((item) => item.question.title === question.title);
   const allQuestionBank = useMemo(
-    () => mergeQuestionBankItems([...questionBank, ...buildLocalProjectQuestions(project)], remoteQuestionBank),
-    [project, remoteQuestionBank],
+    () => mergeQuestionBankItems(questionBank.filter((item) => item.source === "专业"), remoteQuestionBank.filter(isProfessionalQuestionValue)),
+    [remoteQuestionBank],
   );
 
   function stopRecognition() {
@@ -1966,14 +1931,6 @@ export default function Home() {
     setShowHint(false); setShowBestAnswer(false); setBestAnswerViewed(false); setRecording(false); setSeconds(0);
   }
 
-  function changeMode(mode: TrainingMode) {
-    stopRecognition();
-    setTrainingMode(mode); setCategory("随机类型"); setDifficulty("随机难度"); setTechStack("随机技术栈");
-    setQuestionIndex(0); setAnswer(""); setSubmitted(false); setEvaluating(false); setPreparedGroupQuestions(null); setPreparingGroup(true); setShowHint(false); setShowBestAnswer(false); setBestAnswerViewed(false); setSeconds(0);
-    setSessionAnswers([]); setGroupCompleted(false); setGroupRound(0);
-    recordRuntimeEvent("INFO", "training.mode.changed", "训练模式已切换", { mode });
-  }
-
   return (
     <SidebarProvider style={{ "--sidebar-width": "17rem" } as React.CSSProperties}>
       <Sidebar collapsible="offcanvas" className="border-r-0 bg-[#101d2b] text-slate-200">
@@ -2010,7 +1967,7 @@ export default function Home() {
           <SidebarTrigger className="mr-3 md:hidden" />
           <div className="flex min-w-0 flex-1 items-center gap-2 text-sm text-slate-500">
             <span>{activeNav}</span><ChevronRight className="size-3.5" />
-            <span className="truncate font-medium text-slate-900">{activeNav === "开始学习" ? trainingMode : project}</span>
+            <span className="truncate font-medium text-slate-900">{activeNav === "开始学习" ? "专业知识" : "机器视觉面试训练"}</span>
           </div>
           <div className="flex items-center gap-3">
             <div className="hidden items-center gap-2 rounded-md border border-red-100 bg-red-50 px-3 py-1.5 text-xs font-medium text-red-700 sm:flex">
@@ -2028,7 +1985,7 @@ export default function Home() {
         ) : <TrainingCenter question={question} questionIndex={questionIndex} totalQuestions={groupQuestions.length} questionGroupSize={questionGroupSettings.questionGroupSize} parallelRequests={questionGroupSettings.parallelRequests}
           trainingMode={trainingMode} category={category} difficulty={difficulty} techStack={techStack} project={project}
           isFavorite={isFavoriteQuestion(favoriteQuestions, question)} onToggleFavorite={() => toggleFavorite(question)}
-          onModeChange={changeMode} onCategoryChange={(value) => { setCategory(value); setQuestionIndex(0); setAnswer(""); setSubmitted(false); setEvaluating(false); setPreparedGroupQuestions(null); setPreparingGroup(true); setSeconds(0); setSessionAnswers([]); setGroupCompleted(false); setGroupRound(0); }}
+          onCategoryChange={(value) => { setCategory(value); setQuestionIndex(0); setAnswer(""); setSubmitted(false); setEvaluating(false); setPreparedGroupQuestions(null); setPreparingGroup(true); setSeconds(0); setSessionAnswers([]); setGroupCompleted(false); setGroupRound(0); }}
           onDifficultyChange={(value) => { setDifficulty(value); setQuestionIndex(0); setAnswer(""); setSubmitted(false); setEvaluating(false); setPreparedGroupQuestions(null); setPreparingGroup(true); setSeconds(0); setSessionAnswers([]); setGroupCompleted(false); setGroupRound(0); }}
           onTechStackChange={(value) => { setTechStack(value); setQuestionIndex(0); setAnswer(""); setSubmitted(false); setEvaluating(false); setPreparedGroupQuestions(null); setPreparingGroup(true); setShowBestAnswer(false); setSeconds(0); setSessionAnswers([]); setGroupCompleted(false); setGroupRound(0); }}
           answer={answer} setAnswer={setAnswer} submitted={submitted} showHint={showHint} recording={recording} seconds={seconds} speechError={speechError}
@@ -2039,7 +1996,6 @@ export default function Home() {
           onToggleHint={() => setShowHint((v) => !v)} onToggleRecording={toggleRecording}
           onReset={() => { stopRecognition(); setSpeechError(""); setAnswer(""); setSubmitted(false); setEvaluating(false); setShowBestAnswer(false); setBestAnswerViewed(false); setSeconds(0); }} />)}
         {activeNav === "个人中心" && <PersonalCenterPage records={records} />}
-        {activeNav === "项目管理" && <ProjectManagement project={project} setProject={setProject} projects={projectCatalog} onProjectsChange={updateProjectCatalog} />}
         {activeNav === "问题树" && <QuestionTree />}
         {activeNav === "题库" && <QuestionBankPage questions={allQuestionBank} favorites={favoriteQuestions} onToggleFavorite={toggleFavorite} remoteState={questionBankRemoteState} remoteError={questionBankRemoteError} />}
         {activeNav === "收藏夹" && <FavoritesPage questions={favoriteQuestions} onToggleFavorite={toggleFavorite} />}
@@ -2061,7 +2017,7 @@ export default function Home() {
 type TrainingProps = {
   question: Question; questionIndex: number; totalQuestions: number; questionGroupSize: number; parallelRequests: number; trainingMode: TrainingMode; project: string;
   isFavorite: boolean; onToggleFavorite: () => void;
-  category: string; difficulty: string; techStack: (typeof techStackFilters)[number]; onModeChange: (value: TrainingMode) => void;
+  category: string; difficulty: string; techStack: (typeof techStackFilters)[number];
   onCategoryChange: (value: string) => void; onDifficultyChange: (value: string) => void;
   onTechStackChange: (value: (typeof techStackFilters)[number]) => void;
   answer: string; setAnswer: (value: string) => void;
@@ -2076,11 +2032,6 @@ type TrainingProps = {
 function TrainingCenter(props: TrainingProps) {
   const [manuallyExpandedSettings, setManuallyExpandedSettings] = useState(false);
   const showTrainingSettings = shouldShowTrainingSettings(props.preparingGroup, manuallyExpandedSettings);
-  const modes: { name: TrainingMode; description: string; icon: typeof BrainCircuit }[] = [
-    { name: "专业知识", description: "按知识领域系统训练", icon: BrainCircuit },
-    { name: "项目答辩", description: "围绕真实项目连续追问", icon: FolderKanban },
-    { name: "综合模拟", description: "模拟完整面试题目组合", icon: Sparkles },
-  ];
   const questionReference = props.question.origin === "AI" ? props.question.reference : props.question.reference ?? webQuestionSources[props.question.category];
   const questionTechStacks = props.question.techStacks ?? (["通用原理"] as TechStack[]);
   const questionPrinciple = props.question.principle || getQuestionPrinciple(props.question, props.project);
@@ -2099,24 +2050,15 @@ function TrainingCenter(props: TrainingProps) {
               </Button>
             </div>
             {showTrainingSettings && <div className="border-t border-slate-100 p-4">
-              <div className="grid gap-2 md:grid-cols-3">
-                {modes.map((mode) => <button key={mode.name} onClick={() => { setManuallyExpandedSettings(false); props.onModeChange(mode.name); }}
-                  className={`flex items-center gap-3 rounded-lg border p-3 text-left transition ${props.trainingMode === mode.name ? "border-blue-300 bg-blue-50 ring-2 ring-blue-500/10" : "border-slate-200 bg-white hover:border-slate-300 hover:bg-slate-50"}`}>
-                  <span className={`grid size-9 shrink-0 place-items-center rounded-md ${props.trainingMode === mode.name ? "bg-blue-600 text-white" : "bg-slate-100 text-slate-600"}`}><mode.icon className="size-4" /></span>
-                  <span><strong className="block text-sm font-semibold text-slate-900">{mode.name}</strong><span className="mt-0.5 block text-[11px] text-slate-500">{mode.description}</span></span>
-                </button>)}
-              </div>
               <div className="mt-3 grid gap-2 rounded-lg border border-slate-200 bg-slate-50 p-3 text-xs md:grid-cols-2">
                 <div className="flex items-start gap-2 text-slate-600"><Globe2 className="mt-0.5 size-4 shrink-0 text-blue-600" /><span><strong className="font-semibold text-slate-800">专业知识：</strong>AI 按当前分类、难度和技术栈优先生成完整 {props.questionGroupSize} 题，并行请求 {props.parallelRequests} 个，数量不足时自动重试。</span></div>
-                <div className="flex items-start gap-2 text-slate-600"><HardDrive className="mt-0.5 size-4 shrink-0 text-emerald-600" /><span><strong className="font-semibold text-slate-800">项目答辩：</strong>AI 只基于当前项目档案出题，不补写项目档案中不存在的事实。</span></div>
+                <div className="flex items-start gap-2 text-slate-600"><HardDrive className="mt-0.5 size-4 shrink-0 text-emerald-600" /><span><strong className="font-semibold text-slate-800">筛选范围：</strong>只使用专业知识题库，按分类、难度和技术栈组合生成题组。</span></div>
               </div>
               <div className="mt-4 space-y-3 border-t border-slate-100 pt-4">
                 <div className="flex flex-wrap items-center gap-2">
-                  <span className="mr-1 w-16 shrink-0 text-xs font-medium text-slate-500">学习类型</span>
-                  {props.trainingMode === "专业知识" && professionalCategories.map((item) => <button key={item} onClick={() => { setManuallyExpandedSettings(false); props.onCategoryChange(item); }}
+                  <span className="mr-1 w-16 shrink-0 text-xs font-medium text-slate-500">知识分类</span>
+                  {professionalCategories.map((item) => <button key={item} onClick={() => { setManuallyExpandedSettings(false); props.onCategoryChange(item); }}
                     className={`rounded-md border px-2.5 py-1.5 text-xs transition ${props.category === item ? "border-blue-200 bg-blue-50 font-medium text-blue-700" : "border-slate-200 bg-white text-slate-600 hover:bg-slate-50"}`}>{item}</button>)}
-                  {props.trainingMode === "项目答辩" && <span className="rounded-md border border-blue-100 bg-blue-50 px-2.5 py-1.5 text-xs font-medium text-blue-700">当前项目：{props.project}</span>}
-                  {props.trainingMode === "综合模拟" && <span className="rounded-md border border-blue-100 bg-blue-50 px-2.5 py-1.5 text-xs font-medium text-blue-700">专业知识 + 项目答辩</span>}
                 </div>
                 <div className="flex flex-wrap items-center gap-2">
                   <span className="mr-1 w-16 shrink-0 text-xs font-medium text-slate-500">难度分类</span>
@@ -2125,9 +2067,7 @@ function TrainingCenter(props: TrainingProps) {
                 </div>
                 <div className="flex flex-wrap items-center gap-2">
                   <span className="mr-1 w-16 shrink-0 text-xs font-medium text-slate-500">技术栈</span>
-                  {props.trainingMode === "项目答辩" ? (
-                    <span className="rounded-md border border-emerald-100 bg-emerald-50 px-2.5 py-1.5 text-xs font-medium text-emerald-700">跟随当前项目技术栈</span>
-                  ) : techStackFilters.map((item) => <button key={item} onClick={() => { setManuallyExpandedSettings(false); props.onTechStackChange(item); }}
+                  {techStackFilters.map((item) => <button key={item} onClick={() => { setManuallyExpandedSettings(false); props.onTechStackChange(item); }}
                     className={`rounded-md border px-2.5 py-1.5 text-xs transition ${props.techStack === item ? "border-violet-200 bg-violet-50 font-medium text-violet-700" : "border-slate-200 bg-white text-slate-600 hover:bg-slate-50"}`}>{item}</button>)}
                 </div>
               </div>
@@ -2172,7 +2112,7 @@ function TrainingCenter(props: TrainingProps) {
 
           <section className="panel">
             <div className="flex items-center justify-between border-b border-slate-200 px-5 py-4">
-              <div><h2 className="font-semibold text-slate-900">我的回答</h2><p className="mt-0.5 text-xs text-slate-500">先给结论，再结合真实项目数据说明</p></div>
+              <div><h2 className="font-semibold text-slate-900">我的回答</h2><p className="mt-0.5 text-xs text-slate-500">先给结论，再结合原理、步骤、验证和边界说明</p></div>
               <Button variant="ghost" size="sm" onClick={props.onReset} className="text-slate-500"><RotateCcw />重置</Button>
             </div>
             <div className="flex flex-col gap-4 border-b border-slate-200 bg-slate-50/70 px-5 py-4 sm:flex-row sm:items-center">
@@ -2227,7 +2167,7 @@ function TrainingCenter(props: TrainingProps) {
                     <p className="text-xs font-semibold text-violet-700">标准回答重点</p><p className="mt-2 whitespace-pre-line text-[15px] leading-8 text-slate-800">{props.bestAnswer}</p>
                     <p className="mt-4 flex items-center gap-2 border-t border-violet-100 pt-3 text-xs text-slate-500">
                       <CircleAlert className="size-3.5 text-amber-500" />
-                      {props.question.source === "专业" ? "专业答案根据题库要点整理，面试时应使用自己的语言表达。" : "项目答案只使用本地档案；【待补充】内容必须查阅真实项目记录。"}
+                      专业答案根据题库要点整理，面试时应使用自己的语言表达。
                     </p>
                   </div>
                 </div>
@@ -2482,7 +2422,6 @@ function QuestionBankPage({ questions, favorites, onToggleFavorite, remoteState,
   const sourceOptions: Array<{ value: QuestionBankSourceFilter; label: string }> = [
     { value: "全部", label: "全部题目" },
     { value: "专业", label: "专业知识" },
-    { value: "项目", label: "项目答辩" },
     { value: "AI", label: "AI 生成" },
   ];
 
@@ -2534,7 +2473,6 @@ function FavoritesPage({ questions, onToggleFavorite }: { questions: Question[];
   const sourceOptions: Array<{ value: QuestionBankSourceFilter; label: string }> = [
     { value: "全部", label: "全部收藏" },
     { value: "专业", label: "专业知识" },
-    { value: "项目", label: "项目答辩" },
     { value: "AI", label: "AI 生成" },
   ];
 
@@ -2601,7 +2539,7 @@ function PersonalCenterPage({ records }: { records: TrainingRecord[] }) {
     </div>
 
     {analysis.totalRecords === 0 ? <section className="panel mt-5 grid min-h-64 place-items-center p-8 text-center">
-      <div><UserRound className="mx-auto size-9 text-slate-300" /><h2 className="mt-3 font-semibold text-slate-900">完成训练后生成你的学习画像</h2><p className="mt-1 max-w-md text-sm leading-6 text-slate-500">个人中心会按知识分类汇总掌握度、审阅问题和得分趋势。先完成一道专业知识或项目答辩题，就能看到专属分析。</p></div>
+      <div><UserRound className="mx-auto size-9 text-slate-300" /><h2 className="mt-3 font-semibold text-slate-900">完成训练后生成你的学习画像</h2><p className="mt-1 max-w-md text-sm leading-6 text-slate-500">个人中心会按知识分类汇总掌握度、审阅问题和得分趋势。先完成一道专业知识题，就能看到专属分析。</p></div>
     </section> : <>
       <section className="panel mt-5 overflow-hidden">
         <div className="flex flex-col gap-4 border-b border-slate-200 px-5 py-4 sm:flex-row sm:items-center sm:justify-between">
@@ -3471,8 +3409,8 @@ function SettingsPage() {
         </section>}
 
         {settingsSection === "about" && <section className="panel overflow-hidden">
-          <div className="border-b border-slate-200 px-5 py-4"><h2 className="font-semibold text-slate-900">关于 VisionInterview</h2><p className="mt-1 text-xs text-slate-500">面向机器视觉工程师的项目答辩、专业知识和回答审阅训练工具。</p></div>
-          <div className="space-y-4 p-5"><div className="flex items-center gap-3 rounded-lg border border-blue-100 bg-blue-50/60 p-4"><span className="grid size-10 place-items-center rounded-lg bg-blue-600 text-white"><Gauge className="size-5" /></span><div><p className="font-semibold text-slate-900">VisionInterview</p><p className="mt-1 text-xs text-slate-500">机器视觉面试训练台 · 本地优先版本</p></div></div><div className="grid gap-3 sm:grid-cols-2"><div className="rounded-lg border border-slate-200 bg-slate-50 p-4"><p className="text-xs font-semibold text-slate-500">核心流程</p><p className="mt-2 text-sm leading-6 text-slate-700">开始学习 → 完成回答 → AI/本地规则审阅 → 学习记录与温故知新。</p></div><div className="rounded-lg border border-slate-200 bg-slate-50 p-4"><p className="text-xs font-semibold text-slate-500">适用技术</p><p className="mt-2 text-sm leading-6 text-slate-700">HALCON、OpenCV、VisionPro、C#视觉开发、相机光源、标定和 PLC 现场协同。</p></div></div><p className="text-xs leading-5 text-slate-500">建议在面试前先准备一组专业题，再整理项目管理中的答辩项目，最后在温故知新中集中补齐低掌握度题目。</p></div>
+          <div className="border-b border-slate-200 px-5 py-4"><h2 className="font-semibold text-slate-900">关于 VisionInterview</h2><p className="mt-1 text-xs text-slate-500">面向机器视觉工程师的专业知识训练、回答审阅和学习提升工具。</p></div>
+          <div className="space-y-4 p-5"><div className="flex items-center gap-3 rounded-lg border border-blue-100 bg-blue-50/60 p-4"><span className="grid size-10 place-items-center rounded-lg bg-blue-600 text-white"><Gauge className="size-5" /></span><div><p className="font-semibold text-slate-900">VisionInterview</p><p className="mt-1 text-xs text-slate-500">机器视觉面试训练台 · 本地优先版本</p></div></div><div className="grid gap-3 sm:grid-cols-2"><div className="rounded-lg border border-slate-200 bg-slate-50 p-4"><p className="text-xs font-semibold text-slate-500">核心流程</p><p className="mt-2 text-sm leading-6 text-slate-700">开始学习 → 完成回答 → AI/本地规则审阅 → 学习记录与温故知新。</p></div><div className="rounded-lg border border-slate-200 bg-slate-50 p-4"><p className="text-xs font-semibold text-slate-500">适用技术</p><p className="mt-2 text-sm leading-6 text-slate-700">HALCON、OpenCV、VisionPro、C#视觉开发、相机光源、标定和 PLC 现场协同。</p></div></div><p className="text-xs leading-5 text-slate-500">建议先选择知识分类和难度完成一组专业题，再根据学习记录和温故知新中的薄弱点持续复习。</p></div>
         </section>}
 
         <div className="flex flex-wrap items-center justify-end gap-3">
@@ -3502,7 +3440,7 @@ function SettingsPage() {
           </div>
         </section>
         </>}
-        {settingsSection === "training" && <section className="panel p-5"><Sparkles className="size-6 text-blue-600" /><h2 className="mt-4 font-semibold text-slate-900">训练偏好提示</h2><p className="mt-2 text-sm leading-6 text-slate-600">建议保留 AI 回答审阅和联网专业题库；项目答辩始终以你选择的本地项目资料为依据。</p></section>}
+        {settingsSection === "training" && <section className="panel p-5"><Sparkles className="size-6 text-blue-600" /><h2 className="mt-4 font-semibold text-slate-900">训练偏好提示</h2><p className="mt-2 text-sm leading-6 text-slate-600">建议保留 AI 回答审阅和联网专业题库，先独立回答再查看参考答案。</p></section>}
         {settingsSection === "group" && <section className="panel p-5"><ListTree className="size-6 text-blue-600" /><h2 className="mt-4 font-semibold text-slate-900">题组生成提示</h2><p className="mt-2 text-sm leading-6 text-slate-600">建议普通服务商使用 2–3 个并行请求；如果出现超时或限流，可以降低并行数，系统仍会自动重试并补齐题目。</p></section>}
         {settingsSection === "about" && <section className="panel p-5"><FileText className="size-6 text-blue-600" /><h2 className="mt-4 font-semibold text-slate-900">使用建议</h2><p className="mt-2 text-sm leading-6 text-slate-600">先独立回答，再展开最佳回答和技术原理；每次完成后查看审阅建议，并在温故知新中重新组织表达。</p></section>}
       </aside>
