@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-08-31T10:06:00.621Z",
+  "updatedAt": "2026-08-31T10:06:07.350Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1336,6 +1336,76 @@
     },
     "vision-interview-project-view": "card",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788170762336-5nvzi8zf",
+        "timestamp": "2026-08-31T10:06:02.336Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "164e9829e9c7"
+        }
+      },
+      {
+        "id": "1788170760078-s75fu8ia",
+        "timestamp": "2026-08-31T10:06:00.078Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788170737293-lq2t7wjd",
+        "event": "question-bank.ai-request.started",
+        "message": "第 4/6 轮：正在请求 AI 生成题目…",
+        "context": {
+          "attempt": 4,
+          "maxAttempts": 6,
+          "collectedCount": 0
+        }
+      },
+      {
+        "id": "1788170760062-8db2phew",
+        "timestamp": "2026-08-31T10:06:00.062Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788170737293-lq2t7wjd",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 4,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "sourceCount": 0
+        }
+      },
+      {
+        "id": "1788170757044-ol6rriff",
+        "timestamp": "2026-08-31T10:05:57.044Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788170737293-lq2t7wjd",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 4,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 0
+        }
+      },
+      {
+        "id": "1788170757031-sw35ge0p",
+        "timestamp": "2026-08-31T10:05:57.031Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788170737293-lq2t7wjd",
+        "event": "question-bank.attempt.failed",
+        "message": "第 3/6 轮：本轮请求失败：请先配置当前 AI 服务商的 API Key。，准备下一轮…",
+        "context": {
+          "attempt": 3,
+          "maxAttempts": 6,
+          "collectedCount": 0,
+          "error": "请先配置当前 AI 服务商的 API Key。"
+        }
+      },
       {
         "id": "1788170756292-01vj0nom",
         "timestamp": "2026-08-31T10:05:56.292Z",
@@ -13777,66 +13847,6 @@
           "project": "轮胎字符深度 OCR",
           "mode": "专业专项",
           "questionCount": 10
-        }
-      },
-      {
-        "id": "1788145726886-je2za7e9",
-        "timestamp": "2026-08-31T03:08:46.886Z",
-        "level": "WARN",
-        "kind": "system",
-        "event": "backup.startup.offline",
-        "message": "启动时未能读取 GitHub 配置",
-        "context": {
-          "status": 502,
-          "reason": "GitHub 读取失败（HTTP 403）：\r\nRequest forbidden by administrative rules. Please make sure your request has a User-Agent header (https://docs.github.com/en/rest/overview/resources-in-the-rest-api#user-agent-required). Check https://developer.github.com for other possib"
-        }
-      },
-      {
-        "id": "1788145715532-l292vae3",
-        "timestamp": "2026-08-31T03:08:35.532Z",
-        "level": "ERROR",
-        "kind": "system",
-        "event": "backup.push.failed",
-        "message": "运行数据备份失败",
-        "context": {
-          "status": 503,
-          "reason": "未配置 GitHub 备份凭据。"
-        }
-      },
-      {
-        "id": "1788145712326-zyxh21nh",
-        "timestamp": "2026-08-31T03:08:32.326Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "question-group.prepare.cached",
-        "message": "题组已从本机缓存恢复",
-        "context": {
-          "questionCount": 10
-        }
-      },
-      {
-        "id": "1788145712322-fx3p44j3",
-        "timestamp": "2026-08-31T03:08:32.322Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "question-group.prepare.started",
-        "message": "开始准备题组",
-        "context": {
-          "project": "轮胎字符深度 OCR",
-          "mode": "专业专项",
-          "questionCount": 10
-        }
-      },
-      {
-        "id": "1788145711899-j464x8re",
-        "timestamp": "2026-08-31T03:08:31.899Z",
-        "level": "WARN",
-        "kind": "system",
-        "event": "backup.startup.offline",
-        "message": "启动时未能读取 GitHub 配置",
-        "context": {
-          "status": 502,
-          "reason": "GitHub 读取失败（HTTP 403）：\r\nRequest forbidden by administrative rules. Please make sure your request has a User-Agent header (https://docs.github.com/en/rest/overview/resources-in-the-rest-api#user-agent-required). Check https://developer.github.com for other possib"
         }
       }
     ]
