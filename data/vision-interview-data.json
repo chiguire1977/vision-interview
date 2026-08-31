@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-08-31T13:25:49.994Z",
+  "updatedAt": "2026-08-31T13:26:11.520Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1784,6 +1784,44 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788182774561-hxbdvsob",
+        "timestamp": "2026-08-31T13:26:14.561Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788182515885-iy17aubu",
+        "event": "question-group.prepare.started",
+        "message": "开始准备题组",
+        "context": {
+          "project": "PLC模拟软件",
+          "mode": "专业知识",
+          "questionCount": 10
+        }
+      },
+      {
+        "id": "1788182774556-jtvhg4kn",
+        "timestamp": "2026-08-31T13:26:14.556Z",
+        "level": "INFO",
+        "kind": "user",
+        "sessionId": "1788182515885-iy17aubu",
+        "event": "training.mode.changed",
+        "message": "训练模式已切换",
+        "context": {
+          "mode": "专业知识"
+        }
+      },
+      {
+        "id": "1788182759016-umx8l045",
+        "timestamp": "2026-08-31T13:25:59.016Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "1688f597fd33"
+        }
+      },
       {
         "id": "1788182754474-j3mlyx3m",
         "timestamp": "2026-08-31T13:25:54.474Z",
@@ -15038,49 +15076,6 @@
           "query": "机器视觉 面试知识点 通用原理 原理 工程实践",
           "mode": "专业知识",
           "excludedCount": 0
-        }
-      },
-      {
-        "id": "1788169997206-q93z4pse",
-        "timestamp": "2026-08-31T09:53:17.206Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788169988616-qqc3c3wb",
-        "event": "question-bank.attempt.failed",
-        "message": "第 2/6 轮：本轮请求失败：请先配置当前 AI 服务商的 API Key。，准备下一轮…",
-        "context": {
-          "attempt": 2,
-          "maxAttempts": 6,
-          "collectedCount": 0,
-          "error": "请先配置当前 AI 服务商的 API Key。"
-        }
-      },
-      {
-        "id": "1788169997076-nnjph4cl",
-        "timestamp": "2026-08-31T09:53:17.076Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788169988616-qqc3c3wb",
-        "event": "question-bank.ai-request.started",
-        "message": "第 2/6 轮：正在请求 AI 生成题目…",
-        "context": {
-          "attempt": 2,
-          "maxAttempts": 6,
-          "collectedCount": 0
-        }
-      },
-      {
-        "id": "1788169997074-iu2eucnm",
-        "timestamp": "2026-08-31T09:53:17.074Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788169988616-qqc3c3wb",
-        "event": "question-bank.web-search.completed",
-        "message": "本轮联网检索完成",
-        "context": {
-          "attempt": 2,
-          "query": "机器视觉 面试知识点 通用原理 原理 工程实践",
-          "sourceCount": 0
         }
       }
     ]
