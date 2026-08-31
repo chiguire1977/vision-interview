@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-08-31T12:49:13.131Z",
+  "updatedAt": "2026-08-31T12:49:16.272Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1496,7 +1496,7 @@
       "bestAnswer": true,
       "smartFollowUp": true,
       "webQuestions": true,
-      "upstreamFormat": "responses"
+      "upstreamFormat": "anthropic-messages"
     },
     "vision-interview-ai-provider-settings": {
       "deepseek": {
@@ -1818,6 +1818,33 @@
     },
     "vision-interview-project-view": "card",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788180561973-vj9ctlj7",
+        "timestamp": "2026-08-31T12:49:21.973Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "b0fe4463e0f6"
+        }
+      },
+      {
+        "id": "1788180559113-b7pbfe6p",
+        "timestamp": "2026-08-31T12:49:19.113Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788180465290-hkmcrs6i",
+        "event": "ai.connection-test.completed",
+        "message": "真实聊天连接测试成功",
+        "context": {
+          "provider": "custom-mtfsd2qj-i4ox3z",
+          "model": "deepseek-v4-flash",
+          "upstreamFormat": "chat-completions",
+          "durationMs": 2406
+        }
+      },
       {
         "id": "1788180558660-yy3tq6zm",
         "timestamp": "2026-08-31T12:49:18.660Z",
@@ -15075,35 +15102,6 @@
         "context": {
           "reason": "change",
           "commit": "8352a1d2d502"
-        }
-      },
-      {
-        "id": "1788167145531-1dooy48q",
-        "timestamp": "2026-08-31T09:05:45.531Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788166894899-0xu488ib",
-        "event": "question-bank.web-search.completed",
-        "message": "本轮联网检索完成",
-        "context": {
-          "attempt": 5,
-          "query": "机器视觉 模板与定位 C#视觉开发 原理 工程实践",
-          "sourceCount": 0
-        }
-      },
-      {
-        "id": "1788167142509-5ubdfe51",
-        "timestamp": "2026-08-31T09:05:42.509Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788166894899-0xu488ib",
-        "event": "question-bank.web-search.started",
-        "message": "开始联网检索本轮题目资料",
-        "context": {
-          "attempt": 5,
-          "query": "机器视觉 模板与定位 C#视觉开发 原理 工程实践",
-          "mode": "专业知识",
-          "excludedCount": 0
         }
       }
     ]
