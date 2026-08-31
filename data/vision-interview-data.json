@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-08-31T13:29:28.412Z",
+  "updatedAt": "2026-08-31T13:29:34.448Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1784,6 +1784,46 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788182977712-v0e6pi88",
+        "timestamp": "2026-08-31T13:29:37.712Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788182515885-iy17aubu",
+        "event": "question-bank.cache.saved",
+        "message": "AI 题库已完成远程同步",
+        "context": {
+          "questionCount": 10,
+          "pendingCount": 0
+        }
+      },
+      {
+        "id": "1788182977707-odl4hdev",
+        "timestamp": "2026-08-31T13:29:37.707Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788182515885-iy17aubu",
+        "event": "github.backup.succeeded",
+        "message": "数据已成功备份到 GitHub",
+        "context": {
+          "operation": "ai-question-bank",
+          "entryCount": 10,
+          "pendingCount": 0,
+          "status": 200
+        }
+      },
+      {
+        "id": "1788182976891-g156yaep",
+        "timestamp": "2026-08-31T13:29:36.891Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "0f0def2ce139"
+        }
+      },
       {
         "id": "1788182974109-jwab312u",
         "timestamp": "2026-08-31T13:29:34.109Z",
@@ -14994,48 +15034,6 @@
           "attempt": 6,
           "query": "机器视觉 面试知识点 HALCON 原理 工程实践",
           "sourceCount": 0
-        }
-      },
-      {
-        "id": "1788170007012-fzv1yj2v",
-        "timestamp": "2026-08-31T09:53:27.012Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "42a14739bf4f"
-        }
-      },
-      {
-        "id": "1788170006808-l2hufi0v",
-        "timestamp": "2026-08-31T09:53:26.808Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788169988616-qqc3c3wb",
-        "event": "question-bank.web-search.started",
-        "message": "开始联网检索本轮题目资料",
-        "context": {
-          "attempt": 6,
-          "query": "机器视觉 面试知识点 HALCON 原理 工程实践",
-          "mode": "专业知识",
-          "excludedCount": 0
-        }
-      },
-      {
-        "id": "1788170006805-siyry6jv",
-        "timestamp": "2026-08-31T09:53:26.805Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788169988616-qqc3c3wb",
-        "event": "question-bank.attempt.failed",
-        "message": "第 5/6 轮：本轮请求失败：请先配置当前 AI 服务商的 API Key。，准备下一轮…",
-        "context": {
-          "attempt": 5,
-          "maxAttempts": 6,
-          "collectedCount": 0,
-          "error": "请先配置当前 AI 服务商的 API Key。"
         }
       }
     ]
