@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-08-31T10:41:00.795Z",
+  "updatedAt": "2026-08-31T10:41:56.365Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1401,6 +1401,48 @@
     },
     "vision-interview-project-view": "card",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788172915951-hjb9hvfx",
+        "timestamp": "2026-08-31T10:41:55.951Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788172617026-z2y1eikw",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 6,
+          "query": "机器视觉 面试知识点 通用原理 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 0
+        }
+      },
+      {
+        "id": "1788172915948-z1ijdwgt",
+        "timestamp": "2026-08-31T10:41:55.948Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788172617026-z2y1eikw",
+        "event": "question-bank.attempt.failed",
+        "message": "第 5/6 轮：本轮请求失败：AI 请求超时，请稍后重试。，准备下一轮…",
+        "context": {
+          "attempt": 5,
+          "maxAttempts": 6,
+          "collectedCount": 0,
+          "error": "AI 请求超时，请稍后重试。"
+        }
+      },
+      {
+        "id": "1788172868871-7ceyykyn",
+        "timestamp": "2026-08-31T10:41:08.871Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "46b571f38830"
+        }
+      },
       {
         "id": "1788172855722-vpr7bhix",
         "timestamp": "2026-08-31T10:40:55.722Z",
@@ -14324,43 +14366,6 @@
         "context": {
           "source": "本地规则",
           "questionCount": 10
-        }
-      },
-      {
-        "id": "1788148735335-dfa6myvm",
-        "timestamp": "2026-08-31T03:58:55.335Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "question-group.prepare.started",
-        "message": "开始准备题组",
-        "context": {
-          "project": "轮胎字符深度 OCR",
-          "mode": "专业知识",
-          "questionCount": 10
-        }
-      },
-      {
-        "id": "1788148735324-79vq60eh",
-        "timestamp": "2026-08-31T03:58:55.324Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.startup.loaded",
-        "message": "启动配置加载完成",
-        "context": {
-          "source": "github",
-          "updatedAt": "2026-08-31T03:58:13.363Z"
-        }
-      },
-      {
-        "id": "1788148694433-zyffu37l",
-        "timestamp": "2026-08-31T03:58:14.433Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "12047446f0d0"
         }
       }
     ]
