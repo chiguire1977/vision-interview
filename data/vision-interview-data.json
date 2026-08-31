@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-08-31T12:48:45.585Z",
+  "updatedAt": "2026-08-31T12:48:50.343Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1818,6 +1818,30 @@
     },
     "vision-interview-project-view": "card",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788180533311-xu4e14mv",
+        "timestamp": "2026-08-31T12:48:53.311Z",
+        "level": "ERROR",
+        "kind": "system",
+        "event": "backup.push.failed",
+        "message": "运行数据备份失败",
+        "context": {
+          "status": 502,
+          "reason": "GitHub 备份失败（HTTP 409）：{\"message\":\"is at 60a4c8e156065cdfce80d91254f6f7e28ef5438d but expected e75b031fa120f017a9c9a3e6e35a43d64a3985c0\",\"documentation_url\":\"https://docs.github.com/rest/repos/contents#create-or-update-file-contents\",\"status\":\"409\"}"
+        }
+      },
+      {
+        "id": "1788180533224-6fpqq3re",
+        "timestamp": "2026-08-31T12:48:53.224Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "60a4c8e15606"
+        }
+      },
       {
         "id": "1788180531321-6kv496x8",
         "timestamp": "2026-08-31T12:48:51.321Z",
@@ -15098,35 +15122,6 @@
           "attempt": 1,
           "query": "机器视觉 模板与定位 C#视觉开发 原理 工程实践",
           "sourceCount": 0
-        }
-      },
-      {
-        "id": "1788166956959-r8axr8e9",
-        "timestamp": "2026-08-31T09:02:36.959Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788166894899-0xu488ib",
-        "event": "question-bank.web-search.started",
-        "message": "开始联网检索本轮题目资料",
-        "context": {
-          "attempt": 1,
-          "query": "机器视觉 模板与定位 C#视觉开发 原理 工程实践",
-          "mode": "专业知识",
-          "excludedCount": 0
-        }
-      },
-      {
-        "id": "1788166956958-nfsir1zq",
-        "timestamp": "2026-08-31T09:02:36.958Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788166894899-0xu488ib",
-        "event": "question-group.prepare.started",
-        "message": "开始准备题组",
-        "context": {
-          "project": "轮胎字符深度 OCR",
-          "mode": "专业知识",
-          "questionCount": 4
         }
       }
     ]
