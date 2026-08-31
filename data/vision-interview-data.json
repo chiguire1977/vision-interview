@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-08-31T09:26:37.399Z",
+  "updatedAt": "2026-08-31T09:26:43.735Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1077,6 +1077,46 @@
       }
     },
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788168399385-g3o9c7sy",
+        "timestamp": "2026-08-31T09:26:39.385Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "239b9ac1b2cd"
+        }
+      },
+      {
+        "id": "1788168396063-jv5vfisf",
+        "timestamp": "2026-08-31T09:26:36.063Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788168350423-2kpo5iqk",
+        "event": "question-group.prepare.completed",
+        "message": "AI 多轮联网搜索与生成后仍未获得有效题目，已使用本地题库与标准答案。",
+        "context": {
+          "source": "本地规则",
+          "questionCount": 10
+        }
+      },
+      {
+        "id": "1788168396041-wcmpmbvg",
+        "timestamp": "2026-08-31T09:26:36.041Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788168350423-2kpo5iqk",
+        "event": "question-bank.attempt.failed",
+        "message": "第 6/6 轮：本轮请求失败：请先配置当前 AI 服务商的 API Key。，准备下一轮…",
+        "context": {
+          "attempt": 6,
+          "maxAttempts": 6,
+          "collectedCount": 0,
+          "error": "请先配置当前 AI 服务商的 API Key。"
+        }
+      },
       {
         "id": "1788168394345-k3amwiy8",
         "timestamp": "2026-08-31T09:26:34.345Z",
