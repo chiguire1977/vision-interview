@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-08-31T16:00:18.201Z",
+  "updatedAt": "2026-08-31T16:00:23.880Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1833,6 +1833,46 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788192030137-1i14jlgr",
+        "timestamp": "2026-08-31T16:00:30.137Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "6e9ec204ac88"
+        }
+      },
+      {
+        "id": "1788192026593-v7yt0enh",
+        "timestamp": "2026-08-31T16:00:26.593Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788191832589-2rrvv7qm",
+        "event": "question-bank.cache.saved",
+        "message": "AI 题库已完成远程同步",
+        "context": {
+          "questionCount": 10,
+          "pendingCount": 0
+        }
+      },
+      {
+        "id": "1788192026589-hknx4782",
+        "timestamp": "2026-08-31T16:00:26.589Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788191832589-2rrvv7qm",
+        "event": "github.backup.succeeded",
+        "message": "数据已成功备份到 GitHub",
+        "context": {
+          "operation": "ai-question-bank",
+          "entryCount": 10,
+          "pendingCount": 0,
+          "status": 200
+        }
+      },
       {
         "id": "1788192024342-xay63gbf",
         "timestamp": "2026-08-31T16:00:24.342Z",
@@ -18167,46 +18207,6 @@
           "workerIndex": 1,
           "parallelRequests": 3,
           "requestedCount": 4
-        }
-      },
-      {
-        "id": "1788186128348-k6745hfk",
-        "timestamp": "2026-08-31T14:22:08.348Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788185400191-3fe71itf",
-        "event": "question-bank.web-search.failed",
-        "message": "网络检索超时，请稍后重试。",
-        "context": {
-          "attempt": 3,
-          "query": "机器视觉 边缘与特征 HALCON 原理 工程实践",
-          "continueToAi": true,
-          "workerIndex": 3,
-          "parallelRequests": 3
-        }
-      },
-      {
-        "id": "1788186121833-dvfcope4",
-        "timestamp": "2026-08-31T14:22:01.833Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "e9c001426391"
-        }
-      },
-      {
-        "id": "1788186118021-tjhvjios",
-        "timestamp": "2026-08-31T14:21:58.021Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "efee671b6902"
         }
       }
     ]
