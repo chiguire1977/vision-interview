@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-08-31T10:06:41.817Z",
+  "updatedAt": "2026-08-31T10:06:50.835Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1074,8 +1074,8 @@
     ],
     "vision-interview-ai-preferences": {
       "provider": "custom-mth2q5s2-c9pbzd",
-      "model": "",
-      "openaiBaseUrl": "https://",
+      "model": "codex-auto-review",
+      "openaiBaseUrl": "https://dingdangapii.cn",
       "aiScoring": true,
       "bestAnswer": true,
       "smartFollowUp": true,
@@ -1336,14 +1336,67 @@
       "custom-mth2q5s2-c9pbzd": {
         "name": "dingdang",
         "description": "兼容 OpenAI 格式的自定义服务商",
-        "model": "",
-        "baseUrl": "https://",
-        "openaiBaseUrl": "https://",
-        "availableModels": []
+        "model": "codex-auto-review",
+        "baseUrl": "https://dingdangapii.cn",
+        "openaiBaseUrl": "https://dingdangapii.cn",
+        "availableModels": [
+          {
+            "label": "codex-auto-review",
+            "value": "codex-auto-review"
+          },
+          {
+            "label": "gpt-4o-mini",
+            "value": "gpt-4o-mini"
+          },
+          {
+            "label": "gpt-5.4",
+            "value": "gpt-5.4"
+          },
+          {
+            "label": "gpt-5.4-mini",
+            "value": "gpt-5.4-mini"
+          },
+          {
+            "label": "gpt-5.5",
+            "value": "gpt-5.5"
+          },
+          {
+            "label": "gpt-5.6",
+            "value": "gpt-5.6"
+          },
+          {
+            "label": "gpt-5.6-luna",
+            "value": "gpt-5.6-luna"
+          },
+          {
+            "label": "gpt-5.6-sol",
+            "value": "gpt-5.6-sol"
+          },
+          {
+            "label": "gpt-5.6-terra",
+            "value": "gpt-5.6-terra"
+          },
+          {
+            "label": "gpt-image-2",
+            "value": "gpt-image-2"
+          }
+        ]
       }
     },
     "vision-interview-project-view": "card",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788170810413-hej80a7h",
+        "timestamp": "2026-08-31T10:06:50.413Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "9f065b7a22b8"
+        }
+      },
       {
         "id": "1788170759934-yvsv9pm4",
         "timestamp": "2026-08-31T10:05:59.934Z",
@@ -13818,19 +13871,6 @@
         "message": "当前题目已跳过",
         "context": {
           "question": "现场轮胎字符出现严重磨损，导致OCR准确率下降，你会如何排查和解决？请给出步骤。",
-          "mode": "专业专项",
-          "project": "轮胎字符深度 OCR"
-        }
-      },
-      {
-        "id": "1788145025028-94r6kw9p",
-        "timestamp": "2026-08-31T02:57:05.028Z",
-        "level": "WARN",
-        "kind": "user",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "在轮胎字符OCR项目中，Modbus TCP通信如何与PLC协同工作？请描述数据流和时序控制。",
           "mode": "专业专项",
           "project": "轮胎字符深度 OCR"
         }
