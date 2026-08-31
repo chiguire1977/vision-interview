@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-08-31T10:06:19.571Z",
+  "updatedAt": "2026-08-31T10:06:26.026Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1336,6 +1336,46 @@
     },
     "vision-interview-project-view": "card",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788170781573-22wrmt6c",
+        "timestamp": "2026-08-31T10:06:21.573Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "c399c0435927"
+        }
+      },
+      {
+        "id": "1788170776034-oji1jwfs",
+        "timestamp": "2026-08-31T10:06:16.034Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788170737293-lq2t7wjd",
+        "event": "question-group.prepare.completed",
+        "message": "AI 多轮联网搜索与生成后仍未获得有效题目，已使用本地题库与标准答案。",
+        "context": {
+          "source": "本地规则",
+          "questionCount": 10
+        }
+      },
+      {
+        "id": "1788170776012-9ngrdhev",
+        "timestamp": "2026-08-31T10:06:16.012Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788170737293-lq2t7wjd",
+        "event": "question-bank.attempt.failed",
+        "message": "第 6/6 轮：本轮请求失败：请先配置当前 AI 服务商的 API Key。，准备下一轮…",
+        "context": {
+          "attempt": 6,
+          "maxAttempts": 6,
+          "collectedCount": 0,
+          "error": "请先配置当前 AI 服务商的 API Key。"
+        }
+      },
       {
         "id": "1788170775360-gl2rw10g",
         "timestamp": "2026-08-31T10:06:15.360Z",
@@ -13833,41 +13873,6 @@
         "context": {
           "project": "轮胎字符深度 OCR",
           "mode": "专业知识",
-          "questionCount": 10
-        }
-      },
-      {
-        "id": "1788146576210-vfgd21ro",
-        "timestamp": "2026-08-31T03:22:56.210Z",
-        "level": "WARN",
-        "kind": "system",
-        "event": "backup.startup.offline",
-        "message": "启动时未能读取 GitHub 配置",
-        "context": {
-          "status": 502,
-          "reason": "GitHub 读取失败（HTTP 403）：\r\nRequest forbidden by administrative rules. Please make sure your request has a User-Agent header (https://docs.github.com/en/rest/overview/resources-in-the-rest-api#user-agent-required). Check https://developer.github.com for other possib"
-        }
-      },
-      {
-        "id": "1788145973482-1z0or14g",
-        "timestamp": "2026-08-31T03:12:53.482Z",
-        "level": "ERROR",
-        "kind": "system",
-        "event": "backup.push.failed",
-        "message": "运行数据备份失败",
-        "context": {
-          "status": 503,
-          "reason": "未配置 GitHub 备份凭据。"
-        }
-      },
-      {
-        "id": "1788145970343-zcy0db6a",
-        "timestamp": "2026-08-31T03:12:50.343Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "question-group.prepare.cached",
-        "message": "题组已从本机缓存恢复",
-        "context": {
           "questionCount": 10
         }
       }
