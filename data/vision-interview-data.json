@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-08-31T10:06:07.350Z",
+  "updatedAt": "2026-08-31T10:06:13.414Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1336,6 +1336,76 @@
     },
     "vision-interview-project-view": "card",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788170769291-apjk2oos",
+        "timestamp": "2026-08-31T10:06:09.291Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "0f1b588a8a6a"
+        }
+      },
+      {
+        "id": "1788170766242-5mim3wi0",
+        "timestamp": "2026-08-31T10:06:06.242Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788170737293-lq2t7wjd",
+        "event": "question-bank.ai-request.started",
+        "message": "第 5/6 轮：正在请求 AI 生成题目…",
+        "context": {
+          "attempt": 5,
+          "maxAttempts": 6,
+          "collectedCount": 0
+        }
+      },
+      {
+        "id": "1788170766224-lbuzcukw",
+        "timestamp": "2026-08-31T10:06:06.224Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788170737293-lq2t7wjd",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 5,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "sourceCount": 0
+        }
+      },
+      {
+        "id": "1788170762991-sal4rmoq",
+        "timestamp": "2026-08-31T10:06:02.991Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788170737293-lq2t7wjd",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 5,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 0
+        }
+      },
+      {
+        "id": "1788170762965-b1r06j5s",
+        "timestamp": "2026-08-31T10:06:02.965Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788170737293-lq2t7wjd",
+        "event": "question-bank.attempt.failed",
+        "message": "第 4/6 轮：本轮请求失败：请先配置当前 AI 服务商的 API Key。，准备下一轮…",
+        "context": {
+          "attempt": 4,
+          "maxAttempts": 6,
+          "collectedCount": 0,
+          "error": "请先配置当前 AI 服务商的 API Key。"
+        }
+      },
       {
         "id": "1788170762336-5nvzi8zf",
         "timestamp": "2026-08-31T10:06:02.336Z",
@@ -13785,68 +13855,6 @@
         "message": "运行数据备份请求失败",
         "context": {
           "error": "Failed to fetch"
-        }
-      },
-      {
-        "id": "1788145905145-ussbpmza",
-        "timestamp": "2026-08-31T03:11:45.145Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "question-group.prepare.started",
-        "message": "开始准备题组",
-        "context": {
-          "project": "轮胎字符深度 OCR",
-          "mode": "专业专项",
-          "questionCount": 10
-        }
-      },
-      {
-        "id": "1788145903380-sk15ywsh",
-        "timestamp": "2026-08-31T03:11:43.380Z",
-        "level": "WARN",
-        "kind": "system",
-        "event": "backup.startup.offline",
-        "message": "启动时未能读取 GitHub 配置",
-        "context": {
-          "status": 502,
-          "reason": "GitHub 读取失败（HTTP 403）：\r\nRequest forbidden by administrative rules. Please make sure your request has a User-Agent header (https://docs.github.com/en/rest/overview/resources-in-the-rest-api#user-agent-required). Check https://developer.github.com for other possib"
-        }
-      },
-      {
-        "id": "1788145735880-d9l0x8vf",
-        "timestamp": "2026-08-31T03:08:55.880Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "question-group.prepare.completed",
-        "message": "AI 两次生成均未获得有效题目，已使用本地题库与标准答案。",
-        "context": {
-          "source": "本地规则",
-          "questionCount": 10
-        }
-      },
-      {
-        "id": "1788145733473-9sxo9z6t",
-        "timestamp": "2026-08-31T03:08:53.473Z",
-        "level": "ERROR",
-        "kind": "system",
-        "event": "backup.push.failed",
-        "message": "运行数据备份失败",
-        "context": {
-          "status": 503,
-          "reason": "未配置 GitHub 备份凭据。"
-        }
-      },
-      {
-        "id": "1788145726902-w6ts36zx",
-        "timestamp": "2026-08-31T03:08:46.902Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "question-group.prepare.started",
-        "message": "开始准备题组",
-        "context": {
-          "project": "轮胎字符深度 OCR",
-          "mode": "专业专项",
-          "questionCount": 10
         }
       }
     ]
