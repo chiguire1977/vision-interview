@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-08-31T13:34:53.376Z",
+  "updatedAt": "2026-08-31T13:37:45.514Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1784,6 +1784,88 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788183364595-q8ywpzid",
+        "timestamp": "2026-08-31T13:36:04.595Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788182515885-iy17aubu",
+        "event": "question-bank.cache.saved",
+        "message": "AI 题库已完成远程同步",
+        "context": {
+          "questionCount": 10,
+          "pendingCount": 0
+        }
+      },
+      {
+        "id": "1788183364592-9ee7o3ba",
+        "timestamp": "2026-08-31T13:36:04.592Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788182515885-iy17aubu",
+        "event": "github.backup.succeeded",
+        "message": "数据已成功备份到 GitHub",
+        "context": {
+          "operation": "ai-question-bank",
+          "entryCount": 10,
+          "pendingCount": 0,
+          "status": 200
+        }
+      },
+      {
+        "id": "1788183354150-o5jybn8i",
+        "timestamp": "2026-08-31T13:35:54.150Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788182515885-iy17aubu",
+        "event": "question-group.prepare.completed",
+        "message": "AI 已生成完整 10 道题目、标准回答和技术原理；远程题库正在后台同步。",
+        "context": {
+          "source": "AI",
+          "questionCount": 10
+        }
+      },
+      {
+        "id": "1788183354142-x9c7hjgf",
+        "timestamp": "2026-08-31T13:35:54.142Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788182515885-iy17aubu",
+        "event": "github.backup.started",
+        "message": "开始备份数据到 GitHub",
+        "context": {
+          "operation": "ai-question-bank",
+          "entryCount": 10,
+          "pendingCount": 10
+        }
+      },
+      {
+        "id": "1788183354135-wdbzo8xc",
+        "timestamp": "2026-08-31T13:35:54.135Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788182515885-iy17aubu",
+        "event": "question-bank.ai-request.completed",
+        "message": "第 5/6 轮：AI 已返回 10/10 道有效题目。",
+        "context": {
+          "attempt": 5,
+          "maxAttempts": 6,
+          "collectedCount": 10,
+          "targetCount": 10
+        }
+      },
+      {
+        "id": "1788183302249-5q3aiewz",
+        "timestamp": "2026-08-31T13:35:02.249Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "1cae2cfb469e"
+        }
+      },
       {
         "id": "1788183296913-dfy910gd",
         "timestamp": "2026-08-31T13:34:56.913Z",
@@ -14887,86 +14969,6 @@
           "query": "机器视觉 面试知识点 OpenCV 原理 工程实践",
           "mode": "专业知识",
           "excludedCount": 0
-        }
-      },
-      {
-        "id": "1788170423164-zd6dsep5",
-        "timestamp": "2026-08-31T10:00:23.164Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788169988616-qqc3c3wb",
-        "event": "question-group.prepare.started",
-        "message": "开始准备题组",
-        "context": {
-          "project": "轮胎字符深度 OCR",
-          "mode": "专业知识",
-          "questionCount": 3
-        }
-      },
-      {
-        "id": "1788170417216-qmyjpqb9",
-        "timestamp": "2026-08-31T10:00:17.216Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788169988616-qqc3c3wb",
-        "event": "question-group.prepare.completed",
-        "message": "AI 多轮联网搜索与生成后仍未获得有效题目，已使用本地题库与标准答案。",
-        "context": {
-          "source": "本地规则",
-          "questionCount": 0
-        }
-      },
-      {
-        "id": "1788170417213-c51w623q",
-        "timestamp": "2026-08-31T10:00:17.213Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788169988616-qqc3c3wb",
-        "event": "question-bank.attempt.failed",
-        "message": "第 6/6 轮：本轮请求失败：AI 请求超时，请稍后重试。，准备下一轮…",
-        "context": {
-          "attempt": 6,
-          "maxAttempts": 6,
-          "collectedCount": 0,
-          "error": "AI 请求超时，请稍后重试。"
-        }
-      },
-      {
-        "id": "1788170363215-9vxijvia",
-        "timestamp": "2026-08-31T09:59:23.215Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "f8bf8e606119"
-        }
-      },
-      {
-        "id": "1788170359743-0d50l6fd",
-        "timestamp": "2026-08-31T09:59:19.743Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "0b24112ec1a9"
-        }
-      },
-      {
-        "id": "1788170357038-ktj6n6ew",
-        "timestamp": "2026-08-31T09:59:17.038Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788169988616-qqc3c3wb",
-        "event": "question-bank.ai-request.started",
-        "message": "第 6/6 轮：正在请求 AI 生成题目…",
-        "context": {
-          "attempt": 6,
-          "maxAttempts": 6,
-          "collectedCount": 0
         }
       }
     ]
