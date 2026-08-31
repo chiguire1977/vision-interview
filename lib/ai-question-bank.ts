@@ -38,11 +38,90 @@ export type QuestionBankArchiveMetadata = {
   techStackFilter?: string;
 };
 
+export type AiQuestionSourceFilter = "专业" | "项目" | "专业或项目";
+export type AiQuestionSelectionFilter = {
+  source: AiQuestionSourceFilter;
+  category?: string;
+  difficulty?: string;
+  techStack?: string;
+  forbiddenPhrases?: string[];
+};
+
+export function normalizeTrainingMode(value: unknown): "专业知识" | "项目答辩" | "综合模拟" {
+  if (value === "项目答辩") return "项目答辩";
+  if (value === "综合模拟") return "综合模拟";
+  return "专业知识";
+}
+
+export function questionSourceForTrainingMode(value: unknown): AiQuestionSourceFilter {
+  const mode = normalizeTrainingMode(value);
+  return mode === "项目答辩" ? "项目" : mode === "综合模拟" ? "专业或项目" : "专业";
+}
+
 function cleanString(value: unknown) {
   return typeof value === "string" ? value.trim().replace(/\s+/g, " ") : "";
 }
 function cleanText(value: unknown) {
   return typeof value === "string" ? value.trim() : "";
+}
+
+function normalizedComparison(value: unknown) {
+  return cleanString(value).toLocaleLowerCase().replace(/\s+/g, "");
+}
+
+function matchesSource(value: string, expected: AiQuestionSourceFilter) {
+  const source = normalizedComparison(value);
+  const isProfessional = source === "专业" || source === "professional" || source === "knowledge";
+  const isProject = source === "项目" || source === "project";
+  return expected === "专业或项目"
+    ? isProfessional || isProject
+    : expected === "专业" ? isProfessional : isProject;
+}
+
+function matchesDifficulty(value: string, expected: string) {
+  const difficulty = normalizedComparison(value);
+  const target = normalizedComparison(expected);
+  if (!target || target === "随机难度") return true;
+  const aliases: Record<string, string[]> = {
+    基础: ["基础", "basic", "easy", "beginner"],
+    中等: ["中等", "medium", "normal", "intermediate"],
+    困难: ["困难", "hard", "difficult", "advanced"],
+  };
+  return Object.entries(aliases).some(([canonical, values]) => target === normalizedComparison(canonical) && values.includes(difficulty));
+}
+
+function matchesTechStack(values: string[] | undefined, expected: string) {
+  const target = normalizedComparison(expected);
+  if (!target || target === "随机技术栈") return true;
+  return (values ?? []).some((value) => normalizedComparison(value) === target);
+}
+
+export function filterAiGeneratedQuestions(values: unknown[], selection: AiQuestionSelectionFilter) {
+  const forbiddenPhrases = (selection.forbiddenPhrases ?? [])
+    .map((value) => normalizedComparison(value))
+    .filter(Boolean);
+  return normalizeAiGeneratedQuestions(values).filter((question) => {
+    if (!matchesSource(question.source, selection.source)) return false;
+    if (selection.category && selection.category !== "随机类型" && question.category !== selection.category) return false;
+    if (selection.difficulty && !matchesDifficulty(question.difficulty, selection.difficulty)) return false;
+    if (selection.techStack && !matchesTechStack(question.techStacks, selection.techStack)) return false;
+    if (forbiddenPhrases.length) {
+      const searchable = normalizedComparison([
+        question.title,
+        question.type,
+        question.category,
+        ...question.tags,
+        ...question.keywords,
+        question.followUp,
+        question.hint,
+        question.basis,
+        question.bestAnswer,
+        question.principle,
+      ].filter(Boolean).join("|"));
+      if (forbiddenPhrases.some((phrase) => searchable.includes(phrase))) return false;
+    }
+    return true;
+  });
 }
 
 function cleanStringArray(value: unknown, limit = 16) {

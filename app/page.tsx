@@ -1,5 +1,5 @@
-Warning: truncated output (original token count: 49808)
-Total output lines: 2772
+Warning: truncated output (original token count: 50349)
+Total output lines: 2804
 
 "use client";
 
@@ -26,9 +26,13 @@ import { Textarea } from "@/components/ui/textarea";
 import {
   collectAiQuestionGroup,
   createQuestionBankArchiveEntries,
+  filterAiGeneratedQuestions,
   fillQuestionGroup,
   mergeQuestionBankArchive,
+  normalizeTrainingMode,
+  questionSourceForTrainingMode,
   type AiGeneratedQuestion,
+  type AiQuestionSourceFilter,
   type QuestionBankArchiveEntry,
 } from "@/lib/ai-question-bank";
 import {
@@ -40,7 +44,7 @@ import {
   RUNTIME_LOG_STORAGE_KEY,
 } from "@/lib/backup-core.mjs";
 
-type TrainingMode = "专业专项" | "项目答辩" | "综合模拟";
+type TrainingMode = "专业知识" | "项目答辩" | "综合模拟";
 type TechStack = "通用原理" | "HALCON" | "OpenCV" | "VisionPro" | "C#视觉开发";
 type AiProvider = string;
 type AiPreferences = {
@@ -478,9 +482,7 @@ function buildLocalProjectQuestions(projectName: string): Question[] {
     {
       title: `“${projectName}”中最关键的技术选型是什么？为什么这样选择？`,
       type: "技术选型", category: "项目答辩", source: "项目", difficulty: "中等", tags: profile.tags,
-      keywords: ["选择", "原因", "对比", "优点", "局限", "验证"],
-      followUp: "如果重新实施一次，你会保留这个方案还是更换其他算法？",
-      hint: "说…29808 tokens truncated…0 text-rose-700" : "border-blue-200 bg-blue-50 text-blue-700"}`}>{record.action === "跳过题目" ? "跳过题目" : "完成答题"}</Badge><span className="truncate text-sm font-medium text-slate-800">{record.question}</span></div>
+      keywords: ["选择", "原因", "对比", "优点", "局限", "验…30349 tokens truncated…0 text-rose-700" : "border-blue-200 bg-blue-50 text-blue-700"}`}>{record.action === "跳过题目" ? "跳过题目" : "完成答题"}</Badge><span className="truncate text-sm font-medium text-slate-800">{record.question}</span></div>
                       <p className="mt-1.5 text-xs text-slate-500">{record.timestamp ?? record.date}{typeof record.seconds === "number" ? ` · 用时 ${formatTime(record.seconds)}` : ""}</p>
                       {record.answer && <p className="mt-1.5 line-clamp-1 text-xs text-slate-400">我的回答：{record.answer}</p>}
                     </div>

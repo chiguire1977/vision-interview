@@ -33,6 +33,49 @@ function generated(title, overrides = {}) {
   };
 }
 
+test("normalizes the legacy professional training mode label", () => {
+  assert.equal(bank.normalizeTrainingMode("专业专项"), "专业知识");
+  assert.equal(bank.normalizeTrainingMode("专业知识"), "专业知识");
+  assert.equal(bank.normalizeTrainingMode("项目答辩"), "项目答辩");
+  assert.equal(bank.questionSourceForTrainingMode("专业专项"), "专业");
+  assert.equal(bank.questionSourceForTrainingMode("项目答辩"), "项目");
+  assert.equal(bank.questionSourceForTrainingMode("综合模拟"), "专业或项目");
+});
+
+test("filters AI questions by source and selected category, difficulty, stack, and project context", () => {
+  const result = bank.filterAiGeneratedQuestions([
+    generated("专业 HALCON 题", { source: "专业", category: "图像处理基础", difficulty: "中等", techStacks: ["HALCON"] }),
+    generated("项目题", { source: "项目", category: "图像处理基础", difficulty: "中等", techStacks: ["HALCON"] }),
+    generated("其他分类题", { source: "专业", category: "边缘与特征", difficulty: "中等", techStacks: ["HALCON"] }),
+    generated("其他难度题", { source: "专业", category: "图像处理基础", difficulty: "困难", techStacks: ["HALCON"] }),
+    generated("其他技术栈题", { source: "专业", category: "图像处理基础", difficulty: "中等", techStacks: ["OpenCV"] }),
+    generated("轮胎字符深度 OCR 项目题", { source: "专业", category: "图像处理基础", difficulty: "中等", techStacks: ["HALCON"] }),
+  ], {
+    source: "专业",
+    category: "图像处理基础",
+    difficulty: "中等",
+    techStack: "HALCON",
+    forbiddenPhrases: ["轮胎字符深度 OCR"],
+  });
+
+  assert.deepEqual(result.map((question) => question.title), ["专业 HALCON 题"]);
+});
+
+test("allows both sources for comprehensive simulation while retaining selected filters", () => {
+  const result = bank.filterAiGeneratedQuestions([
+    generated("专业题", { source: "专业", category: "图像处理基础", difficulty: "基础", techStacks: ["HALCON"] }),
+    generated("项目题", { source: "项目", category: "图像处理基础", difficulty: "基础", techStacks: ["HALCON"] }),
+    generated("错误分类", { source: "专业", category: "边缘与特征", difficulty: "基础", techStacks: ["HALCON"] }),
+  ], {
+    source: "专业或项目",
+    category: "图像处理基础",
+    difficulty: "基础",
+    techStack: "HALCON",
+  });
+
+  assert.deepEqual(result.map((question) => question.title), ["专业题", "项目题"]);
+});
+
 test("normalizes and deduplicates AI generated questions", () => {
   const result = bank.normalizeAiGeneratedQuestions([
     generated("  Why subtract the NCC mean?  "),
