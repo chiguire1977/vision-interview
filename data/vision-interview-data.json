@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-08-31T12:47:42.969Z",
+  "updatedAt": "2026-08-31T12:47:47.730Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1818,6 +1818,30 @@
     },
     "vision-interview-project-view": "card",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788180472930-86ng4h9d",
+        "timestamp": "2026-08-31T12:47:52.930Z",
+        "level": "ERROR",
+        "kind": "system",
+        "event": "backup.push.failed",
+        "message": "运行数据备份失败",
+        "context": {
+          "status": 502,
+          "reason": "GitHub 备份失败（HTTP 409）：{\"message\":\"data/vision-interview-data.json does not match 00e152df8af4baecdd991426cb7e6c57b71a7983\",\"documentation_url\":\"https://docs.github.com/rest/repos/contents#create-or-update-file-contents\",\"status\":\"409\"}"
+        }
+      },
+      {
+        "id": "1788180471483-n2sckssw",
+        "timestamp": "2026-08-31T12:47:51.483Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "97e4dd249fac"
+        }
+      },
       {
         "id": "1788180468459-fgnlh09y",
         "timestamp": "2026-08-31T12:47:48.459Z",
@@ -15133,33 +15157,6 @@
           "project": "轮胎字符深度 OCR",
           "mode": "专业知识",
           "questionCount": 5
-        }
-      },
-      {
-        "id": "1788166915310-ugx0zr6c",
-        "timestamp": "2026-08-31T09:01:55.310Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788166885160-rwxfoopb",
-        "event": "question-bank.web-search.started",
-        "message": "开始联网检索本轮题目资料",
-        "context": {
-          "attempt": 6,
-          "query": "机器视觉 面试知识点 原理 工程实践",
-          "mode": "专业知识",
-          "excludedCount": 0
-        }
-      },
-      {
-        "id": "1788166913763-0klyw71k",
-        "timestamp": "2026-08-31T09:01:53.763Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "15cf25f39d11"
         }
       }
     ]
