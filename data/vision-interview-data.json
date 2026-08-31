@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-08-31T11:58:47.366Z",
+  "updatedAt": "2026-08-31T11:58:50.855Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1818,6 +1818,46 @@
     },
     "vision-interview-project-view": "card",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788177536200-nmquxbjp",
+        "timestamp": "2026-08-31T11:58:56.200Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "2d5c95438420"
+        }
+      },
+      {
+        "id": "1788177531771-c3t40g6o",
+        "timestamp": "2026-08-31T11:58:51.771Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788176733288-egduzojh",
+        "event": "question-bank.ai-request.started",
+        "message": "第 2/6 轮：正在请求 AI 生成题目…",
+        "context": {
+          "attempt": 2,
+          "maxAttempts": 6,
+          "collectedCount": 0
+        }
+      },
+      {
+        "id": "1788177531767-wqp5kugu",
+        "timestamp": "2026-08-31T11:58:51.767Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788176733288-egduzojh",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 2,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "sourceCount": 0
+        }
+      },
       {
         "id": "1788177528698-e89kqegb",
         "timestamp": "2026-08-31T11:58:48.698Z",
@@ -15033,48 +15073,6 @@
         "message": "当前题目已跳过",
         "context": {
           "question": "在HALCON中，如何实现多模板匹配？当目标物体存在多种形态时，如何处理以提高匹配鲁棒性？",
-          "mode": "专业知识",
-          "project": "轮胎字符深度 OCR"
-        }
-      },
-      {
-        "id": "1788164852560-lu1l21nw",
-        "timestamp": "2026-08-31T08:27:32.560Z",
-        "level": "WARN",
-        "kind": "user",
-        "sessionId": "1788164727758-4j1db2oj",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "在HALCON中，使用measure_pos进行一维测量时，如果测量结果不稳定（如位置波动），可能的原因有哪些？如何提高稳定性？",
-          "mode": "专业知识",
-          "project": "轮胎字符深度 OCR"
-        }
-      },
-      {
-        "id": "1788164852392-jhdl22ik",
-        "timestamp": "2026-08-31T08:27:32.392Z",
-        "level": "WARN",
-        "kind": "user",
-        "sessionId": "1788164727758-4j1db2oj",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "在HALCON中，进行边缘提取时，常用的算子有sobel_amp、canny和edges_sub_pix，它们各自的特点和适用场景是什么？",
-          "mode": "专业知识",
-          "project": "轮胎字符深度 OCR"
-        }
-      },
-      {
-        "id": "1788164852223-v353uzsu",
-        "timestamp": "2026-08-31T08:27:32.223Z",
-        "level": "WARN",
-        "kind": "user",
-        "sessionId": "1788164727758-4j1db2oj",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "在HALCON中，使用blob分析进行缺陷检测时，如果目标缺陷与背景灰度差异很小，你会采用哪些图像预处理方法增强对比度？",
           "mode": "专业知识",
           "project": "轮胎字符深度 OCR"
         }
