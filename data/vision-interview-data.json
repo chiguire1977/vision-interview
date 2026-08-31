@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-08-31T15:59:49.442Z",
+  "updatedAt": "2026-08-31T15:59:55.343Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1833,6 +1833,46 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788192001487-mhk70665",
+        "timestamp": "2026-08-31T16:00:01.487Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788191832589-2rrvv7qm",
+        "event": "question-bank.cache.saved",
+        "message": "AI 题库已完成远程同步",
+        "context": {
+          "questionCount": 10,
+          "pendingCount": 0
+        }
+      },
+      {
+        "id": "1788192001484-geneul6c",
+        "timestamp": "2026-08-31T16:00:01.484Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788191832589-2rrvv7qm",
+        "event": "github.backup.succeeded",
+        "message": "数据已成功备份到 GitHub",
+        "context": {
+          "operation": "ai-question-bank",
+          "entryCount": 10,
+          "pendingCount": 0,
+          "status": 200
+        }
+      },
+      {
+        "id": "1788192000116-j2j59gpm",
+        "timestamp": "2026-08-31T16:00:00.116Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "8fe74080186a"
+        }
+      },
       {
         "id": "1788191992978-jty4i3h8",
         "timestamp": "2026-08-31T15:59:52.978Z",
@@ -18184,60 +18224,6 @@
           "sourceCount": 0,
           "workerIndex": 3,
           "parallelRequests": 3
-        }
-      },
-      {
-        "id": "1788186115049-vzm9d9s3",
-        "timestamp": "2026-08-31T14:21:55.049Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788185400191-3fe71itf",
-        "event": "question-bank.web-search.started",
-        "message": "开始联网检索本轮题目资料",
-        "context": {
-          "attempt": 5,
-          "query": "机器视觉 边缘与特征 通用原理 原理 工程实践",
-          "mode": "专业知识",
-          "excludedCount": 0,
-          "workerIndex": 3,
-          "parallelRequests": 3,
-          "requestedCount": 3
-        }
-      },
-      {
-        "id": "1788186115044-3befylml",
-        "timestamp": "2026-08-31T14:21:55.044Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788185400191-3fe71itf",
-        "event": "question-bank.web-search.started",
-        "message": "开始联网检索本轮题目资料",
-        "context": {
-          "attempt": 5,
-          "query": "机器视觉 边缘与特征 通用原理 原理 工程实践",
-          "mode": "专业知识",
-          "excludedCount": 0,
-          "workerIndex": 2,
-          "parallelRequests": 3,
-          "requestedCount": 3
-        }
-      },
-      {
-        "id": "1788186115040-gs2exmmn",
-        "timestamp": "2026-08-31T14:21:55.040Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788185400191-3fe71itf",
-        "event": "question-bank.web-search.started",
-        "message": "开始联网检索本轮题目资料",
-        "context": {
-          "attempt": 5,
-          "query": "机器视觉 边缘与特征 通用原理 原理 工程实践",
-          "mode": "专业知识",
-          "excludedCount": 0,
-          "workerIndex": 1,
-          "parallelRequests": 3,
-          "requestedCount": 4
         }
       }
     ]
