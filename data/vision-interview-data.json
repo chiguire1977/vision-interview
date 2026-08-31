@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-08-31T13:42:41.887Z",
+  "updatedAt": "2026-08-31T13:43:08.706Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1462,6 +1462,35 @@
         "principle": "曝光时间决定光子累积量，影响信噪比和动态范围；增益放大信号的同时放大噪声，降低图像质量。运动模糊与曝光时间成正比，需根据物体运动速度限制曝光时间。"
       }
     ],
+    "vision-interview-favorite-questions": [
+      {
+        "title": "曝光时间和增益分别会对检测结果产生什么影响？",
+        "type": "光学硬件",
+        "category": "相机镜头光源",
+        "source": "专业",
+        "difficulty": "基础",
+        "tags": [
+          "曝光",
+          "增益",
+          "运动模糊"
+        ],
+        "keywords": [
+          "亮度",
+          "曝光",
+          "增益",
+          "噪声",
+          "运动模糊",
+          "信噪比",
+          "光源",
+          "光圈"
+        ],
+        "followUp": "高速运动场景亮度不足时，你会按照什么顺序调整硬件和参数？",
+        "hint": "不要只说图像变亮，要说明曝光影响时间，增益会同时放大信号与噪声。",
+        "bestAnswer": "曝光时间决定传感器积累光子的时间，增加曝光会提高亮度和信噪比，但会降低可用帧率并增加运动模糊。增益是在采集后放大电信号，能够快速增亮，但信号和噪声会一起放大。高速场景应优先改善光源、光圈和曝光，在仍不足时再谨慎增加增益。",
+        "principle": "基本原理：围绕“亮度、曝光、增益、噪声、运动模糊”说明输入、处理过程、输出和适用边界。",
+        "origin": "本地题库"
+      }
+    ],
     "vision-interview-projects": [
       {
         "id": "vision-workflow",
@@ -1784,6 +1813,31 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788183792211-5fiip9gs",
+        "timestamp": "2026-08-31T13:43:12.211Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788183751443-mt5bdkmw",
+        "event": "favorite.added",
+        "message": "题目已加入收藏夹",
+        "context": {
+          "question": "曝光时间和增益分别会对检测结果产生什么影响？",
+          "source": "专业"
+        }
+      },
+      {
+        "id": "1788183771530-pnpstuwp",
+        "timestamp": "2026-08-31T13:42:51.530Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "7e7f5e193aef"
+        }
+      },
       {
         "id": "1788183767574-lqhbr4vh",
         "timestamp": "2026-08-31T13:42:47.574Z",
@@ -15275,35 +15329,6 @@
           "query": "机器视觉 面试知识点 HALCON 原理 工程实践",
           "mode": "专业知识",
           "excludedCount": 0
-        }
-      },
-      {
-        "id": "1788171375706-4n1d54bu",
-        "timestamp": "2026-08-31T10:16:15.706Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788169988616-qqc3c3wb",
-        "event": "question-bank.attempt.failed",
-        "message": "第 1/6 轮：本轮请求失败：AI 请求超时，请稍后重试。，准备下一轮…",
-        "context": {
-          "attempt": 1,
-          "maxAttempts": 6,
-          "collectedCount": 0,
-          "error": "AI 请求超时，请稍后重试。"
-        }
-      },
-      {
-        "id": "1788171371464-tlt0osgb",
-        "timestamp": "2026-08-31T10:16:11.464Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788169988616-qqc3c3wb",
-        "event": "question-bank.web-search.completed",
-        "message": "本轮联网检索完成",
-        "context": {
-          "attempt": 2,
-          "query": "机器视觉 面试知识点 VisionPro 原理 工程实践",
-          "sourceCount": 0
         }
       }
     ]
