@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-08-31T09:52:59.895Z",
+  "updatedAt": "2026-08-31T09:53:06.740Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1046,10 +1046,36 @@
         "mastery": "低"
       }
     ],
+    "vision-interview-projects": [
+      {
+        "id": "tire-ocr",
+        "name": "轮胎字符深度 OCR",
+        "category": "字符识别",
+        "progress": 82
+      },
+      {
+        "id": "battery-defect",
+        "name": "锂电池极片缺陷分类",
+        "category": "缺陷分类",
+        "progress": 68
+      },
+      {
+        "id": "glass-chipping",
+        "name": "前盖玻璃崩边检测",
+        "category": "外观检测",
+        "progress": 74
+      },
+      {
+        "id": "vision-workflow",
+        "name": "视觉工作流框架",
+        "category": "软件架构",
+        "progress": 61
+      }
+    ],
     "vision-interview-ai-preferences": {
-      "provider": "deepseek",
-      "model": "deepseek-v4-flash",
-      "openaiBaseUrl": "https://api.deepseek.com",
+      "provider": "custom-mtfsd2qj-i4ox3z",
+      "model": "qwen3.8-max",
+      "openaiBaseUrl": "https://opencode.ai/zen/go/v1",
       "aiScoring": true,
       "bestAnswer": true,
       "smartFollowUp": true,
@@ -1074,9 +1100,573 @@
             "value": "deepseek-v4-pro"
           }
         ]
+      },
+      "openai": {
+        "model": "gpt-5.6-sol",
+        "baseUrl": "https://dingdangapii.cn",
+        "openaiBaseUrl": "https://dingdangapii.cn",
+        "availableModels": [
+          {
+            "label": "codex-auto-review",
+            "value": "codex-auto-review"
+          },
+          {
+            "label": "gpt-4o-mini",
+            "value": "gpt-4o-mini"
+          },
+          {
+            "label": "gpt-5.2",
+            "value": "gpt-5.2"
+          },
+          {
+            "label": "gpt-5.3-codex",
+            "value": "gpt-5.3-codex"
+          },
+          {
+            "label": "gpt-5.3-codex-spark",
+            "value": "gpt-5.3-codex-spark"
+          },
+          {
+            "label": "gpt-5.4",
+            "value": "gpt-5.4"
+          },
+          {
+            "label": "gpt-5.4-mini",
+            "value": "gpt-5.4-mini"
+          },
+          {
+            "label": "gpt-5.4-openai-compact",
+            "value": "gpt-5.4-openai-compact"
+          },
+          {
+            "label": "gpt-5.5",
+            "value": "gpt-5.5"
+          },
+          {
+            "label": "gpt-5.5-openai-compact",
+            "value": "gpt-5.5-openai-compact"
+          },
+          {
+            "label": "gpt-5.6",
+            "value": "gpt-5.6"
+          },
+          {
+            "label": "gpt-5.6-luna",
+            "value": "gpt-5.6-luna"
+          },
+          {
+            "label": "gpt-5.6-luna-thinking",
+            "value": "gpt-5.6-luna-thinking"
+          },
+          {
+            "label": "gpt-5.6-sol",
+            "value": "gpt-5.6-sol"
+          },
+          {
+            "label": "gpt-5.6-sol-openai-compact",
+            "value": "gpt-5.6-sol-openai-compact"
+          },
+          {
+            "label": "gpt-5.6-sol-thinking",
+            "value": "gpt-5.6-sol-thinking"
+          },
+          {
+            "label": "gpt-5.6-terra",
+            "value": "gpt-5.6-terra"
+          },
+          {
+            "label": "gpt-5.6-terra-thinking",
+            "value": "gpt-5.6-terra-thinking"
+          },
+          {
+            "label": "gpt-image-1",
+            "value": "gpt-image-1"
+          },
+          {
+            "label": "gpt-image-1.5",
+            "value": "gpt-image-1.5"
+          },
+          {
+            "label": "gpt-image-2",
+            "value": "gpt-image-2"
+          }
+        ]
+      },
+      "custom-mtfsd2qj-i4ox3z": {
+        "name": "OpenCodeGo",
+        "description": "兼容 OpenAI 格式的自定义服务商",
+        "model": "qwen3.8-max",
+        "baseUrl": "https://opencode.ai/zen/go/v1",
+        "openaiBaseUrl": "https://opencode.ai/zen/go/v1",
+        "availableModels": [
+          {
+            "label": "deepseek-v4-flash",
+            "value": "deepseek-v4-flash"
+          },
+          {
+            "label": "deepseek-v4-flash-vision-exp",
+            "value": "deepseek-v4-flash-vision-exp"
+          },
+          {
+            "label": "deepseek-v4-pro",
+            "value": "deepseek-v4-pro"
+          },
+          {
+            "label": "glm-5",
+            "value": "glm-5"
+          },
+          {
+            "label": "glm-5.1",
+            "value": "glm-5.1"
+          },
+          {
+            "label": "glm-5.2",
+            "value": "glm-5.2"
+          },
+          {
+            "label": "glm-5.3",
+            "value": "glm-5.3"
+          },
+          {
+            "label": "glm-5.3-flash",
+            "value": "glm-5.3-flash"
+          },
+          {
+            "label": "gpt-5.6-luna",
+            "value": "gpt-5.6-luna"
+          },
+          {
+            "label": "grok-4.5",
+            "value": "grok-4.5"
+          },
+          {
+            "label": "grok-4.6",
+            "value": "grok-4.6"
+          },
+          {
+            "label": "hy3",
+            "value": "hy3"
+          },
+          {
+            "label": "hy3-preview",
+            "value": "hy3-preview"
+          },
+          {
+            "label": "hy4-preview",
+            "value": "hy4-preview"
+          },
+          {
+            "label": "kimi-k2.5",
+            "value": "kimi-k2.5"
+          },
+          {
+            "label": "kimi-k2.6",
+            "value": "kimi-k2.6"
+          },
+          {
+            "label": "kimi-k2.7-code",
+            "value": "kimi-k2.7-code"
+          },
+          {
+            "label": "kimi-k3",
+            "value": "kimi-k3"
+          },
+          {
+            "label": "longcat-2.0",
+            "value": "longcat-2.0"
+          },
+          {
+            "label": "mimo-v2-omni",
+            "value": "mimo-v2-omni"
+          },
+          {
+            "label": "mimo-v2-pro",
+            "value": "mimo-v2-pro"
+          },
+          {
+            "label": "mimo-v2.5",
+            "value": "mimo-v2.5"
+          },
+          {
+            "label": "mimo-v2.5-pro",
+            "value": "mimo-v2.5-pro"
+          },
+          {
+            "label": "minimax-m2.5",
+            "value": "minimax-m2.5"
+          },
+          {
+            "label": "minimax-m2.7",
+            "value": "minimax-m2.7"
+          },
+          {
+            "label": "minimax-m3",
+            "value": "minimax-m3"
+          },
+          {
+            "label": "muse-spark-1.2-contributor",
+            "value": "muse-spark-1.2-contributor"
+          },
+          {
+            "label": "qwen3.5-plus",
+            "value": "qwen3.5-plus"
+          },
+          {
+            "label": "qwen3.6-plus",
+            "value": "qwen3.6-plus"
+          },
+          {
+            "label": "qwen3.7-max",
+            "value": "qwen3.7-max"
+          },
+          {
+            "label": "qwen3.7-plus",
+            "value": "qwen3.7-plus"
+          },
+          {
+            "label": "qwen3.8-flash",
+            "value": "qwen3.8-flash"
+          },
+          {
+            "label": "qwen3.8-max",
+            "value": "qwen3.8-max"
+          }
+        ]
       }
     },
+    "vision-interview-project-view": "card",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788169991422-buml5uvl",
+        "timestamp": "2026-08-31T09:53:11.422Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788169988616-qqc3c3wb",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 6,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 0
+        }
+      },
+      {
+        "id": "1788169991420-zsajp1l4",
+        "timestamp": "2026-08-31T09:53:11.420Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788169988616-qqc3c3wb",
+        "event": "question-bank.attempt.failed",
+        "message": "第 5/6 轮：本轮请求失败：请先配置当前 AI 服务商的 API Key。，准备下一轮…",
+        "context": {
+          "attempt": 5,
+          "maxAttempts": 6,
+          "collectedCount": 0,
+          "error": "请先配置当前 AI 服务商的 API Key。"
+        }
+      },
+      {
+        "id": "1788169991285-qdgfu3cr",
+        "timestamp": "2026-08-31T09:53:11.285Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788169988616-qqc3c3wb",
+        "event": "question-bank.ai-request.started",
+        "message": "第 5/6 轮：正在请求 AI 生成题目…",
+        "context": {
+          "attempt": 5,
+          "maxAttempts": 6,
+          "collectedCount": 0
+        }
+      },
+      {
+        "id": "1788169991283-r3zy8wtj",
+        "timestamp": "2026-08-31T09:53:11.283Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788169988616-qqc3c3wb",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 5,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "sourceCount": 0
+        }
+      },
+      {
+        "id": "1788169990952-gy33hljf",
+        "timestamp": "2026-08-31T09:53:10.952Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788169988616-qqc3c3wb",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 5,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 0
+        }
+      },
+      {
+        "id": "1788169990950-0oy77lyh",
+        "timestamp": "2026-08-31T09:53:10.950Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788169988616-qqc3c3wb",
+        "event": "question-bank.attempt.failed",
+        "message": "第 4/6 轮：本轮请求失败：请先配置当前 AI 服务商的 API Key。，准备下一轮…",
+        "context": {
+          "attempt": 4,
+          "maxAttempts": 6,
+          "collectedCount": 0,
+          "error": "请先配置当前 AI 服务商的 API Key。"
+        }
+      },
+      {
+        "id": "1788169990830-zsjpzupb",
+        "timestamp": "2026-08-31T09:53:10.830Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788169988616-qqc3c3wb",
+        "event": "question-bank.ai-request.started",
+        "message": "第 4/6 轮：正在请求 AI 生成题目…",
+        "context": {
+          "attempt": 4,
+          "maxAttempts": 6,
+          "collectedCount": 0
+        }
+      },
+      {
+        "id": "1788169990829-qjsmr43s",
+        "timestamp": "2026-08-31T09:53:10.829Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788169988616-qqc3c3wb",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 4,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "sourceCount": 0
+        }
+      },
+      {
+        "id": "1788169990240-ptj1q0em",
+        "timestamp": "2026-08-31T09:53:10.240Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788169988616-qqc3c3wb",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 4,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 0
+        }
+      },
+      {
+        "id": "1788169990238-zumhjvmh",
+        "timestamp": "2026-08-31T09:53:10.238Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788169988616-qqc3c3wb",
+        "event": "question-bank.attempt.failed",
+        "message": "第 3/6 轮：本轮请求失败：请先配置当前 AI 服务商的 API Key。，准备下一轮…",
+        "context": {
+          "attempt": 3,
+          "maxAttempts": 6,
+          "collectedCount": 0,
+          "error": "请先配置当前 AI 服务商的 API Key。"
+        }
+      },
+      {
+        "id": "1788169990084-c7s714rh",
+        "timestamp": "2026-08-31T09:53:10.084Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788169988616-qqc3c3wb",
+        "event": "question-bank.ai-request.started",
+        "message": "第 3/6 轮：正在请求 AI 生成题目…",
+        "context": {
+          "attempt": 3,
+          "maxAttempts": 6,
+          "collectedCount": 0
+        }
+      },
+      {
+        "id": "1788169990083-ytrug8mv",
+        "timestamp": "2026-08-31T09:53:10.083Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788169988616-qqc3c3wb",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 3,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "sourceCount": 0
+        }
+      },
+      {
+        "id": "1788169989654-t657gp4g",
+        "timestamp": "2026-08-31T09:53:09.654Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788169988616-qqc3c3wb",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 3,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 0
+        }
+      },
+      {
+        "id": "1788169989652-6m69lp0b",
+        "timestamp": "2026-08-31T09:53:09.652Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788169988616-qqc3c3wb",
+        "event": "question-bank.attempt.failed",
+        "message": "第 2/6 轮：本轮请求失败：请先配置当前 AI 服务商的 API Key。，准备下一轮…",
+        "context": {
+          "attempt": 2,
+          "maxAttempts": 6,
+          "collectedCount": 0,
+          "error": "请先配置当前 AI 服务商的 API Key。"
+        }
+      },
+      {
+        "id": "1788169989437-h9carh7s",
+        "timestamp": "2026-08-31T09:53:09.437Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788169988616-qqc3c3wb",
+        "event": "question-bank.ai-request.started",
+        "message": "第 2/6 轮：正在请求 AI 生成题目…",
+        "context": {
+          "attempt": 2,
+          "maxAttempts": 6,
+          "collectedCount": 0
+        }
+      },
+      {
+        "id": "1788169989435-n79c1z0a",
+        "timestamp": "2026-08-31T09:53:09.435Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788169988616-qqc3c3wb",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 2,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "sourceCount": 0
+        }
+      },
+      {
+        "id": "1788169989210-yxu5zbuu",
+        "timestamp": "2026-08-31T09:53:09.210Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788169988616-qqc3c3wb",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 2,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 0
+        }
+      },
+      {
+        "id": "1788169989209-ad5n1rbp",
+        "timestamp": "2026-08-31T09:53:09.209Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788169988616-qqc3c3wb",
+        "event": "question-bank.attempt.failed",
+        "message": "第 1/6 轮：本轮请求失败：请先配置当前 AI 服务商的 API Key。，准备下一轮…",
+        "context": {
+          "attempt": 1,
+          "maxAttempts": 6,
+          "collectedCount": 0,
+          "error": "请先配置当前 AI 服务商的 API Key。"
+        }
+      },
+      {
+        "id": "1788169989075-ckebfr53",
+        "timestamp": "2026-08-31T09:53:09.075Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788169988616-qqc3c3wb",
+        "event": "question-bank.ai-request.started",
+        "message": "第 1/6 轮：正在请求 AI 生成题目…",
+        "context": {
+          "attempt": 1,
+          "maxAttempts": 6,
+          "collectedCount": 0
+        }
+      },
+      {
+        "id": "1788169989074-t2zcr1jk",
+        "timestamp": "2026-08-31T09:53:09.074Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788169988616-qqc3c3wb",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 1,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "sourceCount": 0
+        }
+      },
+      {
+        "id": "1788169988629-nx9me5p6",
+        "timestamp": "2026-08-31T09:53:08.629Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788169988616-qqc3c3wb",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 1,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 0
+        }
+      },
+      {
+        "id": "1788169988626-7uygfuqx",
+        "timestamp": "2026-08-31T09:53:08.626Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788169988616-qqc3c3wb",
+        "event": "question-group.prepare.started",
+        "message": "开始准备题组",
+        "context": {
+          "project": "轮胎字符深度 OCR",
+          "mode": "专业知识",
+          "questionCount": 10
+        }
+      },
+      {
+        "id": "1788169988612-bc1e9vmo",
+        "timestamp": "2026-08-31T09:53:08.612Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.startup.loaded",
+        "message": "启动配置加载完成",
+        "context": {
+          "source": "github",
+          "updatedAt": "2026-08-31T09:52:58.966Z"
+        }
+      },
       {
         "id": "1788169981900-ub4s5ysj",
         "timestamp": "2026-08-31T09:53:01.900Z",
