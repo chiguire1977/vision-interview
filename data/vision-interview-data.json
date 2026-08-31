@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-08-31T13:32:42.412Z",
+  "updatedAt": "2026-08-31T13:32:53.164Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1784,6 +1784,47 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788183176498-6s4tacf1",
+        "timestamp": "2026-08-31T13:32:56.498Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788182515885-iy17aubu",
+        "event": "question-bank.ai-request.started",
+        "message": "第 3/6 轮：正在请求 AI 生成题目…",
+        "context": {
+          "attempt": 3,
+          "maxAttempts": 6,
+          "collectedCount": 0
+        }
+      },
+      {
+        "id": "1788183176495-frib9dll",
+        "timestamp": "2026-08-31T13:32:56.495Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788182515885-iy17aubu",
+        "event": "question-bank.attempt.failed",
+        "message": "第 2/6 轮：本轮请求失败：AI 请求超时，请稍后重试。，准备下一轮…",
+        "context": {
+          "attempt": 2,
+          "maxAttempts": 6,
+          "collectedCount": 0,
+          "error": "AI 请求超时，请稍后重试。"
+        }
+      },
+      {
+        "id": "1788183173729-e6q8v9aa",
+        "timestamp": "2026-08-31T13:32:53.729Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "b152201d9e51"
+        }
+      },
       {
         "id": "1788183165886-3qjyelir",
         "timestamp": "2026-08-31T13:32:45.886Z",
@@ -14964,46 +15005,6 @@
         "context": {
           "reason": "change",
           "commit": "3734d13f2270"
-        }
-      },
-      {
-        "id": "1788170168456-io478jed",
-        "timestamp": "2026-08-31T09:56:08.456Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "19d87ab47f33"
-        }
-      },
-      {
-        "id": "1788170166241-eq3ng4r8",
-        "timestamp": "2026-08-31T09:56:06.241Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788169988616-qqc3c3wb",
-        "event": "question-bank.ai-request.started",
-        "message": "第 3/6 轮：正在请求 AI 生成题目…",
-        "context": {
-          "attempt": 3,
-          "maxAttempts": 6,
-          "collectedCount": 0
-        }
-      },
-      {
-        "id": "1788170166239-r920m3ct",
-        "timestamp": "2026-08-31T09:56:06.239Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788169988616-qqc3c3wb",
-        "event": "question-bank.web-search.completed",
-        "message": "本轮联网检索完成",
-        "context": {
-          "attempt": 3,
-          "query": "机器视觉 面试知识点 通用原理 原理 工程实践",
-          "sourceCount": 0
         }
       }
     ]
