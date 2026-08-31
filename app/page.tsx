@@ -1130,7 +1130,6 @@ async function prepareQuestionGroup(
 const navigationIcons: Record<string, typeof BrainCircuit> = {
   "个人中心": UserRound,
   "开始学习": BrainCircuit,
-  "问题树": ListTree,
   "题库": Library,
   "收藏夹": Star,
   "温故知新": BookOpenCheck,
@@ -1376,7 +1375,6 @@ export default function Home() {
   const [answer, setAnswer] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [evaluating, setEvaluating] = useState(false);
-  const [showHint, setShowHint] = useState(false);
   const [showBestAnswer, setShowBestAnswer] = useState(false);
   const [bestAnswerViewed, setBestAnswerViewed] = useState(false);
   const [recording, setRecording] = useState(false);
@@ -1657,7 +1655,6 @@ export default function Home() {
     setAnswer("");
     setSubmitted(false);
     setEvaluating(false);
-    setShowHint(false);
     setShowBestAnswer(false);
     setBestAnswerViewed(false);
     setSessionAnswers([]);
@@ -1914,13 +1911,13 @@ export default function Home() {
     }
     stopRecognition();
     setQuestionIndex((value) => value + 1);
-    setAnswer(""); setSubmitted(false); setShowHint(false); setShowBestAnswer(false); setBestAnswerViewed(false); setSeconds(0);
+    setAnswer(""); setSubmitted(false); setShowBestAnswer(false); setBestAnswerViewed(false); setSeconds(0);
   }
 
   function restartGroup() {
     stopRecognition();
     setGroupCompleted(false); setSessionAnswers([]); setQuestionIndex(0); setAnswer(""); setSubmitted(false); setEvaluating(false); setPreparedGroupQuestions(null); setPreparingGroup(true);
-    setShowHint(false); setShowBestAnswer(false); setBestAnswerViewed(false); setRecording(false); setSeconds(0);
+    setShowBestAnswer(false); setBestAnswerViewed(false); setRecording(false); setSeconds(0);
     setGroupRound((value) => value + 1);
   }
 
@@ -1928,7 +1925,7 @@ export default function Home() {
     stopRecognition();
     const previous = sessionAnswers.find((item) => item.question.title === groupQuestions[index]?.title);
     setGroupCompleted(false); setQuestionIndex(index); setAnswer(previous?.answer ?? ""); setSubmitted(false); setEvaluating(false);
-    setShowHint(false); setShowBestAnswer(false); setBestAnswerViewed(false); setRecording(false); setSeconds(0);
+    setShowBestAnswer(false); setBestAnswerViewed(false); setRecording(false); setSeconds(0);
   }
 
   return (
@@ -1988,15 +1985,14 @@ export default function Home() {
           onCategoryChange={(value) => { setCategory(value); setQuestionIndex(0); setAnswer(""); setSubmitted(false); setEvaluating(false); setPreparedGroupQuestions(null); setPreparingGroup(true); setSeconds(0); setSessionAnswers([]); setGroupCompleted(false); setGroupRound(0); }}
           onDifficultyChange={(value) => { setDifficulty(value); setQuestionIndex(0); setAnswer(""); setSubmitted(false); setEvaluating(false); setPreparedGroupQuestions(null); setPreparingGroup(true); setSeconds(0); setSessionAnswers([]); setGroupCompleted(false); setGroupRound(0); }}
           onTechStackChange={(value) => { setTechStack(value); setQuestionIndex(0); setAnswer(""); setSubmitted(false); setEvaluating(false); setPreparedGroupQuestions(null); setPreparingGroup(true); setShowBestAnswer(false); setSeconds(0); setSessionAnswers([]); setGroupCompleted(false); setGroupRound(0); }}
-          answer={answer} setAnswer={setAnswer} submitted={submitted} showHint={showHint} recording={recording} seconds={seconds} speechError={speechError}
+          answer={answer} setAnswer={setAnswer} submitted={submitted} recording={recording} seconds={seconds} speechError={speechError}
           bestAnswer={getBestAnswer(question, project)} showBestAnswer={showBestAnswer} bestAnswerViewed={bestAnswerViewed} onToggleBestAnswer={toggleBestAnswer}
           evaluating={evaluating} preparingGroup={preparingGroup} groupPreparationSource={groupPreparationSource} groupPreparationMessage={groupPreparationMessage}
           currentMastery={currentEvaluation?.mastery} currentReviewSource={currentEvaluation?.reviewSource} currentMasteryReason={currentEvaluation?.masteryReason}
           onSubmit={submitAnswer} onNext={nextQuestion}
-          onToggleHint={() => setShowHint((v) => !v)} onToggleRecording={toggleRecording}
+          onToggleRecording={toggleRecording}
           onReset={() => { stopRecognition(); setSpeechError(""); setAnswer(""); setSubmitted(false); setEvaluating(false); setShowBestAnswer(false); setBestAnswerViewed(false); setSeconds(0); }} />)}
         {activeNav === "个人中心" && <PersonalCenterPage records={records} />}
-        {activeNav === "问题树" && <QuestionTree />}
         {activeNav === "题库" && <QuestionBankPage questions={allQuestionBank} favorites={favoriteQuestions} onToggleFavorite={toggleFavorite} remoteState={questionBankRemoteState} remoteError={questionBankRemoteError} />}
         {activeNav === "收藏夹" && <FavoritesPage questions={favoriteQuestions} onToggleFavorite={toggleFavorite} />}
         {activeNav === "温故知新" && <ReviewCenter records={records} onStart={() => setActiveNav("开始学习")} />}
@@ -2021,12 +2017,12 @@ type TrainingProps = {
   onCategoryChange: (value: string) => void; onDifficultyChange: (value: string) => void;
   onTechStackChange: (value: (typeof techStackFilters)[number]) => void;
   answer: string; setAnswer: (value: string) => void;
-  submitted: boolean; showHint: boolean;
+  submitted: boolean;
   bestAnswer: string; showBestAnswer: boolean; bestAnswerViewed: boolean; onToggleBestAnswer: () => void;
   evaluating: boolean; preparingGroup: boolean; groupPreparationSource: "AI" | "本地规则" | "缓存"; groupPreparationMessage: string;
   currentMastery?: MasteryLevel; currentReviewSource?: "AI" | "本地规则"; currentMasteryReason?: string;
   recording: boolean; seconds: number; speechError?: string; onSubmit: () => void; onNext: () => void;
-  onToggleHint: () => void; onToggleRecording: () => void; onReset: () => void;
+  onToggleRecording: () => void; onReset: () => void;
 };
 
 function TrainingCenter(props: TrainingProps) {
@@ -2050,10 +2046,6 @@ function TrainingCenter(props: TrainingProps) {
               </Button>
             </div>
             {showTrainingSettings && <div className="border-t border-slate-100 p-4">
-              <div className="mt-3 grid gap-2 rounded-lg border border-slate-200 bg-slate-50 p-3 text-xs md:grid-cols-2">
-                <div className="flex items-start gap-2 text-slate-600"><Globe2 className="mt-0.5 size-4 shrink-0 text-blue-600" /><span><strong className="font-semibold text-slate-800">专业知识：</strong>AI 按当前分类、难度和技术栈优先生成完整 {props.questionGroupSize} 题，并行请求 {props.parallelRequests} 个，数量不足时自动重试。</span></div>
-                <div className="flex items-start gap-2 text-slate-600"><HardDrive className="mt-0.5 size-4 shrink-0 text-emerald-600" /><span><strong className="font-semibold text-slate-800">筛选范围：</strong>只使用专业知识题库，按分类、难度和技术栈组合生成题组。</span></div>
-              </div>
               <div className="mt-4 space-y-3 border-t border-slate-100 pt-4">
                 <div className="flex flex-wrap items-center gap-2">
                   <span className="mr-1 w-16 shrink-0 text-xs font-medium text-slate-500">知识分类</span>
@@ -2136,7 +2128,7 @@ function TrainingCenter(props: TrainingProps) {
               <div className="sticky bottom-3 z-20 mt-4 -mx-5 -mb-5 border-t border-slate-200 bg-white/95 px-5 py-4 shadow-[0_-8px_18px_-16px_rgba(15,23,42,0.45)] backdrop-blur supports-[backdrop-filter]:bg-white/80">
                 <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                   <span className="text-xs text-slate-400">字数：{props.answer.length} · 建议 120–300 字</span>
-                  <div className="flex flex-wrap gap-2 sm:justify-end"><Button variant="outline" onClick={props.onToggleHint} disabled={props.preparingGroup}><Lightbulb />查看提示</Button>
+                <div className="flex flex-wrap gap-2 sm:justify-end">
                     <Button onClick={props.onSubmit} disabled={props.answer.trim().length === 0 || props.submitted || props.evaluating || props.preparingGroup} className="min-w-28 bg-blue-600 hover:bg-blue-700"><Check />{props.evaluating ? "AI审阅中…" : props.submitted ? "已完成回答" : "回答完成"}</Button>
                     <Button onClick={props.onNext} disabled={props.evaluating || props.preparingGroup} variant="outline" className="min-w-28 border-blue-200 bg-white text-blue-700 hover:bg-blue-50"><ChevronRight />{props.submitted ? (props.questionIndex >= props.totalQuestions - 1 ? "完成题组" : "进入下一题") : (props.questionIndex >= props.totalQuestions - 1 ? "跳过并查看复盘" : "跳过此题")}</Button>
                   </div>
@@ -2144,7 +2136,6 @@ function TrainingCenter(props: TrainingProps) {
               </div>
               {props.evaluating && <div className="mt-4 flex items-center gap-2 rounded-md border border-blue-100 bg-blue-50 p-3 text-sm text-blue-800"><Bot className="size-4 animate-pulse" />正在调用已配置的 AI 审阅回答，判断掌握程度并提取遗漏点…</div>}
               {props.submitted && props.currentMastery && <div className={`mt-4 rounded-md border p-3 text-sm ${masteryClass(props.currentMastery)}`}><div className="flex flex-wrap items-center gap-2"><strong>本题掌握度：{masteryLabel(props.currentMastery)}</strong><Badge variant="outline" className={`rounded-md ${masteryClass(props.currentMastery)}`}>{props.currentReviewSource === "AI" ? "AI审阅" : "本地规则兜底"}</Badge></div>{props.currentMasteryReason && <p className="mt-1.5 leading-6">{props.currentMasteryReason}</p>}</div>}
-              {props.showHint && <div className="mt-4 flex gap-3 rounded-md border border-blue-100 bg-blue-50 p-3 text-sm leading-6 text-blue-800"><Lightbulb className="mt-0.5 size-4 shrink-0" />{props.question.hint}</div>}
             </div>
           </section>
 
@@ -2163,6 +2154,7 @@ function TrainingCenter(props: TrainingProps) {
                 <div className="flex gap-3">
                   <span className="mt-0.5 grid size-6 shrink-0 place-items-center rounded-full bg-violet-600 text-xs font-semibold text-white">A</span>
                   <div>
+                    <div className="mb-4 rounded-md border border-blue-200 bg-blue-50/70 p-3"><p className="text-xs font-semibold text-blue-700">回答思路</p><p className="mt-2 text-sm leading-6 text-slate-700">{props.question.hint}</p></div>
                     <div className="mb-4 rounded-md border border-violet-200 bg-white/70 p-3"><p className="text-xs font-semibold text-violet-700">关键词要点</p><div className="mt-2 flex flex-wrap gap-2">{props.question.keywords.map((keyword) => <span key={keyword} className="rounded-md bg-violet-100 px-2 py-1 text-xs text-violet-800">{keyword}</span>)}</div></div>
                     <p className="text-xs font-semibold text-violet-700">标准回答重点</p><p className="mt-2 whitespace-pre-line text-[15px] leading-8 text-slate-800">{props.bestAnswer}</p>
                     <p className="mt-4 flex items-center gap-2 border-t border-violet-100 pt-3 text-xs text-slate-500">
@@ -2192,7 +2184,6 @@ function TrainingCenter(props: TrainingProps) {
             <div className="mt-4 rounded-md border border-blue-100 bg-blue-50/60 p-4 text-[15px] leading-7 text-slate-800">
               {props.submitted ? props.question.followUp : "完成当前回答后，系统会根据你的内容生成针对性追问。"}
             </div>
-            <div className="mt-4 flex gap-2"><Button variant="outline" onClick={props.onToggleHint} disabled={props.preparingGroup}><Lightbulb />回答思路</Button></div>
           </section>
         </div>
       </div>
@@ -2385,22 +2376,6 @@ function ProjectManagement({ project, setProject, projects: projectItems, onProj
       </div>}
     </section>
 
-  </PageShell>;
-}
-
-function QuestionTree() {
-  const branches = [
-    { title: "项目背景", children: ["为什么需要这个系统？", "检测节拍和精度是多少？"] },
-    { title: "方案选择", children: ["为什么选择深度 OCR？", "为什么不用模板匹配？"] },
-    { title: "算法原理", children: ["数据增强如何设计？", "误检和漏检如何平衡？"] },
-    { title: "现场落地", children: ["PLC 如何握手？", "剔除延迟如何解决？"] },
-  ];
-  return <PageShell title="问题树" subtitle="沿着面试官的追问路径，找到你开始回答模糊的位置。">
-    <div className="panel p-5"><div className="flex items-center gap-3 border-b border-slate-200 pb-5"><span className="grid size-10 place-items-center rounded-lg bg-blue-600 text-white"><FileText className="size-5" /></span><div><h2 className="font-semibold text-slate-900">轮胎字符深度 OCR</h2><p className="text-xs text-slate-500">4 个方向 · 8 个连续追问</p></div></div>
-      <div className="mt-5 grid gap-4 md:grid-cols-2">{branches.map((branch, i) => <section key={branch.title} className="rounded-lg border border-slate-200 bg-slate-50/60 p-4"><div className="flex items-center gap-2"><span className="grid size-6 place-items-center rounded bg-slate-800 text-xs font-semibold text-white">{i + 1}</span><h3 className="font-medium text-slate-900">{branch.title}</h3></div>
-        <div className="ml-3 mt-4 space-y-2 border-l border-slate-300 pl-5">{branch.children.map((child, j) => <div key={child} className="flex items-center justify-between rounded-md border border-slate-200 bg-white px-3 py-2.5 text-sm text-slate-700"><span>{child}</span>{j === 0 ? <CircleCheck className="size-4 text-emerald-500" /> : <CircleAlert className="size-4 text-amber-500" />}</div>)}</div>
-      </section>)}</div>
-    </div>
   </PageShell>;
 }
 

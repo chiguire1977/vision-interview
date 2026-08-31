@@ -12,7 +12,6 @@ test("navigation keeps the learning flow first and settings at the bottom", () =
   assert.deepEqual(primaryNavigationLabels, [
     "个人中心",
     "开始学习",
-    "问题树",
     "题库",
     "收藏夹",
     "温故知新",
@@ -25,7 +24,11 @@ test("navigation keeps the learning flow first and settings at the bottom", () =
 test("learning flow no longer exposes project or comprehensive training modes", () => {
   const page = readFileSync(fileURLToPath(new URL("../app/page.tsx", import.meta.url)), "utf8");
   assert.doesNotMatch(page, /activeNav === "项目管理"/);
+  assert.doesNotMatch(page, /activeNav === "问题树"/);
+  assert.doesNotMatch(page, /function QuestionTree/);
   assert.doesNotMatch(page, /name: "项目答辩"/);
   assert.doesNotMatch(page, /name: "综合模拟"/);
+  assert.doesNotMatch(page, /筛选范围：/);
+  assert.match(page.slice(page.indexOf("最佳回答")), /回答思路/);
   assert.match(page, /专业知识/);
 });
