@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-08-31T10:11:11.732Z",
+  "updatedAt": "2026-08-31T10:11:27.739Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1385,6 +1385,104 @@
     },
     "vision-interview-project-view": "card",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788171090667-ofbtuy51",
+        "timestamp": "2026-08-31T10:11:30.667Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788169988616-qqc3c3wb",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 6,
+          "query": "机器视觉 面试知识点 VisionPro 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 0
+        }
+      },
+      {
+        "id": "1788171090665-7rwfanz0",
+        "timestamp": "2026-08-31T10:11:30.665Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788169988616-qqc3c3wb",
+        "event": "question-bank.attempt.failed",
+        "message": "第 5/6 轮：本轮请求失败：signal timed out，准备下一轮…",
+        "context": {
+          "attempt": 5,
+          "maxAttempts": 6,
+          "collectedCount": 0,
+          "error": "signal timed out"
+        }
+      },
+      {
+        "id": "1788171090663-hj63s7gs",
+        "timestamp": "2026-08-31T10:11:30.663Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788169988616-qqc3c3wb",
+        "event": "question-bank.web-search.failed",
+        "message": "signal timed out",
+        "context": {
+          "attempt": 5,
+          "query": "机器视觉 面试知识点 VisionPro 原理 工程实践"
+        }
+      },
+      {
+        "id": "1788171090661-rxkak8ui",
+        "timestamp": "2026-08-31T10:11:30.661Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788169988616-qqc3c3wb",
+        "event": "question-bank.attempt.failed",
+        "message": "第 5/6 轮：本轮请求失败：signal timed out，准备下一轮…",
+        "context": {
+          "attempt": 5,
+          "maxAttempts": 6,
+          "collectedCount": 0,
+          "error": "signal timed out"
+        }
+      },
+      {
+        "id": "1788171090019-rx2rg6r0",
+        "timestamp": "2026-08-31T10:11:30.019Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788169988616-qqc3c3wb",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 6,
+          "query": "机器视觉 面试知识点 OpenCV 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 0
+        }
+      },
+      {
+        "id": "1788171090015-agx103sy",
+        "timestamp": "2026-08-31T10:11:30.015Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788169988616-qqc3c3wb",
+        "event": "question-bank.web-search.failed",
+        "message": "signal timed out",
+        "context": {
+          "attempt": 5,
+          "query": "机器视觉 面试知识点 OpenCV 原理 工程实践"
+        }
+      },
+      {
+        "id": "1788171079941-yau3vs57",
+        "timestamp": "2026-08-31T10:11:19.941Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "c2279e0211a5"
+        }
+      },
       {
         "id": "1788171074657-zqh8m6uf",
         "timestamp": "2026-08-31T10:11:14.657Z",
@@ -13861,90 +13959,6 @@
         "message": "运行数据备份请求失败",
         "context": {
           "error": "Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON"
-        }
-      },
-      {
-        "id": "1788146667298-cgn046zc",
-        "timestamp": "2026-08-31T03:24:27.298Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.close.flush",
-        "message": "页面关闭或进入后台，提交最后一次备份"
-      },
-      {
-        "id": "1788146656294-82wt6pnz",
-        "timestamp": "2026-08-31T03:24:16.294Z",
-        "level": "ERROR",
-        "kind": "system",
-        "event": "records.upload.failed",
-        "message": "学习记录上传失败：GitHub 读取失败（HTTP 403）：\r\nRequest forbidden by administrative rules. Please make sure your request has a User-Agent header (https://docs.github.com/en/rest/overview/resources-in-the-rest-api#user-agent-required). Check https://developer.github.com for other possib",
-        "context": {
-          "status": 502,
-          "reason": "GitHub 读取失败（HTTP 403）：\r\nRequest forbidden by administrative rules. Please make sure your request has a User-Agent header (https://docs.github.com/en/rest/overview/resources-in-the-rest-api#user-agent-required). Check https://developer.github.com for other possib",
-          "recordCount": 32
-        }
-      },
-      {
-        "id": "1788146656101-94fljzo7",
-        "timestamp": "2026-08-31T03:24:16.101Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "records.upload.started",
-        "message": "开始统一上传学习记录",
-        "context": {
-          "recordCount": 32
-        }
-      },
-      {
-        "id": "1788146643269-vjy8fyvh",
-        "timestamp": "2026-08-31T03:24:03.269Z",
-        "level": "WARN",
-        "kind": "user",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "在HALCON中，进行边缘提取时，常用的算子有sobel_amp、canny和edges_sub_pix，它们各自的特点和适用场景是什么？",
-          "mode": "专业知识",
-          "project": "轮胎字符深度 OCR"
-        }
-      },
-      {
-        "id": "1788146642749-ft9fom34",
-        "timestamp": "2026-08-31T03:24:02.749Z",
-        "level": "WARN",
-        "kind": "user",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "在HALCON中，使用blob分析进行缺陷检测时，如果目标缺陷与背景灰度差异很小，你会采用哪些图像预处理方法增强对比度？",
-          "mode": "专业知识",
-          "project": "轮胎字符深度 OCR"
-        }
-      },
-      {
-        "id": "1788146642077-bxt74kks",
-        "timestamp": "2026-08-31T03:24:02.077Z",
-        "level": "WARN",
-        "kind": "user",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "在HALCON中，进行相机标定时，如何评估标定结果的准确性？如果重投影误差较大，可能的原因有哪些？",
-          "mode": "专业知识",
-          "project": "轮胎字符深度 OCR"
-        }
-      },
-      {
-        "id": "1788146641589-xc9e4ajr",
-        "timestamp": "2026-08-31T03:24:01.589Z",
-        "level": "WARN",
-        "kind": "user",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "在HALCON中，使用create_shape_model进行模板匹配时，金字塔层数（NumLevels）对匹配速度和精度有何影响？如何确定最佳层数？",
-          "mode": "专业知识",
-          "project": "轮胎字符深度 OCR"
         }
       }
     ]
