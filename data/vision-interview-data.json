@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-08-31T11:07:48.248Z",
+  "updatedAt": "2026-08-31T11:07:51.396Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1402,6 +1402,46 @@
     },
     "vision-interview-project-view": "card",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788174476551-idcd31sb",
+        "timestamp": "2026-08-31T11:07:56.551Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "1b881b459c05"
+        }
+      },
+      {
+        "id": "1788174474134-2eo0ir4x",
+        "timestamp": "2026-08-31T11:07:54.134Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788174221322-o6ij9hv5",
+        "event": "question-bank.ai-request.started",
+        "message": "第 4/6 轮：正在请求 AI 生成题目…",
+        "context": {
+          "attempt": 4,
+          "maxAttempts": 6,
+          "collectedCount": 0
+        }
+      },
+      {
+        "id": "1788174474132-k6t06unw",
+        "timestamp": "2026-08-31T11:07:54.132Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788174221322-o6ij9hv5",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 4,
+          "query": "机器视觉 面试知识点 HALCON 原理 工程实践",
+          "sourceCount": 0
+        }
+      },
       {
         "id": "1788174470757-hp0ukxoy",
         "timestamp": "2026-08-31T11:07:50.757Z",
@@ -14514,43 +14554,6 @@
         "kind": "system",
         "event": "backup.close.flush",
         "message": "页面关闭或进入后台，提交最后一次备份"
-      },
-      {
-        "id": "1788161227440-8ppeway1",
-        "timestamp": "2026-08-31T07:27:07.440Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "38472328b6e5"
-        }
-      },
-      {
-        "id": "1788161221208-28f0zogz",
-        "timestamp": "2026-08-31T07:27:01.208Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "91f20556f0e3"
-        }
-      },
-      {
-        "id": "1788161219188-uqyd9d9l",
-        "timestamp": "2026-08-31T07:26:59.188Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788161213022-bbhn6euc",
-        "event": "question-group.prepare.completed",
-        "message": "AI 两次生成均未获得有效题目，已使用本地题库与标准答案。",
-        "context": {
-          "source": "本地规则",
-          "questionCount": 10
-        }
       }
     ]
   }
