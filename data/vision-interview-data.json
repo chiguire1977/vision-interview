@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-08-31T09:59:15.223Z",
+  "updatedAt": "2026-08-31T10:00:16.946Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1337,6 +1337,46 @@
     "vision-interview-project-view": "card",
     "vision-interview-runtime-logs": [
       {
+        "id": "1788170417216-qmyjpqb9",
+        "timestamp": "2026-08-31T10:00:17.216Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788169988616-qqc3c3wb",
+        "event": "question-group.prepare.completed",
+        "message": "AI 多轮联网搜索与生成后仍未获得有效题目，已使用本地题库与标准答案。",
+        "context": {
+          "source": "本地规则",
+          "questionCount": 0
+        }
+      },
+      {
+        "id": "1788170417213-c51w623q",
+        "timestamp": "2026-08-31T10:00:17.213Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788169988616-qqc3c3wb",
+        "event": "question-bank.attempt.failed",
+        "message": "第 6/6 轮：本轮请求失败：AI 请求超时，请稍后重试。，准备下一轮…",
+        "context": {
+          "attempt": 6,
+          "maxAttempts": 6,
+          "collectedCount": 0,
+          "error": "AI 请求超时，请稍后重试。"
+        }
+      },
+      {
+        "id": "1788170363215-9vxijvia",
+        "timestamp": "2026-08-31T09:59:23.215Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "f8bf8e606119"
+        }
+      },
+      {
         "id": "1788170359743-0d50l6fd",
         "timestamp": "2026-08-31T09:59:19.743Z",
         "level": "INFO",
@@ -1804,44 +1844,12 @@
         }
       },
       {
-        "id": "1788170034455-1axucwah",
-        "timestamp": "2026-08-31T09:53:54.455Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.close.flush",
-        "message": "页面关闭或进入后台，提交最后一次备份"
-      },
-      {
         "id": "1788170031051-n7au4gve",
         "timestamp": "2026-08-31T09:53:51.051Z",
         "level": "INFO",
         "kind": "system",
         "event": "backup.close.flush",
         "message": "页面关闭或进入后台，提交最后一次备份"
-      },
-      {
-        "id": "1788170026382-0su8j3jm",
-        "timestamp": "2026-08-31T09:53:46.382Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "00249b36845b"
-        }
-      },
-      {
-        "id": "1788170017618-i0ht81mi",
-        "timestamp": "2026-08-31T09:53:37.618Z",
-        "level": "ERROR",
-        "kind": "system",
-        "event": "backup.push.failed",
-        "message": "运行数据备份失败",
-        "context": {
-          "status": 502,
-          "reason": "GitHub 备份失败（HTTP 409）：{\"message\":\"data/vision-interview-data.json does not match 9aa9010ea9727197ef10757aad293ebba1ce9958\",\"documentation_url\":\"https://docs.github.com/rest/repos/contents#create-or-update-file-contents\",\"status\":\"409\"}"
-        }
       },
       {
         "id": "1788170017300-wl2xvylw",
