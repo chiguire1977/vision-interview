@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-31T09:08:13.242Z",
+  "updatedAt": "2026-08-31T09:38:11.845Z",
   "questions": [
     {
       "title": "在轮胎字符深度OCR项目中，HALCON的深度OCR模型相比传统OCR在抗磨损和倾斜方面有哪些本质优势？",
@@ -6302,6 +6302,418 @@
       "categoryFilter": "模板与定位",
       "difficultyFilter": "随机难度",
       "techStackFilter": "HALCON"
+    },
+    {
+      "title": "请解释模板匹配中基于灰度值的模板匹配与基于形状的模板匹配在原理上的核心区别，并说明各自适用的场景。",
+      "type": "算法原理",
+      "category": "模板与定位",
+      "source": "专业",
+      "sourceType": "官方文档整理",
+      "knowledgePoints": [
+        "灰度模板匹配直接比较像素灰度值，对光照变化敏感，计算量大",
+        "形状模板匹配基于边缘特征，对光照变化不敏感，鲁棒性更强",
+        "形状匹配通过边缘点梯度方向进行相似度计算，支持旋转和缩放"
+      ],
+      "difficulty": "中等",
+      "tags": [
+        "模板匹配",
+        "灰度匹配",
+        "形状匹配"
+      ],
+      "keywords": [
+        "灰度值",
+        "边缘特征",
+        "梯度方向",
+        "鲁棒性"
+      ],
+      "followUp": "在光照变化剧烈的产线上，你会如何选择匹配方法？如果目标物体表面有反光，哪种方法更容易失效？",
+      "hint": "从匹配基元（像素 vs 边缘）、对光照的敏感度、计算效率和适用场景几个维度展开。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "bestAnswer": "灰度模板匹配直接以像素灰度值为匹配基元，通过计算模板与搜索区域灰度值的相似度（如SAD、SSD或归一化互相关）来定位目标。其优点是实现简单，但对光照变化、遮挡和噪声非常敏感，且计算量大。形状模板匹配则提取模板的边缘点及其梯度方向，在搜索图像中寻找梯度方向一致的边缘点集合，通过相似度度量（如HALCON的shape model）来定位。它不依赖绝对灰度值，因此对光照变化、对比度变化和部分遮挡有更强的鲁棒性，且支持旋转和缩放。工程中，若场景光照稳定、目标纹理丰富，灰度匹配简单有效；若光照多变或目标为弱纹理的工业零件，形状匹配是首选。",
+      "principle": "灰度匹配基于像素级灰度分布的相似性度量，本质是模板窗口与搜索窗口的数值优化问题。形状匹配基于边缘特征的几何一致性，将模板边缘点的梯度方向与图像边缘点的梯度方向进行比对，通过投票或相似度累积确定最佳位置，其数学基础是边缘点集之间的几何哈希或方向直方图匹配。",
+      "id": "aiq-025467ca",
+      "generatedAt": "2026-08-31T09:38:08.234Z",
+      "provider": "deepseek",
+      "model": "deepseek-v4-flash",
+      "project": "轮胎字符深度 OCR",
+      "trainingMode": "专业知识",
+      "categoryFilter": "模板与定位",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "随机技术栈"
+    },
+    {
+      "title": "在HALCON中，create_shape_model算子的关键参数（NumLevels、AngleStart、AngleExtent、AngleStep、Optimization、Contrast）分别对模板匹配的哪些性能指标产生影响？",
+      "type": "算法原理",
+      "category": "模板与定位",
+      "source": "专业",
+      "sourceType": "官方文档整理",
+      "knowledgePoints": [
+        "NumLevels决定图像金字塔层数，影响搜索速度和鲁棒性",
+        "AngleStart和AngleExtent定义旋转搜索范围，AngleStep决定角度分辨率",
+        "Optimization控制模型点的精简策略，影响匹配速度和内存占用",
+        "Contrast决定边缘提取的灵敏度，影响模板质量"
+      ],
+      "difficulty": "中等",
+      "tags": [
+        "HALCON",
+        "shape_model",
+        "参数调优"
+      ],
+      "keywords": [
+        "NumLevels",
+        "AngleExtent",
+        "AngleStep",
+        "Optimization",
+        "Contrast"
+      ],
+      "followUp": "如果匹配速度太慢，你会优先调整哪个参数？如果匹配经常找不到目标，又该检查哪些参数？",
+      "hint": "从速度、鲁棒性、精度、内存占用四个维度逐一分析参数的作用。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "bestAnswer": "NumLevels决定金字塔层数，层数越多，粗搜索越快，但层数过多会丢失细节导致匹配失败，需平衡速度与鲁棒性。AngleStart和AngleExtent定义旋转搜索范围，范围越大搜索空间越大，速度越慢；AngleStep决定角度分辨率，步长越小精度越高但计算量增大。Optimization控制模型点的精简策略（如是否用较少点或多项式近似），精简越多速度越快，但可能降低匹配稳定性。Contrast决定边缘提取的灵敏度，值过低会引入噪声点，过高会丢失弱边缘，影响模板的完整性和匹配可靠性。实际调参时，应优先根据目标旋转范围设定AngleExtent，再根据精度需求设定AngleStep，最后通过金字塔层数和Optimization优化速度。",
+      "principle": "形状模板匹配通过图像金字塔进行由粗到精的搜索，高层金字塔快速定位候选区域，低层金字塔精确定位。旋转参数通过预生成多个角度的模板或在线旋转搜索实现，角度步长影响搜索的离散化程度。Optimization通过减少参与匹配的模型点数量或使用近似模型来降低计算复杂度。Contrast阈值在边缘提取阶段过滤低梯度响应，确保模板边缘的可靠性。",
+      "id": "aiq-1cd8065e",
+      "generatedAt": "2026-08-31T09:38:08.234Z",
+      "provider": "deepseek",
+      "model": "deepseek-v4-flash",
+      "project": "轮胎字符深度 OCR",
+      "trainingMode": "专业知识",
+      "categoryFilter": "模板与定位",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "随机技术栈"
+    },
+    {
+      "title": "在模板匹配中，当目标物体与背景对比度较低时，匹配容易失败。请从图像预处理和模板创建两个角度提出解决方案。",
+      "type": "工程实践",
+      "category": "模板与定位",
+      "source": "专业",
+      "sourceType": "技术教程整理",
+      "knowledgePoints": [
+        "图像预处理可增强对比度，如直方图均衡化、对比度拉伸",
+        "模板创建时可调整Contrast参数或使用边缘增强算子",
+        "选择形状匹配而非灰度匹配，降低对对比度的依赖"
+      ],
+      "difficulty": "中等",
+      "tags": [
+        "低对比度",
+        "预处理",
+        "模板创建"
+      ],
+      "keywords": [
+        "对比度增强",
+        "直方图均衡",
+        "Contrast参数",
+        "形状匹配"
+      ],
+      "followUp": "如果目标与背景灰度值几乎一致，直方图均衡化也无法区分，你会怎么办？",
+      "hint": "从图像增强、特征选择、匹配策略三个层面回答。",
+      "techStacks": [
+        "HALCON",
+        "OpenCV"
+      ],
+      "bestAnswer": "针对低对比度场景，首先在图像预处理阶段，可采用直方图均衡化、对比度拉伸或CLAHE（限制对比度自适应直方图均衡）来扩大目标与背景的灰度差异；也可使用高斯差分（DoG）或Sobel等边缘增强算子突出目标轮廓。其次，在模板创建阶段，应降低Contrast阈值以保留弱边缘，或使用灰度形态学梯度来强化边缘；同时优先选择形状匹配而非灰度匹配，因为形状匹配基于梯度方向，对绝对灰度不敏感。若对比度极低，可考虑使用频域特征或深度学习目标检测作为替代方案。",
+      "principle": "低对比度意味着目标与背景的灰度分布重叠，导致边缘梯度响应弱。直方图均衡化通过重新映射灰度级使分布更均匀，增强视觉差异；边缘增强算子通过微分运算放大灰度变化。形状匹配依赖梯度方向而非灰度幅值，因此对对比度变化有更强的容忍度。",
+      "id": "aiq-7718dc33",
+      "generatedAt": "2026-08-31T09:38:08.234Z",
+      "provider": "deepseek",
+      "model": "deepseek-v4-flash",
+      "project": "轮胎字符深度 OCR",
+      "trainingMode": "专业知识",
+      "categoryFilter": "模板与定位",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "随机技术栈"
+    },
+    {
+      "title": "在模板匹配中，当目标物体被部分遮挡时，匹配得分下降甚至失败。请分析原因并提出至少两种改进策略。",
+      "type": "现场故障",
+      "category": "模板与定位",
+      "source": "专业",
+      "sourceType": "工程案例整理",
+      "knowledgePoints": [
+        "遮挡导致部分特征点缺失，相似度得分下降",
+        "使用局部匹配或基于组件的匹配策略可提高遮挡鲁棒性",
+        "增加模板数量覆盖不同遮挡情况",
+        "调整匹配参数如MinScore和Greediness"
+      ],
+      "difficulty": "困难",
+      "tags": [
+        "遮挡",
+        "鲁棒性",
+        "匹配策略"
+      ],
+      "keywords": [
+        "局部匹配",
+        "组件匹配",
+        "MinScore",
+        "Greediness"
+      ],
+      "followUp": "如果遮挡是随机且不可预测的，你会如何设计整体方案？",
+      "hint": "从特征层面、算法层面和参数层面分别提出对策。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "bestAnswer": "遮挡导致模板的部分边缘点无法在图像中找到对应，相似度得分下降。改进策略：一是使用局部匹配，将模板拆分为多个子模板分别匹配，再通过几何关系融合结果，HALCON的create_local_deformable_model即支持局部变形匹配；二是使用基于组件的匹配（如HALCON的find_components_model），将目标分解为多个刚性组件，允许组件间相对运动，从而容忍局部遮挡；三是创建多个模板覆盖不同遮挡情况，匹配时取最高分；四是调整匹配参数，降低MinScore阈值或增大Greediness（贪婪度），允许更多候选位置参与验证，但需注意误匹配风险。",
+      "principle": "遮挡导致特征点集不完整，全局相似度度量（如归一化互相关）对缺失特征敏感。局部匹配通过分块或组件化将全局匹配分解为局部匹配，降低遮挡对整体得分的影响。Greediness参数控制搜索过程中剪枝的激进程度，较低的值会保留更多候选，提高召回率但增加计算量。",
+      "id": "aiq-40f7f426",
+      "generatedAt": "2026-08-31T09:38:08.234Z",
+      "provider": "deepseek",
+      "model": "deepseek-v4-flash",
+      "project": "轮胎字符深度 OCR",
+      "trainingMode": "专业知识",
+      "categoryFilter": "模板与定位",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "随机技术栈"
+    },
+    {
+      "title": "在模板匹配中，如何利用图像金字塔提升匹配速度？请解释其工作原理，并说明金字塔层数选择的依据。",
+      "type": "算法原理",
+      "category": "模板与定位",
+      "source": "专业",
+      "sourceType": "官方文档整理",
+      "knowledgePoints": [
+        "图像金字塔通过降采样生成多分辨率图像",
+        "粗层快速定位候选区域，细层精确定位",
+        "层数过多会丢失细节导致匹配失败",
+        "金字塔层数需根据目标尺寸和特征丰富度选择"
+      ],
+      "difficulty": "中等",
+      "tags": [
+        "图像金字塔",
+        "加速",
+        "多分辨率"
+      ],
+      "keywords": [
+        "降采样",
+        "由粗到精",
+        "NumLevels",
+        "特征保留"
+      ],
+      "followUp": "如果目标物体很小（如20x20像素），金字塔层数应该设置多少？为什么？",
+      "hint": "从多分辨率搜索的原理和特征保留的角度回答。",
+      "techStacks": [
+        "HALCON",
+        "OpenCV"
+      ],
+      "bestAnswer": "图像金字塔通过对原图进行逐级降采样（通常每层缩小一半）生成多分辨率图像。匹配时先在顶层（低分辨率）进行粗搜索，快速筛选出可能的候选区域，然后逐层向下映射到原始分辨率，在候选区域附近进行精确定位。这种方式大幅减少了搜索空间，显著提升速度。金字塔层数的选择需权衡速度与鲁棒性：层数越多，粗搜索越快，但顶层图像可能丢失小尺寸目标的细节特征，导致候选区域遗漏。一般原则是顶层图像中目标尺寸不应小于10-15像素，且需保留足够的边缘特征。对于小目标，应减少层数；对于大目标，可适当增加层数。",
+      "principle": "图像金字塔的降采样过程相当于低通滤波，高频细节（如边缘、纹理）在高层被削弱。匹配算法利用这一特性，在高层快速排除大部分非目标区域，再在低层进行精细验证。搜索复杂度从O(N*M)降低到O(N/4^L * M/4^L + 局部精细搜索)，其中L为金字塔层数。",
+      "id": "aiq-a3611b15",
+      "generatedAt": "2026-08-31T09:38:08.234Z",
+      "provider": "deepseek",
+      "model": "deepseek-v4-flash",
+      "project": "轮胎字符深度 OCR",
+      "trainingMode": "专业知识",
+      "categoryFilter": "模板与定位",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "随机技术栈"
+    },
+    {
+      "title": "在模板匹配中，如何评估匹配结果的可靠性？请列举至少三种评估指标，并说明其意义。",
+      "type": "工程实践",
+      "category": "模板与定位",
+      "source": "专业",
+      "sourceType": "AI知识整理",
+      "knowledgePoints": [
+        "匹配得分（Score）反映模板与目标区域的相似度",
+        "多个候选位置的得分差异可用于排除误匹配",
+        "基于姿态估计的残差可评估匹配精度",
+        "使用多模板交叉验证提高可靠性"
+      ],
+      "difficulty": "基础",
+      "tags": [
+        "可靠性评估",
+        "得分",
+        "误匹配"
+      ],
+      "keywords": [
+        "Score",
+        "候选差异",
+        "残差",
+        "交叉验证"
+      ],
+      "followUp": "如果匹配得分很高但位置明显错误，可能是什么原因？如何排查？",
+      "hint": "从得分本身、候选竞争、几何验证三个层面回答。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "bestAnswer": "评估匹配可靠性可从以下指标入手：一是匹配得分（Score），通常归一化到0-1，得分越高越可靠，但需结合场景设定阈值（如0.8）；二是候选位置得分对比，若最高分与次高分差距很小，说明存在歧义，可靠性低；三是姿态残差，即匹配后模板与图像边缘点的平均距离或方向差异，残差小说明几何一致性高；四是使用多个模板或多次匹配的交叉验证，若结果一致则可靠性高。工程中，应综合得分和候选差异来设置判定逻辑，并保留调试日志以便分析失败案例。",
+      "principle": "匹配得分本质上是模板特征与图像特征的一致性度量。候选位置得分差异反映了搜索空间的峰度，峰度越高说明匹配越唯一。姿态残差基于匹配后的几何变换，衡量模板点与图像点的拟合程度。交叉验证通过冗余匹配降低单次匹配的随机误差。",
+      "id": "aiq-ab29b673",
+      "generatedAt": "2026-08-31T09:38:08.234Z",
+      "provider": "deepseek",
+      "model": "deepseek-v4-flash",
+      "project": "轮胎字符深度 OCR",
+      "trainingMode": "专业知识",
+      "categoryFilter": "模板与定位",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "随机技术栈"
+    },
+    {
+      "title": "在模板匹配中，当目标物体发生非线性形变（如柔性电路板弯曲）时，传统形状匹配可能失效。请介绍一种适用于非线性形变的匹配方法，并说明其原理。",
+      "type": "算法原理",
+      "category": "模板与定位",
+      "source": "专业",
+      "sourceType": "论文整理",
+      "knowledgePoints": [
+        "局部变形匹配（Local Deformable Matching）可处理非线性形变",
+        "通过网格划分和局部位移估计实现形变补偿",
+        "HALCON的create_local_deformable_model是典型实现",
+        "形变程度和网格密度影响匹配精度和速度"
+      ],
+      "difficulty": "困难",
+      "tags": [
+        "形变匹配",
+        "局部变形",
+        "柔性物体"
+      ],
+      "keywords": [
+        "局部变形",
+        "网格",
+        "位移场",
+        "Deformable Model"
+      ],
+      "followUp": "局部变形匹配的网格密度如何设置？过密或过疏分别会带来什么问题？",
+      "hint": "从形变建模的角度，解释网格划分和位移估计的原理。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "bestAnswer": "针对非线性形变，可使用局部变形匹配（Local Deformable Matching），HALCON中的create_local_deformable_model是典型实现。其原理是将模板划分为多个网格区域，每个网格区域独立进行匹配，并允许网格顶点发生局部位移，通过优化位移场来拟合目标的形变。匹配时，先进行全局粗定位，再在网格层面优化每个顶点的位移，使模板与目标区域的边缘特征最大程度对齐。这种方法能有效处理弯曲、拉伸等非线性形变。网格密度是关键参数：网格过密，计算量大且容易过拟合噪声；网格过疏，无法表达复杂形变。需根据目标形变程度和特征丰富度进行调优。",
+      "principle": "局部变形匹配将模板表示为可变形网格，每个网格顶点具有独立的位移向量。匹配过程通过最小化模板边缘点与图像边缘点的距离，同时施加平滑约束（如位移场的二阶导数惩罚），在保持形变合理性的前提下实现精确对齐。其数学基础是能量最小化框架，结合了特征相似度和形变平滑度两项。",
+      "id": "aiq-f8a88685",
+      "generatedAt": "2026-08-31T09:38:08.234Z",
+      "provider": "deepseek",
+      "model": "deepseek-v4-flash",
+      "project": "轮胎字符深度 OCR",
+      "trainingMode": "专业知识",
+      "categoryFilter": "模板与定位",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "随机技术栈"
+    },
+    {
+      "title": "在模板匹配中，当目标物体存在旋转时，如何设置旋转参数以提高匹配效率和精度？请说明AngleStart、AngleExtent和AngleStep的取值策略。",
+      "type": "工程实践",
+      "category": "模板与定位",
+      "source": "专业",
+      "sourceType": "官方文档整理",
+      "knowledgePoints": [
+        "AngleStart和AngleExtent定义旋转搜索范围",
+        "AngleStep决定角度分辨率，影响精度和速度",
+        "旋转范围应覆盖目标可能出现的所有角度",
+        "角度步长需与目标尺寸和特征锐度匹配"
+      ],
+      "difficulty": "中等",
+      "tags": [
+        "旋转匹配",
+        "参数设置",
+        "角度步长"
+      ],
+      "keywords": [
+        "AngleStart",
+        "AngleExtent",
+        "AngleStep",
+        "旋转鲁棒性"
+      ],
+      "followUp": "如果目标旋转角度是连续的且范围很大（0-360°），你会如何优化匹配速度？",
+      "hint": "从覆盖范围、分辨率、计算量三个角度回答。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "bestAnswer": "AngleStart和AngleExtent应覆盖目标在图像中可能出现的所有旋转角度，例如若目标在0°到180°之间旋转，可设AngleStart=-90°，AngleExtent=180°。AngleStep决定角度搜索的分辨率，步长越小，匹配精度越高，但计算量成倍增加。一般建议AngleStep设为1°或更小（如0.5°），但需根据目标尺寸和特征锐度权衡：目标越小或特征越平滑，需要更小的步长以保证精度。若旋转范围很大，可先使用较大的AngleStep（如5°）进行粗搜索，再在候选角度附近使用小步长（如0.1°）进行精搜索，以平衡速度和精度。",
+      "principle": "旋转匹配通过预生成多个角度的模板或在线旋转搜索实现。角度步长决定了搜索空间的离散化程度，步长越小，角度分辨率越高，但需要计算更多次匹配。HALCON支持在粗搜索阶段使用大步长，在精搜索阶段自动细化角度步长，以降低计算开销。",
+      "id": "aiq-203de15e",
+      "generatedAt": "2026-08-31T09:38:08.234Z",
+      "provider": "deepseek",
+      "model": "deepseek-v4-flash",
+      "project": "轮胎字符深度 OCR",
+      "trainingMode": "专业知识",
+      "categoryFilter": "模板与定位",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "随机技术栈"
+    },
+    {
+      "title": "在模板匹配中，当目标物体尺寸发生变化（如相机高度变化）时，如何处理缩放问题？请介绍两种方法。",
+      "type": "算法原理",
+      "category": "模板与定位",
+      "source": "专业",
+      "sourceType": "技术教程整理",
+      "knowledgePoints": [
+        "多尺度模板匹配通过预生成不同尺度的模板处理缩放",
+        "尺度参数（ScaleMin、ScaleMax）控制搜索范围",
+        "基于特征点的匹配方法对缩放更鲁棒",
+        "相机标定可消除固定缩放变化"
+      ],
+      "difficulty": "中等",
+      "tags": [
+        "缩放",
+        "多尺度",
+        "尺度不变"
+      ],
+      "keywords": [
+        "ScaleMin",
+        "ScaleMax",
+        "多尺度",
+        "特征点匹配"
+      ],
+      "followUp": "如果缩放范围很大（0.5x-2x），你会选择多尺度模板匹配还是特征点匹配？为什么？",
+      "hint": "从实现复杂度、鲁棒性和计算效率三个角度回答。",
+      "techStacks": [
+        "HALCON",
+        "OpenCV"
+      ],
+      "bestAnswer": "处理缩放问题的方法有两种：一是多尺度模板匹配，在创建模板时指定ScaleMin和ScaleMax（如0.8到1.2），匹配时在多个尺度上搜索，HALCON的create_scale_shape_model即支持此功能。该方法实现简单，但计算量随尺度范围增大而增加。二是基于特征点的匹配方法，如SIFT或ORB，通过提取尺度不变的特征描述子进行匹配，天然对缩放鲁棒。该方法适合缩放范围大或场景复杂的场景，但特征点提取和匹配的计算开销较高。若缩放是由相机高度固定变化引起的，可通过相机标定预先计算缩放比例，在模板创建时直接应用，避免在线多尺度搜索。",
+      "principle": "多尺度模板匹配通过预生成不同缩放比例的模板，在搜索时遍历所有尺度，取相似度最高的结果。特征点匹配基于局部特征描述子（如SIFT的128维向量），描述子对尺度变化具有不变性，通过特征点间的距离匹配实现定位。",
+      "id": "aiq-334fa41c",
+      "generatedAt": "2026-08-31T09:38:08.234Z",
+      "provider": "deepseek",
+      "model": "deepseek-v4-flash",
+      "project": "轮胎字符深度 OCR",
+      "trainingMode": "专业知识",
+      "categoryFilter": "模板与定位",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "随机技术栈"
+    },
+    {
+      "title": "在模板匹配中，当图像中存在多个相同目标时，如何确保找到所有目标并避免重复匹配？请说明HALCON中find_shape_model的NumMatches和Greediness参数的作用。",
+      "type": "工程实践",
+      "category": "模板与定位",
+      "source": "专业",
+      "sourceType": "官方文档整理",
+      "knowledgePoints": [
+        "NumMatches指定最大匹配数量，需大于等于目标数量",
+        "Greediness控制搜索的贪婪程度，影响速度和误检率",
+        "非极大值抑制（NMS）可避免重复匹配",
+        "MinScore阈值过滤低得分候选"
+      ],
+      "difficulty": "基础",
+      "tags": [
+        "多目标",
+        "NumMatches",
+        "Greediness"
+      ],
+      "keywords": [
+        "NumMatches",
+        "Greediness",
+        "NMS",
+        "MinScore"
+      ],
+      "followUp": "如果NumMatches设置过大，但实际目标只有3个，匹配结果会怎样？如何过滤？",
+      "hint": "从参数含义和匹配后处理两个层面回答。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "bestAnswer": "find_shape_model的NumMatches参数指定最多返回的匹配结果数量，应设置为大于或等于场景中可能出现的最大目标数量。Greediness参数控制搜索过程中的贪婪程度，取值范围0到1：值越高，搜索越快，但可能跳过部分候选位置，导致漏检；值越低，搜索越彻底，但速度变慢。匹配后，HALCON默认对结果进行非极大值抑制（NMS），即在同一目标附近只保留得分最高的结果，避免重复匹配。若NumMatches设置过大，返回结果中可能包含得分较低的虚假匹配，可通过MinScore阈值过滤，或根据目标间的几何约束（如最小间距）进一步筛选。",
+      "principle": "Greediness参数在搜索过程中控制剪枝策略：高贪婪度会提前终止得分较低的候选区域的搜索，以换取速度；低贪婪度则保留更多候选，提高召回率。NMS通过比较候选位置的重叠度，保留局部最大值，消除同一目标的重复响应。",
+      "id": "aiq-b035bde1",
+      "generatedAt": "2026-08-31T09:38:08.234Z",
+      "provider": "deepseek",
+      "model": "deepseek-v4-flash",
+      "project": "轮胎字符深度 OCR",
+      "trainingMode": "专业知识",
+      "categoryFilter": "模板与定位",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "随机技术栈"
     }
   ]
 }
