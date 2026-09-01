@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-01T13:27:31.805Z",
+  "updatedAt": "2026-09-01T13:33:07.970Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1817,6 +1817,18 @@
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
       {
+        "id": "1788269586557-odprckwk",
+        "timestamp": "2026-09-01T13:33:06.557Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.startup.loaded",
+        "message": "启动配置加载完成",
+        "context": {
+          "source": "github",
+          "updatedAt": "2026-09-01T13:27:31.805Z"
+        }
+      },
+      {
         "id": "1788269249765-xkali31m",
         "timestamp": "2026-09-01T13:27:29.765Z",
         "level": "INFO",
@@ -1890,6 +1902,18 @@
             "图像预处理",
             "模板与定位"
           ]
+        }
+      },
+      {
+        "id": "1788268995515-9nevcq9i",
+        "timestamp": "2026-09-01T13:23:15.515Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "35dd012cd614"
         }
       },
       {
@@ -18184,32 +18208,6 @@
         "context": {
           "reason": "change",
           "commit": "bb0eb28a590e"
-        }
-      },
-      {
-        "id": "1788264364055-4werkvk9",
-        "timestamp": "2026-09-01T12:06:04.055Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264356104-1wu8qk6u",
-        "event": "question-group.prepare.completed",
-        "message": "AI 多轮联网搜索与生成后仍未获得有效题目，已使用本地题库与标准答案。",
-        "context": {
-          "source": "本地规则",
-          "questionCount": 10
-        }
-      },
-      {
-        "id": "1788264364052-4rizfe9a",
-        "timestamp": "2026-09-01T12:06:04.052Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788264356104-1wu8qk6u",
-        "event": "question-bank.network.fallback",
-        "message": "联网搜索与 AI 生成未获得有效题目，已切换为题库",
-        "context": {
-          "targetCount": 10,
-          "fallbackCount": 10
         }
       }
     ]
