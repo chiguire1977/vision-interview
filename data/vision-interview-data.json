@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-01T08:54:58.548Z",
+  "updatedAt": "2026-09-01T08:55:24.081Z",
   "data": {
     "vision-interview-records": [
       {
@@ -2006,6 +2006,47 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788252924021-ayllsy74",
+        "timestamp": "2026-09-01T08:55:24.021Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788244064297-nmas45ih",
+        "event": "ai.connection-test.completed",
+        "message": "真实聊天连接测试成功",
+        "context": {
+          "provider": "opencode-go",
+          "model": "deepseek-v4-flash",
+          "upstreamFormat": "chat-completions",
+          "durationMs": 791
+        }
+      },
+      {
+        "id": "1788252923230-u996l5g3",
+        "timestamp": "2026-09-01T08:55:23.230Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788244064297-nmas45ih",
+        "event": "ai.connection-test.started",
+        "message": "开始真实聊天连接测试",
+        "context": {
+          "provider": "opencode-go",
+          "model": "deepseek-v4-flash",
+          "upstreamFormat": "chat-completions"
+        }
+      },
+      {
+        "id": "1788252903398-1tjjwi5s",
+        "timestamp": "2026-09-01T08:55:03.398Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "6cbb3094907f"
+        }
+      },
       {
         "id": "1788252895552-1g7jbz0j",
         "timestamp": "2026-09-01T08:54:55.552Z",
@@ -17961,56 +18002,6 @@
           "sourceCount": 0,
           "workerIndex": 3,
           "parallelRequests": 3
-        }
-      },
-      {
-        "id": "1788191878921-1czt9cei",
-        "timestamp": "2026-08-31T15:57:58.920Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788191832589-2rrvv7qm",
-        "event": "question-bank.web-search.completed",
-        "message": "本轮联网检索完成",
-        "context": {
-          "attempt": 4,
-          "query": "机器视觉 面试知识点 原理 工程实践",
-          "sourceCount": 0,
-          "workerIndex": 2,
-          "parallelRequests": 3
-        }
-      },
-      {
-        "id": "1788191878908-b5y1net4",
-        "timestamp": "2026-08-31T15:57:58.908Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788191832589-2rrvv7qm",
-        "event": "question-bank.web-search.completed",
-        "message": "本轮联网检索完成",
-        "context": {
-          "attempt": 4,
-          "query": "机器视觉 面试知识点 原理 工程实践",
-          "sourceCount": 0,
-          "workerIndex": 1,
-          "parallelRequests": 3
-        }
-      },
-      {
-        "id": "1788191878657-8o8u0vbm",
-        "timestamp": "2026-08-31T15:57:58.657Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788191832589-2rrvv7qm",
-        "event": "question-bank.web-search.started",
-        "message": "开始联网检索本轮题目资料",
-        "context": {
-          "attempt": 4,
-          "query": "机器视觉 面试知识点 原理 工程实践",
-          "mode": "专业知识",
-          "excludedCount": 0,
-          "workerIndex": 3,
-          "parallelRequests": 3,
-          "requestedCount": 3
         }
       }
     ]
