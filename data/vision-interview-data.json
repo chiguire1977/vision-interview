@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-01T06:08:22.547Z",
+  "updatedAt": "2026-09-01T06:08:32.003Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1518,9 +1518,9 @@
       }
     ],
     "vision-interview-ai-preferences": {
-      "provider": "custom-mtfsd2qj-i4ox3z",
+      "provider": "deepseek",
       "model": "deepseek-v4-flash",
-      "openaiBaseUrl": "https://opencode.ai/zen/go/v1",
+      "openaiBaseUrl": "https://api.deepseek.com",
       "aiScoring": true,
       "bestAnswer": true,
       "smartFollowUp": true,
@@ -1830,10 +1830,64 @@
             "value": "gpt-image-2"
           }
         ]
+      },
+      "opencode-go": {
+        "model": "deepseek-v4-flash",
+        "baseUrl": "https://opencode.ai/zen/go/v1",
+        "openaiBaseUrl": "https://opencode.ai/zen/go/v1",
+        "availableModels": [
+          {
+            "label": "DeepSeek V4 Flash · Chat Completions",
+            "value": "deepseek-v4-flash",
+            "upstreamFormat": "chat-completions"
+          },
+          {
+            "label": "GLM-5.3-Flash · Chat Completions",
+            "value": "glm-5.3-flash",
+            "upstreamFormat": "chat-completions"
+          },
+          {
+            "label": "Kimi K3 · Chat Completions",
+            "value": "kimi-k3",
+            "upstreamFormat": "chat-completions"
+          },
+          {
+            "label": "MiMo V2.5 · Chat Completions",
+            "value": "mimo-v2.5",
+            "upstreamFormat": "chat-completions"
+          },
+          {
+            "label": "GPT 5.6 Luna · Responses",
+            "value": "gpt-5.6-luna",
+            "upstreamFormat": "responses"
+          },
+          {
+            "label": "Qwen 3.8 Flash · Anthropic Messages",
+            "value": "qwen3.8-flash",
+            "upstreamFormat": "anthropic-messages"
+          },
+          {
+            "label": "MiniMax M3 · Anthropic Messages",
+            "value": "minimax-m3",
+            "upstreamFormat": "anthropic-messages"
+          }
+        ]
       }
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788242906507-iv8q4c0o",
+        "timestamp": "2026-09-01T06:08:26.507Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "47ebf8a15045"
+        }
+      },
       {
         "id": "1788242899467-sb7mxat8",
         "timestamp": "2026-09-01T06:08:19.467Z",
@@ -17786,23 +17840,6 @@
         "context": {
           "reason": "change",
           "commit": "c04a55e8fe2b"
-        }
-      },
-      {
-        "id": "1788189020782-ho7g7oyr",
-        "timestamp": "2026-08-31T15:10:20.782Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788188973529-2cy3vgqt",
-        "event": "question-bank.ai-request.started",
-        "message": "第 1/6 轮（并行 3/3）：正在请求 AI 生成题目（3 道）…",
-        "context": {
-          "attempt": 1,
-          "maxAttempts": 6,
-          "collectedCount": 0,
-          "workerIndex": 3,
-          "parallelRequests": 3,
-          "requestedCount": 3
         }
       }
     ]
