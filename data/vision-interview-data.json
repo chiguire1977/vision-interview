@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-01T13:54:43.663Z",
+  "updatedAt": "2026-09-01T13:55:24.925Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1816,6 +1816,47 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788270925473-vmqit3nw",
+        "timestamp": "2026-09-01T13:55:25.473Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788270845321-n003ywzy",
+        "event": "ai.connection-test.completed",
+        "message": "真实聊天连接测试成功",
+        "context": {
+          "provider": "opencode-go",
+          "model": "deepseek-v4-flash",
+          "upstreamFormat": "chat-completions",
+          "durationMs": 839
+        }
+      },
+      {
+        "id": "1788270924634-s890g27v",
+        "timestamp": "2026-09-01T13:55:24.634Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788270845321-n003ywzy",
+        "event": "ai.connection-test.started",
+        "message": "开始真实聊天连接测试",
+        "context": {
+          "provider": "opencode-go",
+          "model": "deepseek-v4-flash",
+          "upstreamFormat": "chat-completions"
+        }
+      },
+      {
+        "id": "1788270890326-wc11he2y",
+        "timestamp": "2026-09-01T13:54:50.326Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "55a56acf95d9"
+        }
+      },
       {
         "id": "1788270882000-a3i35cir",
         "timestamp": "2026-09-01T13:54:42.000Z",
@@ -18004,64 +18045,6 @@
             "HALCON 手眼标定中“眼在手上”和“眼在手外”有什么区别？标定时需要注意什么？",
             "在 HALCON 中做表面缺陷检测，你会如何选择传统图像处理与深度学习的方案？"
           ]
-        }
-      },
-      {
-        "id": "1788264393569-5mqs70de",
-        "timestamp": "2026-09-01T12:06:33.569Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264356104-1wu8qk6u",
-        "event": "question-group.prepare.started",
-        "message": "开始准备题组",
-        "context": {
-          "project": "机器视觉专业知识",
-          "mode": "专业知识",
-          "questionCount": 10,
-          "sourceMode": "network",
-          "adaptiveQuestions": true,
-          "focusCategories": [
-            "算法原理",
-            "工程实践",
-            "图像预处理",
-            "模板与定位"
-          ]
-        }
-      },
-      {
-        "id": "1788264392684-csrg8jq5",
-        "timestamp": "2026-09-01T12:06:32.684Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264356104-1wu8qk6u",
-        "event": "question-bank.web-search.started",
-        "message": "开始联网检索本轮题目资料",
-        "context": {
-          "attempt": 1,
-          "query": "机器视觉 面试知识点 HALCON 算法原理 工程实践 图像预处理 模板与定位 深度图 点云 法线估计 RANSAC find_surface_model 原理 工程实践",
-          "mode": "专业知识",
-          "excludedCount": 0,
-          "workerIndex": 3,
-          "parallelRequests": 3,
-          "requestedCount": 3
-        }
-      },
-      {
-        "id": "1788264392679-zrwlvsag",
-        "timestamp": "2026-09-01T12:06:32.679Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264356104-1wu8qk6u",
-        "event": "question-bank.web-search.started",
-        "message": "开始联网检索本轮题目资料",
-        "context": {
-          "attempt": 1,
-          "query": "机器视觉 面试知识点 HALCON 算法原理 工程实践 图像预处理 模板与定位 深度图 点云 法线估计 RANSAC find_surface_model 原理 工程实践",
-          "mode": "专业知识",
-          "excludedCount": 0,
-          "workerIndex": 2,
-          "parallelRequests": 3,
-          "requestedCount": 3
         }
       }
     ]
