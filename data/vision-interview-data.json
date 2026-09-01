@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-01T11:22:56.905Z",
+  "updatedAt": "2026-09-01T11:23:01.596Z",
   "data": {
     "vision-interview-records": [
       {
@@ -2006,6 +2006,48 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788261783814-x4cfuc5y",
+        "timestamp": "2026-09-01T11:23:03.814Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.close.flush",
+        "message": "页面关闭或进入后台，提交最后一次备份"
+      },
+      {
+        "id": "1788261781020-nnsyrc0x",
+        "timestamp": "2026-09-01T11:23:01.020Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788244064297-nmas45ih",
+        "event": "question-group.prepare.cached",
+        "message": "题组已从本机缓存恢复",
+        "context": {
+          "questionCount": 10
+        }
+      },
+      {
+        "id": "1788261781016-b6ri3qp1",
+        "timestamp": "2026-09-01T11:23:01.016Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788244064297-nmas45ih",
+        "event": "question-group.prepare.started",
+        "message": "开始准备题组",
+        "context": {
+          "project": "机器视觉专业知识",
+          "mode": "专业知识",
+          "questionCount": 10,
+          "sourceMode": "network",
+          "adaptiveQuestions": true,
+          "focusCategories": [
+            "算法原理",
+            "工程实践",
+            "图像预处理",
+            "模板与定位"
+          ]
+        }
+      },
       {
         "id": "1788261772712-9wqns9ex",
         "timestamp": "2026-09-01T11:22:52.712Z",
@@ -17944,49 +17986,6 @@
           "workerIndex": 1,
           "parallelRequests": 3,
           "requestedCount": 4
-        }
-      },
-      {
-        "id": "1788191964528-cse99eqj",
-        "timestamp": "2026-08-31T15:59:24.528Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788191832589-2rrvv7qm",
-        "event": "question-group.prepare.started",
-        "message": "开始准备题组",
-        "context": {
-          "project": "机器视觉专业知识",
-          "mode": "专业知识",
-          "questionCount": 3
-        }
-      },
-      {
-        "id": "1788191964493-ihlp2il2",
-        "timestamp": "2026-08-31T15:59:24.493Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "9508ca8f6b2d"
-        }
-      },
-      {
-        "id": "1788191963811-540365nd",
-        "timestamp": "2026-08-31T15:59:23.811Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788191832589-2rrvv7qm",
-        "event": "question-bank.ai-request.started",
-        "message": "第 1/6 轮（并行 3/3）：正在请求 AI 生成题目（3 道）…",
-        "context": {
-          "attempt": 1,
-          "maxAttempts": 6,
-          "collectedCount": 0,
-          "workerIndex": 3,
-          "parallelRequests": 3,
-          "requestedCount": 3
         }
       }
     ]
