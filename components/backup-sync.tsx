@@ -54,12 +54,18 @@ export function BackupSync({ children }: { children: ReactNode }) {
       const localRecordsSnapshot = JSON.stringify(local["vision-interview-records"] ?? []);
       let lastSyncedSnapshot = "";
       let lastUploadedRecordsSnapshot = "";
+      let lastSyncedData: Record<string, unknown> = {};
       try {
         lastSyncedSnapshot = localStorage.getItem(LAST_SYNC_SNAPSHOT_KEY) || "";
         lastUploadedRecordsSnapshot = localStorage.getItem(RECORDS_UPLOADED_SNAPSHOT_KEY) || "";
+        if (lastSyncedSnapshot) {
+          const parsed = JSON.parse(lastSyncedSnapshot);
+          if (parsed && typeof parsed === "object" && !Array.isArray(parsed)) lastSyncedData = parsed;
+        }
       } catch {
         lastSyncedSnapshot = "";
         lastUploadedRecordsSnapshot = "";
+        lastSyncedData = {};
       }
       const localDirty = lastSyncedSnapshot
         ? lastSyncedSnapshot !== localAutoSnapshot
@@ -67,6 +73,10 @@ export function BackupSync({ children }: { children: ReactNode }) {
       const recordsDirty = lastUploadedRecordsSnapshot
         ? lastUploadedRecordsSnapshot !== localRecordsSnapshot
         : Array.isArray(local["vision-interview-records"]) && local["vision-interview-records"].length > 0;
+      const providerSettingsKey = "vision-interview-ai-provider-settings";
+      const providerSettingsDirty = lastSyncedSnapshot
+        ? JSON.stringify(local[providerSettingsKey]) !== JSON.stringify(lastSyncedData[providerSettingsKey])
+        : Object.prototype.hasOwnProperty.call(local, providerSettingsKey);
       const controller = new AbortController();
       const timeout = window.setTimeout(() => controller.abort(), STARTUP_TIMEOUT_MS);
       try {
@@ -94,6 +104,7 @@ export function BackupSync({ children }: { children: ReactNode }) {
         const merged = mergeBackupData(local, body.data ?? {}, {
           preferLocal: localDirty || recordsDirty,
           authoritativeCollections: localDirty,
+          replaceKeys: providerSettingsDirty ? [providerSettingsKey] : [],
         });
         writeBackupToStorage(localStorage, merged);
         window.dispatchEvent(new Event("vision-interview-backup-loaded"));
@@ -162,7 +173,7 @@ export function BackupSync({ children }: { children: ReactNode }) {
           body: JSON.stringify({
             data: JSON.parse(snapshot),
             merge: true,
-            replaceKeys: ["vision-interview-projects"],
+            replaceKeys: ["vision-interview-projects", "vision-interview-ai-provider-settings"],
           }),
         });
         const body = await response.json() as {

@@ -308,6 +308,27 @@ test("mergeBackupData can treat dirty local collections as authoritative so dele
   assert.deepEqual(result["vision-interview-projects"], [{ id: "keep", name: "Keep" }]);
 });
 
+test("mergeBackupData can replace deleted provider settings instead of reviving remote providers", () => {
+  const result = mergeBackupData(
+    {
+      "vision-interview-ai-provider-settings": {
+        deepseek: { model: "deepseek-v4-flash" },
+      },
+    },
+    {
+      "vision-interview-ai-provider-settings": {
+        deepseek: { model: "deepseek-v4-flash" },
+        "custom-old": { name: "已删除服务商", baseUrl: "https://old.example.com/v1" },
+      },
+    },
+    { preferLocal: true, replaceKeys: ["vision-interview-ai-provider-settings"] },
+  );
+
+  assert.deepEqual(result["vision-interview-ai-provider-settings"], {
+    deepseek: { model: "deepseek-v4-flash" },
+  });
+});
+
 test("createCloseBackupPayload sends a compact delta under the beacon budget", () => {
   const oldLogs = Array.from({ length: 1000 }, (_, index) => ({
     id: `old-${index}`,
@@ -362,6 +383,27 @@ test("createCloseBackupPayload never replaces a GitHub collection with a partial
   assert.equal(payload.data["vision-interview-records"], undefined);
   assert.ok(payload.deferredKeys.includes("vision-interview-records"));
   assert.ok(!payload.replaceKeys.includes("vision-interview-records"));
+});
+
+test("createCloseBackupPayload marks provider settings as an exact replacement", () => {
+  const payload = createCloseBackupPayload(
+    JSON.stringify({
+      "vision-interview-ai-provider-settings": {
+        deepseek: { model: "deepseek-v4-flash" },
+        "custom-old": { name: "已删除服务商" },
+      },
+    }),
+    JSON.stringify({
+      "vision-interview-ai-provider-settings": {
+        deepseek: { model: "deepseek-v4-flash" },
+      },
+    }),
+  );
+
+  assert.deepEqual(payload.data["vision-interview-ai-provider-settings"], {
+    deepseek: { model: "deepseek-v4-flash" },
+  });
+  assert.ok(payload.replaceKeys.includes("vision-interview-ai-provider-settings"));
 });
 
 test("createCloseBackupPayload defers an authoritative collection instead of replacing it with field-truncated data", () => {
@@ -538,4 +580,49 @@ test("saveBackupToGitHub re-merges a close delta after a conflict", async () => 
   const uploaded = JSON.parse(requests[3].init.body);
   const archive = JSON.parse(Buffer.from(uploaded.content, "base64").toString("utf8"));
   assert.deepEqual(archive.data["vision-interview-records"].map((item) => item.id), ["local", "remote-2"]);
+});
+
+test("saveBackupToGitHub replaces deleted provider settings when requested", async () => {
+  const encodeArchive = (archive) => Buffer.from(JSON.stringify(archive), "utf8").toString("base64");
+  const requests = [];
+  const fetchImpl = async (url, init = {}) => {
+    requests.push({ url: String(url), init });
+    if (init.method === "PUT") return new Response(JSON.stringify({ commit: { sha: "commit-provider" } }), { status: 200 });
+    return new Response(JSON.stringify({
+      sha: "sha-provider-old",
+      encoding: "base64",
+      content: encodeArchive({
+        version: 2,
+        data: {
+          "vision-interview-ai-provider-settings": {
+            deepseek: { model: "deepseek-v4-flash" },
+            "custom-old": { name: "已删除服务商" },
+          },
+        },
+      }),
+    }), { status: 200 });
+  };
+
+  await saveBackupToGitHub({
+    fetchImpl,
+    token: "server-secret",
+    owner: "chiguire1977",
+    repo: "vision-interview",
+    branch: "main",
+    path: "data/vision-interview-data.json",
+    data: {
+      "vision-interview-ai-provider-settings": {
+        deepseek: { model: "deepseek-v4-flash" },
+      },
+    },
+    merge: true,
+    replaceKeys: ["vision-interview-ai-provider-settings"],
+    now: "2026-08-31T01:06:00.000Z",
+  });
+
+  const uploaded = JSON.parse(requests[1].init.body);
+  const archive = JSON.parse(Buffer.from(uploaded.content, "base64").toString("utf8"));
+  assert.deepEqual(archive.data["vision-interview-ai-provider-settings"], {
+    deepseek: { model: "deepseek-v4-flash" },
+  });
 });
