@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-01T03:13:54.228Z",
+  "updatedAt": "2026-09-01T03:14:00.093Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1834,6 +1834,18 @@
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
       {
+        "id": "1788232439501-3144fha8",
+        "timestamp": "2026-09-01T03:13:59.501Z",
+        "level": "ERROR",
+        "kind": "system",
+        "event": "backup.push.failed",
+        "message": "运行数据备份失败",
+        "context": {
+          "status": 502,
+          "reason": "GitHub 备份失败（HTTP 409）：{\"message\":\"is at a4faa16cab44c1bcad3e2e5b91f56fa849f7b934 but expected 9f3d4857661b3f59924d01bfb1977e8c01ac4a56\",\"documentation_url\":\"https://docs.github.com/rest/repos/contents#create-or-update-file-contents\",\"status\":\"409\"}"
+        }
+      },
+      {
         "id": "1788232432682-giaunxvm",
         "timestamp": "2026-09-01T03:13:52.682Z",
         "level": "INFO",
@@ -1856,6 +1868,18 @@
         "kind": "system",
         "event": "backup.close.flush",
         "message": "页面关闭或进入后台，提交最后一次备份"
+      },
+      {
+        "id": "1788230839910-ukfre8vy",
+        "timestamp": "2026-09-01T02:47:19.910Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "3fe667346b44"
+        }
       },
       {
         "id": "1788230829402-mk2ez97h",
@@ -17829,38 +17853,6 @@
           "query": "机器视觉 边缘与特征 C#视觉开发 原理 工程实践",
           "sourceCount": 0,
           "workerIndex": 3,
-          "parallelRequests": 3
-        }
-      },
-      {
-        "id": "1788186149137-sn0d6sjq",
-        "timestamp": "2026-08-31T14:22:29.137Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788185400191-3fe71itf",
-        "event": "question-bank.web-search.completed",
-        "message": "本轮联网检索完成",
-        "context": {
-          "attempt": 3,
-          "query": "机器视觉 边缘与特征 VisionPro 原理 工程实践",
-          "sourceCount": 0,
-          "workerIndex": 3,
-          "parallelRequests": 3
-        }
-      },
-      {
-        "id": "1788186149134-4bdjagqh",
-        "timestamp": "2026-08-31T14:22:29.134Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788185400191-3fe71itf",
-        "event": "question-bank.web-search.completed",
-        "message": "本轮联网检索完成",
-        "context": {
-          "attempt": 3,
-          "query": "机器视觉 边缘与特征 VisionPro 原理 工程实践",
-          "sourceCount": 0,
-          "workerIndex": 2,
           "parallelRequests": 3
         }
       }
