@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-01T05:28:55.578Z",
+  "updatedAt": "2026-09-01T05:28:59.235Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1833,6 +1833,26 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788240539684-z7izmwci",
+        "timestamp": "2026-09-01T05:28:59.684Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "ee805bfc6e8c"
+        }
+      },
+      {
+        "id": "1788240538581-oqm8dujz",
+        "timestamp": "2026-09-01T05:28:58.581Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.close.flush",
+        "message": "页面关闭或进入后台，提交最后一次备份"
+      },
       {
         "id": "1788240533175-jpng3lca",
         "timestamp": "2026-09-01T05:28:53.175Z",
@@ -17626,40 +17646,6 @@
           "continueToAi": true,
           "workerIndex": 1,
           "parallelRequests": 3
-        }
-      },
-      {
-        "id": "1788186161885-pfyj03qf",
-        "timestamp": "2026-08-31T14:22:41.885Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788185400191-3fe71itf",
-        "event": "question-bank.web-search.failed",
-        "message": "网络检索失败（HTTP 403）。",
-        "context": {
-          "attempt": 1,
-          "query": "机器视觉 图像处理基础 C#视觉开发 原理 工程实践",
-          "continueToAi": true,
-          "workerIndex": 2,
-          "parallelRequests": 3
-        }
-      },
-      {
-        "id": "1788186161695-bni5z7o7",
-        "timestamp": "2026-08-31T14:22:41.695Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788185400191-3fe71itf",
-        "event": "question-bank.web-search.started",
-        "message": "开始联网检索本轮题目资料",
-        "context": {
-          "attempt": 1,
-          "query": "机器视觉 边缘与特征 C#视觉开发 原理 工程实践",
-          "mode": "专业知识",
-          "excludedCount": 0,
-          "workerIndex": 3,
-          "parallelRequests": 3,
-          "requestedCount": 3
         }
       }
     ]
