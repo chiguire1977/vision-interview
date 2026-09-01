@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-01T13:05:14.201Z",
+  "updatedAt": "2026-09-01T13:05:15.307Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1816,6 +1816,25 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788267917870-y3x78cs0",
+        "timestamp": "2026-09-01T13:05:17.870Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.close.flush",
+        "message": "页面关闭或进入后台，提交最后一次备份"
+      },
+      {
+        "id": "1788267917866-rwngmce1",
+        "timestamp": "2026-09-01T13:05:17.866Z",
+        "level": "ERROR",
+        "kind": "system",
+        "event": "backup.push.failed",
+        "message": "运行数据备份请求失败",
+        "context": {
+          "error": "Failed to fetch"
+        }
+      },
       {
         "id": "1788267912735-n0wudr38",
         "timestamp": "2026-09-01T13:05:12.735Z",
@@ -18414,35 +18433,6 @@
             "图像预处理",
             "模板与定位"
           ]
-        }
-      },
-      {
-        "id": "1788264343093-xu0kkxzh",
-        "timestamp": "2026-09-01T12:05:43.093Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264343082-q6qviy7j",
-        "event": "question-group.prepare.started",
-        "message": "开始准备题组",
-        "context": {
-          "project": "机器视觉专业知识",
-          "mode": "专业知识",
-          "questionCount": 10,
-          "sourceMode": "network",
-          "adaptiveQuestions": false,
-          "focusCategories": []
-        }
-      },
-      {
-        "id": "1788264343077-2fqdjqzt",
-        "timestamp": "2026-09-01T12:05:43.077Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.startup.loaded",
-        "message": "启动配置加载完成",
-        "context": {
-          "source": "github",
-          "updatedAt": "2026-09-01T12:02:34.395Z"
         }
       }
     ]
