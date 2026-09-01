@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-01T11:51:48.131Z",
+  "updatedAt": "2026-09-01T11:51:52.236Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1518,9 +1518,9 @@
       }
     ],
     "vision-interview-ai-preferences": {
-      "provider": "deepseek",
-      "model": "deepseek-v4-flash",
-      "openaiBaseUrl": "https://api.deepseek.com",
+      "provider": "opencode-go",
+      "model": "hy3",
+      "openaiBaseUrl": "https://opencode.ai/zen/go/v1",
       "aiScoring": true,
       "bestAnswer": true,
       "smartFollowUp": true,
@@ -1832,43 +1832,173 @@
         ]
       },
       "opencode-go": {
-        "model": "deepseek-v4-flash",
+        "model": "hy3",
         "baseUrl": "https://opencode.ai/zen/go/v1",
         "openaiBaseUrl": "https://opencode.ai/zen/go/v1",
         "availableModels": [
           {
-            "label": "DeepSeek V4 Flash · Chat Completions",
+            "label": "deepseek-v4-flash · Chat Completions（兼容 OpenAI）",
             "value": "deepseek-v4-flash",
             "upstreamFormat": "chat-completions"
           },
           {
-            "label": "GLM-5.3-Flash · Chat Completions",
+            "label": "deepseek-v4-flash-vision-exp · Chat Completions（兼容 OpenAI）",
+            "value": "deepseek-v4-flash-vision-exp",
+            "upstreamFormat": "chat-completions"
+          },
+          {
+            "label": "deepseek-v4-pro · Chat Completions（兼容 OpenAI）",
+            "value": "deepseek-v4-pro",
+            "upstreamFormat": "chat-completions"
+          },
+          {
+            "label": "glm-5 · Chat Completions（兼容 OpenAI）",
+            "value": "glm-5",
+            "upstreamFormat": "chat-completions"
+          },
+          {
+            "label": "glm-5.1 · Chat Completions（兼容 OpenAI）",
+            "value": "glm-5.1",
+            "upstreamFormat": "chat-completions"
+          },
+          {
+            "label": "glm-5.2 · Chat Completions（兼容 OpenAI）",
+            "value": "glm-5.2",
+            "upstreamFormat": "chat-completions"
+          },
+          {
+            "label": "glm-5.3 · Chat Completions（兼容 OpenAI）",
+            "value": "glm-5.3",
+            "upstreamFormat": "chat-completions"
+          },
+          {
+            "label": "glm-5.3-flash · Chat Completions（兼容 OpenAI）",
             "value": "glm-5.3-flash",
             "upstreamFormat": "chat-completions"
           },
           {
-            "label": "Kimi K3 · Chat Completions",
-            "value": "kimi-k3",
-            "upstreamFormat": "chat-completions"
-          },
-          {
-            "label": "MiMo V2.5 · Chat Completions",
-            "value": "mimo-v2.5",
-            "upstreamFormat": "chat-completions"
-          },
-          {
-            "label": "GPT 5.6 Luna · Responses",
+            "label": "gpt-5.6-luna · Responses（OpenAI 原生）",
             "value": "gpt-5.6-luna",
             "upstreamFormat": "responses"
           },
           {
-            "label": "Qwen 3.8 Flash · Anthropic Messages",
+            "label": "grok-4.5 · Chat Completions（兼容 OpenAI）",
+            "value": "grok-4.5",
+            "upstreamFormat": "chat-completions"
+          },
+          {
+            "label": "grok-4.6 · Responses（OpenAI 原生）",
+            "value": "grok-4.6",
+            "upstreamFormat": "responses"
+          },
+          {
+            "label": "hy3 · Chat Completions（兼容 OpenAI）",
+            "value": "hy3",
+            "upstreamFormat": "chat-completions"
+          },
+          {
+            "label": "hy3-preview · Chat Completions（兼容 OpenAI）",
+            "value": "hy3-preview",
+            "upstreamFormat": "chat-completions"
+          },
+          {
+            "label": "hy4-preview · Chat Completions（兼容 OpenAI）",
+            "value": "hy4-preview",
+            "upstreamFormat": "chat-completions"
+          },
+          {
+            "label": "kimi-k2.5 · Chat Completions（兼容 OpenAI）",
+            "value": "kimi-k2.5",
+            "upstreamFormat": "chat-completions"
+          },
+          {
+            "label": "kimi-k2.6 · Chat Completions（兼容 OpenAI）",
+            "value": "kimi-k2.6",
+            "upstreamFormat": "chat-completions"
+          },
+          {
+            "label": "kimi-k2.7-code · Chat Completions（兼容 OpenAI）",
+            "value": "kimi-k2.7-code",
+            "upstreamFormat": "chat-completions"
+          },
+          {
+            "label": "kimi-k3 · Chat Completions（兼容 OpenAI）",
+            "value": "kimi-k3",
+            "upstreamFormat": "chat-completions"
+          },
+          {
+            "label": "longcat-2.0 · Chat Completions（兼容 OpenAI）",
+            "value": "longcat-2.0",
+            "upstreamFormat": "chat-completions"
+          },
+          {
+            "label": "mimo-v2-omni · Chat Completions（兼容 OpenAI）",
+            "value": "mimo-v2-omni",
+            "upstreamFormat": "chat-completions"
+          },
+          {
+            "label": "mimo-v2-pro · Chat Completions（兼容 OpenAI）",
+            "value": "mimo-v2-pro",
+            "upstreamFormat": "chat-completions"
+          },
+          {
+            "label": "mimo-v2.5 · Chat Completions（兼容 OpenAI）",
+            "value": "mimo-v2.5",
+            "upstreamFormat": "chat-completions"
+          },
+          {
+            "label": "mimo-v2.5-pro · Chat Completions（兼容 OpenAI）",
+            "value": "mimo-v2.5-pro",
+            "upstreamFormat": "chat-completions"
+          },
+          {
+            "label": "minimax-m2.5 · Anthropic Messages",
+            "value": "minimax-m2.5",
+            "upstreamFormat": "anthropic-messages"
+          },
+          {
+            "label": "minimax-m2.7 · Anthropic Messages",
+            "value": "minimax-m2.7",
+            "upstreamFormat": "anthropic-messages"
+          },
+          {
+            "label": "minimax-m3 · Anthropic Messages",
+            "value": "minimax-m3",
+            "upstreamFormat": "anthropic-messages"
+          },
+          {
+            "label": "muse-spark-1.2-contributor · Responses（OpenAI 原生）",
+            "value": "muse-spark-1.2-contributor",
+            "upstreamFormat": "responses"
+          },
+          {
+            "label": "qwen3.5-plus · Chat Completions（兼容 OpenAI）",
+            "value": "qwen3.5-plus",
+            "upstreamFormat": "chat-completions"
+          },
+          {
+            "label": "qwen3.6-plus · Anthropic Messages",
+            "value": "qwen3.6-plus",
+            "upstreamFormat": "anthropic-messages"
+          },
+          {
+            "label": "qwen3.7-max · Anthropic Messages",
+            "value": "qwen3.7-max",
+            "upstreamFormat": "anthropic-messages"
+          },
+          {
+            "label": "qwen3.7-plus · Anthropic Messages",
+            "value": "qwen3.7-plus",
+            "upstreamFormat": "anthropic-messages"
+          },
+          {
+            "label": "qwen3.8-flash · Anthropic Messages",
             "value": "qwen3.8-flash",
             "upstreamFormat": "anthropic-messages"
           },
           {
-            "label": "MiniMax M3 · Anthropic Messages",
-            "value": "minimax-m3",
+            "label": "qwen3.8-max · Anthropic Messages",
+            "value": "qwen3.8-max",
             "upstreamFormat": "anthropic-messages"
           }
         ]
@@ -1876,6 +2006,14 @@
     },
     "vision-interview-project-view": "card",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788263510633-maledv8e",
+        "timestamp": "2026-09-01T11:51:50.633Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.close.flush",
+        "message": "页面关闭或进入后台，提交最后一次备份"
+      },
       {
         "id": "1788263506612-99bs8fpv",
         "timestamp": "2026-09-01T11:51:46.612Z",
@@ -18062,18 +18200,6 @@
           "attempt": 6,
           "query": "机器视觉 面试知识点 原理 工程实践",
           "sourceCount": 0
-        }
-      },
-      {
-        "id": "1788182505684-99plaw3c",
-        "timestamp": "2026-08-31T13:21:45.684Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "8c4ed23de31f"
         }
       }
     ]
