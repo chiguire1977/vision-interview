@@ -3946,11 +3946,15 @@ function SettingsPage() {
           <div className="space-y-4 p-5">
             <div className="rounded-lg border border-slate-200 bg-slate-50/70 p-4">
               <div className="flex flex-wrap items-center justify-between gap-2"><h3 className="text-sm font-semibold text-slate-800">GitHub 连接设置</h3><span className="text-xs text-slate-500">服务端凭据：{githubStatus.state === "connected" ? "已配置并可用" : githubStatus.state === "loading" ? "检测中" : "未确认"}</span></div>
-              <div className="mt-3 grid gap-3 md:grid-cols-[minmax(0,1fr)_220px_auto_auto] md:items-end">
-                <label className="space-y-2 text-sm font-medium text-slate-700"><span>GitHub 仓库</span><Input value={githubConnection.repository} onChange={(event) => setGithubConnection((current) => ({ ...current, repository: event.target.value }))} placeholder="owner/repository" className="bg-white font-mono text-xs" /><span className="block text-[11px] font-normal text-slate-500">填写 owner/repository，也支持 https://github.com/… 地址。</span></label>
-                <label className="space-y-2 text-sm font-medium text-slate-700"><span>GitHub 分支</span><Input value={githubConnection.branch} onChange={(event) => setGithubConnection((current) => ({ ...current, branch: event.target.value }))} placeholder="main" className="bg-white font-mono text-xs" /></label>
-                <Button type="button" variant="outline" onClick={saveGitHubConnection} disabled={githubBusy} className="bg-white"><Save />保存连接设置</Button>
-                <Button type="button" variant="outline" onClick={() => void testGithubConnection()} disabled={githubBusy} className="bg-white"><CircleCheck />测试 GitHub 连接</Button>
+              <div className="mt-3 space-y-3">
+                <div className="grid gap-3 md:grid-cols-[minmax(0,1fr)_220px] md:items-end">
+                  <label className="space-y-2 text-sm font-medium text-slate-700"><span>GitHub 仓库</span><Input value={githubConnection.repository} onChange={(event) => setGithubConnection((current) => ({ ...current, repository: event.target.value }))} placeholder="owner/repository" className="bg-white font-mono text-xs" /><span className="block text-[11px] font-normal text-slate-500">填写 owner/repository，也支持 https://github.com/… 地址。</span></label>
+                  <label className="space-y-2 text-sm font-medium text-slate-700"><span>GitHub 分支</span><Input value={githubConnection.branch} onChange={(event) => setGithubConnection((current) => ({ ...current, branch: event.target.value }))} placeholder="main" className="bg-white font-mono text-xs" /></label>
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  <Button type="button" variant="outline" onClick={saveGitHubConnection} disabled={githubBusy} className="bg-white"><Save />保存连接设置</Button>
+                  <Button type="button" variant="outline" onClick={() => void testGithubConnection()} disabled={githubBusy} className="bg-white"><CircleCheck />测试 GitHub 连接</Button>
+                </div>
               </div>
               <p className="mt-3 text-xs leading-5 text-slate-500">访问令牌由网站服务端环境变量管理，不在此处输入、不进入浏览器存储，也不会同步到 GitHub。</p>
             </div>

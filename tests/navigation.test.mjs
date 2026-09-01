@@ -62,5 +62,8 @@ test("settings includes a dedicated GitHub synchronization tab", () => {
   assert.match(page, /测试 GitHub 连接/);
   assert.doesNotMatch(page, /立即从 GitHub 加载/);
   assert.doesNotMatch(page, /立即备份到 GitHub/);
+  assert.match(page, /<div className="mt-3 space-y-3">\s*<div className="grid gap-3 md:grid-cols-\[minmax\(0,1fr\)_220px\] md:items-end">/);
+  assert.match(page, /<div className="flex flex-wrap gap-2">\s*<Button type="button" variant="outline" onClick=\{saveGitHubConnection\}/);
+  assert.match(page, /<Button type="button" variant="outline" onClick=\{\(\) => void testGithubConnection\(\)\}/);
   assert.match(page, /学习记录.*手动上传/);
 });
