@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-01T12:31:44.293Z",
+  "updatedAt": "2026-09-01T12:31:47.817Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1816,6 +1816,40 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788265909956-03xzoa3m",
+        "timestamp": "2026-09-01T12:31:49.956Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "4d456a423c16"
+        }
+      },
+      {
+        "id": "1788265908272-9clrcplu",
+        "timestamp": "2026-09-01T12:31:48.272Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788264675884-efebbymx",
+        "event": "question-group.prepare.started",
+        "message": "开始准备题组",
+        "context": {
+          "project": "机器视觉专业知识",
+          "mode": "专业知识",
+          "questionCount": 10,
+          "sourceMode": "network",
+          "adaptiveQuestions": true,
+          "focusCategories": [
+            "算法原理",
+            "工程实践",
+            "图像预处理",
+            "模板与定位"
+          ]
+        }
+      },
       {
         "id": "1788265906366-4y1ldmn2",
         "timestamp": "2026-09-01T12:31:46.366Z",
@@ -18393,36 +18427,6 @@
           "provider": "opencode-go",
           "model": "hy3",
           "upstreamFormat": "chat-completions"
-        }
-      },
-      {
-        "id": "1788263912313-zxcrgvr2",
-        "timestamp": "2026-09-01T11:58:32.313Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "5b9804affe1f"
-        }
-      },
-      {
-        "id": "1788263906850-mwbiu0f0",
-        "timestamp": "2026-09-01T11:58:26.850Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788263890472-i4ypgjv5",
-        "event": "question-bank.web-search.started",
-        "message": "开始联网检索本轮题目资料",
-        "context": {
-          "attempt": 2,
-          "query": "机器视觉 面试知识点 算法原理 工程实践 图像预处理 模板与定位 深度图 点云 法线估计 RANSAC find_surface_model 原理 工程实践",
-          "mode": "专业知识",
-          "excludedCount": 0,
-          "workerIndex": 3,
-          "parallelRequests": 3,
-          "requestedCount": 3
         }
       }
     ]
