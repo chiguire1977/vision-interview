@@ -2206,6 +2206,8 @@ export default function Home() {
         ) : groupCompleted ? (
           <GroupReview answers={sessionAnswers} totalQuestions={groupQuestions.length} mode={trainingMode}
             reviewMode={reviewSessionActive} onRestart={restartGroup} onRetry={retryQuestion} />
+        ) : preparingGroup && !preparedGroupQuestions?.length && !reviewSessionActive ? (
+          <TrainingPreparingPanel questionGroupSize={questionGroupSettings.questionGroupSize} message={groupPreparationMessage} />
         ) : <TrainingCenter question={question} questionIndex={questionIndex} totalQuestions={groupQuestions.length} questionGroupSize={questionGroupSettings.questionGroupSize} parallelRequests={questionGroupSettings.parallelRequests} reviewMode={reviewSessionActive}
           trainingMode={trainingMode} category={category} difficulty={difficulty} techStack={techStack} detectionDirection={detectionDirection} project={project}
           isFavorite={isFavoriteQuestion(favoriteQuestions, question)} onToggleFavorite={() => toggleFavorite(question)}
@@ -2272,6 +2274,24 @@ function TrainingStartPanel({
             <p><strong className="block text-slate-700">先独立回答</strong>最佳回答默认隐藏，完成作答后再对照。</p>
             <p><strong className="block text-slate-700">按当前设置出题</strong>题目会严格校验知识分类、技术栈和检测方向。</p>
             <p><strong className="block text-slate-700">完成后可复盘</strong>训练记录会用于掌握度分析和温故知新。</p>
+          </div>
+        </section>
+      </div>
+    </main>
+  );
+}
+
+function TrainingPreparingPanel({ questionGroupSize, message }: { questionGroupSize: number; message: string }) {
+  return (
+    <main className="flex-1 p-3 md:p-5">
+      <div className="mx-auto max-w-4xl">
+        <section className="panel overflow-hidden">
+          <div className="px-6 py-16 text-center md:px-10 md:py-24">
+            <span className="mx-auto grid size-14 place-items-center rounded-2xl bg-blue-50 text-blue-600"><Bot className="size-7 animate-pulse" /></span>
+            <h1 className="mt-5 text-2xl font-semibold tracking-tight text-slate-950">正在准备本题组</h1>
+            <p className="mx-auto mt-3 max-w-xl text-sm leading-6 text-slate-600">正在按当前分类、技术栈和检测方向生成 {questionGroupSize} 道新题。题目准备完成后才会进入答题页面。</p>
+            {message && <p className="mt-5 text-xs text-blue-700">{message}</p>}
+            <div className="mx-auto mt-7 h-1.5 max-w-sm overflow-hidden rounded-full bg-slate-100"><div className="h-full w-1/2 animate-pulse rounded-full bg-blue-500" /></div>
           </div>
         </section>
       </div>
