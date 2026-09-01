@@ -46,9 +46,12 @@ import {
 } from "@/lib/question-bank-view";
 import {
   resolveQuestionSourceMode,
-  withQuestionSourceMode,
-  type QuestionSourceMode,
 } from "@/lib/question-source-mode";
+import {
+  buildLearningFocus,
+  buildLearningFocusPrompt,
+  prioritizeQuestionCandidates,
+} from "@/lib/adaptive-question-focus.mjs";
 import { primaryNavigationLabels, utilityNavigationLabels } from "@/lib/navigation.mjs";
 import { analyzeLearningMastery, createImprovementPlan } from "@/lib/personal-center.mjs";
 import { createGitHubBackupLog } from "@/lib/backup-log.mjs";
@@ -97,6 +100,7 @@ type AiPreferences = {
   bestAnswer: boolean;
   smartFollowUp: boolean;
   webQuestions: boolean;
+  adaptiveQuestions: boolean;
   questionGroupSize: number;
   parallelRequests: number;
 };
@@ -598,6 +602,7 @@ type QuestionGenerationSelection = {
   category: string;
   difficulty: string;
   techStack: string;
+  learningFocus?: ReturnType<typeof buildLearningFocus>;
 };
 
 type PreparedGroupResult = {
@@ -698,8 +703,14 @@ function buildQuestionFallbackPool(
     : selection.trainingMode === "项目答辩"
       ? projectQuestions
       : [...professional, ...projectQuestions];
+  const orderedCandidates = selection.learningFocus?.active
+    ? prioritizeQuestionCandidates(candidates, selection.learningFocus)
+    : candidates;
+  const orderedSupplemental = selection.learningFocus?.active
+    ? prioritizeQuestionCandidates(supplemental, selection.learningFocus)
+    : supplemental;
   const seen = new Set<string>();
-  return [...candidates.filter(matchesSelection), ...supplemental.filter(matchesSelection)]
+  return [...orderedCandidates.filter(matchesSelection), ...orderedSupplemental.filter(matchesSelection)]
     .filter((question) => {
       const key = question.title.trim().toLocaleLowerCase();
       if (!key || seen.has(key)) return false;
@@ -841,8 +852,17 @@ async function prepareQuestionGroup(
       "机器视觉",
       selection.category === "随机类型" ? "面试知识点" : selection.category,
       selection.techStack === "随机技术栈" ? "" : selection.techStack,
+      selection.learningFocus?.active ? selection.learningFocus.categories.map((item) => item.category).join(" ") : "",
+      selection.learningFocus?.active ? selection.learningFocus.keywords.slice(0, 5).join(" ") : "",
       "原理 工程实践",
     ].filter(Boolean).join(" ");
+    if (selection.learningFocus?.active) {
+      recordRuntimeEvent("INFO", "question-bank.focus.applied", "本轮题组已启用薄弱知识强化", {
+        categories: selection.learningFocus.categories.map((item) => item.category),
+        keywords: selection.learningFocus.keywords.slice(0, 8),
+        questionTitles: selection.learningFocus.questionTitles.slice(0, 5),
+      });
+    }
 
     const requestGeneratedQuestions = (
       count: number,
@@ -972,6 +992,9 @@ async function prepareQuestionGroup(
                 category: selection.category,
                 difficulty: selection.difficulty,
                 techStack: selection.techStack,
+                learningFocus: selection.learningFocus?.active
+                  ? { summary: selection.learningFocus.summary, categories: selection.learningFocus.categories, keywords: selection.learningFocus.keywords, issues: selection.learningFocus.issues }
+                  : null,
                 excludeTitles: excludedTitles,
                 webResearch: needsWebResearch ? {
                   required: true,
@@ -993,6 +1016,9 @@ async function prepareQuestionGroup(
                   "knowledgePoints 必须填写 2-5 个具体知识点；sourceType 必须填写题源类型；reference 只有在能确认标题和 URL 时填写，不能猜测链接",
                   `题目 source 必须为“${requestedSource}”；专业知识模式绝对禁止使用当前项目名称、项目档案或项目经历出题`,
                   `当前题目分类为“${selection.category}”，当前难度为“${selection.difficulty}”，当前技术栈为“${selection.techStack}”；非随机选项必须逐题严格匹配。分类是知识领域，技术栈是独立维度；例如“通讯协议 + WPF”应围绕协议知识设计 WPF 实现背景，而不是生成泛化的 WPF 题目`,
+                  selection.learningFocus?.active
+                    ? buildLearningFocusPrompt(selection.learningFocus)
+                    : "当前未启用薄弱知识强化，请保持知识覆盖的均衡性",
                   `当前题组共 ${targetCount} 道题，本次是第 ${workerIndex} 个并行请求，仅生成分配给本请求的 ${count} 道题`,
                   "标准回答控制在 120-220 字，技术原理控制在 100-200 字",
                   "source 只能填写“专业”或“项目”；difficulty 只能填写“基础”“中等”“困难”",
@@ -1411,6 +1437,19 @@ export default function Home() {
   const mediaStreamRef = useRef<MediaStream | null>(null);
   const speechChunksRef = useRef<Blob[]>([]);
 
+  const learningFocus = useMemo(() => {
+    let enabled = true;
+    if (typeof window !== "undefined") {
+      try {
+        const preferences = JSON.parse(localStorage.getItem("vision-interview-ai-preferences") || "{}") as Partial<AiPreferences>;
+        enabled = preferences.adaptiveQuestions !== false;
+      } catch {
+        enabled = true;
+      }
+    }
+    return enabled ? buildLearningFocus(records) : buildLearningFocus([]);
+  }, [records, activeNav]);
+
   useEffect(() => {
     let active = true;
     let pending: unknown[] = [];
@@ -1486,20 +1525,20 @@ export default function Home() {
   const questionGroupSettings = readQuestionGroupSettings();
   const groupQuestionSeed = useMemo(() => {
     const count = Math.min(questionGroupSettings.questionGroupSize, availableQuestions.length);
-    const shouldRandomize = category === "随机类型" || difficulty === "随机难度" || techStack === "随机技术栈";
+    const shouldRandomize = !learningFocus.active && (category === "随机类型" || difficulty === "随机难度" || techStack === "随机技术栈");
     const ordered = shouldRandomize
       ? [...availableQuestions].sort((left, right) => randomQuestionRank(left.title, groupRound) - randomQuestionRank(right.title, groupRound))
-      : availableQuestions;
+      : learningFocus.active ? prioritizeQuestionCandidates(availableQuestions, learningFocus) : availableQuestions;
     const start = shouldRandomize ? 0 : (groupRound * count) % ordered.length;
     return Array.from({ length: count }, (_, index) => ordered[(start + index) % ordered.length]);
-  }, [availableQuestions, category, difficulty, techStack, groupRound, questionGroupSettings.questionGroupSize]);
+  }, [availableQuestions, category, difficulty, techStack, groupRound, questionGroupSettings.questionGroupSize, learningFocus]);
   let aiSelectionSignature = "";
   if (typeof window !== "undefined") {
     try {
       aiSelectionSignature = localStorage.getItem("vision-interview-ai-preferences") || "";
     } catch { /* 忽略浏览器存储限制 */ }
   }
-  const groupPreparationKey = useMemo(() => ["ai-generated-v3", project, trainingMode, category, difficulty, techStack, groupRound, questionGroupSettings.questionGroupSize, questionGroupSettings.parallelRequests, aiSelectionSignature, ...groupQuestionSeed.map((item) => item.title)].join("|"), [project, trainingMode, category, difficulty, techStack, groupRound, questionGroupSettings.questionGroupSize, questionGroupSettings.parallelRequests, aiSelectionSignature, groupQuestionSeed]);
+  const groupPreparationKey = useMemo(() => ["ai-generated-v4", project, trainingMode, category, difficulty, techStack, groupRound, questionGroupSettings.questionGroupSize, questionGroupSettings.parallelRequests, aiSelectionSignature, learningFocus.active ? learningFocus.summary : "no-focus", ...groupQuestionSeed.map((item) => item.title)].join("|"), [project, trainingMode, category, difficulty, techStack, groupRound, questionGroupSettings.questionGroupSize, questionGroupSettings.parallelRequests, aiSelectionSignature, learningFocus, groupQuestionSeed]);
   const groupQuestions = preparedGroupQuestions?.length ? preparedGroupQuestions : groupQuestionSeed;
   const question = groupQuestions[questionIndex % groupQuestions.length];
   const currentEvaluation = sessionAnswers.find((item) => item.question.title === question.title);
@@ -1643,16 +1682,27 @@ export default function Home() {
 
   useEffect(() => {
     let active = true;
+    let sourceMode: "network" | "bank" = "network";
+    try {
+      sourceMode = resolveQuestionSourceMode(JSON.parse(localStorage.getItem("vision-interview-ai-preferences") || "{}"));
+    } catch { /* 使用默认联网模式 */ }
     stopRecording();
     setSpeechError("");
     setPreparingGroup(true);
     setPreparedGroupQuestions(null);
     setGroupPreparationSource("本地规则");
-    setGroupPreparationMessage(`正在优先让 AI 生成完整 ${questionGroupSettings.questionGroupSize} 道题目、标准回答和技术原理…`);
+    setGroupPreparationMessage(sourceMode === "bank"
+      ? `正在从题库准备 ${questionGroupSettings.questionGroupSize} 道题目…`
+      : learningFocus.active
+        ? `正在根据${learningFocus.categories.slice(0, 2).map((item) => item.category).join("、")}薄弱点联网准备题组…`
+        : `正在联网准备 ${questionGroupSettings.questionGroupSize} 道题目、标准回答和技术原理…`);
     recordRuntimeEvent("INFO", "question-group.prepare.started", "开始准备题组", {
       project,
       mode: trainingMode,
       questionCount: groupQuestionSeed.length,
+      sourceMode,
+      adaptiveQuestions: learningFocus.active,
+      focusCategories: learningFocus.categories.map((item) => item.category),
     });
     setQuestionIndex(0);
     setAnswer("");
@@ -1717,7 +1767,7 @@ export default function Home() {
 
     let request = pendingQuestionGroupRequests.get(groupPreparationKey);
     if (!request) {
-      request = prepareQuestionGroup(groupQuestionSeed, project, { trainingMode, category, difficulty, techStack }, reportGroupProgress);
+      request = prepareQuestionGroup(groupQuestionSeed, project, { trainingMode, category, difficulty, techStack, learningFocus }, reportGroupProgress);
       pendingQuestionGroupRequests.set(groupPreparationKey, request);
       void request.finally(() => {
         if (pendingQuestionGroupRequests.get(groupPreparationKey) === request) pendingQuestionGroupRequests.delete(groupPreparationKey);
@@ -1738,7 +1788,7 @@ export default function Home() {
       }
     }).catch(() => {
       if (!active) return;
-      setPreparedGroupQuestions(buildQuestionFallbackPool(groupQuestionSeed, project, { trainingMode, category, difficulty, techStack }).slice(0, questionGroupSettings.questionGroupSize));
+      setPreparedGroupQuestions(buildQuestionFallbackPool(groupQuestionSeed, project, { trainingMode, category, difficulty, techStack, learningFocus }).slice(0, questionGroupSettings.questionGroupSize));
       setGroupPreparationSource("本地规则");
       setGroupPreparationMessage("AI 题组准备失败，已切换为本地题库与标准答案。");
       setPreparingGroup(false);
@@ -1747,7 +1797,7 @@ export default function Home() {
       });
     });
     return () => { active = false; };
-  }, [groupPreparationKey, groupQuestionSeed, project, trainingMode, category, difficulty, techStack]);
+  }, [groupPreparationKey, groupQuestionSeed, project, trainingMode, category, difficulty, techStack, learningFocus]);
 
   useEffect(() => {
     stopRecording();
@@ -2386,14 +2436,6 @@ type QuestionBankPageProps = {
 function QuestionBankPage({ questions, favorites, onToggleFavorite, remoteState, remoteError }: QuestionBankPageProps) {
   const [query, setQuery] = useState("");
   const [sourceFilter, setSourceFilter] = useState<QuestionBankSourceFilter>("全部");
-  const [questionSourceMode, setQuestionSourceMode] = useState<QuestionSourceMode>(() => {
-    try {
-      const stored = JSON.parse(localStorage.getItem("vision-interview-ai-preferences") || "{}");
-      return resolveQuestionSourceMode(stored);
-    } catch {
-      return "network";
-    }
-  });
   const filteredQuestions = useMemo(() => filterQuestionBankItems(questions, query, sourceFilter), [questions, query, sourceFilter]);
   const groups = useMemo(() => groupQuestionBankItems(filteredQuestions), [filteredQuestions]);
   const categories = new Set(questions.map((item) => item.category));
@@ -2404,47 +2446,7 @@ function QuestionBankPage({ questions, favorites, onToggleFavorite, remoteState,
     { value: "AI", label: "AI 生成" },
   ];
 
-  function changeQuestionSourceMode(mode: QuestionSourceMode) {
-    let stored: unknown = {};
-    try {
-      stored = JSON.parse(localStorage.getItem("vision-interview-ai-preferences") || "{}");
-    } catch {
-      stored = {};
-    }
-    const nextPreferences = withQuestionSourceMode(stored, mode);
-    localStorage.setItem("vision-interview-ai-preferences", JSON.stringify(nextPreferences));
-    setQuestionSourceMode(mode);
-    recordRuntimeEvent("INFO", "question-bank.source.changed", mode === "network" ? "题目来源已切换为联网获取" : "题目来源已切换为题库检索", {
-      sourceMode: mode,
-    });
-  }
-
   return <PageShell title="题库" subtitle="按知识分类浏览内置题库与 AI 生成题目，展开题目即可查看完整回答要点。">
-    <section className="panel mb-5 flex flex-col gap-4 p-4 sm:flex-row sm:items-center sm:justify-between">
-      <div className="flex min-w-0 items-start gap-3">
-        <span className={`grid size-10 shrink-0 place-items-center rounded-lg ${questionSourceMode === "network" ? "bg-blue-50 text-blue-600" : "bg-emerald-50 text-emerald-600"}`}>
-          {questionSourceMode === "network" ? <Globe2 className="size-5" /> : <BookOpen className="size-5" />}
-        </span>
-        <div className="min-w-0">
-          <div className="flex flex-wrap items-center gap-2">
-            <h2 className="font-semibold text-slate-900">联网获取题目</h2>
-            <Badge variant="outline" className={`rounded-md ${questionSourceMode === "network" ? "border-blue-200 bg-blue-50 text-blue-700" : "border-emerald-200 bg-emerald-50 text-emerald-700"}`}>
-              {questionSourceMode === "network" ? "联网模式" : "题库模式"}
-            </Badge>
-          </div>
-          <p className="mt-1 text-xs leading-5 text-slate-500">
-            {questionSourceMode === "network"
-              ? "每个新题组都会联网搜索真实资料并保留来源；获取失败时自动从题库补足。"
-              : "只从内置题库和 GitHub 已归档题库检索，不发送联网搜索或 AI 生成请求。"}
-          </p>
-        </div>
-      </div>
-      <Switch
-        checked={questionSourceMode === "network"}
-        onCheckedChange={(checked) => changeQuestionSourceMode(checked ? "network" : "bank")}
-        aria-label="联网获取题目"
-      />
-    </section>
     <div className="grid gap-3 sm:grid-cols-4">
       {[
         { label: "全部题目", value: questions.length, icon: Library, tone: "bg-blue-50 text-blue-600" },
@@ -2881,6 +2883,7 @@ const defaultAiPreferences: AiPreferences = {
   bestAnswer: true,
   smartFollowUp: true,
   webQuestions: true,
+  adaptiveQuestions: true,
   questionGroupSize: DEFAULT_QUESTION_GROUP_SIZE,
   parallelRequests: DEFAULT_PARALLEL_REQUESTS,
 };
@@ -3416,13 +3419,25 @@ function SettingsPage() {
         </section>}
 
         {settingsSection === "group" && <section className="panel overflow-hidden">
-          <div className="border-b border-slate-200 px-5 py-4"><h2 className="font-semibold text-slate-900">题组设置</h2><p className="mt-1 text-xs text-slate-500">控制每次开始学习准备多少道题，以及同时发起多少个 AI 生成请求。</p></div>
-          <div className="space-y-5 p-5">
+          <div className="border-b border-slate-200 px-5 py-4"><h2 className="font-semibold text-slate-900">题组设置</h2><p className="mt-1 text-xs text-slate-500">控制题目来源、薄弱知识强化、题组数量，以及同时发起多少个 AI 生成请求。</p></div>
+          <div className="space-y-4 p-5">
+            <div className="divide-y divide-slate-100 rounded-lg border border-slate-200 bg-white">
+              <label className="flex cursor-pointer items-center gap-4 px-4 py-3">
+                <span className="grid size-9 shrink-0 place-items-center rounded-md bg-blue-50 text-blue-600"><Globe2 className="size-4" /></span>
+                <span className="min-w-0 flex-1"><strong className="block text-sm font-medium text-slate-800">联网获取题目</strong><span className="mt-0.5 block text-xs leading-5 text-slate-500">开启后每个新题组都会联网检索资料并请求 AI；关闭后只从内置题库和已归档题库检索。</span></span>
+                <Switch checked={preferences.webQuestions} onCheckedChange={(checked) => { const nextPreferences = { ...preferences, webQuestions: checked }; setPreferences(nextPreferences); persistActivePreferences(nextPreferences); setSaved(false); recordRuntimeEvent("INFO", "question-bank.source.changed", checked ? "题目来源已切换为联网获取" : "题目来源已切换为题库检索", { sourceMode: checked ? "network" : "bank" }); }} aria-label="联网获取题目" />
+              </label>
+              <label className="flex cursor-pointer items-center gap-4 px-4 py-3">
+                <span className="grid size-9 shrink-0 place-items-center rounded-md bg-violet-50 text-violet-600"><Target className="size-4" /></span>
+                <span className="min-w-0 flex-1"><strong className="block text-sm font-medium text-slate-800">薄弱知识强化</strong><span className="mt-0.5 block text-xs leading-5 text-slate-500">根据学习记录中的低掌握、跳过和审阅问题，优先生成相关变式题。</span></span>
+                <Switch checked={preferences.adaptiveQuestions} onCheckedChange={(checked) => { const nextPreferences = { ...preferences, adaptiveQuestions: checked }; setPreferences(nextPreferences); persistActivePreferences(nextPreferences); setSaved(false); }} aria-label="薄弱知识强化" />
+              </label>
+            </div>
             <div className="grid gap-4 sm:grid-cols-2">
               <label className="space-y-2 text-sm font-medium text-slate-700"><span>每个题组的题目数量</span><Input type="number" min={MIN_QUESTION_GROUP_SIZE} max={MAX_QUESTION_GROUP_SIZE} step={1} value={preferences.questionGroupSize} onChange={(event) => { const nextPreferences = { ...preferences, questionGroupSize: normalizeQuestionGroupSettings({ questionGroupSize: event.target.value, parallelRequests: preferences.parallelRequests }).questionGroupSize }; setPreferences(nextPreferences); persistActivePreferences(nextPreferences); setSaved(false); }} className="bg-white" /><span className="block text-[11px] font-normal text-slate-500">范围 {MIN_QUESTION_GROUP_SIZE}–{MAX_QUESTION_GROUP_SIZE}，默认 {DEFAULT_QUESTION_GROUP_SIZE} 道。</span></label>
-              <label className="space-y-2 text-sm font-medium text-slate-700"><span>并行 AI 请求数</span><Input type="number" min={MIN_PARALLEL_REQUESTS} max={MAX_PARALLEL_REQUESTS} step={1} value={preferences.parallelRequests} onChange={(event) => { const nextPreferences = { ...preferences, parallelRequests: normalizeQuestionGroupSettings({ questionGroupSize: preferences.questionGroupSize, parallelRequests: event.target.value }).parallelRequests }; setPreferences(nextPreferences); persistActivePreferences(nextPreferences); setSaved(false); }} className="bg-white" /><span className="block text-[11px] font-normal text-slate-500">范围 {MIN_PARALLEL_REQUESTS}–{MAX_PARALLEL_REQUESTS}，默认 {DEFAULT_PARALLEL_REQUESTS} 个；过高可能触发服务商限流。</span></label>
+              <label className="space-y-2 text-sm font-medium text-slate-700"><span>并行 AI 请求数</span><Input type="number" min={MIN_PARALLEL_REQUESTS} max={MAX_PARALLEL_REQUESTS} step={1} value={preferences.parallelRequests} disabled={!preferences.webQuestions} onChange={(event) => { const nextPreferences = { ...preferences, parallelRequests: normalizeQuestionGroupSettings({ questionGroupSize: preferences.questionGroupSize, parallelRequests: event.target.value }).parallelRequests }; setPreferences(nextPreferences); persistActivePreferences(nextPreferences); setSaved(false); }} className="bg-white disabled:cursor-not-allowed disabled:bg-slate-100 disabled:text-slate-400" /><span className="block text-[11px] font-normal text-slate-500">范围 {MIN_PARALLEL_REQUESTS}–{MAX_PARALLEL_REQUESTS}，默认 {DEFAULT_PARALLEL_REQUESTS} 个；{preferences.webQuestions ? "过高可能触发服务商限流。" : "当前为题库模式，不会发起 AI 请求。"}</span></label>
             </div>
-            <div className="rounded-lg border border-blue-100 bg-blue-50/60 p-4 text-sm leading-6 text-blue-900"><p className="font-semibold">生成策略</p><p className="mt-1">系统会把题目数量拆分给多个 AI 请求，同时生成后自动去重；某个请求失败时，其余请求结果仍会保留，并继续下一轮补齐。</p></div>
+            <div className="rounded-lg border border-blue-100 bg-blue-50/60 p-4 text-sm leading-6 text-blue-900"><p className="font-semibold">生成策略</p><p className="mt-1">联网模式会把每个请求分配给并行 AI，同时生成后自动去重；题库模式只按当前分类、难度、技术栈和薄弱知识排序检索。某个请求失败时，其余结果仍会保留，并继续下一轮补齐。</p></div>
           </div>
         </section>}
 
