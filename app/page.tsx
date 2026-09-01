@@ -86,12 +86,19 @@ import {
 import {
   appendRuntimeLog,
   clearRuntimeLogs,
+  createScopedAutoBackupSnapshot,
   createRecordsUploadPayload,
+  DEFAULT_GITHUB_SYNC_SETTINGS,
   filterRuntimeLogs,
   filterRuntimeLogsBySession,
+  GITHUB_SYNC_SETTINGS_STORAGE_KEY,
   normalizeRuntimeLogs,
+  normalizeGitHubSyncSettings,
+  readBackupFromStorage,
+  readGitHubSyncSettings,
   RUNTIME_LOG_STORAGE_KEY,
   startRuntimeSession,
+  writeBackupToStorage,
 } from "@/lib/backup-core.mjs";
 import { KNOWLEDGE_CATEGORIES, TECH_STACKS, normalizeKnowledgeCategory, normalizeTechStack } from "@/lib/taxonomy.mjs";
 
@@ -786,6 +793,14 @@ async function syncAiQuestionBankBackup(entries: QuestionBankArchiveEntry[]): Pr
     localStorage.setItem(aiQuestionBankStorageKey, completeSnapshot);
   } catch {
     // Server sync can still succeed when browser storage is unavailable.
+  }
+
+  if (!readGitHubSyncSettings(localStorage).syncQuestionBank) {
+    try { localStorage.removeItem(pendingAiQuestionBackupKey); } catch { /* 本地存储不可用 */ }
+    recordRuntimeEvent("INFO", "question-bank.sync.skipped", "GitHub AI 题库同步已关闭，仅保留本地题库", {
+      totalCount: completeArchive.length,
+    });
+    return { archived: true, pendingCount: 0 };
   }
 
   try {
@@ -1554,60 +1569,68 @@ export default function Home() {
 
   useEffect(() => {
     let active = true;
-    let pending: unknown[] = [];
-    let cached: unknown[] = [];
-    try {
-      const saved = JSON.parse(localStorage.getItem(pendingAiQuestionBackupKey) || "[]") as unknown;
-      pending = Array.isArray(saved) ? saved : [];
-    } catch {
-      pending = [];
-    }
-    try {
-      const saved = JSON.parse(localStorage.getItem(aiQuestionBankStorageKey) || "[]") as unknown;
-      cached = Array.isArray(saved) ? saved : [];
-    } catch {
-      cached = [];
-    }
-    const localArchive = mergeQuestionBankArchive(cached, pending);
-    setRemoteQuestionBank(localArchive);
+    const refreshRemoteQuestionBank = () => {
+      let pending: unknown[] = [];
+      let cached: unknown[] = [];
+      try {
+        const saved = JSON.parse(localStorage.getItem(pendingAiQuestionBackupKey) || "[]") as unknown;
+        pending = Array.isArray(saved) ? saved : [];
+      } catch {
+        pending = [];
+      }
+      try {
+        const saved = JSON.parse(localStorage.getItem(aiQuestionBankStorageKey) || "[]") as unknown;
+        cached = Array.isArray(saved) ? saved : [];
+      } catch {
+        cached = [];
+      }
+      const localArchive = mergeQuestionBankArchive(cached, pending);
+      setRemoteQuestionBank(localArchive);
 
-    fetch("/api/question-bank", { cache: "no-store" })
-      .then(async (response) => ({ response, body: await response.json() as { ok?: boolean; available?: boolean; questions?: unknown[]; questionCount?: number; reason?: string } }))
-      .then(({ response, body }) => {
-        if (!active) return;
-        if (body.available === false) {
-          setQuestionBankRemoteState("local-only");
-          recordRuntimeEvent("WARN", "question-bank.remote.unavailable", "GitHub AI 题库未配置，已使用本地缓存题库", { cachedCount: localArchive.length });
-          return;
-        }
-        if (!response.ok || body.ok === false) {
+      void fetch("/api/question-bank", { cache: "no-store" })
+        .then(async (response) => ({ response, body: await response.json() as { ok?: boolean; available?: boolean; questions?: unknown[]; questionCount?: number; reason?: string } }))
+        .then(({ response, body }) => {
+          if (!active) return;
+          if (body.available === false) {
+            setQuestionBankRemoteState("local-only");
+            recordRuntimeEvent("WARN", "question-bank.remote.unavailable", "GitHub AI 题库未配置，已使用本地缓存题库", { cachedCount: localArchive.length });
+            return;
+          }
+          if (!response.ok || body.ok === false) {
+            setQuestionBankRemoteState("error");
+            setQuestionBankRemoteError(body.reason || "GitHub AI 题库读取失败。");
+            recordRuntimeEvent("WARN", "question-bank.remote.failed", "GitHub AI 题库读取失败，已使用本地缓存题库", { cachedCount: localArchive.length, reason: body.reason || `HTTP ${response.status}` });
+            return;
+          }
+          const loaded = mergeQuestionBankArchive(
+            mergeQuestionBankArchive(cached, Array.isArray(body.questions) ? body.questions : []),
+            pending,
+          );
+          try {
+            localStorage.setItem(aiQuestionBankStorageKey, JSON.stringify(loaded));
+            if (!pending.length) localStorage.setItem(aiQuestionBankLastSyncKey, JSON.stringify(loaded));
+          } catch {
+            // 即使缓存不可用，也继续使用本次从 GitHub 读取的题库。
+          }
+          setRemoteQuestionBank(loaded);
+          setQuestionBankRemoteState("ready");
+          recordRuntimeEvent("INFO", "question-bank.remote.loaded", "GitHub AI 历史题库加载完成", { questionCount: loaded.length, githubQuestionCount: body.questionCount ?? body.questions?.length ?? 0, pendingCount: pending.length });
+        })
+        .catch((error) => {
+          if (!active) return;
           setQuestionBankRemoteState("error");
-          setQuestionBankRemoteError(body.reason || "GitHub AI 题库读取失败。");
-          recordRuntimeEvent("WARN", "question-bank.remote.failed", "GitHub AI 题库读取失败，已使用本地缓存题库", { cachedCount: localArchive.length, reason: body.reason || `HTTP ${response.status}` });
-          return;
-        }
-        const loaded = mergeQuestionBankArchive(
-          mergeQuestionBankArchive(cached, Array.isArray(body.questions) ? body.questions : []),
-          pending,
-        );
-        try {
-          localStorage.setItem(aiQuestionBankStorageKey, JSON.stringify(loaded));
-          if (!pending.length) localStorage.setItem(aiQuestionBankLastSyncKey, JSON.stringify(loaded));
-        } catch {
-          // 即使缓存不可用，也继续使用本次从 GitHub 读取的题库。
-        }
-        setRemoteQuestionBank(loaded);
-        setQuestionBankRemoteState("ready");
-        recordRuntimeEvent("INFO", "question-bank.remote.loaded", "GitHub AI 历史题库加载完成", { questionCount: loaded.length, githubQuestionCount: body.questionCount ?? body.questions?.length ?? 0, pendingCount: pending.length });
-      })
-      .catch((error) => {
-        if (!active) return;
-        setQuestionBankRemoteState("error");
-        setQuestionBankRemoteError(error instanceof Error ? error.message : "GitHub AI 题库读取失败。");
-        recordRuntimeEvent("WARN", "question-bank.remote.failed", "GitHub AI 题库请求异常，已使用本地缓存题库", { cachedCount: localArchive.length, reason: error instanceof Error ? error.message : "unknown" });
-      });
+          setQuestionBankRemoteError(error instanceof Error ? error.message : "GitHub AI 题库读取失败。");
+          recordRuntimeEvent("WARN", "question-bank.remote.failed", "GitHub AI 题库请求异常，已使用本地缓存题库", { cachedCount: localArchive.length, reason: error instanceof Error ? error.message : "unknown" });
+        });
+    };
 
-    return () => { active = false; };
+    refreshRemoteQuestionBank();
+    window.addEventListener("vision-interview-question-bank-refresh", refreshRemoteQuestionBank);
+
+    return () => {
+      active = false;
+      window.removeEventListener("vision-interview-question-bank-refresh", refreshRemoteQuestionBank);
+    };
   }, []);
 
   function toggleFavorite(questionToToggle: Question) {
@@ -3329,7 +3352,8 @@ function createCustomProviderId() {
 }
 
 type ProviderDraft = { id?: AiProvider; name: string; description: string; baseUrl: string };
-type SettingsSection = "model" | "training" | "group" | "about";
+type GitHubSyncSettings = typeof DEFAULT_GITHUB_SYNC_SETTINGS;
+type SettingsSection = "model" | "training" | "group" | "github" | "about";
 
 function SettingsPage() {
   const [preferences, setPreferences] = useState<AiPreferences>(defaultAiPreferences);
@@ -3345,6 +3369,9 @@ function SettingsPage() {
   const [providerForm, setProviderForm] = useState<ProviderDraft | null>(null);
   const [providerFormError, setProviderFormError] = useState("");
   const [settingsSection, setSettingsSection] = useState<SettingsSection>("model");
+  const [githubSyncSettings, setGithubSyncSettings] = useState<GitHubSyncSettings>({ ...DEFAULT_GITHUB_SYNC_SETTINGS });
+  const [githubStatus, setGithubStatus] = useState<{ state: "loading" | "connected" | "offline" | "error"; detail: string; updatedAt?: string; questionCount?: number }>({ state: "loading", detail: "正在检查 GitHub 存档" });
+  const [githubBusy, setGithubBusy] = useState(false);
 
   const providerOptions = useMemo(() => {
     const customProviders = Object.keys(providerSettings)
@@ -3393,6 +3420,8 @@ function SettingsPage() {
       }
     }
     setApiKey(sessionStorage.getItem(`vision-interview-ai-key-${restored.provider}`) || "");
+    setGithubSyncSettings(readGitHubSyncSettings(localStorage));
+    void refreshGithubStatus();
     fetch("/api/ai/config", { cache: "no-store" })
       .then((response) => response.json())
       .then(setServerStatus)
@@ -3661,6 +3690,157 @@ function SettingsPage() {
     }
   }
 
+  type GitHubSnapshot = {
+    backupResponse: Response;
+    backupBody: { ok?: boolean; available?: boolean; data?: Record<string, unknown>; updatedAt?: string; reason?: string };
+    questionBankResponse: Response;
+    questionBankBody: { ok?: boolean; available?: boolean; questions?: unknown[]; questionCount?: number; updatedAt?: string; reason?: string };
+  };
+
+  async function readGitHubSnapshot(): Promise<GitHubSnapshot> {
+    const [backupResponse, questionBankResponse] = await Promise.all([
+      fetch("/api/backup", { cache: "no-store" }),
+      fetch("/api/question-bank", { cache: "no-store" }),
+    ]);
+    const [backupBody, questionBankBody] = await Promise.all([
+      backupResponse.json() as Promise<GitHubSnapshot["backupBody"]>,
+      questionBankResponse.json() as Promise<GitHubSnapshot["questionBankBody"]>,
+    ]);
+    return { backupResponse, backupBody, questionBankResponse, questionBankBody };
+  }
+
+  function isAvailable(response: Response, body: { ok?: boolean; available?: boolean }) {
+    return response.ok && body.ok !== false && body.available !== false;
+  }
+
+  async function refreshGithubStatus() {
+    try {
+      const snapshot = await readGitHubSnapshot();
+      const backupAvailable = isAvailable(snapshot.backupResponse, snapshot.backupBody);
+      const questionBankAvailable = isAvailable(snapshot.questionBankResponse, snapshot.questionBankBody);
+      const updatedAt = snapshot.backupBody.updatedAt || snapshot.questionBankBody.updatedAt;
+      setGithubStatus({
+        state: backupAvailable && questionBankAvailable ? "connected" : "offline",
+        detail: backupAvailable && questionBankAvailable
+          ? `已连接 · AI 题库 ${snapshot.questionBankBody.questionCount ?? snapshot.questionBankBody.questions?.length ?? 0} 题`
+          : "GitHub 存档暂不可用，仍可继续使用本地数据",
+        updatedAt,
+        questionCount: snapshot.questionBankBody.questionCount ?? snapshot.questionBankBody.questions?.length ?? 0,
+      });
+    } catch (error) {
+      setGithubStatus({ state: "error", detail: error instanceof Error ? error.message : "GitHub 状态检查失败" });
+    }
+  }
+
+  function saveGitHubSyncSettings(value: GitHubSyncSettings) {
+    const next = normalizeGitHubSyncSettings(value) as GitHubSyncSettings;
+    setGithubSyncSettings(next);
+    localStorage.setItem(GITHUB_SYNC_SETTINGS_STORAGE_KEY, JSON.stringify(next));
+    window.dispatchEvent(new Event("vision-interview-backup-settings-changed"));
+    setSaved(true);
+    recordRuntimeEvent("INFO", "backup.settings.changed", "GitHub 备份范围已更新", {
+      autoBackup: next.autoBackup,
+      syncAiSettings: next.syncAiSettings,
+      syncFavorites: next.syncFavorites,
+      syncProjects: next.syncProjects,
+      syncRuntimeLogs: next.syncRuntimeLogs,
+      syncQuestionBank: next.syncQuestionBank,
+    });
+    window.setTimeout(() => setSaved(false), 2400);
+  }
+
+  async function loadGithubNow() {
+    setGithubBusy(true);
+    setGithubStatus((current) => ({ ...current, state: "loading", detail: "正在从 GitHub 加载配置和题库" }));
+    try {
+      const snapshot = await readGitHubSnapshot();
+      const backupAvailable = isAvailable(snapshot.backupResponse, snapshot.backupBody);
+      const questionBankAvailable = isAvailable(snapshot.questionBankResponse, snapshot.questionBankBody);
+      if (backupAvailable) {
+        writeBackupToStorage(localStorage, snapshot.backupBody.data ?? {});
+        setGithubSyncSettings(readGitHubSyncSettings(localStorage));
+        window.dispatchEvent(new Event("vision-interview-backup-loaded"));
+      }
+      if (questionBankAvailable && Array.isArray(snapshot.questionBankBody.questions)) {
+        let pending: unknown[] = [];
+        try {
+          const stored = JSON.parse(localStorage.getItem(pendingAiQuestionBackupKey) || "[]") as unknown;
+          pending = Array.isArray(stored) ? stored : [];
+        } catch { pending = []; }
+        const loaded = mergeQuestionBankArchive(snapshot.questionBankBody.questions, pending);
+        localStorage.setItem(aiQuestionBankStorageKey, JSON.stringify(loaded));
+        if (!pending.length) localStorage.setItem(aiQuestionBankLastSyncKey, JSON.stringify(loaded));
+        window.dispatchEvent(new Event("vision-interview-question-bank-refresh"));
+      }
+      if (!backupAvailable && !questionBankAvailable) {
+        throw new Error(snapshot.backupBody.reason || snapshot.questionBankBody.reason || "GitHub 存档暂不可用");
+      }
+      const count = snapshot.questionBankBody.questionCount ?? snapshot.questionBankBody.questions?.length ?? 0;
+      setGithubStatus({ state: backupAvailable && questionBankAvailable ? "connected" : "offline", detail: `已加载 GitHub 数据 · AI 题库 ${count} 题`, updatedAt: snapshot.backupBody.updatedAt || snapshot.questionBankBody.updatedAt, questionCount: count });
+      recordRuntimeEvent("INFO", "backup.manual.loaded", "已从 GitHub 手动加载配置和题库", { backupAvailable, questionBankAvailable, questionCount: count });
+    } catch (error) {
+      const message = error instanceof Error ? error.message : "GitHub 加载失败";
+      setGithubStatus({ state: "error", detail: message });
+      recordRuntimeEvent("ERROR", "backup.manual.load.failed", "从 GitHub 手动加载失败", { error: message });
+    } finally {
+      setGithubBusy(false);
+    }
+  }
+
+  async function backupNow() {
+    setGithubBusy(true);
+    setGithubStatus((current) => ({ ...current, state: "loading", detail: "正在备份配置和题库到 GitHub" }));
+    const syncSettings = readGitHubSyncSettings(localStorage);
+    try {
+      const data = createScopedAutoBackupSnapshot(readBackupFromStorage(localStorage), syncSettings);
+      const backupResponse = await fetch("/api/backup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        signal: AbortSignal.timeout(20000),
+        body: JSON.stringify({ data, merge: true, replaceKeys: ["vision-interview-projects", "vision-interview-ai-provider-settings"] }),
+      });
+      const backupBody = await backupResponse.json() as { ok?: boolean; reason?: string; updatedAt?: string };
+      if (!backupResponse.ok || backupBody.ok === false) throw new Error(backupBody.reason || `配置备份失败（HTTP ${backupResponse.status}）`);
+
+      let questionCount = 0;
+      if (syncSettings.syncQuestionBank) {
+        let entries: unknown[] = [];
+        let pending: unknown[] = [];
+        try {
+          const cached = JSON.parse(localStorage.getItem(aiQuestionBankStorageKey) || "[]") as unknown;
+          entries = Array.isArray(cached) ? cached : [];
+          const queued = JSON.parse(localStorage.getItem(pendingAiQuestionBackupKey) || "[]") as unknown;
+          pending = Array.isArray(queued) ? queued : [];
+        } catch { entries = []; pending = []; }
+        const completeArchive = mergeQuestionBankArchive(entries, pending);
+        questionCount = completeArchive.length;
+        if (completeArchive.length) {
+          const questionResponse = await fetch("/api/question-bank/sync", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            signal: AbortSignal.timeout(20000),
+            body: JSON.stringify({ entries: completeArchive, complete: true }),
+          });
+          const questionBody = await questionResponse.json() as { archived?: boolean; reason?: string; total?: number };
+          if (!questionResponse.ok || !questionBody.archived) throw new Error(questionBody.reason || `题库备份失败（HTTP ${questionResponse.status}）`);
+          localStorage.removeItem(pendingAiQuestionBackupKey);
+          localStorage.setItem(aiQuestionBankLastSyncKey, JSON.stringify(completeArchive));
+          questionCount = questionBody.total ?? questionCount;
+        }
+      }
+      setGithubStatus({ state: "connected", detail: `备份完成 · AI 题库 ${questionCount} 题`, updatedAt: backupBody.updatedAt, questionCount });
+      recordRuntimeEvent("INFO", "backup.manual.saved", "已将配置和题库备份到 GitHub", { questionCount, syncQuestionBank: syncSettings.syncQuestionBank });
+      setSaved(true);
+      window.setTimeout(() => setSaved(false), 2400);
+    } catch (error) {
+      const message = error instanceof Error ? error.message : "GitHub 备份失败";
+      setGithubStatus({ state: "error", detail: message });
+      recordRuntimeEvent("ERROR", "backup.manual.failed", "手动备份到 GitHub 失败", { error: message });
+    } finally {
+      setGithubBusy(false);
+    }
+  }
+
   const features: { key: keyof Pick<AiPreferences, "aiScoring" | "bestAnswer" | "smartFollowUp">; title: string; description: string }[] = [
     { key: "aiScoring", title: "AI 回答审阅与掌握度", description: "不打分，判断低/中/高掌握程度，并指出知识遗漏、表达结构、项目证据和工程局限" },
     { key: "bestAnswer", title: "生成最佳回答", description: "结合题目和项目资料生成个性化参考答案" },
@@ -3670,11 +3850,12 @@ function SettingsPage() {
     { key: "model", title: "模型服务", description: "服务商、地址、密钥与模型", icon: Bot },
     { key: "training", title: "训练偏好", description: "AI 能力与学习方式", icon: BrainCircuit },
     { key: "group", title: "题组设置", description: "题目数量与并行生成", icon: ListTree },
+    { key: "github", title: "GitHub 同步", description: "备份范围与同步状态", icon: HardDrive },
     { key: "about", title: "关于应用", description: "版本与使用说明", icon: FileText },
   ];
 
   return <PageShell title="设置" subtitle="集中管理 AI 服务、模型与训练辅助能力。支持 Chat Completions、Responses 和 Anthropic Messages 三种上游协议。">
-    <div className="mb-5 grid gap-2 rounded-xl border border-slate-200 bg-white p-2 sm:grid-cols-2 xl:grid-cols-4">
+    <div className="mb-5 grid gap-2 rounded-xl border border-slate-200 bg-white p-2 sm:grid-cols-2 xl:grid-cols-5">
       {settingsSections.map((section) => <button key={section.key} type="button" onClick={() => setSettingsSection(section.key)} aria-pressed={settingsSection === section.key} className={`flex items-center gap-3 rounded-lg px-3 py-3 text-left transition ${settingsSection === section.key ? "bg-blue-50 text-blue-800 ring-1 ring-blue-200" : "text-slate-600 hover:bg-slate-50"}`}><span className={`grid size-9 shrink-0 place-items-center rounded-md ${settingsSection === section.key ? "bg-blue-600 text-white" : "bg-slate-100 text-slate-500"}`}><section.icon className="size-4" /></span><span className="min-w-0"><strong className="block text-sm font-semibold">{section.title}</strong><span className="mt-0.5 block truncate text-[11px] text-slate-500">{section.description}</span></span></button>)}
     </div>
     <div className="grid gap-5 xl:grid-cols-[minmax(0,1fr)_330px]">
@@ -3799,6 +3980,48 @@ function SettingsPage() {
           </div>
         </section>}
 
+        {settingsSection === "github" && <section className="panel overflow-hidden">
+          <div className="border-b border-slate-200 px-5 py-4">
+            <div className="flex flex-wrap items-start justify-between gap-3">
+              <div><h2 className="font-semibold text-slate-900">GitHub 备份范围</h2><p className="mt-1 text-xs text-slate-500">管理网站启动加载、运行期间自动备份和关闭前同步的内容。</p></div>
+              <Badge variant="outline" className={`rounded-md ${githubStatus.state === "connected" ? "border-emerald-200 bg-emerald-50 text-emerald-700" : githubStatus.state === "error" ? "border-rose-200 bg-rose-50 text-rose-700" : "border-amber-200 bg-amber-50 text-amber-700"}`}>
+                {githubStatus.state === "loading" ? "检查中" : githubStatus.state === "connected" ? "GitHub 已连接" : githubStatus.state === "error" ? "连接异常" : "仅本地可用"}
+              </Badge>
+            </div>
+            <p className="mt-3 text-sm text-slate-600">{githubStatus.detail}{githubStatus.updatedAt ? ` · 最近更新 ${new Date(githubStatus.updatedAt).toLocaleString("zh-CN")}` : ""}</p>
+          </div>
+          <div className="space-y-4 p-5">
+            <div className="flex flex-wrap gap-2">
+              <Button type="button" onClick={loadGithubNow} disabled={githubBusy} className="bg-blue-600 hover:bg-blue-700"><Archive />{githubBusy ? "处理中…" : "立即从 GitHub 加载"}</Button>
+              <Button type="button" variant="outline" onClick={backupNow} disabled={githubBusy} className="bg-white"><Upload />立即备份到 GitHub</Button>
+              <Button type="button" variant="outline" onClick={() => void refreshGithubStatus()} disabled={githubBusy} className="bg-white"><RotateCcw />刷新状态</Button>
+            </div>
+            <div className="divide-y divide-slate-100 rounded-lg border border-slate-200 bg-white">
+              <label className="flex cursor-pointer items-center gap-4 px-4 py-3">
+                <span className="grid size-9 shrink-0 place-items-center rounded-md bg-blue-50 text-blue-600"><Save className="size-4" /></span>
+                <span className="min-w-0 flex-1"><strong className="block text-sm font-medium text-slate-800">自动备份</strong><span className="mt-0.5 block text-xs leading-5 text-slate-500">学习过程中的配置、收藏、项目和运行日志按变化自动提交；关闭后仍可手动备份。</span></span>
+                <Switch checked={githubSyncSettings.autoBackup} onCheckedChange={(checked) => saveGitHubSyncSettings({ ...githubSyncSettings, autoBackup: checked })} aria-label="自动备份" />
+              </label>
+              {([
+                ["syncAiSettings", "AI 服务与训练设置", "同步服务商选择、模型和训练偏好，不包含 API Key。"],
+                ["syncFavorites", "收藏题目", "同步收藏夹中的题目和归档信息。"],
+                ["syncProjects", "项目配置", "同步项目名称、分类和学习进度。"],
+                ["syncRuntimeLogs", "系统与用户操作日志", "同步运行日志；页面仍只显示本次启动会话的日志。"],
+                ["syncQuestionBank", "AI 分类题库", "按技术栈分类同步 AI 生成题库的 JSON 与 Markdown 文件。"],
+              ] as const).map(([key, title, description]) => <label key={key} className="flex cursor-pointer items-center gap-4 px-4 py-3">
+                <span className="grid size-9 shrink-0 place-items-center rounded-md bg-slate-100 text-slate-600"><HardDrive className="size-4" /></span>
+                <span className="min-w-0 flex-1"><strong className="block text-sm font-medium text-slate-800">{title}</strong><span className="mt-0.5 block text-xs leading-5 text-slate-500">{description}</span></span>
+                <Switch checked={githubSyncSettings[key]} onCheckedChange={(checked) => saveGitHubSyncSettings({ ...githubSyncSettings, [key]: checked })} aria-label={title} />
+              </label>)}
+            </div>
+            <div className="grid gap-3 sm:grid-cols-2">
+              <div className="rounded-lg border border-slate-200 bg-slate-50 p-4"><p className="text-xs font-semibold text-slate-500">配置存档</p><p className="mt-2 break-all font-mono text-xs text-slate-700">data/vision-interview-data.json</p></div>
+              <div className="rounded-lg border border-slate-200 bg-slate-50 p-4"><p className="text-xs font-semibold text-slate-500">AI 题库存档</p><p className="mt-2 break-all font-mono text-xs text-slate-700">data/ai-question-bank/&lt;技术栈&gt;.json · .md</p></div>
+            </div>
+            <div className="rounded-lg border border-amber-200 bg-amber-50/70 p-4 text-sm leading-6 text-amber-900"><p className="font-semibold">学习记录：手动上传</p><p className="mt-1">学习记录不会随自动备份覆盖 GitHub 数据，请在“学习记录”页面使用统一上传按钮；这样可以避免答题过程中产生大量提交。</p></div>
+          </div>
+        </section>}
+
         {settingsSection === "about" && <section className="panel overflow-hidden">
           <div className="border-b border-slate-200 px-5 py-4"><h2 className="font-semibold text-slate-900">关于 VisionInterview</h2><p className="mt-1 text-xs text-slate-500">面向机器视觉工程师的专业知识训练、回答审阅和学习提升工具。</p></div>
           <div className="space-y-4 p-5"><div className="flex items-center gap-3 rounded-lg border border-blue-100 bg-blue-50/60 p-4"><span className="grid size-10 place-items-center rounded-lg bg-blue-600 text-white"><Gauge className="size-5" /></span><div><p className="font-semibold text-slate-900">VisionInterview</p><p className="mt-1 text-xs text-slate-500">机器视觉面试训练台 · 本地优先版本</p></div></div><div className="grid gap-3 sm:grid-cols-2"><div className="rounded-lg border border-slate-200 bg-slate-50 p-4"><p className="text-xs font-semibold text-slate-500">核心流程</p><p className="mt-2 text-sm leading-6 text-slate-700">开始学习 → 完成回答 → AI/本地规则审阅 → 学习记录与温故知新。</p></div><div className="rounded-lg border border-slate-200 bg-slate-50 p-4"><p className="text-xs font-semibold text-slate-500">适用技术</p><p className="mt-2 text-sm leading-6 text-slate-700">HALCON、OpenCV、VisionPro、C#、WPF、相机光源、标定和通讯协议。</p></div></div><p className="text-xs leading-5 text-slate-500">建议先选择知识分类和难度完成一组专业题，再根据学习记录和温故知新中的薄弱点持续复习。</p></div>
@@ -3807,7 +4030,9 @@ function SettingsPage() {
         <div className="flex flex-wrap items-center justify-end gap-3">
           {saved && <span className="flex items-center gap-1.5 text-sm text-emerald-700"><CircleCheck className="size-4" />配置已保存</span>}
           {settingsSection === "model" && <Button variant="outline" onClick={testConnection} disabled={loadingTest || loadingModels}><CircleCheck />{loadingTest ? "正在测试真实聊天…" : "测试真实聊天"}</Button>}
-          <Button onClick={savePreferences} className="bg-blue-600 hover:bg-blue-700"><Save />保存配置</Button>
+          {settingsSection === "github"
+            ? <Button onClick={() => saveGitHubSyncSettings(githubSyncSettings)} className="bg-blue-600 hover:bg-blue-700"><Save />保存 GitHub 设置</Button>
+            : <Button onClick={savePreferences} className="bg-blue-600 hover:bg-blue-700"><Save />保存配置</Button>}
         </div>
         {settingsSection === "model" && testResult && <div className={`flex items-start gap-2.5 rounded-md border p-3 text-sm ${testResult.ok ? "border-emerald-200 bg-emerald-50 text-emerald-800" : "border-amber-200 bg-amber-50 text-amber-800"}`}>
           {testResult.ok ? <CircleCheck className="mt-0.5 size-4 shrink-0" /> : <CircleAlert className="mt-0.5 size-4 shrink-0" />}{testResult.message}
@@ -3833,6 +4058,7 @@ function SettingsPage() {
         </>}
         {settingsSection === "training" && <section className="panel p-5"><Sparkles className="size-6 text-blue-600" /><h2 className="mt-4 font-semibold text-slate-900">训练偏好提示</h2><p className="mt-2 text-sm leading-6 text-slate-600">建议保留 AI 回答审阅和联网专业题库，先独立回答再查看参考答案。</p></section>}
         {settingsSection === "group" && <section className="panel p-5"><ListTree className="size-6 text-blue-600" /><h2 className="mt-4 font-semibold text-slate-900">题组生成提示</h2><p className="mt-2 text-sm leading-6 text-slate-600">建议普通服务商使用 2–3 个并行请求；如果出现超时或限流，可以降低并行数，系统仍会自动重试并补齐题目。</p></section>}
+        {settingsSection === "github" && <section className="panel p-5"><ShieldCheck className="size-6 text-emerald-600" /><h2 className="mt-4 font-semibold text-slate-900">同步安全说明</h2><div className="mt-3 space-y-2 text-sm leading-6 text-slate-600"><p>GitHub Token 只在服务端使用，不会显示在此页面。</p><p>API Key、Token 和密码不会写入备份文件、题库或日志。</p><p>关闭自动备份不会删除 GitHub 历史数据，只会停止后续自动提交。</p></div></section>}
         {settingsSection === "about" && <section className="panel p-5"><FileText className="size-6 text-blue-600" /><h2 className="mt-4 font-semibold text-slate-900">使用建议</h2><p className="mt-2 text-sm leading-6 text-slate-600">先独立回答，再展开最佳回答和技术原理；每次完成后查看审阅建议，并在温故知新中重新组织表达。</p></section>}
       </aside>
     </div>

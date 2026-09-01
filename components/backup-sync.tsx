@@ -4,9 +4,10 @@ import type { ReactNode } from "react";
 import { useEffect, useRef, useState } from "react";
 import {
   appendRuntimeLog,
-  createAutoBackupSnapshot,
+  createScopedAutoBackupSnapshot,
   createCloseBackupPayload,
   mergeBackupData,
+  readGitHubSyncSettings,
   readBackupFromStorage,
   writeBackupToStorage,
 } from "../lib/backup-core.mjs";
@@ -25,7 +26,10 @@ const STARTUP_TIMEOUT_MS = 8_000;
 type Status = "loading" | "saving" | "saved" | "offline" | "error";
 
 function snapshotLocal() {
-  return JSON.stringify(createAutoBackupSnapshot(readBackupFromStorage(localStorage)));
+  return JSON.stringify(createScopedAutoBackupSnapshot(
+    readBackupFromStorage(localStorage),
+    readGitHubSyncSettings(localStorage),
+  ));
 }
 
 function recordLog(level: "INFO" | "WARN" | "ERROR", event: string, message: string, context?: Record<string, unknown>) {
@@ -53,7 +57,9 @@ export function BackupSync({ children }: { children: ReactNode }) {
 
     (async () => {
       const local = readBackupFromStorage(localStorage);
-      const localAutoSnapshot = JSON.stringify(createAutoBackupSnapshot(local));
+      const syncSettings = readGitHubSyncSettings(localStorage);
+      enabled.current = syncSettings.autoBackup;
+      const localAutoSnapshot = JSON.stringify(createScopedAutoBackupSnapshot(local, syncSettings));
       const localRecordsSnapshot = JSON.stringify(local["vision-interview-records"] ?? []);
       let lastSyncedSnapshot = "";
       let lastUploadedRecordsSnapshot = "";
@@ -72,7 +78,7 @@ export function BackupSync({ children }: { children: ReactNode }) {
       }
       const localDirty = lastSyncedSnapshot
         ? lastSyncedSnapshot !== localAutoSnapshot
-        : Object.keys(createAutoBackupSnapshot(local)).length > 0;
+        : Object.keys(createScopedAutoBackupSnapshot(local, syncSettings)).length > 0;
       const recordsDirty = lastUploadedRecordsSnapshot
         ? lastUploadedRecordsSnapshot !== localRecordsSnapshot
         : Array.isArray(local["vision-interview-records"]) && local["vision-interview-records"].length > 0;
@@ -111,7 +117,7 @@ export function BackupSync({ children }: { children: ReactNode }) {
         });
         writeBackupToStorage(localStorage, merged);
         window.dispatchEvent(new Event("vision-interview-backup-loaded"));
-        lastSent.current = JSON.stringify(createAutoBackupSnapshot(localDirty ? body.data ?? {} : merged));
+        lastSent.current = JSON.stringify(createScopedAutoBackupSnapshot(localDirty ? body.data ?? {} : merged, syncSettings));
         if (!localDirty) {
           try { localStorage.setItem(LAST_SYNC_SNAPSHOT_KEY, lastSent.current); } catch { /* 本地存储不可用 */ }
         }
@@ -159,7 +165,21 @@ export function BackupSync({ children }: { children: ReactNode }) {
   }, []);
 
   useEffect(() => {
-    if (!initialized || !enabled.current) return;
+    const applySettings = () => {
+      const settings = readGitHubSyncSettings(localStorage);
+      enabled.current = settings.autoBackup;
+      if (!settings.autoBackup) setDetail("自动备份已关闭，仍可在设置中手动备份");
+    };
+    window.addEventListener("storage", applySettings);
+    window.addEventListener("vision-interview-backup-settings-changed", applySettings);
+    return () => {
+      window.removeEventListener("storage", applySettings);
+      window.removeEventListener("vision-interview-backup-settings-changed", applySettings);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!initialized) return;
 
     const push = async (reason: "change" | "manual") => {
       if (!enabled.current || saving.current) return;
@@ -243,6 +263,7 @@ export function BackupSync({ children }: { children: ReactNode }) {
 
     const flush = () => {
       if (!enabled.current) return;
+      const syncSettings = readGitHubSyncSettings(localStorage);
       const now = Date.now();
       if (now - lastFlushAt.current < 1000) return;
       lastFlushAt.current = now;
@@ -259,7 +280,7 @@ export function BackupSync({ children }: { children: ReactNode }) {
         questionBank = [];
         pendingQuestionBank = [];
       }
-      if (questionBank.length || pendingQuestionBank.length) {
+      if (syncSettings.syncQuestionBank && (questionBank.length || pendingQuestionBank.length)) {
         const completeEntries = questionBank.length ? questionBank : pendingQuestionBank;
         const completeSnapshot = JSON.stringify(completeEntries);
         let lastQuestionBankSync = "";

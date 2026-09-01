@@ -6,9 +6,12 @@ import {
   clearRuntimeLogs,
   createCloseBackupPayload,
   createAutoBackupSnapshot,
+  createScopedAutoBackupSnapshot,
   createRecordsUploadPayload,
+  DEFAULT_GITHUB_SYNC_SETTINGS,
   filterRuntimeLogs,
   filterRuntimeLogsBySession,
+  normalizeGitHubSyncSettings,
   mergeBackupData,
   readBackupFromGitHub,
   readBackupFromStorage,
@@ -32,6 +35,50 @@ function createStorage(initial = {}) {
     },
   };
 }
+
+test("normalizeGitHubSyncSettings applies safe defaults", () => {
+  assert.deepEqual(normalizeGitHubSyncSettings({ syncFavorites: false, autoBackup: "yes" }), {
+    ...DEFAULT_GITHUB_SYNC_SETTINGS,
+    syncFavorites: false,
+  });
+});
+
+test("createScopedAutoBackupSnapshot keeps only enabled GitHub backup scopes", () => {
+  const snapshot = createScopedAutoBackupSnapshot({
+    "vision-interview-records": [{ id: "record-1" }],
+    "vision-interview-favorite-questions": [{ title: "收藏题" }],
+    "vision-interview-projects": [{ id: "project-1" }],
+    "vision-interview-ai-preferences": { provider: "deepseek" },
+    "vision-interview-ai-provider-settings": { deepseek: { model: "deepseek-chat" } },
+    "vision-interview-runtime-logs": [{
+      id: "log-1",
+      timestamp: "2026-08-31T00:00:00.000Z",
+      level: "INFO",
+      event: "app.start",
+      message: "启动",
+    }],
+    "vision-interview-github-sync-settings": { syncFavorites: false },
+  }, {
+    ...DEFAULT_GITHUB_SYNC_SETTINGS,
+    syncAiSettings: false,
+    syncFavorites: true,
+    syncProjects: false,
+    syncRuntimeLogs: true,
+  });
+
+  assert.deepEqual(snapshot, {
+    "vision-interview-favorite-questions": [{ title: "收藏题" }],
+    "vision-interview-runtime-logs": [{
+      id: "log-1",
+      timestamp: "2026-08-31T00:00:00.000Z",
+      level: "INFO",
+      kind: "system",
+      event: "app.start",
+      message: "启动",
+    }],
+    "vision-interview-github-sync-settings": { syncFavorites: false },
+  });
+});
 
 test("createAutoBackupSnapshot keeps favorite questions without credentials", () => {
   const snapshot = createAutoBackupSnapshot({

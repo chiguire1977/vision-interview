@@ -51,3 +51,11 @@ test("first training screen lets the learner configure scope before starting", (
   assert.match(startPanel, /onTechStackChange/);
   assert.match(startPanel, /onDetectionDirectionChange/);
 });
+
+test("settings includes a dedicated GitHub synchronization tab", () => {
+  const page = readFileSync(fileURLToPath(new URL("../app/page.tsx", import.meta.url)), "utf8");
+  assert.match(page, /key: "github", title: "GitHub 同步"/);
+  assert.match(page, /GitHub 备份范围/);
+  assert.match(page, /立即备份到 GitHub/);
+  assert.match(page, /学习记录.*手动上传/);
+});
