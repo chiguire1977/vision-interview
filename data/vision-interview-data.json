@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-01T12:30:14.970Z",
+  "updatedAt": "2026-09-01T12:30:18.579Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1526,7 +1526,7 @@
       "smartFollowUp": true,
       "webQuestions": true,
       "upstreamFormat": "chat-completions",
-      "questionGroupSize": 1,
+      "questionGroupSize": 10,
       "parallelRequests": 5,
       "adaptiveQuestions": true
     },
@@ -1816,6 +1816,18 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788265820581-vx0o9ckp",
+        "timestamp": "2026-09-01T12:30:20.581Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "0286e381862e"
+        }
+      },
       {
         "id": "1788265816994-c85moiw9",
         "timestamp": "2026-09-01T12:30:16.994Z",
@@ -18417,23 +18429,6 @@
           "maxAttempts": 6,
           "collectedCount": 0,
           "workerIndex": 3,
-          "parallelRequests": 3,
-          "error": "请先配置当前 AI 服务商的 API Key。"
-        }
-      },
-      {
-        "id": "1788263626318-c0yu5syf",
-        "timestamp": "2026-09-01T11:53:46.318Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788263513740-6t4nyqwv",
-        "event": "question-bank.attempt.failed",
-        "message": "第 1/6 轮（并行 2/3）：本轮请求失败：请先配置当前 AI 服务商的 API Key。，准备下一轮…",
-        "context": {
-          "attempt": 1,
-          "maxAttempts": 6,
-          "collectedCount": 0,
-          "workerIndex": 2,
           "parallelRequests": 3,
           "error": "请先配置当前 AI 服务商的 API Key。"
         }
