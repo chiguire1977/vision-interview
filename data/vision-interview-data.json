@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-01T12:07:41.077Z",
+  "updatedAt": "2026-09-01T12:07:53.248Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1816,6 +1816,51 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788264473017-u6igbm3d",
+        "timestamp": "2026-09-01T12:07:53.017Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788264356104-1wu8qk6u",
+        "event": "question-bank.ai-request.started",
+        "message": "第 2/6 轮（并行 3/3）：正在请求 AI 生成题目（3 道）…",
+        "context": {
+          "attempt": 2,
+          "maxAttempts": 6,
+          "collectedCount": 0,
+          "workerIndex": 3,
+          "parallelRequests": 3,
+          "requestedCount": 3
+        }
+      },
+      {
+        "id": "1788264473012-pxg2mu0s",
+        "timestamp": "2026-09-01T12:07:53.012Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788264356104-1wu8qk6u",
+        "event": "question-bank.web-search.failed",
+        "message": "signal timed out",
+        "context": {
+          "attempt": 2,
+          "query": "机器视觉 面试知识点 HALCON 传统 2D 视觉 算法原理 工程实践 图像预处理 模板与定位 深度图 点云 法线估计 RANSAC find_surface_model 原理 工程实践",
+          "continueToAi": true,
+          "workerIndex": 3,
+          "parallelRequests": 3
+        }
+      },
+      {
+        "id": "1788264466484-ry5b8xh8",
+        "timestamp": "2026-09-01T12:07:46.484Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "bded8a2b16cd"
+        }
+      },
       {
         "id": "1788264462967-lq586yas",
         "timestamp": "2026-09-01T12:07:42.967Z",
@@ -18545,58 +18590,6 @@
           "workerIndex": 3,
           "parallelRequests": 3,
           "requestedCount": 3
-        }
-      },
-      {
-        "id": "1788263139412-s8x72xdk",
-        "timestamp": "2026-09-01T11:45:39.412Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788263132167-tm9eu9fu",
-        "event": "question-bank.web-search.started",
-        "message": "开始联网检索本轮题目资料",
-        "context": {
-          "attempt": 4,
-          "query": "机器视觉 面试知识点 HALCON 算法原理 工程实践 图像预处理 模板与定位 深度图 点云 法线估计 RANSAC find_surface_model 原理 工程实践",
-          "mode": "专业知识",
-          "excludedCount": 0,
-          "workerIndex": 2,
-          "parallelRequests": 3,
-          "requestedCount": 3
-        }
-      },
-      {
-        "id": "1788263139408-hgmrk5rk",
-        "timestamp": "2026-09-01T11:45:39.408Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788263132167-tm9eu9fu",
-        "event": "question-bank.web-search.started",
-        "message": "开始联网检索本轮题目资料",
-        "context": {
-          "attempt": 4,
-          "query": "机器视觉 面试知识点 HALCON 算法原理 工程实践 图像预处理 模板与定位 深度图 点云 法线估计 RANSAC find_surface_model 原理 工程实践",
-          "mode": "专业知识",
-          "excludedCount": 0,
-          "workerIndex": 1,
-          "parallelRequests": 3,
-          "requestedCount": 4
-        }
-      },
-      {
-        "id": "1788263139267-l87i8qxf",
-        "timestamp": "2026-09-01T11:45:39.267Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788263132167-tm9eu9fu",
-        "event": "question-bank.web-search.completed",
-        "message": "本轮联网检索完成",
-        "context": {
-          "attempt": 5,
-          "query": "机器视觉 面试知识点 HALCON 算法原理 工程实践 图像预处理 模板与定位 深度图 点云 法线估计 RANSAC find_surface_model 原理 工程实践",
-          "sourceCount": 0,
-          "workerIndex": 3,
-          "parallelRequests": 3
         }
       }
     ]
