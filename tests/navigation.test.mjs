@@ -67,5 +67,10 @@ test("settings includes a dedicated GitHub synchronization tab", () => {
   assert.match(page, /<span className="text-lg font-medium text-slate-400">\/<\/span>/);
   assert.match(page, /<div className="flex flex-wrap gap-2">\s*<Button type="button" variant="outline" onClick=\{saveGitHubConnection\}/);
   assert.match(page, /<Button type="button" variant="outline" onClick=\{\(\) => void testGithubConnection\(\)\}/);
+  assert.match(page, /更换 GitHub Token/);
+  assert.match(page, /保存并测试 Token/);
+  assert.match(page, /清除浏览器 Token/);
+  assert.match(page, /type="password"/);
+  assert.match(page, /\/api\/github\/credentials/);
   assert.match(page, /学习记录.*手动上传/);
 });

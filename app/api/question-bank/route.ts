@@ -4,6 +4,7 @@ import {
   questionBankArchiveFileInfo,
 } from "@/lib/question-bank-archive";
 import { normalizeGitHubConnectionSettings } from "@/lib/backup-core.mjs";
+import { readGitHubTokenFromRequest } from "../../../lib/github-credentials.mjs";
 
 export const dynamic = "force-dynamic";
 
@@ -36,7 +37,7 @@ function json(body: Record<string, unknown>, status = 200) {
 }
 
 function getConfig(request?: Request) {
-  const token = process.env.VISION_INTERVIEW_GITHUB_TOKEN?.trim() || process.env.GITHUB_TOKEN?.trim() || "";
+  const token = readGitHubTokenFromRequest(request) || process.env.VISION_INTERVIEW_GITHUB_TOKEN?.trim() || process.env.GITHUB_TOKEN?.trim() || "";
   const environment = normalizeGitHubConnectionSettings({
     repository: process.env.VISION_INTERVIEW_GITHUB_REPOSITORY?.trim() || process.env.GITHUB_REPOSITORY?.trim() || DEFAULT_REPOSITORY,
     branch: process.env.VISION_INTERVIEW_GITHUB_BRANCH?.trim() || DEFAULT_BRANCH,

@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import test, { afterEach } from "node:test";
 
 import { GET, POST } from "../app/api/backup/route.ts";
+import { GITHUB_TOKEN_COOKIE_NAME } from "../lib/github-credentials.mjs";
 
 const originalFetch = globalThis.fetch;
 const originalToken = process.env.GITHUB_BACKUP_TOKEN;
@@ -58,6 +59,23 @@ test("GET uses the configured repository and branch from the connection settings
   assert.equal(body.repository, "acme/vision-bank");
   assert.equal(body.branch, "release");
   assert.match(requestedUrl, /repos\/acme\/vision-bank\/contents\/data\/vision-interview-data\.json\?ref=release/);
+});
+
+test("GET uses the HttpOnly token cookie when no server token is configured", async () => {
+  delete process.env.GITHUB_BACKUP_TOKEN;
+  delete process.env.VISION_INTERVIEW_GITHUB_TOKEN;
+  let authorization = "";
+  globalThis.fetch = async (_url, init = {}) => {
+    authorization = new Headers(init.headers).get("Authorization") || "";
+    return new Response(JSON.stringify({ sha: "data-sha", encoding: "base64", content: Buffer.from(JSON.stringify({ version: 2, data: {} }), "utf8").toString("base64") }), { status: 200 });
+  };
+
+  const response = await GET(new Request("http://localhost/api/backup", {
+    headers: { Cookie: `${GITHUB_TOKEN_COOKIE_NAME}=cookie-token` },
+  }));
+
+  assert.equal(response.status, 200);
+  assert.equal(authorization, "Bearer cookie-token");
 });
 
 test("POST refuses GitHub writes when the server credential is not configured", async () => {

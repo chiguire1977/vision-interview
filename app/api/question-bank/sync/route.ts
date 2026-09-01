@@ -6,6 +6,7 @@ import {
   questionBankArchiveSlugs,
 } from "@/lib/question-bank-archive";
 import { normalizeGitHubConnectionSettings } from "@/lib/backup-core.mjs";
+import { readGitHubTokenFromRequest } from "../../../../lib/github-credentials.mjs";
 
 const DEFAULT_REPOSITORY = "chiguire1977/vision-interview";
 const DEFAULT_BRANCH = "main";
@@ -40,7 +41,7 @@ function githubHeaders(token: string) {
 }
 
 function getConfig(request?: Request) {
-  const token = process.env.VISION_INTERVIEW_GITHUB_TOKEN?.trim() || process.env.GITHUB_TOKEN?.trim() || "";
+  const token = readGitHubTokenFromRequest(request) || process.env.VISION_INTERVIEW_GITHUB_TOKEN?.trim() || process.env.GITHUB_TOKEN?.trim() || "";
   const environment = normalizeGitHubConnectionSettings({
     repository: process.env.VISION_INTERVIEW_GITHUB_REPOSITORY?.trim() || process.env.GITHUB_REPOSITORY?.trim() || DEFAULT_REPOSITORY,
     branch: process.env.VISION_INTERVIEW_GITHUB_BRANCH?.trim() || DEFAULT_BRANCH,

@@ -3382,6 +3382,9 @@ function SettingsPage() {
   const [githubConnection, setGithubConnection] = useState<GitHubConnectionSettings>({ ...DEFAULT_GITHUB_CONNECTION_SETTINGS });
   const [githubStatus, setGithubStatus] = useState<{ state: "loading" | "connected" | "offline" | "error"; detail: string; updatedAt?: string; questionCount?: number }>({ state: "loading", detail: "正在检查 GitHub 存档" });
   const [githubBusy, setGithubBusy] = useState(false);
+  const [githubTokenInput, setGithubTokenInput] = useState("");
+  const [githubTokenBusy, setGithubTokenBusy] = useState(false);
+  const [githubTokenMessage, setGithubTokenMessage] = useState("");
 
   const providerOptions = useMemo(() => {
     const customProviders = Object.keys(providerSettings)
@@ -3754,6 +3757,62 @@ function SettingsPage() {
     setGithubBusy(false);
   }
 
+  async function saveGitHubToken() {
+    const token = githubTokenInput.trim();
+    if (!token) {
+      setGithubTokenMessage("请输入新的 GitHub Token。");
+      return;
+    }
+    const connection = readGitHubConnectionSettings(localStorage);
+    setGithubTokenBusy(true);
+    setGithubTokenMessage("正在验证 Token 的仓库读写权限…");
+    try {
+      const response = await fetch(configuredGithubApiUrl("/api/github/credentials"), {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ token, repository: connection.repository, branch: connection.branch }),
+      });
+      const body = await response.json() as { ok?: boolean; reason?: string };
+      if (!response.ok || body.ok !== true) throw new Error(body.reason || `Token 验证失败（HTTP ${response.status}）。`);
+      setGithubTokenInput("");
+      setGithubTokenMessage("Token 验证成功，已保存到当前浏览器安全会话。");
+      recordRuntimeEvent("INFO", "backup.connection.credential.updated", "GitHub Token 已验证并保存到当前浏览器安全会话", {
+        repository: connection.repository,
+        branch: connection.branch,
+      });
+      await refreshGithubStatus();
+    } catch (error) {
+      const message = error instanceof Error ? error.message : "Token 验证失败。";
+      setGithubTokenMessage(message);
+      recordRuntimeEvent("WARN", "backup.connection.credential.update.failed", "GitHub Token 验证失败", {
+        repository: connection.repository,
+        branch: connection.branch,
+        error: message,
+      });
+    } finally {
+      setGithubTokenBusy(false);
+    }
+  }
+
+  async function clearGitHubToken() {
+    setGithubTokenBusy(true);
+    setGithubTokenMessage("正在清除浏览器 Token…");
+    try {
+      const response = await fetch(configuredGithubApiUrl("/api/github/credentials"), { method: "DELETE" });
+      const body = await response.json() as { ok?: boolean; reason?: string };
+      if (!response.ok || body.ok !== true) throw new Error(body.reason || `清除失败（HTTP ${response.status}）。`);
+      setGithubTokenInput("");
+      setGithubTokenMessage("浏览器 Token 已清除，后续将回退到服务器环境变量。");
+      recordRuntimeEvent("INFO", "backup.connection.credential.cleared", "已清除当前浏览器 GitHub Token", {});
+      await refreshGithubStatus();
+    } catch (error) {
+      const message = error instanceof Error ? error.message : "清除浏览器 Token 失败。";
+      setGithubTokenMessage(message);
+    } finally {
+      setGithubTokenBusy(false);
+    }
+  }
+
   function saveGitHubConnection() {
     const repository = githubConnection.repository.trim();
     const branch = githubConnection.branch.trim();
@@ -3958,10 +4017,19 @@ function SettingsPage() {
                 </div>
                 <div className="flex flex-wrap gap-2">
                   <Button type="button" variant="outline" onClick={saveGitHubConnection} disabled={githubBusy} className="bg-white"><Save />保存连接设置</Button>
-                  <Button type="button" variant="outline" onClick={() => void testGithubConnection()} disabled={githubBusy} className="bg-white"><CircleCheck />测试 GitHub 连接</Button>
+                  <Button type="button" variant="outline" onClick={() => void testGithubConnection()} disabled={githubBusy || githubTokenBusy} className="bg-white"><CircleCheck />测试 GitHub 连接</Button>
                 </div>
               </div>
-              <p className="mt-3 text-xs leading-5 text-slate-500">访问令牌由网站服务端环境变量管理，不在此处输入、不进入浏览器存储，也不会同步到 GitHub。</p>
+              <p className="mt-3 text-xs leading-5 text-slate-500">默认访问令牌由网站服务端环境变量管理；下方更换的 Token 只写入 HttpOnly Cookie，不进入 localStorage、日志或 GitHub。</p>
+              <div className="mt-4 border-t border-slate-200 pt-4">
+                <div className="flex flex-wrap items-start justify-between gap-2"><div><h4 className="text-sm font-semibold text-slate-800">更换 GitHub Token</h4><p className="mt-1 text-xs leading-5 text-slate-500">Token 仅通过 HttpOnly Cookie 保存，前端脚本无法读取；清除站点数据或 30 天后需要重新设置。</p></div><span className="text-xs text-slate-500">当前仅对本浏览器生效</span></div>
+                <div className="mt-3 flex flex-col gap-2 sm:flex-row">
+                  <Input type="password" value={githubTokenInput} onChange={(event) => setGithubTokenInput(event.target.value)} placeholder="输入新的 GitHub Token" autoComplete="new-password" aria-label="新的 GitHub Token" className="bg-white font-mono text-xs" />
+                  <Button type="button" onClick={() => void saveGitHubToken()} disabled={githubTokenBusy || githubBusy} className="bg-blue-600 hover:bg-blue-700"><CircleCheck />保存并测试 Token</Button>
+                  <Button type="button" variant="outline" onClick={() => void clearGitHubToken()} disabled={githubTokenBusy || githubBusy} className="bg-white">清除浏览器 Token</Button>
+                </div>
+                {githubTokenMessage && <p className={`mt-2 text-xs ${githubTokenMessage.includes("失败") || githubTokenMessage.includes("错误") ? "text-rose-700" : "text-slate-500"}`}>{githubTokenMessage}</p>}
+              </div>
             </div>
             <div className="divide-y divide-slate-100 rounded-lg border border-slate-200 bg-white">
               <label className="flex cursor-pointer items-center gap-4 px-4 py-3">

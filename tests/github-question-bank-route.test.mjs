@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import test, { after } from "node:test";
 import { createServer } from "vite";
 import { fileURLToPath } from "node:url";
+import { GITHUB_TOKEN_COOKIE_NAME } from "../lib/github-credentials.mjs";
 
 const root = fileURLToPath(new URL("..", import.meta.url));
 const vite = await createServer({
@@ -94,6 +95,32 @@ test("question bank sync creates the GitHub archive through the contents API", a
     assert.match(markdown, /^## Matching/m);
     assert.match(markdown, /### 1\. Q1/);
     assert.match(markdown, /### 2\. Q2/);
+  } finally {
+    globalThis.fetch = previousFetch;
+    if (previousToken === undefined) delete process.env.VISION_INTERVIEW_GITHUB_TOKEN;
+    else process.env.VISION_INTERVIEW_GITHUB_TOKEN = previousToken;
+  }
+});
+
+test("question bank GET uses the HttpOnly token cookie when no server token is configured", async () => {
+  const route = await vite.ssrLoadModule("/app/api/question-bank/route.ts");
+  const previousToken = process.env.VISION_INTERVIEW_GITHUB_TOKEN;
+  const previousFetch = globalThis.fetch;
+  let authorization = "";
+  delete process.env.VISION_INTERVIEW_GITHUB_TOKEN;
+  globalThis.fetch = async (_url, init = {}) => {
+    authorization = new Headers(init.headers).get("Authorization") || "";
+    return Response.json({ sha: "bank-sha", content: Buffer.from(JSON.stringify({ questions: [] }), "utf8").toString("base64") }, { status: 200 });
+  };
+
+  try {
+    const response = await route.GET(new Request("http://localhost/api/question-bank", {
+      headers: { Cookie: `${GITHUB_TOKEN_COOKIE_NAME}=cookie-token` },
+    }));
+    const body = await response.json();
+    assert.equal(response.status, 200);
+    assert.equal(body.available, true);
+    assert.equal(authorization, "Bearer cookie-token");
   } finally {
     globalThis.fetch = previousFetch;
     if (previousToken === undefined) delete process.env.VISION_INTERVIEW_GITHUB_TOKEN;

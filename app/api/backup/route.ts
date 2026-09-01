@@ -1,6 +1,7 @@
 export const dynamic = "force-dynamic";
 
 import { normalizeGitHubConnectionSettings, readBackupFromGitHub, saveBackupToGitHub } from "../../../lib/backup-core.mjs";
+import { readGitHubTokenFromRequest } from "../../../lib/github-credentials.mjs";
 
 const DEFAULT_REPOSITORY = "chiguire1977/vision-interview";
 const DEFAULT_BRANCH = "main";
@@ -10,8 +11,9 @@ const REPOSITORY = {
 
 const MAX_BODY_BYTES = 4 * 1024 * 1024;
 
-function getBackupToken() {
-  return process.env.VISION_INTERVIEW_GITHUB_TOKEN?.trim()
+function getBackupToken(request?: Request) {
+  return readGitHubTokenFromRequest(request)
+    || process.env.VISION_INTERVIEW_GITHUB_TOKEN?.trim()
     || process.env.GITHUB_BACKUP_TOKEN?.trim()
     || "";
 }
@@ -42,7 +44,7 @@ export async function GET(request?: Request) {
   try {
     const archive = await readBackupFromGitHub({
       fetchImpl: fetch,
-      token: getBackupToken(),
+      token: getBackupToken(request),
       owner: repository.owner,
       repo: repository.repo,
       branch: repository.branch,
@@ -62,7 +64,7 @@ export async function GET(request?: Request) {
 
 export async function POST(request: Request) {
   const repository = getRepository(request);
-  const token = getBackupToken();
+  const token = getBackupToken(request);
   if (!token) {
     return json({ ok: false, available: false, reason: "未配置 GitHub 备份凭据。" }, 503);
   }
