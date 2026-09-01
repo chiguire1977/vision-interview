@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-09-01T12:19:21.149Z",
+  "updatedAt": "2026-09-01T12:22:18.650Z",
   "questions": [
     {
       "title": "在轮胎字符深度OCR项目中，HALCON的深度OCR模型相比传统OCR在抗磨损和倾斜方面有哪些本质优势？",
@@ -16828,6 +16828,142 @@
       "difficultyFilter": "随机难度",
       "techStackFilter": "HALCON",
       "detectionDirectionFilter": "随机方向"
+    },
+    {
+      "title": "HALCON 中实现亚像素边缘提取时，edges_sub_pix 与 threshold 提取的边缘有什么本质区别？为什么测量场景通常采用亚像素边缘？",
+      "type": "算法原理",
+      "category": "算法原理",
+      "source": "专业",
+      "sourceType": "官方文档整理",
+      "knowledgePoints": [
+        "edges_sub_pix 算子输出 XLD 亚像素轮廓",
+        "Canny/Deriche 算法的亚像素定位原理",
+        "亚像素边缘对测量重复精度的影响"
+      ],
+      "difficulty": "中等",
+      "tags": [
+        "HALCON",
+        "亚像素边缘",
+        "XLD",
+        "测量"
+      ],
+      "keywords": [
+        "edges_sub_pix",
+        "XLD轮廓",
+        "Canny/Deriche",
+        "非极大值抑制",
+        "滞后阈值",
+        "拟合精度"
+      ],
+      "followUp": "如果使用 edges_sub_pix 时出现边缘断裂，你会如何调整参数？",
+      "hint": "先用一句话给出结论，再围绕边缘定位精度、轮廓类型和测量场景展开说明。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "detectionDirection": "传统 2D 视觉",
+      "bestAnswer": "结论：edges_sub_pix 提取的是亚像素精度的 XLD 轮廓，而 threshold 得到的是像素级区域边界，前者定位精度更高。原理上，edges_sub_pix 基于 Canny/Deriche 算法，通过高斯滤波、梯度计算、非极大值抑制和滞后阈值，并在梯度方向上进行插值，将边缘定位到亚像素位置。测量场景中，亚像素边缘能显著提升几何拟合和尺寸测量的重复精度，因此成为 HALCON 测量项目的标准做法。",
+      "principle": "Canny/Deriche 边缘检测先对图像平滑以抑制噪声，再计算梯度幅值和方向；非极大值抑制保留局部梯度极大值点，滞后阈值通过双阈值连接边缘。HALCON 的 edges_sub_pix 在此基础上利用灰度插值估计边缘的亚像素位置，输出 XLD 轮廓，供 fit_line_contour_xld 等算子进行高精度拟合。",
+      "id": "aiq-b18bed1c",
+      "generatedAt": "2026-09-01T12:22:21.118Z",
+      "provider": "opencode-go",
+      "model": "deepseek-v4-flash",
+      "project": "机器视觉专业知识",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "HALCON",
+      "detectionDirectionFilter": "传统 2D 视觉"
+    },
+    {
+      "title": "在 HALCON 中做 Blob 分析时，如果目标与背景灰度差异很小，你会如何设计预处理和阈值策略？请给出完整流程。",
+      "type": "工程实践",
+      "category": "工程实践",
+      "source": "专业",
+      "sourceType": "技术教程整理",
+      "knowledgePoints": [
+        "Blob 分析标准流程：预处理→阈值→连通域→特征筛选",
+        "阈值选择对分割结果的影响",
+        "形态学运算在 Blob 分析中的作用"
+      ],
+      "difficulty": "中等",
+      "tags": [
+        "HALCON",
+        "Blob分析",
+        "阈值分割",
+        "连通域",
+        "特征筛选"
+      ],
+      "keywords": [
+        "预处理",
+        "threshold",
+        "connection",
+        "select_shape",
+        "形态学",
+        "动态阈值"
+      ],
+      "followUp": "如果阈值分割后目标内部出现空洞，你会如何解决？",
+      "hint": "先用一句话给出结论，再围绕预处理、阈值分割、连通域分析、特征筛选和形态学处理展开说明。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "detectionDirection": "传统 2D 视觉",
+      "bestAnswer": "结论：当目标与背景灰度接近时，应先通过图像预处理增强对比度，再选择合适阈值分割。完整流程为：图像采集→预处理（如高斯滤波、直方图均衡化、顶帽变换）→threshold 或 dyn_threshold 分割→connection 连通域分析→select_shape 按面积、圆度等特征筛选→形态学开闭运算修正区域。阈值过高会丢失目标，过低会引入噪声，因此需结合灰度直方图或局部阈值确定；特征筛选用于剔除干扰区域，形态学运算可填充空洞或分离粘连目标。",
+      "principle": "Blob 分析的核心是将灰度图像转化为二值区域。阈值分割基于灰度分布将像素分为前景和背景；连通域分析通过像素邻接关系标记独立区域；特征筛选基于区域的几何属性（面积、圆度、矩形度等）进行决策。形态学开运算可去除小噪声，闭运算可填充内部空洞，从而改善分割结果。",
+      "id": "aiq-e6b2218d",
+      "generatedAt": "2026-09-01T12:22:21.118Z",
+      "provider": "opencode-go",
+      "model": "deepseek-v4-flash",
+      "project": "机器视觉专业知识",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "HALCON",
+      "detectionDirectionFilter": "传统 2D 视觉"
+    },
+    {
+      "title": "在 HALCON 中，针对低对比度缺陷图像，直方图均衡化与 CLAHE 分别适用于什么场景？如何选择？",
+      "type": "图像预处理",
+      "category": "图像预处理",
+      "source": "专业",
+      "sourceType": "技术教程整理",
+      "knowledgePoints": [
+        "直方图均衡化的原理与局限",
+        "CLAHE 的局部对比度增强机制",
+        "低对比度缺陷检测中的预处理选择策略"
+      ],
+      "difficulty": "基础",
+      "tags": [
+        "HALCON",
+        "图像预处理",
+        "直方图均衡化",
+        "CLAHE",
+        "对比度增强"
+      ],
+      "keywords": [
+        "直方图均衡化",
+        "CLAHE",
+        "局部对比度",
+        "光照不均",
+        "参数选择"
+      ],
+      "followUp": "CLAHE 的 ClipLimit 参数设置过大会有什么影响？",
+      "hint": "先用一句话给出结论，再围绕全局与局部增强的适用条件展开说明。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "detectionDirection": "传统 2D 视觉",
+      "bestAnswer": "结论：若整幅图像对比度普遍偏低且光照均匀，优先使用直方图均衡化；若存在光照不均或局部阴影，应使用 CLAHE 增强局部对比度。直方图均衡化通过重新映射灰度提升全局对比度，但可能放大噪声；CLAHE 在局部区域进行直方图均衡化，并通过 ClipLimit 限制对比度放大程度，能更好地保留细节。实际缺陷检测中，可先尝试 CLAHE，再结合滤波或形态学进一步突出缺陷。",
+      "principle": "直方图均衡化利用累积分布函数将灰度级重新分布，使直方图更平坦，从而扩大灰度动态范围。CLAHE 将图像划分为多个子块，在每个子块内做直方图均衡化，并用 ClipLimit 裁剪过高的直方图峰值，最后通过插值消除块效应，从而在增强局部对比度的同时抑制噪声放大。",
+      "id": "aiq-07b33840",
+      "generatedAt": "2026-09-01T12:22:21.118Z",
+      "provider": "opencode-go",
+      "model": "deepseek-v4-flash",
+      "project": "机器视觉专业知识",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "HALCON",
+      "detectionDirectionFilter": "传统 2D 视觉"
     }
   ]
 }
