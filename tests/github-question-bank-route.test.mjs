@@ -13,7 +13,7 @@ const vite = await createServer({
 });
 after(async () => { await vite.close(); });
 
-function entry(title) {
+function entry(title, techStacks = ["general"]) {
   return {
     id: `id-${title}`,
     title,
@@ -25,7 +25,7 @@ function entry(title) {
     keywords: ["NCC"],
     followUp: "Follow up",
     hint: "Hint",
-    techStacks: ["general"],
+    techStacks,
     bestAnswer: "Answer",
     principle: "Principle",
     generatedAt: "2026-08-31T00:00:00.000Z",
@@ -77,22 +77,56 @@ test("question bank sync creates the GitHub archive through the contents API", a
     assert.equal(body.total, 2);
     assert.equal(body.complete, true);
     assert.equal(body.markdownPath, "data/ai-question-bank.md");
-    assert.equal(calls.length, 4);
-    assert.match(calls[0].url, /repos\/chiguire1977\/vision-interview\/contents\/data%2Fai-question-bank\.json/);
-    assert.equal(calls[1].init.method, "PUT");
-    const putBody = JSON.parse(calls[1].init.body);
+    const puts = calls.filter((call) => call.init.method === "PUT");
+    assert.equal(puts.length, 2);
+    assert.ok(puts.some((call) => call.url.includes("halcon.json") || call.url.includes("general.json")));
+    assert.ok(puts.some((call) => call.url.includes("halcon.md") || call.url.includes("general.md")));
+    const jsonPut = puts.find((call) => call.url.includes("general.json")) ?? puts.find((call) => call.url.includes("halcon.json"));
+    const putBody = JSON.parse(jsonPut.init.body);
     const archiveJson = Buffer.from(putBody.content, "base64").toString("utf8");
     const archive = JSON.parse(archiveJson);
     assert.equal(archive.questions.length, 2);
     assert.equal(archive.questions[0].title, "Q1");
-    assert.match(calls[2].url, /repos\/chiguire1977\/vision-interview\/contents\/data%2Fai-question-bank\.md/);
-    assert.equal(calls[3].init.method, "PUT");
-    const markdownBody = JSON.parse(calls[3].init.body);
+    const markdownPut = puts.find((call) => call.url.includes("general.md")) ?? puts.find((call) => call.url.includes("halcon.md"));
+    const markdownBody = JSON.parse(markdownPut.init.body);
     const markdown = Buffer.from(markdownBody.content, "base64").toString("utf8");
     assert.match(markdown, /^# AI 生成题库/m);
     assert.match(markdown, /^## Matching/m);
     assert.match(markdown, /### 1\. Q1/);
     assert.match(markdown, /### 2\. Q2/);
+  } finally {
+    globalThis.fetch = previousFetch;
+    if (previousToken === undefined) delete process.env.VISION_INTERVIEW_GITHUB_TOKEN;
+    else process.env.VISION_INTERVIEW_GITHUB_TOKEN = previousToken;
+  }
+});
+
+test("question bank sync writes questions into separate technology stack archives", async () => {
+  const route = await vite.ssrLoadModule("/app/api/question-bank/sync/route.ts");
+  const previousToken = process.env.VISION_INTERVIEW_GITHUB_TOKEN;
+  const previousFetch = globalThis.fetch;
+  const calls = [];
+  process.env.VISION_INTERVIEW_GITHUB_TOKEN = "test-token";
+  globalThis.fetch = async (url, init = {}) => {
+    calls.push({ url: String(url), init });
+    if (!init.method || init.method === "GET") return new Response("not found", { status: 404 });
+    return Response.json({ commit: { sha: "stack-commit" } }, { status: 200 });
+  };
+
+  try {
+    const response = await route.POST(new Request("http://localhost/api/question-bank/sync", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ entries: [entry("HALCON-Q", ["HALCON"]), entry("OpenCV-Q", ["OpenCV"])], complete: true }),
+    }));
+    const body = await response.json();
+    assert.equal(response.status, 200);
+    assert.equal(body.archived, true);
+    const putUrls = calls.filter((call) => call.init.method === "PUT").map((call) => call.url);
+    assert.ok(putUrls.some((url) => url.includes("halcon.json")));
+    assert.ok(putUrls.some((url) => url.includes("halcon.md")));
+    assert.ok(putUrls.some((url) => url.includes("opencv.json")));
+    assert.ok(putUrls.some((url) => url.includes("opencv.md")));
   } finally {
     globalThis.fetch = previousFetch;
     if (previousToken === undefined) delete process.env.VISION_INTERVIEW_GITHUB_TOKEN;

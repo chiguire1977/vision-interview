@@ -74,3 +74,48 @@ test("question bank GET loads the GitHub archive without exposing credentials", 
     else process.env.VISION_INTERVIEW_GITHUB_TOKEN = previousToken;
   }
 });
+
+test("question bank GET aggregates the legacy archive and technology-specific archives", async () => {
+  const previousToken = process.env.VISION_INTERVIEW_GITHUB_TOKEN;
+  const previousFetch = globalThis.fetch;
+  process.env.VISION_INTERVIEW_GITHUB_TOKEN = "server-only-token";
+  const stackQuestion = {
+    id: "halcon-1",
+    title: "HALCON 技术栈题",
+    type: "工程实践",
+    category: "模板匹配",
+    source: "专业",
+    difficulty: "中等",
+    tags: ["HALCON"],
+    keywords: ["模板"],
+    followUp: "追问",
+    hint: "提示",
+    bestAnswer: "答案",
+    principle: "原理",
+    techStacks: ["HALCON"],
+    generatedAt: "2026-08-31T02:00:00.000Z",
+  };
+  globalThis.fetch = async (url) => {
+    if (String(url).includes("contents/data%2Fai-question-bank?")) {
+      return Response.json([{ type: "file", path: "data/ai-question-bank/halcon.json" }]);
+    }
+    if (String(url).includes("halcon.json")) {
+      return Response.json({ content: Buffer.from(JSON.stringify({ questions: [stackQuestion] }), "utf8").toString("base64") });
+    }
+    return new Response("not found", { status: 404 });
+  };
+
+  try {
+    const route = await vite.ssrLoadModule("/app/api/question-bank/route.ts");
+    const response = await route.GET();
+    const body = await response.json();
+    assert.equal(response.status, 200);
+    assert.equal(body.questionCount, 1);
+    assert.equal(body.questions[0].title, stackQuestion.title);
+    assert.ok(body.files.some((file) => file.slug === "halcon" && file.questionCount === 1));
+  } finally {
+    globalThis.fetch = previousFetch;
+    if (previousToken === undefined) delete process.env.VISION_INTERVIEW_GITHUB_TOKEN;
+    else process.env.VISION_INTERVIEW_GITHUB_TOKEN = previousToken;
+  }
+});

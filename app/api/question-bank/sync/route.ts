@@ -1,4 +1,10 @@
 import { createQuestionBankMarkdown, mergeQuestionBankArchive } from "@/lib/ai-question-bank";
+import {
+  QUESTION_BANK_ARCHIVE_DIRECTORY,
+  questionBankArchiveFileInfo,
+  questionBankArchivePath,
+  questionBankArchiveSlugs,
+} from "@/lib/question-bank-archive";
 
 const DEFAULT_REPOSITORY = "chiguire1977/vision-interview";
 const DEFAULT_BRANCH = "main";
@@ -15,12 +21,11 @@ function encodeBase64Utf8(value: string) {
   }
   return btoa(binary);
 }
+
 function decodeBase64Utf8(value: string) {
   const binary = atob(value.replace(/\s+/g, ""));
   const bytes = new Uint8Array(binary.length);
-  for (let index = 0; index < binary.length; index += 1) {
-    bytes[index] = binary.charCodeAt(index);
-  }
+  for (let index = 0; index < binary.length; index += 1) bytes[index] = binary.charCodeAt(index);
   return new TextDecoder().decode(bytes);
 }
 
@@ -35,91 +40,107 @@ function githubHeaders(token: string) {
 
 function getConfig() {
   const token = process.env.VISION_INTERVIEW_GITHUB_TOKEN?.trim() || process.env.GITHUB_TOKEN?.trim() || "";
-  const repository =
-    process.env.VISION_INTERVIEW_GITHUB_REPOSITORY?.trim()
-    || process.env.GITHUB_REPOSITORY?.trim()
-    || DEFAULT_REPOSITORY;
+  const repository = process.env.VISION_INTERVIEW_GITHUB_REPOSITORY?.trim() || process.env.GITHUB_REPOSITORY?.trim() || DEFAULT_REPOSITORY;
   const branch = process.env.VISION_INTERVIEW_GITHUB_BRANCH?.trim() || DEFAULT_BRANCH;
   const archivePath = process.env.VISION_INTERVIEW_GITHUB_ARCHIVE_PATH?.trim() || DEFAULT_ARCHIVE_PATH;
   const markdownPath = process.env.VISION_INTERVIEW_GITHUB_MARKDOWN_PATH?.trim() || DEFAULT_MARKDOWN_PATH;
   return { token, repository, branch, archivePath, markdownPath };
 }
 
-async function readRemoteFile(config: ReturnType<typeof getConfig>, path: string) {
-  const endpoint = `https://api.github.com/repos/${config.repository}/contents/${encodeURIComponent(path)}?ref=${encodeURIComponent(config.branch)}`;
-  const response = await fetch(endpoint, {
+function contentsEndpoint(config: ReturnType<typeof getConfig>, path: string) {
+  return `https://api.github.com/repos/${config.repository}/contents/${encodeURIComponent(path)}?ref=${encodeURIComponent(config.branch)}`;
+}
+
+type RemoteFile = { path: string; endpoint: string; sha: string; content: string };
+type ParsedRemoteFile = RemoteFile & { questions: unknown[]; updatedAt: string };
+
+async function readRemoteFile(config: ReturnType<typeof getConfig>, path: string): Promise<RemoteFile> {
+  const endpoint = contentsEndpoint(config, path);
+  const response = await fetch(endpoint, { headers: githubHeaders(config.token), cache: "no-store" });
+  if (response.status === 404) return { path, endpoint, sha: "", content: "" };
+  if (!response.ok) {
+    const detail = await response.text().catch(() => "");
+    throw new Error(`GitHub archive read failed (HTTP ${response.status})${detail ? `: ${detail.slice(0, 240)}` : ""}`);
+  }
+  const body = await response.json() as { sha?: unknown; content?: unknown };
+  return {
+    path,
+    endpoint,
+    sha: typeof body.sha === "string" ? body.sha : "",
+    content: typeof body.content === "string" ? body.content : "",
+  };
+}
+
+async function listArchiveFiles(config: ReturnType<typeof getConfig>) {
+  const response = await fetch(contentsEndpoint(config, QUESTION_BANK_ARCHIVE_DIRECTORY), {
     headers: githubHeaders(config.token),
     cache: "no-store",
   });
-  if (response.status === 404) {
-    return { endpoint, sha: "", content: "" };
-  }
+  if (response.status === 404) return [] as string[];
   if (!response.ok) {
     const detail = await response.text().catch(() => "");
-    throw new Error(
-      "GitHub archive read failed (HTTP " + response.status + ")" + (detail ? ": " + detail.slice(0, 240) : ""),
-    );
+    throw new Error(`GitHub archive directory read failed (HTTP ${response.status})${detail ? `: ${detail.slice(0, 240)}` : ""}`);
   }
-
-  const body = await response.json() as { sha?: unknown; content?: unknown };
-  const sha = typeof body.sha === "string" ? body.sha : "";
-  const content = typeof body.content === "string" ? body.content : "";
-  return { endpoint, sha, content };
+  const body = await response.json() as unknown;
+  if (!Array.isArray(body)) return [] as string[];
+  return [...new Set(body
+    .filter((item): item is { type?: unknown; path?: unknown } => Boolean(item) && typeof item === "object")
+    .filter((item) => item.type === "file" && typeof item.path === "string" && Boolean(questionBankArchiveFileInfo(item.path)))
+    .map((item) => item.path as string))];
 }
 
-async function readRemoteArchive(config: ReturnType<typeof getConfig>) {
-  const remote = await readRemoteFile(config, config.archivePath);
-  const { endpoint, sha, content } = remote;
-  if (!content) return { endpoint, sha, questions: [] as unknown[] };
-
+function parseQuestions(file: RemoteFile): ParsedRemoteFile {
+  if (!file.content) return { ...file, questions: [], updatedAt: "" };
   try {
-    const parsed = JSON.parse(decodeBase64Utf8(content)) as { questions?: unknown[] } | unknown[];
-    const questions = Array.isArray(parsed)
-      ? parsed
-      : Array.isArray(parsed?.questions)
-        ? parsed.questions
-        : [];
-    return { endpoint, sha, questions };
+    const parsed = JSON.parse(decodeBase64Utf8(file.content)) as { questions?: unknown[]; updatedAt?: unknown } | unknown[];
+    if (Array.isArray(parsed)) return { ...file, questions: parsed, updatedAt: "" };
+    return {
+      ...file,
+      questions: Array.isArray(parsed?.questions) ? parsed.questions : [],
+      updatedAt: typeof parsed?.updatedAt === "string" ? parsed.updatedAt : "",
+    };
   } catch {
-    throw new Error("GitHub question bank JSON is invalid.");
+    return { ...file, questions: [], updatedAt: "" };
   }
 }
 
-async function writeRemoteArchive(
-  config: ReturnType<typeof getConfig>,
-  endpoint: string,
-  sha: string,
-  questions: unknown[],
-  updatedAt: string,
-) {
-  const archive = {
-    version: 1,
-    updatedAt,
-    questions,
-  };
-  return writeRemoteFile(
-    config,
-    endpoint,
-    sha,
-    encodeBase64Utf8(`${JSON.stringify(archive, null, 2)}\n`),
-    "Backup AI generated interview questions",
-  );
+async function readRemoteArchives(config: ReturnType<typeof getConfig>) {
+  const legacy = parseQuestions(await readRemoteFile(config, config.archivePath));
+  let categorizedPaths: string[] = [];
+  try {
+    categorizedPaths = await listArchiveFiles(config);
+  } catch {
+    // 旧总题库仍可用于兼容写入；分类目录会在本次同步时按需创建。
+  }
+  const files = (await Promise.all(categorizedPaths.map((path) => readRemoteFile(config, path)))).map(parseQuestions);
+  const categorizedJson = files.filter((file) => questionBankArchiveFileInfo(file.path)?.extension === "json");
+  const markdown = new Map(files
+    .filter((file) => questionBankArchiveFileInfo(file.path)?.extension === "md")
+    .map((file) => [questionBankArchiveFileInfo(file.path)?.slug || "", file] as const));
+  const jsonBySlug = new Map(categorizedJson
+    .map((file) => [questionBankArchiveFileInfo(file.path)?.slug || "", file] as const));
+  const questions = mergeQuestionBankArchive([], [legacy, ...categorizedJson].flatMap((file) => file.questions));
+  return { legacy, categorizedJson, markdown, jsonBySlug, questions };
 }
 
-async function writeRemoteMarkdown(
-  config: ReturnType<typeof getConfig>,
-  endpoint: string,
-  sha: string,
-  questions: unknown[],
-  updatedAt: string,
-) {
-  return writeRemoteFile(
-    config,
-    endpoint,
-    sha,
-    encodeBase64Utf8(createQuestionBankMarkdown(questions, updatedAt)),
-    "Backup AI generated interview questions (Markdown)",
-  );
+function groupedArchives(values: unknown[]) {
+  const groups = new Map<string, unknown[]>();
+  for (const value of values) {
+    for (const slug of questionBankArchiveSlugs(value)) {
+      const current = groups.get(slug) ?? [];
+      current.push(value);
+      groups.set(slug, current);
+    }
+  }
+  return new Map([...groups.entries()].map(([slug, entries]) => [slug, mergeQuestionBankArchive([], entries)] as const));
+}
+
+function serializedArchive(questions: unknown[], updatedAt: string) {
+  return `${JSON.stringify({ version: 1, updatedAt, questions }, null, 2)}\n`;
+}
+
+function normalizedQuestions(value: unknown[]) {
+  return JSON.stringify(mergeQuestionBankArchive([], value));
 }
 
 async function writeRemoteFile(
@@ -131,10 +152,7 @@ async function writeRemoteFile(
 ) {
   return fetch(endpoint, {
     method: "PUT",
-    headers: {
-      ...githubHeaders(config.token),
-      "Content-Type": "application/json",
-    },
+    headers: { ...githubHeaders(config.token), "Content-Type": "application/json" },
     body: JSON.stringify({
       message,
       content,
@@ -144,110 +162,95 @@ async function writeRemoteFile(
   });
 }
 
+async function commitSha(response: Response) {
+  const body = await response.json().catch(() => ({})) as { commit?: { sha?: unknown } };
+  return typeof body.commit?.sha === "string" ? body.commit.sha : null;
+}
+
 export async function POST(request: Request) {
   try {
     const body = await request.json() as { entries?: unknown[]; complete?: unknown };
     const incoming = Array.isArray(body.entries) ? body.entries : [];
     const complete = body.complete === true;
-    if (!incoming.length) {
-      return Response.json(
-        { ok: false, archived: false, reason: "no_entries" },
-        { status: 400 },
-      );
-    }
+    if (!incoming.length) return Response.json({ ok: false, archived: false, reason: "no_entries" }, { status: 400 });
 
     const config = getConfig();
     if (!config.token) {
-      return Response.json(
-        {
-          ok: true,
-          archived: false,
-          reason: "github_not_configured",
-          accepted: incoming.length,
-          complete,
-        },
-        { status: 202 },
-      );
+      return Response.json({ ok: true, archived: false, reason: "github_not_configured", accepted: incoming.length, complete }, { status: 202 });
     }
 
     for (let attempt = 1; attempt <= 2; attempt += 1) {
       const updatedAt = new Date().toISOString();
-      const remote = await readRemoteArchive(config);
+      const remote = await readRemoteArchives(config);
       const merged = mergeQuestionBankArchive(remote.questions, incoming);
-      if (!merged.length) {
-        return Response.json(
-          { ok: false, archived: false, reason: "no_valid_entries" },
-          { status: 400 },
+      if (!merged.length) return Response.json({ ok: false, archived: false, reason: "no_valid_entries" }, { status: 400 });
+
+      const grouped = groupedArchives(merged);
+      const affectedSlugs = complete
+        ? [...grouped.keys()]
+        : [...new Set(incoming.flatMap((entry) => questionBankArchiveSlugs(entry)))];
+      const changedFiles: string[] = [];
+      let lastCommit: string | null = null;
+      let conflicted = false;
+
+      for (const slug of affectedSlugs) {
+        const questions = grouped.get(slug) ?? [];
+        if (!questions.length) continue;
+        const current = remote.jsonBySlug.get(slug);
+        if (current && normalizedQuestions(current.questions) === normalizedQuestions(questions)) continue;
+
+        const jsonPath = questionBankArchivePath(slug, "json");
+        const jsonResponse = await writeRemoteFile(
+          config,
+          contentsEndpoint(config, jsonPath),
+          current?.sha || "",
+          encodeBase64Utf8(serializedArchive(questions, updatedAt)),
+          `Backup AI question bank (${slug})`,
         );
+        if (jsonResponse.status === 409 || jsonResponse.status === 422) { conflicted = true; break; }
+        if (!jsonResponse.ok) {
+          const detail = await jsonResponse.text().catch(() => "");
+          return Response.json({ ok: false, archived: false, reason: "github_write_failed", message: `GitHub archive write failed (HTTP ${jsonResponse.status})${detail ? `: ${detail.slice(0, 240)}` : ""}` }, { status: 502 });
+        }
+        lastCommit = await commitSha(jsonResponse) || lastCommit;
+        changedFiles.push(jsonPath);
+
+        const markdownPath = questionBankArchivePath(slug, "md");
+        const markdownFile = remote.markdown.get(slug);
+        const markdownResponse = await writeRemoteFile(
+          config,
+          contentsEndpoint(config, markdownPath),
+          markdownFile?.sha || "",
+          encodeBase64Utf8(createQuestionBankMarkdown(questions, updatedAt)),
+          `Backup AI question bank Markdown (${slug})`,
+        );
+        if (markdownResponse.status === 409 || markdownResponse.status === 422) { conflicted = true; break; }
+        if (!markdownResponse.ok) {
+          const detail = await markdownResponse.text().catch(() => "");
+          return Response.json({ ok: false, archived: false, reason: "github_markdown_write_failed", message: `GitHub Markdown archive write failed (HTTP ${markdownResponse.status})${detail ? `: ${detail.slice(0, 240)}` : ""}` }, { status: 502 });
+        }
+        lastCommit = await commitSha(markdownResponse) || lastCommit;
+        changedFiles.push(markdownPath);
       }
 
-      let response = await writeRemoteArchive(config, remote.endpoint, remote.sha, merged, updatedAt);
-      if (response.status === 409 || response.status === 422) continue;
-      if (!response.ok) {
-        const detail = await response.text().catch(() => "");
-        return Response.json(
-          {
-            ok: false,
-            archived: false,
-            reason: "github_write_failed",
-            message: "GitHub archive write failed (HTTP " + response.status + ")" + (detail ? ": " + detail.slice(0, 240) : ""),
-          },
-          { status: 502 },
-        );
-      }
-
-      const markdown = await readRemoteFile(config, config.markdownPath);
-      response = await writeRemoteMarkdown(config, markdown.endpoint, markdown.sha, merged, updatedAt);
-      if (response.status === 409 || response.status === 422) continue;
-      if (!response.ok) {
-        const detail = await response.text().catch(() => "");
-        return Response.json(
-          {
-            ok: false,
-            archived: false,
-            reason: "github_markdown_write_failed",
-            message: "GitHub Markdown archive write failed (HTTP " + response.status + ")" + (detail ? ": " + detail.slice(0, 240) : ""),
-          },
-          { status: 502 },
-        );
-      }
-
-      const result = await response.json().catch(() => ({})) as { commit?: { sha?: string } };
-      return Response.json(
-        {
-          ok: true,
-          archived: true,
-          total: merged.length,
-          addedOrUpdated: incoming.length,
-          commit: result.commit?.sha ?? null,
-          repository: config.repository,
-          branch: config.branch,
-          path: config.archivePath,
-          markdownPath: config.markdownPath,
-          complete,
-        },
-        { headers: { "Cache-Control": "no-store" } },
-      );
+      if (conflicted) continue;
+      return Response.json({
+        ok: true,
+        archived: true,
+        total: merged.length,
+        addedOrUpdated: incoming.length,
+        commit: lastCommit,
+        repository: config.repository,
+        branch: config.branch,
+        path: config.archivePath,
+        markdownPath: config.markdownPath,
+        complete,
+        changedFiles,
+      }, { headers: { "Cache-Control": "no-store" } });
     }
 
-    return Response.json(
-      {
-        ok: false,
-        archived: false,
-        reason: "github_conflict",
-        message: "GitHub archive update conflicted twice; please retry.",
-      },
-      { status: 409 },
-    );
+    return Response.json({ ok: false, archived: false, reason: "github_conflict", message: "GitHub archive update conflicted twice; please retry." }, { status: 409 });
   } catch (error) {
-    return Response.json(
-      {
-        ok: false,
-        archived: false,
-        reason: "sync_exception",
-        message: error instanceof Error ? error.message : "Question bank sync failed.",
-      },
-      { status: 500 },
-     );
+    return Response.json({ ok: false, archived: false, reason: "sync_exception", message: error instanceof Error ? error.message : "Question bank sync failed." }, { status: 500 });
   }
 }
