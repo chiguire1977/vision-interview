@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-01T12:32:32.320Z",
+  "updatedAt": "2026-09-01T12:32:36.158Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1816,6 +1816,48 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788265958149-j9zj4dnm",
+        "timestamp": "2026-09-01T12:32:38.149Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "3016a4a07b4c"
+        }
+      },
+      {
+        "id": "1788265953384-1tx15jxe",
+        "timestamp": "2026-09-01T12:32:33.384Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.close.flush",
+        "message": "页面关闭或进入后台，提交最后一次备份"
+      },
+      {
+        "id": "1788265952099-sixvkvpx",
+        "timestamp": "2026-09-01T12:32:32.099Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788264675884-efebbymx",
+        "event": "question-group.prepare.started",
+        "message": "开始准备题组",
+        "context": {
+          "project": "机器视觉专业知识",
+          "mode": "专业知识",
+          "questionCount": 10,
+          "sourceMode": "network",
+          "adaptiveQuestions": true,
+          "focusCategories": [
+            "算法原理",
+            "工程实践",
+            "图像预处理",
+            "模板与定位"
+          ]
+        }
+      },
       {
         "id": "1788265949079-z0zwsle4",
         "timestamp": "2026-09-01T12:32:29.079Z",
@@ -18394,50 +18436,6 @@
           "workerIndex": 1,
           "parallelRequests": 3,
           "requestedCount": 4
-        }
-      },
-      {
-        "id": "1788263922142-trl091nm",
-        "timestamp": "2026-09-01T11:58:42.142Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "f2c380b540a2"
-        }
-      },
-      {
-        "id": "1788263922131-qreg9hvd",
-        "timestamp": "2026-09-01T11:58:42.131Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788263890472-i4ypgjv5",
-        "event": "question-bank.web-search.failed",
-        "message": "网络检索超时，请稍后重试。",
-        "context": {
-          "attempt": 2,
-          "query": "机器视觉 面试知识点 算法原理 工程实践 图像预处理 模板与定位 深度图 点云 法线估计 RANSAC find_surface_model 原理 工程实践",
-          "continueToAi": true,
-          "workerIndex": 3,
-          "parallelRequests": 3
-        }
-      },
-      {
-        "id": "1788263922125-apfnfeid",
-        "timestamp": "2026-09-01T11:58:42.125Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788263890472-i4ypgjv5",
-        "event": "question-bank.web-search.failed",
-        "message": "网络检索超时，请稍后重试。",
-        "context": {
-          "attempt": 2,
-          "query": "机器视觉 面试知识点 算法原理 工程实践 图像预处理 模板与定位 深度图 点云 法线估计 RANSAC find_surface_model 原理 工程实践",
-          "continueToAi": true,
-          "workerIndex": 2,
-          "parallelRequests": 3
         }
       }
     ]
