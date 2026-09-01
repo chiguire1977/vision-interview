@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-01T13:07:02.171Z",
+  "updatedAt": "2026-09-01T13:07:08.668Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1816,6 +1816,35 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788268029956-9putczyu",
+        "timestamp": "2026-09-01T13:07:09.956Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788267920001-m70g11yz",
+        "event": "question-bank.ai-request.duration",
+        "message": "单个并行 AI 请求完成",
+        "context": {
+          "attempt": 2,
+          "workerIndex": 3,
+          "parallelRequests": 5,
+          "requestedCount": 1,
+          "receivedCount": 1,
+          "durationMs": 48104
+        }
+      },
+      {
+        "id": "1788268028258-xgswt72n",
+        "timestamp": "2026-09-01T13:07:08.258Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "c48e66fa025b"
+        }
+      },
       {
         "id": "1788268024496-koxefufm",
         "timestamp": "2026-09-01T13:07:04.496Z",
@@ -18342,39 +18371,6 @@
           "maxAttempts": 6,
           "collectedCount": 0,
           "workerIndex": 3,
-          "parallelRequests": 3,
-          "requestedCount": 3
-        }
-      },
-      {
-        "id": "1788264356538-7jjgzpdj",
-        "timestamp": "2026-09-01T12:05:56.538Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264356104-1wu8qk6u",
-        "event": "question-bank.web-search.completed",
-        "message": "本轮联网检索完成",
-        "context": {
-          "attempt": 1,
-          "query": "机器视觉 面试知识点 算法原理 工程实践 图像预处理 模板与定位 深度图 点云 法线估计 RANSAC find_surface_model 原理 工程实践",
-          "sourceCount": 0,
-          "workerIndex": 3,
-          "parallelRequests": 3
-        }
-      },
-      {
-        "id": "1788264356532-vy7yu0kg",
-        "timestamp": "2026-09-01T12:05:56.532Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264356104-1wu8qk6u",
-        "event": "question-bank.ai-request.started",
-        "message": "第 1/6 轮（并行 2/3）：正在请求 AI 生成题目（3 道）…",
-        "context": {
-          "attempt": 1,
-          "maxAttempts": 6,
-          "collectedCount": 0,
-          "workerIndex": 2,
           "parallelRequests": 3,
           "requestedCount": 3
         }
