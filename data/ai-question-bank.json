@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-09-01T12:28:56.134Z",
+  "updatedAt": "2026-09-01T12:29:54.674Z",
   "questions": [
     {
       "title": "在轮胎字符深度OCR项目中，HALCON的深度OCR模型相比传统OCR在抗磨损和倾斜方面有哪些本质优势？",
@@ -17099,6 +17099,145 @@
       "difficultyFilter": "随机难度",
       "techStackFilter": "HALCON",
       "detectionDirectionFilter": "随机方向"
+    },
+    {
+      "title": "HALCON 形状模板匹配中金字塔层数、角度范围和 Greediness 分别如何影响匹配速度与精度？实际项目中应如何设置？",
+      "type": "算法原理",
+      "category": "模板与定位",
+      "source": "专业",
+      "sourceType": "官方文档整理",
+      "knowledgePoints": [
+        "金字塔层数决定搜索策略的粗到精层级，层数越多速度越快但可能丢失细小特征",
+        "角度范围影响搜索空间，范围越大耗时越长，需根据实际旋转范围裁剪",
+        "Greediness 控制贪婪搜索程度，值越高速度越快但可能漏匹配",
+        "参数需结合 ROI、模板复杂度和现场光照变化综合调整"
+      ],
+      "difficulty": "中等",
+      "tags": [
+        "形状匹配",
+        "金字塔",
+        "Greediness",
+        "参数调优"
+      ],
+      "keywords": [
+        "金字塔层数",
+        "角度范围",
+        "Greediness",
+        "匹配速度",
+        "匹配精度",
+        "MinScore"
+      ],
+      "followUp": "如果现场工件旋转角度不稳定，你会如何确定角度范围？Greediness 设置为 0.9 时出现漏匹配，你会如何调整？",
+      "hint": "先一句话给出结论：金字塔层数、角度范围和 Greediness 是匹配速度与精度的权衡旋钮。然后分别说明每个参数的作用，再结合项目场景给出设置建议。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "detectionDirection": "传统 2D 视觉",
+      "bestAnswer": "金字塔层数越多，匹配越快，但顶层图像过度压缩会丢失细节，导致弱特征无法定位，一般取 3~5 层。角度范围应尽量贴近实际旋转范围，范围越大搜索角度越多，耗时明显增加。Greediness 是贪婪搜索系数，0~1，值越大搜索越激进，速度越快，但可能跳过正确匹配；值越小越保守，但速度慢。实际项目中先根据工件旋转范围设置角度，再通过测试确定金字塔层数，最后用 Greediness 微调速度，同时保留 MinScore 余量避免漏检。",
+      "principle": "HALCON 形状匹配基于边缘梯度方向，在图像金字塔的顶层进行粗搜索，逐步向下层细化。金字塔层数越高，顶层图像分辨率越低，搜索点数越少，但若模板特征小于一个像素则会被平滑掉。角度范围决定了旋转搜索步长对应的匹配尝试次数，范围过大导致计算量线性增长。Greediness 通过提前终止低相似度搜索来加速，值越高越容易在早期放弃候选，可能造成漏匹配。",
+      "id": "aiq-077d6aa1",
+      "generatedAt": "2026-09-01T12:29:57.189Z",
+      "provider": "opencode-go",
+      "model": "deepseek-v4-flash",
+      "project": "机器视觉专业知识",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "HALCON",
+      "detectionDirectionFilter": "传统 2D 视觉"
+    },
+    {
+      "title": "请描述 HALCON 中 Blob 分析的标准流程，并说明阈值选择和特征筛选（如面积、圆度）对最终结果的影响。",
+      "type": "工程实践",
+      "category": "图像预处理",
+      "source": "专业",
+      "sourceType": "技术教程整理",
+      "knowledgePoints": [
+        "Blob 分析流程包括预处理、阈值分割、连通域分析、特征筛选和结果计算",
+        "阈值过高会丢失弱目标，阈值过低会引入大量背景噪声",
+        "面积、圆度等特征筛选可有效去除噪声但可能误删真实缺陷",
+        "形态学开闭运算用于连接断开的区域或分离粘连目标"
+      ],
+      "difficulty": "中等",
+      "tags": [
+        "Blob",
+        "阈值分割",
+        "特征筛选",
+        "连通域"
+      ],
+      "keywords": [
+        "预处理",
+        "阈值",
+        "connection",
+        "特征筛选",
+        "面积",
+        "圆度",
+        "形态学"
+      ],
+      "followUp": "如果目标与背景灰度差异很小，你会如何改进阈值分割？如果筛选后仍然存在误检，你会优先调整哪个环节？",
+      "hint": "先一句话给出结论：Blob 分析的核心是阈值分割和特征筛选，两者共同决定检测可靠性。然后按流程分步说明，并解释阈值和特征选择的因果影响。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "detectionDirection": "传统 2D 视觉",
+      "bestAnswer": "标准流程为：图像采集 → 预处理（滤波、增强）→ 阈值分割（threshold/dyn_threshold）→ 连通域分析（connection）→ 特征筛选（select_shape）→ 结果计算。阈值选择直接影响分割质量：阈值过高会漏掉灰度较暗的真实目标，阈值过低则背景噪声被分割为大量伪目标。特征筛选通过面积、圆度、长宽比等约束去除噪声，但特征范围过严可能误删真实缺陷。实际中先通过直方图或灰度剖面确定阈值，再用形态学开闭消除细小噪声，最后用 select_shape 筛选，并保留一定裕量。",
+      "principle": "Blob 分析将图像中灰度值满足阈值条件的像素集合视为候选区域。阈值本质是灰度分类决策边界，其取值决定了像素归属的误差率。连通域分析将相邻像素聚合成独立区域，特征筛选则基于几何或灰度特征进行二次分类。面积筛选可以去除小噪声，圆度筛选可以区分圆形气泡与不规则划痕，但若目标本身形状变化大，则需要结合多个特征或使用形态学重构来保持完整性。",
+      "id": "aiq-db4f2aa4",
+      "generatedAt": "2026-09-01T12:29:57.189Z",
+      "provider": "opencode-go",
+      "model": "deepseek-v4-flash",
+      "project": "机器视觉专业知识",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "HALCON",
+      "detectionDirectionFilter": "传统 2D 视觉"
+    },
+    {
+      "title": "HALCON 中如何实现亚像素边缘提取？为什么测量场景通常使用亚像素边缘而不是像素级边缘？",
+      "type": "算法原理",
+      "category": "算法原理",
+      "source": "专业",
+      "sourceType": "官方文档整理",
+      "knowledgePoints": [
+        "edges_sub_pix 使用 Canny/Deriche 算法提取亚像素边缘，输出 XLD 轮廓",
+        "亚像素边缘通过灰度插值或拟合获得高于像素精度的位置",
+        "测量场景中边缘位置精度直接影响尺寸测量结果，亚像素可提升重复精度",
+        "后续可配合 segment_contours_xld 和 fit_line_contour_xld 进行拟合"
+      ],
+      "difficulty": "中等",
+      "tags": [
+        "亚像素",
+        "边缘提取",
+        "XLD",
+        "测量"
+      ],
+      "keywords": [
+        "edges_sub_pix",
+        "XLD",
+        "Canny",
+        "Deriche",
+        "亚像素",
+        "拟合"
+      ],
+      "followUp": "亚像素边缘提取时，如何选择 Canny 和 Deriche 两种滤波器？如果边缘附近有噪声，你会如何预处理？",
+      "hint": "先一句话给出结论：亚像素边缘通过灰度插值获得比像素更精细的定位，是精密测量的基础。然后说明实现算子、输出类型和测量优势。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "detectionDirection": "传统 2D 视觉",
+      "bestAnswer": "HALCON 中使用 edges_sub_pix 算子提取亚像素边缘，输出为 XLD 轮廓。该算子内部基于 Canny 或 Deriche 滤波器，先进行高斯平滑和梯度计算，再通过非极大值抑制和滞后阈值得到边缘点，最后利用灰度插值将边缘定位到亚像素精度。测量场景中，像素级边缘只能给出整数像素坐标，在工件尺寸测量时会产生 0.5 像素以上的量化误差；亚像素边缘可将重复精度提升到 0.1 像素甚至更高，因此常用于高精度尺寸测量和几何拟合。",
+      "principle": "亚像素边缘提取的核心思想是利用边缘点邻域的灰度梯度分布进行插值拟合，例如通过抛物线拟合梯度峰值位置，使边缘坐标突破整数像素限制。Canny 算子使用高斯导数，Deriche 算子使用递归指数滤波器，两者都能抑制噪声并保持边缘连续性。滞后阈值通过高低两个阈值减少断裂边缘，非极大值抑制确保边缘为单像素宽。XLD 轮廓是亚像素精度的多边形或样条表示，后续可用 fit_line_contour_xld 等算子拟合直线或圆，从而获得高精度的几何参数。",
+      "id": "aiq-1f0b0873",
+      "generatedAt": "2026-09-01T12:29:57.189Z",
+      "provider": "opencode-go",
+      "model": "deepseek-v4-flash",
+      "project": "机器视觉专业知识",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "HALCON",
+      "detectionDirectionFilter": "传统 2D 视觉"
     }
   ]
 }
