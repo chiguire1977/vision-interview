@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-01T12:46:40.123Z",
+  "updatedAt": "2026-09-01T12:48:39.691Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1816,6 +1816,74 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788266836551-qjqlg6o5",
+        "timestamp": "2026-09-01T12:47:16.551Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788264675884-efebbymx",
+        "event": "question-bank.cache.saved",
+        "message": "AI 题库已完成远程同步",
+        "context": {
+          "questionCount": 9,
+          "pendingCount": 0
+        }
+      },
+      {
+        "id": "1788266836543-7ustdova",
+        "timestamp": "2026-09-01T12:47:16.543Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788264675884-efebbymx",
+        "event": "github.backup.succeeded",
+        "message": "数据已成功备份到 GitHub",
+        "context": {
+          "operation": "ai-question-bank",
+          "entryCount": 9,
+          "pendingCount": 0,
+          "status": 200
+        }
+      },
+      {
+        "id": "1788266830059-r4edhknp",
+        "timestamp": "2026-09-01T12:47:10.059Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788264675884-efebbymx",
+        "event": "github.backup.started",
+        "message": "开始备份数据到 GitHub",
+        "context": {
+          "operation": "ai-question-bank",
+          "entryCount": 9,
+          "pendingCount": 9
+        }
+      },
+      {
+        "id": "1788266830053-zycbhdhf",
+        "timestamp": "2026-09-01T12:47:10.053Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788264675884-efebbymx",
+        "event": "question-bank.network.partial-fallback",
+        "message": "联网获得的完整题目数量不足，已使用题库补足",
+        "context": {
+          "aiCount": 9,
+          "fallbackCount": 1,
+          "targetCount": 10
+        }
+      },
+      {
+        "id": "1788266805925-nr5qbsrs",
+        "timestamp": "2026-09-01T12:46:45.925Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "c4fc238d772a"
+        }
+      },
       {
         "id": "1788266770283-dya2casu",
         "timestamp": "2026-09-01T12:46:10.283Z",
@@ -18376,63 +18444,6 @@
         "kind": "system",
         "event": "backup.close.flush",
         "message": "页面关闭或进入后台，提交最后一次备份"
-      },
-      {
-        "id": "1788264160442-pcf27lna",
-        "timestamp": "2026-09-01T12:02:40.442Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "9763df58a886"
-        }
-      },
-      {
-        "id": "1788264150198-7ic1rjbc",
-        "timestamp": "2026-09-01T12:02:30.198Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.close.flush",
-        "message": "页面关闭或进入后台，提交最后一次备份"
-      },
-      {
-        "id": "1788264133639-pawiqdf4",
-        "timestamp": "2026-09-01T12:02:13.639Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "8291b6d8e6b9"
-        }
-      },
-      {
-        "id": "1788264129883-d7wa21xg",
-        "timestamp": "2026-09-01T12:02:09.883Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "8f0113013bbb"
-        }
-      },
-      {
-        "id": "1788264128557-uxc2jmwo",
-        "timestamp": "2026-09-01T12:02:08.557Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788263890472-i4ypgjv5",
-        "event": "question-bank.cache.saved",
-        "message": "AI 题库已完成远程同步",
-        "context": {
-          "questionCount": 10,
-          "pendingCount": 0
-        }
       }
     ]
   }
