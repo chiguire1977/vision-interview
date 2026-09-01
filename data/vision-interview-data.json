@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-01T13:22:55.318Z",
+  "updatedAt": "2026-09-01T13:23:05.725Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1816,6 +1816,127 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788268985407-6kknazcp",
+        "timestamp": "2026-09-01T13:23:05.407Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788268598852-h9gw1c87",
+        "event": "question-group.prepare.completed",
+        "message": "AI 多轮联网检索后获得 3/10 道完整题目，其余使用本地题库兜底；远程题库正在后台同步。",
+        "context": {
+          "source": "AI",
+          "questionCount": 10
+        }
+      },
+      {
+        "id": "1788268985402-vyjvlyhv",
+        "timestamp": "2026-09-01T13:23:05.402Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788268598852-h9gw1c87",
+        "event": "github.backup.started",
+        "message": "开始备份数据到 GitHub",
+        "context": {
+          "operation": "ai-question-bank",
+          "entryCount": 3,
+          "pendingCount": 3
+        }
+      },
+      {
+        "id": "1788268985398-3n4bj8y4",
+        "timestamp": "2026-09-01T13:23:05.398Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788268598852-h9gw1c87",
+        "event": "question-bank.network.partial-fallback",
+        "message": "联网获得的完整题目数量不足，已使用题库补足",
+        "context": {
+          "aiCount": 3,
+          "fallbackCount": 7,
+          "targetCount": 10
+        }
+      },
+      {
+        "id": "1788268985395-t435poyc",
+        "timestamp": "2026-09-01T13:23:05.395Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788268598852-h9gw1c87",
+        "event": "question-bank.ai-request.failed",
+        "message": "单个并行 AI 请求失败",
+        "context": {
+          "attempt": 6,
+          "workerIndex": 2,
+          "parallelRequests": 5,
+          "requestedCount": 2,
+          "durationMs": 60312,
+          "error": "AI 请求超时，请稍后重试。"
+        }
+      },
+      {
+        "id": "1788268985385-um6vjvat",
+        "timestamp": "2026-09-01T13:23:05.385Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788268598852-h9gw1c87",
+        "event": "question-bank.ai-request.failed",
+        "message": "单个并行 AI 请求失败",
+        "context": {
+          "attempt": 6,
+          "workerIndex": 3,
+          "parallelRequests": 5,
+          "requestedCount": 2,
+          "durationMs": 60302,
+          "error": "AI 请求超时，请稍后重试。"
+        }
+      },
+      {
+        "id": "1788268985363-6vqd5ax6",
+        "timestamp": "2026-09-01T13:23:05.363Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788268598852-h9gw1c87",
+        "event": "question-bank.ai-request.failed",
+        "message": "单个并行 AI 请求失败",
+        "context": {
+          "attempt": 6,
+          "workerIndex": 1,
+          "parallelRequests": 5,
+          "requestedCount": 2,
+          "durationMs": 60281,
+          "error": "AI 请求超时，请稍后重试。"
+        }
+      },
+      {
+        "id": "1788268985340-9mcsprj4",
+        "timestamp": "2026-09-01T13:23:05.340Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788268598852-h9gw1c87",
+        "event": "question-bank.ai-request.failed",
+        "message": "单个并行 AI 请求失败",
+        "context": {
+          "attempt": 6,
+          "workerIndex": 4,
+          "parallelRequests": 5,
+          "requestedCount": 1,
+          "durationMs": 60257,
+          "error": "AI 请求超时，请稍后重试。"
+        }
+      },
+      {
+        "id": "1788268981864-apo67agt",
+        "timestamp": "2026-09-01T13:23:01.864Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "72cfc40b3666"
+        }
+      },
       {
         "id": "1788268972521-p6kamnd3",
         "timestamp": "2026-09-01T13:22:52.521Z",
@@ -18101,126 +18222,6 @@
         "context": {
           "reason": "change",
           "commit": "589b34115e20"
-        }
-      },
-      {
-        "id": "1788264362809-sqa604nw",
-        "timestamp": "2026-09-01T12:06:02.809Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788264356104-1wu8qk6u",
-        "event": "question-bank.web-search.failed",
-        "message": "网络检索失败（HTTP 403）。",
-        "context": {
-          "attempt": 5,
-          "query": "机器视觉 面试知识点 算法原理 工程实践 图像预处理 模板与定位 深度图 点云 法线估计 RANSAC find_surface_model 原理 工程实践",
-          "continueToAi": true,
-          "workerIndex": 3,
-          "parallelRequests": 3
-        }
-      },
-      {
-        "id": "1788264362796-ugifz561",
-        "timestamp": "2026-09-01T12:06:02.796Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788264356104-1wu8qk6u",
-        "event": "question-bank.web-search.failed",
-        "message": "网络检索失败（HTTP 403）。",
-        "context": {
-          "attempt": 5,
-          "query": "机器视觉 面试知识点 算法原理 工程实践 图像预处理 模板与定位 深度图 点云 法线估计 RANSAC find_surface_model 原理 工程实践",
-          "continueToAi": true,
-          "workerIndex": 1,
-          "parallelRequests": 3
-        }
-      },
-      {
-        "id": "1788264362675-qg5ppjxd",
-        "timestamp": "2026-09-01T12:06:02.675Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788264356104-1wu8qk6u",
-        "event": "question-bank.web-search.failed",
-        "message": "网络检索失败（HTTP 403）。",
-        "context": {
-          "attempt": 5,
-          "query": "机器视觉 面试知识点 算法原理 工程实践 图像预处理 模板与定位 深度图 点云 法线估计 RANSAC find_surface_model 原理 工程实践",
-          "continueToAi": true,
-          "workerIndex": 2,
-          "parallelRequests": 3
-        }
-      },
-      {
-        "id": "1788264361945-ytlgzeaa",
-        "timestamp": "2026-09-01T12:06:01.945Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788264356104-1wu8qk6u",
-        "event": "question-bank.network.fallback",
-        "message": "联网搜索与 AI 生成未获得有效题目，已切换为题库",
-        "context": {
-          "targetCount": 10,
-          "fallbackCount": 10
-        }
-      },
-      {
-        "id": "1788264361941-myuqji2m",
-        "timestamp": "2026-09-01T12:06:01.941Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788264356104-1wu8qk6u",
-        "event": "question-bank.network.partial-fallback",
-        "message": "联网获得的完整题目数量不足，已使用题库补足",
-        "context": {
-          "aiCount": 0,
-          "fallbackCount": 10,
-          "targetCount": 10
-        }
-      },
-      {
-        "id": "1788264361936-jzkz99s9",
-        "timestamp": "2026-09-01T12:06:01.936Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788264356104-1wu8qk6u",
-        "event": "question-bank.network.fallback",
-        "message": "联网搜索与 AI 生成未获得有效题目，已切换为题库",
-        "context": {
-          "targetCount": 10,
-          "fallbackCount": 10
-        }
-      },
-      {
-        "id": "1788264361933-jjqhzugj",
-        "timestamp": "2026-09-01T12:06:01.933Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788264356104-1wu8qk6u",
-        "event": "question-bank.network.partial-fallback",
-        "message": "联网获得的完整题目数量不足，已使用题库补足",
-        "context": {
-          "aiCount": 0,
-          "fallbackCount": 10,
-          "targetCount": 10
-        }
-      },
-      {
-        "id": "1788264361924-mnqcfr2h",
-        "timestamp": "2026-09-01T12:06:01.924Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264356104-1wu8qk6u",
-        "event": "question-bank.web-search.started",
-        "message": "开始联网检索本轮题目资料",
-        "context": {
-          "attempt": 5,
-          "query": "机器视觉 面试知识点 算法原理 工程实践 图像预处理 模板与定位 深度图 点云 法线估计 RANSAC find_surface_model 原理 工程实践",
-          "mode": "专业知识",
-          "excludedCount": 0,
-          "workerIndex": 3,
-          "parallelRequests": 3,
-          "requestedCount": 3
         }
       }
     ]
