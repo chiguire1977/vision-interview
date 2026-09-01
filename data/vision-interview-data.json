@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-01T11:27:19.832Z",
+  "updatedAt": "2026-09-01T11:37:44.500Z",
   "data": {
     "vision-interview-records": [
       {
@@ -2006,6 +2006,26 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788262662480-7m1jkep7",
+        "timestamp": "2026-09-01T11:37:42.480Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.close.flush",
+        "message": "页面关闭或进入后台，提交最后一次备份"
+      },
+      {
+        "id": "1788262045312-vc5la2tp",
+        "timestamp": "2026-09-01T11:27:25.312Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "edc5053be0a3"
+        }
+      },
       {
         "id": "1788262041594-zryj36o4",
         "timestamp": "2026-09-01T11:27:21.594Z",
@@ -17931,37 +17951,6 @@
           "workerIndex": 1,
           "parallelRequests": 3,
           "requestedCount": 4
-        }
-      },
-      {
-        "id": "1788191965111-16gir37b",
-        "timestamp": "2026-08-31T15:59:25.111Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788191832589-2rrvv7qm",
-        "event": "question-group.prepare.started",
-        "message": "开始准备题组",
-        "context": {
-          "project": "机器视觉专业知识",
-          "mode": "专业知识",
-          "questionCount": 2
-        }
-      },
-      {
-        "id": "1788191964795-ctyby21q",
-        "timestamp": "2026-08-31T15:59:24.795Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788191832589-2rrvv7qm",
-        "event": "question-bank.ai-request.started",
-        "message": "第 1/6 轮（并行 2/3）：正在请求 AI 生成题目（3 道）…",
-        "context": {
-          "attempt": 1,
-          "maxAttempts": 6,
-          "collectedCount": 0,
-          "workerIndex": 2,
-          "parallelRequests": 3,
-          "requestedCount": 3
         }
       }
     ]
