@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-01T11:27:12.401Z",
+  "updatedAt": "2026-09-01T11:27:19.832Z",
   "data": {
     "vision-interview-records": [
       {
@@ -2006,6 +2006,26 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788262041594-zryj36o4",
+        "timestamp": "2026-09-01T11:27:21.594Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "f67da02706d2"
+        }
+      },
+      {
+        "id": "1788262032297-9scd7kf4",
+        "timestamp": "2026-09-01T11:27:12.297Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.close.flush",
+        "message": "页面关闭或进入后台，提交最后一次备份"
+      },
       {
         "id": "1788262029439-uhvdohvp",
         "timestamp": "2026-09-01T11:27:09.439Z",
@@ -17940,39 +17960,6 @@
           "maxAttempts": 6,
           "collectedCount": 0,
           "workerIndex": 2,
-          "parallelRequests": 3,
-          "requestedCount": 3
-        }
-      },
-      {
-        "id": "1788191964793-jwpfvfty",
-        "timestamp": "2026-08-31T15:59:24.793Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788191832589-2rrvv7qm",
-        "event": "question-bank.web-search.completed",
-        "message": "本轮联网检索完成",
-        "context": {
-          "attempt": 1,
-          "query": "机器视觉 相机镜头光源 原理 工程实践",
-          "sourceCount": 0,
-          "workerIndex": 2,
-          "parallelRequests": 3
-        }
-      },
-      {
-        "id": "1788191964789-2t5tp4cf",
-        "timestamp": "2026-08-31T15:59:24.789Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788191832589-2rrvv7qm",
-        "event": "question-bank.ai-request.started",
-        "message": "第 1/6 轮（并行 3/3）：正在请求 AI 生成题目（3 道）…",
-        "context": {
-          "attempt": 1,
-          "maxAttempts": 6,
-          "collectedCount": 0,
-          "workerIndex": 3,
           "parallelRequests": 3,
           "requestedCount": 3
         }
