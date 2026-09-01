@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-01T13:55:31.218Z",
+  "updatedAt": "2026-09-01T13:55:36.334Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1816,6 +1816,26 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788270938786-40gglwni",
+        "timestamp": "2026-09-01T13:55:38.786Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "e96107e2fb78"
+        }
+      },
+      {
+        "id": "1788270932460-ot2j0ag9",
+        "timestamp": "2026-09-01T13:55:32.460Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.close.flush",
+        "message": "页面关闭或进入后台，提交最后一次备份"
+      },
       {
         "id": "1788270931710-zmnsbkqi",
         "timestamp": "2026-09-01T13:55:31.710Z",
@@ -18014,39 +18034,6 @@
         "context": {
           "reason": "change",
           "commit": "d49076b5b587"
-        }
-      },
-      {
-        "id": "1788264396886-t1lm648f",
-        "timestamp": "2026-09-01T12:06:36.886Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788264356104-1wu8qk6u",
-        "event": "question-bank.web-search.failed",
-        "message": "网络检索失败（HTTP 403）。",
-        "context": {
-          "attempt": 1,
-          "query": "机器视觉 面试知识点 HALCON 算法原理 工程实践 图像预处理 模板与定位 深度图 点云 法线估计 RANSAC find_surface_model 原理 工程实践",
-          "continueToAi": true,
-          "workerIndex": 3,
-          "parallelRequests": 3
-        }
-      },
-      {
-        "id": "1788264396815-tsvi9tcr",
-        "timestamp": "2026-09-01T12:06:36.815Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264356104-1wu8qk6u",
-        "event": "question-bank.ai-request.started",
-        "message": "第 1/6 轮（并行 2/3）：正在请求 AI 生成题目（3 道）…",
-        "context": {
-          "attempt": 1,
-          "maxAttempts": 6,
-          "collectedCount": 0,
-          "workerIndex": 2,
-          "parallelRequests": 3,
-          "requestedCount": 3
         }
       }
     ]
