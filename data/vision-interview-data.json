@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-01T13:52:44.019Z",
+  "updatedAt": "2026-09-01T13:54:05.972Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1816,6 +1816,32 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788270846254-9uca487v",
+        "timestamp": "2026-09-01T13:54:06.254Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788270845321-n003ywzy",
+        "event": "question-bank.remote.loaded",
+        "message": "GitHub AI 历史题库加载完成",
+        "context": {
+          "questionCount": 23,
+          "githubQuestionCount": 23,
+          "pendingCount": 0
+        }
+      },
+      {
+        "id": "1788270845315-1drugy88",
+        "timestamp": "2026-09-01T13:54:05.315Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.startup.loaded",
+        "message": "启动配置加载完成",
+        "context": {
+          "source": "github",
+          "updatedAt": "2026-09-01T13:52:44.019Z"
+        }
+      },
       {
         "id": "1788270766821-jji721e2",
         "timestamp": "2026-09-01T13:52:46.821Z",
@@ -18082,38 +18108,6 @@
         "context": {
           "reason": "change",
           "commit": "dc0414d539e7"
-        }
-      },
-      {
-        "id": "1788264385948-l3myai91",
-        "timestamp": "2026-09-01T12:06:25.948Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788264356104-1wu8qk6u",
-        "event": "question-bank.web-search.failed",
-        "message": "网络检索失败（HTTP 403）。",
-        "context": {
-          "attempt": 1,
-          "query": "机器视觉 面试知识点 算法原理 工程实践 图像预处理 模板与定位 深度图 点云 法线估计 RANSAC find_surface_model 原理 工程实践",
-          "continueToAi": true,
-          "workerIndex": 3,
-          "parallelRequests": 3
-        }
-      },
-      {
-        "id": "1788264385944-fjy9q09p",
-        "timestamp": "2026-09-01T12:06:25.944Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788264356104-1wu8qk6u",
-        "event": "question-bank.web-search.failed",
-        "message": "网络检索失败（HTTP 403）。",
-        "context": {
-          "attempt": 1,
-          "query": "机器视觉 面试知识点 算法原理 工程实践 图像预处理 模板与定位 深度图 点云 法线估计 RANSAC find_surface_model 原理 工程实践",
-          "continueToAi": true,
-          "workerIndex": 2,
-          "parallelRequests": 3
         }
       }
     ]
