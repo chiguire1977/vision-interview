@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-01T13:05:22.699Z",
+  "updatedAt": "2026-09-01T13:05:55.810Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1816,6 +1816,35 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788267952492-9n3zkaxp",
+        "timestamp": "2026-09-01T13:05:52.492Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788267920001-m70g11yz",
+        "event": "question-bank.ai-request.duration",
+        "message": "单个并行 AI 请求完成",
+        "context": {
+          "attempt": 1,
+          "workerIndex": 1,
+          "parallelRequests": 5,
+          "requestedCount": 2,
+          "receivedCount": 2,
+          "durationMs": 31797
+        }
+      },
+      {
+        "id": "1788267928746-zgeckwpv",
+        "timestamp": "2026-09-01T13:05:28.746Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "abde6036b1b9"
+        }
+      },
       {
         "id": "1788267920690-j99h898a",
         "timestamp": "2026-09-01T13:05:20.690Z",
@@ -18393,39 +18422,6 @@
           "sourceCount": 0,
           "workerIndex": 3,
           "parallelRequests": 3
-        }
-      },
-      {
-        "id": "1788264343864-3px9cw4x",
-        "timestamp": "2026-09-01T12:05:43.864Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264343082-q6qviy7j",
-        "event": "question-bank.web-search.completed",
-        "message": "本轮联网检索完成",
-        "context": {
-          "attempt": 1,
-          "query": "机器视觉 面试知识点 原理 工程实践",
-          "sourceCount": 0,
-          "workerIndex": 2,
-          "parallelRequests": 3
-        }
-      },
-      {
-        "id": "1788264343853-3xpdo4zz",
-        "timestamp": "2026-09-01T12:05:43.853Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264343082-q6qviy7j",
-        "event": "question-bank.ai-request.started",
-        "message": "第 1/6 轮（并行 2/3）：正在请求 AI 生成题目（3 道）…",
-        "context": {
-          "attempt": 1,
-          "maxAttempts": 6,
-          "collectedCount": 0,
-          "workerIndex": 2,
-          "parallelRequests": 3,
-          "requestedCount": 3
         }
       }
     ]
