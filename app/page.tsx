@@ -44,6 +44,11 @@ import {
   type QuestionBankSourceFilter,
   type QuestionBankViewItem,
 } from "@/lib/question-bank-view";
+import {
+  resolveQuestionSourceMode,
+  withQuestionSourceMode,
+  type QuestionSourceMode,
+} from "@/lib/question-source-mode";
 import { primaryNavigationLabels, utilityNavigationLabels } from "@/lib/navigation.mjs";
 import { analyzeLearningMastery, createImprovementPlan } from "@/lib/personal-center.mjs";
 import { createGitHubBackupLog } from "@/lib/backup-log.mjs";
@@ -159,21 +164,6 @@ type SessionAnswer = {
   bestAnswer: string; review: AnswerReview; mastery: MasteryLevel;
   masteryReason?: string; reviewSource?: "AI" | "本地规则";
 };
-type SpeechRecognitionLike = {
-  continuous: boolean;
-  interimResults: boolean;
-  maxAlternatives: number;
-  lang: string;
-  start: () => void;
-  stop: () => void;
-  abort: () => void;
-  onstart: (() => void) | null;
-  onend: (() => void) | null;
-  onerror: ((event: { error?: string }) => void) | null;
-  onresult: ((event: { resultIndex: number; results: ArrayLike<{ isFinal: boolean; 0: { transcript: string } }> }) => void) | null;
-};
-type SpeechRecognitionConstructor = new () => SpeechRecognitionLike;
-
 type ProjectConfig = {
   id: string;
   name: string;
@@ -797,11 +787,19 @@ async function prepareQuestionGroup(
   try {
     const storedPreferences = localStorage.getItem("vision-interview-ai-preferences");
     const preferences = storedPreferences ? JSON.parse(storedPreferences) as Partial<AiPreferences> : {};
-    if (preferences.webQuestions === false) {
+    const questionSourceMode = resolveQuestionSourceMode(preferences);
+    if (questionSourceMode === "bank") {
+      recordRuntimeEvent("INFO", "question-bank.source.bank", "题目来源为题库，本轮跳过联网搜索与 AI 生成", {
+        mode: selection.trainingMode,
+        category: selection.category,
+        difficulty: selection.difficulty,
+        techStack: selection.techStack,
+        questionCount: fallback.length,
+      });
       return {
         questions: fallback,
         source: "本地规则",
-        message: "已关闭 AI 题组生成，使用本地题库与标准答案。",
+        message: "题目来源已设为题库，已从内置题库与已归档题库中检索本题组。",
         aiCount: 0,
       };
     }
@@ -1059,6 +1057,13 @@ async function prepareQuestionGroup(
     );
     const completed = fillQuestionGroup(generated, fallbackPool, targetCount);
     const aiCount = completed.aiCount;
+    if (aiCount < targetCount) {
+      recordRuntimeEvent("WARN", "question-bank.network.partial-fallback", "联网获得的完整题目数量不足，已使用题库补足", {
+        aiCount,
+        fallbackCount: targetCount - aiCount,
+        targetCount,
+      });
+    }
     const questions = completed.questions.map((question, index) => ({
       ...toAppQuestion(question, selection),
       origin: index < aiCount ? "AI" as const : "本地题库" as const,
@@ -1102,6 +1107,10 @@ async function prepareQuestionGroup(
     }
 
     if (!aiCount) {
+      recordRuntimeEvent("WARN", "question-bank.network.fallback", "联网搜索与 AI 生成未获得有效题目，已切换为题库", {
+        targetCount,
+        fallbackCount: fallback.length,
+      });
       return {
         questions: fallback,
         source: "本地规则",
@@ -1118,7 +1127,11 @@ async function prepareQuestionGroup(
       aiCount,
       message: "AI 题组已准备完成。",
     };
-  } catch {
+  } catch (error) {
+    recordRuntimeEvent("ERROR", "question-bank.network.failed", "联网取题异常，已切换为题库", {
+      reason: error instanceof Error ? error.message : "未知异常",
+      fallbackCount: fallback.length,
+    });
     return {
       questions: fallback,
       source: "本地规则",
@@ -1393,10 +1406,10 @@ export default function Home() {
   const [groupPreparationSource, setGroupPreparationSource] = useState<"AI" | "本地规则" | "缓存">("本地规则");
   const [groupPreparationMessage, setGroupPreparationMessage] = useState("");
   const [speechError, setSpeechError] = useState("");
-  const recognitionRef = useRef<SpeechRecognitionLike | null>(null);
-  const speechInterimRef = useRef("");
-  const speechKeepAliveRef = useRef(false);
-  const speechRestartTimerRef = useRef<number | null>(null);
+  const [speechProcessing, setSpeechProcessing] = useState(false);
+  const mediaRecorderRef = useRef<MediaRecorder | null>(null);
+  const mediaStreamRef = useRef<MediaStream | null>(null);
+  const speechChunksRef = useRef<Blob[]>([]);
 
   useEffect(() => {
     let active = true;
@@ -1446,9 +1459,13 @@ export default function Home() {
       return next;
     });
   }
-
+  const archivedProfessionalQuestionBank = useMemo(
+    () => mergeQuestionBankItems(questionBank, remoteQuestionBank)
+      .filter((item) => item.source === "专业") as Question[],
+    [remoteQuestionBank],
+  );
   const availableQuestions = useMemo(() => {
-    const professional = questionBank.filter((item) => item.source === "专业");
+    const professional = archivedProfessionalQuestionBank;
     let result = category !== "随机类型"
       ? professional.filter((item) => item.category === category)
       : professional;
@@ -1465,7 +1482,7 @@ export default function Home() {
       ? stackFallback
       : stackFallback.filter((item) => item.difficulty === difficulty);
     return difficultyFallback.length ? difficultyFallback : stackFallback.length ? stackFallback : categoryFallback.length ? categoryFallback : professional;
-  }, [category, difficulty, techStack]);
+  }, [category, difficulty, techStack, archivedProfessionalQuestionBank]);
   const questionGroupSettings = readQuestionGroupSettings();
   const groupQuestionSeed = useMemo(() => {
     const count = Math.min(questionGroupSettings.questionGroupSize, availableQuestions.length);
@@ -1491,109 +1508,102 @@ export default function Home() {
     [remoteQuestionBank],
   );
 
-  function stopRecognition() {
-    speechKeepAliveRef.current = false;
-    if (speechRestartTimerRef.current !== null) {
-      window.clearTimeout(speechRestartTimerRef.current);
-      speechRestartTimerRef.current = null;
+  async function transcribeRecordedAudio(chunks: Blob[]) {
+    if (!chunks.length) {
+      setSpeechError("没有采集到有效录音，请重新录音。");
+      recordRuntimeEvent("WARN", "speech.empty", "没有采集到有效录音");
+      return;
     }
-    const recognition = recognitionRef.current;
-    recognitionRef.current = null;
-    speechInterimRef.current = "";
-    if (recognition) {
-      recognition.onstart = null;
-      recognition.onresult = null;
-      recognition.onerror = null;
-      recognition.onend = null;
-      try { recognition.stop(); } catch { try { recognition.abort(); } catch { /* 已结束 */ } }
+    setSpeechProcessing(true);
+    setSpeechError("正在上传录音并使用 Whisper 识别…");
+    recordRuntimeEvent("INFO", "speech.transcription.started", "开始使用 Cloudflare Workers AI Whisper 识别语音", { chunkCount: chunks.length });
+    try {
+      const audio = new Blob(chunks, { type: chunks[0]?.type || "audio/webm" });
+      const form = new FormData();
+      form.append("audio", audio, "answer.webm");
+      const response = await fetch("/api/speech/transcribe", {
+        method: "POST",
+        body: form,
+        signal: AbortSignal.timeout(60000),
+      });
+      const result = await response.json() as { ok?: boolean; text?: string; message?: string };
+      if (!response.ok || !result.ok || !result.text?.trim()) throw new Error(result.message || "语音识别服务暂时不可用，请稍后重试。");
+      const transcript = result.text.trim();
+      setAnswer((current) => current.trim() ? `${current.trim()} ${transcript}` : transcript);
+      setSpeechError("");
+      recordRuntimeEvent("INFO", "speech.transcription.completed", "Whisper 语音识别完成", { characters: transcript.length });
+    } catch (error) {
+      const message = error instanceof Error && error.name === "TimeoutError"
+        ? "Whisper 语音识别超时，请缩短录音后重试。"
+        : error instanceof Error ? error.message : "语音识别服务暂时不可用，请稍后重试。";
+      setSpeechError(message);
+      recordRuntimeEvent("ERROR", "speech.transcription.failed", message);
+    } finally {
+      setSpeechProcessing(false);
     }
-    setRecording(false);
   }
 
-  function toggleRecording() {
-    if (recording) {
-      stopRecognition();
-      return;
-    }
-    const speechWindow = window as Window & { SpeechRecognition?: SpeechRecognitionConstructor; webkitSpeechRecognition?: SpeechRecognitionConstructor };
-    const Recognition = speechWindow.SpeechRecognition || speechWindow.webkitSpeechRecognition;
-    if (!Recognition) {
-      setSpeechError("当前浏览器不支持语音识别，请使用最新版 Edge 或 Chrome。");
-      recordRuntimeEvent("WARN", "speech.unsupported", "当前浏览器不支持语音识别");
-      return;
-    }
-    if (recognitionRef.current) stopRecognition();
-    setAnswer("");
-    speechInterimRef.current = "";
-    speechKeepAliveRef.current = true;
-    const recognition = new Recognition();
-    recognition.lang = "zh-CN";
-    recognition.continuous = true;
-    recognition.interimResults = true;
-    recognition.maxAlternatives = 3;
-    recognition.onstart = () => {
-      setRecording(true);
-      setSpeechError("");
-      recordRuntimeEvent("INFO", "speech.started", "语音识别已启动");
-    };
-    recognition.onresult = (event) => {
-      const finalTranscripts: string[] = [];
-      let interimTranscript = "";
-      for (let index = event.resultIndex; index < event.results.length; index += 1) {
-        const result = event.results[index];
-        const transcript = result?.[0]?.transcript?.trim();
-        if (!transcript) continue;
-        if (result.isFinal) finalTranscripts.push(transcript);
-        else interimTranscript += transcript;
-      }
-      setAnswer((current) => {
-        let base = current;
-        const previousInterim = speechInterimRef.current;
-        if (previousInterim && base.endsWith(previousInterim)) base = base.slice(0, -previousInterim.length).trimEnd();
-        const spoken = finalTranscripts.join(" ");
-        if (spoken) base = base.trim() ? `${base.trim()} ${spoken}` : spoken;
-        speechInterimRef.current = interimTranscript;
-        return interimTranscript ? `${base.trim()}${base.trim() ? " " : ""}${interimTranscript}` : base;
-      });
-      if (finalTranscripts.length || interimTranscript) setSpeechError("");
-    };
-    recognition.onerror = (event) => {
-      const permissionError = event.error === "not-allowed" || event.error === "service-not-allowed" || event.error === "audio-capture";
-      if (permissionError) speechKeepAliveRef.current = false;
-      const message = event.error === "not-allowed" || event.error === "service-not-allowed"
-        ? "麦克风权限未开启，请允许浏览器访问麦克风后重试。"
-        : event.error === "audio-capture" ? "没有检测到可用麦克风，请检查系统输入设备。"
-        : event.error === "no-speech" ? "暂未识别到清晰语音，仍会继续聆听，请尽量使用短句。" : "语音识别网络暂时波动，正在尝试继续识别。";
-      setSpeechError(message);
-      recordRuntimeEvent(permissionError ? "ERROR" : "WARN", "speech.error", message, { error: event.error || "unknown" });
-    };
-    recognition.onend = () => {
-      if (speechKeepAliveRef.current && recognitionRef.current === recognition) {
-        speechRestartTimerRef.current = window.setTimeout(() => {
-          speechRestartTimerRef.current = null;
-          if (!speechKeepAliveRef.current || recognitionRef.current !== recognition) return;
-          try {
-            recognition.start();
-          } catch {
-            speechKeepAliveRef.current = false;
-            recognitionRef.current = null;
-            setRecording(false);
-            setSpeechError("语音识别无法继续，请点击麦克风重新开始。 ");
-          }
-        }, 160);
-        return;
-      }
+  function stopRecording({ transcribe = false } = {}) {
+    const recorder = mediaRecorderRef.current;
+    mediaRecorderRef.current = null;
+    const stream = mediaStreamRef.current;
+    mediaStreamRef.current = null;
+    if (!recorder || recorder.state === "inactive") {
+      stream?.getTracks().forEach((track) => track.stop());
       setRecording(false);
-      if (recognitionRef.current === recognition) recognitionRef.current = null;
+      if (transcribe) void transcribeRecordedAudio(speechChunksRef.current);
+      return;
+    }
+    recorder.onstop = () => {
+      stream?.getTracks().forEach((track) => track.stop());
+      setRecording(false);
+      const chunks = speechChunksRef.current;
+      speechChunksRef.current = [];
+      if (transcribe) void transcribeRecordedAudio(chunks);
     };
-    recognitionRef.current = recognition;
     try {
-      recognition.start();
+      recorder.stop();
     } catch {
-      speechKeepAliveRef.current = false;
-      recognitionRef.current = null;
+      stream?.getTracks().forEach((track) => track.stop());
       setRecording(false);
-      setSpeechError("无法启动语音识别，请检查浏览器的麦克风权限。 ");
+      setSpeechError("录音停止失败，请重新尝试。");
+    }
+  }
+
+  async function toggleRecording() {
+    if (recording) {
+      stopRecording({ transcribe: true });
+      return;
+    }
+    if (speechProcessing) return;
+    if (!navigator.mediaDevices?.getUserMedia || typeof MediaRecorder === "undefined") {
+      setSpeechError("当前浏览器不支持录音，请使用最新版 Edge 或 Chrome。");
+      recordRuntimeEvent("WARN", "speech.unsupported", "当前浏览器不支持 MediaRecorder 录音");
+      return;
+    }
+    setAnswer("");
+    setSeconds(0);
+    setSpeechError("");
+    speechChunksRef.current = [];
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      const mimeType = ["audio/webm;codecs=opus", "audio/webm", "audio/mp4"].find((candidate) => MediaRecorder.isTypeSupported(candidate));
+      const recorder = mimeType ? new MediaRecorder(stream, { mimeType }) : new MediaRecorder(stream);
+      recorder.ondataavailable = (event) => { if (event.data.size > 0) speechChunksRef.current.push(event.data); };
+      recorder.onerror = () => {
+        setSpeechError("录音发生异常，请检查麦克风后重试。");
+        recordRuntimeEvent("ERROR", "speech.recording.failed", "MediaRecorder 录音发生异常");
+      };
+      mediaStreamRef.current = stream;
+      mediaRecorderRef.current = recorder;
+      recorder.start();
+      setRecording(true);
+      recordRuntimeEvent("INFO", "speech.started", "录音已启动，停止后交给 Whisper 识别", { mimeType: recorder.mimeType || "audio/unknown" });
+    } catch (error) {
+      const permissionDenied = error instanceof DOMException && (error.name === "NotAllowedError" || error.name === "PermissionDeniedError");
+      const message = permissionDenied ? "麦克风权限未开启，请允许浏览器访问麦克风后重试。" : "无法启动录音，请检查浏览器的麦克风权限。";
+      setSpeechError(message);
+      recordRuntimeEvent(permissionDenied ? "ERROR" : "WARN", "speech.error", message, { error: error instanceof Error ? error.name : "unknown" });
     }
   }
 
@@ -1629,19 +1639,11 @@ export default function Home() {
     return () => clearInterval(timer);
   }, [recording]);
 
-  useEffect(() => () => {
-    speechKeepAliveRef.current = false;
-    if (speechRestartTimerRef.current !== null) window.clearTimeout(speechRestartTimerRef.current);
-    const recognition = recognitionRef.current;
-    recognitionRef.current = null;
-    if (recognition) {
-      try { recognition.abort(); } catch { /* 已结束 */ }
-    }
-  }, []);
+  useEffect(() => () => stopRecording(), []);
 
   useEffect(() => {
     let active = true;
-    stopRecognition();
+    stopRecording();
     setSpeechError("");
     setPreparingGroup(true);
     setPreparedGroupQuestions(null);
@@ -1748,7 +1750,7 @@ export default function Home() {
   }, [groupPreparationKey, groupQuestionSeed, project, trainingMode, category, difficulty, techStack]);
 
   useEffect(() => {
-    stopRecognition();
+    stopRecording();
     setSpeechError("");
     setShowBestAnswer(false);
     setBestAnswerViewed(false);
@@ -1843,7 +1845,7 @@ export default function Home() {
     const localReview = reviewAnswer(answer, question);
     const localMastery = getMasteryLevel(localReview, "answered");
     setEvaluating(true);
-    stopRecognition();
+    stopRecording();
     const bestAnswer = getBestAnswer(question, project);
     const evaluation = await evaluateAnswerWithAi(question, answer, bestAnswer, localReview, localMastery);
     const { review, mastery, reason, source } = evaluation;
@@ -1907,23 +1909,23 @@ export default function Home() {
     }
     if (questionIndex >= groupQuestions.length - 1) {
       setGroupCompleted(true);
-      stopRecognition();
+      stopRecording();
       return;
     }
-    stopRecognition();
+    stopRecording();
     setQuestionIndex((value) => value + 1);
     setAnswer(""); setSubmitted(false); setShowBestAnswer(false); setBestAnswerViewed(false); setSeconds(0);
   }
 
   function restartGroup() {
-    stopRecognition();
+    stopRecording();
     setGroupCompleted(false); setSessionAnswers([]); setQuestionIndex(0); setAnswer(""); setSubmitted(false); setEvaluating(false); setPreparedGroupQuestions(null); setPreparingGroup(true);
     setShowBestAnswer(false); setBestAnswerViewed(false); setRecording(false); setSeconds(0);
     setGroupRound((value) => value + 1);
   }
 
   function retryQuestion(index: number) {
-    stopRecognition();
+    stopRecording();
     const previous = sessionAnswers.find((item) => item.question.title === groupQuestions[index]?.title);
     setGroupCompleted(false); setQuestionIndex(index); setAnswer(previous?.answer ?? ""); setSubmitted(false); setEvaluating(false);
     setShowBestAnswer(false); setBestAnswerViewed(false); setRecording(false); setSeconds(0);
@@ -1986,13 +1988,13 @@ export default function Home() {
           onCategoryChange={(value) => { setCategory(value); setQuestionIndex(0); setAnswer(""); setSubmitted(false); setEvaluating(false); setPreparedGroupQuestions(null); setPreparingGroup(true); setSeconds(0); setSessionAnswers([]); setGroupCompleted(false); setGroupRound(0); }}
           onDifficultyChange={(value) => { setDifficulty(value); setQuestionIndex(0); setAnswer(""); setSubmitted(false); setEvaluating(false); setPreparedGroupQuestions(null); setPreparingGroup(true); setSeconds(0); setSessionAnswers([]); setGroupCompleted(false); setGroupRound(0); }}
           onTechStackChange={(value) => { setTechStack(value); setQuestionIndex(0); setAnswer(""); setSubmitted(false); setEvaluating(false); setPreparedGroupQuestions(null); setPreparingGroup(true); setShowBestAnswer(false); setSeconds(0); setSessionAnswers([]); setGroupCompleted(false); setGroupRound(0); }}
-          answer={answer} setAnswer={setAnswer} submitted={submitted} recording={recording} seconds={seconds} speechError={speechError}
+          answer={answer} setAnswer={setAnswer} submitted={submitted} recording={recording} speechProcessing={speechProcessing} seconds={seconds} speechError={speechError}
           bestAnswer={getBestAnswer(question, project)} showBestAnswer={showBestAnswer} bestAnswerViewed={bestAnswerViewed} onToggleBestAnswer={toggleBestAnswer}
           evaluating={evaluating} preparingGroup={preparingGroup} groupPreparationSource={groupPreparationSource} groupPreparationMessage={groupPreparationMessage}
           currentMastery={currentEvaluation?.mastery} currentReviewSource={currentEvaluation?.reviewSource} currentMasteryReason={currentEvaluation?.masteryReason}
           onSubmit={submitAnswer} onNext={nextQuestion}
           onToggleRecording={toggleRecording}
-          onReset={() => { stopRecognition(); setSpeechError(""); setAnswer(""); setSubmitted(false); setEvaluating(false); setShowBestAnswer(false); setBestAnswerViewed(false); setSeconds(0); }} />)}
+          onReset={() => { stopRecording(); setSpeechError(""); setAnswer(""); setSubmitted(false); setEvaluating(false); setShowBestAnswer(false); setBestAnswerViewed(false); setSeconds(0); }} />)}
         {activeNav === "个人中心" && <PersonalCenterPage records={records} />}
         {activeNav === "题库" && <QuestionBankPage questions={allQuestionBank} favorites={favoriteQuestions} onToggleFavorite={toggleFavorite} remoteState={questionBankRemoteState} remoteError={questionBankRemoteError} />}
         {activeNav === "收藏夹" && <FavoritesPage questions={favoriteQuestions} onToggleFavorite={toggleFavorite} />}
@@ -2022,7 +2024,7 @@ type TrainingProps = {
   bestAnswer: string; showBestAnswer: boolean; bestAnswerViewed: boolean; onToggleBestAnswer: () => void;
   evaluating: boolean; preparingGroup: boolean; groupPreparationSource: "AI" | "本地规则" | "缓存"; groupPreparationMessage: string;
   currentMastery?: MasteryLevel; currentReviewSource?: "AI" | "本地规则"; currentMasteryReason?: string;
-  recording: boolean; seconds: number; speechError?: string; onSubmit: () => void; onNext: () => void;
+  recording: boolean; speechProcessing: boolean; seconds: number; speechError?: string; onSubmit: () => void; onNext: () => void;
   onToggleRecording: () => void; onReset: () => void;
 };
 
@@ -2109,9 +2111,9 @@ function TrainingCenter(props: TrainingProps) {
               <Button variant="ghost" size="sm" onClick={props.onReset} className="text-slate-500"><RotateCcw />重置</Button>
             </div>
             <div className="flex flex-col gap-4 border-b border-slate-200 bg-slate-50/70 px-5 py-4 sm:flex-row sm:items-center">
-              <Button variant={props.recording ? "outline" : "default"} size="icon-lg" onClick={props.onToggleRecording} disabled={props.preparingGroup || props.evaluating || props.submitted}
-                className={props.recording ? "border-red-200 text-red-600 hover:bg-red-50" : "bg-red-600 hover:bg-red-700"} aria-label={props.recording ? "暂停录音" : "开始录音"}>
-                {props.recording ? <Pause /> : <Mic />}
+              <Button variant={props.recording ? "outline" : "default"} size="icon-lg" onClick={props.onToggleRecording} disabled={props.preparingGroup || props.evaluating || props.submitted || props.speechProcessing}
+                className={props.recording ? "border-red-200 text-red-600 hover:bg-red-50" : "bg-red-600 hover:bg-red-700"} aria-label={props.recording ? "停止录音" : "开始录音"}>
+                {props.recording ? <Pause /> : props.speechProcessing ? <Bot className="animate-pulse" /> : <Mic />}
               </Button>
               <div className="flex min-w-0 flex-1 items-center gap-3">
                 <div className="flex h-9 flex-1 items-center gap-[3px] overflow-hidden" aria-label="录音波形">
@@ -2119,7 +2121,7 @@ function TrainingCenter(props: TrainingProps) {
                 </div>
                 <span className="font-mono text-sm font-medium tabular-nums text-slate-600">{formatTime(props.seconds)}</span>
               </div>
-              <span className="text-xs text-slate-500">{props.recording ? "实时识别中…" : "点击麦克风开始（会清空上次语音）"}</span>
+              <span className="text-xs text-slate-500">{props.recording ? "录音中，停止后由 Whisper 识别…" : props.speechProcessing ? "Whisper 识别中…" : "点击麦克风开始（会清空上次语音）"}</span>
             </div>
             {props.speechError && <div className="border-b border-rose-100 bg-rose-50 px-5 py-2.5 text-xs leading-5 text-rose-700">{props.speechError}</div>}
             <div className="p-5">
@@ -2384,6 +2386,14 @@ type QuestionBankPageProps = {
 function QuestionBankPage({ questions, favorites, onToggleFavorite, remoteState, remoteError }: QuestionBankPageProps) {
   const [query, setQuery] = useState("");
   const [sourceFilter, setSourceFilter] = useState<QuestionBankSourceFilter>("全部");
+  const [questionSourceMode, setQuestionSourceMode] = useState<QuestionSourceMode>(() => {
+    try {
+      const stored = JSON.parse(localStorage.getItem("vision-interview-ai-preferences") || "{}");
+      return resolveQuestionSourceMode(stored);
+    } catch {
+      return "network";
+    }
+  });
   const filteredQuestions = useMemo(() => filterQuestionBankItems(questions, query, sourceFilter), [questions, query, sourceFilter]);
   const groups = useMemo(() => groupQuestionBankItems(filteredQuestions), [filteredQuestions]);
   const categories = new Set(questions.map((item) => item.category));
@@ -2394,7 +2404,47 @@ function QuestionBankPage({ questions, favorites, onToggleFavorite, remoteState,
     { value: "AI", label: "AI 生成" },
   ];
 
+  function changeQuestionSourceMode(mode: QuestionSourceMode) {
+    let stored: unknown = {};
+    try {
+      stored = JSON.parse(localStorage.getItem("vision-interview-ai-preferences") || "{}");
+    } catch {
+      stored = {};
+    }
+    const nextPreferences = withQuestionSourceMode(stored, mode);
+    localStorage.setItem("vision-interview-ai-preferences", JSON.stringify(nextPreferences));
+    setQuestionSourceMode(mode);
+    recordRuntimeEvent("INFO", "question-bank.source.changed", mode === "network" ? "题目来源已切换为联网获取" : "题目来源已切换为题库检索", {
+      sourceMode: mode,
+    });
+  }
+
   return <PageShell title="题库" subtitle="按知识分类浏览内置题库与 AI 生成题目，展开题目即可查看完整回答要点。">
+    <section className="panel mb-5 flex flex-col gap-4 p-4 sm:flex-row sm:items-center sm:justify-between">
+      <div className="flex min-w-0 items-start gap-3">
+        <span className={`grid size-10 shrink-0 place-items-center rounded-lg ${questionSourceMode === "network" ? "bg-blue-50 text-blue-600" : "bg-emerald-50 text-emerald-600"}`}>
+          {questionSourceMode === "network" ? <Globe2 className="size-5" /> : <BookOpen className="size-5" />}
+        </span>
+        <div className="min-w-0">
+          <div className="flex flex-wrap items-center gap-2">
+            <h2 className="font-semibold text-slate-900">联网获取题目</h2>
+            <Badge variant="outline" className={`rounded-md ${questionSourceMode === "network" ? "border-blue-200 bg-blue-50 text-blue-700" : "border-emerald-200 bg-emerald-50 text-emerald-700"}`}>
+              {questionSourceMode === "network" ? "联网模式" : "题库模式"}
+            </Badge>
+          </div>
+          <p className="mt-1 text-xs leading-5 text-slate-500">
+            {questionSourceMode === "network"
+              ? "每个新题组都会联网搜索真实资料并保留来源；获取失败时自动从题库补足。"
+              : "只从内置题库和 GitHub 已归档题库检索，不发送联网搜索或 AI 生成请求。"}
+          </p>
+        </div>
+      </div>
+      <Switch
+        checked={questionSourceMode === "network"}
+        onCheckedChange={(checked) => changeQuestionSourceMode(checked ? "network" : "bank")}
+        aria-label="联网获取题目"
+      />
+    </section>
     <div className="grid gap-3 sm:grid-cols-4">
       {[
         { label: "全部题目", value: questions.length, icon: Library, tone: "bg-blue-50 text-blue-600" },
@@ -3250,11 +3300,10 @@ function SettingsPage() {
     }
   }
 
-  const features: { key: keyof Pick<AiPreferences, "aiScoring" | "bestAnswer" | "smartFollowUp" | "webQuestions">; title: string; description: string }[] = [
+  const features: { key: keyof Pick<AiPreferences, "aiScoring" | "bestAnswer" | "smartFollowUp">; title: string; description: string }[] = [
     { key: "aiScoring", title: "AI 回答审阅与掌握度", description: "不打分，判断低/中/高掌握程度，并指出知识遗漏、表达结构、项目证据和工程局限" },
     { key: "bestAnswer", title: "生成最佳回答", description: "结合题目和项目资料生成个性化参考答案" },
     { key: "smartFollowUp", title: "智能连续追问", description: "根据回答中的遗漏点继续追问，而不是固定题目" },
-    { key: "webQuestions", title: "联网整理专业题库", description: "搜索机器视觉题库，并在题目后保留来源" },
   ];
   const settingsSections: { key: SettingsSection; title: string; description: string; icon: typeof Settings }[] = [
     { key: "model", title: "模型服务", description: "服务商、地址、密钥与模型", icon: Bot },
