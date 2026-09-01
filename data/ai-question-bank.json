@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-09-01T12:17:40.892Z",
+  "updatedAt": "2026-09-01T12:19:14.848Z",
   "questions": [
     {
       "title": "在轮胎字符深度OCR项目中，HALCON的深度OCR模型相比传统OCR在抗磨损和倾斜方面有哪些本质优势？",
@@ -16378,6 +16378,455 @@
       "categoryFilter": "随机类型",
       "difficultyFilter": "随机难度",
       "techStackFilter": "随机技术栈",
+      "detectionDirectionFilter": "随机方向"
+    },
+    {
+      "title": "HALCON中基于点云的3D视觉测量流程是怎样的？法线估计和RANSAC分别起什么作用？",
+      "type": "算法原理",
+      "category": "算法原理",
+      "source": "专业",
+      "sourceType": "AI知识整理",
+      "knowledgePoints": [
+        "深度图与点云转换",
+        "法线估计原理",
+        "RANSAC拟合",
+        "find_surface_model应用"
+      ],
+      "difficulty": "困难",
+      "tags": [
+        "3D视觉",
+        "点云处理",
+        "HALCON"
+      ],
+      "keywords": [
+        "深度图",
+        "点云",
+        "法线估计",
+        "RANSAC",
+        "find_surface_model"
+      ],
+      "followUp": "如果点云中存在大量离群点，你会如何预处理？法线估计时邻域半径如何选择？",
+      "hint": "先一句话给出结论，再按流程展开：读取深度图→生成点云→预处理→法线估计→分割/拟合→测量。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "detectionDirection": "3D 视觉",
+      "bestAnswer": "HALCON中3D视觉测量通常先读取深度图或点云，用xyz_to_object_model_3d生成3D模型，再通过point_cloud_normal_estimation估计法线，用于后续分割和拟合。RANSAC通过随机采样迭代拟合平面、圆柱等几何模型，剔除离群点，提高测量鲁棒性。最后用fit_primitives_object_model_3d或find_surface_model完成尺寸测量。实际项目中应先做统计滤波去除离群点，再估计法线，并合理设置邻域半径。",
+      "principle": "深度图每个像素记录深度值，结合相机内参可反投影为三维点云。法线估计通过邻域点拟合局部平面，取平面法向量作为该点法线，反映局部几何特征。RANSAC随机选取最小子集估计模型参数，统计内点数量，迭代多次取最优模型，能有效抵抗噪声和离群点。find_surface_model基于表面特征实现三维匹配，需要法线信息支持。",
+      "id": "aiq-26bba052",
+      "generatedAt": "2026-09-01T12:19:17.332Z",
+      "provider": "opencode-go",
+      "model": "deepseek-v4-flash",
+      "project": "机器视觉专业知识",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "HALCON",
+      "detectionDirectionFilter": "随机方向"
+    },
+    {
+      "title": "HALCON中grab_image和grab_image_async有什么区别？实际项目中如何选择并优化性能？",
+      "type": "工程实践",
+      "category": "工程实践",
+      "source": "专业",
+      "sourceType": "AI知识整理",
+      "knowledgePoints": [
+        "同步采集与异步采集",
+        "异步队列与MaxDelay",
+        "ROI与金字塔优化",
+        "多线程处理"
+      ],
+      "difficulty": "中等",
+      "tags": [
+        "性能优化",
+        "异步采集",
+        "HALCON"
+      ],
+      "keywords": [
+        "grab_image",
+        "grab_image_async",
+        "MaxDelay",
+        "ROI",
+        "金字塔"
+      ],
+      "followUp": "如果使用grab_image_async后图像队列溢出，你会怎么处理？",
+      "hint": "先一句话给出结论：同步适合低速、异步适合高速连续采集。再围绕ROI、金字塔、异步采集展开说明。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "detectionDirection": "传统 2D 视觉",
+      "bestAnswer": "grab_image是同步阻塞采集，相机采集完成后才返回图像，适合低速或单次触发场景；grab_image_async启动异步采集，图像在后台队列中缓存，通过MaxDelay控制延迟，适合高速连续采集。实际项目中若处理时间大于采集周期，应使用异步采集避免丢帧；同时通过设置ROI减少处理区域、使用图像金字塔降低分辨率，可显著提升整体吞吐量。",
+      "principle": "异步采集利用相机内部缓冲区或HALCON的队列机制，使采集与处理并行。MaxDelay指定从图像采集到返回的最大等待时间，防止处理过慢导致队列堆积。ROI缩小了后续算法处理的数据量，金字塔通过降采样减少像素数，两者都直接降低计算复杂度。",
+      "id": "aiq-566808c4",
+      "generatedAt": "2026-09-01T12:19:17.332Z",
+      "provider": "opencode-go",
+      "model": "deepseek-v4-flash",
+      "project": "机器视觉专业知识",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "HALCON",
+      "detectionDirectionFilter": "随机方向"
+    },
+    {
+      "title": "HALCON形状模板匹配中金字塔层数、角度范围和Greediness如何影响结果？实际项目中如何调节？",
+      "type": "模板与定位",
+      "category": "模板与定位",
+      "source": "专业",
+      "sourceType": "AI知识整理",
+      "knowledgePoints": [
+        "金字塔层级与搜索效率",
+        "角度范围与步长",
+        "Greediness与贪心策略",
+        "MinScore阈值"
+      ],
+      "difficulty": "中等",
+      "tags": [
+        "模板匹配",
+        "参数调节",
+        "HALCON"
+      ],
+      "keywords": [
+        "金字塔",
+        "角度范围",
+        "Greediness",
+        "MinScore"
+      ],
+      "followUp": "当模板匹配出现误匹配时，你会优先调整哪个参数？为什么？",
+      "hint": "先一句话给出结论：金字塔影响速度，角度范围影响搜索空间，Greediness影响准确性与速度的平衡。再分别说明调节策略。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "detectionDirection": "传统 2D 视觉",
+      "bestAnswer": "金字塔层数越多，匹配速度越快，但层数过高会丢失细节导致定位不准，通常设为3~5层。角度范围决定搜索的旋转空间，范围越大耗时越长，应结合工件实际旋转角度设置，并配合角度步长。Greediness控制贪心搜索程度，值越大速度越快但可能漏匹配，一般从0.7~0.9开始调试。若出现误匹配，优先降低Greediness或提高MinScore。",
+      "principle": "金字塔匹配先在低分辨率层粗定位，再逐层精化，减少计算量。角度范围定义了模板旋转的搜索空间，步长影响角度分辨率。Greediness是一种提前终止策略，当相似度低于阈值时跳过剩余点，值越高跳过越激进，速度提升但可能错过最佳匹配。MinScore设定接受匹配的最低分数，用于平衡误检与漏检。",
+      "id": "aiq-05a5aa63",
+      "generatedAt": "2026-09-01T12:19:17.332Z",
+      "provider": "opencode-go",
+      "model": "deepseek-v4-flash",
+      "project": "机器视觉专业知识",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "HALCON",
+      "detectionDirectionFilter": "随机方向"
+    },
+    {
+      "title": "在HALCON中，使用RANSAC进行点云平面拟合时，距离阈值和迭代次数如何影响拟合结果？请结合算子说明。",
+      "type": "算法原理",
+      "category": "算法原理",
+      "source": "专业",
+      "sourceType": "技术教程整理",
+      "knowledgePoints": [
+        "RANSAC随机采样一致性原理",
+        "距离阈值对内点判定的影响",
+        "迭代次数与置信度的关系",
+        "HALCON中fit_primitives_object_model_3d的使用"
+      ],
+      "difficulty": "中等",
+      "tags": [
+        "HALCON",
+        "3D视觉",
+        "RANSAC",
+        "点云处理"
+      ],
+      "keywords": [
+        "距离阈值",
+        "迭代次数",
+        "内点",
+        "平面拟合",
+        "fit_primitives_object_model_3d"
+      ],
+      "followUp": "如果点云中存在大量离群点，你会如何预处理？",
+      "hint": "先给出结论，再解释距离阈值和迭代次数的物理意义，最后说明实际调节方法。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "detectionDirection": "3D 视觉",
+      "bestAnswer": "在HALCON中，RANSAC平面拟合通过随机采样点对估计平面模型，距离阈值决定点是否属于内点，阈值过小会丢失有效点，过大会引入噪声。迭代次数决定找到最优模型的概率，次数越多结果越稳定，但耗时增加。实际中可先通过visualize_object_model_3d观察点云噪声，再调节阈值，并设置足够迭代次数。HALCON中可用fit_primitives_object_model_3d或find_plane_from_point_cloud实现。",
+      "principle": "RANSAC假设数据由内点和外点组成，通过反复随机采样最小子集估计模型，并用距离阈值划分内点，迭代次数由期望置信度决定。HALCON算子内部封装了该过程，用户需提供距离阈值和迭代次数等参数以平衡鲁棒性与效率。",
+      "id": "aiq-f0cb2055",
+      "generatedAt": "2026-09-01T12:19:17.332Z",
+      "provider": "opencode-go",
+      "model": "deepseek-v4-flash",
+      "project": "机器视觉专业知识",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "HALCON",
+      "detectionDirectionFilter": "随机方向"
+    },
+    {
+      "title": "在HALCON中，当目标表面存在光照变化或反光时，形状模板匹配的MinScore参数应如何调整？请说明原理和实际做法。",
+      "type": "工程实践",
+      "category": "模板与定位",
+      "source": "专业",
+      "sourceType": "技术教程整理",
+      "knowledgePoints": [
+        "形状模板匹配的相似度度量",
+        "MinScore参数对匹配结果的影响",
+        "光照变化对梯度方向的影响",
+        "金字塔层数和角度范围的配合"
+      ],
+      "difficulty": "中等",
+      "tags": [
+        "HALCON",
+        "模板匹配",
+        "MinScore",
+        "光照变化"
+      ],
+      "keywords": [
+        "MinScore",
+        "光照变化",
+        "反光",
+        "金字塔",
+        "形状匹配"
+      ],
+      "followUp": "如果降低MinScore后误匹配增多，你会如何解决？",
+      "hint": "先给出结论，再解释MinScore的物理意义，最后说明如何结合金字塔和ROI优化。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "detectionDirection": "传统 2D 视觉",
+      "bestAnswer": "当光照变化或反光导致目标梯度方向不稳定时，匹配分数会下降，此时应适当降低MinScore以接受更多候选。但降低过多会引入误匹配，因此需结合金字塔层数减少搜索范围，并设置角度范围限制。实际中可先使用find_shape_model的Score输出观察分数分布，再设定阈值。若仍误匹配，可增加ROI或使用create_shape_model时的Contrast参数突出边缘。",
+      "principle": "形状模板匹配基于梯度方向而非灰度值，对光照变化有一定鲁棒性，但强反光会改变梯度方向，导致相似度下降。MinScore是相似度阈值，降低它可容忍更大变化，但也会增加误匹配概率。金字塔层数影响搜索粒度，层数越高速度越快但精度降低，需平衡。",
+      "id": "aiq-ee2fe302",
+      "generatedAt": "2026-09-01T12:19:17.332Z",
+      "provider": "opencode-go",
+      "model": "deepseek-v4-flash",
+      "project": "机器视觉专业知识",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "HALCON",
+      "detectionDirectionFilter": "随机方向"
+    },
+    {
+      "title": "HALCON中基于点云的3D表面匹配（find_surface_model）如何实现？法线估计和RANSAC分别起什么作用？",
+      "type": "算法原理",
+      "category": "算法原理",
+      "source": "专业",
+      "sourceType": "官方文档整理",
+      "knowledgePoints": [
+        "3D表面匹配的基本原理",
+        "法线估计在特征描述中的作用",
+        "RANSAC在姿态求解中的鲁棒性保障",
+        "find_surface_model的关键参数"
+      ],
+      "difficulty": "困难",
+      "tags": [
+        "3D视觉",
+        "点云",
+        "表面匹配",
+        "RANSAC"
+      ],
+      "keywords": [
+        "点云",
+        "深度图",
+        "法线估计",
+        "RANSAC",
+        "find_surface_model",
+        "姿态估计"
+      ],
+      "followUp": "如果输入的是深度图而非点云，find_surface_model的处理流程有何不同？",
+      "hint": "先用一句话说明3D表面匹配的核心思想，再分别解释法线估计和RANSAC的作用，最后提一下参数影响。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "detectionDirection": "3D 视觉",
+      "bestAnswer": "3D表面匹配通过提取场景点云与模板点云的特征描述子，在姿态空间中进行搜索对齐。法线估计用于计算每个点的局部几何特征，为特征描述提供方向参考，是匹配的基础。RANSAC通过随机采样和一致性检验，在对应点集中剔除误匹配，稳健地估计刚体变换矩阵。在HALCON中，find_surface_model利用这些原理，结合金字塔搜索和姿态细化，实现快速定位。实际使用时需调整参数如SamplingDistance、ScoreType等，以平衡速度与精度。",
+      "principle": "find_surface_model基于点云特征匹配。首先对模板和场景点云进行下采样，计算法线并生成特征描述子（如PPF）。匹配时通过局部特征对应建立假设，利用RANSAC随机选取最小点集计算姿态，再用全部对应点验证并优化。法线估计是特征描述的基础，RANSAC则保证在噪声和遮挡下仍能获得正确姿态。HALCON的算子内部封装了这些步骤，用户通过参数控制采样密度和得分阈值。",
+      "id": "aiq-016d0088",
+      "generatedAt": "2026-09-01T12:19:17.332Z",
+      "provider": "opencode-go",
+      "model": "deepseek-v4-flash",
+      "project": "机器视觉专业知识",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "HALCON",
+      "detectionDirectionFilter": "随机方向"
+    },
+    {
+      "title": "在HALCON中，当模板匹配在光照变化或反光场景下不稳定时，你会如何从图像预处理和匹配参数两方面进行优化？",
+      "type": "工程实践",
+      "category": "工程实践",
+      "source": "专业",
+      "sourceType": "AI知识整理",
+      "knowledgePoints": [
+        "光照变化对模板匹配的影响",
+        "图像预处理增强方法",
+        "匹配参数调整策略",
+        "形状匹配对光照的鲁棒性"
+      ],
+      "difficulty": "中等",
+      "tags": [
+        "模板匹配",
+        "光照变化",
+        "反光",
+        "鲁棒性"
+      ],
+      "keywords": [
+        "光照变化",
+        "反光",
+        "MinScore",
+        "金字塔",
+        "灰度归一化",
+        "Gabor滤波"
+      ],
+      "followUp": "如果反光区域无法通过预处理消除，你会如何设计视觉方案？",
+      "hint": "先给出结论：需要结合预处理和参数调整。预处理方面可考虑灰度归一化、直方图均衡、Gabor滤波等；参数方面可降低MinScore、增加金字塔层数、使用缩放匹配等。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "detectionDirection": "传统 2D 视觉",
+      "bestAnswer": "针对光照变化，首先在预处理阶段对图像进行灰度归一化或直方图均衡，减少光照不均的影响；对于反光，可考虑使用Gabor滤波或同轴光消除镜面反射。在匹配参数上，适当降低MinScore以容忍灰度差异，增加金字塔层数提高搜索效率，同时可开启缩放匹配以适应微小尺寸变化。还可以使用基于边缘的形状匹配代替灰度匹配，因为边缘对光照变化更鲁棒。实际项目中需根据场景测试参数组合。",
+      "principle": "灰度模板匹配对光照敏感，因为其相似度计算依赖像素灰度值。归一化可以消除整体亮度差异，但无法处理局部反光。形状匹配基于梯度方向，对光照变化不敏感。HALCON的create_shape_model提取边缘梯度方向，通过金字塔分层搜索，MinScore控制接受阈值。降低MinScore会增加误检风险，但配合金字塔和贪心参数可平衡鲁棒性。Gabor滤波可增强纹理特征，抑制反光区域的高光。",
+      "id": "aiq-f80f6d4f",
+      "generatedAt": "2026-09-01T12:19:17.332Z",
+      "provider": "opencode-go",
+      "model": "deepseek-v4-flash",
+      "project": "机器视觉专业知识",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "HALCON",
+      "detectionDirectionFilter": "随机方向"
+    },
+    {
+      "title": "在 HALCON 中，实现手眼标定时，“眼在手上”和“眼在手外”两种安装方式分别对应什么样的坐标变换关系？标定结果如何验证？",
+      "type": "算法原理",
+      "category": "算法原理",
+      "source": "专业",
+      "sourceType": "AI知识整理",
+      "knowledgePoints": [
+        "眼在手上与眼在手外的坐标变换关系",
+        "AX=XB矩阵方程的求解原理",
+        "标定结果的验证方法"
+      ],
+      "difficulty": "中等",
+      "tags": [
+        "HALCON",
+        "手眼标定",
+        "机器人引导",
+        "坐标变换"
+      ],
+      "keywords": [
+        "眼在手上",
+        "眼在手外",
+        "AX=XB",
+        "calibrate_hand_eye",
+        "工具坐标系",
+        "基座坐标系"
+      ],
+      "followUp": "如果标定后的机器人抓取精度不足，你会从哪些方面排查？",
+      "hint": "先用一句话给出结论，再围绕工具坐标系、基座坐标系、AX=XB展开说明。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "detectionDirection": "机器人视觉引导",
+      "bestAnswer": "眼在手上时，相机固定在机器人末端，标定目标是求相机坐标系到工具坐标系的变换；眼在手外时，相机固定在外界，标定目标是求相机坐标系到基座坐标系的变换。两者都归结为求解AX=XB矩阵方程。HALCON中可使用calibrate_hand_eye算子，输入标定板位姿和机器人位姿，输出相机安装位姿。验证时可将标定板固定，移动机器人到多个位姿，重投影误差应控制在亚像素级别；也可用标定结果引导机器人抓取已知物体，检查位置偏差。",
+      "principle": "手眼标定本质是求解齐次变换矩阵X，满足AX=XB，其中A是机器人末端运动增量，B是相机观测到的标定板运动增量。眼在手上时，X为相机到末端的变换；眼在手外时，X为相机到基座的变换。HALCON通过采集多组机器人位姿和标定板位姿，利用最小二乘或非线性优化求解，同时估计相机内参和外参。标定精度受机器人绝对定位精度、标定板平面度、图像特征提取精度和位姿数量影响。",
+      "id": "aiq-b98b8648",
+      "generatedAt": "2026-09-01T12:19:17.332Z",
+      "provider": "opencode-go",
+      "model": "deepseek-v4-flash",
+      "project": "机器视觉专业知识",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "HALCON",
+      "detectionDirectionFilter": "随机方向"
+    },
+    {
+      "title": "在 HALCON 中，当点云存在噪声和离群点时，如何通过法线估计与 RANSAC 实现稳健的平面拟合？请结合算子说明完整流程。",
+      "type": "算法原理",
+      "category": "算法原理",
+      "source": "专业",
+      "sourceType": "AI知识整理",
+      "knowledgePoints": [
+        "法线估计是点云局部几何特征描述的基础，常用PCA方法",
+        "RANSAC通过迭代采样与内点计数实现鲁棒模型拟合",
+        "HALCON中常用xyz_to_object_model_3d、object_model_3d_to_point_cloud、estimate_normal_3d_model等算子"
+      ],
+      "difficulty": "中等",
+      "tags": [
+        "3D视觉",
+        "点云处理",
+        "法线估计",
+        "RANSAC",
+        "HALCON"
+      ],
+      "keywords": [
+        "法线估计",
+        "RANSAC",
+        "平面拟合",
+        "点云去噪",
+        "distance_threshold",
+        "内点"
+      ],
+      "followUp": "如果场景中存在多个平面，如何利用RANSAC逐一提取？",
+      "hint": "先用一句话给出结论，再围绕“点云预处理→法线估计→RANSAC拟合”展开说明，最后指出关键参数。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "detectionDirection": "3D 视觉",
+      "bestAnswer": "结论：通过点云预处理、法线估计和RANSAC拟合三个环节，可有效抑制噪声和离群点干扰。具体流程：先用xyz_to_object_model_3d将点云转为3D模型，再用object_model_3d_to_point_cloud获取点云并做滤波（如remove_outliers_3d_model）；然后调用estimate_normal_3d_model估计法线，为后续几何拟合提供局部特征；最后用fit_primitives_3d_model或RANSAC相关算子拟合平面，并设置distance_threshold控制内点范围。关键参数包括法线估计的邻域半径和RANSAC的距离阈值，需根据点云密度和噪声水平调整。",
+      "principle": "法线估计通常基于PCA，对每个点的邻域协方差矩阵求特征向量，最小特征值对应法线方向。RANSAC通过随机选取最小样本集（平面需3点）计算候选平面，统计满足距离阈值的点数作为内点，迭代多次取内点最多的模型。该组合对离群点具有鲁棒性，因为法线估计能平滑局部噪声，而RANSAC的随机采样和投票机制可排除异常值。HALCON中相关算子封装了这些算法，参数如邻域半径和距离阈值直接影响精度。",
+      "id": "aiq-860a743d",
+      "generatedAt": "2026-09-01T12:19:17.332Z",
+      "provider": "opencode-go",
+      "model": "deepseek-v4-flash",
+      "project": "机器视觉专业知识",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "HALCON",
+      "detectionDirectionFilter": "随机方向"
+    },
+    {
+      "title": "在 HALCON 中，使用 find_surface_model 进行 3D 物体匹配时，点云的法线估计质量对匹配结果有什么影响？如何通过参数设置提高法线估计的鲁棒性？",
+      "type": "算法原理",
+      "category": "算法原理",
+      "source": "专业",
+      "sourceType": "官方文档整理",
+      "knowledgePoints": [
+        "法线估计原理",
+        "find_surface_model 匹配流程",
+        "NormalEstimationRadius 参数影响",
+        "点云预处理方法"
+      ],
+      "difficulty": "中等",
+      "tags": [
+        "3D视觉",
+        "法线估计",
+        "表面匹配",
+        "HALCON"
+      ],
+      "keywords": [
+        "法线估计",
+        "find_surface_model",
+        "NormalEstimationRadius",
+        "点云预处理",
+        "鲁棒性"
+      ],
+      "followUp": "如果场景点云存在大量离群点，你会如何预处理？法线估计半径设置过大或过小分别会导致什么问题？",
+      "hint": "先用一句话给出结论，再围绕“法线估计、点云预处理、参数影响”展开说明。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "detectionDirection": "3D 视觉",
+      "bestAnswer": "法线估计是 find_surface_model 匹配的关键前置步骤，法线方向反映物体表面局部几何特征，直接影响表面特征描述子的构建和对应点匹配。法线不准确会导致匹配分数低、位姿偏差甚至误匹配。提高鲁棒性的做法：先对点云进行降采样和离群点滤除（如 reduce_object_model_3d_by_volume、connection_object_model_3d），再设置合适的 NormalEstimationRadius，通常为平均点间距的 3-10 倍。半径过小易受噪声干扰，过大则平滑掉细节。此外，可对场景点云做平滑处理，并验证法线方向一致性。",
+      "principle": "find_surface_model 通过计算点云局部特征（如法线、曲率）生成表面模型，匹配时在场景中寻找相似特征。法线由邻域点协方差分析或平面拟合得到，邻域半径决定了参与计算的点的范围。HALCON 的 create_surface_model 内部会调用法线估计，并提供参数控制。RANSAC 在匹配阶段用于从候选对应中稳健估计刚体变换，但若法线错误，对应关系错误，RANSAC 迭代难以收敛到正确位姿。",
+      "id": "aiq-13b0810b",
+      "generatedAt": "2026-09-01T12:19:17.332Z",
+      "provider": "opencode-go",
+      "model": "deepseek-v4-flash",
+      "project": "机器视觉专业知识",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "HALCON",
       "detectionDirectionFilter": "随机方向"
     }
   ]
