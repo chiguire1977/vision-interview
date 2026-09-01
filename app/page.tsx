@@ -52,6 +52,11 @@ import {
   buildLearningFocusPrompt,
   prioritizeQuestionCandidates,
 } from "@/lib/adaptive-question-focus.mjs";
+import {
+  buildReviewQueue,
+  selectReviewQuestions,
+  summarizeReviewQueue,
+} from "@/lib/review-queue.mjs";
 import { primaryNavigationLabels, utilityNavigationLabels } from "@/lib/navigation.mjs";
 import { analyzeLearningMastery, createImprovementPlan } from "@/lib/personal-center.mjs";
 import { createGitHubBackupLog } from "@/lib/backup-log.mjs";
@@ -1427,6 +1432,8 @@ export default function Home() {
   const [sessionAnswers, setSessionAnswers] = useState<SessionAnswer[]>([]);
   const [groupCompleted, setGroupCompleted] = useState(false);
   const [groupRound, setGroupRound] = useState(0);
+  const [reviewSessionActive, setReviewSessionActive] = useState(false);
+  const [reviewSessionQuestions, setReviewSessionQuestions] = useState<Question[] | null>(null);
   const [preparedGroupQuestions, setPreparedGroupQuestions] = useState<Question[] | null>(null);
   const [preparingGroup, setPreparingGroup] = useState(true);
   const [groupPreparationSource, setGroupPreparationSource] = useState<"AI" | "本地规则" | "缓存">("本地规则");
@@ -1539,13 +1546,51 @@ export default function Home() {
     } catch { /* 忽略浏览器存储限制 */ }
   }
   const groupPreparationKey = useMemo(() => ["ai-generated-v4", project, trainingMode, category, difficulty, techStack, groupRound, questionGroupSettings.questionGroupSize, questionGroupSettings.parallelRequests, aiSelectionSignature, learningFocus.active ? learningFocus.summary : "no-focus", ...groupQuestionSeed.map((item) => item.title)].join("|"), [project, trainingMode, category, difficulty, techStack, groupRound, questionGroupSettings.questionGroupSize, questionGroupSettings.parallelRequests, aiSelectionSignature, learningFocus, groupQuestionSeed]);
-  const groupQuestions = preparedGroupQuestions?.length ? preparedGroupQuestions : groupQuestionSeed;
+  const groupQuestions = reviewSessionActive && reviewSessionQuestions?.length
+    ? reviewSessionQuestions
+    : preparedGroupQuestions?.length ? preparedGroupQuestions : groupQuestionSeed;
   const question = groupQuestions[questionIndex % groupQuestions.length];
   const currentEvaluation = sessionAnswers.find((item) => item.question.title === question.title);
   const allQuestionBank = useMemo(
     () => mergeQuestionBankItems(questionBank.filter((item) => item.source === "专业"), remoteQuestionBank.filter(isProfessionalQuestionValue)),
     [remoteQuestionBank],
   );
+
+  function startReview(startTitle = "", questionTitles?: string[]) {
+    const reviewRecords = questionTitles?.length
+      ? records.filter((record) => questionTitles.includes(record.question))
+      : records;
+    const queue = buildReviewQueue(reviewRecords);
+    const selected = selectReviewQuestions(allQuestionBank, reviewRecords, startTitle);
+    if (!selected.length) {
+      recordRuntimeEvent("WARN", "review.start.empty", "复习队列中没有可用题目", { requestedTitle: startTitle });
+      return;
+    }
+    const summary = summarizeReviewQueue(queue);
+    stopRecording();
+    setReviewSessionActive(true);
+    setReviewSessionQuestions(selected);
+    setPreparedGroupQuestions(null);
+    setPreparingGroup(false);
+    setGroupPreparationSource("本地规则");
+    setGroupPreparationMessage(`温故知新复习队列已准备，共 ${selected.length} 道题，按优先级执行。`);
+    setGroupCompleted(false);
+    setSessionAnswers([]);
+    setQuestionIndex(0);
+    setAnswer("");
+    setSubmitted(false);
+    setEvaluating(false);
+    setShowBestAnswer(false);
+    setBestAnswerViewed(false);
+    setSeconds(0);
+    setActiveNav("开始学习");
+    recordRuntimeEvent("INFO", "review.started", "温故知新复习任务已开始", {
+      total: selected.length,
+      highPriority: summary.high,
+      categories: summary.categories,
+      requestedTitle: startTitle || null,
+    });
+  }
 
   async function transcribeRecordedAudio(chunks: Blob[]) {
     if (!chunks.length) {
@@ -1681,6 +1726,7 @@ export default function Home() {
   useEffect(() => () => stopRecording(), []);
 
   useEffect(() => {
+    if (reviewSessionActive) return;
     let active = true;
     let sourceMode: "network" | "bank" = "network";
     try {
@@ -1797,7 +1843,7 @@ export default function Home() {
       });
     });
     return () => { active = false; };
-  }, [groupPreparationKey, groupQuestionSeed, project, trainingMode, category, difficulty, techStack, learningFocus]);
+  }, [groupPreparationKey, groupQuestionSeed, project, trainingMode, category, difficulty, techStack, learningFocus, reviewSessionActive]);
 
   useEffect(() => {
     stopRecording();
@@ -1969,8 +2015,15 @@ export default function Home() {
 
   function restartGroup() {
     stopRecording();
-    setGroupCompleted(false); setSessionAnswers([]); setQuestionIndex(0); setAnswer(""); setSubmitted(false); setEvaluating(false); setPreparedGroupQuestions(null); setPreparingGroup(true);
+    setGroupCompleted(false); setSessionAnswers([]); setQuestionIndex(0); setAnswer(""); setSubmitted(false); setEvaluating(false);
     setShowBestAnswer(false); setBestAnswerViewed(false); setRecording(false); setSeconds(0);
+    if (reviewSessionActive && reviewSessionQuestions?.length) {
+      setPreparingGroup(false);
+      setGroupPreparationSource("本地规则");
+      setGroupPreparationMessage(`温故知新复习队列已重新开始，共 ${reviewSessionQuestions.length} 道题。`);
+      return;
+    }
+    setReviewSessionActive(false); setReviewSessionQuestions(null); setPreparedGroupQuestions(null); setPreparingGroup(true);
     setGroupRound((value) => value + 1);
   }
 
@@ -2031,13 +2084,13 @@ export default function Home() {
 
         {activeNav === "开始学习" && (groupCompleted ? (
           <GroupReview answers={sessionAnswers} totalQuestions={groupQuestions.length} mode={trainingMode}
-            onRestart={restartGroup} onRetry={retryQuestion} />
-        ) : <TrainingCenter question={question} questionIndex={questionIndex} totalQuestions={groupQuestions.length} questionGroupSize={questionGroupSettings.questionGroupSize} parallelRequests={questionGroupSettings.parallelRequests}
+            reviewMode={reviewSessionActive} onRestart={restartGroup} onRetry={retryQuestion} />
+        ) : <TrainingCenter question={question} questionIndex={questionIndex} totalQuestions={groupQuestions.length} questionGroupSize={questionGroupSettings.questionGroupSize} parallelRequests={questionGroupSettings.parallelRequests} reviewMode={reviewSessionActive}
           trainingMode={trainingMode} category={category} difficulty={difficulty} techStack={techStack} project={project}
           isFavorite={isFavoriteQuestion(favoriteQuestions, question)} onToggleFavorite={() => toggleFavorite(question)}
-          onCategoryChange={(value) => { setCategory(value); setQuestionIndex(0); setAnswer(""); setSubmitted(false); setEvaluating(false); setPreparedGroupQuestions(null); setPreparingGroup(true); setSeconds(0); setSessionAnswers([]); setGroupCompleted(false); setGroupRound(0); }}
-          onDifficultyChange={(value) => { setDifficulty(value); setQuestionIndex(0); setAnswer(""); setSubmitted(false); setEvaluating(false); setPreparedGroupQuestions(null); setPreparingGroup(true); setSeconds(0); setSessionAnswers([]); setGroupCompleted(false); setGroupRound(0); }}
-          onTechStackChange={(value) => { setTechStack(value); setQuestionIndex(0); setAnswer(""); setSubmitted(false); setEvaluating(false); setPreparedGroupQuestions(null); setPreparingGroup(true); setShowBestAnswer(false); setSeconds(0); setSessionAnswers([]); setGroupCompleted(false); setGroupRound(0); }}
+          onCategoryChange={(value) => { setReviewSessionActive(false); setReviewSessionQuestions(null); setCategory(value); setQuestionIndex(0); setAnswer(""); setSubmitted(false); setEvaluating(false); setPreparedGroupQuestions(null); setPreparingGroup(true); setSeconds(0); setSessionAnswers([]); setGroupCompleted(false); setGroupRound(0); }}
+          onDifficultyChange={(value) => { setReviewSessionActive(false); setReviewSessionQuestions(null); setDifficulty(value); setQuestionIndex(0); setAnswer(""); setSubmitted(false); setEvaluating(false); setPreparedGroupQuestions(null); setPreparingGroup(true); setSeconds(0); setSessionAnswers([]); setGroupCompleted(false); setGroupRound(0); }}
+          onTechStackChange={(value) => { setReviewSessionActive(false); setReviewSessionQuestions(null); setTechStack(value); setQuestionIndex(0); setAnswer(""); setSubmitted(false); setEvaluating(false); setPreparedGroupQuestions(null); setPreparingGroup(true); setShowBestAnswer(false); setSeconds(0); setSessionAnswers([]); setGroupCompleted(false); setGroupRound(0); }}
           answer={answer} setAnswer={setAnswer} submitted={submitted} recording={recording} speechProcessing={speechProcessing} seconds={seconds} speechError={speechError}
           bestAnswer={getBestAnswer(question, project)} showBestAnswer={showBestAnswer} bestAnswerViewed={bestAnswerViewed} onToggleBestAnswer={toggleBestAnswer}
           evaluating={evaluating} preparingGroup={preparingGroup} groupPreparationSource={groupPreparationSource} groupPreparationMessage={groupPreparationMessage}
@@ -2048,7 +2101,7 @@ export default function Home() {
         {activeNav === "个人中心" && <PersonalCenterPage records={records} />}
         {activeNav === "题库" && <QuestionBankPage questions={allQuestionBank} favorites={favoriteQuestions} onToggleFavorite={toggleFavorite} remoteState={questionBankRemoteState} remoteError={questionBankRemoteError} />}
         {activeNav === "收藏夹" && <FavoritesPage questions={favoriteQuestions} onToggleFavorite={toggleFavorite} />}
-        {activeNav === "温故知新" && <ReviewCenter records={records} onStart={() => setActiveNav("开始学习")} />}
+        {activeNav === "温故知新" && <ReviewCenter records={records} onStart={startReview} />}
         {activeNav === "学习记录" && <TrainingReport records={records} onUploadRecords={uploadLearningRecords} />}
         {activeNav === "运行日志" && <RuntimeLogPage sessionId={runtimeSessionId} />}
         {activeNav === "设置" && <SettingsPage />}
@@ -2065,6 +2118,7 @@ export default function Home() {
 
 type TrainingProps = {
   question: Question; questionIndex: number; totalQuestions: number; questionGroupSize: number; parallelRequests: number; trainingMode: TrainingMode; project: string;
+  reviewMode?: boolean;
   isFavorite: boolean; onToggleFavorite: () => void;
   category: string; difficulty: string; techStack: (typeof techStackFilters)[number];
   onCategoryChange: (value: string) => void; onDifficultyChange: (value: string) => void;
@@ -2092,7 +2146,7 @@ function TrainingCenter(props: TrainingProps) {
             <div className="flex flex-wrap items-center justify-between gap-3 px-4 py-3.5">
               <div className="flex min-w-0 items-center gap-3">
                 <span className="grid size-9 shrink-0 place-items-center rounded-md bg-blue-50 text-blue-600"><Settings className="size-4" /></span>
-                <div className="min-w-0"><strong className="block text-sm font-semibold text-slate-900">训练设置</strong><p className="mt-0.5 truncate text-xs text-slate-500">{props.trainingMode} · {props.category} · {props.difficulty} · {props.techStack}</p></div>
+                <div className="min-w-0"><strong className="block text-sm font-semibold text-slate-900">{props.reviewMode ? "温故知新复习" : "训练设置"}</strong><p className="mt-0.5 truncate text-xs text-slate-500">{props.reviewMode ? "按复习优先级重新组织回答" : `${props.trainingMode} · ${props.category} · ${props.difficulty} · ${props.techStack}`}</p></div>
               </div>
               <Button variant="outline" size="sm" onClick={() => setManuallyExpandedSettings((value) => !value)} className="shrink-0 bg-white text-slate-700">
                 {showTrainingSettings ? "收起设置" : "调整设置"}<ChevronDown className={`transition-transform ${showTrainingSettings ? "rotate-180" : ""}`} />
@@ -2125,7 +2179,7 @@ function TrainingCenter(props: TrainingProps) {
               <span><strong className="font-semibold">{props.preparingGroup ? "正在准备本题组" : `本题组已准备（${props.groupPreparationSource === "AI" ? "AI生成题组" : props.groupPreparationSource === "缓存" ? "本机缓存" : "本地题库"}）`}</strong><span className="ml-1">{props.groupPreparationMessage}</span></span>
             </div>
             <div className="flex flex-wrap items-center gap-2">
-              <Badge className="rounded-md bg-blue-50 text-blue-700 hover:bg-blue-50">{props.question.type} · 第 {props.questionIndex + 1} 题</Badge>
+              <Badge className="rounded-md bg-blue-50 text-blue-700 hover:bg-blue-50">{props.reviewMode ? "温故知新" : props.question.type} · 第 {props.questionIndex + 1} 题</Badge>
               <Badge variant="outline" className="rounded-md border-amber-200 bg-amber-50 text-amber-700">{props.question.difficulty}</Badge>
               <Badge variant="outline" className="rounded-md border-slate-200 bg-slate-50 text-slate-600">{props.question.category}</Badge>
               {props.question.source === "专业" && questionTechStacks.map((stack) => <Badge key={stack} variant="outline" className="rounded-md border-violet-200 bg-violet-50 text-violet-700">{stack}</Badge>)}
@@ -2237,29 +2291,33 @@ function TrainingCenter(props: TrainingProps) {
   );
 }
 
-function GroupReview({ answers, totalQuestions, mode, onRestart, onRetry }: {
+function GroupReview({ answers, totalQuestions, mode, reviewMode, onRestart, onRetry }: {
   answers: SessionAnswer[]; totalQuestions: number; mode: TrainingMode;
+  reviewMode?: boolean;
   onRestart: () => void; onRetry: (index: number) => void;
 }) {
   const answeredCount = answers.filter((item) => item.status === "answered").length;
   const skippedCount = answers.filter((item) => item.status === "skipped").length;
+  const reviewReadyCount = answers.filter((item) => item.status === "answered" && item.mastery !== "低").length;
+  const stillWeakCount = answers.filter((item) => item.status === "skipped" || item.mastery === "低").length;
   const priorities = Array.from(new Set(answers.flatMap((item) => item.review.suggestions))).slice(0, 4);
   return <main className="flex-1 p-3 md:p-5">
     <div className="mx-auto max-w-6xl space-y-4">
       <section className="panel overflow-hidden">
-        <div className="flex flex-col gap-5 border-b border-slate-200 bg-slate-950 px-5 py-6 text-white md:flex-row md:items-center md:justify-between md:px-7">
+            <div className="flex flex-col gap-5 border-b border-slate-200 bg-slate-950 px-5 py-6 text-white md:flex-row md:items-center md:justify-between md:px-7">
           <div>
-            <div className="flex items-center gap-2 text-sm text-blue-300"><BookOpenCheck className="size-4" />{mode} · 题组复盘</div>
-            <h1 className="mt-2 text-2xl font-semibold tracking-tight">不打分，只审阅回答中真正需要改进的地方</h1>
+            <div className="flex items-center gap-2 text-sm text-blue-300"><BookOpenCheck className="size-4" />{reviewMode ? "温故知新 · 复习完成" : `${mode} · 题组复盘`}</div>
+            <h1 className="mt-2 text-2xl font-semibold tracking-tight">{reviewMode ? "复习完成，检查掌握度是否提升" : "不打分，只审阅回答中真正需要改进的地方"}</h1>
             <p className="mt-2 text-sm leading-6 text-slate-300">系统按照题目关键点、表达结构、项目证据和工程边界逐题检查，建议用于下一轮重新组织答案。</p>
           </div>
-          <Button onClick={onRestart} className="shrink-0 bg-white text-slate-900 hover:bg-slate-100"><RotateCcw />进入下一题组</Button>
+          <Button onClick={onRestart} className="shrink-0 bg-white text-slate-900 hover:bg-slate-100"><RotateCcw />{reviewMode ? "再次复习本队列" : "进入下一题组"}</Button>
         </div>
-        <div className="grid gap-px bg-slate-200 sm:grid-cols-3">
+        <div className={`grid gap-px bg-slate-200 ${reviewMode ? "sm:grid-cols-5" : "sm:grid-cols-3"}`}>
           {[
             ["题组题目", `${totalQuestions} 道`],
             ["完成作答", `${answeredCount} 道`],
             ["跳过待补", `${skippedCount} 道`],
+            ...(reviewMode ? [["复习达标", `${reviewReadyCount} 道`], ["仍需强化", `${stillWeakCount} 道`]] : []),
           ].map(([label, value]) => <div key={label} className="bg-white px-5 py-4"><p className="text-xs text-slate-500">{label}</p><p className="mt-1 text-xl font-semibold text-slate-900">{value}</p></div>)}
         </div>
       </section>
@@ -2591,14 +2649,56 @@ function PersonalCenterPage({ records }: { records: TrainingRecord[] }) {
   </PageShell>;
 }
 
-function ReviewCenter({ records, onStart }: { records: TrainingRecord[]; onStart: () => void }) {
-  const lowMasteryRecords = normalizeTrainingRecords(records).filter((record) => record.mastery === "低");
-  return <PageShell title="温故知新" subtitle="所有掌握度为“低”的题目会自动汇总到这里，完成新回答后会更新掌握程度。">
-    <div className="grid gap-4 lg:grid-cols-[1fr_300px]"><div className="space-y-3">
-      {lowMasteryRecords.length === 0 ? <section className="panel p-8 text-center"><CircleCheck className="mx-auto size-8 text-emerald-500" /><h2 className="mt-3 font-medium text-slate-900">暂无低掌握度题目</h2><p className="mt-1 text-sm text-slate-500">完成几道题后，系统会根据回答审阅结果自动建立薄弱习题集。</p></section> : lowMasteryRecords.map((record) => <section key={getRecordKey(record)} className="panel flex flex-col gap-4 p-4 sm:flex-row sm:items-center"><span className="grid size-10 shrink-0 place-items-center rounded-lg bg-rose-50 text-rose-600"><Target className="size-5" /></span><div className="min-w-0 flex-1"><div className="flex flex-wrap items-center gap-2"><h2 className="font-medium text-slate-900">{record.question}</h2><Badge variant="outline" className="rounded-md border-rose-200 bg-rose-50 text-rose-700">掌握度：低</Badge><Badge variant="outline" className="rounded-md border-slate-200 bg-slate-50 text-slate-600">{record.category ?? "待分类"}</Badge></div><p className="mt-1.5 text-xs leading-5 text-slate-500">改进动作：{record.reviewSuggestions?.[0] ?? "重新组织回答并补充关键知识点"} · 最近学习：{record.date}</p></div><Button variant="outline" size="sm" onClick={onStart}>开始复习</Button></section>)}
+function ReviewCenter({ records, onStart }: { records: TrainingRecord[]; onStart: (startTitle?: string, questionTitles?: string[]) => void }) {
+  const [query, setQuery] = useState("");
+  const [priorityFilter, setPriorityFilter] = useState<"全部" | "高" | "中">("全部");
+  const [categoryFilter, setCategoryFilter] = useState("全部分类");
+  const queue = buildReviewQueue(normalizeTrainingRecords(records));
+  const summary = summarizeReviewQueue(queue);
+  const categories = Array.from(new Set(queue.map((item) => item.category || "待分类")));
+  const filteredQueue = queue.filter((item) => {
+    const searchText = `${item.question} ${item.category ?? ""} ${item.reviewIssues?.join(" ") ?? ""} ${item.reviewSuggestions?.join(" ") ?? ""}`.toLocaleLowerCase();
+    return (priorityFilter === "全部" || item.priority === priorityFilter)
+      && (categoryFilter === "全部分类" || (item.category || "待分类") === categoryFilter)
+      && (!query.trim() || searchText.includes(query.trim().toLocaleLowerCase()));
+  });
+  const firstTitle = filteredQueue[0]?.question;
+  return <PageShell title="温故知新" subtitle="把低掌握、跳过和存在审阅问题的题目组成复习任务，重新回答后验证掌握度是否提升。">
+    <div className="grid gap-3 sm:grid-cols-3">
+      {[
+        { label: "待复习题目", value: summary.total, icon: Target, tone: "bg-blue-50 text-blue-600" },
+        { label: "高优先级", value: summary.high, icon: CircleAlert, tone: "bg-rose-50 text-rose-600" },
+        { label: "涉及分类", value: summary.categories, icon: ListTree, tone: "bg-violet-50 text-violet-600" },
+      ].map((metric) => <section key={metric.label} className="panel flex items-center gap-3 p-4"><span className={`grid size-9 place-items-center rounded-lg ${metric.tone}`}><metric.icon className="size-4" /></span><div><p className="text-2xl font-semibold tracking-tight text-slate-950">{metric.value}</p><p className="text-xs text-slate-500">{metric.label}</p></div></section>)}
     </div>
-      <aside className="panel p-5"><Sparkles className="size-6 text-blue-600" /><h2 className="mt-4 font-semibold text-slate-900">掌握程度规则</h2><p className="mt-2 text-sm leading-6 text-slate-600">跳过题目、未覆盖多个关键点或审阅发现三项以上不足，会标记为低掌握度并加入本习题集。</p><Button onClick={onStart} className="mt-5 w-full bg-blue-600 hover:bg-blue-700"><Play />开始学习</Button></aside>
-    </div>
+
+    <section className="panel mt-5 overflow-hidden">
+      <div className="flex flex-col gap-4 border-b border-slate-200 px-5 py-4 lg:flex-row lg:items-center lg:justify-between">
+        <div><h2 className="font-semibold text-slate-900">复习任务队列</h2><p className="mt-1 text-xs text-slate-500">优先处理高优先级题目；点击单题可从指定题目开始复习。</p></div>
+        <Button onClick={() => onStart(firstTitle, filteredQueue.map((item) => item.question))} disabled={!firstTitle} className="bg-blue-600 hover:bg-blue-700"><Play />开始本轮复习{filteredQueue.length ? `（${filteredQueue.length} 题）` : ""}</Button>
+      </div>
+      <div className="flex flex-col gap-2 border-b border-slate-200 bg-slate-50/70 p-4 sm:flex-row">
+        <Input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="搜索题目、分类或改进问题" className="bg-white sm:flex-1" />
+        <NativeSelect value={categoryFilter} onChange={(event) => setCategoryFilter(event.target.value)} className="bg-white sm:w-44"><NativeSelectOption value="全部分类">全部分类</NativeSelectOption>{categories.map((category) => <NativeSelectOption key={category} value={category}>{category}</NativeSelectOption>)}</NativeSelect>
+        <div className="flex items-center gap-1 rounded-md border border-slate-200 bg-white p-1">{(["全部", "高", "中"] as const).map((value) => <button key={value} type="button" onClick={() => setPriorityFilter(value)} aria-pressed={priorityFilter === value} className={`rounded px-2.5 py-1.5 text-xs transition ${priorityFilter === value ? "bg-blue-50 font-medium text-blue-700" : "text-slate-500 hover:text-slate-800"}`}>{value === "全部" ? "全部优先级" : `${value}优先级`}</button>)}</div>
+      </div>
+      {summary.total === 0 ? <div className="grid min-h-56 place-items-center p-8 text-center"><div><CircleCheck className="mx-auto size-8 text-emerald-500" /><h2 className="mt-3 font-medium text-slate-900">暂无待复习题目</h2><p className="mt-1 text-sm text-slate-500">完成训练后，系统会根据掌握度和审阅结果自动建立复习任务。</p></div></div>
+        : filteredQueue.length === 0 ? <div className="grid min-h-40 place-items-center p-8 text-center text-sm text-slate-500">当前筛选条件下没有复习任务。</div>
+          : <div className="divide-y divide-slate-100">{filteredQueue.map((item) => {
+            const issue = item.reviewIssues?.[0] || item.reviewSuggestions?.[0] || "重新组织回答并补充关键知识点";
+            const masteryTone = item.mastery === "低" ? "border-rose-200 bg-rose-50 text-rose-700" : "border-amber-200 bg-amber-50 text-amber-700";
+            return <article key={getRecordKey(item)} className="flex flex-col gap-3 px-5 py-4 lg:flex-row lg:items-center">
+              <span className={`grid size-9 shrink-0 place-items-center rounded-md ${item.priority === "高" ? "bg-rose-50 text-rose-600" : "bg-amber-50 text-amber-600"}`}><Target className="size-4" /></span>
+              <div className="min-w-0 flex-1"><div className="flex flex-wrap items-center gap-2"><h3 className="font-medium text-slate-900">{item.question}</h3><Badge variant="outline" className={`rounded-md ${item.priority === "高" ? "border-rose-200 bg-rose-50 text-rose-700" : "border-amber-200 bg-amber-50 text-amber-700"}`}>{item.priority}优先级</Badge><Badge variant="outline" className={`rounded-md ${masteryTone}`}>掌握度：{item.mastery === "低" ? "低" : "中"}</Badge><Badge variant="outline" className="rounded-md border-slate-200 bg-slate-50 text-slate-600">{item.category || "待分类"}</Badge></div><p className="mt-1.5 line-clamp-2 text-xs leading-5 text-slate-500">{item.reason} · {issue} · 最近学习：{item.date || item.timestamp || "—"}</p></div>
+              <Button variant="outline" size="sm" onClick={() => onStart(item.question)} className="shrink-0 bg-white"><RotateCcw />从此题开始</Button>
+            </article>;
+          })}</div>}
+    </section>
+
+    <section className="mt-5 grid gap-4 lg:grid-cols-[1fr_300px]">
+      <div className="panel p-5"><div className="flex items-center gap-3"><span className="grid size-9 place-items-center rounded-md bg-blue-50 text-blue-600"><Sparkles className="size-4" /></span><div><h2 className="font-semibold text-slate-900">复习执行规则</h2><p className="mt-0.5 text-xs text-slate-500">复习不是重复看答案，而是重新组织一次可表达的回答。</p></div></div><div className="mt-4 grid gap-3 text-sm leading-6 text-slate-700 sm:grid-cols-3"><div className="rounded-md border border-rose-100 bg-rose-50/70 p-3"><strong className="text-rose-800">高优先级</strong><p className="mt-1">低掌握、跳过或存在明显遗漏的题目。</p></div><div className="rounded-md border border-amber-100 bg-amber-50/70 p-3"><strong className="text-amber-800">中优先级</strong><p className="mt-1">掌握度中等但仍有审阅问题的题目。</p></div><div className="rounded-md border border-blue-100 bg-blue-50/70 p-3"><strong className="text-blue-800">完成标准</strong><p className="mt-1">重新回答后由 AI 或本地规则再次判断掌握度。</p></div></div></div>
+      <aside className="panel p-5"><h2 className="font-semibold text-slate-900">如何使用</h2><ol className="mt-3 space-y-2 text-sm leading-6 text-slate-600"><li><strong className="text-blue-700">1.</strong> 先看主要遗漏点。</li><li><strong className="text-blue-700">2.</strong> 从指定题目或本轮队列开始。</li><li><strong className="text-blue-700">3.</strong> 不看答案重新作答。</li><li><strong className="text-blue-700">4.</strong> 查看掌握度变化和下一步建议。</li></ol></aside>
+    </section>
   </PageShell>;
 }
 
