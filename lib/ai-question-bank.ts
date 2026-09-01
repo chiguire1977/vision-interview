@@ -1,4 +1,5 @@
 import { normalizeKnowledgeCategory, normalizeTechStack } from "./taxonomy.mjs";
+import { normalizeDetectionDirection } from "./detection-direction.mjs";
 
 export type AiGeneratedQuestion = {
   title: string;
@@ -13,6 +14,7 @@ export type AiGeneratedQuestion = {
   followUp: string;
   hint: string;
   techStacks?: string[];
+  detectionDirection?: string;
   bestAnswer: string;
   principle: string;
   basis?: string;
@@ -29,6 +31,7 @@ export type QuestionBankArchiveEntry = AiGeneratedQuestion & {
   categoryFilter?: string;
   difficultyFilter?: string;
   techStackFilter?: string;
+  detectionDirectionFilter?: string;
 };
 
 export type QuestionBankArchiveMetadata = {
@@ -40,6 +43,7 @@ export type QuestionBankArchiveMetadata = {
   categoryFilter?: string;
   difficultyFilter?: string;
   techStackFilter?: string;
+  detectionDirectionFilter?: string;
 };
 
 export type AiQuestionSourceFilter = "专业" | "项目" | "专业或项目";
@@ -62,6 +66,7 @@ export type AiQuestionSelectionFilter = {
   category?: string;
   difficulty?: string;
   techStack?: string;
+  detectionDirection?: string;
   forbiddenPhrases?: string[];
 };
 
@@ -114,6 +119,12 @@ function matchesTechStack(values: string[] | undefined, expected: string) {
   return (values ?? []).some((value) => normalizedComparison(normalizeTechStack(value)) === target);
 }
 
+function matchesDetectionDirection(value: string | undefined, expected: string) {
+  const target = normalizeDetectionDirection(expected);
+  if (!target || target === "随机方向") return true;
+  return normalizeDetectionDirection(value) === target;
+}
+
 export function filterAiGeneratedQuestions(values: unknown[], selection: AiQuestionSelectionFilter) {
   const forbiddenPhrases = (selection.forbiddenPhrases ?? [])
     .map((value) => normalizedComparison(value))
@@ -123,6 +134,7 @@ export function filterAiGeneratedQuestions(values: unknown[], selection: AiQuest
     if (selection.category && selection.category !== "随机类型" && question.category !== selection.category) return false;
     if (selection.difficulty && !matchesDifficulty(question.difficulty, selection.difficulty)) return false;
     if (selection.techStack && !matchesTechStack(question.techStacks, selection.techStack)) return false;
+    if (selection.detectionDirection && !matchesDetectionDirection(question.detectionDirection, selection.detectionDirection)) return false;
     if (forbiddenPhrases.length) {
       const searchable = normalizedComparison([
         question.title,
@@ -195,6 +207,7 @@ function normalizeAiGeneratedQuestion(value: unknown): AiGeneratedQuestion | nul
   }
 
   const techStacks = cleanStringArray(record.techStacks, 8).map(normalizeTechStack);
+  const detectionDirection = normalizeDetectionDirection(record.detectionDirection);
   const basis = cleanText(record.basis);
   const reference = normalizeReference(record.reference);
   return {
@@ -210,6 +223,7 @@ function normalizeAiGeneratedQuestion(value: unknown): AiGeneratedQuestion | nul
     followUp,
     hint,
     ...(techStacks.length ? { techStacks } : {}),
+    ...(detectionDirection ? { detectionDirection } : {}),
     bestAnswer,
     principle,
     ...(basis ? { basis } : {}),
@@ -414,6 +428,7 @@ export function createQuestionBankArchiveEntries(
     ...(metadataString(metadata.categoryFilter) ? { categoryFilter: metadataString(metadata.categoryFilter) } : {}),
     ...(metadataString(metadata.difficultyFilter) ? { difficultyFilter: metadataString(metadata.difficultyFilter) } : {}),
     ...(metadataString(metadata.techStackFilter) ? { techStackFilter: metadataString(metadata.techStackFilter) } : {}),
+    ...(metadataString(metadata.detectionDirectionFilter) ? { detectionDirectionFilter: metadataString(metadata.detectionDirectionFilter) } : {}),
   }));
 }
 
@@ -432,6 +447,7 @@ function normalizeArchiveEntry(value: unknown): QuestionBankArchiveEntry | null 
     categoryFilter: metadataString(record.categoryFilter),
     difficultyFilter: metadataString(record.difficultyFilter),
     techStackFilter: metadataString(record.techStackFilter),
+    detectionDirectionFilter: metadataString(record.detectionDirectionFilter),
   };
   return {
     ...question,
@@ -444,6 +460,7 @@ function normalizeArchiveEntry(value: unknown): QuestionBankArchiveEntry | null 
     ...(optional.categoryFilter ? { categoryFilter: optional.categoryFilter } : {}),
     ...(optional.difficultyFilter ? { difficultyFilter: optional.difficultyFilter } : {}),
     ...(optional.techStackFilter ? { techStackFilter: optional.techStackFilter } : {}),
+    ...(optional.detectionDirectionFilter ? { detectionDirectionFilter: optional.detectionDirectionFilter } : {}),
   };
 }
 
@@ -501,6 +518,7 @@ export function createQuestionBankMarkdown(values: unknown[], updatedAt = new Da
       `- **分类**：${markdownInline(entry.category)}`,
       `- **难度**：${markdownInline(entry.difficulty)}`,
       `- **技术栈**：${entry.techStacks?.length ? entry.techStacks.map(markdownInline).join("、") : "未填写"}`,
+      ...(entry.detectionDirection ? [`- **检测方向**：${markdownInline(entry.detectionDirection)}`] : []),
       ...(entry.knowledgePoints?.length ? [`- **知识点**：${entry.knowledgePoints.map(markdownInline).join("、")}`] : []),
       `- **标签**：${entry.tags.map(markdownInline).join("、")}`,
       `- **关键词**：${entry.keywords.map(markdownInline).join("、")}`,

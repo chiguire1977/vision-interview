@@ -1,4 +1,5 @@
 import { normalizeKnowledgeCategory, normalizeTechStack } from "./taxonomy.mjs";
+import { normalizeDetectionDirection } from "./detection-direction.mjs";
 
 export type QuestionBankViewOrigin = "AI" | "本地题库";
 export type QuestionBankViewSource = "专业" | "项目";
@@ -18,6 +19,7 @@ export type QuestionBankViewItem = {
   sourceType?: string;
   knowledgePoints?: string[];
   techStacks?: string[];
+  detectionDirection?: string;
   reference?: { title: string; url: string };
   bestAnswer?: string;
   principle?: string;
@@ -75,6 +77,7 @@ export function normalizeQuestionBankViewItem(value: unknown, origin: QuestionBa
     ...(cleanText(record.sourceType) ? { sourceType: cleanText(record.sourceType) } : {}),
     ...(cleanArray(record.knowledgePoints).length ? { knowledgePoints: cleanArray(record.knowledgePoints) } : {}),
     ...(cleanArray(record.techStacks).length ? { techStacks: cleanArray(record.techStacks).map(normalizeTechStack) } : {}),
+    ...(normalizeDetectionDirection(record.detectionDirection) ? { detectionDirection: normalizeDetectionDirection(record.detectionDirection) } : {}),
     ...(normalizeReference(record.reference) ? { reference: normalizeReference(record.reference) } : {}),
     ...(cleanText(record.bestAnswer) ? { bestAnswer: cleanText(record.bestAnswer) } : {}),
     ...(cleanText(record.principle) ? { principle: cleanText(record.principle) } : {}),
