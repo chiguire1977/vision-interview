@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-01T12:29:47.958Z",
+  "updatedAt": "2026-09-01T12:29:58.017Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1816,6 +1816,32 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788265797189-rek9hn94",
+        "timestamp": "2026-09-01T12:29:57.189Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788264675884-efebbymx",
+        "event": "github.backup.started",
+        "message": "开始备份数据到 GitHub",
+        "context": {
+          "operation": "ai-question-bank",
+          "entryCount": 3,
+          "pendingCount": 3
+        }
+      },
+      {
+        "id": "1788265793564-0f09amqr",
+        "timestamp": "2026-09-01T12:29:53.564Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "fa81068b23bd"
+        }
+      },
       {
         "id": "1788265790138-5nu9kto1",
         "timestamp": "2026-09-01T12:29:50.138Z",
@@ -18418,33 +18444,6 @@
       {
         "id": "1788263610738-p7zuz9rf",
         "timestamp": "2026-09-01T11:53:30.738Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788263513740-6t4nyqwv",
-        "event": "question-bank.network.fallback",
-        "message": "联网搜索与 AI 生成未获得有效题目，已切换为题库",
-        "context": {
-          "targetCount": 10,
-          "fallbackCount": 10
-        }
-      },
-      {
-        "id": "1788263610733-atgmm7hn",
-        "timestamp": "2026-09-01T11:53:30.733Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788263513740-6t4nyqwv",
-        "event": "question-bank.network.partial-fallback",
-        "message": "联网获得的完整题目数量不足，已使用题库补足",
-        "context": {
-          "aiCount": 0,
-          "fallbackCount": 10,
-          "targetCount": 10
-        }
-      },
-      {
-        "id": "1788263610586-9gdx16gt",
-        "timestamp": "2026-09-01T11:53:30.586Z",
         "level": "WARN",
         "kind": "system",
         "sessionId": "1788263513740-6t4nyqwv",
