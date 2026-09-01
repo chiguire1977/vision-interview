@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-09-01T12:29:54.674Z",
+  "updatedAt": "2026-09-01T12:30:12.877Z",
   "questions": [
     {
       "title": "在轮胎字符深度OCR项目中，HALCON的深度OCR模型相比传统OCR在抗磨损和倾斜方面有哪些本质优势？",
@@ -17230,6 +17230,140 @@
       "principle": "亚像素边缘提取的核心思想是利用边缘点邻域的灰度梯度分布进行插值拟合，例如通过抛物线拟合梯度峰值位置，使边缘坐标突破整数像素限制。Canny 算子使用高斯导数，Deriche 算子使用递归指数滤波器，两者都能抑制噪声并保持边缘连续性。滞后阈值通过高低两个阈值减少断裂边缘，非极大值抑制确保边缘为单像素宽。XLD 轮廓是亚像素精度的多边形或样条表示，后续可用 fit_line_contour_xld 等算子拟合直线或圆，从而获得高精度的几何参数。",
       "id": "aiq-1f0b0873",
       "generatedAt": "2026-09-01T12:29:57.189Z",
+      "provider": "opencode-go",
+      "model": "deepseek-v4-flash",
+      "project": "机器视觉专业知识",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "HALCON",
+      "detectionDirectionFilter": "传统 2D 视觉"
+    },
+    {
+      "title": "HALCON 中如何利用深度图和点云进行 3D 物体定位？请说明从深度图到点云、法线估计再到表面模型匹配的完整流程。",
+      "type": "算法原理",
+      "category": "算法原理",
+      "source": "专业",
+      "sourceType": "官方文档整理",
+      "knowledgePoints": [
+        "深度图到点云的转换原理（基于相机内参）",
+        "法线估计在表面模型匹配中的作用",
+        "find_surface_model 的匹配流程与参数影响"
+      ],
+      "difficulty": "困难",
+      "tags": [
+        "3D视觉",
+        "点云处理",
+        "表面模型匹配",
+        "HALCON"
+      ],
+      "keywords": [
+        "深度图",
+        "点云",
+        "法线估计",
+        "find_surface_model",
+        "相机内参"
+      ],
+      "followUp": "如果点云存在大量噪声，你会如何预处理以提升匹配稳定性？",
+      "hint": "先用一句话给出结论，再围绕“深度图、点云、法线估计”展开说明。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "detectionDirection": "传统 2D 视觉",
+      "bestAnswer": "HALCON中3D定位首先通过相机内参将深度图转换为点云，然后估计点云法线以增强几何特征，最后使用find_surface_model进行表面模型匹配。具体流程：读取深度图→使用xyz_to_object_model_3d转换为3D模型→通过surface_normals_object_model_3d计算法线→创建表面模型create_surface_model→调用find_surface_model匹配。法线估计是关键，它提供局部几何方向信息，使匹配对姿态变化更鲁棒。参数如SamplingDistance、AngularResolution影响匹配精度和速度。",
+      "principle": "深度图每个像素值代表物体到相机的距离，结合相机内参（焦距、主点）可通过三角测量原理将像素坐标(u,v)和深度d转换为三维坐标(X,Y,Z)。点云由这些三维点构成。法线估计通过分析邻域点拟合平面，计算法向量，反映表面朝向。表面模型匹配利用点云和法线特征，通过迭代最近点（ICP）或特征描述子匹配，在场景中寻找与模型一致的姿态。HALCON的find_surface_model采用基于点对特征的全局匹配和局部精配准，参数如MinScore控制匹配阈值，PoseSelection决定多姿态输出。",
+      "id": "aiq-88ce9a6d",
+      "generatedAt": "2026-09-01T12:30:15.396Z",
+      "provider": "opencode-go",
+      "model": "deepseek-v4-flash",
+      "project": "机器视觉专业知识",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "HALCON",
+      "detectionDirectionFilter": "传统 2D 视觉"
+    },
+    {
+      "title": "在HALCON中，如何通过ROI设置、金字塔层级和异步采集来优化视觉系统的运行速度？请结合实际项目说明。",
+      "type": "工程实践",
+      "category": "工程实践",
+      "source": "专业",
+      "sourceType": "技术教程整理",
+      "knowledgePoints": [
+        "ROI裁剪减少处理数据量",
+        "金字塔层级加速匹配",
+        "异步采集与处理并行"
+      ],
+      "difficulty": "中等",
+      "tags": [
+        "性能优化",
+        "ROI",
+        "金字塔",
+        "异步采集",
+        "HALCON"
+      ],
+      "keywords": [
+        "ROI",
+        "金字塔",
+        "异步采集",
+        "性能优化",
+        "grab_image_async"
+      ],
+      "followUp": "如果异步采集导致图像延迟，你会如何调整MaxDelay参数？",
+      "hint": "先用一句话给出结论，再围绕“ROI、金字塔、异步采集”展开说明。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "detectionDirection": "传统 2D 视觉",
+      "bestAnswer": "优化速度首先通过设置ROI减少处理区域，其次利用金字塔层级在粗尺度快速定位，最后使用异步采集让采集与处理并行。具体：使用reduce_domain和set_shape_model_param设置ROI和金字塔层级，grab_image_async启动异步采集，配合MaxDelay参数控制延迟。实际项目中，ROI可减少50%以上计算量，金字塔层级每增加一级速度提升约4倍，异步采集可隐藏采集时间。需根据精度要求平衡速度与准确性。",
+      "principle": "ROI通过缩小图像域减少像素处理数量，降低计算复杂度。金字塔匹配通过降采样生成多分辨率图像，先在低分辨率层粗匹配，再在高分辨率层精确定位，减少搜索空间。异步采集利用双缓冲机制，采集当前帧时处理上一帧，实现流水线并行。grab_image_async启动独立采集线程，MaxDelay设置最大等待时间，避免图像过时。这些技术结合可显著提升系统吞吐量。",
+      "id": "aiq-22aae325",
+      "generatedAt": "2026-09-01T12:30:15.396Z",
+      "provider": "opencode-go",
+      "model": "deepseek-v4-flash",
+      "project": "机器视觉专业知识",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "HALCON",
+      "detectionDirectionFilter": "传统 2D 视觉"
+    },
+    {
+      "title": "在HALCON中，如何利用Gabor滤波和光照控制（如低角度光、同轴光）增强低对比度缺陷的检测效果？",
+      "type": "算法原理",
+      "category": "图像预处理",
+      "source": "专业",
+      "sourceType": "AI知识整理",
+      "knowledgePoints": [
+        "Gabor滤波的频率与方向选择性",
+        "光照方式对缺陷对比度的影响",
+        "图像预处理与成像结合的策略"
+      ],
+      "difficulty": "中等",
+      "tags": [
+        "图像预处理",
+        "Gabor滤波",
+        "光照",
+        "缺陷检测",
+        "HALCON"
+      ],
+      "keywords": [
+        "Gabor滤波",
+        "低角度光",
+        "同轴光",
+        "对比度增强",
+        "缺陷检测"
+      ],
+      "followUp": "如果Gabor滤波后仍有噪声，你会如何结合形态学操作改善？",
+      "hint": "先用一句话给出结论，再围绕“Gabor滤波、低角度光、同轴光”展开说明。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "detectionDirection": "传统 2D 视觉",
+      "bestAnswer": "Gabor滤波通过选择特定频率和方向增强缺陷纹理，低角度光突出表面凹凸，同轴光抑制反光。实际中先用gen_gabor_filter创建滤波器，再用convol_gabor进行滤波，同时调整光源角度。低角度光使缺陷产生阴影，同轴光适合平坦表面。结合使用可显著提升缺陷与背景的灰度差异。需根据缺陷类型选择滤波参数和光照方案。",
+      "principle": "Gabor滤波器是带通滤波器，能提取特定方向和频率的纹理特征，缺陷区域与背景纹理不同，通过滤波可增强差异。低角度光（暗场照明）使表面微小凹凸产生散射，形成高对比度阴影；同轴光（明场照明）垂直照射，适合检测平坦表面反射率变化。成像与滤波结合，先通过光照最大化缺陷信号，再通过Gabor滤波进一步分离缺陷与背景纹理，提高后续阈值分割的可靠性。",
+      "id": "aiq-c9ec7eaf",
+      "generatedAt": "2026-09-01T12:30:15.396Z",
       "provider": "opencode-go",
       "model": "deepseek-v4-flash",
       "project": "机器视觉专业知识",
