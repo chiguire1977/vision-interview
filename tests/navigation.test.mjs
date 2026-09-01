@@ -60,6 +60,7 @@ test("settings includes a dedicated GitHub synchronization tab", () => {
   assert.match(page, /GitHub 分支/);
   assert.match(page, /服务端凭据/);
   assert.match(page, /测试 GitHub 连接/);
-  assert.match(page, /立即备份到 GitHub/);
+  assert.doesNotMatch(page, /立即从 GitHub 加载/);
+  assert.doesNotMatch(page, /立即备份到 GitHub/);
   assert.match(page, /学习记录.*手动上传/);
 });
