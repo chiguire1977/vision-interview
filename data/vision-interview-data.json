@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-01T02:36:53.157Z",
+  "updatedAt": "2026-09-01T02:36:53.364Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1840,6 +1840,18 @@
         "kind": "system",
         "event": "backup.close.flush",
         "message": "页面关闭或进入后台，提交最后一次备份"
+      },
+      {
+        "id": "1788229573184-c27x9sue",
+        "timestamp": "2026-09-01T02:26:13.184Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "441d06de2cb2"
+        }
       },
       {
         "id": "1788229571068-h4yshifm",
@@ -17915,23 +17927,6 @@
           "sourceCount": 0,
           "workerIndex": 2,
           "parallelRequests": 3
-        }
-      },
-      {
-        "id": "1788186148969-8qu9x4qt",
-        "timestamp": "2026-08-31T14:22:28.969Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788185400191-3fe71itf",
-        "event": "question-bank.ai-request.started",
-        "message": "第 1/6 轮（并行 3/3）：正在请求 AI 生成题目（3 道）…",
-        "context": {
-          "attempt": 1,
-          "maxAttempts": 6,
-          "collectedCount": 0,
-          "workerIndex": 3,
-          "parallelRequests": 3,
-          "requestedCount": 3
         }
       }
     ]
