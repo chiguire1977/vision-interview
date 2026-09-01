@@ -39,3 +39,15 @@ test("learning flow no longer exposes project or comprehensive training modes", 
   assert.doesNotMatch(page, /const techStackFilters = .*通用原理/);
   assert.doesNotMatch(page, /const professionalCategories = .*PLC与现场/);
 });
+
+test("first training screen lets the learner configure scope before starting", () => {
+  const page = readFileSync(fileURLToPath(new URL("../app/page.tsx", import.meta.url)), "utf8");
+  const startPanel = page.slice(page.indexOf("function TrainingStartPanel"), page.indexOf("function TrainingPreparingPanel"));
+  assert.match(startPanel, /professionalCategories\.map/);
+  assert.match(startPanel, /difficultyFilters\.map/);
+  assert.match(startPanel, /techStackFilters\.map/);
+  assert.match(startPanel, /detectionDirectionsForTechStack\(techStack\)/);
+  assert.match(startPanel, /onCategoryChange/);
+  assert.match(startPanel, /onTechStackChange/);
+  assert.match(startPanel, /onDetectionDirectionChange/);
+});

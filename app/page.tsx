@@ -2192,6 +2192,10 @@ export default function Home() {
         {activeNav === "开始学习" && (!trainingStarted ? (
           <TrainingStartPanel category={category} difficulty={difficulty} techStack={techStack} detectionDirection={detectionDirection}
             questionGroupSize={questionGroupSettings.questionGroupSize}
+            onCategoryChange={setCategory}
+            onDifficultyChange={setDifficulty}
+            onTechStackChange={(value) => { setTechStack(value); setDetectionDirection("随机方向"); }}
+            onDetectionDirectionChange={setDetectionDirection}
             onStart={() => {
               setTrainingStarted(true);
               setPreparingGroup(true);
@@ -2246,15 +2250,32 @@ function TrainingStartPanel({
   techStack,
   detectionDirection,
   questionGroupSize,
+  onCategoryChange,
+  onDifficultyChange,
+  onTechStackChange,
+  onDetectionDirectionChange,
   onStart,
 }: {
   category: string;
   difficulty: string;
-  techStack: string;
+  techStack: (typeof techStackFilters)[number];
   detectionDirection: string;
   questionGroupSize: number;
+  onCategoryChange: (value: string) => void;
+  onDifficultyChange: (value: string) => void;
+  onTechStackChange: (value: (typeof techStackFilters)[number]) => void;
+  onDetectionDirectionChange: (value: string) => void;
   onStart: () => void;
 }) {
+  const detectionDirections = detectionDirectionsForTechStack(techStack);
+  const choiceClass = (selected: boolean, color: "blue" | "violet" | "cyan" = "blue") => {
+    const selectedClass = color === "violet"
+      ? "border-violet-200 bg-violet-50 font-medium text-violet-700"
+      : color === "cyan"
+        ? "border-cyan-200 bg-cyan-50 font-medium text-cyan-700"
+        : "border-blue-200 bg-blue-50 font-medium text-blue-700";
+    return `rounded-md border px-2.5 py-1.5 text-xs transition ${selected ? selectedClass : "border-slate-200 bg-white text-slate-600 hover:bg-slate-50"}`;
+  };
   return (
     <main className="flex-1 p-3 md:p-5">
       <div className="mx-auto max-w-4xl">
@@ -2263,11 +2284,16 @@ function TrainingStartPanel({
             <span className="mx-auto grid size-14 place-items-center rounded-2xl bg-blue-600 text-white shadow-sm"><Play className="size-7" fill="currentColor" /></span>
             <h1 className="mt-5 text-2xl font-semibold tracking-tight text-slate-950 md:text-3xl">准备开始训练</h1>
             <p className="mx-auto mt-3 max-w-xl text-sm leading-6 text-slate-600">本次训练会根据下面的设置准备一个新题组。点击开始后才会加载题目，避免首次进入时直接显示上一次的历史题目。</p>
-            <div className="mx-auto mt-6 flex max-w-2xl flex-wrap justify-center gap-2">
-              {[`知识分类：${category}`, `难度：${difficulty}`, `技术栈：${techStack}`, ...(detectionDirection !== "随机方向" ? [`检测方向：${detectionDirection}`] : []), `题组：${questionGroupSize} 题`].map((item) => (
-                <span key={item} className="rounded-md border border-slate-200 bg-white px-3 py-1.5 text-xs text-slate-600">{item}</span>
-              ))}
+            <div className="mx-auto mt-7 max-w-4xl rounded-xl border border-slate-200 bg-white p-4 text-left shadow-sm md:p-5">
+              <p className="text-sm font-semibold text-slate-800">选择训练范围</p>
+              <div className="mt-4 space-y-3">
+                <div className="flex flex-wrap items-center gap-2"><span className="w-16 shrink-0 text-xs font-medium text-slate-500">知识分类</span>{professionalCategories.map((item) => <button key={item} type="button" onClick={() => onCategoryChange(item)} className={choiceClass(category === item)}>{item}</button>)}</div>
+                <div className="flex flex-wrap items-center gap-2"><span className="w-16 shrink-0 text-xs font-medium text-slate-500">难度分类</span>{difficultyFilters.map((item) => <button key={item} type="button" onClick={() => onDifficultyChange(item)} className={choiceClass(difficulty === item)}>{item}</button>)}</div>
+                <div className="flex flex-wrap items-center gap-2"><span className="w-16 shrink-0 text-xs font-medium text-slate-500">技术栈</span>{techStackFilters.map((item) => <button key={item} type="button" onClick={() => onTechStackChange(item)} className={choiceClass(techStack === item, "violet")}>{item}</button>)}</div>
+                {detectionDirections.length > 0 && <div className="flex flex-wrap items-center gap-2"><span className="w-16 shrink-0 text-xs font-medium text-slate-500">检测方向</span>{detectionDirections.map((item) => <button key={item} type="button" onClick={() => onDetectionDirectionChange(item)} className={choiceClass(detectionDirection === item, "cyan")}>{item}</button>)}</div>}
+              </div>
             </div>
+            <p className="mt-3 text-xs text-slate-500">当前题组：{questionGroupSize} 道题 · 选择完成后点击开始训练</p>
             <Button onClick={onStart} className="mt-8 min-w-36 bg-blue-600 px-6 hover:bg-blue-700"><Play fill="currentColor" />开始训练</Button>
           </div>
           <div className="grid gap-3 border-t border-slate-200 bg-white p-5 text-xs leading-5 text-slate-500 sm:grid-cols-3">
