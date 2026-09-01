@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-01T12:36:40.156Z",
+  "updatedAt": "2026-09-01T12:38:40.046Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1816,6 +1816,87 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788266247209-sigb4zwc",
+        "timestamp": "2026-09-01T12:37:27.209Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788264675884-efebbymx",
+        "event": "question-bank.cache.saved",
+        "message": "AI 题库已完成远程同步",
+        "context": {
+          "questionCount": 9,
+          "pendingCount": 0
+        }
+      },
+      {
+        "id": "1788266247202-xiafymfi",
+        "timestamp": "2026-09-01T12:37:27.202Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788264675884-efebbymx",
+        "event": "github.backup.succeeded",
+        "message": "数据已成功备份到 GitHub",
+        "context": {
+          "operation": "ai-question-bank",
+          "entryCount": 9,
+          "pendingCount": 0,
+          "status": 200
+        }
+      },
+      {
+        "id": "1788266239324-cu8m7602",
+        "timestamp": "2026-09-01T12:37:19.324Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788264675884-efebbymx",
+        "event": "question-group.prepare.completed",
+        "message": "AI 多轮联网检索后获得 9/10 道完整题目，其余使用本地题库兜底；远程题库正在后台同步。",
+        "context": {
+          "source": "AI",
+          "questionCount": 10
+        }
+      },
+      {
+        "id": "1788266239317-kmr4u3z3",
+        "timestamp": "2026-09-01T12:37:19.317Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788264675884-efebbymx",
+        "event": "github.backup.started",
+        "message": "开始备份数据到 GitHub",
+        "context": {
+          "operation": "ai-question-bank",
+          "entryCount": 9,
+          "pendingCount": 9
+        }
+      },
+      {
+        "id": "1788266239313-vz9b5dg5",
+        "timestamp": "2026-09-01T12:37:19.313Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788264675884-efebbymx",
+        "event": "question-bank.network.partial-fallback",
+        "message": "联网获得的完整题目数量不足，已使用题库补足",
+        "context": {
+          "aiCount": 9,
+          "fallbackCount": 1,
+          "targetCount": 10
+        }
+      },
+      {
+        "id": "1788266205784-dn1m3y50",
+        "timestamp": "2026-09-01T12:36:45.784Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "18726db21024"
+        }
+      },
       {
         "id": "1788266179303-am5me7bp",
         "timestamp": "2026-09-01T12:36:19.303Z",
@@ -18326,110 +18407,6 @@
           "sourceCount": 0,
           "workerIndex": 2,
           "parallelRequests": 3
-        }
-      },
-      {
-        "id": "1788263938599-w3rw97it",
-        "timestamp": "2026-09-01T11:58:58.599Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788263890472-i4ypgjv5",
-        "event": "question-bank.web-search.completed",
-        "message": "本轮联网检索完成",
-        "context": {
-          "attempt": 5,
-          "query": "机器视觉 面试知识点 原理 工程实践",
-          "sourceCount": 0,
-          "workerIndex": 3,
-          "parallelRequests": 3
-        }
-      },
-      {
-        "id": "1788263938594-anqioor9",
-        "timestamp": "2026-09-01T11:58:58.594Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788263890472-i4ypgjv5",
-        "event": "question-bank.web-search.completed",
-        "message": "本轮联网检索完成",
-        "context": {
-          "attempt": 5,
-          "query": "机器视觉 面试知识点 原理 工程实践",
-          "sourceCount": 0,
-          "workerIndex": 1,
-          "parallelRequests": 3
-        }
-      },
-      {
-        "id": "1788263938459-psnl3r5l",
-        "timestamp": "2026-09-01T11:58:58.459Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788263890472-i4ypgjv5",
-        "event": "question-bank.web-search.started",
-        "message": "开始联网检索本轮题目资料",
-        "context": {
-          "attempt": 5,
-          "query": "机器视觉 面试知识点 算法原理 工程实践 图像预处理 模板与定位 深度图 点云 法线估计 RANSAC find_surface_model 原理 工程实践",
-          "mode": "专业知识",
-          "excludedCount": 0,
-          "workerIndex": 3,
-          "parallelRequests": 3,
-          "requestedCount": 3
-        }
-      },
-      {
-        "id": "1788263938454-xdv0gfai",
-        "timestamp": "2026-09-01T11:58:58.454Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788263890472-i4ypgjv5",
-        "event": "question-bank.web-search.started",
-        "message": "开始联网检索本轮题目资料",
-        "context": {
-          "attempt": 5,
-          "query": "机器视觉 面试知识点 算法原理 工程实践 图像预处理 模板与定位 深度图 点云 法线估计 RANSAC find_surface_model 原理 工程实践",
-          "mode": "专业知识",
-          "excludedCount": 0,
-          "workerIndex": 2,
-          "parallelRequests": 3,
-          "requestedCount": 3
-        }
-      },
-      {
-        "id": "1788263938449-ma6jw178",
-        "timestamp": "2026-09-01T11:58:58.449Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788263890472-i4ypgjv5",
-        "event": "question-bank.web-search.started",
-        "message": "开始联网检索本轮题目资料",
-        "context": {
-          "attempt": 5,
-          "query": "机器视觉 面试知识点 算法原理 工程实践 图像预处理 模板与定位 深度图 点云 法线估计 RANSAC find_surface_model 原理 工程实践",
-          "mode": "专业知识",
-          "excludedCount": 0,
-          "workerIndex": 1,
-          "parallelRequests": 3,
-          "requestedCount": 4
-        }
-      },
-      {
-        "id": "1788263938213-6ldcvc5w",
-        "timestamp": "2026-09-01T11:58:58.213Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788263890472-i4ypgjv5",
-        "event": "question-bank.web-search.started",
-        "message": "开始联网检索本轮题目资料",
-        "context": {
-          "attempt": 5,
-          "query": "机器视觉 面试知识点 原理 工程实践",
-          "mode": "专业知识",
-          "excludedCount": 0,
-          "workerIndex": 3,
-          "parallelRequests": 3,
-          "requestedCount": 3
         }
       }
     ]
