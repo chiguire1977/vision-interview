@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-01T12:41:20.005Z",
+  "updatedAt": "2026-09-01T12:41:39.128Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1493,12 +1493,6 @@
     ],
     "vision-interview-projects": [
       {
-        "id": "vision-workflow",
-        "name": "PLC模拟软件",
-        "category": "软件架构",
-        "progress": 61
-      },
-      {
         "id": "tire-ocr",
         "name": "轮胎字符深度 OCR",
         "category": "字符识别",
@@ -1515,19 +1509,25 @@
         "name": "前盖玻璃崩边检测",
         "category": "外观检测",
         "progress": 74
+      },
+      {
+        "id": "vision-workflow",
+        "name": "视觉工作流框架",
+        "category": "软件架构",
+        "progress": 61
       }
     ],
     "vision-interview-ai-preferences": {
-      "provider": "opencode-go",
+      "provider": "deepseek",
       "model": "deepseek-v4-flash",
-      "openaiBaseUrl": "https://opencode.ai/zen/go/v1",
+      "openaiBaseUrl": "https://api.deepseek.com",
       "aiScoring": true,
       "bestAnswer": true,
       "smartFollowUp": true,
       "webQuestions": true,
       "upstreamFormat": "chat-completions",
       "questionGroupSize": 10,
-      "parallelRequests": 5,
+      "parallelRequests": 3,
       "adaptiveQuestions": true
     },
     "vision-interview-ai-provider-settings": {
@@ -1647,175 +1647,542 @@
         "openaiBaseUrl": "https://opencode.ai/zen/go/v1",
         "availableModels": [
           {
-            "label": "deepseek-v4-flash · Chat Completions（兼容 OpenAI）",
+            "label": "DeepSeek V4 Flash · Chat Completions",
             "value": "deepseek-v4-flash",
             "upstreamFormat": "chat-completions"
           },
           {
-            "label": "deepseek-v4-flash-vision-exp · Chat Completions（兼容 OpenAI）",
-            "value": "deepseek-v4-flash-vision-exp",
-            "upstreamFormat": "chat-completions"
-          },
-          {
-            "label": "deepseek-v4-pro · Chat Completions（兼容 OpenAI）",
-            "value": "deepseek-v4-pro",
-            "upstreamFormat": "chat-completions"
-          },
-          {
-            "label": "glm-5 · Chat Completions（兼容 OpenAI）",
-            "value": "glm-5",
-            "upstreamFormat": "chat-completions"
-          },
-          {
-            "label": "glm-5.1 · Chat Completions（兼容 OpenAI）",
-            "value": "glm-5.1",
-            "upstreamFormat": "chat-completions"
-          },
-          {
-            "label": "glm-5.2 · Chat Completions（兼容 OpenAI）",
-            "value": "glm-5.2",
-            "upstreamFormat": "chat-completions"
-          },
-          {
-            "label": "glm-5.3 · Chat Completions（兼容 OpenAI）",
-            "value": "glm-5.3",
-            "upstreamFormat": "chat-completions"
-          },
-          {
-            "label": "glm-5.3-flash · Chat Completions（兼容 OpenAI）",
+            "label": "GLM-5.3-Flash · Chat Completions",
             "value": "glm-5.3-flash",
             "upstreamFormat": "chat-completions"
           },
           {
-            "label": "gpt-5.6-luna · Responses（OpenAI 原生）",
-            "value": "gpt-5.6-luna",
-            "upstreamFormat": "responses"
-          },
-          {
-            "label": "grok-4.5 · Chat Completions（兼容 OpenAI）",
-            "value": "grok-4.5",
-            "upstreamFormat": "chat-completions"
-          },
-          {
-            "label": "grok-4.6 · Responses（OpenAI 原生）",
-            "value": "grok-4.6",
-            "upstreamFormat": "responses"
-          },
-          {
-            "label": "hy3 · Chat Completions（兼容 OpenAI）",
-            "value": "hy3",
-            "upstreamFormat": "chat-completions"
-          },
-          {
-            "label": "hy3-preview · Chat Completions（兼容 OpenAI）",
-            "value": "hy3-preview",
-            "upstreamFormat": "chat-completions"
-          },
-          {
-            "label": "hy4-preview · Chat Completions（兼容 OpenAI）",
-            "value": "hy4-preview",
-            "upstreamFormat": "chat-completions"
-          },
-          {
-            "label": "kimi-k2.5 · Chat Completions（兼容 OpenAI）",
-            "value": "kimi-k2.5",
-            "upstreamFormat": "chat-completions"
-          },
-          {
-            "label": "kimi-k2.6 · Chat Completions（兼容 OpenAI）",
-            "value": "kimi-k2.6",
-            "upstreamFormat": "chat-completions"
-          },
-          {
-            "label": "kimi-k2.7-code · Chat Completions（兼容 OpenAI）",
-            "value": "kimi-k2.7-code",
-            "upstreamFormat": "chat-completions"
-          },
-          {
-            "label": "kimi-k3 · Chat Completions（兼容 OpenAI）",
+            "label": "Kimi K3 · Chat Completions",
             "value": "kimi-k3",
             "upstreamFormat": "chat-completions"
           },
           {
-            "label": "longcat-2.0 · Chat Completions（兼容 OpenAI）",
-            "value": "longcat-2.0",
-            "upstreamFormat": "chat-completions"
-          },
-          {
-            "label": "mimo-v2-omni · Chat Completions（兼容 OpenAI）",
-            "value": "mimo-v2-omni",
-            "upstreamFormat": "chat-completions"
-          },
-          {
-            "label": "mimo-v2-pro · Chat Completions（兼容 OpenAI）",
-            "value": "mimo-v2-pro",
-            "upstreamFormat": "chat-completions"
-          },
-          {
-            "label": "mimo-v2.5 · Chat Completions（兼容 OpenAI）",
+            "label": "MiMo V2.5 · Chat Completions",
             "value": "mimo-v2.5",
             "upstreamFormat": "chat-completions"
           },
           {
-            "label": "mimo-v2.5-pro · Chat Completions（兼容 OpenAI）",
-            "value": "mimo-v2.5-pro",
-            "upstreamFormat": "chat-completions"
-          },
-          {
-            "label": "minimax-m2.5 · Anthropic Messages",
-            "value": "minimax-m2.5",
-            "upstreamFormat": "anthropic-messages"
-          },
-          {
-            "label": "minimax-m2.7 · Anthropic Messages",
-            "value": "minimax-m2.7",
-            "upstreamFormat": "anthropic-messages"
-          },
-          {
-            "label": "minimax-m3 · Anthropic Messages",
-            "value": "minimax-m3",
-            "upstreamFormat": "anthropic-messages"
-          },
-          {
-            "label": "muse-spark-1.2-contributor · Responses（OpenAI 原生）",
-            "value": "muse-spark-1.2-contributor",
+            "label": "GPT 5.6 Luna · Responses",
+            "value": "gpt-5.6-luna",
             "upstreamFormat": "responses"
           },
           {
-            "label": "qwen3.5-plus · Chat Completions（兼容 OpenAI）",
-            "value": "qwen3.5-plus",
-            "upstreamFormat": "chat-completions"
-          },
-          {
-            "label": "qwen3.6-plus · Anthropic Messages",
-            "value": "qwen3.6-plus",
-            "upstreamFormat": "anthropic-messages"
-          },
-          {
-            "label": "qwen3.7-max · Anthropic Messages",
-            "value": "qwen3.7-max",
-            "upstreamFormat": "anthropic-messages"
-          },
-          {
-            "label": "qwen3.7-plus · Anthropic Messages",
-            "value": "qwen3.7-plus",
-            "upstreamFormat": "anthropic-messages"
-          },
-          {
-            "label": "qwen3.8-flash · Anthropic Messages",
+            "label": "Qwen 3.8 Flash · Anthropic Messages",
             "value": "qwen3.8-flash",
             "upstreamFormat": "anthropic-messages"
           },
           {
-            "label": "qwen3.8-max · Anthropic Messages",
-            "value": "qwen3.8-max",
+            "label": "MiniMax M3 · Anthropic Messages",
+            "value": "minimax-m3",
             "upstreamFormat": "anthropic-messages"
+          }
+        ]
+      },
+      "custom-mtfsd2qj-i4ox3z": {
+        "name": "OpenCodeGo",
+        "description": "兼容 OpenAI 格式的自定义服务商",
+        "model": "qwen3.8-max",
+        "baseUrl": "https://opencode.ai/zen/go/v1",
+        "openaiBaseUrl": "https://opencode.ai/zen/go/v1",
+        "availableModels": [
+          {
+            "label": "deepseek-v4-flash",
+            "value": "deepseek-v4-flash"
+          },
+          {
+            "label": "deepseek-v4-flash-vision-exp",
+            "value": "deepseek-v4-flash-vision-exp"
+          },
+          {
+            "label": "deepseek-v4-pro",
+            "value": "deepseek-v4-pro"
+          },
+          {
+            "label": "glm-5",
+            "value": "glm-5"
+          },
+          {
+            "label": "glm-5.1",
+            "value": "glm-5.1"
+          },
+          {
+            "label": "glm-5.2",
+            "value": "glm-5.2"
+          },
+          {
+            "label": "glm-5.3",
+            "value": "glm-5.3"
+          },
+          {
+            "label": "glm-5.3-flash",
+            "value": "glm-5.3-flash"
+          },
+          {
+            "label": "gpt-5.6-luna",
+            "value": "gpt-5.6-luna"
+          },
+          {
+            "label": "grok-4.5",
+            "value": "grok-4.5"
+          },
+          {
+            "label": "grok-4.6",
+            "value": "grok-4.6"
+          },
+          {
+            "label": "hy3",
+            "value": "hy3"
+          },
+          {
+            "label": "hy3-preview",
+            "value": "hy3-preview"
+          },
+          {
+            "label": "hy4-preview",
+            "value": "hy4-preview"
+          },
+          {
+            "label": "kimi-k2.5",
+            "value": "kimi-k2.5"
+          },
+          {
+            "label": "kimi-k2.6",
+            "value": "kimi-k2.6"
+          },
+          {
+            "label": "kimi-k2.7-code",
+            "value": "kimi-k2.7-code"
+          },
+          {
+            "label": "kimi-k3",
+            "value": "kimi-k3"
+          },
+          {
+            "label": "longcat-2.0",
+            "value": "longcat-2.0"
+          },
+          {
+            "label": "mimo-v2-omni",
+            "value": "mimo-v2-omni"
+          },
+          {
+            "label": "mimo-v2-pro",
+            "value": "mimo-v2-pro"
+          },
+          {
+            "label": "mimo-v2.5",
+            "value": "mimo-v2.5"
+          },
+          {
+            "label": "mimo-v2.5-pro",
+            "value": "mimo-v2.5-pro"
+          },
+          {
+            "label": "minimax-m2.5",
+            "value": "minimax-m2.5"
+          },
+          {
+            "label": "minimax-m2.7",
+            "value": "minimax-m2.7"
+          },
+          {
+            "label": "minimax-m3",
+            "value": "minimax-m3"
+          },
+          {
+            "label": "muse-spark-1.2-contributor",
+            "value": "muse-spark-1.2-contributor"
+          },
+          {
+            "label": "qwen3.5-plus",
+            "value": "qwen3.5-plus"
+          },
+          {
+            "label": "qwen3.6-plus",
+            "value": "qwen3.6-plus"
+          },
+          {
+            "label": "qwen3.7-max",
+            "value": "qwen3.7-max"
+          },
+          {
+            "label": "qwen3.7-plus",
+            "value": "qwen3.7-plus"
+          },
+          {
+            "label": "qwen3.8-flash",
+            "value": "qwen3.8-flash"
+          },
+          {
+            "label": "qwen3.8-max",
+            "value": "qwen3.8-max"
+          }
+        ]
+      },
+      "custom-mth2q5s2-c9pbzd": {
+        "name": "dingdang",
+        "description": "兼容 OpenAI 格式的自定义服务商",
+        "model": "gpt-5.6-sol",
+        "baseUrl": "https://dingdangapii.cn",
+        "openaiBaseUrl": "https://dingdangapii.cn",
+        "availableModels": [
+          {
+            "label": "codex-auto-review",
+            "value": "codex-auto-review"
+          },
+          {
+            "label": "gpt-4o-mini",
+            "value": "gpt-4o-mini"
+          },
+          {
+            "label": "gpt-5.4",
+            "value": "gpt-5.4"
+          },
+          {
+            "label": "gpt-5.4-mini",
+            "value": "gpt-5.4-mini"
+          },
+          {
+            "label": "gpt-5.5",
+            "value": "gpt-5.5"
+          },
+          {
+            "label": "gpt-5.6",
+            "value": "gpt-5.6"
+          },
+          {
+            "label": "gpt-5.6-luna",
+            "value": "gpt-5.6-luna"
+          },
+          {
+            "label": "gpt-5.6-sol",
+            "value": "gpt-5.6-sol"
+          },
+          {
+            "label": "gpt-5.6-terra",
+            "value": "gpt-5.6-terra"
+          },
+          {
+            "label": "gpt-image-2",
+            "value": "gpt-image-2"
           }
         ]
       }
     },
-    "vision-interview-project-view": "list",
+    "vision-interview-project-view": "card",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788266497042-2rrm82il",
+        "timestamp": "2026-09-01T12:41:37.042Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.close.flush",
+        "message": "页面关闭或进入后台，提交最后一次备份"
+      },
+      {
+        "id": "1788266497032-zhlz18ul",
+        "timestamp": "2026-09-01T12:41:37.032Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788266493188-vswns8y5",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 2,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 0,
+          "parallelRequests": 3,
+          "requestedCount": 10
+        }
+      },
+      {
+        "id": "1788266497023-9mdq8jun",
+        "timestamp": "2026-09-01T12:41:37.023Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788266493188-vswns8y5",
+        "event": "question-bank.ai-request.started",
+        "message": "第 1/6 轮（并行 3/3）：正在请求 AI 生成题目（3 道）…",
+        "context": {
+          "attempt": 1,
+          "maxAttempts": 6,
+          "collectedCount": 0,
+          "workerIndex": 3,
+          "parallelRequests": 3,
+          "requestedCount": 3
+        }
+      },
+      {
+        "id": "1788266497015-ttsdanh7",
+        "timestamp": "2026-09-01T12:41:37.015Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788266493188-vswns8y5",
+        "event": "question-bank.ai-request.started",
+        "message": "第 1/6 轮（并行 2/3）：正在请求 AI 生成题目（3 道）…",
+        "context": {
+          "attempt": 1,
+          "maxAttempts": 6,
+          "collectedCount": 0,
+          "workerIndex": 2,
+          "parallelRequests": 3,
+          "requestedCount": 3
+        }
+      },
+      {
+        "id": "1788266497009-1w61jlil",
+        "timestamp": "2026-09-01T12:41:37.009Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788266493188-vswns8y5",
+        "event": "question-bank.ai-request.started",
+        "message": "第 1/6 轮（并行 1/3）：正在请求 AI 生成题目（4 道）…",
+        "context": {
+          "attempt": 1,
+          "maxAttempts": 6,
+          "collectedCount": 0,
+          "workerIndex": 1,
+          "parallelRequests": 3,
+          "requestedCount": 4
+        }
+      },
+      {
+        "id": "1788266497006-g38wgl3e",
+        "timestamp": "2026-09-01T12:41:37.006Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788266493188-vswns8y5",
+        "event": "question-bank.web-search.failed",
+        "message": "Failed to fetch",
+        "context": {
+          "attempt": 1,
+          "query": "机器视觉 面试知识点 图像预处理 边缘与特征 故障排查 模板与定位 梯度算子 非极大值抑制 双阈值 亚像素精度 本题未作答 原理 工程实践",
+          "continueToAi": true,
+          "parallelRequests": 3,
+          "requestedCount": 10
+        }
+      },
+      {
+        "id": "1788266496999-wca05pyf",
+        "timestamp": "2026-09-01T12:41:36.999Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788266493188-vswns8y5",
+        "event": "question-bank.ai-request.failed",
+        "message": "单个并行 AI 请求失败",
+        "context": {
+          "attempt": 1,
+          "workerIndex": 1,
+          "parallelRequests": 3,
+          "requestedCount": 4,
+          "durationMs": 278,
+          "error": "Failed to fetch"
+        }
+      },
+      {
+        "id": "1788266496997-gibgxmjw",
+        "timestamp": "2026-09-01T12:41:36.997Z",
+        "level": "ERROR",
+        "kind": "system",
+        "event": "backup.push.failed",
+        "message": "运行数据备份请求失败",
+        "context": {
+          "error": "Failed to fetch"
+        }
+      },
+      {
+        "id": "1788266496994-1k0veg3j",
+        "timestamp": "2026-09-01T12:41:36.994Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788266493188-vswns8y5",
+        "event": "question-bank.ai-request.failed",
+        "message": "单个并行 AI 请求失败",
+        "context": {
+          "attempt": 1,
+          "workerIndex": 3,
+          "parallelRequests": 3,
+          "requestedCount": 3,
+          "durationMs": 271,
+          "error": "Failed to fetch"
+        }
+      },
+      {
+        "id": "1788266496989-602srhgh",
+        "timestamp": "2026-09-01T12:41:36.989Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788266493188-vswns8y5",
+        "event": "question-bank.ai-request.failed",
+        "message": "单个并行 AI 请求失败",
+        "context": {
+          "attempt": 1,
+          "workerIndex": 2,
+          "parallelRequests": 3,
+          "requestedCount": 3,
+          "durationMs": 267,
+          "error": "Failed to fetch"
+        }
+      },
+      {
+        "id": "1788266496719-fzam1ecw",
+        "timestamp": "2026-09-01T12:41:36.719Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788266493188-vswns8y5",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 1,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "sourceCount": 0,
+          "parallelRequests": 3,
+          "requestedCount": 10,
+          "durationMs": 3503,
+          "sharedAcrossWorkers": true
+        }
+      },
+      {
+        "id": "1788266493220-95qe6s08",
+        "timestamp": "2026-09-01T12:41:33.220Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788266493188-vswns8y5",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 1,
+          "query": "机器视觉 面试知识点 图像预处理 边缘与特征 故障排查 模板与定位 梯度算子 非极大值抑制 双阈值 亚像素精度 本题未作答 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 0,
+          "parallelRequests": 3,
+          "requestedCount": 10
+        }
+      },
+      {
+        "id": "1788266493216-cea0fkcj",
+        "timestamp": "2026-09-01T12:41:33.216Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788266493188-vswns8y5",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 1,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 0,
+          "parallelRequests": 3,
+          "requestedCount": 10
+        }
+      },
+      {
+        "id": "1788266493210-0zm72o5m",
+        "timestamp": "2026-09-01T12:41:33.210Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788266493188-vswns8y5",
+        "event": "question-bank.focus.applied",
+        "message": "本轮题组已启用薄弱知识强化",
+        "context": {
+          "categories": [
+            "图像预处理",
+            "边缘与特征",
+            "故障排查",
+            "模板与定位"
+          ],
+          "keywords": [
+            "梯度算子",
+            "非极大值抑制",
+            "双阈值",
+            "亚像素精度",
+            "本题未作答",
+            "无法判断你是否真正掌握了知识点。",
+            "先用一句话给出结论",
+            "再围绕“梯度算子"
+          ],
+          "questionTitles": [
+            "在HALCON中，进行边缘提取时，常用的算子有sobel_amp、canny和edges_sub_pix，它们各自的特点和适用场景是什么？",
+            "在HALCON中，使用blob分析进行缺陷检测时，如果目标缺陷与背景灰度差异很小，你会采用哪些图像预处理方法增强对比度？",
+            "在HALCON中，进行相机标定时，如何评估标定结果的准确性？如果重投影误差较大，可能的原因有哪些？",
+            "在HALCON中，使用create_shape_model进行模板匹配时，金字塔层数（NumLevels）对匹配速度和精度有何影响？如何确定最佳层数？",
+            "在HALCON中，如何区分使用阈值分割（threshold）和动态阈值分割（dyn_threshold）？请结合实际应用场景说明选择依据。"
+          ]
+        }
+      },
+      {
+        "id": "1788266493207-58pkqgzc",
+        "timestamp": "2026-09-01T12:41:33.207Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788266493188-vswns8y5",
+        "event": "question-group.prepare.started",
+        "message": "开始准备题组",
+        "context": {
+          "project": "机器视觉专业知识",
+          "mode": "专业知识",
+          "questionCount": 10,
+          "sourceMode": "network",
+          "adaptiveQuestions": true,
+          "focusCategories": [
+            "图像预处理",
+            "边缘与特征",
+            "故障排查",
+            "模板与定位"
+          ]
+        }
+      },
+      {
+        "id": "1788266493199-bn0lbvs8",
+        "timestamp": "2026-09-01T12:41:33.199Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788266493188-vswns8y5",
+        "event": "question-group.prepare.started",
+        "message": "开始准备题组",
+        "context": {
+          "project": "机器视觉专业知识",
+          "mode": "专业知识",
+          "questionCount": 10,
+          "sourceMode": "network",
+          "adaptiveQuestions": false,
+          "focusCategories": []
+        }
+      },
+      {
+        "id": "1788266493182-ke77wjcm",
+        "timestamp": "2026-09-01T12:41:33.182Z",
+        "level": "WARN",
+        "kind": "system",
+        "event": "backup.close.deferred",
+        "message": "上次关闭时部分超大数据已延期，将由本次自动备份补交",
+        "context": {
+          "detail": {
+            "keys": [],
+            "entries": {
+              "vision-interview-runtime-logs": 874
+            }
+          }
+        }
+      },
+      {
+        "id": "1788266493179-8zwbjec5",
+        "timestamp": "2026-09-01T12:41:33.179Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.startup.loaded",
+        "message": "启动配置加载完成",
+        "context": {
+          "source": "github",
+          "updatedAt": "2026-09-01T12:41:20.005Z"
+        }
+      },
       {
         "id": "1788266467529-6mk1c10k",
         "timestamp": "2026-09-01T12:41:07.529Z",
@@ -6340,6 +6707,14 @@
         }
       },
       {
+        "id": "1788265354320-hieg66hn",
+        "timestamp": "2026-09-01T12:22:34.320Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.close.flush",
+        "message": "页面关闭或进入后台，提交最后一次备份"
+      },
+      {
         "id": "1788265351047-1sxk5ut4",
         "timestamp": "2026-09-01T12:22:31.047Z",
         "level": "WARN",
@@ -6532,6 +6907,14 @@
         }
       },
       {
+        "id": "1788265324672-zor4xkiz",
+        "timestamp": "2026-09-01T12:22:04.672Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.close.flush",
+        "message": "页面关闭或进入后台，提交最后一次备份"
+      },
+      {
         "id": "1788265323830-5meg5f93",
         "timestamp": "2026-09-01T12:22:03.830Z",
         "level": "INFO",
@@ -6553,6 +6936,17 @@
         "context": {
           "status": 502,
           "reason": "GitHub 备份失败（HTTP 409）：{\"message\":\"is at 52a31f6e67ef98de4f4f2c09e7ba7c9cce75e40f but expected 53bf23c874ae467c08da67f9b6d713d2cb892cbf\",\"documentation_url\":\"https://docs.github.com/rest/repos/contents#create-or-update-file-contents\",\"status\":\"409\"}"
+        }
+      },
+      {
+        "id": "1788265313789-froi7i39",
+        "timestamp": "2026-09-01T12:21:53.789Z",
+        "level": "ERROR",
+        "kind": "system",
+        "event": "backup.push.failed",
+        "message": "运行数据备份请求失败",
+        "context": {
+          "error": "Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON"
         }
       },
       {
@@ -6584,6 +6978,14 @@
             "模板与定位"
           ]
         }
+      },
+      {
+        "id": "1788265309818-vvlf0cu2",
+        "timestamp": "2026-09-01T12:21:49.818Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.close.flush",
+        "message": "页面关闭或进入后台，提交最后一次备份"
       },
       {
         "id": "1788265306350-2l0etych",
@@ -14048,6 +14450,30 @@
         }
       },
       {
+        "id": "1788264410811-igvtpsk2",
+        "timestamp": "2026-09-01T12:06:50.811Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "d5e80c3aa3f2"
+        }
+      },
+      {
+        "id": "1788264403237-pw4p3nv3",
+        "timestamp": "2026-09-01T12:06:43.237Z",
+        "level": "ERROR",
+        "kind": "system",
+        "event": "backup.push.failed",
+        "message": "运行数据备份失败",
+        "context": {
+          "status": 502,
+          "reason": "GitHub 备份失败（HTTP 409）：{\"message\":\"data/vision-interview-data.json does not match 0e14521be19dcd1fb0a67e4b3fbb2003648a83d0\",\"documentation_url\":\"https://docs.github.com/rest/repos/contents#create-or-update-file-contents\",\"status\":\"409\"}"
+        }
+      },
+      {
         "id": "1788264402581-mhunaiq1",
         "timestamp": "2026-09-01T12:06:42.581Z",
         "level": "INFO",
@@ -14216,6 +14642,18 @@
           "continueToAi": true,
           "workerIndex": 1,
           "parallelRequests": 3
+        }
+      },
+      {
+        "id": "1788264393895-syg1nylq",
+        "timestamp": "2026-09-01T12:06:33.895Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "6f53cb42a4bf"
         }
       },
       {
@@ -14439,6 +14877,97 @@
         }
       },
       {
+        "id": "1788264391083-rn71n3f8",
+        "timestamp": "2026-09-01T12:06:31.083Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788264343495-6xsj07ee",
+        "event": "question-group.prepare.completed",
+        "message": "AI 多轮联网搜索与生成后仍未获得有效题目，已使用本地题库与标准答案。",
+        "context": {
+          "source": "本地规则",
+          "questionCount": 10
+        }
+      },
+      {
+        "id": "1788264391078-1pedwvil",
+        "timestamp": "2026-09-01T12:06:31.078Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788264343495-6xsj07ee",
+        "event": "question-bank.network.fallback",
+        "message": "联网搜索与 AI 生成未获得有效题目，已切换为题库",
+        "context": {
+          "targetCount": 10,
+          "fallbackCount": 10
+        }
+      },
+      {
+        "id": "1788264391074-uue6zx3p",
+        "timestamp": "2026-09-01T12:06:31.074Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788264343495-6xsj07ee",
+        "event": "question-bank.network.partial-fallback",
+        "message": "联网获得的完整题目数量不足，已使用题库补足",
+        "context": {
+          "aiCount": 0,
+          "fallbackCount": 10,
+          "targetCount": 10
+        }
+      },
+      {
+        "id": "1788264391067-usluikmj",
+        "timestamp": "2026-09-01T12:06:31.067Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788264343495-6xsj07ee",
+        "event": "question-bank.attempt.failed",
+        "message": "第 6/6 轮（并行 3/3）：本轮请求失败：请先配置当前 AI 服务商的 API Key。，准备下一轮…",
+        "context": {
+          "attempt": 6,
+          "maxAttempts": 6,
+          "collectedCount": 0,
+          "workerIndex": 3,
+          "parallelRequests": 3,
+          "error": "请先配置当前 AI 服务商的 API Key。"
+        }
+      },
+      {
+        "id": "1788264391062-a03v2kuk",
+        "timestamp": "2026-09-01T12:06:31.062Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788264343495-6xsj07ee",
+        "event": "question-bank.attempt.failed",
+        "message": "第 6/6 轮（并行 2/3）：本轮请求失败：请先配置当前 AI 服务商的 API Key。，准备下一轮…",
+        "context": {
+          "attempt": 6,
+          "maxAttempts": 6,
+          "collectedCount": 0,
+          "workerIndex": 2,
+          "parallelRequests": 3,
+          "error": "请先配置当前 AI 服务商的 API Key。"
+        }
+      },
+      {
+        "id": "1788264391055-uauqmdgm",
+        "timestamp": "2026-09-01T12:06:31.055Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788264343495-6xsj07ee",
+        "event": "question-bank.attempt.failed",
+        "message": "第 6/6 轮（并行 1/3）：本轮请求失败：请先配置当前 AI 服务商的 API Key。，准备下一轮…",
+        "context": {
+          "attempt": 6,
+          "maxAttempts": 6,
+          "collectedCount": 0,
+          "workerIndex": 1,
+          "parallelRequests": 3,
+          "error": "请先配置当前 AI 服务商的 API Key。"
+        }
+      },
+      {
         "id": "1788264390596-uxqg4hwx",
         "timestamp": "2026-09-01T12:06:30.596Z",
         "level": "INFO",
@@ -14451,6 +14980,33 @@
         }
       },
       {
+        "id": "1788264389477-90nlx50z",
+        "timestamp": "2026-09-01T12:06:29.477Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788264343495-6xsj07ee",
+        "event": "question-bank.network.fallback",
+        "message": "联网搜索与 AI 生成未获得有效题目，已切换为题库",
+        "context": {
+          "targetCount": 10,
+          "fallbackCount": 10
+        }
+      },
+      {
+        "id": "1788264389473-llau9j4v",
+        "timestamp": "2026-09-01T12:06:29.473Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788264343495-6xsj07ee",
+        "event": "question-bank.network.partial-fallback",
+        "message": "联网获得的完整题目数量不足，已使用题库补足",
+        "context": {
+          "aiCount": 0,
+          "fallbackCount": 10,
+          "targetCount": 10
+        }
+      },
+      {
         "id": "1788264387252-0ibee3fd",
         "timestamp": "2026-09-01T12:06:27.252Z",
         "level": "INFO",
@@ -14460,6 +15016,105 @@
         "context": {
           "reason": "change",
           "commit": "dc0414d539e7"
+        }
+      },
+      {
+        "id": "1788264387180-k3ocntk7",
+        "timestamp": "2026-09-01T12:06:27.180Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788264343495-6xsj07ee",
+        "event": "question-bank.ai-request.started",
+        "message": "第 6/6 轮（并行 3/3）：正在请求 AI 生成题目（3 道）…",
+        "context": {
+          "attempt": 6,
+          "maxAttempts": 6,
+          "collectedCount": 0,
+          "workerIndex": 3,
+          "parallelRequests": 3,
+          "requestedCount": 3
+        }
+      },
+      {
+        "id": "1788264387175-ic67a81g",
+        "timestamp": "2026-09-01T12:06:27.175Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788264343495-6xsj07ee",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 6,
+          "query": "机器视觉 面试知识点 图像预处理 边缘与特征 故障排查 模板与定位 梯度算子 非极大值抑制 双阈值 亚像素精度 本题未作答 原理 工程实践",
+          "sourceCount": 0,
+          "workerIndex": 3,
+          "parallelRequests": 3
+        }
+      },
+      {
+        "id": "1788264386957-t4aaxqrs",
+        "timestamp": "2026-09-01T12:06:26.957Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788264343495-6xsj07ee",
+        "event": "question-bank.ai-request.started",
+        "message": "第 6/6 轮（并行 1/3）：正在请求 AI 生成题目（4 道）…",
+        "context": {
+          "attempt": 6,
+          "maxAttempts": 6,
+          "collectedCount": 0,
+          "workerIndex": 1,
+          "parallelRequests": 3,
+          "requestedCount": 4
+        }
+      },
+      {
+        "id": "1788264386953-16wd1x5l",
+        "timestamp": "2026-09-01T12:06:26.953Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788264343495-6xsj07ee",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 6,
+          "query": "机器视觉 面试知识点 图像预处理 边缘与特征 故障排查 模板与定位 梯度算子 非极大值抑制 双阈值 亚像素精度 本题未作答 原理 工程实践",
+          "sourceCount": 0,
+          "workerIndex": 1,
+          "parallelRequests": 3
+        }
+      },
+      {
+        "id": "1788264386809-cw6nvwrs",
+        "timestamp": "2026-09-01T12:06:26.809Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788264343495-6xsj07ee",
+        "event": "question-bank.ai-request.started",
+        "message": "第 6/6 轮（并行 2/3）：正在请求 AI 生成题目（3 道）…",
+        "context": {
+          "attempt": 6,
+          "maxAttempts": 6,
+          "collectedCount": 0,
+          "workerIndex": 2,
+          "parallelRequests": 3,
+          "requestedCount": 3
+        }
+      },
+      {
+        "id": "1788264386804-09owoqax",
+        "timestamp": "2026-09-01T12:06:26.804Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788264343495-6xsj07ee",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 6,
+          "query": "机器视觉 面试知识点 图像预处理 边缘与特征 故障排查 模板与定位 梯度算子 非极大值抑制 双阈值 亚像素精度 本题未作答 原理 工程实践",
+          "sourceCount": 0,
+          "workerIndex": 2,
+          "parallelRequests": 3
         }
       },
       {
@@ -14511,6 +15166,49 @@
         }
       },
       {
+        "id": "1788264385911-9u1h6qcc",
+        "timestamp": "2026-09-01T12:06:25.911Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788264343495-6xsj07ee",
+        "event": "question-bank.network.fallback",
+        "message": "联网搜索与 AI 生成未获得有效题目，已切换为题库",
+        "context": {
+          "targetCount": 10,
+          "fallbackCount": 10
+        }
+      },
+      {
+        "id": "1788264385906-l96uj1on",
+        "timestamp": "2026-09-01T12:06:25.906Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788264343495-6xsj07ee",
+        "event": "question-bank.network.partial-fallback",
+        "message": "联网获得的完整题目数量不足，已使用题库补足",
+        "context": {
+          "aiCount": 0,
+          "fallbackCount": 10,
+          "targetCount": 10
+        }
+      },
+      {
+        "id": "1788264385737-nsz57k6f",
+        "timestamp": "2026-09-01T12:06:25.737Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788264343495-6xsj07ee",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 6,
+          "query": "机器视觉 面试知识点 图像预处理 边缘与特征 故障排查 模板与定位 梯度算子 非极大值抑制 双阈值 亚像素精度 本题未作答 原理 工程实践",
+          "sourceCount": 0,
+          "workerIndex": 2,
+          "parallelRequests": 3
+        }
+      },
+      {
         "id": "1788264385474-jpkslk2i",
         "timestamp": "2026-09-01T12:06:25.474Z",
         "level": "INFO",
@@ -14530,6 +15228,22 @@
             "图像预处理",
             "模板与定位"
           ]
+        }
+      },
+      {
+        "id": "1788264385443-t4tu5v90",
+        "timestamp": "2026-09-01T12:06:25.443Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788264343495-6xsj07ee",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 6,
+          "query": "机器视觉 面试知识点 图像预处理 边缘与特征 故障排查 模板与定位 梯度算子 非极大值抑制 双阈值 亚像素精度 本题未作答 原理 工程实践",
+          "sourceCount": 0,
+          "workerIndex": 3,
+          "parallelRequests": 3
         }
       },
       {
@@ -14643,6 +15357,209 @@
         }
       },
       {
+        "id": "1788264384820-llxofur8",
+        "timestamp": "2026-09-01T12:06:24.820Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788264343495-6xsj07ee",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 6,
+          "query": "机器视觉 面试知识点 图像预处理 边缘与特征 故障排查 模板与定位 梯度算子 非极大值抑制 双阈值 亚像素精度 本题未作答 原理 工程实践",
+          "sourceCount": 0,
+          "workerIndex": 1,
+          "parallelRequests": 3
+        }
+      },
+      {
+        "id": "1788264384620-1xi1nhfc",
+        "timestamp": "2026-09-01T12:06:24.620Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "059ee593dec4"
+        }
+      },
+      {
+        "id": "1788264383645-yzu3n5yb",
+        "timestamp": "2026-09-01T12:06:23.645Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788264343495-6xsj07ee",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 6,
+          "query": "机器视觉 面试知识点 图像预处理 边缘与特征 故障排查 模板与定位 梯度算子 非极大值抑制 双阈值 亚像素精度 本题未作答 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 0,
+          "workerIndex": 3,
+          "parallelRequests": 3,
+          "requestedCount": 3
+        }
+      },
+      {
+        "id": "1788264383640-4lptkxzi",
+        "timestamp": "2026-09-01T12:06:23.640Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788264343495-6xsj07ee",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 6,
+          "query": "机器视觉 面试知识点 图像预处理 边缘与特征 故障排查 模板与定位 梯度算子 非极大值抑制 双阈值 亚像素精度 本题未作答 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 0,
+          "workerIndex": 2,
+          "parallelRequests": 3,
+          "requestedCount": 3
+        }
+      },
+      {
+        "id": "1788264383635-t8me9l5r",
+        "timestamp": "2026-09-01T12:06:23.635Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788264343495-6xsj07ee",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 6,
+          "query": "机器视觉 面试知识点 图像预处理 边缘与特征 故障排查 模板与定位 梯度算子 非极大值抑制 双阈值 亚像素精度 本题未作答 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 0,
+          "workerIndex": 1,
+          "parallelRequests": 3,
+          "requestedCount": 4
+        }
+      },
+      {
+        "id": "1788264383629-8ut8h98x",
+        "timestamp": "2026-09-01T12:06:23.629Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788264343495-6xsj07ee",
+        "event": "question-bank.attempt.failed",
+        "message": "第 5/6 轮（并行 3/3）：本轮请求失败：请先配置当前 AI 服务商的 API Key。，准备下一轮…",
+        "context": {
+          "attempt": 5,
+          "maxAttempts": 6,
+          "collectedCount": 0,
+          "workerIndex": 3,
+          "parallelRequests": 3,
+          "error": "请先配置当前 AI 服务商的 API Key。"
+        }
+      },
+      {
+        "id": "1788264383625-xc0y0m6w",
+        "timestamp": "2026-09-01T12:06:23.625Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788264343495-6xsj07ee",
+        "event": "question-bank.attempt.failed",
+        "message": "第 5/6 轮（并行 2/3）：本轮请求失败：请先配置当前 AI 服务商的 API Key。，准备下一轮…",
+        "context": {
+          "attempt": 5,
+          "maxAttempts": 6,
+          "collectedCount": 0,
+          "workerIndex": 2,
+          "parallelRequests": 3,
+          "error": "请先配置当前 AI 服务商的 API Key。"
+        }
+      },
+      {
+        "id": "1788264383620-fu3gkvp4",
+        "timestamp": "2026-09-01T12:06:23.620Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788264343495-6xsj07ee",
+        "event": "question-bank.attempt.failed",
+        "message": "第 5/6 轮（并行 1/3）：本轮请求失败：请先配置当前 AI 服务商的 API Key。，准备下一轮…",
+        "context": {
+          "attempt": 5,
+          "maxAttempts": 6,
+          "collectedCount": 0,
+          "workerIndex": 1,
+          "parallelRequests": 3,
+          "error": "请先配置当前 AI 服务商的 API Key。"
+        }
+      },
+      {
+        "id": "1788264382808-y33v6odw",
+        "timestamp": "2026-09-01T12:06:22.808Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788264343495-6xsj07ee",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 6,
+          "query": "机器视觉 面试知识点 图像预处理 边缘与特征 故障排查 模板与定位 梯度算子 非极大值抑制 双阈值 亚像素精度 本题未作答 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 0,
+          "workerIndex": 3,
+          "parallelRequests": 3,
+          "requestedCount": 3
+        }
+      },
+      {
+        "id": "1788264382802-jmx2pv5k",
+        "timestamp": "2026-09-01T12:06:22.802Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788264343495-6xsj07ee",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 6,
+          "query": "机器视觉 面试知识点 图像预处理 边缘与特征 故障排查 模板与定位 梯度算子 非极大值抑制 双阈值 亚像素精度 本题未作答 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 0,
+          "workerIndex": 2,
+          "parallelRequests": 3,
+          "requestedCount": 3
+        }
+      },
+      {
+        "id": "1788264382798-qa9m5zon",
+        "timestamp": "2026-09-01T12:06:22.798Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788264343495-6xsj07ee",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 6,
+          "query": "机器视觉 面试知识点 图像预处理 边缘与特征 故障排查 模板与定位 梯度算子 非极大值抑制 双阈值 亚像素精度 本题未作答 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 0,
+          "workerIndex": 1,
+          "parallelRequests": 3,
+          "requestedCount": 4
+        }
+      },
+      {
+        "id": "1788264382381-o66ano22",
+        "timestamp": "2026-09-01T12:06:22.381Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788264343495-6xsj07ee",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 6,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "sourceCount": 0,
+          "workerIndex": 1,
+          "parallelRequests": 3
+        }
+      },
+      {
         "id": "1788264381660-7lwgbghj",
         "timestamp": "2026-09-01T12:06:21.660Z",
         "level": "INFO",
@@ -14658,6 +15575,22 @@
         }
       },
       {
+        "id": "1788264381646-pvugk9r0",
+        "timestamp": "2026-09-01T12:06:21.646Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788264343495-6xsj07ee",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 6,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "sourceCount": 0,
+          "workerIndex": 2,
+          "parallelRequests": 3
+        }
+      },
+      {
         "id": "1788264381400-viqeioo8",
         "timestamp": "2026-09-01T12:06:21.400Z",
         "level": "INFO",
@@ -14667,6 +15600,22 @@
         "context": {
           "reason": "change",
           "commit": "60b879bf0dd3"
+        }
+      },
+      {
+        "id": "1788264380931-ox089h7n",
+        "timestamp": "2026-09-01T12:06:20.931Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788264343495-6xsj07ee",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 6,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "sourceCount": 0,
+          "workerIndex": 3,
+          "parallelRequests": 3
         }
       },
       {
@@ -14684,6 +15633,525 @@
         }
       },
       {
+        "id": "1788264379884-wr96jcwf",
+        "timestamp": "2026-09-01T12:06:19.884Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788264343495-6xsj07ee",
+        "event": "question-bank.ai-request.started",
+        "message": "第 5/6 轮（并行 3/3）：正在请求 AI 生成题目（3 道）…",
+        "context": {
+          "attempt": 5,
+          "maxAttempts": 6,
+          "collectedCount": 0,
+          "workerIndex": 3,
+          "parallelRequests": 3,
+          "requestedCount": 3
+        }
+      },
+      {
+        "id": "1788264379877-jwrktjbf",
+        "timestamp": "2026-09-01T12:06:19.877Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788264343495-6xsj07ee",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 5,
+          "query": "机器视觉 面试知识点 图像预处理 边缘与特征 故障排查 模板与定位 梯度算子 非极大值抑制 双阈值 亚像素精度 本题未作答 原理 工程实践",
+          "sourceCount": 0,
+          "workerIndex": 3,
+          "parallelRequests": 3
+        }
+      },
+      {
+        "id": "1788264379868-fmxntlmq",
+        "timestamp": "2026-09-01T12:06:19.868Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788264343495-6xsj07ee",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 5,
+          "query": "机器视觉 面试知识点 图像预处理 边缘与特征 故障排查 模板与定位 梯度算子 非极大值抑制 双阈值 亚像素精度 本题未作答 原理 工程实践",
+          "sourceCount": 0,
+          "workerIndex": 2,
+          "parallelRequests": 3
+        }
+      },
+      {
+        "id": "1788264379858-yqqjmbe3",
+        "timestamp": "2026-09-01T12:06:19.858Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788264343495-6xsj07ee",
+        "event": "question-bank.ai-request.started",
+        "message": "第 5/6 轮（并行 2/3）：正在请求 AI 生成题目（3 道）…",
+        "context": {
+          "attempt": 5,
+          "maxAttempts": 6,
+          "collectedCount": 0,
+          "workerIndex": 2,
+          "parallelRequests": 3,
+          "requestedCount": 3
+        }
+      },
+      {
+        "id": "1788264379853-wx29d323",
+        "timestamp": "2026-09-01T12:06:19.853Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788264343495-6xsj07ee",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 5,
+          "query": "机器视觉 面试知识点 图像预处理 边缘与特征 故障排查 模板与定位 梯度算子 非极大值抑制 双阈值 亚像素精度 本题未作答 原理 工程实践",
+          "sourceCount": 0,
+          "workerIndex": 2,
+          "parallelRequests": 3
+        }
+      },
+      {
+        "id": "1788264378807-e0bfnypw",
+        "timestamp": "2026-09-01T12:06:18.807Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788264343495-6xsj07ee",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 5,
+          "query": "机器视觉 面试知识点 图像预处理 边缘与特征 故障排查 模板与定位 梯度算子 非极大值抑制 双阈值 亚像素精度 本题未作答 原理 工程实践",
+          "sourceCount": 0,
+          "workerIndex": 3,
+          "parallelRequests": 3
+        }
+      },
+      {
+        "id": "1788264377805-g826y67m",
+        "timestamp": "2026-09-01T12:06:17.805Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788264343495-6xsj07ee",
+        "event": "question-bank.ai-request.started",
+        "message": "第 5/6 轮（并行 1/3）：正在请求 AI 生成题目（4 道）…",
+        "context": {
+          "attempt": 5,
+          "maxAttempts": 6,
+          "collectedCount": 0,
+          "workerIndex": 1,
+          "parallelRequests": 3,
+          "requestedCount": 4
+        }
+      },
+      {
+        "id": "1788264377801-rfc53yrt",
+        "timestamp": "2026-09-01T12:06:17.801Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788264343495-6xsj07ee",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 5,
+          "query": "机器视觉 面试知识点 图像预处理 边缘与特征 故障排查 模板与定位 梯度算子 非极大值抑制 双阈值 亚像素精度 本题未作答 原理 工程实践",
+          "sourceCount": 0,
+          "workerIndex": 1,
+          "parallelRequests": 3
+        }
+      },
+      {
+        "id": "1788264377676-120cikyj",
+        "timestamp": "2026-09-01T12:06:17.676Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788264343495-6xsj07ee",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 5,
+          "query": "机器视觉 面试知识点 图像预处理 边缘与特征 故障排查 模板与定位 梯度算子 非极大值抑制 双阈值 亚像素精度 本题未作答 原理 工程实践",
+          "sourceCount": 0,
+          "workerIndex": 1,
+          "parallelRequests": 3
+        }
+      },
+      {
+        "id": "1788264377547-97vvq3jz",
+        "timestamp": "2026-09-01T12:06:17.547Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788264343495-6xsj07ee",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 6,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 0,
+          "workerIndex": 3,
+          "parallelRequests": 3,
+          "requestedCount": 3
+        }
+      },
+      {
+        "id": "1788264377541-a8q1cxdm",
+        "timestamp": "2026-09-01T12:06:17.541Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788264343495-6xsj07ee",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 6,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 0,
+          "workerIndex": 2,
+          "parallelRequests": 3,
+          "requestedCount": 3
+        }
+      },
+      {
+        "id": "1788264377536-iug6eozd",
+        "timestamp": "2026-09-01T12:06:17.536Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788264343495-6xsj07ee",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 6,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 0,
+          "workerIndex": 1,
+          "parallelRequests": 3,
+          "requestedCount": 4
+        }
+      },
+      {
+        "id": "1788264376674-p0n68mk9",
+        "timestamp": "2026-09-01T12:06:16.674Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788264343495-6xsj07ee",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 5,
+          "query": "机器视觉 面试知识点 图像预处理 边缘与特征 故障排查 模板与定位 梯度算子 非极大值抑制 双阈值 亚像素精度 本题未作答 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 0,
+          "workerIndex": 3,
+          "parallelRequests": 3,
+          "requestedCount": 3
+        }
+      },
+      {
+        "id": "1788264376665-7mldl78r",
+        "timestamp": "2026-09-01T12:06:16.665Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788264343495-6xsj07ee",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 5,
+          "query": "机器视觉 面试知识点 图像预处理 边缘与特征 故障排查 模板与定位 梯度算子 非极大值抑制 双阈值 亚像素精度 本题未作答 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 0,
+          "workerIndex": 2,
+          "parallelRequests": 3,
+          "requestedCount": 3
+        }
+      },
+      {
+        "id": "1788264376656-sioizdnx",
+        "timestamp": "2026-09-01T12:06:16.656Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788264343495-6xsj07ee",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 5,
+          "query": "机器视觉 面试知识点 图像预处理 边缘与特征 故障排查 模板与定位 梯度算子 非极大值抑制 双阈值 亚像素精度 本题未作答 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 0,
+          "workerIndex": 1,
+          "parallelRequests": 3,
+          "requestedCount": 4
+        }
+      },
+      {
+        "id": "1788264376647-ty485xkx",
+        "timestamp": "2026-09-01T12:06:16.647Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788264343495-6xsj07ee",
+        "event": "question-bank.attempt.failed",
+        "message": "第 4/6 轮（并行 3/3）：本轮请求失败：请先配置当前 AI 服务商的 API Key。，准备下一轮…",
+        "context": {
+          "attempt": 4,
+          "maxAttempts": 6,
+          "collectedCount": 0,
+          "workerIndex": 3,
+          "parallelRequests": 3,
+          "error": "请先配置当前 AI 服务商的 API Key。"
+        }
+      },
+      {
+        "id": "1788264376638-0fypi651",
+        "timestamp": "2026-09-01T12:06:16.638Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788264343495-6xsj07ee",
+        "event": "question-bank.attempt.failed",
+        "message": "第 4/6 轮（并行 2/3）：本轮请求失败：请先配置当前 AI 服务商的 API Key。，准备下一轮…",
+        "context": {
+          "attempt": 4,
+          "maxAttempts": 6,
+          "collectedCount": 0,
+          "workerIndex": 2,
+          "parallelRequests": 3,
+          "error": "请先配置当前 AI 服务商的 API Key。"
+        }
+      },
+      {
+        "id": "1788264376633-ox24ybe6",
+        "timestamp": "2026-09-01T12:06:16.633Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788264343495-6xsj07ee",
+        "event": "question-bank.attempt.failed",
+        "message": "第 4/6 轮（并行 1/3）：本轮请求失败：请先配置当前 AI 服务商的 API Key。，准备下一轮…",
+        "context": {
+          "attempt": 4,
+          "maxAttempts": 6,
+          "collectedCount": 0,
+          "workerIndex": 1,
+          "parallelRequests": 3,
+          "error": "请先配置当前 AI 服务商的 API Key。"
+        }
+      },
+      {
+        "id": "1788264374751-tvyoesnc",
+        "timestamp": "2026-09-01T12:06:14.751Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788264343495-6xsj07ee",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 5,
+          "query": "机器视觉 面试知识点 图像预处理 边缘与特征 故障排查 模板与定位 梯度算子 非极大值抑制 双阈值 亚像素精度 本题未作答 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 0,
+          "workerIndex": 3,
+          "parallelRequests": 3,
+          "requestedCount": 3
+        }
+      },
+      {
+        "id": "1788264374745-66qtlilr",
+        "timestamp": "2026-09-01T12:06:14.745Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788264343495-6xsj07ee",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 5,
+          "query": "机器视觉 面试知识点 图像预处理 边缘与特征 故障排查 模板与定位 梯度算子 非极大值抑制 双阈值 亚像素精度 本题未作答 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 0,
+          "workerIndex": 2,
+          "parallelRequests": 3,
+          "requestedCount": 3
+        }
+      },
+      {
+        "id": "1788264374741-muext2i3",
+        "timestamp": "2026-09-01T12:06:14.741Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788264343495-6xsj07ee",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 5,
+          "query": "机器视觉 面试知识点 图像预处理 边缘与特征 故障排查 模板与定位 梯度算子 非极大值抑制 双阈值 亚像素精度 本题未作答 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 0,
+          "workerIndex": 1,
+          "parallelRequests": 3,
+          "requestedCount": 4
+        }
+      },
+      {
+        "id": "1788264374093-xacrk6zy",
+        "timestamp": "2026-09-01T12:06:14.093Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788264343495-6xsj07ee",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 5,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "sourceCount": 0,
+          "workerIndex": 3,
+          "parallelRequests": 3
+        }
+      },
+      {
+        "id": "1788264374076-a2z6kp9c",
+        "timestamp": "2026-09-01T12:06:14.076Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788264343495-6xsj07ee",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 5,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "sourceCount": 0,
+          "workerIndex": 2,
+          "parallelRequests": 3
+        }
+      },
+      {
+        "id": "1788264373715-sbu3czwr",
+        "timestamp": "2026-09-01T12:06:13.715Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788264343495-6xsj07ee",
+        "event": "question-bank.ai-request.started",
+        "message": "第 4/6 轮（并行 1/3）：正在请求 AI 生成题目（4 道）…",
+        "context": {
+          "attempt": 4,
+          "maxAttempts": 6,
+          "collectedCount": 0,
+          "workerIndex": 1,
+          "parallelRequests": 3,
+          "requestedCount": 4
+        }
+      },
+      {
+        "id": "1788264373710-4e8r6jdy",
+        "timestamp": "2026-09-01T12:06:13.710Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788264343495-6xsj07ee",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 4,
+          "query": "机器视觉 面试知识点 图像预处理 边缘与特征 故障排查 模板与定位 梯度算子 非极大值抑制 双阈值 亚像素精度 本题未作答 原理 工程实践",
+          "sourceCount": 0,
+          "workerIndex": 1,
+          "parallelRequests": 3
+        }
+      },
+      {
+        "id": "1788264373473-xv8bevvq",
+        "timestamp": "2026-09-01T12:06:13.473Z",
+        "level": "ERROR",
+        "kind": "system",
+        "event": "backup.push.failed",
+        "message": "运行数据备份失败",
+        "context": {
+          "status": 502,
+          "reason": "GitHub 备份失败（HTTP 409）：{\"message\":\"data/vision-interview-data.json does not match 2aca70c7f7f890bf81dd6ccfcc1ce6707e0d7c43\",\"documentation_url\":\"https://docs.github.com/rest/repos/contents#create-or-update-file-contents\",\"status\":\"409\"}"
+        }
+      },
+      {
+        "id": "1788264372557-mb75iw53",
+        "timestamp": "2026-09-01T12:06:12.557Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788264343495-6xsj07ee",
+        "event": "question-bank.ai-request.started",
+        "message": "第 4/6 轮（并行 2/3）：正在请求 AI 生成题目（3 道）…",
+        "context": {
+          "attempt": 4,
+          "maxAttempts": 6,
+          "collectedCount": 0,
+          "workerIndex": 2,
+          "parallelRequests": 3,
+          "requestedCount": 3
+        }
+      },
+      {
+        "id": "1788264372553-xzx6al1i",
+        "timestamp": "2026-09-01T12:06:12.553Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788264343495-6xsj07ee",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 4,
+          "query": "机器视觉 面试知识点 图像预处理 边缘与特征 故障排查 模板与定位 梯度算子 非极大值抑制 双阈值 亚像素精度 本题未作答 原理 工程实践",
+          "sourceCount": 0,
+          "workerIndex": 2,
+          "parallelRequests": 3
+        }
+      },
+      {
+        "id": "1788264372373-bzbua8p5",
+        "timestamp": "2026-09-01T12:06:12.373Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788264343495-6xsj07ee",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 5,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "sourceCount": 0,
+          "workerIndex": 1,
+          "parallelRequests": 3
+        }
+      },
+      {
+        "id": "1788264372249-3ygyeba0",
+        "timestamp": "2026-09-01T12:06:12.249Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788264343495-6xsj07ee",
+        "event": "question-bank.ai-request.started",
+        "message": "第 4/6 轮（并行 3/3）：正在请求 AI 生成题目（3 道）…",
+        "context": {
+          "attempt": 4,
+          "maxAttempts": 6,
+          "collectedCount": 0,
+          "workerIndex": 3,
+          "parallelRequests": 3,
+          "requestedCount": 3
+        }
+      },
+      {
+        "id": "1788264372244-2q1h1k39",
+        "timestamp": "2026-09-01T12:06:12.244Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788264343495-6xsj07ee",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 4,
+          "query": "机器视觉 面试知识点 图像预处理 边缘与特征 故障排查 模板与定位 梯度算子 非极大值抑制 双阈值 亚像素精度 本题未作答 原理 工程实践",
+          "sourceCount": 0,
+          "workerIndex": 3,
+          "parallelRequests": 3
+        }
+      },
+      {
         "id": "1788264371807-tnxntnot",
         "timestamp": "2026-09-01T12:06:11.807Z",
         "level": "INFO",
@@ -14696,6 +16164,213 @@
         }
       },
       {
+        "id": "1788264371401-n0r2bik8",
+        "timestamp": "2026-09-01T12:06:11.401Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788264343495-6xsj07ee",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 4,
+          "query": "机器视觉 面试知识点 图像预处理 边缘与特征 故障排查 模板与定位 梯度算子 非极大值抑制 双阈值 亚像素精度 本题未作答 原理 工程实践",
+          "sourceCount": 0,
+          "workerIndex": 2,
+          "parallelRequests": 3
+        }
+      },
+      {
+        "id": "1788264371396-z03hlm1l",
+        "timestamp": "2026-09-01T12:06:11.396Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788264343495-6xsj07ee",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 4,
+          "query": "机器视觉 面试知识点 图像预处理 边缘与特征 故障排查 模板与定位 梯度算子 非极大值抑制 双阈值 亚像素精度 本题未作答 原理 工程实践",
+          "sourceCount": 0,
+          "workerIndex": 3,
+          "parallelRequests": 3
+        }
+      },
+      {
+        "id": "1788264370997-9g1fnrdh",
+        "timestamp": "2026-09-01T12:06:10.997Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788264343495-6xsj07ee",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 4,
+          "query": "机器视觉 面试知识点 图像预处理 边缘与特征 故障排查 模板与定位 梯度算子 非极大值抑制 双阈值 亚像素精度 本题未作答 原理 工程实践",
+          "sourceCount": 0,
+          "workerIndex": 1,
+          "parallelRequests": 3
+        }
+      },
+      {
+        "id": "1788264370240-duok4c7n",
+        "timestamp": "2026-09-01T12:06:10.240Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788264343495-6xsj07ee",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 5,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 0,
+          "workerIndex": 3,
+          "parallelRequests": 3,
+          "requestedCount": 3
+        }
+      },
+      {
+        "id": "1788264370232-i7pbc3zd",
+        "timestamp": "2026-09-01T12:06:10.232Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788264343495-6xsj07ee",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 5,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 0,
+          "workerIndex": 2,
+          "parallelRequests": 3,
+          "requestedCount": 3
+        }
+      },
+      {
+        "id": "1788264370225-064ayz1i",
+        "timestamp": "2026-09-01T12:06:10.225Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788264343495-6xsj07ee",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 5,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 0,
+          "workerIndex": 1,
+          "parallelRequests": 3,
+          "requestedCount": 4
+        }
+      },
+      {
+        "id": "1788264369202-c7rn1w44",
+        "timestamp": "2026-09-01T12:06:09.202Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788264343495-6xsj07ee",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 4,
+          "query": "机器视觉 面试知识点 图像预处理 边缘与特征 故障排查 模板与定位 梯度算子 非极大值抑制 双阈值 亚像素精度 本题未作答 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 0,
+          "workerIndex": 3,
+          "parallelRequests": 3,
+          "requestedCount": 3
+        }
+      },
+      {
+        "id": "1788264369197-a18qstag",
+        "timestamp": "2026-09-01T12:06:09.197Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788264343495-6xsj07ee",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 4,
+          "query": "机器视觉 面试知识点 图像预处理 边缘与特征 故障排查 模板与定位 梯度算子 非极大值抑制 双阈值 亚像素精度 本题未作答 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 0,
+          "workerIndex": 2,
+          "parallelRequests": 3,
+          "requestedCount": 3
+        }
+      },
+      {
+        "id": "1788264369192-qw6kisi8",
+        "timestamp": "2026-09-01T12:06:09.192Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788264343495-6xsj07ee",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 4,
+          "query": "机器视觉 面试知识点 图像预处理 边缘与特征 故障排查 模板与定位 梯度算子 非极大值抑制 双阈值 亚像素精度 本题未作答 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 0,
+          "workerIndex": 1,
+          "parallelRequests": 3,
+          "requestedCount": 4
+        }
+      },
+      {
+        "id": "1788264369186-93se9qk1",
+        "timestamp": "2026-09-01T12:06:09.186Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788264343495-6xsj07ee",
+        "event": "question-bank.attempt.failed",
+        "message": "第 3/6 轮（并行 3/3）：本轮请求失败：请先配置当前 AI 服务商的 API Key。，准备下一轮…",
+        "context": {
+          "attempt": 3,
+          "maxAttempts": 6,
+          "collectedCount": 0,
+          "workerIndex": 3,
+          "parallelRequests": 3,
+          "error": "请先配置当前 AI 服务商的 API Key。"
+        }
+      },
+      {
+        "id": "1788264369179-5wrwl4ua",
+        "timestamp": "2026-09-01T12:06:09.179Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788264343495-6xsj07ee",
+        "event": "question-bank.attempt.failed",
+        "message": "第 3/6 轮（并行 2/3）：本轮请求失败：请先配置当前 AI 服务商的 API Key。，准备下一轮…",
+        "context": {
+          "attempt": 3,
+          "maxAttempts": 6,
+          "collectedCount": 0,
+          "workerIndex": 2,
+          "parallelRequests": 3,
+          "error": "请先配置当前 AI 服务商的 API Key。"
+        }
+      },
+      {
+        "id": "1788264369172-zo8vmv3z",
+        "timestamp": "2026-09-01T12:06:09.172Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788264343495-6xsj07ee",
+        "event": "question-bank.attempt.failed",
+        "message": "第 3/6 轮（并行 1/3）：本轮请求失败：请先配置当前 AI 服务商的 API Key。，准备下一轮…",
+        "context": {
+          "attempt": 3,
+          "maxAttempts": 6,
+          "collectedCount": 0,
+          "workerIndex": 1,
+          "parallelRequests": 3,
+          "error": "请先配置当前 AI 服务商的 API Key。"
+        }
+      },
+      {
         "id": "1788264368958-ibzpg8n4",
         "timestamp": "2026-09-01T12:06:08.958Z",
         "level": "INFO",
@@ -14705,6 +16380,219 @@
         "context": {
           "reason": "change",
           "commit": "bb0eb28a590e"
+        }
+      },
+      {
+        "id": "1788264367767-4bodhytc",
+        "timestamp": "2026-09-01T12:06:07.767Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788264343495-6xsj07ee",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 4,
+          "query": "机器视觉 面试知识点 图像预处理 边缘与特征 故障排查 模板与定位 梯度算子 非极大值抑制 双阈值 亚像素精度 本题未作答 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 0,
+          "workerIndex": 3,
+          "parallelRequests": 3,
+          "requestedCount": 3
+        }
+      },
+      {
+        "id": "1788264367761-t1ay5x6b",
+        "timestamp": "2026-09-01T12:06:07.761Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788264343495-6xsj07ee",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 4,
+          "query": "机器视觉 面试知识点 图像预处理 边缘与特征 故障排查 模板与定位 梯度算子 非极大值抑制 双阈值 亚像素精度 本题未作答 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 0,
+          "workerIndex": 2,
+          "parallelRequests": 3,
+          "requestedCount": 3
+        }
+      },
+      {
+        "id": "1788264367758-ius0aofr",
+        "timestamp": "2026-09-01T12:06:07.758Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788264343495-6xsj07ee",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 4,
+          "query": "机器视觉 面试知识点 图像预处理 边缘与特征 故障排查 模板与定位 梯度算子 非极大值抑制 双阈值 亚像素精度 本题未作答 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 0,
+          "workerIndex": 1,
+          "parallelRequests": 3,
+          "requestedCount": 4
+        }
+      },
+      {
+        "id": "1788264367057-fz9843ez",
+        "timestamp": "2026-09-01T12:06:07.057Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788264343495-6xsj07ee",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 4,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "sourceCount": 0,
+          "workerIndex": 1,
+          "parallelRequests": 3
+        }
+      },
+      {
+        "id": "1788264366903-iz8wmhw4",
+        "timestamp": "2026-09-01T12:06:06.903Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788264343495-6xsj07ee",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 4,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "sourceCount": 0,
+          "workerIndex": 2,
+          "parallelRequests": 3
+        }
+      },
+      {
+        "id": "1788264366840-519j58f0",
+        "timestamp": "2026-09-01T12:06:06.840Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788264343495-6xsj07ee",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 4,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "sourceCount": 0,
+          "workerIndex": 3,
+          "parallelRequests": 3
+        }
+      },
+      {
+        "id": "1788264365800-ln7mek9x",
+        "timestamp": "2026-09-01T12:06:05.800Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "4060ca67904f"
+        }
+      },
+      {
+        "id": "1788264365694-tf06isnu",
+        "timestamp": "2026-09-01T12:06:05.694Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788264343495-6xsj07ee",
+        "event": "question-bank.ai-request.started",
+        "message": "第 3/6 轮（并行 1/3）：正在请求 AI 生成题目（4 道）…",
+        "context": {
+          "attempt": 3,
+          "maxAttempts": 6,
+          "collectedCount": 0,
+          "workerIndex": 1,
+          "parallelRequests": 3,
+          "requestedCount": 4
+        }
+      },
+      {
+        "id": "1788264365691-wey3p26b",
+        "timestamp": "2026-09-01T12:06:05.690Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788264343495-6xsj07ee",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 3,
+          "query": "机器视觉 面试知识点 图像预处理 边缘与特征 故障排查 模板与定位 梯度算子 非极大值抑制 双阈值 亚像素精度 本题未作答 原理 工程实践",
+          "sourceCount": 0,
+          "workerIndex": 1,
+          "parallelRequests": 3
+        }
+      },
+      {
+        "id": "1788264365098-ygr4x3nb",
+        "timestamp": "2026-09-01T12:06:05.097Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788264343495-6xsj07ee",
+        "event": "question-bank.ai-request.started",
+        "message": "第 3/6 轮（并行 2/3）：正在请求 AI 生成题目（3 道）…",
+        "context": {
+          "attempt": 3,
+          "maxAttempts": 6,
+          "collectedCount": 0,
+          "workerIndex": 2,
+          "parallelRequests": 3,
+          "requestedCount": 3
+        }
+      },
+      {
+        "id": "1788264365093-12xpcwsz",
+        "timestamp": "2026-09-01T12:06:05.093Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788264343495-6xsj07ee",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 3,
+          "query": "机器视觉 面试知识点 图像预处理 边缘与特征 故障排查 模板与定位 梯度算子 非极大值抑制 双阈值 亚像素精度 本题未作答 原理 工程实践",
+          "sourceCount": 0,
+          "workerIndex": 2,
+          "parallelRequests": 3
+        }
+      },
+      {
+        "id": "1788264364973-mjpp6zki",
+        "timestamp": "2026-09-01T12:06:04.973Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788264343495-6xsj07ee",
+        "event": "question-bank.ai-request.started",
+        "message": "第 3/6 轮（并行 3/3）：正在请求 AI 生成题目（3 道）…",
+        "context": {
+          "attempt": 3,
+          "maxAttempts": 6,
+          "collectedCount": 0,
+          "workerIndex": 3,
+          "parallelRequests": 3,
+          "requestedCount": 3
+        }
+      },
+      {
+        "id": "1788264364969-g32hf53a",
+        "timestamp": "2026-09-01T12:06:04.969Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788264343495-6xsj07ee",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 3,
+          "query": "机器视觉 面试知识点 图像预处理 边缘与特征 故障排查 模板与定位 梯度算子 非极大值抑制 双阈值 亚像素精度 本题未作答 原理 工程实践",
+          "sourceCount": 0,
+          "workerIndex": 3,
+          "parallelRequests": 3
         }
       },
       {
@@ -14780,6 +16668,42 @@
         }
       },
       {
+        "id": "1788264363743-fp3jw62v",
+        "timestamp": "2026-09-01T12:06:03.743Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788264343495-6xsj07ee",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 4,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 0,
+          "workerIndex": 3,
+          "parallelRequests": 3,
+          "requestedCount": 3
+        }
+      },
+      {
+        "id": "1788264363736-4fsm5cz9",
+        "timestamp": "2026-09-01T12:06:03.736Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788264343495-6xsj07ee",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 4,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 0,
+          "workerIndex": 2,
+          "parallelRequests": 3,
+          "requestedCount": 3
+        }
+      },
+      {
         "id": "1788264363732-lgjqvjw0",
         "timestamp": "2026-09-01T12:06:03.732Z",
         "level": "WARN",
@@ -14792,6 +16716,72 @@
           "query": "机器视觉 面试知识点 算法原理 工程实践 图像预处理 模板与定位 深度图 点云 法线估计 RANSAC find_surface_model 原理 工程实践",
           "continueToAi": true,
           "workerIndex": 2,
+          "parallelRequests": 3
+        }
+      },
+      {
+        "id": "1788264363731-eus525ro",
+        "timestamp": "2026-09-01T12:06:03.731Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788264343495-6xsj07ee",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 4,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 0,
+          "workerIndex": 1,
+          "parallelRequests": 3,
+          "requestedCount": 4
+        }
+      },
+      {
+        "id": "1788264363432-vr5glg8g",
+        "timestamp": "2026-09-01T12:06:03.432Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788264343495-6xsj07ee",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 3,
+          "query": "机器视觉 面试知识点 图像预处理 边缘与特征 故障排查 模板与定位 梯度算子 非极大值抑制 双阈值 亚像素精度 本题未作答 原理 工程实践",
+          "sourceCount": 0,
+          "workerIndex": 3,
+          "parallelRequests": 3
+        }
+      },
+      {
+        "id": "1788264363269-08ovecmx",
+        "timestamp": "2026-09-01T12:06:03.269Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788264343495-6xsj07ee",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 3,
+          "query": "机器视觉 面试知识点 图像预处理 边缘与特征 故障排查 模板与定位 梯度算子 非极大值抑制 双阈值 亚像素精度 本题未作答 原理 工程实践",
+          "sourceCount": 0,
+          "workerIndex": 2,
+          "parallelRequests": 3
+        }
+      },
+      {
+        "id": "1788264363263-zcpakmz1",
+        "timestamp": "2026-09-01T12:06:03.263Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788264343495-6xsj07ee",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 3,
+          "query": "机器视觉 面试知识点 图像预处理 边缘与特征 故障排查 模板与定位 梯度算子 非极大值抑制 双阈值 亚像素精度 本题未作答 原理 工程实践",
+          "sourceCount": 0,
+          "workerIndex": 1,
           "parallelRequests": 3
         }
       },
@@ -15015,6 +17005,111 @@
           "workerIndex": 1,
           "parallelRequests": 3,
           "requestedCount": 4
+        }
+      },
+      {
+        "id": "1788264361797-7spc9qlz",
+        "timestamp": "2026-09-01T12:06:01.797Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788264343495-6xsj07ee",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 3,
+          "query": "机器视觉 面试知识点 图像预处理 边缘与特征 故障排查 模板与定位 梯度算子 非极大值抑制 双阈值 亚像素精度 本题未作答 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 0,
+          "workerIndex": 3,
+          "parallelRequests": 3,
+          "requestedCount": 3
+        }
+      },
+      {
+        "id": "1788264361791-l3ez3oi6",
+        "timestamp": "2026-09-01T12:06:01.791Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788264343495-6xsj07ee",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 3,
+          "query": "机器视觉 面试知识点 图像预处理 边缘与特征 故障排查 模板与定位 梯度算子 非极大值抑制 双阈值 亚像素精度 本题未作答 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 0,
+          "workerIndex": 2,
+          "parallelRequests": 3,
+          "requestedCount": 3
+        }
+      },
+      {
+        "id": "1788264361786-y347xuqv",
+        "timestamp": "2026-09-01T12:06:01.786Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788264343495-6xsj07ee",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 3,
+          "query": "机器视觉 面试知识点 图像预处理 边缘与特征 故障排查 模板与定位 梯度算子 非极大值抑制 双阈值 亚像素精度 本题未作答 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 0,
+          "workerIndex": 1,
+          "parallelRequests": 3,
+          "requestedCount": 4
+        }
+      },
+      {
+        "id": "1788264361780-hauglv7o",
+        "timestamp": "2026-09-01T12:06:01.780Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788264343495-6xsj07ee",
+        "event": "question-bank.attempt.failed",
+        "message": "第 2/6 轮（并行 3/3）：本轮请求失败：请先配置当前 AI 服务商的 API Key。，准备下一轮…",
+        "context": {
+          "attempt": 2,
+          "maxAttempts": 6,
+          "collectedCount": 0,
+          "workerIndex": 3,
+          "parallelRequests": 3,
+          "error": "请先配置当前 AI 服务商的 API Key。"
+        }
+      },
+      {
+        "id": "1788264361774-1e9zsjfo",
+        "timestamp": "2026-09-01T12:06:01.774Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788264343495-6xsj07ee",
+        "event": "question-bank.attempt.failed",
+        "message": "第 2/6 轮（并行 2/3）：本轮请求失败：请先配置当前 AI 服务商的 API Key。，准备下一轮…",
+        "context": {
+          "attempt": 2,
+          "maxAttempts": 6,
+          "collectedCount": 0,
+          "workerIndex": 2,
+          "parallelRequests": 3,
+          "error": "请先配置当前 AI 服务商的 API Key。"
+        }
+      },
+      {
+        "id": "1788264361770-us7c7acg",
+        "timestamp": "2026-09-01T12:06:01.770Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788264343495-6xsj07ee",
+        "event": "question-bank.attempt.failed",
+        "message": "第 2/6 轮（并行 1/3）：本轮请求失败：请先配置当前 AI 服务商的 API Key。，准备下一轮…",
+        "context": {
+          "attempt": 2,
+          "maxAttempts": 6,
+          "collectedCount": 0,
+          "workerIndex": 1,
+          "parallelRequests": 3,
+          "error": "请先配置当前 AI 服务商的 API Key。"
         }
       },
       {
@@ -15321,6 +17416,54 @@
           "workerIndex": 1,
           "parallelRequests": 3,
           "requestedCount": 4
+        }
+      },
+      {
+        "id": "1788264360088-jvnd4rmu",
+        "timestamp": "2026-09-01T12:06:00.088Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788264343495-6xsj07ee",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 3,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "sourceCount": 0,
+          "workerIndex": 3,
+          "parallelRequests": 3
+        }
+      },
+      {
+        "id": "1788264359923-816k806i",
+        "timestamp": "2026-09-01T12:05:59.923Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788264343495-6xsj07ee",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 3,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "sourceCount": 0,
+          "workerIndex": 2,
+          "parallelRequests": 3
+        }
+      },
+      {
+        "id": "1788264359877-vcmx0ufj",
+        "timestamp": "2026-09-01T12:05:59.877Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788264343495-6xsj07ee",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 3,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "sourceCount": 0,
+          "workerIndex": 1,
+          "parallelRequests": 3
         }
       },
       {
@@ -16237,2196 +18380,6 @@
           "workerIndex": 2,
           "parallelRequests": 3,
           "requestedCount": 3
-        }
-      },
-      {
-        "id": "1788264357646-a8g5x7sm",
-        "timestamp": "2026-09-01T12:05:57.646Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264356104-1wu8qk6u",
-        "event": "question-bank.web-search.started",
-        "message": "开始联网检索本轮题目资料",
-        "context": {
-          "attempt": 1,
-          "query": "机器视觉 面试知识点 算法原理 工程实践 图像预处理 模板与定位 深度图 点云 法线估计 RANSAC find_surface_model 原理 工程实践",
-          "mode": "专业知识",
-          "excludedCount": 0,
-          "workerIndex": 1,
-          "parallelRequests": 3,
-          "requestedCount": 4
-        }
-      },
-      {
-        "id": "1788264357642-lnkm2awa",
-        "timestamp": "2026-09-01T12:05:57.642Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264356104-1wu8qk6u",
-        "event": "question-bank.focus.applied",
-        "message": "本轮题组已启用薄弱知识强化",
-        "context": {
-          "categories": [
-            "算法原理",
-            "工程实践",
-            "图像预处理",
-            "模板与定位"
-          ],
-          "keywords": [
-            "深度图",
-            "点云",
-            "法线估计",
-            "RANSAC",
-            "find_surface_model",
-            "本题未作答",
-            "无法判断你是否真正掌握了知识点。",
-            "先用一句话给出结论"
-          ],
-          "questionTitles": [
-            "HALCON 中 3D 视觉测量的基本流程是什么？点云处理常用哪些算子？",
-            "现场调试时模板匹配经常出现误匹配或漏匹配，请描述你的排查思路。",
-            "HALCON 程序运行速度慢时，你会从哪些方面进行性能优化？",
-            "HALCON 手眼标定中“眼在手上”和“眼在手外”有什么区别？标定时需要注意什么？",
-            "在 HALCON 中做表面缺陷检测，你会如何选择传统图像处理与深度学习的方案？"
-          ]
-        }
-      },
-      {
-        "id": "1788264357637-30xdvqds",
-        "timestamp": "2026-09-01T12:05:57.637Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264356104-1wu8qk6u",
-        "event": "question-group.prepare.started",
-        "message": "开始准备题组",
-        "context": {
-          "project": "机器视觉专业知识",
-          "mode": "专业知识",
-          "questionCount": 10,
-          "sourceMode": "network",
-          "adaptiveQuestions": true,
-          "focusCategories": [
-            "算法原理",
-            "工程实践",
-            "图像预处理",
-            "模板与定位"
-          ]
-        }
-      },
-      {
-        "id": "1788264357412-3cmtgffo",
-        "timestamp": "2026-09-01T12:05:57.412Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264356104-1wu8qk6u",
-        "event": "question-bank.web-search.started",
-        "message": "开始联网检索本轮题目资料",
-        "context": {
-          "attempt": 3,
-          "query": "机器视觉 面试知识点 算法原理 工程实践 图像预处理 模板与定位 深度图 点云 法线估计 RANSAC find_surface_model 原理 工程实践",
-          "mode": "专业知识",
-          "excludedCount": 0,
-          "workerIndex": 3,
-          "parallelRequests": 3,
-          "requestedCount": 3
-        }
-      },
-      {
-        "id": "1788264357406-wch1z94m",
-        "timestamp": "2026-09-01T12:05:57.406Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264356104-1wu8qk6u",
-        "event": "question-bank.web-search.started",
-        "message": "开始联网检索本轮题目资料",
-        "context": {
-          "attempt": 3,
-          "query": "机器视觉 面试知识点 算法原理 工程实践 图像预处理 模板与定位 深度图 点云 法线估计 RANSAC find_surface_model 原理 工程实践",
-          "mode": "专业知识",
-          "excludedCount": 0,
-          "workerIndex": 2,
-          "parallelRequests": 3,
-          "requestedCount": 3
-        }
-      },
-      {
-        "id": "1788264357402-yiqul6wr",
-        "timestamp": "2026-09-01T12:05:57.401Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264356104-1wu8qk6u",
-        "event": "question-bank.web-search.started",
-        "message": "开始联网检索本轮题目资料",
-        "context": {
-          "attempt": 3,
-          "query": "机器视觉 面试知识点 算法原理 工程实践 图像预处理 模板与定位 深度图 点云 法线估计 RANSAC find_surface_model 原理 工程实践",
-          "mode": "专业知识",
-          "excludedCount": 0,
-          "workerIndex": 1,
-          "parallelRequests": 3,
-          "requestedCount": 4
-        }
-      },
-      {
-        "id": "1788264357398-5lwlr0nh",
-        "timestamp": "2026-09-01T12:05:57.398Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788264356104-1wu8qk6u",
-        "event": "question-bank.attempt.failed",
-        "message": "第 2/6 轮（并行 3/3）：本轮请求失败：请先配置当前 AI 服务商的 API Key。，准备下一轮…",
-        "context": {
-          "attempt": 2,
-          "maxAttempts": 6,
-          "collectedCount": 0,
-          "workerIndex": 3,
-          "parallelRequests": 3,
-          "error": "请先配置当前 AI 服务商的 API Key。"
-        }
-      },
-      {
-        "id": "1788264357394-koidjoch",
-        "timestamp": "2026-09-01T12:05:57.394Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788264356104-1wu8qk6u",
-        "event": "question-bank.attempt.failed",
-        "message": "第 2/6 轮（并行 2/3）：本轮请求失败：请先配置当前 AI 服务商的 API Key。，准备下一轮…",
-        "context": {
-          "attempt": 2,
-          "maxAttempts": 6,
-          "collectedCount": 0,
-          "workerIndex": 2,
-          "parallelRequests": 3,
-          "error": "请先配置当前 AI 服务商的 API Key。"
-        }
-      },
-      {
-        "id": "1788264357389-m2m5g01k",
-        "timestamp": "2026-09-01T12:05:57.389Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788264356104-1wu8qk6u",
-        "event": "question-bank.attempt.failed",
-        "message": "第 2/6 轮（并行 1/3）：本轮请求失败：请先配置当前 AI 服务商的 API Key。，准备下一轮…",
-        "context": {
-          "attempt": 2,
-          "maxAttempts": 6,
-          "collectedCount": 0,
-          "workerIndex": 1,
-          "parallelRequests": 3,
-          "error": "请先配置当前 AI 服务商的 API Key。"
-        }
-      },
-      {
-        "id": "1788264357381-w7rahsg5",
-        "timestamp": "2026-09-01T12:05:57.381Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264356104-1wu8qk6u",
-        "event": "question-bank.web-search.started",
-        "message": "开始联网检索本轮题目资料",
-        "context": {
-          "attempt": 3,
-          "query": "机器视觉 面试知识点 原理 工程实践",
-          "mode": "专业知识",
-          "excludedCount": 0,
-          "workerIndex": 3,
-          "parallelRequests": 3,
-          "requestedCount": 3
-        }
-      },
-      {
-        "id": "1788264357377-r47ag5bi",
-        "timestamp": "2026-09-01T12:05:57.377Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264356104-1wu8qk6u",
-        "event": "question-bank.web-search.started",
-        "message": "开始联网检索本轮题目资料",
-        "context": {
-          "attempt": 3,
-          "query": "机器视觉 面试知识点 原理 工程实践",
-          "mode": "专业知识",
-          "excludedCount": 0,
-          "workerIndex": 2,
-          "parallelRequests": 3,
-          "requestedCount": 3
-        }
-      },
-      {
-        "id": "1788264357374-a918jjjv",
-        "timestamp": "2026-09-01T12:05:57.374Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264356104-1wu8qk6u",
-        "event": "question-bank.web-search.started",
-        "message": "开始联网检索本轮题目资料",
-        "context": {
-          "attempt": 3,
-          "query": "机器视觉 面试知识点 原理 工程实践",
-          "mode": "专业知识",
-          "excludedCount": 0,
-          "workerIndex": 1,
-          "parallelRequests": 3,
-          "requestedCount": 4
-        }
-      },
-      {
-        "id": "1788264357212-2p4vhmi4",
-        "timestamp": "2026-09-01T12:05:57.212Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264356104-1wu8qk6u",
-        "event": "question-bank.ai-request.started",
-        "message": "第 2/6 轮（并行 2/3）：正在请求 AI 生成题目（3 道）…",
-        "context": {
-          "attempt": 2,
-          "maxAttempts": 6,
-          "collectedCount": 0,
-          "workerIndex": 2,
-          "parallelRequests": 3,
-          "requestedCount": 3
-        }
-      },
-      {
-        "id": "1788264357209-iida018a",
-        "timestamp": "2026-09-01T12:05:57.209Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264356104-1wu8qk6u",
-        "event": "question-bank.web-search.completed",
-        "message": "本轮联网检索完成",
-        "context": {
-          "attempt": 2,
-          "query": "机器视觉 面试知识点 算法原理 工程实践 图像预处理 模板与定位 深度图 点云 法线估计 RANSAC find_surface_model 原理 工程实践",
-          "sourceCount": 0,
-          "workerIndex": 2,
-          "parallelRequests": 3
-        }
-      },
-      {
-        "id": "1788264357204-021yhnnx",
-        "timestamp": "2026-09-01T12:05:57.204Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264356104-1wu8qk6u",
-        "event": "question-bank.ai-request.started",
-        "message": "第 2/6 轮（并行 3/3）：正在请求 AI 生成题目（3 道）…",
-        "context": {
-          "attempt": 2,
-          "maxAttempts": 6,
-          "collectedCount": 0,
-          "workerIndex": 3,
-          "parallelRequests": 3,
-          "requestedCount": 3
-        }
-      },
-      {
-        "id": "1788264357201-1z5uwqp3",
-        "timestamp": "2026-09-01T12:05:57.201Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264356104-1wu8qk6u",
-        "event": "question-bank.web-search.completed",
-        "message": "本轮联网检索完成",
-        "context": {
-          "attempt": 2,
-          "query": "机器视觉 面试知识点 算法原理 工程实践 图像预处理 模板与定位 深度图 点云 法线估计 RANSAC find_surface_model 原理 工程实践",
-          "sourceCount": 0,
-          "workerIndex": 3,
-          "parallelRequests": 3
-        }
-      },
-      {
-        "id": "1788264357197-bha0qwwt",
-        "timestamp": "2026-09-01T12:05:57.197Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264356104-1wu8qk6u",
-        "event": "question-bank.web-search.completed",
-        "message": "本轮联网检索完成",
-        "context": {
-          "attempt": 2,
-          "query": "机器视觉 面试知识点 原理 工程实践",
-          "sourceCount": 0,
-          "workerIndex": 3,
-          "parallelRequests": 3
-        }
-      },
-      {
-        "id": "1788264357186-qzv23kd6",
-        "timestamp": "2026-09-01T12:05:57.186Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264356104-1wu8qk6u",
-        "event": "question-bank.ai-request.started",
-        "message": "第 2/6 轮（并行 1/3）：正在请求 AI 生成题目（4 道）…",
-        "context": {
-          "attempt": 2,
-          "maxAttempts": 6,
-          "collectedCount": 0,
-          "workerIndex": 1,
-          "parallelRequests": 3,
-          "requestedCount": 4
-        }
-      },
-      {
-        "id": "1788264357183-hxzgqou0",
-        "timestamp": "2026-09-01T12:05:57.183Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264356104-1wu8qk6u",
-        "event": "question-bank.web-search.completed",
-        "message": "本轮联网检索完成",
-        "context": {
-          "attempt": 2,
-          "query": "机器视觉 面试知识点 算法原理 工程实践 图像预处理 模板与定位 深度图 点云 法线估计 RANSAC find_surface_model 原理 工程实践",
-          "sourceCount": 0,
-          "workerIndex": 1,
-          "parallelRequests": 3
-        }
-      },
-      {
-        "id": "1788264357170-muswqjc1",
-        "timestamp": "2026-09-01T12:05:57.170Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264356104-1wu8qk6u",
-        "event": "question-bank.web-search.completed",
-        "message": "本轮联网检索完成",
-        "context": {
-          "attempt": 2,
-          "query": "机器视觉 面试知识点 原理 工程实践",
-          "sourceCount": 0,
-          "workerIndex": 2,
-          "parallelRequests": 3
-        }
-      },
-      {
-        "id": "1788264357139-l54zu4zu",
-        "timestamp": "2026-09-01T12:05:57.139Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264356104-1wu8qk6u",
-        "event": "question-bank.web-search.completed",
-        "message": "本轮联网检索完成",
-        "context": {
-          "attempt": 2,
-          "query": "机器视觉 面试知识点 原理 工程实践",
-          "sourceCount": 0,
-          "workerIndex": 1,
-          "parallelRequests": 3
-        }
-      },
-      {
-        "id": "1788264356847-s88lvb9h",
-        "timestamp": "2026-09-01T12:05:56.847Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264356104-1wu8qk6u",
-        "event": "question-bank.web-search.started",
-        "message": "开始联网检索本轮题目资料",
-        "context": {
-          "attempt": 2,
-          "query": "机器视觉 面试知识点 算法原理 工程实践 图像预处理 模板与定位 深度图 点云 法线估计 RANSAC find_surface_model 原理 工程实践",
-          "mode": "专业知识",
-          "excludedCount": 0,
-          "workerIndex": 3,
-          "parallelRequests": 3,
-          "requestedCount": 3
-        }
-      },
-      {
-        "id": "1788264356842-1d7ajfz4",
-        "timestamp": "2026-09-01T12:05:56.842Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264356104-1wu8qk6u",
-        "event": "question-bank.web-search.started",
-        "message": "开始联网检索本轮题目资料",
-        "context": {
-          "attempt": 2,
-          "query": "机器视觉 面试知识点 算法原理 工程实践 图像预处理 模板与定位 深度图 点云 法线估计 RANSAC find_surface_model 原理 工程实践",
-          "mode": "专业知识",
-          "excludedCount": 0,
-          "workerIndex": 2,
-          "parallelRequests": 3,
-          "requestedCount": 3
-        }
-      },
-      {
-        "id": "1788264356837-vcmp28lq",
-        "timestamp": "2026-09-01T12:05:56.837Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264356104-1wu8qk6u",
-        "event": "question-bank.web-search.started",
-        "message": "开始联网检索本轮题目资料",
-        "context": {
-          "attempt": 2,
-          "query": "机器视觉 面试知识点 算法原理 工程实践 图像预处理 模板与定位 深度图 点云 法线估计 RANSAC find_surface_model 原理 工程实践",
-          "mode": "专业知识",
-          "excludedCount": 0,
-          "workerIndex": 1,
-          "parallelRequests": 3,
-          "requestedCount": 4
-        }
-      },
-      {
-        "id": "1788264356831-umepf272",
-        "timestamp": "2026-09-01T12:05:56.831Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788264356104-1wu8qk6u",
-        "event": "question-bank.attempt.failed",
-        "message": "第 1/6 轮（并行 3/3）：本轮请求失败：请先配置当前 AI 服务商的 API Key。，准备下一轮…",
-        "context": {
-          "attempt": 1,
-          "maxAttempts": 6,
-          "collectedCount": 0,
-          "workerIndex": 3,
-          "parallelRequests": 3,
-          "error": "请先配置当前 AI 服务商的 API Key。"
-        }
-      },
-      {
-        "id": "1788264356827-znltcaur",
-        "timestamp": "2026-09-01T12:05:56.827Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788264356104-1wu8qk6u",
-        "event": "question-bank.attempt.failed",
-        "message": "第 1/6 轮（并行 2/3）：本轮请求失败：请先配置当前 AI 服务商的 API Key。，准备下一轮…",
-        "context": {
-          "attempt": 1,
-          "maxAttempts": 6,
-          "collectedCount": 0,
-          "workerIndex": 2,
-          "parallelRequests": 3,
-          "error": "请先配置当前 AI 服务商的 API Key。"
-        }
-      },
-      {
-        "id": "1788264356823-xn8jqvn4",
-        "timestamp": "2026-09-01T12:05:56.822Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788264356104-1wu8qk6u",
-        "event": "question-bank.attempt.failed",
-        "message": "第 1/6 轮（并行 1/3）：本轮请求失败：请先配置当前 AI 服务商的 API Key。，准备下一轮…",
-        "context": {
-          "attempt": 1,
-          "maxAttempts": 6,
-          "collectedCount": 0,
-          "workerIndex": 1,
-          "parallelRequests": 3,
-          "error": "请先配置当前 AI 服务商的 API Key。"
-        }
-      },
-      {
-        "id": "1788264356814-gbffk5f7",
-        "timestamp": "2026-09-01T12:05:56.814Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264356104-1wu8qk6u",
-        "event": "question-bank.web-search.started",
-        "message": "开始联网检索本轮题目资料",
-        "context": {
-          "attempt": 2,
-          "query": "机器视觉 面试知识点 原理 工程实践",
-          "mode": "专业知识",
-          "excludedCount": 0,
-          "workerIndex": 3,
-          "parallelRequests": 3,
-          "requestedCount": 3
-        }
-      },
-      {
-        "id": "1788264356809-tvgjjizt",
-        "timestamp": "2026-09-01T12:05:56.809Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264356104-1wu8qk6u",
-        "event": "question-bank.web-search.started",
-        "message": "开始联网检索本轮题目资料",
-        "context": {
-          "attempt": 2,
-          "query": "机器视觉 面试知识点 原理 工程实践",
-          "mode": "专业知识",
-          "excludedCount": 0,
-          "workerIndex": 2,
-          "parallelRequests": 3,
-          "requestedCount": 3
-        }
-      },
-      {
-        "id": "1788264356804-n50fe0u8",
-        "timestamp": "2026-09-01T12:05:56.804Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264356104-1wu8qk6u",
-        "event": "question-bank.web-search.started",
-        "message": "开始联网检索本轮题目资料",
-        "context": {
-          "attempt": 2,
-          "query": "机器视觉 面试知识点 原理 工程实践",
-          "mode": "专业知识",
-          "excludedCount": 0,
-          "workerIndex": 1,
-          "parallelRequests": 3,
-          "requestedCount": 4
-        }
-      },
-      {
-        "id": "1788264356542-q12md3mp",
-        "timestamp": "2026-09-01T12:05:56.542Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264356104-1wu8qk6u",
-        "event": "question-bank.ai-request.started",
-        "message": "第 1/6 轮（并行 3/3）：正在请求 AI 生成题目（3 道）…",
-        "context": {
-          "attempt": 1,
-          "maxAttempts": 6,
-          "collectedCount": 0,
-          "workerIndex": 3,
-          "parallelRequests": 3,
-          "requestedCount": 3
-        }
-      },
-      {
-        "id": "1788264356538-7jjgzpdj",
-        "timestamp": "2026-09-01T12:05:56.538Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264356104-1wu8qk6u",
-        "event": "question-bank.web-search.completed",
-        "message": "本轮联网检索完成",
-        "context": {
-          "attempt": 1,
-          "query": "机器视觉 面试知识点 算法原理 工程实践 图像预处理 模板与定位 深度图 点云 法线估计 RANSAC find_surface_model 原理 工程实践",
-          "sourceCount": 0,
-          "workerIndex": 3,
-          "parallelRequests": 3
-        }
-      },
-      {
-        "id": "1788264356532-vy7yu0kg",
-        "timestamp": "2026-09-01T12:05:56.532Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264356104-1wu8qk6u",
-        "event": "question-bank.ai-request.started",
-        "message": "第 1/6 轮（并行 2/3）：正在请求 AI 生成题目（3 道）…",
-        "context": {
-          "attempt": 1,
-          "maxAttempts": 6,
-          "collectedCount": 0,
-          "workerIndex": 2,
-          "parallelRequests": 3,
-          "requestedCount": 3
-        }
-      },
-      {
-        "id": "1788264356528-yrwwcdi5",
-        "timestamp": "2026-09-01T12:05:56.528Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264356104-1wu8qk6u",
-        "event": "question-bank.web-search.completed",
-        "message": "本轮联网检索完成",
-        "context": {
-          "attempt": 1,
-          "query": "机器视觉 面试知识点 算法原理 工程实践 图像预处理 模板与定位 深度图 点云 法线估计 RANSAC find_surface_model 原理 工程实践",
-          "sourceCount": 0,
-          "workerIndex": 2,
-          "parallelRequests": 3
-        }
-      },
-      {
-        "id": "1788264356520-fwtqfycd",
-        "timestamp": "2026-09-01T12:05:56.520Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264356104-1wu8qk6u",
-        "event": "question-bank.ai-request.started",
-        "message": "第 1/6 轮（并行 1/3）：正在请求 AI 生成题目（4 道）…",
-        "context": {
-          "attempt": 1,
-          "maxAttempts": 6,
-          "collectedCount": 0,
-          "workerIndex": 1,
-          "parallelRequests": 3,
-          "requestedCount": 4
-        }
-      },
-      {
-        "id": "1788264356517-5fz4qy5t",
-        "timestamp": "2026-09-01T12:05:56.517Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264356104-1wu8qk6u",
-        "event": "question-bank.web-search.completed",
-        "message": "本轮联网检索完成",
-        "context": {
-          "attempt": 1,
-          "query": "机器视觉 面试知识点 算法原理 工程实践 图像预处理 模板与定位 深度图 点云 法线估计 RANSAC find_surface_model 原理 工程实践",
-          "sourceCount": 0,
-          "workerIndex": 1,
-          "parallelRequests": 3
-        }
-      },
-      {
-        "id": "1788264356512-zi3ohtmu",
-        "timestamp": "2026-09-01T12:05:56.512Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264356104-1wu8qk6u",
-        "event": "question-bank.web-search.completed",
-        "message": "本轮联网检索完成",
-        "context": {
-          "attempt": 1,
-          "query": "机器视觉 面试知识点 原理 工程实践",
-          "sourceCount": 0,
-          "workerIndex": 3,
-          "parallelRequests": 3
-        }
-      },
-      {
-        "id": "1788264356508-t6jesvw9",
-        "timestamp": "2026-09-01T12:05:56.508Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264356104-1wu8qk6u",
-        "event": "question-bank.web-search.completed",
-        "message": "本轮联网检索完成",
-        "context": {
-          "attempt": 1,
-          "query": "机器视觉 面试知识点 原理 工程实践",
-          "sourceCount": 0,
-          "workerIndex": 2,
-          "parallelRequests": 3
-        }
-      },
-      {
-        "id": "1788264356473-nw87z8pj",
-        "timestamp": "2026-09-01T12:05:56.473Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264356104-1wu8qk6u",
-        "event": "question-bank.web-search.completed",
-        "message": "本轮联网检索完成",
-        "context": {
-          "attempt": 1,
-          "query": "机器视觉 面试知识点 原理 工程实践",
-          "sourceCount": 0,
-          "workerIndex": 1,
-          "parallelRequests": 3
-        }
-      },
-      {
-        "id": "1788264356162-69ydncn0",
-        "timestamp": "2026-09-01T12:05:56.162Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264356104-1wu8qk6u",
-        "event": "question-bank.web-search.started",
-        "message": "开始联网检索本轮题目资料",
-        "context": {
-          "attempt": 1,
-          "query": "机器视觉 面试知识点 算法原理 工程实践 图像预处理 模板与定位 深度图 点云 法线估计 RANSAC find_surface_model 原理 工程实践",
-          "mode": "专业知识",
-          "excludedCount": 0,
-          "workerIndex": 3,
-          "parallelRequests": 3,
-          "requestedCount": 3
-        }
-      },
-      {
-        "id": "1788264356157-s4kqvq15",
-        "timestamp": "2026-09-01T12:05:56.157Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264356104-1wu8qk6u",
-        "event": "question-bank.web-search.started",
-        "message": "开始联网检索本轮题目资料",
-        "context": {
-          "attempt": 1,
-          "query": "机器视觉 面试知识点 算法原理 工程实践 图像预处理 模板与定位 深度图 点云 法线估计 RANSAC find_surface_model 原理 工程实践",
-          "mode": "专业知识",
-          "excludedCount": 0,
-          "workerIndex": 2,
-          "parallelRequests": 3,
-          "requestedCount": 3
-        }
-      },
-      {
-        "id": "1788264356152-wb0mvs3t",
-        "timestamp": "2026-09-01T12:05:56.152Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264356104-1wu8qk6u",
-        "event": "question-bank.web-search.started",
-        "message": "开始联网检索本轮题目资料",
-        "context": {
-          "attempt": 1,
-          "query": "机器视觉 面试知识点 算法原理 工程实践 图像预处理 模板与定位 深度图 点云 法线估计 RANSAC find_surface_model 原理 工程实践",
-          "mode": "专业知识",
-          "excludedCount": 0,
-          "workerIndex": 1,
-          "parallelRequests": 3,
-          "requestedCount": 4
-        }
-      },
-      {
-        "id": "1788264356147-ynp4goad",
-        "timestamp": "2026-09-01T12:05:56.147Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264356104-1wu8qk6u",
-        "event": "question-bank.web-search.started",
-        "message": "开始联网检索本轮题目资料",
-        "context": {
-          "attempt": 1,
-          "query": "机器视觉 面试知识点 原理 工程实践",
-          "mode": "专业知识",
-          "excludedCount": 0,
-          "workerIndex": 3,
-          "parallelRequests": 3,
-          "requestedCount": 3
-        }
-      },
-      {
-        "id": "1788264356142-ylsnma7k",
-        "timestamp": "2026-09-01T12:05:56.142Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264356104-1wu8qk6u",
-        "event": "question-bank.web-search.started",
-        "message": "开始联网检索本轮题目资料",
-        "context": {
-          "attempt": 1,
-          "query": "机器视觉 面试知识点 原理 工程实践",
-          "mode": "专业知识",
-          "excludedCount": 0,
-          "workerIndex": 2,
-          "parallelRequests": 3,
-          "requestedCount": 3
-        }
-      },
-      {
-        "id": "1788264356138-3kl14qn7",
-        "timestamp": "2026-09-01T12:05:56.138Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264356104-1wu8qk6u",
-        "event": "question-bank.web-search.started",
-        "message": "开始联网检索本轮题目资料",
-        "context": {
-          "attempt": 1,
-          "query": "机器视觉 面试知识点 原理 工程实践",
-          "mode": "专业知识",
-          "excludedCount": 0,
-          "workerIndex": 1,
-          "parallelRequests": 3,
-          "requestedCount": 4
-        }
-      },
-      {
-        "id": "1788264356133-10rgbchw",
-        "timestamp": "2026-09-01T12:05:56.133Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264356104-1wu8qk6u",
-        "event": "question-bank.focus.applied",
-        "message": "本轮题组已启用薄弱知识强化",
-        "context": {
-          "categories": [
-            "算法原理",
-            "工程实践",
-            "图像预处理",
-            "模板与定位"
-          ],
-          "keywords": [
-            "深度图",
-            "点云",
-            "法线估计",
-            "RANSAC",
-            "find_surface_model",
-            "本题未作答",
-            "无法判断你是否真正掌握了知识点。",
-            "先用一句话给出结论"
-          ],
-          "questionTitles": [
-            "HALCON 中 3D 视觉测量的基本流程是什么？点云处理常用哪些算子？",
-            "现场调试时模板匹配经常出现误匹配或漏匹配，请描述你的排查思路。",
-            "HALCON 程序运行速度慢时，你会从哪些方面进行性能优化？",
-            "HALCON 手眼标定中“眼在手上”和“眼在手外”有什么区别？标定时需要注意什么？",
-            "在 HALCON 中做表面缺陷检测，你会如何选择传统图像处理与深度学习的方案？"
-          ]
-        }
-      },
-      {
-        "id": "1788264356127-pjt35204",
-        "timestamp": "2026-09-01T12:05:56.127Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264356104-1wu8qk6u",
-        "event": "question-group.prepare.started",
-        "message": "开始准备题组",
-        "context": {
-          "project": "机器视觉专业知识",
-          "mode": "专业知识",
-          "questionCount": 10,
-          "sourceMode": "network",
-          "adaptiveQuestions": true,
-          "focusCategories": [
-            "算法原理",
-            "工程实践",
-            "图像预处理",
-            "模板与定位"
-          ]
-        }
-      },
-      {
-        "id": "1788264356117-76cz571z",
-        "timestamp": "2026-09-01T12:05:56.117Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264356104-1wu8qk6u",
-        "event": "question-group.prepare.started",
-        "message": "开始准备题组",
-        "context": {
-          "project": "机器视觉专业知识",
-          "mode": "专业知识",
-          "questionCount": 10,
-          "sourceMode": "network",
-          "adaptiveQuestions": false,
-          "focusCategories": []
-        }
-      },
-      {
-        "id": "1788264356098-f49soxyz",
-        "timestamp": "2026-09-01T12:05:56.098Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.startup.loaded",
-        "message": "启动配置加载完成",
-        "context": {
-          "source": "github",
-          "updatedAt": "2026-09-01T12:05:48.035Z"
-        }
-      },
-      {
-        "id": "1788264352369-uxufwhkm",
-        "timestamp": "2026-09-01T12:05:52.369Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.close.flush",
-        "message": "页面关闭或进入后台，提交最后一次备份"
-      },
-      {
-        "id": "1788264349919-vsdqcowa",
-        "timestamp": "2026-09-01T12:05:49.919Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "dff8a2949b69"
-        }
-      },
-      {
-        "id": "1788264345045-grp302t3",
-        "timestamp": "2026-09-01T12:05:45.045Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264343082-q6qviy7j",
-        "event": "question-group.prepare.started",
-        "message": "开始准备题组",
-        "context": {
-          "project": "机器视觉专业知识",
-          "mode": "专业知识",
-          "questionCount": 10,
-          "sourceMode": "network",
-          "adaptiveQuestions": true,
-          "focusCategories": [
-            "算法原理",
-            "工程实践",
-            "图像预处理",
-            "模板与定位"
-          ]
-        }
-      },
-      {
-        "id": "1788264344586-j3oz12q9",
-        "timestamp": "2026-09-01T12:05:44.586Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264343082-q6qviy7j",
-        "event": "question-bank.ai-request.started",
-        "message": "第 1/6 轮（并行 3/3）：正在请求 AI 生成题目（3 道）…",
-        "context": {
-          "attempt": 1,
-          "maxAttempts": 6,
-          "collectedCount": 0,
-          "workerIndex": 3,
-          "parallelRequests": 3,
-          "requestedCount": 3
-        }
-      },
-      {
-        "id": "1788264344583-pwuczu1l",
-        "timestamp": "2026-09-01T12:05:44.583Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264343082-q6qviy7j",
-        "event": "question-bank.web-search.completed",
-        "message": "本轮联网检索完成",
-        "context": {
-          "attempt": 1,
-          "query": "机器视觉 面试知识点 算法原理 工程实践 图像预处理 模板与定位 深度图 点云 法线估计 RANSAC find_surface_model 原理 工程实践",
-          "sourceCount": 0,
-          "workerIndex": 3,
-          "parallelRequests": 3
-        }
-      },
-      {
-        "id": "1788264344565-cvpxzydw",
-        "timestamp": "2026-09-01T12:05:44.565Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264343082-q6qviy7j",
-        "event": "question-bank.ai-request.started",
-        "message": "第 1/6 轮（并行 2/3）：正在请求 AI 生成题目（3 道）…",
-        "context": {
-          "attempt": 1,
-          "maxAttempts": 6,
-          "collectedCount": 0,
-          "workerIndex": 2,
-          "parallelRequests": 3,
-          "requestedCount": 3
-        }
-      },
-      {
-        "id": "1788264344562-99sr1rc5",
-        "timestamp": "2026-09-01T12:05:44.562Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264343082-q6qviy7j",
-        "event": "question-bank.web-search.completed",
-        "message": "本轮联网检索完成",
-        "context": {
-          "attempt": 1,
-          "query": "机器视觉 面试知识点 算法原理 工程实践 图像预处理 模板与定位 深度图 点云 法线估计 RANSAC find_surface_model 原理 工程实践",
-          "sourceCount": 0,
-          "workerIndex": 2,
-          "parallelRequests": 3
-        }
-      },
-      {
-        "id": "1788264344554-7e2ys1oj",
-        "timestamp": "2026-09-01T12:05:44.554Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264343082-q6qviy7j",
-        "event": "question-bank.ai-request.started",
-        "message": "第 1/6 轮（并行 1/3）：正在请求 AI 生成题目（4 道）…",
-        "context": {
-          "attempt": 1,
-          "maxAttempts": 6,
-          "collectedCount": 0,
-          "workerIndex": 1,
-          "parallelRequests": 3,
-          "requestedCount": 4
-        }
-      },
-      {
-        "id": "1788264344551-amzdvx3g",
-        "timestamp": "2026-09-01T12:05:44.551Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264343082-q6qviy7j",
-        "event": "question-bank.web-search.completed",
-        "message": "本轮联网检索完成",
-        "context": {
-          "attempt": 1,
-          "query": "机器视觉 面试知识点 算法原理 工程实践 图像预处理 模板与定位 深度图 点云 法线估计 RANSAC find_surface_model 原理 工程实践",
-          "sourceCount": 0,
-          "workerIndex": 1,
-          "parallelRequests": 3
-        }
-      },
-      {
-        "id": "1788264344229-jdnihubt",
-        "timestamp": "2026-09-01T12:05:44.229Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264343082-q6qviy7j",
-        "event": "question-bank.web-search.started",
-        "message": "开始联网检索本轮题目资料",
-        "context": {
-          "attempt": 1,
-          "query": "机器视觉 面试知识点 算法原理 工程实践 图像预处理 模板与定位 深度图 点云 法线估计 RANSAC find_surface_model 原理 工程实践",
-          "mode": "专业知识",
-          "excludedCount": 0,
-          "workerIndex": 3,
-          "parallelRequests": 3,
-          "requestedCount": 3
-        }
-      },
-      {
-        "id": "1788264344222-18zd077g",
-        "timestamp": "2026-09-01T12:05:44.222Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264343082-q6qviy7j",
-        "event": "question-bank.web-search.started",
-        "message": "开始联网检索本轮题目资料",
-        "context": {
-          "attempt": 1,
-          "query": "机器视觉 面试知识点 算法原理 工程实践 图像预处理 模板与定位 深度图 点云 法线估计 RANSAC find_surface_model 原理 工程实践",
-          "mode": "专业知识",
-          "excludedCount": 0,
-          "workerIndex": 2,
-          "parallelRequests": 3,
-          "requestedCount": 3
-        }
-      },
-      {
-        "id": "1788264344218-31opf0n6",
-        "timestamp": "2026-09-01T12:05:44.218Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264343082-q6qviy7j",
-        "event": "question-bank.web-search.started",
-        "message": "开始联网检索本轮题目资料",
-        "context": {
-          "attempt": 1,
-          "query": "机器视觉 面试知识点 算法原理 工程实践 图像预处理 模板与定位 深度图 点云 法线估计 RANSAC find_surface_model 原理 工程实践",
-          "mode": "专业知识",
-          "excludedCount": 0,
-          "workerIndex": 1,
-          "parallelRequests": 3,
-          "requestedCount": 4
-        }
-      },
-      {
-        "id": "1788264344215-yesdsh07",
-        "timestamp": "2026-09-01T12:05:44.215Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264343082-q6qviy7j",
-        "event": "question-bank.focus.applied",
-        "message": "本轮题组已启用薄弱知识强化",
-        "context": {
-          "categories": [
-            "算法原理",
-            "工程实践",
-            "图像预处理",
-            "模板与定位"
-          ],
-          "keywords": [
-            "深度图",
-            "点云",
-            "法线估计",
-            "RANSAC",
-            "find_surface_model",
-            "本题未作答",
-            "无法判断你是否真正掌握了知识点。",
-            "先用一句话给出结论"
-          ],
-          "questionTitles": [
-            "HALCON 中 3D 视觉测量的基本流程是什么？点云处理常用哪些算子？",
-            "现场调试时模板匹配经常出现误匹配或漏匹配，请描述你的排查思路。",
-            "HALCON 程序运行速度慢时，你会从哪些方面进行性能优化？",
-            "HALCON 手眼标定中“眼在手上”和“眼在手外”有什么区别？标定时需要注意什么？",
-            "在 HALCON 中做表面缺陷检测，你会如何选择传统图像处理与深度学习的方案？"
-          ]
-        }
-      },
-      {
-        "id": "1788264344211-xilrxwx8",
-        "timestamp": "2026-09-01T12:05:44.211Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264343082-q6qviy7j",
-        "event": "question-group.prepare.started",
-        "message": "开始准备题组",
-        "context": {
-          "project": "机器视觉专业知识",
-          "mode": "专业知识",
-          "questionCount": 10,
-          "sourceMode": "network",
-          "adaptiveQuestions": true,
-          "focusCategories": [
-            "算法原理",
-            "工程实践",
-            "图像预处理",
-            "模板与定位"
-          ]
-        }
-      },
-      {
-        "id": "1788264343885-2e9b49jx",
-        "timestamp": "2026-09-01T12:05:43.885Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264343082-q6qviy7j",
-        "event": "question-bank.ai-request.started",
-        "message": "第 1/6 轮（并行 1/3）：正在请求 AI 生成题目（4 道）…",
-        "context": {
-          "attempt": 1,
-          "maxAttempts": 6,
-          "collectedCount": 0,
-          "workerIndex": 1,
-          "parallelRequests": 3,
-          "requestedCount": 4
-        }
-      },
-      {
-        "id": "1788264343881-zjcrbaof",
-        "timestamp": "2026-09-01T12:05:43.881Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264343082-q6qviy7j",
-        "event": "question-bank.web-search.completed",
-        "message": "本轮联网检索完成",
-        "context": {
-          "attempt": 1,
-          "query": "机器视觉 面试知识点 算法原理 工程实践 图像预处理 模板与定位 深度图 点云 法线估计 RANSAC find_surface_model 原理 工程实践",
-          "sourceCount": 0,
-          "workerIndex": 1,
-          "parallelRequests": 3
-        }
-      },
-      {
-        "id": "1788264343875-38nagz2u",
-        "timestamp": "2026-09-01T12:05:43.875Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264343082-q6qviy7j",
-        "event": "question-bank.web-search.completed",
-        "message": "本轮联网检索完成",
-        "context": {
-          "attempt": 1,
-          "query": "机器视觉 面试知识点 原理 工程实践",
-          "sourceCount": 0,
-          "workerIndex": 3,
-          "parallelRequests": 3
-        }
-      },
-      {
-        "id": "1788264343871-o3nykb22",
-        "timestamp": "2026-09-01T12:05:43.871Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264343082-q6qviy7j",
-        "event": "question-bank.ai-request.started",
-        "message": "第 1/6 轮（并行 3/3）：正在请求 AI 生成题目（3 道）…",
-        "context": {
-          "attempt": 1,
-          "maxAttempts": 6,
-          "collectedCount": 0,
-          "workerIndex": 3,
-          "parallelRequests": 3,
-          "requestedCount": 3
-        }
-      },
-      {
-        "id": "1788264343867-s9l7rqt6",
-        "timestamp": "2026-09-01T12:05:43.867Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264343082-q6qviy7j",
-        "event": "question-bank.web-search.completed",
-        "message": "本轮联网检索完成",
-        "context": {
-          "attempt": 1,
-          "query": "机器视觉 面试知识点 算法原理 工程实践 图像预处理 模板与定位 深度图 点云 法线估计 RANSAC find_surface_model 原理 工程实践",
-          "sourceCount": 0,
-          "workerIndex": 3,
-          "parallelRequests": 3
-        }
-      },
-      {
-        "id": "1788264343864-3px9cw4x",
-        "timestamp": "2026-09-01T12:05:43.864Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264343082-q6qviy7j",
-        "event": "question-bank.web-search.completed",
-        "message": "本轮联网检索完成",
-        "context": {
-          "attempt": 1,
-          "query": "机器视觉 面试知识点 原理 工程实践",
-          "sourceCount": 0,
-          "workerIndex": 2,
-          "parallelRequests": 3
-        }
-      },
-      {
-        "id": "1788264343853-3xpdo4zz",
-        "timestamp": "2026-09-01T12:05:43.853Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264343082-q6qviy7j",
-        "event": "question-bank.ai-request.started",
-        "message": "第 1/6 轮（并行 2/3）：正在请求 AI 生成题目（3 道）…",
-        "context": {
-          "attempt": 1,
-          "maxAttempts": 6,
-          "collectedCount": 0,
-          "workerIndex": 2,
-          "parallelRequests": 3,
-          "requestedCount": 3
-        }
-      },
-      {
-        "id": "1788264343850-ket9zgtg",
-        "timestamp": "2026-09-01T12:05:43.850Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264343082-q6qviy7j",
-        "event": "question-bank.web-search.completed",
-        "message": "本轮联网检索完成",
-        "context": {
-          "attempt": 1,
-          "query": "机器视觉 面试知识点 算法原理 工程实践 图像预处理 模板与定位 深度图 点云 法线估计 RANSAC find_surface_model 原理 工程实践",
-          "sourceCount": 0,
-          "workerIndex": 2,
-          "parallelRequests": 3
-        }
-      },
-      {
-        "id": "1788264343845-6w4q5j3a",
-        "timestamp": "2026-09-01T12:05:43.845Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264343082-q6qviy7j",
-        "event": "question-bank.web-search.completed",
-        "message": "本轮联网检索完成",
-        "context": {
-          "attempt": 1,
-          "query": "机器视觉 面试知识点 原理 工程实践",
-          "sourceCount": 0,
-          "workerIndex": 1,
-          "parallelRequests": 3
-        }
-      },
-      {
-        "id": "1788264343131-okxcxor8",
-        "timestamp": "2026-09-01T12:05:43.131Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264343082-q6qviy7j",
-        "event": "question-bank.web-search.started",
-        "message": "开始联网检索本轮题目资料",
-        "context": {
-          "attempt": 1,
-          "query": "机器视觉 面试知识点 算法原理 工程实践 图像预处理 模板与定位 深度图 点云 法线估计 RANSAC find_surface_model 原理 工程实践",
-          "mode": "专业知识",
-          "excludedCount": 0,
-          "workerIndex": 3,
-          "parallelRequests": 3,
-          "requestedCount": 3
-        }
-      },
-      {
-        "id": "1788264343127-0xl3esx2",
-        "timestamp": "2026-09-01T12:05:43.127Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264343082-q6qviy7j",
-        "event": "question-bank.web-search.started",
-        "message": "开始联网检索本轮题目资料",
-        "context": {
-          "attempt": 1,
-          "query": "机器视觉 面试知识点 算法原理 工程实践 图像预处理 模板与定位 深度图 点云 法线估计 RANSAC find_surface_model 原理 工程实践",
-          "mode": "专业知识",
-          "excludedCount": 0,
-          "workerIndex": 2,
-          "parallelRequests": 3,
-          "requestedCount": 3
-        }
-      },
-      {
-        "id": "1788264343122-qpzsi4x7",
-        "timestamp": "2026-09-01T12:05:43.122Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264343082-q6qviy7j",
-        "event": "question-bank.web-search.started",
-        "message": "开始联网检索本轮题目资料",
-        "context": {
-          "attempt": 1,
-          "query": "机器视觉 面试知识点 算法原理 工程实践 图像预处理 模板与定位 深度图 点云 法线估计 RANSAC find_surface_model 原理 工程实践",
-          "mode": "专业知识",
-          "excludedCount": 0,
-          "workerIndex": 1,
-          "parallelRequests": 3,
-          "requestedCount": 4
-        }
-      },
-      {
-        "id": "1788264343118-3ebxn1a2",
-        "timestamp": "2026-09-01T12:05:43.118Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264343082-q6qviy7j",
-        "event": "question-bank.web-search.started",
-        "message": "开始联网检索本轮题目资料",
-        "context": {
-          "attempt": 1,
-          "query": "机器视觉 面试知识点 原理 工程实践",
-          "mode": "专业知识",
-          "excludedCount": 0,
-          "workerIndex": 3,
-          "parallelRequests": 3,
-          "requestedCount": 3
-        }
-      },
-      {
-        "id": "1788264343114-zwlhux35",
-        "timestamp": "2026-09-01T12:05:43.114Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264343082-q6qviy7j",
-        "event": "question-bank.web-search.started",
-        "message": "开始联网检索本轮题目资料",
-        "context": {
-          "attempt": 1,
-          "query": "机器视觉 面试知识点 原理 工程实践",
-          "mode": "专业知识",
-          "excludedCount": 0,
-          "workerIndex": 2,
-          "parallelRequests": 3,
-          "requestedCount": 3
-        }
-      },
-      {
-        "id": "1788264343110-j4auzh0i",
-        "timestamp": "2026-09-01T12:05:43.110Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264343082-q6qviy7j",
-        "event": "question-bank.web-search.started",
-        "message": "开始联网检索本轮题目资料",
-        "context": {
-          "attempt": 1,
-          "query": "机器视觉 面试知识点 原理 工程实践",
-          "mode": "专业知识",
-          "excludedCount": 0,
-          "workerIndex": 1,
-          "parallelRequests": 3,
-          "requestedCount": 4
-        }
-      },
-      {
-        "id": "1788264343105-ujlr18vi",
-        "timestamp": "2026-09-01T12:05:43.105Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264343082-q6qviy7j",
-        "event": "question-bank.focus.applied",
-        "message": "本轮题组已启用薄弱知识强化",
-        "context": {
-          "categories": [
-            "算法原理",
-            "工程实践",
-            "图像预处理",
-            "模板与定位"
-          ],
-          "keywords": [
-            "深度图",
-            "点云",
-            "法线估计",
-            "RANSAC",
-            "find_surface_model",
-            "本题未作答",
-            "无法判断你是否真正掌握了知识点。",
-            "先用一句话给出结论"
-          ],
-          "questionTitles": [
-            "HALCON 中 3D 视觉测量的基本流程是什么？点云处理常用哪些算子？",
-            "现场调试时模板匹配经常出现误匹配或漏匹配，请描述你的排查思路。",
-            "HALCON 程序运行速度慢时，你会从哪些方面进行性能优化？",
-            "HALCON 手眼标定中“眼在手上”和“眼在手外”有什么区别？标定时需要注意什么？",
-            "在 HALCON 中做表面缺陷检测，你会如何选择传统图像处理与深度学习的方案？"
-          ]
-        }
-      },
-      {
-        "id": "1788264343101-nlahwexu",
-        "timestamp": "2026-09-01T12:05:43.101Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264343082-q6qviy7j",
-        "event": "question-group.prepare.started",
-        "message": "开始准备题组",
-        "context": {
-          "project": "机器视觉专业知识",
-          "mode": "专业知识",
-          "questionCount": 10,
-          "sourceMode": "network",
-          "adaptiveQuestions": true,
-          "focusCategories": [
-            "算法原理",
-            "工程实践",
-            "图像预处理",
-            "模板与定位"
-          ]
-        }
-      },
-      {
-        "id": "1788264343093-xu0kkxzh",
-        "timestamp": "2026-09-01T12:05:43.093Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264343082-q6qviy7j",
-        "event": "question-group.prepare.started",
-        "message": "开始准备题组",
-        "context": {
-          "project": "机器视觉专业知识",
-          "mode": "专业知识",
-          "questionCount": 10,
-          "sourceMode": "network",
-          "adaptiveQuestions": false,
-          "focusCategories": []
-        }
-      },
-      {
-        "id": "1788264343077-2fqdjqzt",
-        "timestamp": "2026-09-01T12:05:43.077Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.startup.loaded",
-        "message": "启动配置加载完成",
-        "context": {
-          "source": "github",
-          "updatedAt": "2026-09-01T12:02:34.395Z"
-        }
-      },
-      {
-        "id": "1788264341332-slfvxh5w",
-        "timestamp": "2026-09-01T12:05:41.332Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.close.flush",
-        "message": "页面关闭或进入后台，提交最后一次备份"
-      },
-      {
-        "id": "1788264160442-pcf27lna",
-        "timestamp": "2026-09-01T12:02:40.442Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "9763df58a886"
-        }
-      },
-      {
-        "id": "1788264150198-7ic1rjbc",
-        "timestamp": "2026-09-01T12:02:30.198Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.close.flush",
-        "message": "页面关闭或进入后台，提交最后一次备份"
-      },
-      {
-        "id": "1788264133639-pawiqdf4",
-        "timestamp": "2026-09-01T12:02:13.639Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "8291b6d8e6b9"
-        }
-      },
-      {
-        "id": "1788264129883-d7wa21xg",
-        "timestamp": "2026-09-01T12:02:09.883Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "8f0113013bbb"
-        }
-      },
-      {
-        "id": "1788264128557-uxc2jmwo",
-        "timestamp": "2026-09-01T12:02:08.557Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788263890472-i4ypgjv5",
-        "event": "question-bank.cache.saved",
-        "message": "AI 题库已完成远程同步",
-        "context": {
-          "questionCount": 10,
-          "pendingCount": 0
-        }
-      },
-      {
-        "id": "1788264128553-bpw6o6d7",
-        "timestamp": "2026-09-01T12:02:08.552Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788263890472-i4ypgjv5",
-        "event": "github.backup.succeeded",
-        "message": "数据已成功备份到 GitHub",
-        "context": {
-          "operation": "ai-question-bank",
-          "entryCount": 10,
-          "pendingCount": 0,
-          "status": 200
-        }
-      },
-      {
-        "id": "1788264117500-4calain3",
-        "timestamp": "2026-09-01T12:01:57.500Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788263890472-i4ypgjv5",
-        "event": "question-group.prepare.completed",
-        "message": "AI 已生成完整 10 道题目、标准回答和技术原理；远程题库正在后台同步。",
-        "context": {
-          "source": "AI",
-          "questionCount": 10
-        }
-      },
-      {
-        "id": "1788264117496-xt49x3tw",
-        "timestamp": "2026-09-01T12:01:57.496Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788263890472-i4ypgjv5",
-        "event": "github.backup.started",
-        "message": "开始备份数据到 GitHub",
-        "context": {
-          "operation": "ai-question-bank",
-          "entryCount": 10,
-          "pendingCount": 10
-        }
-      },
-      {
-        "id": "1788264117491-ls64ooln",
-        "timestamp": "2026-09-01T12:01:57.491Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788263890472-i4ypgjv5",
-        "event": "question-bank.ai-request.completed",
-        "message": "第 2/6 轮：AI 已返回 10/10 道有效题目。",
-        "context": {
-          "attempt": 2,
-          "maxAttempts": 6,
-          "collectedCount": 10,
-          "targetCount": 10,
-          "parallelRequests": 3,
-          "requestedCount": 10
-        }
-      },
-      {
-        "id": "1788264083806-3pidajuy",
-        "timestamp": "2026-09-01T12:01:23.806Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "0bb1e1a5dd26"
-        }
-      },
-      {
-        "id": "1788264070936-xwmz6i93",
-        "timestamp": "2026-09-01T12:01:10.936Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788263890472-i4ypgjv5",
-        "event": "question-bank.ai-request.started",
-        "message": "第 2/6 轮（并行 3/3）：正在请求 AI 生成题目（3 道）…",
-        "context": {
-          "attempt": 2,
-          "maxAttempts": 6,
-          "collectedCount": 0,
-          "workerIndex": 3,
-          "parallelRequests": 3,
-          "requestedCount": 3
-        }
-      },
-      {
-        "id": "1788264070929-4u5o40g9",
-        "timestamp": "2026-09-01T12:01:10.929Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788263890472-i4ypgjv5",
-        "event": "question-bank.web-search.failed",
-        "message": "网络检索超时，请稍后重试。",
-        "context": {
-          "attempt": 2,
-          "query": "机器视觉 面试知识点 算法原理 工程实践 图像预处理 模板与定位 深度图 点云 法线估计 RANSAC find_surface_model 原理 工程实践",
-          "continueToAi": true,
-          "workerIndex": 3,
-          "parallelRequests": 3
-        }
-      },
-      {
-        "id": "1788264070916-rjyq9py3",
-        "timestamp": "2026-09-01T12:01:10.916Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788263890472-i4ypgjv5",
-        "event": "question-bank.ai-request.started",
-        "message": "第 2/6 轮（并行 1/3）：正在请求 AI 生成题目（4 道）…",
-        "context": {
-          "attempt": 2,
-          "maxAttempts": 6,
-          "collectedCount": 0,
-          "workerIndex": 1,
-          "parallelRequests": 3,
-          "requestedCount": 4
-        }
-      },
-      {
-        "id": "1788264070904-gandgp44",
-        "timestamp": "2026-09-01T12:01:10.904Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788263890472-i4ypgjv5",
-        "event": "question-bank.web-search.failed",
-        "message": "网络检索超时，请稍后重试。",
-        "context": {
-          "attempt": 2,
-          "query": "机器视觉 面试知识点 算法原理 工程实践 图像预处理 模板与定位 深度图 点云 法线估计 RANSAC find_surface_model 原理 工程实践",
-          "continueToAi": true,
-          "workerIndex": 1,
-          "parallelRequests": 3
-        }
-      },
-      {
-        "id": "1788264070880-trev55dq",
-        "timestamp": "2026-09-01T12:01:10.880Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788263890472-i4ypgjv5",
-        "event": "question-bank.ai-request.started",
-        "message": "第 2/6 轮（并行 2/3）：正在请求 AI 生成题目（3 道）…",
-        "context": {
-          "attempt": 2,
-          "maxAttempts": 6,
-          "collectedCount": 0,
-          "workerIndex": 2,
-          "parallelRequests": 3,
-          "requestedCount": 3
-        }
-      },
-      {
-        "id": "1788264070869-y49mawt6",
-        "timestamp": "2026-09-01T12:01:10.869Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788263890472-i4ypgjv5",
-        "event": "question-bank.web-search.failed",
-        "message": "网络检索超时，请稍后重试。",
-        "context": {
-          "attempt": 2,
-          "query": "机器视觉 面试知识点 算法原理 工程实践 图像预处理 模板与定位 深度图 点云 法线估计 RANSAC find_surface_model 原理 工程实践",
-          "continueToAi": true,
-          "workerIndex": 2,
-          "parallelRequests": 3
-        }
-      },
-      {
-        "id": "1788264055683-3ynlpz2v",
-        "timestamp": "2026-09-01T12:00:55.683Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788263890472-i4ypgjv5",
-        "event": "question-bank.web-search.started",
-        "message": "开始联网检索本轮题目资料",
-        "context": {
-          "attempt": 2,
-          "query": "机器视觉 面试知识点 算法原理 工程实践 图像预处理 模板与定位 深度图 点云 法线估计 RANSAC find_surface_model 原理 工程实践",
-          "mode": "专业知识",
-          "excludedCount": 0,
-          "workerIndex": 3,
-          "parallelRequests": 3,
-          "requestedCount": 3
-        }
-      },
-      {
-        "id": "1788264055677-lpf1ol9c",
-        "timestamp": "2026-09-01T12:00:55.677Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788263890472-i4ypgjv5",
-        "event": "question-bank.web-search.started",
-        "message": "开始联网检索本轮题目资料",
-        "context": {
-          "attempt": 2,
-          "query": "机器视觉 面试知识点 算法原理 工程实践 图像预处理 模板与定位 深度图 点云 法线估计 RANSAC find_surface_model 原理 工程实践",
-          "mode": "专业知识",
-          "excludedCount": 0,
-          "workerIndex": 2,
-          "parallelRequests": 3,
-          "requestedCount": 3
-        }
-      },
-      {
-        "id": "1788264055671-dobotk17",
-        "timestamp": "2026-09-01T12:00:55.671Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788263890472-i4ypgjv5",
-        "event": "question-bank.web-search.started",
-        "message": "开始联网检索本轮题目资料",
-        "context": {
-          "attempt": 2,
-          "query": "机器视觉 面试知识点 算法原理 工程实践 图像预处理 模板与定位 深度图 点云 法线估计 RANSAC find_surface_model 原理 工程实践",
-          "mode": "专业知识",
-          "excludedCount": 0,
-          "workerIndex": 1,
-          "parallelRequests": 3,
-          "requestedCount": 4
-        }
-      },
-      {
-        "id": "1788264055666-jfyiqutv",
-        "timestamp": "2026-09-01T12:00:55.666Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788263890472-i4ypgjv5",
-        "event": "question-bank.attempt.failed",
-        "message": "第 1/6 轮（并行 3/3）：本轮请求失败：Expected ',' or ']' after array element in JSON at position 2025 (line 38 column 6)，准备下一轮…",
-        "context": {
-          "attempt": 1,
-          "maxAttempts": 6,
-          "collectedCount": 0,
-          "workerIndex": 3,
-          "parallelRequests": 3,
-          "error": "Expected ',' or ']' after array element in JSON at position 2025 (line 38 column 6)"
-        }
-      },
-      {
-        "id": "1788264055661-6lrkjy8t",
-        "timestamp": "2026-09-01T12:00:55.661Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788263890472-i4ypgjv5",
-        "event": "question-bank.attempt.failed",
-        "message": "第 1/6 轮（并行 2/3）：本轮请求失败：Expected ',' or ']' after array element in JSON at position 1157 (line 20 column 6)，准备下一轮…",
-        "context": {
-          "attempt": 1,
-          "maxAttempts": 6,
-          "collectedCount": 0,
-          "workerIndex": 2,
-          "parallelRequests": 3,
-          "error": "Expected ',' or ']' after array element in JSON at position 1157 (line 20 column 6)"
-        }
-      },
-      {
-        "id": "1788264055656-wpc56zmy",
-        "timestamp": "2026-09-01T12:00:55.656Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788263890472-i4ypgjv5",
-        "event": "question-bank.attempt.failed",
-        "message": "第 1/6 轮（并行 1/3）：本轮请求失败：AI 输出被长度限制截断（思考模式可能占满 token）。，准备下一轮…",
-        "context": {
-          "attempt": 1,
-          "maxAttempts": 6,
-          "collectedCount": 0,
-          "workerIndex": 1,
-          "parallelRequests": 3,
-          "error": "AI 输出被长度限制截断（思考模式可能占满 token）。"
-        }
-      },
-      {
-        "id": "1788264045985-fbnuiq6j",
-        "timestamp": "2026-09-01T12:00:45.985Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "214eb9608e4a"
-        }
-      },
-      {
-        "id": "1788263999578-ueqsvmro",
-        "timestamp": "2026-09-01T11:59:59.578Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788263890472-i4ypgjv5",
-        "event": "question-bank.ai-request.started",
-        "message": "第 1/6 轮（并行 3/3）：正在请求 AI 生成题目（3 道）…",
-        "context": {
-          "attempt": 1,
-          "maxAttempts": 6,
-          "collectedCount": 0,
-          "workerIndex": 3,
-          "parallelRequests": 3,
-          "requestedCount": 3
-        }
-      },
-      {
-        "id": "1788263999573-bi6i79xn",
-        "timestamp": "2026-09-01T11:59:59.573Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788263890472-i4ypgjv5",
-        "event": "question-bank.web-search.failed",
-        "message": "网络检索超时，请稍后重试。",
-        "context": {
-          "attempt": 1,
-          "query": "机器视觉 面试知识点 算法原理 工程实践 图像预处理 模板与定位 深度图 点云 法线估计 RANSAC find_surface_model 原理 工程实践",
-          "continueToAi": true,
-          "workerIndex": 3,
-          "parallelRequests": 3
-        }
-      },
-      {
-        "id": "1788263999557-qbj7pi12",
-        "timestamp": "2026-09-01T11:59:59.557Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788263890472-i4ypgjv5",
-        "event": "question-bank.ai-request.started",
-        "message": "第 1/6 轮（并行 2/3）：正在请求 AI 生成题目（3 道）…",
-        "context": {
-          "attempt": 1,
-          "maxAttempts": 6,
-          "collectedCount": 0,
-          "workerIndex": 2,
-          "parallelRequests": 3,
-          "requestedCount": 3
-        }
-      },
-      {
-        "id": "1788263999551-lozs2b2y",
-        "timestamp": "2026-09-01T11:59:59.551Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788263890472-i4ypgjv5",
-        "event": "question-bank.web-search.failed",
-        "message": "网络检索超时，请稍后重试。",
-        "context": {
-          "attempt": 1,
-          "query": "机器视觉 面试知识点 算法原理 工程实践 图像预处理 模板与定位 深度图 点云 法线估计 RANSAC find_surface_model 原理 工程实践",
-          "continueToAi": true,
-          "workerIndex": 2,
-          "parallelRequests": 3
-        }
-      },
-      {
-        "id": "1788263999523-cpqe6ggh",
-        "timestamp": "2026-09-01T11:59:59.523Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788263890472-i4ypgjv5",
-        "event": "question-bank.ai-request.started",
-        "message": "第 1/6 轮（并行 1/3）：正在请求 AI 生成题目（4 道）…",
-        "context": {
-          "attempt": 1,
-          "maxAttempts": 6,
-          "collectedCount": 0,
-          "workerIndex": 1,
-          "parallelRequests": 3,
-          "requestedCount": 4
-        }
-      },
-      {
-        "id": "1788263999517-amo5nads",
-        "timestamp": "2026-09-01T11:59:59.517Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788263890472-i4ypgjv5",
-        "event": "question-bank.web-search.failed",
-        "message": "网络检索超时，请稍后重试。",
-        "context": {
-          "attempt": 1,
-          "query": "机器视觉 面试知识点 算法原理 工程实践 图像预处理 模板与定位 深度图 点云 法线估计 RANSAC find_surface_model 原理 工程实践",
-          "continueToAi": true,
-          "workerIndex": 1,
-          "parallelRequests": 3
-        }
-      },
-      {
-        "id": "1788263984331-rbfjiv4q",
-        "timestamp": "2026-09-01T11:59:44.331Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788263890472-i4ypgjv5",
-        "event": "question-bank.web-search.started",
-        "message": "开始联网检索本轮题目资料",
-        "context": {
-          "attempt": 1,
-          "query": "机器视觉 面试知识点 算法原理 工程实践 图像预处理 模板与定位 深度图 点云 法线估计 RANSAC find_surface_model 原理 工程实践",
-          "mode": "专业知识",
-          "excludedCount": 0,
-          "workerIndex": 3,
-          "parallelRequests": 3,
-          "requestedCount": 3
-        }
-      },
-      {
-        "id": "1788263984324-bu0scpg5",
-        "timestamp": "2026-09-01T11:59:44.324Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788263890472-i4ypgjv5",
-        "event": "question-bank.web-search.started",
-        "message": "开始联网检索本轮题目资料",
-        "context": {
-          "attempt": 1,
-          "query": "机器视觉 面试知识点 算法原理 工程实践 图像预处理 模板与定位 深度图 点云 法线估计 RANSAC find_surface_model 原理 工程实践",
-          "mode": "专业知识",
-          "excludedCount": 0,
-          "workerIndex": 2,
-          "parallelRequests": 3,
-          "requestedCount": 3
-        }
-      },
-      {
-        "id": "1788263984316-kq886lae",
-        "timestamp": "2026-09-01T11:59:44.316Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788263890472-i4ypgjv5",
-        "event": "question-bank.web-search.started",
-        "message": "开始联网检索本轮题目资料",
-        "context": {
-          "attempt": 1,
-          "query": "机器视觉 面试知识点 算法原理 工程实践 图像预处理 模板与定位 深度图 点云 法线估计 RANSAC find_surface_model 原理 工程实践",
-          "mode": "专业知识",
-          "excludedCount": 0,
-          "workerIndex": 1,
-          "parallelRequests": 3,
-          "requestedCount": 4
-        }
-      },
-      {
-        "id": "1788263984306-5qzw5yu8",
-        "timestamp": "2026-09-01T11:59:44.306Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788263890472-i4ypgjv5",
-        "event": "question-bank.focus.applied",
-        "message": "本轮题组已启用薄弱知识强化",
-        "context": {
-          "categories": [
-            "算法原理",
-            "工程实践",
-            "图像预处理",
-            "模板与定位"
-          ],
-          "keywords": [
-            "深度图",
-            "点云",
-            "法线估计",
-            "RANSAC",
-            "find_surface_model",
-            "本题未作答",
-            "无法判断你是否真正掌握了知识点。",
-            "先用一句话给出结论"
-          ],
-          "questionTitles": [
-            "HALCON 中 3D 视觉测量的基本流程是什么？点云处理常用哪些算子？",
-            "现场调试时模板匹配经常出现误匹配或漏匹配，请描述你的排查思路。",
-            "HALCON 程序运行速度慢时，你会从哪些方面进行性能优化？",
-            "HALCON 手眼标定中“眼在手上”和“眼在手外”有什么区别？标定时需要注意什么？",
-            "在 HALCON 中做表面缺陷检测，你会如何选择传统图像处理与深度学习的方案？"
-          ]
-        }
-      },
-      {
-        "id": "1788263984299-cqni6h4b",
-        "timestamp": "2026-09-01T11:59:44.299Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788263890472-i4ypgjv5",
-        "event": "question-group.prepare.started",
-        "message": "开始准备题组",
-        "context": {
-          "project": "机器视觉专业知识",
-          "mode": "专业知识",
-          "questionCount": 10,
-          "sourceMode": "network",
-          "adaptiveQuestions": true,
-          "focusCategories": [
-            "算法原理",
-            "工程实践",
-            "图像预处理",
-            "模板与定位"
-          ]
-        }
-      },
-      {
-        "id": "1788263984284-dngn8vqv",
-        "timestamp": "2026-09-01T11:59:44.284Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788263890472-i4ypgjv5",
-        "event": "question-group.prepare.completed",
-        "message": "AI 多轮联网搜索与生成后仍未获得有效题目，已使用本地题库与标准答案。",
-        "context": {
-          "source": "本地规则",
-          "questionCount": 10
-        }
-      },
-      {
-        "id": "1788263984274-3zvvxt8d",
-        "timestamp": "2026-09-01T11:59:44.274Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788263890472-i4ypgjv5",
-        "event": "question-bank.network.fallback",
-        "message": "联网搜索与 AI 生成未获得有效题目，已切换为题库",
-        "context": {
-          "targetCount": 10,
-          "fallbackCount": 10
-        }
-      },
-      {
-        "id": "1788263984267-q74xt6ri",
-        "timestamp": "2026-09-01T11:59:44.267Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788263890472-i4ypgjv5",
-        "event": "question-bank.network.partial-fallback",
-        "message": "联网获得的完整题目数量不足，已使用题库补足",
-        "context": {
-          "aiCount": 0,
-          "fallbackCount": 10,
-          "targetCount": 10
-        }
-      },
-      {
-        "id": "1788263983981-i8swlo52",
-        "timestamp": "2026-09-01T11:59:43.981Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788263890472-i4ypgjv5",
-        "event": "question-bank.web-search.failed",
-        "message": "网络检索超时，请稍后重试。",
-        "context": {
-          "attempt": 6,
-          "query": "机器视觉 面试知识点 算法原理 工程实践 图像预处理 模板与定位 深度图 点云 法线估计 RANSAC find_surface_model 原理 工程实践",
-          "continueToAi": true,
-          "workerIndex": 2,
-          "parallelRequests": 3
-        }
-      },
-      {
-        "id": "1788263983973-twru51jv",
-        "timestamp": "2026-09-01T11:59:43.973Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788263890472-i4ypgjv5",
-        "event": "question-bank.web-search.failed",
-        "message": "网络检索超时，请稍后重试。",
-        "context": {
-          "attempt": 6,
-          "query": "机器视觉 面试知识点 算法原理 工程实践 图像预处理 模板与定位 深度图 点云 法线估计 RANSAC find_surface_model 原理 工程实践",
-          "continueToAi": true,
-          "workerIndex": 3,
-          "parallelRequests": 3
-        }
-      },
-      {
-        "id": "1788263983959-dndtizns",
-        "timestamp": "2026-09-01T11:59:43.959Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788263890472-i4ypgjv5",
-        "event": "question-bank.web-search.failed",
-        "message": "网络检索超时，请稍后重试。",
-        "context": {
-          "attempt": 6,
-          "query": "机器视觉 面试知识点 算法原理 工程实践 图像预处理 模板与定位 深度图 点云 法线估计 RANSAC find_surface_model 原理 工程实践",
-          "continueToAi": true,
-          "workerIndex": 1,
-          "parallelRequests": 3
-        }
-      },
-      {
-        "id": "1788263978280-dyeb02m5",
-        "timestamp": "2026-09-01T11:59:38.280Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "21677d262477"
-        }
-      },
-      {
-        "id": "1788263969149-95tdumyu",
-        "timestamp": "2026-09-01T11:59:29.149Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788263890472-i4ypgjv5",
-        "event": "question-bank.network.fallback",
-        "message": "联网搜索与 AI 生成未获得有效题目，已切换为题库",
-        "context": {
-          "targetCount": 10,
-          "fallbackCount": 10
-        }
-      },
-      {
-        "id": "1788263969142-xubvcqet",
-        "timestamp": "2026-09-01T11:59:29.142Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788263890472-i4ypgjv5",
-        "event": "question-bank.network.partial-fallback",
-        "message": "联网获得的完整题目数量不足，已使用题库补足",
-        "context": {
-          "aiCount": 0,
-          "fallbackCount": 10,
-          "targetCount": 10
-        }
-      },
-      {
-        "id": "1788263968929-lda6i0xr",
-        "timestamp": "2026-09-01T11:59:28.929Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788263890472-i4ypgjv5",
-        "event": "question-bank.web-search.failed",
-        "message": "网络检索超时，请稍后重试。",
-        "context": {
-          "attempt": 6,
-          "query": "机器视觉 面试知识点 原理 工程实践",
-          "continueToAi": true,
-          "workerIndex": 3,
-          "parallelRequests": 3
-        }
-      },
-      {
-        "id": "1788263968922-nkzhzinv",
-        "timestamp": "2026-09-01T11:59:28.922Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788263890472-i4ypgjv5",
-        "event": "question-bank.web-search.failed",
-        "message": "网络检索超时，请稍后重试。",
-        "context": {
-          "attempt": 6,
-          "query": "机器视觉 面试知识点 原理 工程实践",
-          "continueToAi": true,
-          "workerIndex": 2,
-          "parallelRequests": 3
         }
       }
     ]
