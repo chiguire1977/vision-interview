@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-09-01T13:11:04.720Z",
+  "updatedAt": "2026-09-01T13:23:02.685Z",
   "questions": [
     {
       "title": "在 OpenCV 中，相机标定通常使用棋盘格图像计算内参和畸变系数。请解释标定过程中内参矩阵、畸变系数和重投影误差分别代表什么，以及它们如何影响后续的测量精度？",
@@ -870,6 +870,141 @@
       "principle": "PCA 法线估计对每个点取 k 近邻，计算协方差矩阵并特征值分解，最小特征值对应特征向量为法线。邻域半径决定 k 大小，影响局部几何信息的准确性和计算量。find_surface_model 使用点对特征（PPF）或类似方法，法线方向用于构建局部坐标系，法线误差直接影响特征匹配和 RANSAC 位姿假设的准确性。",
       "id": "aiq-df7e07c7",
       "generatedAt": "2026-09-01T13:11:07.388Z",
+      "provider": "opencode-go",
+      "model": "deepseek-v4-flash",
+      "project": "机器视觉专业知识",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "随机技术栈",
+      "detectionDirectionFilter": "随机方向"
+    },
+    {
+      "title": "在HALCON中，使用点云进行平面拟合时，RANSAC算法的作用是什么？如何通过法线估计和find_surface_model实现？",
+      "type": "算法原理",
+      "category": "算法原理",
+      "source": "专业",
+      "sourceType": "AI知识整理",
+      "knowledgePoints": [
+        "RANSAC算法原理",
+        "点云法线估计",
+        "find_surface_model表面匹配",
+        "离群点鲁棒性"
+      ],
+      "difficulty": "中等",
+      "tags": [
+        "HALCON",
+        "3D视觉",
+        "点云处理",
+        "RANSAC"
+      ],
+      "keywords": [
+        "RANSAC",
+        "法线估计",
+        "find_surface_model",
+        "平面拟合",
+        "离群点"
+      ],
+      "followUp": "如果点云中存在大量离群点，RANSAC与最小二乘拟合相比有何优势？",
+      "hint": "先给出结论，再围绕RANSAC的随机采样与投票机制、法线估计的PCA原理、find_surface_model的匹配流程展开。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "detectionDirection": "3D 视觉",
+      "bestAnswer": "RANSAC通过随机采样和迭代投票，在包含噪声和离群点的点云中稳健地估计平面模型参数，避免最小二乘被异常值拉偏。HALCON中可先用xyz_to_object_model_3d生成点云，再用surface_normals估计法线，最后用find_surface_model在场景点云中搜索匹配的平面或物体模型。RANSAC在find_surface_model内部用于假设生成与验证，提高匹配鲁棒性。",
+      "principle": "RANSAC从数据集中随机选取最小子集计算模型，统计内点数量，迭代多次取最优；法线估计通过局部邻域PCA获取最小特征向量方向；find_surface_model结合表面特征和RANSAC进行位姿估计。",
+      "id": "aiq-d55cd978",
+      "generatedAt": "2026-09-01T13:23:05.402Z",
+      "provider": "opencode-go",
+      "model": "deepseek-v4-flash",
+      "project": "机器视觉专业知识",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "随机技术栈",
+      "detectionDirectionFilter": "随机方向"
+    },
+    {
+      "title": "在实际3D视觉测量项目中，点云数据量大导致处理速度慢，你会如何优化？",
+      "type": "工程实践",
+      "category": "工程实践",
+      "source": "专业",
+      "sourceType": "AI知识整理",
+      "knowledgePoints": [
+        "ROI裁剪",
+        "点云降采样",
+        "金字塔匹配策略",
+        "异步采集"
+      ],
+      "difficulty": "中等",
+      "tags": [
+        "HALCON",
+        "3D视觉",
+        "性能优化",
+        "点云处理"
+      ],
+      "keywords": [
+        "ROI",
+        "降采样",
+        "金字塔",
+        "异步采集",
+        "处理速度"
+      ],
+      "followUp": "如果降采样后测量精度下降，你会如何平衡速度与精度？",
+      "hint": "先给出结论，再围绕ROI裁剪、点云降采样、金字塔搜索、异步采集四个方面展开。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "detectionDirection": "3D 视觉",
+      "bestAnswer": "首先通过ROI裁剪只保留测量区域，减少数据量；其次使用sample_object_model_3d或reduce_object_model_3d进行降采样；对于匹配，可设置金字塔层数从粗到细搜索；在采集端使用grab_image_async异步采集，与处理流水线并行。此外，可预先对CAD模型生成表面模型，避免在线计算。",
+      "principle": "ROI裁剪通过限制处理区域减少无效点数量；降采样通过均匀网格或随机采样降低点密度，同时保持表面拓扑；金字塔匹配从低分辨率层开始，逐步细化到高分辨率层，减少搜索空间；异步采集利用双缓冲机制使采集与处理并行，隐藏采集延迟。这些方法协同作用，在保证测量精度的前提下显著提升处理速度。",
+      "id": "aiq-accef837",
+      "generatedAt": "2026-09-01T13:23:05.402Z",
+      "provider": "opencode-go",
+      "model": "deepseek-v4-flash",
+      "project": "机器视觉专业知识",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "随机技术栈",
+      "detectionDirectionFilter": "随机方向"
+    },
+    {
+      "title": "在HALCON 3D视觉测量中，使用find_surface_model进行表面匹配前，为什么需要对点云进行法线估计？法线估计的邻域半径参数对匹配结果有何影响？",
+      "type": "算法原理",
+      "category": "算法原理",
+      "source": "专业",
+      "sourceType": "AI知识整理",
+      "knowledgePoints": [
+        "点云法线估计是3D表面匹配的关键预处理步骤",
+        "HALCON中find_surface_model使用表面模型进行3D匹配",
+        "法线估计的邻域半径影响平滑程度和细节保留",
+        "噪声和离群点会降低法线估计质量"
+      ],
+      "difficulty": "中等",
+      "tags": [
+        "HALCON",
+        "3D视觉",
+        "点云处理",
+        "表面匹配"
+      ],
+      "keywords": [
+        "法线估计",
+        "find_surface_model",
+        "邻域半径",
+        "表面模型",
+        "点云预处理"
+      ],
+      "followUp": "如果点云中混有噪声或离群点，你会如何预处理？法线估计结果不准确时，匹配会出现什么问题？",
+      "hint": "先用一句话给出结论，再围绕“法线估计是表面匹配的基础”展开说明，然后解释邻域半径的影响，最后补充预处理方法。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "detectionDirection": "3D 视觉",
+      "bestAnswer": "法线估计是find_surface_model表面匹配的关键前置步骤，因为表面模型通过局部法线描述几何特征，法线方向直接影响特征描述子的构建和匹配评分。邻域半径决定法线估计的平滑程度：半径过小，法线容易受噪声干扰，产生抖动；半径过大，会丢失细节，导致边缘和曲率变化区域的法线被过度平滑。实际项目中，应结合点云分辨率、物体尺寸和噪声水平调整半径，必要时先进行滤波去噪，再估计法线，以保证匹配的稳定性和精度。",
+      "principle": "HALCON的find_surface_model基于表面模型进行3D匹配，其核心是利用点云局部邻域计算法线，并构建描述子（如PFH、FPFH等）来描述表面特征。法线估计通常采用PCA对邻域点集拟合平面，以最小特征值对应的特征向量作为法线方向。邻域半径决定了参与计算的点的范围，直接影响法线的鲁棒性和分辨率。匹配时，场景点云的法线与模型点云的法线进行一致性比较，通过投票或迭代最近点（ICP）等策略求解位姿。因此，法线质量是匹配精度的基础。",
+      "id": "aiq-ea43f52c",
+      "generatedAt": "2026-09-01T13:23:05.402Z",
       "provider": "opencode-go",
       "model": "deepseek-v4-flash",
       "project": "机器视觉专业知识",
