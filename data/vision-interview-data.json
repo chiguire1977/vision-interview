@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-01T12:30:26.029Z",
+  "updatedAt": "2026-09-01T12:30:32.965Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1816,6 +1816,48 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788265832980-iillnt37",
+        "timestamp": "2026-09-01T12:30:32.980Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "9b7d79b47825"
+        }
+      },
+      {
+        "id": "1788265831643-4grkt5hj",
+        "timestamp": "2026-09-01T12:30:31.643Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788264675884-efebbymx",
+        "event": "github.backup.started",
+        "message": "开始备份数据到 GitHub",
+        "context": {
+          "operation": "ai-question-bank",
+          "entryCount": 10,
+          "pendingCount": 10
+        }
+      },
+      {
+        "id": "1788265827988-sbcyhq78",
+        "timestamp": "2026-09-01T12:30:27.988Z",
+        "level": "ERROR",
+        "kind": "system",
+        "sessionId": "1788264675884-efebbymx",
+        "event": "github.backup.failed",
+        "message": "数据备份到 GitHub 失败",
+        "context": {
+          "operation": "ai-question-bank",
+          "entryCount": 0,
+          "pendingCount": 3,
+          "status": 409,
+          "reason": "github_conflict"
+        }
+      },
       {
         "id": "1788265827837-i7tga8fm",
         "timestamp": "2026-09-01T12:30:27.837Z",
@@ -18418,52 +18460,6 @@
           "workerIndex": 1,
           "parallelRequests": 3,
           "requestedCount": 4
-        }
-      },
-      {
-        "id": "1788263690754-ikscjphl",
-        "timestamp": "2026-09-01T11:54:50.754Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788263513740-6t4nyqwv",
-        "event": "question-bank.web-search.failed",
-        "message": "网络检索超时，请稍后重试。",
-        "context": {
-          "attempt": 5,
-          "query": "机器视觉 面试知识点 算法原理 工程实践 图像预处理 模板与定位 深度图 点云 法线估计 RANSAC find_surface_model 原理 工程实践",
-          "continueToAi": true,
-          "workerIndex": 1,
-          "parallelRequests": 3
-        }
-      },
-      {
-        "id": "1788263683652-52rpucxq",
-        "timestamp": "2026-09-01T11:54:43.652Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "fa67d90d1aa4"
-        }
-      },
-      {
-        "id": "1788263675590-4i982omk",
-        "timestamp": "2026-09-01T11:54:35.590Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788263513740-6t4nyqwv",
-        "event": "question-bank.web-search.started",
-        "message": "开始联网检索本轮题目资料",
-        "context": {
-          "attempt": 5,
-          "query": "机器视觉 面试知识点 算法原理 工程实践 图像预处理 模板与定位 深度图 点云 法线估计 RANSAC find_surface_model 原理 工程实践",
-          "mode": "专业知识",
-          "excludedCount": 0,
-          "workerIndex": 3,
-          "parallelRequests": 3,
-          "requestedCount": 3
         }
       }
     ]
