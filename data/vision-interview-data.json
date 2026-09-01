@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-01T12:17:39.054Z",
+  "updatedAt": "2026-09-01T12:17:42.669Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1816,6 +1816,74 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788265064531-tfe49ion",
+        "timestamp": "2026-09-01T12:17:44.531Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "4625bf5d8640"
+        }
+      },
+      {
+        "id": "1788265063368-82x2pw5m",
+        "timestamp": "2026-09-01T12:17:43.368Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788264675884-efebbymx",
+        "event": "github.backup.started",
+        "message": "开始备份数据到 GitHub",
+        "context": {
+          "operation": "ai-question-bank",
+          "entryCount": 5,
+          "pendingCount": 12
+        }
+      },
+      {
+        "id": "1788265063365-v6vquxv8",
+        "timestamp": "2026-09-01T12:17:43.365Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788264675884-efebbymx",
+        "event": "question-bank.network.partial-fallback",
+        "message": "联网获得的完整题目数量不足，已使用题库补足",
+        "context": {
+          "aiCount": 5,
+          "fallbackCount": 5,
+          "targetCount": 10
+        }
+      },
+      {
+        "id": "1788265062578-lqkoawou",
+        "timestamp": "2026-09-01T12:17:42.578Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788264675884-efebbymx",
+        "event": "github.backup.started",
+        "message": "开始备份数据到 GitHub",
+        "context": {
+          "operation": "ai-question-bank",
+          "entryCount": 7,
+          "pendingCount": 7
+        }
+      },
+      {
+        "id": "1788265062574-x255o4s5",
+        "timestamp": "2026-09-01T12:17:42.574Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788264675884-efebbymx",
+        "event": "question-bank.network.partial-fallback",
+        "message": "联网获得的完整题目数量不足，已使用题库补足",
+        "context": {
+          "aiCount": 7,
+          "fallbackCount": 3,
+          "targetCount": 10
+        }
+      },
       {
         "id": "1788265057848-vnfi5fua",
         "timestamp": "2026-09-01T12:17:37.848Z",
@@ -18479,99 +18547,6 @@
           "parallelRequests": 3,
           "requestedCount": 4
         }
-      },
-      {
-        "id": "1788263513790-vl4c3gcn",
-        "timestamp": "2026-09-01T11:51:53.790Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788263513740-6t4nyqwv",
-        "event": "question-bank.focus.applied",
-        "message": "本轮题组已启用薄弱知识强化",
-        "context": {
-          "categories": [
-            "算法原理",
-            "工程实践",
-            "图像预处理",
-            "模板与定位"
-          ],
-          "keywords": [
-            "深度图",
-            "点云",
-            "法线估计",
-            "RANSAC",
-            "find_surface_model",
-            "本题未作答",
-            "无法判断你是否真正掌握了知识点。",
-            "先用一句话给出结论"
-          ],
-          "questionTitles": [
-            "HALCON 中 3D 视觉测量的基本流程是什么？点云处理常用哪些算子？",
-            "现场调试时模板匹配经常出现误匹配或漏匹配，请描述你的排查思路。",
-            "HALCON 程序运行速度慢时，你会从哪些方面进行性能优化？",
-            "HALCON 手眼标定中“眼在手上”和“眼在手外”有什么区别？标定时需要注意什么？",
-            "在 HALCON 中做表面缺陷检测，你会如何选择传统图像处理与深度学习的方案？"
-          ]
-        }
-      },
-      {
-        "id": "1788263513784-69icw0k8",
-        "timestamp": "2026-09-01T11:51:53.784Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788263513740-6t4nyqwv",
-        "event": "question-group.prepare.started",
-        "message": "开始准备题组",
-        "context": {
-          "project": "机器视觉专业知识",
-          "mode": "专业知识",
-          "questionCount": 10,
-          "sourceMode": "network",
-          "adaptiveQuestions": true,
-          "focusCategories": [
-            "算法原理",
-            "工程实践",
-            "图像预处理",
-            "模板与定位"
-          ]
-        }
-      },
-      {
-        "id": "1788263513762-4i2zvxyn",
-        "timestamp": "2026-09-01T11:51:53.762Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788263513740-6t4nyqwv",
-        "event": "question-group.prepare.started",
-        "message": "开始准备题组",
-        "context": {
-          "project": "机器视觉专业知识",
-          "mode": "专业知识",
-          "questionCount": 10,
-          "sourceMode": "network",
-          "adaptiveQuestions": false,
-          "focusCategories": []
-        }
-      },
-      {
-        "id": "1788263513731-kexjrppx",
-        "timestamp": "2026-09-01T11:51:53.731Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.startup.loaded",
-        "message": "启动配置加载完成",
-        "context": {
-          "source": "github",
-          "updatedAt": "2026-09-01T11:51:43.142Z"
-        }
-      },
-      {
-        "id": "1788263510633-maledv8e",
-        "timestamp": "2026-09-01T11:51:50.633Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.close.flush",
-        "message": "页面关闭或进入后台，提交最后一次备份"
       }
     ]
   }
