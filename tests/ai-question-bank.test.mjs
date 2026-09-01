@@ -61,6 +61,56 @@ test("filters AI questions by source and selected category, difficulty, stack, a
   assert.deepEqual(result.map((question) => question.title), ["专业 HALCON 题"]);
 });
 
+test("rejects 3D content when traditional 2D direction is selected", () => {
+  const result = bank.filterAiGeneratedQuestions([
+    generated("HALCON 二维边缘提取", {
+      source: "专业",
+      category: "边缘与特征",
+      techStacks: ["HALCON"],
+      detectionDirection: "传统 2D 视觉",
+    }),
+    generated("HALCON 点云平面拟合", {
+      source: "专业",
+      category: "边缘与特征",
+      techStacks: ["HALCON"],
+      detectionDirection: "传统 2D 视觉",
+      tags: ["3D视觉", "点云", "RANSAC"],
+      keywords: ["法线估计", "平面拟合"],
+      principle: "使用深度图和点云进行三维表面测量。",
+    }),
+  ], {
+    source: "专业",
+    category: "边缘与特征",
+    difficulty: "中等",
+    techStack: "HALCON",
+    detectionDirection: "传统 2D 视觉",
+  });
+
+  assert.deepEqual(result.map((question) => question.title), ["HALCON 二维边缘提取"]);
+});
+
+test("keeps 3D content when 3D direction is selected", () => {
+  const result = bank.filterAiGeneratedQuestions([
+    generated("HALCON 点云平面拟合", {
+      source: "专业",
+      category: "边缘与特征",
+      techStacks: ["HALCON"],
+      detectionDirection: "3D 视觉",
+      tags: ["3D视觉", "点云", "RANSAC"],
+      keywords: ["法线估计", "平面拟合"],
+      principle: "使用深度图和点云进行三维表面测量。",
+    }),
+  ], {
+    source: "专业",
+    category: "边缘与特征",
+    difficulty: "中等",
+    techStack: "HALCON",
+    detectionDirection: "3D 视觉",
+  });
+
+  assert.equal(result.length, 1);
+});
+
 test("allows both sources for comprehensive simulation while retaining selected filters", () => {
   const result = bank.filterAiGeneratedQuestions([
     generated("专业题", { source: "专业", category: "图像处理基础", difficulty: "基础", techStacks: ["HALCON"] }),

@@ -125,6 +125,48 @@ function matchesDetectionDirection(value: string | undefined, expected: string) 
   return normalizeDetectionDirection(value) === target;
 }
 
+function questionSearchText(question: Partial<AiGeneratedQuestion>) {
+  return [
+    question.title,
+    question.type,
+    question.category,
+    question.sourceType,
+    ...(question.knowledgePoints ?? []),
+    ...(question.tags ?? []),
+    ...(question.keywords ?? []),
+    question.followUp,
+    question.hint,
+    question.basis,
+    question.bestAnswer,
+    question.principle,
+    question.reference?.title,
+    question.reference?.url,
+  ].filter(Boolean).join("|");
+}
+
+const TRADITIONAL_2D_CONFLICT_PATTERNS = [
+  /\b3d\b/i,
+  /三维/,
+  /点云/,
+  /深度图|深度数据|深度相机/,
+  /法线估计|法向量/,
+  /平面拟合/,
+  /表面模型/,
+  /立体视觉/,
+  /结构光/,
+  /双目/,
+  /\bxyz\b/i,
+];
+
+/** Checks semantic consistency in addition to the AI-provided direction field. */
+export function isQuestionDirectionSemanticallyCompatible(question: unknown, expected: string) {
+  const target = normalizeDetectionDirection(expected);
+  if (!target || target === "随机方向" || !question || typeof question !== "object") return true;
+  if (!target.includes("传统 2D")) return true;
+  const text = questionSearchText(question as Partial<AiGeneratedQuestion>);
+  return !TRADITIONAL_2D_CONFLICT_PATTERNS.some((pattern) => pattern.test(text));
+}
+
 export function filterAiGeneratedQuestions(values: unknown[], selection: AiQuestionSelectionFilter) {
   const forbiddenPhrases = (selection.forbiddenPhrases ?? [])
     .map((value) => normalizedComparison(value))
@@ -135,23 +177,9 @@ export function filterAiGeneratedQuestions(values: unknown[], selection: AiQuest
     if (selection.difficulty && !matchesDifficulty(question.difficulty, selection.difficulty)) return false;
     if (selection.techStack && !matchesTechStack(question.techStacks, selection.techStack)) return false;
     if (selection.detectionDirection && !matchesDetectionDirection(question.detectionDirection, selection.detectionDirection)) return false;
+    if (selection.detectionDirection && !isQuestionDirectionSemanticallyCompatible(question, selection.detectionDirection)) return false;
     if (forbiddenPhrases.length) {
-      const searchable = normalizedComparison([
-        question.title,
-        question.type,
-        question.category,
-        question.sourceType,
-        ...(question.knowledgePoints ?? []),
-        ...question.tags,
-        ...question.keywords,
-        question.followUp,
-        question.hint,
-        question.basis,
-        question.bestAnswer,
-        question.principle,
-        question.reference?.title,
-        question.reference?.url,
-      ].filter(Boolean).join("|"));
+      const searchable = normalizedComparison(questionSearchText(question));
       if (forbiddenPhrases.some((phrase) => searchable.includes(phrase))) return false;
     }
     return true;
