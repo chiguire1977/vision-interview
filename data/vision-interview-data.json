@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-01T12:21:50.826Z",
+  "updatedAt": "2026-09-01T12:21:57.881Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1817,6 +1817,18 @@
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
       {
+        "id": "1788265316314-se5h4ts3",
+        "timestamp": "2026-09-01T12:21:56.314Z",
+        "level": "ERROR",
+        "kind": "system",
+        "event": "backup.push.failed",
+        "message": "运行数据备份失败",
+        "context": {
+          "status": 502,
+          "reason": "GitHub 备份失败（HTTP 409）：{\"message\":\"is at 52a31f6e67ef98de4f4f2c09e7ba7c9cce75e40f but expected 53bf23c874ae467c08da67f9b6d713d2cb892cbf\",\"documentation_url\":\"https://docs.github.com/rest/repos/contents#create-or-update-file-contents\",\"status\":\"409\"}"
+        }
+      },
+      {
         "id": "1788265313281-on7n1o4v",
         "timestamp": "2026-09-01T12:21:53.281Z",
         "level": "INFO",
@@ -1853,6 +1865,18 @@
         "kind": "system",
         "event": "backup.close.flush",
         "message": "页面关闭或进入后台，提交最后一次备份"
+      },
+      {
+        "id": "1788265287588-das639s3",
+        "timestamp": "2026-09-01T12:21:27.588Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "cbd4a734c7fa"
+        }
       },
       {
         "id": "1788265280934-9l0ul4qf",
@@ -18435,32 +18459,6 @@
         "context": {
           "reason": "change",
           "commit": "dd2bb7f076fe"
-        }
-      },
-      {
-        "id": "1788263549389-g59gapb1",
-        "timestamp": "2026-09-01T11:52:29.389Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.close.flush",
-        "message": "页面关闭或进入后台，提交最后一次备份"
-      },
-      {
-        "id": "1788263545745-29cx6ya9",
-        "timestamp": "2026-09-01T11:52:25.745Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788263513740-6t4nyqwv",
-        "event": "question-bank.web-search.started",
-        "message": "开始联网检索本轮题目资料",
-        "context": {
-          "attempt": 3,
-          "query": "机器视觉 面试知识点 算法原理 工程实践 图像预处理 模板与定位 深度图 点云 法线估计 RANSAC find_surface_model 原理 工程实践",
-          "mode": "专业知识",
-          "excludedCount": 0,
-          "workerIndex": 3,
-          "parallelRequests": 3,
-          "requestedCount": 3
         }
       }
     ]
