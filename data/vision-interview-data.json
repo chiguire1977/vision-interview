@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-01T12:30:39.165Z",
+  "updatedAt": "2026-09-01T12:30:44.818Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1816,6 +1816,47 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788265845357-6eawywh6",
+        "timestamp": "2026-09-01T12:30:45.357Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788264675884-efebbymx",
+        "event": "question-bank.cache.pending",
+        "message": "AI 题库已进入本地待同步队列（10 条）",
+        "context": {
+          "questionCount": 10,
+          "pendingCount": 10
+        }
+      },
+      {
+        "id": "1788265845354-kt44xd8j",
+        "timestamp": "2026-09-01T12:30:45.354Z",
+        "level": "ERROR",
+        "kind": "system",
+        "sessionId": "1788264675884-efebbymx",
+        "event": "github.backup.failed",
+        "message": "数据备份到 GitHub 失败",
+        "context": {
+          "operation": "ai-question-bank",
+          "entryCount": 10,
+          "pendingCount": 10,
+          "status": 409,
+          "reason": "github_conflict"
+        }
+      },
+      {
+        "id": "1788265845332-lty96raf",
+        "timestamp": "2026-09-01T12:30:45.332Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "a68b00e1bd02"
+        }
+      },
       {
         "id": "1788265841232-rgzmhbb5",
         "timestamp": "2026-09-01T12:30:41.232Z",
@@ -18392,58 +18433,6 @@
           "workerIndex": 2,
           "parallelRequests": 3,
           "requestedCount": 3
-        }
-      },
-      {
-        "id": "1788263691009-2dcgxdmw",
-        "timestamp": "2026-09-01T11:54:51.009Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788263513740-6t4nyqwv",
-        "event": "question-bank.web-search.started",
-        "message": "开始联网检索本轮题目资料",
-        "context": {
-          "attempt": 6,
-          "query": "机器视觉 面试知识点 算法原理 工程实践 图像预处理 模板与定位 深度图 点云 法线估计 RANSAC find_surface_model 原理 工程实践",
-          "mode": "专业知识",
-          "excludedCount": 0,
-          "workerIndex": 1,
-          "parallelRequests": 3,
-          "requestedCount": 4
-        }
-      },
-      {
-        "id": "1788263691004-9zo619be",
-        "timestamp": "2026-09-01T11:54:51.004Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788263513740-6t4nyqwv",
-        "event": "question-bank.attempt.failed",
-        "message": "第 5/6 轮（并行 3/3）：本轮请求失败：请先配置当前 AI 服务商的 API Key。，准备下一轮…",
-        "context": {
-          "attempt": 5,
-          "maxAttempts": 6,
-          "collectedCount": 0,
-          "workerIndex": 3,
-          "parallelRequests": 3,
-          "error": "请先配置当前 AI 服务商的 API Key。"
-        }
-      },
-      {
-        "id": "1788263690999-fmgot6go",
-        "timestamp": "2026-09-01T11:54:50.999Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788263513740-6t4nyqwv",
-        "event": "question-bank.attempt.failed",
-        "message": "第 5/6 轮（并行 2/3）：本轮请求失败：请先配置当前 AI 服务商的 API Key。，准备下一轮…",
-        "context": {
-          "attempt": 5,
-          "maxAttempts": 6,
-          "collectedCount": 0,
-          "workerIndex": 2,
-          "parallelRequests": 3,
-          "error": "请先配置当前 AI 服务商的 API Key。"
         }
       }
     ]
