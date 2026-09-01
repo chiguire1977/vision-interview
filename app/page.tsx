@@ -890,89 +890,101 @@ async function prepareQuestionGroup(
       });
     }
 
+    const sharedResearchByAttempt = new Map<number, Promise<{ value?: WebResearchSource[]; error?: string }>>();
     const requestGeneratedQuestions = (
       count: number,
       excludedTitles: string[],
       attempt: number,
       workerIndex = 1,
-    ) => runWithOptionalWebResearch(
-      needsWebResearch,
-      async () => {
-        onProgress({
-          phase: "searching",
-          attempt,
-          maxAttempts: AI_QUESTION_MAX_ATTEMPTS,
-          targetCount,
-          collectedCount: excludedTitles.length,
-          workerIndex,
-          parallelRequests,
-          requestedCount: count,
-        });
-        recordRuntimeEvent("INFO", "question-bank.web-search.started", "开始联网检索本轮题目资料", {
-          attempt,
-          query: researchQuery,
-          mode: selection.trainingMode,
-          excludedCount: excludedTitles.length,
-          workerIndex,
-          parallelRequests,
-          requestedCount: count,
-        });
-        const searchResponse = await fetch("/api/web-search", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          signal: AbortSignal.timeout(16000),
-          body: JSON.stringify({ query: researchQuery, excludedTitles }),
-        });
-        const searchResult = await searchResponse.json() as { ok?: boolean; sources?: unknown; message?: string };
-        if (!searchResponse.ok || !searchResult.ok) {
-          throw new Error(searchResult.message || "联网检索未成功");
-        }
-        const webSources = Array.isArray(searchResult.sources)
-          ? searchResult.sources.filter(isWebResearchSource).slice(0, 8)
-          : [];
-        onProgress({
-          phase: "search-completed",
-          attempt,
-          maxAttempts: AI_QUESTION_MAX_ATTEMPTS,
-          targetCount,
-          collectedCount: excludedTitles.length,
-          workerIndex,
-          parallelRequests,
-          requestedCount: count,
-          searchSourceCount: webSources.length,
-        });
-        recordRuntimeEvent("INFO", "question-bank.web-search.completed", "本轮联网检索完成", {
-          attempt,
-          query: researchQuery,
-          sourceCount: webSources.length,
-          workerIndex,
-          parallelRequests,
-        });
-        return webSources;
-      },
-      async (research) => {
+    ) => {
+      let researchPromise = sharedResearchByAttempt.get(attempt);
+      if (!researchPromise) {
+        researchPromise = runWithOptionalWebResearch(
+          needsWebResearch,
+          async () => {
+            onProgress({
+              phase: "searching",
+              attempt,
+              maxAttempts: AI_QUESTION_MAX_ATTEMPTS,
+              targetCount,
+              collectedCount: excludedTitles.length,
+              parallelRequests,
+              requestedCount: targetCount,
+              sharedAcrossWorkers: parallelRequests > 1,
+            });
+            const searchStartedAt = performance.now();
+            recordRuntimeEvent("INFO", "question-bank.web-search.started", "开始联网检索本轮题目资料", {
+              attempt,
+              query: researchQuery,
+              mode: selection.trainingMode,
+              excludedCount: excludedTitles.length,
+              parallelRequests,
+              requestedCount: targetCount,
+            });
+            const searchResponse = await fetch("/api/web-search", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              signal: AbortSignal.timeout(16000),
+              body: JSON.stringify({ query: researchQuery, excludedTitles }),
+            });
+            const searchResult = await searchResponse.json() as { ok?: boolean; sources?: unknown; message?: string };
+            if (!searchResponse.ok || !searchResult.ok) {
+              throw new Error(searchResult.message || "联网检索未成功");
+            }
+            const webSources = Array.isArray(searchResult.sources)
+              ? searchResult.sources.filter(isWebResearchSource).slice(0, 8)
+              : [];
+            const durationMs = Math.round(performance.now() - searchStartedAt);
+            onProgress({
+              phase: "search-completed",
+              attempt,
+              maxAttempts: AI_QUESTION_MAX_ATTEMPTS,
+              targetCount,
+              collectedCount: excludedTitles.length,
+              parallelRequests,
+              requestedCount: targetCount,
+              searchSourceCount: webSources.length,
+            });
+            recordRuntimeEvent("INFO", "question-bank.web-search.completed", "本轮联网检索完成", {
+              attempt,
+              query: researchQuery,
+              sourceCount: webSources.length,
+              parallelRequests,
+              requestedCount: targetCount,
+              durationMs,
+              sharedAcrossWorkers: parallelRequests > 1,
+            });
+            return webSources;
+          },
+          async (research) => {
+            if (research.error) {
+              onProgress({
+                phase: "search-failed",
+                attempt,
+                maxAttempts: AI_QUESTION_MAX_ATTEMPTS,
+                targetCount,
+                collectedCount: excludedTitles.length,
+                parallelRequests,
+                requestedCount: targetCount,
+                searchSourceCount: 0,
+                error: research.error,
+              });
+              recordRuntimeEvent("WARN", "question-bank.web-search.failed", research.error, {
+                attempt,
+                query: researchQuery,
+                continueToAi: true,
+                parallelRequests,
+                requestedCount: targetCount,
+              });
+            }
+            return research;
+          },
+        );
+        sharedResearchByAttempt.set(attempt, researchPromise);
+      }
+      return researchPromise.then(async (research) => {
         const webSources = research.value ?? [];
-        if (research.error) {
-          onProgress({
-            phase: "search-failed",
-            attempt,
-            maxAttempts: AI_QUESTION_MAX_ATTEMPTS,
-            targetCount,
-            collectedCount: excludedTitles.length,
-            workerIndex,
-            parallelRequests,
-            requestedCount: count,
-            searchSourceCount: 0,
-            error: research.error,
-          });
-          recordRuntimeEvent("WARN", "question-bank.web-search.failed", research.error, {
-            attempt,
-            query: researchQuery,
-            continueToAi: true,
-            workerIndex,
-            parallelRequests,
-          });
-        }
+        const researchError = research.error;
 
         onProgress({
           phase: "ai-requesting",
@@ -985,7 +997,9 @@ async function prepareQuestionGroup(
           requestedCount: count,
           searchSourceCount: webSources.length,
         });
-        const response = await fetch("/api/ai/chat", {
+        const generationStartedAt = performance.now();
+        try {
+          const response = await fetch("/api/ai/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         signal: AbortSignal.timeout(65000),
@@ -994,7 +1008,7 @@ async function prepareQuestionGroup(
           upstreamFormat,
           baseUrl,
           model,
-          maxTokens: 7000,
+          maxTokens: Math.min(4800, Math.max(1600, count * 1400)),
           temperature: attempt === 1 ? 0.45 : 0.6,
           ...(apiKey ? { apiKey } : {}),
           messages: [
@@ -1027,8 +1041,8 @@ async function prepareQuestionGroup(
                   required: true,
                   query: researchQuery,
                   sources: webSources,
-                  ...(research.error ? { unavailableReason: research.error } : {}),
-                  instruction: research.error
+                  ...(researchError ? { unavailableReason: researchError } : {}),
+                  instruction: researchError
                     ? "本轮联网检索暂不可用；请基于已确认的技术常识组织题目，仍不得伪造 reference。"
                     : "专业题优先使用本轮检索资料提炼知识点；资料不足时可以基于已确认的技术常识组织题目，但不得伪造 reference。",
                 } : {
@@ -1052,7 +1066,7 @@ async function prepareQuestionGroup(
                   "source 只能填写“专业”或“项目”；difficulty 只能填写“基础”“中等”“困难”",
                   "项目类题目只能基于 projectProfile，不得添加 projectProfile 中不存在的项目数据",
                   needsWebResearch
-                    ? research.error
+                    ? researchError
                       ? "本轮联网检索不可用，但仍需生成专业知识题；不得伪造 reference"
                       : "本轮联网检索已完成；至少生成专业知识题，并优先覆盖检索资料中的不同知识点"
                     : "项目答辩模式不联网，所有题目只能来自 projectProfile",
@@ -1081,22 +1095,41 @@ async function prepareQuestionGroup(
             },
           ],
         }),
-        });
-        const result = await response.json() as { ok?: boolean; content?: string; message?: string };
-        if (!response.ok || !result.ok || !result.content) {
-          throw new Error(result.message || "AI 题组生成失败");
+          });
+          const result = await response.json() as { ok?: boolean; content?: string; message?: string };
+          if (!response.ok || !result.ok || !result.content) {
+            throw new Error(result.message || "AI 题组生成失败");
+          }
+          const prepared = filterAiGeneratedQuestions(parsePreparedQuestions(result.content), aiSelectionFilter);
+          recordRuntimeEvent("INFO", "question-bank.ai-request.duration", "单个并行 AI 请求完成", {
+            attempt,
+            workerIndex,
+            parallelRequests,
+            requestedCount: count,
+            receivedCount: prepared.length,
+            durationMs: Math.round(performance.now() - generationStartedAt),
+          });
+          if (!needsWebResearch) return prepared;
+          const verifiedUrls = new Set(webSources.map((source) => source.url));
+          return prepared.map((question) => {
+            if (!question.reference || verifiedUrls.has(question.reference.url)) return question;
+            const sanitized = { ...question };
+            delete sanitized.reference;
+            return sanitized;
+          });
+        } catch (error) {
+          recordRuntimeEvent("WARN", "question-bank.ai-request.failed", "单个并行 AI 请求失败", {
+            attempt,
+            workerIndex,
+            parallelRequests,
+            requestedCount: count,
+            durationMs: Math.round(performance.now() - generationStartedAt),
+            error: error instanceof Error ? error.message : "AI 请求发生异常",
+          });
+          throw error;
         }
-        const prepared = filterAiGeneratedQuestions(parsePreparedQuestions(result.content), aiSelectionFilter);
-        if (!needsWebResearch) return prepared;
-        const verifiedUrls = new Set(webSources.map((source) => source.url));
-        return prepared.map((question) => {
-          if (!question.reference || verifiedUrls.has(question.reference.url)) return question;
-          const sanitized = { ...question };
-          delete sanitized.reference;
-          return sanitized;
-        });
-      },
-    );
+      });
+    };
 
     const generated = filterAiGeneratedQuestions(
       await collectAiQuestionGroup(

@@ -304,11 +304,14 @@ export function deferAsyncTask<T>(
 }
 
 export async function collectAiQuestionGroup(
-  request: (count: number, excludedTitles: string[], attempt: number, workerIndex?: number) => Promise<unknown[]>,
+  request: (count: number, excludedTitles: string[], attempt: number, workerIndex?: number, roundContext?: unknown) => Promise<unknown[]>,
   targetCount: number,
   maxAttempts = AI_QUESTION_MAX_ATTEMPTS,
   onProgress?: (progress: AiQuestionGroupProgress) => void,
-  options: { parallelRequests?: number } = {},
+  options: {
+    parallelRequests?: number;
+    prepareAttempt?: (attempt: number, excludedTitles: string[]) => Promise<unknown>;
+  } = {},
 ) {
   const target = Math.max(0, Math.floor(targetCount));
   const attempts = Math.max(1, Math.floor(maxAttempts));
@@ -325,10 +328,27 @@ export async function collectAiQuestionGroup(
     const baseCount = Math.floor(missing / workerCount);
     const remainder = missing % workerCount;
     const excludedTitles = collected.map((question) => question.title);
+    let roundContext: unknown;
+    if (options.prepareAttempt) {
+      try {
+        roundContext = await options.prepareAttempt(attempt, excludedTitles);
+      } catch (error) {
+        const message = safeAttemptError(error);
+        report({
+          phase: "failed",
+          attempt,
+          maxAttempts: attempts,
+          targetCount: target,
+          collectedCount: collected.length,
+          parallelRequests,
+          error: message,
+        });
+      }
+    }
     const workerRequests = Array.from({ length: workerCount }, (_, workerOffset) => {
       const workerIndex = workerOffset + 1;
       const count = baseCount + (workerOffset < remainder ? 1 : 0);
-      return Promise.resolve().then(() => request(count, excludedTitles, attempt, workerIndex));
+      return Promise.resolve().then(() => request(count, excludedTitles, attempt, workerIndex, roundContext));
     });
     const results = await Promise.allSettled(workerRequests);
     const received: unknown[] = [];

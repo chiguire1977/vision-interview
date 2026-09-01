@@ -195,6 +195,29 @@ test("runs multiple AI workers in parallel and merges their unique questions", a
   assert.deepEqual(calls.map((call) => call.workerIndex), [1, 2, 3]);
 });
 
+test("prepares one shared context per retry round for parallel workers", async () => {
+  let prepareCalls = 0;
+  const contexts = [];
+  const request = async (count, _excludedTitles, _attempt, workerIndex, context) => {
+    contexts.push(context);
+    return Array.from({ length: count }, (_, index) => generated(`shared-context-${workerIndex}-${index + 1}`));
+  };
+
+  const result = await bank.collectAiQuestionGroup(request, 6, 1, undefined, {
+    parallelRequests: 3,
+    prepareAttempt: async (attempt, excludedTitles) => {
+      prepareCalls += 1;
+      return { attempt, excludedTitles, sources: ["shared-source"] };
+    },
+  });
+
+  assert.equal(result.length, 6);
+  assert.equal(prepareCalls, 1);
+  assert.equal(contexts.length, 3);
+  assert.ok(contexts.every((context) => context?.sources?.[0] === "shared-source"));
+  assert.ok(contexts.every((context) => context === contexts[0]));
+});
+
 test("continues parallel rounds when one worker fails", async () => {
   const calls = [];
   const request = async (count, _excludedTitles, attempt, workerIndex) => {
