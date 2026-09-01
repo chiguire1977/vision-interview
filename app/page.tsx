@@ -625,6 +625,8 @@ type RecordsUploadResult = { ok: boolean; message: string };
 
 const pendingQuestionGroupRequests = new Map<string, Promise<PreparedGroupResult>>();
 const pendingAiQuestionBackupKey = "vision-interview-ai-question-bank-pending";
+const aiQuestionBankStorageKey = "vision-interview-ai-question-bank";
+const aiQuestionBankLastSyncKey = "vision-interview-ai-question-bank-last-sync";
 const recordsUploadedSnapshotKey = "vision-interview-records-uploaded-snapshot";
 const supportedTechStacks = new Set<TechStack>(TECH_STACKS as TechStack[]);
 
@@ -753,25 +755,35 @@ type AiQuestionBankSyncResult = { archived: boolean; pendingCount: number };
 
 async function syncAiQuestionBankBackup(entries: QuestionBankArchiveEntry[]): Promise<AiQuestionBankSyncResult> {
   let previous: unknown[] = [];
+  let cached: unknown[] = [];
   try {
     const saved = JSON.parse(localStorage.getItem(pendingAiQuestionBackupKey) || "[]") as unknown;
     previous = Array.isArray(saved) ? saved : [];
   } catch {
     previous = [];
   }
+  try {
+    const saved = JSON.parse(localStorage.getItem(aiQuestionBankStorageKey) || "[]") as unknown;
+    cached = Array.isArray(saved) ? saved : [];
+  } catch {
+    cached = [];
+  }
 
-  const pending = mergeQuestionBankArchive(previous, entries).slice(-500);
-  if (!pending.length) return { archived: true, pendingCount: 0 };
+  const pending = mergeQuestionBankArchive(previous, entries);
+  const completeArchive = mergeQuestionBankArchive(mergeQuestionBankArchive(cached, pending), entries);
+  const completeSnapshot = JSON.stringify(completeArchive);
+  if (!entries.length && !pending.length) return { archived: true, pendingCount: 0 };
 
   function logBackup(stage: "started" | "succeeded" | "failed", context: Record<string, unknown>) {
     const log = createGitHubBackupLog(stage, { operation: "ai-question-bank", ...context });
     recordRuntimeEvent(log.level as RuntimeLogLevel, log.event, log.message, log.context);
   }
 
-  logBackup("started", { entryCount: entries.length, pendingCount: pending.length });
+  logBackup("started", { entryCount: entries.length, pendingCount: pending.length, totalCount: completeArchive.length, complete: true });
 
   try {
     localStorage.setItem(pendingAiQuestionBackupKey, JSON.stringify(pending));
+    localStorage.setItem(aiQuestionBankStorageKey, completeSnapshot);
   } catch {
     // Server sync can still succeed when browser storage is unavailable.
   }
@@ -781,17 +793,19 @@ async function syncAiQuestionBankBackup(entries: QuestionBankArchiveEntry[]): Pr
       method: "POST",
       headers: { "Content-Type": "application/json" },
       signal: AbortSignal.timeout(15000),
-      body: JSON.stringify({ entries: pending }),
+      body: JSON.stringify({ entries: completeArchive, complete: true }),
     });
-    const body = await response.json() as { archived?: boolean; reason?: string };
+    const body = await response.json() as { archived?: boolean; reason?: string; total?: number };
     if (response.ok && body.archived) {
       localStorage.removeItem(pendingAiQuestionBackupKey);
-      logBackup("succeeded", { entryCount: entries.length, pendingCount: 0, status: response.status });
+      localStorage.setItem(aiQuestionBankLastSyncKey, completeSnapshot);
+      logBackup("succeeded", { entryCount: entries.length, pendingCount: 0, totalCount: body.total ?? completeArchive.length, status: response.status, complete: true });
       return { archived: true, pendingCount: 0 };
     }
     logBackup("failed", {
       entryCount: entries.length,
       pendingCount: pending.length,
+      totalCount: completeArchive.length,
       status: response.status,
       reason: body.reason || "服务器未确认题库备份。",
     });
@@ -799,6 +813,7 @@ async function syncAiQuestionBankBackup(entries: QuestionBankArchiveEntry[]): Pr
     logBackup("failed", {
       entryCount: entries.length,
       pendingCount: pending.length,
+      totalCount: completeArchive.length,
       reason: error instanceof Error ? error.message : "备份请求异常。",
     });
     // Keep the pending browser copy and retry when another group is prepared.
@@ -1540,34 +1555,56 @@ export default function Home() {
   useEffect(() => {
     let active = true;
     let pending: unknown[] = [];
+    let cached: unknown[] = [];
     try {
       const saved = JSON.parse(localStorage.getItem(pendingAiQuestionBackupKey) || "[]") as unknown;
       pending = Array.isArray(saved) ? saved : [];
     } catch {
       pending = [];
     }
-    setRemoteQuestionBank(pending);
+    try {
+      const saved = JSON.parse(localStorage.getItem(aiQuestionBankStorageKey) || "[]") as unknown;
+      cached = Array.isArray(saved) ? saved : [];
+    } catch {
+      cached = [];
+    }
+    const localArchive = mergeQuestionBankArchive(cached, pending);
+    setRemoteQuestionBank(localArchive);
 
     fetch("/api/question-bank", { cache: "no-store" })
-      .then(async (response) => ({ response, body: await response.json() as { ok?: boolean; available?: boolean; questions?: unknown[]; reason?: string } }))
+      .then(async (response) => ({ response, body: await response.json() as { ok?: boolean; available?: boolean; questions?: unknown[]; questionCount?: number; reason?: string } }))
       .then(({ response, body }) => {
         if (!active) return;
         if (body.available === false) {
           setQuestionBankRemoteState("local-only");
+          recordRuntimeEvent("WARN", "question-bank.remote.unavailable", "GitHub AI 题库未配置，已使用本地缓存题库", { cachedCount: localArchive.length });
           return;
         }
         if (!response.ok || body.ok === false) {
           setQuestionBankRemoteState("error");
           setQuestionBankRemoteError(body.reason || "GitHub AI 题库读取失败。");
+          recordRuntimeEvent("WARN", "question-bank.remote.failed", "GitHub AI 题库读取失败，已使用本地缓存题库", { cachedCount: localArchive.length, reason: body.reason || `HTTP ${response.status}` });
           return;
         }
-        setRemoteQuestionBank([...(Array.isArray(body.questions) ? body.questions : []), ...pending]);
+        const loaded = mergeQuestionBankArchive(
+          mergeQuestionBankArchive(cached, Array.isArray(body.questions) ? body.questions : []),
+          pending,
+        );
+        try {
+          localStorage.setItem(aiQuestionBankStorageKey, JSON.stringify(loaded));
+          if (!pending.length) localStorage.setItem(aiQuestionBankLastSyncKey, JSON.stringify(loaded));
+        } catch {
+          // 即使缓存不可用，也继续使用本次从 GitHub 读取的题库。
+        }
+        setRemoteQuestionBank(loaded);
         setQuestionBankRemoteState("ready");
+        recordRuntimeEvent("INFO", "question-bank.remote.loaded", "GitHub AI 历史题库加载完成", { questionCount: loaded.length, githubQuestionCount: body.questionCount ?? body.questions?.length ?? 0, pendingCount: pending.length });
       })
       .catch((error) => {
         if (!active) return;
         setQuestionBankRemoteState("error");
         setQuestionBankRemoteError(error instanceof Error ? error.message : "GitHub AI 题库读取失败。");
+        recordRuntimeEvent("WARN", "question-bank.remote.failed", "GitHub AI 题库请求异常，已使用本地缓存题库", { cachedCount: localArchive.length, reason: error instanceof Error ? error.message : "unknown" });
       });
 
     return () => { active = false; };

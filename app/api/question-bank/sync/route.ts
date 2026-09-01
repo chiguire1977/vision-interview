@@ -1,8 +1,9 @@
-import { mergeQuestionBankArchive } from "@/lib/ai-question-bank";
+import { createQuestionBankMarkdown, mergeQuestionBankArchive } from "@/lib/ai-question-bank";
 
 const DEFAULT_REPOSITORY = "chiguire1977/vision-interview";
 const DEFAULT_BRANCH = "main";
 const DEFAULT_ARCHIVE_PATH = "data/ai-question-bank.json";
+const DEFAULT_MARKDOWN_PATH = "data/ai-question-bank.md";
 const GITHUB_API_VERSION = "2022-11-28";
 
 function encodeBase64Utf8(value: string) {
@@ -40,17 +41,18 @@ function getConfig() {
     || DEFAULT_REPOSITORY;
   const branch = process.env.VISION_INTERVIEW_GITHUB_BRANCH?.trim() || DEFAULT_BRANCH;
   const archivePath = process.env.VISION_INTERVIEW_GITHUB_ARCHIVE_PATH?.trim() || DEFAULT_ARCHIVE_PATH;
-  return { token, repository, branch, archivePath };
+  const markdownPath = process.env.VISION_INTERVIEW_GITHUB_MARKDOWN_PATH?.trim() || DEFAULT_MARKDOWN_PATH;
+  return { token, repository, branch, archivePath, markdownPath };
 }
 
-async function readRemoteArchive(config: ReturnType<typeof getConfig>) {
-  const endpoint = `https://api.github.com/repos/${config.repository}/contents/${encodeURIComponent(config.archivePath)}?ref=${encodeURIComponent(config.branch)}`;
+async function readRemoteFile(config: ReturnType<typeof getConfig>, path: string) {
+  const endpoint = `https://api.github.com/repos/${config.repository}/contents/${encodeURIComponent(path)}?ref=${encodeURIComponent(config.branch)}`;
   const response = await fetch(endpoint, {
     headers: githubHeaders(config.token),
     cache: "no-store",
   });
   if (response.status === 404) {
-    return { endpoint, sha: "", questions: [] as unknown[] };
+    return { endpoint, sha: "", content: "" };
   }
   if (!response.ok) {
     const detail = await response.text().catch(() => "");
@@ -62,6 +64,12 @@ async function readRemoteArchive(config: ReturnType<typeof getConfig>) {
   const body = await response.json() as { sha?: unknown; content?: unknown };
   const sha = typeof body.sha === "string" ? body.sha : "";
   const content = typeof body.content === "string" ? body.content : "";
+  return { endpoint, sha, content };
+}
+
+async function readRemoteArchive(config: ReturnType<typeof getConfig>) {
+  const remote = await readRemoteFile(config, config.archivePath);
+  const { endpoint, sha, content } = remote;
   if (!content) return { endpoint, sha, questions: [] as unknown[] };
 
   try {
@@ -82,32 +90,65 @@ async function writeRemoteArchive(
   endpoint: string,
   sha: string,
   questions: unknown[],
+  updatedAt: string,
 ) {
   const archive = {
     version: 1,
-    updatedAt: new Date().toISOString(),
+    updatedAt,
     questions,
   };
-  const payload = {
-    message: "Backup AI generated interview questions",
-    content: encodeBase64Utf8(`${JSON.stringify(archive, null, 2)}\n`),
-    branch: config.branch,
-    ...(sha ? { sha } : {}),
-  };
+  return writeRemoteFile(
+    config,
+    endpoint,
+    sha,
+    encodeBase64Utf8(`${JSON.stringify(archive, null, 2)}\n`),
+    "Backup AI generated interview questions",
+  );
+}
+
+async function writeRemoteMarkdown(
+  config: ReturnType<typeof getConfig>,
+  endpoint: string,
+  sha: string,
+  questions: unknown[],
+  updatedAt: string,
+) {
+  return writeRemoteFile(
+    config,
+    endpoint,
+    sha,
+    encodeBase64Utf8(createQuestionBankMarkdown(questions, updatedAt)),
+    "Backup AI generated interview questions (Markdown)",
+  );
+}
+
+async function writeRemoteFile(
+  config: ReturnType<typeof getConfig>,
+  endpoint: string,
+  sha: string,
+  content: string,
+  message: string,
+) {
   return fetch(endpoint, {
     method: "PUT",
     headers: {
       ...githubHeaders(config.token),
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(payload),
+    body: JSON.stringify({
+      message,
+      content,
+      branch: config.branch,
+      ...(sha ? { sha } : {}),
+    }),
   });
 }
 
 export async function POST(request: Request) {
   try {
-    const body = await request.json() as { entries?: unknown[] };
-    const incoming = Array.isArray(body.entries) ? body.entries.slice(0, 500) : [];
+    const body = await request.json() as { entries?: unknown[]; complete?: unknown };
+    const incoming = Array.isArray(body.entries) ? body.entries : [];
+    const complete = body.complete === true;
     if (!incoming.length) {
       return Response.json(
         { ok: false, archived: false, reason: "no_entries" },
@@ -123,53 +164,80 @@ export async function POST(request: Request) {
           archived: false,
           reason: "github_not_configured",
           accepted: incoming.length,
+          complete,
         },
         { status: 202 },
       );
     }
 
-    let remote = await readRemoteArchive(config);
-    let merged = mergeQuestionBankArchive(remote.questions, incoming);
-    if (!merged.length) {
-      return Response.json(
-        { ok: false, archived: false, reason: "no_valid_entries" },
-        { status: 400 },
-      );
-    }
+    for (let attempt = 1; attempt <= 2; attempt += 1) {
+      const updatedAt = new Date().toISOString();
+      const remote = await readRemoteArchive(config);
+      const merged = mergeQuestionBankArchive(remote.questions, incoming);
+      if (!merged.length) {
+        return Response.json(
+          { ok: false, archived: false, reason: "no_valid_entries" },
+          { status: 400 },
+        );
+      }
 
-    let response = await writeRemoteArchive(config, remote.endpoint, remote.sha, merged);
-    if (response.status === 409 || response.status === 422) {
-      remote = await readRemoteArchive(config);
-      merged = mergeQuestionBankArchive(remote.questions, incoming);
-      response = await writeRemoteArchive(config, remote.endpoint, remote.sha, merged);
-    }
+      let response = await writeRemoteArchive(config, remote.endpoint, remote.sha, merged, updatedAt);
+      if (response.status === 409 || response.status === 422) continue;
+      if (!response.ok) {
+        const detail = await response.text().catch(() => "");
+        return Response.json(
+          {
+            ok: false,
+            archived: false,
+            reason: "github_write_failed",
+            message: "GitHub archive write failed (HTTP " + response.status + ")" + (detail ? ": " + detail.slice(0, 240) : ""),
+          },
+          { status: 502 },
+        );
+      }
 
-    if (!response.ok) {
-      const detail = await response.text().catch(() => "");
+      const markdown = await readRemoteFile(config, config.markdownPath);
+      response = await writeRemoteMarkdown(config, markdown.endpoint, markdown.sha, merged, updatedAt);
+      if (response.status === 409 || response.status === 422) continue;
+      if (!response.ok) {
+        const detail = await response.text().catch(() => "");
+        return Response.json(
+          {
+            ok: false,
+            archived: false,
+            reason: "github_markdown_write_failed",
+            message: "GitHub Markdown archive write failed (HTTP " + response.status + ")" + (detail ? ": " + detail.slice(0, 240) : ""),
+          },
+          { status: 502 },
+        );
+      }
+
+      const result = await response.json().catch(() => ({})) as { commit?: { sha?: string } };
       return Response.json(
         {
-          ok: false,
-          archived: false,
-          reason: "github_write_failed",
-          message: "GitHub archive write failed (HTTP " + response.status + ")" + (detail ? ": " + detail.slice(0, 240) : ""),
+          ok: true,
+          archived: true,
+          total: merged.length,
+          addedOrUpdated: incoming.length,
+          commit: result.commit?.sha ?? null,
+          repository: config.repository,
+          branch: config.branch,
+          path: config.archivePath,
+          markdownPath: config.markdownPath,
+          complete,
         },
-        { status: 502 },
+        { headers: { "Cache-Control": "no-store" } },
       );
     }
 
-    const result = await response.json().catch(() => ({})) as { commit?: { sha?: string } };
     return Response.json(
       {
-        ok: true,
-        archived: true,
-        total: merged.length,
-        addedOrUpdated: incoming.length,
-        commit: result.commit?.sha ?? null,
-        repository: config.repository,
-        branch: config.branch,
-        path: config.archivePath,
+        ok: false,
+        archived: false,
+        reason: "github_conflict",
+        message: "GitHub archive update conflicted twice; please retry.",
       },
-      { headers: { "Cache-Control": "no-store" } },
+      { status: 409 },
     );
   } catch (error) {
     return Response.json(

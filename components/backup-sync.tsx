@@ -15,6 +15,9 @@ const LAST_SYNC_KEY = "vision-interview-last-sync";
 const LAST_SYNC_SNAPSHOT_KEY = "vision-interview-last-sync-snapshot";
 const RECORDS_UPLOADED_SNAPSHOT_KEY = "vision-interview-records-uploaded-snapshot";
 const CLOSE_DEFERRED_KEY = "vision-interview-close-backup-deferred";
+const AI_QUESTION_BANK_STORAGE_KEY = "vision-interview-ai-question-bank";
+const AI_QUESTION_BANK_PENDING_KEY = "vision-interview-ai-question-bank-pending";
+const AI_QUESTION_BANK_LAST_SYNC_KEY = "vision-interview-ai-question-bank-last-sync";
 const DEBOUNCE_MS = 2_000;
 const POLL_MS = 1_000;
 const STARTUP_TIMEOUT_MS = 8_000;
@@ -244,6 +247,44 @@ export function BackupSync({ children }: { children: ReactNode }) {
       if (now - lastFlushAt.current < 1000) return;
       lastFlushAt.current = now;
       recordLog("INFO", "backup.close.flush", "页面关闭或进入后台，提交最后一次备份");
+
+      let questionBank: unknown[] = [];
+      let pendingQuestionBank: unknown[] = [];
+      try {
+        const cached = JSON.parse(localStorage.getItem(AI_QUESTION_BANK_STORAGE_KEY) || "[]") as unknown;
+        questionBank = Array.isArray(cached) ? cached : [];
+        const pending = JSON.parse(localStorage.getItem(AI_QUESTION_BANK_PENDING_KEY) || "[]") as unknown;
+        pendingQuestionBank = Array.isArray(pending) ? pending : [];
+      } catch {
+        questionBank = [];
+        pendingQuestionBank = [];
+      }
+      if (questionBank.length || pendingQuestionBank.length) {
+        const completeEntries = questionBank.length ? questionBank : pendingQuestionBank;
+        const completeSnapshot = JSON.stringify(completeEntries);
+        let lastQuestionBankSync = "";
+        try { lastQuestionBankSync = localStorage.getItem(AI_QUESTION_BANK_LAST_SYNC_KEY) || ""; } catch { /* 本地存储不可用 */ }
+        if (completeSnapshot !== lastQuestionBankSync || pendingQuestionBank.length > 0) {
+          const questionBankPayload = JSON.stringify({ entries: completeEntries, complete: true });
+          const accepted = navigator.sendBeacon?.(
+            "/api/question-bank/sync",
+            new Blob([questionBankPayload], { type: "application/json" }),
+          );
+          recordLog("INFO", "question-bank.close.flush", "关闭或后台切换时提交完整 AI 题库", {
+            entryCount: completeEntries.length,
+            pendingCount: pendingQuestionBank.length,
+            transport: accepted ? "beacon" : "keepalive",
+          });
+          if (!accepted) {
+            void fetch("/api/question-bank/sync", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: questionBankPayload,
+              keepalive: true,
+            }).catch(() => undefined);
+          }
+        }
+      }
       const snapshot = snapshotLocal();
       if (snapshot === lastSent.current) return;
       const closePayload = createCloseBackupPayload(lastSent.current, snapshot);

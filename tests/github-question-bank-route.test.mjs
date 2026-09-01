@@ -69,13 +69,15 @@ test("question bank sync creates the GitHub archive through the contents API", a
     const response = await route.POST(new Request("http://localhost/api/question-bank/sync", {
       method: "POST",
       headers: { "content-type": "application/json" },
-      body: JSON.stringify({ entries: [entry("Q1"), entry("Q2")] }),
+      body: JSON.stringify({ entries: [entry("Q1"), entry("Q2")], complete: true }),
     }));
     const body = await response.json();
     assert.equal(response.status, 200);
     assert.equal(body.archived, true);
     assert.equal(body.total, 2);
-    assert.equal(calls.length, 2);
+    assert.equal(body.complete, true);
+    assert.equal(body.markdownPath, "data/ai-question-bank.md");
+    assert.equal(calls.length, 4);
     assert.match(calls[0].url, /repos\/chiguire1977\/vision-interview\/contents\/data%2Fai-question-bank\.json/);
     assert.equal(calls[1].init.method, "PUT");
     const putBody = JSON.parse(calls[1].init.body);
@@ -83,6 +85,14 @@ test("question bank sync creates the GitHub archive through the contents API", a
     const archive = JSON.parse(archiveJson);
     assert.equal(archive.questions.length, 2);
     assert.equal(archive.questions[0].title, "Q1");
+    assert.match(calls[2].url, /repos\/chiguire1977\/vision-interview\/contents\/data%2Fai-question-bank\.md/);
+    assert.equal(calls[3].init.method, "PUT");
+    const markdownBody = JSON.parse(calls[3].init.body);
+    const markdown = Buffer.from(markdownBody.content, "base64").toString("utf8");
+    assert.match(markdown, /^# AI 生成题库/m);
+    assert.match(markdown, /^## Matching/m);
+    assert.match(markdown, /### 1\. Q1/);
+    assert.match(markdown, /### 2\. Q2/);
   } finally {
     globalThis.fetch = previousFetch;
     if (previousToken === undefined) delete process.env.VISION_INTERVIEW_GITHUB_TOKEN;
