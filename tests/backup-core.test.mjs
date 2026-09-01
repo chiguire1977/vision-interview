@@ -9,9 +9,12 @@ import {
   createScopedAutoBackupSnapshot,
   createRecordsUploadPayload,
   DEFAULT_GITHUB_SYNC_SETTINGS,
+  GITHUB_CONNECTION_SETTINGS_STORAGE_KEY,
   filterRuntimeLogs,
   filterRuntimeLogsBySession,
+  normalizeGitHubConnectionSettings,
   normalizeGitHubSyncSettings,
+  readGitHubConnectionSettings,
   mergeBackupData,
   readBackupFromGitHub,
   readBackupFromStorage,
@@ -43,6 +46,24 @@ test("normalizeGitHubSyncSettings applies safe defaults", () => {
   });
 });
 
+test("normalizeGitHubConnectionSettings accepts a repository URL without storing credentials", () => {
+  assert.deepEqual(normalizeGitHubConnectionSettings({
+    repository: "https://github.com/acme/vision-bank.git",
+    branch: "develop",
+    token: "must-not-be-used",
+  }), {
+    repository: "acme/vision-bank",
+    branch: "develop",
+  });
+});
+
+test("readGitHubConnectionSettings returns the configured repository and branch", () => {
+  const storage = createStorage({
+    [GITHUB_CONNECTION_SETTINGS_STORAGE_KEY]: JSON.stringify({ repository: "acme/vision-bank", branch: "release" }),
+  });
+  assert.deepEqual(readGitHubConnectionSettings(storage), { repository: "acme/vision-bank", branch: "release" });
+});
+
 test("createScopedAutoBackupSnapshot keeps only enabled GitHub backup scopes", () => {
   const snapshot = createScopedAutoBackupSnapshot({
     "vision-interview-records": [{ id: "record-1" }],
@@ -58,6 +79,7 @@ test("createScopedAutoBackupSnapshot keeps only enabled GitHub backup scopes", (
       message: "启动",
     }],
     "vision-interview-github-sync-settings": { syncFavorites: false },
+    "vision-interview-github-connection-settings": { repository: "acme/vision-bank", branch: "release" },
   }, {
     ...DEFAULT_GITHUB_SYNC_SETTINGS,
     syncAiSettings: false,
@@ -77,6 +99,7 @@ test("createScopedAutoBackupSnapshot keeps only enabled GitHub backup scopes", (
       message: "启动",
     }],
     "vision-interview-github-sync-settings": { syncFavorites: false },
+    "vision-interview-github-connection-settings": { repository: "acme/vision-bank", branch: "release" },
   });
 });
 

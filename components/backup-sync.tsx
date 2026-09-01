@@ -6,7 +6,9 @@ import {
   appendRuntimeLog,
   createScopedAutoBackupSnapshot,
   createCloseBackupPayload,
+  githubApiUrl,
   mergeBackupData,
+  readGitHubConnectionSettings,
   readGitHubSyncSettings,
   readBackupFromStorage,
   writeBackupToStorage,
@@ -89,7 +91,7 @@ export function BackupSync({ children }: { children: ReactNode }) {
       const controller = new AbortController();
       const timeout = window.setTimeout(() => controller.abort(), STARTUP_TIMEOUT_MS);
       try {
-        const response = await fetch("/api/backup", { cache: "no-store", signal: controller.signal });
+        const response = await fetch(githubApiUrl("/api/backup", readGitHubConnectionSettings(localStorage)), { cache: "no-store", signal: controller.signal });
         const body = await response.json() as {
           ok?: boolean;
           available?: boolean;
@@ -190,7 +192,7 @@ export function BackupSync({ children }: { children: ReactNode }) {
       setStatus("saving");
       setDetail(reason === "change" ? "正在备份运行数据到 GitHub" : "正在备份关闭前数据");
       try {
-        const response = await fetch("/api/backup", {
+        const response = await fetch(githubApiUrl("/api/backup", readGitHubConnectionSettings(localStorage)), {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
@@ -288,7 +290,7 @@ export function BackupSync({ children }: { children: ReactNode }) {
         if (completeSnapshot !== lastQuestionBankSync || pendingQuestionBank.length > 0) {
           const questionBankPayload = JSON.stringify({ entries: completeEntries, complete: true });
           const accepted = navigator.sendBeacon?.(
-            "/api/question-bank/sync",
+            githubApiUrl("/api/question-bank/sync", readGitHubConnectionSettings(localStorage)),
             new Blob([questionBankPayload], { type: "application/json" }),
           );
           recordLog("INFO", "question-bank.close.flush", "关闭或后台切换时提交完整 AI 题库", {
@@ -297,7 +299,7 @@ export function BackupSync({ children }: { children: ReactNode }) {
             transport: accepted ? "beacon" : "keepalive",
           });
           if (!accepted) {
-            void fetch("/api/question-bank/sync", {
+            void fetch(githubApiUrl("/api/question-bank/sync", readGitHubConnectionSettings(localStorage)), {
               method: "POST",
               headers: { "Content-Type": "application/json" },
               body: questionBankPayload,
@@ -320,11 +322,11 @@ export function BackupSync({ children }: { children: ReactNode }) {
       if (!Object.keys(closePayload.data).length) return;
       const payload = JSON.stringify(closePayload);
       const accepted = navigator.sendBeacon?.(
-        "/api/backup",
+        githubApiUrl("/api/backup", readGitHubConnectionSettings(localStorage)),
         new Blob([payload], { type: "application/json" }),
       );
       if (!accepted) {
-        void fetch("/api/backup", {
+        void fetch(githubApiUrl("/api/backup", readGitHubConnectionSettings(localStorage)), {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: payload,

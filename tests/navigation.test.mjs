@@ -56,6 +56,9 @@ test("settings includes a dedicated GitHub synchronization tab", () => {
   const page = readFileSync(fileURLToPath(new URL("../app/page.tsx", import.meta.url)), "utf8");
   assert.match(page, /key: "github", title: "GitHub 同步"/);
   assert.match(page, /GitHub 备份范围/);
+  assert.match(page, /GitHub 仓库/);
+  assert.match(page, /GitHub 分支/);
+  assert.match(page, /服务端凭据/);
   assert.match(page, /立即备份到 GitHub/);
   assert.match(page, /学习记录.*手动上传/);
 });

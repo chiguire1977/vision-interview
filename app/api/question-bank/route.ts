@@ -3,6 +3,7 @@ import {
   QUESTION_BANK_ARCHIVE_DIRECTORY,
   questionBankArchiveFileInfo,
 } from "@/lib/question-bank-archive";
+import { normalizeGitHubConnectionSettings } from "@/lib/backup-core.mjs";
 
 export const dynamic = "force-dynamic";
 
@@ -34,12 +35,19 @@ function json(body: Record<string, unknown>, status = 200) {
   });
 }
 
-function getConfig() {
+function getConfig(request?: Request) {
   const token = process.env.VISION_INTERVIEW_GITHUB_TOKEN?.trim() || process.env.GITHUB_TOKEN?.trim() || "";
-  const repository = process.env.VISION_INTERVIEW_GITHUB_REPOSITORY?.trim() || process.env.GITHUB_REPOSITORY?.trim() || DEFAULT_REPOSITORY;
-  const branch = process.env.VISION_INTERVIEW_GITHUB_BRANCH?.trim() || DEFAULT_BRANCH;
+  const environment = normalizeGitHubConnectionSettings({
+    repository: process.env.VISION_INTERVIEW_GITHUB_REPOSITORY?.trim() || process.env.GITHUB_REPOSITORY?.trim() || DEFAULT_REPOSITORY,
+    branch: process.env.VISION_INTERVIEW_GITHUB_BRANCH?.trim() || DEFAULT_BRANCH,
+  });
+  const search = request ? new URL(request.url).searchParams : null;
+  const connection = normalizeGitHubConnectionSettings({
+    repository: search?.get("repository") || environment.repository,
+    branch: search?.get("branch") || environment.branch,
+  }, environment);
   const archivePath = process.env.VISION_INTERVIEW_GITHUB_ARCHIVE_PATH?.trim() || DEFAULT_ARCHIVE_PATH;
-  return { token, repository, branch, archivePath };
+  return { token, repository: connection.repository, branch: connection.branch, archivePath };
 }
 
 function contentsEndpoint(config: ReturnType<typeof getConfig>, path: string) {
@@ -95,8 +103,8 @@ function parseQuestions(content: string) {
   }
 }
 
-export async function GET() {
-  const config = getConfig();
+export async function GET(request?: Request) {
+  const config = getConfig(request);
   if (!config.token) return json({ ok: true, available: false, reason: "github_not_configured", questions: [], questionCount: 0, files: [], updatedAt: "" });
 
   try {

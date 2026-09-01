@@ -1,11 +1,10 @@
 export const dynamic = "force-dynamic";
 
-import { readBackupFromGitHub, saveBackupToGitHub } from "../../../lib/backup-core.mjs";
+import { normalizeGitHubConnectionSettings, readBackupFromGitHub, saveBackupToGitHub } from "../../../lib/backup-core.mjs";
 
+const DEFAULT_REPOSITORY = "chiguire1977/vision-interview";
+const DEFAULT_BRANCH = "main";
 const REPOSITORY = {
-  owner: "chiguire1977",
-  repo: "vision-interview",
-  branch: "main",
   path: "data/vision-interview-data.json",
 };
 
@@ -17,6 +16,20 @@ function getBackupToken() {
     || "";
 }
 
+function getRepository(request?: Request) {
+  const environment = normalizeGitHubConnectionSettings({
+    repository: process.env.VISION_INTERVIEW_GITHUB_REPOSITORY?.trim() || DEFAULT_REPOSITORY,
+    branch: process.env.VISION_INTERVIEW_GITHUB_BRANCH?.trim() || DEFAULT_BRANCH,
+  });
+  const search = request ? new URL(request.url).searchParams : null;
+  const connection = normalizeGitHubConnectionSettings({
+    repository: search?.get("repository") || environment.repository,
+    branch: search?.get("branch") || environment.branch,
+  }, environment);
+  const [owner, repo] = connection.repository.split("/");
+  return { owner, repo, branch: connection.branch, repository: connection.repository, path: REPOSITORY.path };
+}
+
 function json(body: Record<string, unknown>, status = 200) {
   return Response.json(body, {
     status,
@@ -24,14 +37,18 @@ function json(body: Record<string, unknown>, status = 200) {
   });
 }
 
-export async function GET() {
+export async function GET(request?: Request) {
+  const repository = getRepository(request);
   try {
     const archive = await readBackupFromGitHub({
       fetchImpl: fetch,
       token: getBackupToken(),
-      ...REPOSITORY,
+      owner: repository.owner,
+      repo: repository.repo,
+      branch: repository.branch,
+      path: repository.path,
     });
-    return json({ ok: true, ...archive });
+    return json({ ok: true, ...archive, repository: repository.repository, branch: repository.branch });
   } catch (error) {
     return json({
       ok: false,
@@ -44,6 +61,7 @@ export async function GET() {
 }
 
 export async function POST(request: Request) {
+  const repository = getRepository(request);
   const token = getBackupToken();
   if (!token) {
     return json({ ok: false, available: false, reason: "未配置 GitHub 备份凭据。" }, 503);
@@ -67,9 +85,12 @@ export async function POST(request: Request) {
       replaceKeys: Array.isArray(body.replaceKeys)
         ? body.replaceKeys.filter((key): key is string => typeof key === "string")
         : [],
-      ...REPOSITORY,
+      owner: repository.owner,
+      repo: repository.repo,
+      branch: repository.branch,
+      path: repository.path,
     });
-    return json({ ok: true, available: true, ...result });
+    return json({ ok: true, available: true, ...result, repository: repository.repository, branch: repository.branch });
   } catch (error) {
     return json({
       ok: false,

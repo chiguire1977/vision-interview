@@ -43,6 +43,23 @@ test("GET loads the approved startup configuration from GitHub", async () => {
   });
 });
 
+test("GET uses the configured repository and branch from the connection settings", async () => {
+  process.env.VISION_INTERVIEW_GITHUB_TOKEN = "server-secret";
+  let requestedUrl = "";
+  globalThis.fetch = async (url) => {
+    requestedUrl = String(url);
+    return new Response(JSON.stringify({ sha: "data-sha", encoding: "base64", content: Buffer.from(JSON.stringify({ version: 2, data: {} }), "utf8").toString("base64") }), { status: 200 });
+  };
+
+  const response = await GET(new Request("http://localhost/api/backup?repository=acme%2Fvision-bank&branch=release"));
+  const body = await response.json();
+
+  assert.equal(response.status, 200);
+  assert.equal(body.repository, "acme/vision-bank");
+  assert.equal(body.branch, "release");
+  assert.match(requestedUrl, /repos\/acme\/vision-bank\/contents\/data\/vision-interview-data\.json\?ref=release/);
+});
+
 test("POST refuses GitHub writes when the server credential is not configured", async () => {
   delete process.env.GITHUB_BACKUP_TOKEN;
   delete process.env.VISION_INTERVIEW_GITHUB_TOKEN;

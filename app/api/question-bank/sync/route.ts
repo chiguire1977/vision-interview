@@ -5,6 +5,7 @@ import {
   questionBankArchivePath,
   questionBankArchiveSlugs,
 } from "@/lib/question-bank-archive";
+import { normalizeGitHubConnectionSettings } from "@/lib/backup-core.mjs";
 
 const DEFAULT_REPOSITORY = "chiguire1977/vision-interview";
 const DEFAULT_BRANCH = "main";
@@ -38,13 +39,20 @@ function githubHeaders(token: string) {
   };
 }
 
-function getConfig() {
+function getConfig(request?: Request) {
   const token = process.env.VISION_INTERVIEW_GITHUB_TOKEN?.trim() || process.env.GITHUB_TOKEN?.trim() || "";
-  const repository = process.env.VISION_INTERVIEW_GITHUB_REPOSITORY?.trim() || process.env.GITHUB_REPOSITORY?.trim() || DEFAULT_REPOSITORY;
-  const branch = process.env.VISION_INTERVIEW_GITHUB_BRANCH?.trim() || DEFAULT_BRANCH;
+  const environment = normalizeGitHubConnectionSettings({
+    repository: process.env.VISION_INTERVIEW_GITHUB_REPOSITORY?.trim() || process.env.GITHUB_REPOSITORY?.trim() || DEFAULT_REPOSITORY,
+    branch: process.env.VISION_INTERVIEW_GITHUB_BRANCH?.trim() || DEFAULT_BRANCH,
+  });
+  const search = request ? new URL(request.url).searchParams : null;
+  const connection = normalizeGitHubConnectionSettings({
+    repository: search?.get("repository") || environment.repository,
+    branch: search?.get("branch") || environment.branch,
+  }, environment);
   const archivePath = process.env.VISION_INTERVIEW_GITHUB_ARCHIVE_PATH?.trim() || DEFAULT_ARCHIVE_PATH;
   const markdownPath = process.env.VISION_INTERVIEW_GITHUB_MARKDOWN_PATH?.trim() || DEFAULT_MARKDOWN_PATH;
-  return { token, repository, branch, archivePath, markdownPath };
+  return { token, repository: connection.repository, branch: connection.branch, archivePath, markdownPath };
 }
 
 function contentsEndpoint(config: ReturnType<typeof getConfig>, path: string) {
@@ -174,7 +182,7 @@ export async function POST(request: Request) {
     const complete = body.complete === true;
     if (!incoming.length) return Response.json({ ok: false, archived: false, reason: "no_entries" }, { status: 400 });
 
-    const config = getConfig();
+    const config = getConfig(request);
     if (!config.token) {
       return Response.json({ ok: true, archived: false, reason: "github_not_configured", accepted: incoming.length, complete }, { status: 202 });
     }
