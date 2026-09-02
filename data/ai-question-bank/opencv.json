@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-09-02T10:13:19.169Z",
+  "updatedAt": "2026-09-02T10:36:41.347Z",
   "questions": [
     {
       "title": "在 OpenCV 中，相机标定通常使用棋盘格图像计算内参和畸变系数。请解释标定过程中内参矩阵、畸变系数和重投影误差分别代表什么，以及它们如何影响后续的测量精度？",
@@ -1119,6 +1119,270 @@
       "principle": "形态学操作基于集合论，腐蚀操作将结构元素在图像上滑动，取覆盖区域的最小值，导致亮区域收缩；膨胀操作取最大值，导致亮区域扩张。开运算先腐蚀后膨胀，能够移除小于结构元素的亮细节，而保留较大结构；闭运算先膨胀后腐蚀，能够填补小于结构元素的暗细节。结构元素的大小和形状决定了形态学滤波的尺度选择性和方向选择性，是控制滤波效果的关键参数。",
       "id": "aiq-1e0d2979",
       "generatedAt": "2026-09-02T10:13:18.818Z",
+      "provider": "opencode-go",
+      "model": "deepseek-v4-flash",
+      "project": "机器视觉专业知识",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "随机技术栈",
+      "detectionDirectionFilter": "随机方向"
+    },
+    {
+      "title": "相机标定中如何通过OpenCV计算畸变系数并校正图像？",
+      "type": "算法原理",
+      "category": "相机标定",
+      "source": "专业",
+      "sourceType": "AI知识整理",
+      "knowledgePoints": [
+        "相机内参矩阵",
+        "畸变模型（径向和切向）",
+        "标定板角点提取",
+        "重投影误差评估"
+      ],
+      "difficulty": "中等",
+      "tags": [
+        "相机标定",
+        "OpenCV",
+        "畸变校正"
+      ],
+      "keywords": [
+        "内参矩阵",
+        "畸变系数",
+        "cv::calibrateCamera",
+        "重投影误差"
+      ],
+      "followUp": "标定板图像数量不足时，标定结果会如何变化？",
+      "hint": "先解释标定原理，再说明OpenCV函数流程，最后强调质量评估。",
+      "techStacks": [
+        "OpenCV"
+      ],
+      "detectionDirection": "传统 2D 视觉",
+      "bestAnswer": "相机标定通过拍摄不同姿态的标定板，提取角点后建立2D-3D对应关系。OpenCV的cv::calibrateCamera可计算内参矩阵、畸变系数（k1,k2,p1,p2等）和外参。畸变校正使用cv::undistort或cv::initUndistortRectifyMap。评估标定质量需查看重投影误差，通常小于0.1像素。标定板图像数量应覆盖视场各区域，并包含不同倾斜角度。",
+      "principle": "针孔相机模型将3D点投影到2D，内参矩阵包含焦距和主点。实际镜头存在径向畸变（桶形/枕形）和切向畸变（装配误差）。标定通过最小化重投影误差优化参数。OpenCV采用张正友标定法，利用平面标定板的单应性约束求解初值，再用LM算法优化。",
+      "id": "aiq-c19bb47f",
+      "generatedAt": "2026-09-02T10:36:41.227Z",
+      "provider": "opencode-go",
+      "model": "deepseek-v4-flash",
+      "project": "机器视觉专业知识",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "随机技术栈",
+      "detectionDirectionFilter": "随机方向"
+    },
+    {
+      "title": "OpenCV相机标定的流程是什么？如何评估标定结果？",
+      "type": "工程实践",
+      "category": "相机标定",
+      "source": "专业",
+      "sourceType": "官方文档整理",
+      "knowledgePoints": [
+        "内参与畸变系数",
+        "棋盘格角点提取",
+        "calibrateCamera函数",
+        "重投影误差评估"
+      ],
+      "difficulty": "中等",
+      "tags": [
+        "OpenCV",
+        "相机标定",
+        "畸变校正",
+        "标定板"
+      ],
+      "keywords": [
+        "内参",
+        "外参",
+        "径向畸变",
+        "切向畸变",
+        "calibrateCamera",
+        "重投影误差"
+      ],
+      "followUp": "标定结果中重投影误差过大，可能是什么原因？如何改进？",
+      "hint": "从标定的目的、标定板图像采集要求、calibrateCamera函数输出参数以及误差评估来回答。",
+      "techStacks": [
+        "OpenCV"
+      ],
+      "detectionDirection": "传统 2D 视觉",
+      "bestAnswer": "相机标定是获取相机内参（焦距、主点）和畸变系数（径向k1,k2,k3，切向p1,p2）的过程。OpenCV使用calibrateCamera函数，输入多张不同位姿的棋盘格图像，提取角点后计算内参和畸变。标定时需采集15~20张覆盖不同角度和距离的图像，确保棋盘格占画面一定比例。重投影误差是角点投影到图像上的像素误差，一般应小于0.5像素。误差过大可能是因为图像模糊、角点提取不准或标定板不平整。",
+      "principle": "标定基于针孔模型，畸变模型由径向和切向多项式拟合。通过最小化重投影误差优化内参、外参和畸变系数。多张图像提供多视角约束，提高求解稳定性。",
+      "id": "aiq-d82174d1",
+      "generatedAt": "2026-09-02T10:36:41.227Z",
+      "provider": "opencode-go",
+      "model": "deepseek-v4-flash",
+      "project": "机器视觉专业知识",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "随机技术栈",
+      "detectionDirectionFilter": "随机方向"
+    },
+    {
+      "title": "在OpenCV中，使用findContours提取目标轮廓后，如何通过轮廓几何特征（如面积、周长、圆度）进行目标筛选？请解释这些特征的计算方法及在工程应用中的注意事项。",
+      "type": "工程实践",
+      "category": "图像处理",
+      "source": "专业",
+      "sourceType": "AI知识整理",
+      "knowledgePoints": [
+        "轮廓特征计算",
+        "阈值筛选方法",
+        "二值化预处理",
+        "遮挡鲁棒性改进"
+      ],
+      "difficulty": "中等",
+      "tags": [
+        "轮廓分析",
+        "特征筛选",
+        "OpenCV"
+      ],
+      "keywords": [
+        "contourArea",
+        "arcLength",
+        "圆度",
+        "阈值筛选",
+        "鲁棒性"
+      ],
+      "followUp": "当目标存在部分遮挡或光照变化导致轮廓不完整时，仅依赖几何特征筛选可能失效，你会如何改进？",
+      "hint": "先说明轮廓提取流程，再解释面积、周长、圆度的计算与物理意义，然后讨论阈值设定方法，最后提出遮挡和光照变化的改进方案，如结合形状匹配或凸包特征。",
+      "techStacks": [
+        "OpenCV"
+      ],
+      "detectionDirection": "传统 2D 视觉",
+      "bestAnswer": "在OpenCV中，findContours提取轮廓后，常用contourArea计算轮廓面积，arcLength计算周长。圆度可通过4π×面积/周长²计算，圆度越接近1越接近圆。筛选时，先根据目标尺寸设置面积阈值范围，去除噪声和小区域；再通过圆度或宽高比区分形状。工程中需注意：二值化阈值直接影响轮廓质量，建议先用高斯滤波和形态学闭运算填补空洞；面积阈值应基于实际像素尺寸标定，避免固定值；若存在遮挡，可改用轮廓凸包、Hu矩或形状上下文匹配。此外，对于重叠目标，可采用分水岭算法分割后再筛选。",
+      "principle": "轮廓特征基于图像的二值化连通域分析。面积是轮廓内部像素点数量，周长是轮廓边界长度。圆度是面积与周长的归一化比值，用于描述形状紧凑性。OpenCV的findContours采用Suzuki算法提取边界，contourArea和arcLength分别通过格林公式和距离累加计算。筛选本质是特征空间中的阈值分类，其鲁棒性取决于特征对目标变化的稳定性。当目标变形或遮挡时，几何特征变化大，需引入旋转不变或仿射不变特征。",
+      "id": "aiq-3be0aa70",
+      "generatedAt": "2026-09-02T10:36:41.227Z",
+      "provider": "opencode-go",
+      "model": "deepseek-v4-flash",
+      "project": "机器视觉专业知识",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "随机技术栈",
+      "detectionDirectionFilter": "随机方向"
+    },
+    {
+      "title": "OpenCV模板匹配在光照变化和尺度变化场景下如何保持鲁棒性？",
+      "type": "工程实践",
+      "category": "模板匹配",
+      "source": "专业",
+      "sourceType": "AI知识整理",
+      "knowledgePoints": [
+        "模板匹配的基本原理与相似度度量",
+        "归一化互相关对光照变化的抑制作用",
+        "图像金字塔多尺度搜索策略",
+        "特征点匹配作为模板匹配的替代方案"
+      ],
+      "difficulty": "中等",
+      "tags": [
+        "OpenCV",
+        "模板匹配",
+        "鲁棒性",
+        "图像金字塔"
+      ],
+      "keywords": [
+        "归一化互相关",
+        "多尺度金字塔",
+        "光照补偿",
+        "特征点匹配"
+      ],
+      "followUp": "如果目标还会发生旋转，仅靠多尺度模板匹配是否足够？你会如何扩展方案？",
+      "hint": "先分析模板匹配对光照和尺度的敏感性，再分别给出OpenCV中的具体改进手段，最后说明边界条件。",
+      "techStacks": [
+        "OpenCV"
+      ],
+      "detectionDirection": "传统 2D 视觉",
+      "bestAnswer": "在OpenCV中，模板匹配对光照变化可选用归一化互相关方法（如TM_CCOEFF_NORMED），它能对图像灰度值的线性变化不敏感，从而抵抗整体亮度或对比度变化。对于尺度变化，可构建图像金字塔：对模板和搜索图分别进行多级降采样，从顶层开始匹配并逐层细化，或预先生成多尺度模板进行匹配。若目标旋转或形变较大，模板匹配的适用性下降，应改用SIFT、ORB等特征点匹配方法，通过特征描述子实现旋转和尺度不变性。实际项目中还需注意模板尺寸、搜索区域限制和误匹配抑制。",
+      "principle": "模板匹配本质上是滑动窗口与模板的相似度计算。归一化互相关通过减去均值并除以标准差，使相似度对灰度线性变换（a*I+b）不变。图像金字塔通过降采样降低图像分辨率，在粗尺度上快速定位候选区域，再在细尺度精确定位，既处理尺度变化又减少计算量。特征点匹配则利用局部不变特征描述子（如ORB的rBRIEF）对旋转和尺度具有鲁棒性，适合复杂场景。",
+      "id": "aiq-c1f4e844",
+      "generatedAt": "2026-09-02T10:36:41.227Z",
+      "provider": "opencode-go",
+      "model": "deepseek-v4-flash",
+      "project": "机器视觉专业知识",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "随机技术栈",
+      "detectionDirectionFilter": "随机方向"
+    },
+    {
+      "title": "OpenCV中Hough变换检测直线的参数空间原理与累加器阈值调优策略",
+      "type": "算法原理",
+      "category": "图像处理与特征提取",
+      "source": "专业",
+      "sourceType": "技术教程整理",
+      "knowledgePoints": [
+        "霍夫变换的点-线对偶性与参数空间映射原理",
+        "累加器阈值对检测灵敏度与误检率的影响机制",
+        "minLineLength与maxLineGap在工程中的调优意义",
+        "参数分辨率与计算量之间的权衡关系"
+      ],
+      "difficulty": "中等",
+      "tags": [
+        "霍夫变换",
+        "直线检测",
+        "OpenCV",
+        "参数调优"
+      ],
+      "keywords": [
+        "参数空间",
+        "累加器",
+        "阈值",
+        "线段合并",
+        "分辨率"
+      ],
+      "followUp": "在实际工业场景中，如果检测到的直线出现大量断裂，你会优先调整哪个参数？为什么？",
+      "hint": "从霍夫变换的投票机制出发，先解释参数空间映射原理，再逐个分析累加器阈值、minLineLength、maxLineGap和分辨率参数对检测结果的影响，最后给出工程调优建议。",
+      "techStacks": [
+        "OpenCV"
+      ],
+      "detectionDirection": "传统 2D 视觉",
+      "bestAnswer": "霍夫变换将图像空间的点映射到参数空间，每个边缘点对应一条正弦曲线，曲线交点对应候选直线。累加器阈值决定确认一条直线所需的最少边缘点支持数，阈值越低检测越多但误检也越多。minLineLength过滤噪声产生的短线段，maxLineGap合并断裂线段，对边缘不连续场景至关重要。ρ和θ分辨率越小精度越高但计算量增大。工程中需根据图像分辨率和目标尺寸权衡，通常先设较高阈值确认主直线，再逐步降低以召回弱边缘线段。",
+      "principle": "霍夫变换基于点-线对偶性，将直线检测转化为参数空间峰值检测。图像空间点(x,y)的所有通过直线在参数空间表示为ρ=xcosθ+ysinθ的正弦曲线，共线点的曲线交于同一点(ρ,θ)，累加器值即为共线点数。OpenCV的HoughLinesP采用概率霍夫变换，随机采样边缘点并动态更新累加器，检测到足够支持后沿直线方向搜索线段端点，直接输出线段。参数ρ和θ的步长决定了参数空间的离散化粒度，步长越小检测精度越高，但累加器矩阵增大，计算开销显著上升。",
+      "id": "aiq-b8d66010",
+      "generatedAt": "2026-09-02T10:36:41.227Z",
+      "provider": "opencode-go",
+      "model": "deepseek-v4-flash",
+      "project": "机器视觉专业知识",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "随机技术栈",
+      "detectionDirectionFilter": "随机方向"
+    },
+    {
+      "title": "OpenCV中Otsu阈值分割是如何自动确定最优阈值的？它适用于哪些图像场景？",
+      "type": "算法原理",
+      "category": "图像处理算法",
+      "source": "专业",
+      "sourceType": "AI知识整理",
+      "knowledgePoints": [
+        "Otsu算法基于类间方差最大化的原理",
+        "直方图双峰假设与适用边界",
+        "OpenCV中threshold函数使用Otsu标志的注意事项"
+      ],
+      "difficulty": "中等",
+      "tags": [
+        "OpenCV",
+        "阈值分割",
+        "Otsu"
+      ],
+      "keywords": [
+        "类间方差",
+        "类内方差",
+        "直方图",
+        "双峰"
+      ],
+      "followUp": "如果图像光照不均匀，Otsu分割效果不好，有哪些改进方法？",
+      "hint": "先说明Otsu原理，再讨论适用条件和限制，最后补充OpenCV中的实现细节。",
+      "techStacks": [
+        "OpenCV"
+      ],
+      "detectionDirection": "传统 2D 视觉",
+      "bestAnswer": "Otsu算法通过遍历所有可能的灰度阈值，计算前景与背景两类像素的类间方差，选择使类间方差最大的灰度值作为全局阈值。其核心思想是让分割后两类像素的灰度差异最大，同时各类内部灰度差异最小。在OpenCV中，使用cv::threshold(..., THRESH_BINARY | THRESH_OTSU)即可自动计算阈值。该算法适用于直方图呈明显双峰分布且光照均匀的图像，对于目标与背景灰度重叠或光照不均的图像，效果会下降，此时可考虑自适应阈值或预处理。",
+      "principle": "Otsu算法假设图像由前景和背景两类像素构成，其灰度直方图可视为两个分布的混合。设阈值为t，将像素分为C0和C1两类，计算类间方差σ_b² = ω0ω1(μ0-μ1)²，其中ω为类占比，μ为类均值。遍历所有灰度级，找到使σ_b²最大的t。由于类间方差越大，两类分离度越高，因此该阈值在统计意义上是最优的。",
+      "id": "aiq-ece58cd8",
+      "generatedAt": "2026-09-02T10:36:41.227Z",
       "provider": "opencode-go",
       "model": "deepseek-v4-flash",
       "project": "机器视觉专业知识",
