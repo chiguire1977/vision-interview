@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-09-02T08:48:36.544Z",
+  "updatedAt": "2026-09-02T10:03:37.749Z",
   "questions": [
     {
       "title": "在 HALCON 中，基于形状的模板匹配（shape-based matching）常用于定位工件。请说明金字塔层数、最小分数（MinScore）、最大重叠（MaxOverlap）和贪婪度（Greediness）这几个参数对匹配速度和鲁棒性的影响，并说明现场调试时如何取舍。",
@@ -4283,6 +4283,224 @@
       "difficultyFilter": "基础",
       "techStackFilter": "HALCON",
       "detectionDirectionFilter": "传统 2D 视觉"
+    },
+    {
+      "title": "在工业视觉现场，如何根据被测物特性选择光源类型并设计打光方案？",
+      "type": "工程实践",
+      "category": "光学成像",
+      "source": "专业",
+      "sourceType": "工程案例整理",
+      "knowledgePoints": [
+        "光源类型与适用场景",
+        "打光方式对特征对比度的影响",
+        "频闪照明与偏振技术的应用",
+        "现场环境对成像稳定性的干扰"
+      ],
+      "difficulty": "中等",
+      "tags": [
+        "光源选型",
+        "打光方案",
+        "HALCON",
+        "成像质量"
+      ],
+      "keywords": [
+        "环形光",
+        "条形光",
+        "同轴光",
+        "背光",
+        "偏振",
+        "频闪"
+      ],
+      "followUp": "如果现场环境有强烈环境光干扰，你会如何调整打光方案或硬件配置来保证图像稳定性？",
+      "hint": "从被测物的表面特性（反光、吸收、纹理）和检测目标（轮廓、缺陷、字符）出发，选择光源颜色、角度和结构，并考虑加装偏振片或使用频闪。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "detectionDirection": "传统 2D 视觉",
+      "bestAnswer": "选择光源前先分析被测物的材质、颜色、表面粗糙度和检测特征。高反光表面宜用低角度条形光或同轴光抑制镜面反射；轮廓测量优先用背光形成高对比度剪影；缺陷检测常用环形光或多角度组合光突出三维凹凸。光源颜色应与被测物颜色形成互补色以增强对比度，例如红色光照射绿色物体。现场环境光不稳定时，可采用频闪照明配合相机曝光同步，或加装偏振片消除反光和眩光。最后通过拍摄样件并分析灰度直方图和对比度指标来验证方案。",
+      "principle": "光源和打光方式决定图像中目标与背景的灰度差异。背光利用遮挡产生清晰边缘；同轴光通过半透半反镜使光线垂直照射，适合平面反光表面；低角度光使表面微小凹凸产生阴影，增强缺陷可见性。互补色原理基于物体对特定波长光的反射率差异，频闪则利用极短脉冲光提高信噪比，偏振片过滤非金属表面的漫反射中的偏振分量，从而稳定成像质量。",
+      "id": "aiq-f7df1a0a",
+      "generatedAt": "2026-09-02T10:03:38.191Z",
+      "provider": "opencode-go",
+      "model": "deepseek-v4-flash",
+      "project": "机器视觉专业知识",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "随机技术栈",
+      "detectionDirectionFilter": "随机方向"
+    },
+    {
+      "title": "在HALCON中，当目标与背景灰度重叠时，如何改进阈值分割效果？请列举两种以上方法。",
+      "type": "工程实践",
+      "category": "图像分割",
+      "source": "专业",
+      "sourceType": "AI知识整理",
+      "knowledgePoints": [
+        "阈值分割局限性",
+        "动态阈值",
+        "区域生长",
+        "纹理分割"
+      ],
+      "difficulty": "中等",
+      "tags": [
+        "HALCON",
+        "阈值分割",
+        "动态阈值"
+      ],
+      "keywords": [
+        "threshold",
+        "dyn_threshold",
+        "regiongrowing",
+        "texture"
+      ],
+      "followUp": "如果目标边缘模糊，使用dyn_threshold时如何选择Offset参数？",
+      "hint": "从灰度重叠的成因出发，说明全局阈值失效；再介绍基于局部对比度、邻域信息或纹理特征的方法。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "bestAnswer": "当目标与背景灰度重叠时，全局阈值无法有效分割。可改用HALCON的dyn_threshold动态阈值算子，通过比较原图与滤波后图像的灰度差异，利用局部对比度分离目标；也可使用regiongrowing区域生长，从种子点出发根据灰度相似性扩展区域；若目标与背景纹理不同，可先提取纹理特征（如灰度共生矩阵）再分割。实际工程中，还需结合打光方案增强目标与背景的对比度，从源头改善图像质量。",
+      "principle": "dyn_threshold通过原图与平滑图像的差值确定局部阈值，适应灰度不均匀场景；regiongrowing基于区域一致性准则，将灰度相近的像素聚类；纹理分割则利用局部纹理统计量作为特征，弥补灰度重叠的不足。",
+      "id": "aiq-ae35c0dd",
+      "generatedAt": "2026-09-02T10:03:38.191Z",
+      "provider": "opencode-go",
+      "model": "deepseek-v4-flash",
+      "project": "机器视觉专业知识",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "随机技术栈",
+      "detectionDirectionFilter": "随机方向"
+    },
+    {
+      "title": "在 HALCON 中，用 edges_sub_pix 提取亚像素边缘时，'canny' 和 'lumen' 两种过滤器在工业测量场景下应如何选择？",
+      "type": "工程实践",
+      "category": "边缘提取",
+      "source": "专业",
+      "sourceType": "技术教程整理",
+      "knowledgePoints": [
+        "HALCON 亚像素边缘提取算子",
+        "Canny 与 Lumen 过滤器差异",
+        "边缘选择参数对测量稳定性的影响"
+      ],
+      "difficulty": "中等",
+      "tags": [
+        "HALCON",
+        "亚像素边缘",
+        "测量"
+      ],
+      "keywords": [
+        "edges_sub_pix",
+        "canny",
+        "lumen",
+        "滞后阈值",
+        "边缘质量"
+      ],
+      "followUp": "如果测量对象是表面反光强烈的金属工件，边缘提取结果出现断裂，你会调整哪些参数？",
+      "hint": "从滤波器平滑特性、边缘定位精度、抗噪能力以及测量任务对稳定性的要求展开。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "detectionDirection": "传统 2D 视觉",
+      "bestAnswer": "edges_sub_pix 的 'canny' 使用高斯平滑和滞后阈值，边缘连续性好、抗噪强，适合背景复杂或噪声明显的场景；'lumen' 基于局部梯度极大值定位，边缘更精细、位置更准，但对噪声更敏感。工业测量中若需要稳定重复的尺寸结果，通常优先选 'canny'，并通过 Alpha 和滞后阈值控制边缘数量；若被测物边缘清晰且对定位精度要求极高，可选用 'lumen' 并配合预处理滤波。",
+      "principle": "edges_sub_pix 在像素级梯度图上做非极大值抑制和滞后阈值连接，再沿梯度方向用抛物线插值或矩方法计算亚像素位置。Canny 过滤器先做高斯平滑，能抑制高频噪声，但可能轻微钝化边缘；Lumen 过滤器更强调局部梯度峰值的精确位置，边缘定位误差更小，但容易受孤立噪声点干扰。选择时要权衡平滑带来的稳定性与定位精度。",
+      "id": "aiq-0d4fa52d",
+      "generatedAt": "2026-09-02T10:03:38.191Z",
+      "provider": "opencode-go",
+      "model": "deepseek-v4-flash",
+      "project": "机器视觉专业知识",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "随机技术栈",
+      "detectionDirectionFilter": "随机方向"
+    },
+    {
+      "title": "在HALCON中，基于形状的模板匹配为什么比基于灰度值的模板匹配更适合工业场景中的目标定位？请说明其核心原理，并讨论金字塔层数和贪婪度（Greediness）对匹配速度和鲁棒性的影响。",
+      "type": "算法原理",
+      "category": "模板匹配",
+      "source": "专业",
+      "sourceType": "官方文档整理",
+      "knowledgePoints": [
+        "基于形状的模板匹配原理",
+        "金字塔层数与贪婪度参数影响",
+        "光照鲁棒性"
+      ],
+      "difficulty": "中等",
+      "tags": [
+        "HALCON",
+        "模板匹配",
+        "工业定位"
+      ],
+      "keywords": [
+        "梯度方向",
+        "金字塔",
+        "贪婪度",
+        "鲁棒性"
+      ],
+      "followUp": "如果目标被部分遮挡，基于形状的模板匹配还能工作吗？如何提高抗遮挡能力？",
+      "hint": "从模板评分机制、多模板策略、局部匹配等方面回答。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "detectionDirection": "随机方向",
+      "bestAnswer": "基于形状的模板匹配利用目标边缘的梯度方向信息进行相似度评分，不依赖绝对灰度值，因此对光照变化、灰度反转和部分遮挡具有更强的鲁棒性。HALCON通过图像金字塔实现由粗到细的搜索，金字塔层数越高，搜索越快，但层数过多会丢失小特征，需根据目标尺寸和最小轮廓设定。贪婪度控制搜索时提前终止低分候选的激进程度，值越大速度越快，但可能漏检，一般推荐0.7~0.9。工业场景中若目标存在形变，可降低贪婪度或创建多模板。",
+      "principle": "HALCON的shape-based matching将模板表示为轮廓点的梯度方向向量，在金字塔各层上计算模板与图像候选位置的归一化相关得分，衡量梯度方向的一致性。搜索时从顶层粗定位到底层精化，利用金字塔减少计算量。贪婪度参数在评分过程中设置阈值，当部分得分低于阈值时提前放弃该候选，从而加速搜索，但过高的贪婪度可能跳过正确位置。",
+      "id": "aiq-bb03e5c0",
+      "generatedAt": "2026-09-02T10:03:38.191Z",
+      "provider": "opencode-go",
+      "model": "deepseek-v4-flash",
+      "project": "机器视觉专业知识",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "随机技术栈",
+      "detectionDirectionFilter": "随机方向"
+    },
+    {
+      "title": "在机器人视觉引导中，手眼标定（Hand-Eye Calibration）的“眼在手上”与“眼在手外”两种形式有何区别？在HALCON中如何实现？标定精度受哪些因素影响？",
+      "type": "算法原理/工程实践",
+      "category": "相机标定",
+      "source": "专业",
+      "sourceType": "AI知识整理",
+      "knowledgePoints": [
+        "手眼标定的两种基本形式及其坐标系变换关系",
+        "AX=XB矩阵方程的求解原理",
+        "HALCON中calibrate_hand_eye算子的使用流程",
+        "标定精度的影响因素与工程优化策略"
+      ],
+      "difficulty": "中等",
+      "tags": [
+        "手眼标定",
+        "HALCON",
+        "机器人视觉引导",
+        "坐标系变换"
+      ],
+      "keywords": [
+        "眼在手上",
+        "眼在手外",
+        "calibrate_hand_eye",
+        "AX=XB",
+        "标定精度"
+      ],
+      "followUp": "如果机器人运动学参数存在误差，如何评估手眼标定结果？标定误差对最终抓取精度的影响有多大？",
+      "hint": "先明确两种形式下相机与机器人本体的连接关系，再说明各自的求解目标；接着介绍HALCON中对应的算子及输入输出；最后从角点提取、机器人定位、位姿多样性等角度分析精度影响因素。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "detectionDirection": "传统 2D 视觉",
+      "bestAnswer": "眼在手上是指相机安装在机器人末端，随机器人一起运动，标定求解相机坐标系到机器人末端坐标系的固定变换；眼在手外是指相机固定在工作空间外，标定求解相机坐标系到机器人基座坐标系的固定变换。HALCON中可使用calibrate_hand_eye算子，输入标定板在相机坐标系下的位姿和机器人末端在基座坐标系下的位姿，输出手眼变换矩阵。标定精度受标定板角点提取精度、机器人定位精度、标定板放置姿态的多样性等因素影响，工程上通常采集15-20组不同位姿的图像，并避免标定板与相机平面近似平行。",
+      "principle": "手眼标定本质是求解AX=XB（眼在手上）或AX=YB（眼在手外）的矩阵方程。眼在手上时，A为机器人末端到基座的变换，B为标定板到相机的变换，X为相机到末端的变换；眼在手外时，A为机器人末端到基座的变换，B为标定板到相机的变换，X为相机到基座的变换，Y为标定板到基座的变换。通过多组位姿构建超定方程组，采用Tsai-Lenz或Park-Martin等线性方法求解初值，再以非线性优化最小化重投影误差。HALCON的calibrate_hand_eye封装了上述求解过程，并支持自动剔除异常位姿。",
+      "id": "aiq-9971c4f8",
+      "generatedAt": "2026-09-02T10:03:38.191Z",
+      "provider": "opencode-go",
+      "model": "deepseek-v4-flash",
+      "project": "机器视觉专业知识",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "随机技术栈",
+      "detectionDirectionFilter": "随机方向"
     }
   ]
 }
