@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-02T05:29:25.289Z",
+  "updatedAt": "2026-09-02T05:29:33.712Z",
   "data": {
     "vision-interview-records": [
       {
@@ -2006,6 +2006,30 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788326971295-uj0z04f5",
+        "timestamp": "2026-09-02T05:29:31.295Z",
+        "level": "ERROR",
+        "kind": "system",
+        "event": "backup.push.failed",
+        "message": "运行数据备份失败",
+        "context": {
+          "status": 502,
+          "reason": "GitHub 备份失败（HTTP 409）：{\"message\":\"data/vision-interview-data.json does not match 2dc40409066088427cd23e43f7abb2843128e88a\",\"documentation_url\":\"https://docs.github.com/rest/repos/contents#create-or-update-file-contents\",\"status\":\"409\"}"
+        }
+      },
+      {
+        "id": "1788326966159-5uqm9gco",
+        "timestamp": "2026-09-02T05:29:26.159Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "8e75a637f026"
+        }
+      },
       {
         "id": "1788326965908-kc9i4c0l",
         "timestamp": "2026-09-02T05:29:25.908Z",
@@ -15988,38 +16012,6 @@
           "query": "机器视觉 面试知识点 OpenCV 算法原理 工程实践 图像预处理 模板与定位 深度图 点云 法线估计 RANSAC find_surface_model 原理 工程实践",
           "sourceCount": 0,
           "workerIndex": 3,
-          "parallelRequests": 5
-        }
-      },
-      {
-        "id": "1788265992772-bl0z49c3",
-        "timestamp": "2026-09-01T12:33:12.772Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264675884-efebbymx",
-        "event": "question-bank.web-search.completed",
-        "message": "本轮联网检索完成",
-        "context": {
-          "attempt": 3,
-          "query": "机器视觉 面试知识点 OpenCV 算法原理 工程实践 图像预处理 模板与定位 深度图 点云 法线估计 RANSAC find_surface_model 原理 工程实践",
-          "sourceCount": 0,
-          "workerIndex": 2,
-          "parallelRequests": 5
-        }
-      },
-      {
-        "id": "1788265992767-yrpky648",
-        "timestamp": "2026-09-01T12:33:12.767Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264675884-efebbymx",
-        "event": "question-bank.web-search.completed",
-        "message": "本轮联网检索完成",
-        "context": {
-          "attempt": 3,
-          "query": "机器视觉 面试知识点 OpenCV 算法原理 工程实践 图像预处理 模板与定位 深度图 点云 法线估计 RANSAC find_surface_model 原理 工程实践",
-          "sourceCount": 0,
-          "workerIndex": 4,
           "parallelRequests": 5
         }
       }
