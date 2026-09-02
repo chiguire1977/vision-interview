@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-02T05:03:13.954Z",
+  "updatedAt": "2026-09-02T05:03:18.864Z",
   "data": {
     "vision-interview-records": [
       {
@@ -2006,6 +2006,35 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788325399034-r7wt1j5z",
+        "timestamp": "2026-09-02T05:03:19.034Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "76a33122bc01"
+        }
+      },
+      {
+        "id": "1788325396244-uo6539ai",
+        "timestamp": "2026-09-02T05:03:16.244Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788325262027-rws3kdto",
+        "event": "question-bank.ai-request.duration",
+        "message": "单个并行 AI 请求完成",
+        "context": {
+          "attempt": 1,
+          "workerIndex": 2,
+          "parallelRequests": 5,
+          "requestedCount": 2,
+          "receivedCount": 2,
+          "durationMs": 33829
+        }
+      },
       {
         "id": "1788325394124-n4yjvbyg",
         "timestamp": "2026-09-02T05:03:14.124Z",
@@ -16294,34 +16323,6 @@
             "图像预处理",
             "模板与定位"
           ]
-        }
-      },
-      {
-        "id": "1788265868303-h7koslkp",
-        "timestamp": "2026-09-01T12:31:08.303Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264675884-efebbymx",
-        "event": "question-bank.cache.saved",
-        "message": "AI 题库已完成远程同步",
-        "context": {
-          "questionCount": 10,
-          "pendingCount": 0
-        }
-      },
-      {
-        "id": "1788265868301-ztt4gtoe",
-        "timestamp": "2026-09-01T12:31:08.301Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264675884-efebbymx",
-        "event": "github.backup.succeeded",
-        "message": "数据已成功备份到 GitHub",
-        "context": {
-          "operation": "ai-question-bank",
-          "entryCount": 10,
-          "pendingCount": 0,
-          "status": 200
         }
       }
     ]
