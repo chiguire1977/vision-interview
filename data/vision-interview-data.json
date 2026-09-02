@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-02T10:06:42.667Z",
+  "updatedAt": "2026-09-02T10:07:14.396Z",
   "data": {
     "vision-interview-records": [
       {
@@ -2007,6 +2007,35 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788343632332-49y7j3d5",
+        "timestamp": "2026-09-02T10:07:12.332Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788343468196-zjzo0dai",
+        "event": "question-bank.ai-request.duration",
+        "message": "单个并行 AI 请求完成",
+        "context": {
+          "attempt": 3,
+          "workerIndex": 3,
+          "parallelRequests": 4,
+          "requestedCount": 1,
+          "receivedCount": 1,
+          "durationMs": 33849
+        }
+      },
+      {
+        "id": "1788343607850-gxa2nipl",
+        "timestamp": "2026-09-02T10:06:47.850Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "2516dae22acb"
+        }
+      },
       {
         "id": "1788343604370-7hkvhchw",
         "timestamp": "2026-09-02T10:06:44.370Z",
@@ -16656,35 +16685,6 @@
           "pendingCount": 10,
           "totalCount": 83,
           "complete": true
-        }
-      },
-      {
-        "id": "1788334273749-sc9ccv53",
-        "timestamp": "2026-09-02T07:31:13.749Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788334179286-pdtwgnjv",
-        "event": "question-bank.ai-request.duration",
-        "message": "单个并行 AI 请求完成",
-        "context": {
-          "attempt": 2,
-          "workerIndex": 1,
-          "parallelRequests": 5,
-          "requestedCount": 1,
-          "receivedCount": 1,
-          "durationMs": 33483
-        }
-      },
-      {
-        "id": "1788334248257-eoul10ql",
-        "timestamp": "2026-09-02T07:30:48.257Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "b3442c48bc67"
         }
       }
     ]
