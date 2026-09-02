@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-09-02T11:11:52.043Z",
+  "updatedAt": "2026-09-02T13:05:34.612Z",
   "questions": [
     {
       "title": "在 HALCON 中，基于形状的模板匹配（shape-based matching）常用于定位工件。请说明金字塔层数、最小分数（MinScore）、最大重叠（MaxOverlap）和贪婪度（Greediness）这几个参数对匹配速度和鲁棒性的影响，并说明现场调试时如何取舍。",
@@ -5603,6 +5603,445 @@
       "principle": "OCR分类器基于统计模式识别，MLP通过多层非线性变换学习图像特征到字符类别的映射。训练采用反向传播算法最小化分类误差。特征提取将字符图像转换为低维向量，降低计算复杂度并提升泛化能力。HALCON的OCR训练流程将字符图像与ASCII标签绑定，通过迭代优化网络权重，使同类字符特征聚集、异类字符特征分离，从而实现对不同字体和噪声的鲁棒识别。",
       "id": "aiq-5286d6e7",
       "generatedAt": "2026-09-02T11:11:51.247Z",
+      "provider": "opencode-go",
+      "model": "deepseek-v4-flash",
+      "project": "机器视觉专业知识",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "HALCON",
+      "detectionDirectionFilter": "随机方向"
+    },
+    {
+      "title": "HALCON中基于形状的模板匹配如何处理旋转、缩放和光照变化？",
+      "type": "算法原理",
+      "category": "模板匹配",
+      "source": "专业",
+      "sourceType": "AI知识整理",
+      "knowledgePoints": [
+        "基于形状匹配的原理",
+        "金字塔搜索与参数NumLevels",
+        "MinScore和Greediness对匹配性能的影响"
+      ],
+      "difficulty": "中等",
+      "tags": [
+        "HALCON",
+        "模板匹配",
+        "参数调优"
+      ],
+      "keywords": [
+        "NumLevels",
+        "AngleStart/AngleExtent",
+        "MinScore",
+        "Greediness",
+        "金字塔搜索"
+      ],
+      "followUp": "如果匹配速度太慢，你会优先调整哪个参数？为什么？",
+      "hint": "从旋转和缩放范围设置、金字塔层数、分数阈值和贪婪度四个维度回答，并说明参数对速度和鲁棒性的影响。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "detectionDirection": "传统 2D 视觉",
+      "bestAnswer": "针对旋转和缩放，在create_shape_model中设置AngleStart和AngleExtent覆盖可能的旋转范围，并通过ScaleMin/ScaleMax（或使用create_scaled_shape_model）设置缩放范围。光照变化大时，基于形状的匹配对灰度变化不敏感，但应确保模板图像对比度清晰。NumLevels控制金字塔层数，层数越多速度越快，但可能丢失细节；通常根据物体尺寸和复杂度选择。MinScore是匹配分数阈值，过低会误匹配，过高会漏检，一般设为0.5-0.8。Greediness控制搜索贪婪度，值越大速度越快但可能错过匹配，常用0.7-0.9。若速度慢，优先提高Greediness或增加金字塔层数，同时适当降低MinScore。",
+      "principle": "基于形状的匹配利用物体边缘的梯度方向信息，通过边缘点集与模板的相似度进行匹配。金字塔搜索通过逐层降采样缩小搜索空间，高层金字塔先粗定位，再逐层精确定位。角度和缩放通过参数化搜索空间实现。Greediness决定在搜索时是否提前终止不匹配的候选点，从而加速。",
+      "id": "aiq-9989f624",
+      "generatedAt": "2026-09-02T13:05:33.928Z",
+      "provider": "opencode-go",
+      "model": "deepseek-v4-flash",
+      "project": "机器视觉专业知识",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "HALCON",
+      "detectionDirectionFilter": "随机方向"
+    },
+    {
+      "title": "HALCON二维测量中相机标定的作用、流程及标定误差影响",
+      "type": "工程实践",
+      "category": "相机标定",
+      "source": "专业",
+      "sourceType": "AI知识整理",
+      "knowledgePoints": [
+        "相机内参和外参",
+        "标定板特征点提取",
+        "畸变校正与像素当量"
+      ],
+      "difficulty": "中等",
+      "tags": [
+        "HALCON",
+        "相机标定",
+        "测量精度"
+      ],
+      "keywords": [
+        "标定板",
+        "内参",
+        "外参",
+        "畸变系数",
+        "像素当量"
+      ],
+      "followUp": "如果标定板拍摄不清晰或倾斜角度过大，会导致什么问题？",
+      "hint": "从像素到物理单位转换、畸变校正、标定板特征点提取等角度回答。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "detectionDirection": "传统 2D 视觉",
+      "bestAnswer": "相机标定是为了确定相机内参（焦距、主点、畸变系数）和外参（相机相对于世界坐标系的位姿），从而将像素坐标转换为物理坐标，并校正镜头畸变。标定板是已知精确尺寸的图案（如棋盘格或圆点阵），通过提取特征点建立像素坐标与物理坐标的对应关系。流程包括：采集不同位姿的标定板图像、提取特征点、使用calibrate_cameras计算参数、评估标定误差。标定误差会导致测量结果产生系统性偏差，例如长度测量不准确；畸变校正不全会使图像边缘区域变形，影响定位精度。因此标定板应清晰、平整，拍摄角度不宜过大。",
+      "principle": "相机标定基于针孔成像模型，通过最小化重投影误差来求解相机参数。标定板提供已知的世界坐标与像素坐标对应点，利用多视图几何约束求解内参和外参。畸变模型通常包含径向畸变和切向畸变，校正后图像符合理想透视投影。",
+      "id": "aiq-ac3e81d1",
+      "generatedAt": "2026-09-02T13:05:33.928Z",
+      "provider": "opencode-go",
+      "model": "deepseek-v4-flash",
+      "project": "机器视觉专业知识",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "HALCON",
+      "detectionDirectionFilter": "随机方向"
+    },
+    {
+      "title": "HALCON中Blob分析因光照变化导致阈值分割不稳定，如何优化？",
+      "type": "现场故障",
+      "category": "Blob分析",
+      "source": "专业",
+      "sourceType": "AI知识整理",
+      "knowledgePoints": [
+        "动态阈值分割",
+        "形态学后处理",
+        "特征筛选"
+      ],
+      "difficulty": "中等",
+      "tags": [
+        "HALCON",
+        "Blob分析",
+        "光照变化",
+        "缺陷检测"
+      ],
+      "keywords": [
+        "dyn_threshold",
+        "顶帽变换",
+        "形态学",
+        "特征筛选"
+      ],
+      "followUp": "如果使用动态阈值（dyn_threshold）仍然不稳定，你会考虑哪些替代方案？",
+      "hint": "从预处理、阈值方法、形态学后处理、特征筛选等角度回答。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "detectionDirection": "传统 2D 视觉",
+      "bestAnswer": "首先，应保证光源和相机参数固定，减少环境光干扰。其次，使用预处理方法如高斯滤波或中值滤波平滑图像，减少噪声。阈值分割可采用全局阈值（threshold）或局部自适应阈值（dyn_threshold），后者通过比较原图与平滑图像的差异来适应光照不均。若仍不稳定，可考虑使用灰度形态学顶帽变换（top-hat）校正背景，或使用基于边缘的检测方法。分割后，通过形态学开闭运算去除小噪声和填充孔洞，再根据缺陷的面积、圆度、长宽比等特征进行筛选，避免仅依赖灰度阈值。此外，可建立离线测试集，调整参数使算法鲁棒。",
+      "principle": "Blob分析是将图像中灰度值满足条件的像素区域提取为连通域，然后计算其形状特征。动态阈值利用背景估计（如均值滤波）与原始图像的灰度差进行分割，对光照变化有一定适应性。形态学操作通过结构元素改变区域形状，用于去噪和连接。特征筛选基于几何属性区分真实缺陷与噪声。",
+      "id": "aiq-648d94c4",
+      "generatedAt": "2026-09-02T13:05:33.928Z",
+      "provider": "opencode-go",
+      "model": "deepseek-v4-flash",
+      "project": "机器视觉专业知识",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "HALCON",
+      "detectionDirectionFilter": "随机方向"
+    },
+    {
+      "title": "HALCON中Blob分析流程是什么？如何通过形态学操作解决目标粘连或孔洞问题？",
+      "type": "工程实践",
+      "category": "Blob分析",
+      "source": "专业",
+      "sourceType": "社区问答整理",
+      "knowledgePoints": [
+        "Blob分析流程",
+        "阈值分割",
+        "形态学操作",
+        "连通域分析",
+        "特征筛选"
+      ],
+      "difficulty": "基础",
+      "tags": [
+        "HALCON",
+        "Blob分析",
+        "形态学"
+      ],
+      "keywords": [
+        "threshold",
+        "connection",
+        "select_shape",
+        "opening",
+        "closing",
+        "fill_up"
+      ],
+      "followUp": "如果目标与背景灰度接近，你会如何改进分割？",
+      "hint": "按图像预处理、阈值分割、形态学处理、连通域提取、特征筛选的顺序回答，并说明开闭运算的作用。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "detectionDirection": "传统 2D 视觉",
+      "bestAnswer": "Blob分析典型流程：图像预处理（如高斯滤波）、阈值分割（threshold）、形态学操作（如开运算去除细小噪声，闭运算填充孔洞）、连通域分析（connection）、特征筛选（select_shape）。对于目标粘连，可用开运算分离细小连接；对于目标内部孔洞，可用闭运算或fill_up填充。若灰度接近，可采用局部自适应阈值或边缘信息辅助分割。最后通过面积、圆度、长宽比等特征筛选目标。",
+      "principle": "Blob分析基于灰度阈值将图像分为前景和背景，连通域标记将相邻像素组成区域。形态学操作通过结构元素与区域进行交并运算，开运算先腐蚀后膨胀，能去除小物体；闭运算先膨胀后腐蚀，能填充小孔。特征筛选利用区域属性（如面积、形状）排除干扰。",
+      "id": "aiq-2a6a0120",
+      "generatedAt": "2026-09-02T13:05:33.928Z",
+      "provider": "opencode-go",
+      "model": "deepseek-v4-flash",
+      "project": "机器视觉专业知识",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "HALCON",
+      "detectionDirectionFilter": "随机方向"
+    },
+    {
+      "title": "HALCON 模板匹配中为什么使用金字塔搜索？请解释其原理，并说明 score 阈值和 greediness 参数的作用。",
+      "type": "算法原理",
+      "category": "模板匹配",
+      "source": "专业",
+      "sourceType": "AI知识整理",
+      "knowledgePoints": [
+        "金字塔搜索原理",
+        "score 阈值对匹配结果的影响",
+        "greediness 参数与速度/鲁棒性权衡"
+      ],
+      "difficulty": "中等",
+      "tags": [
+        "HALCON",
+        "模板匹配",
+        "金字塔搜索",
+        "参数调优"
+      ],
+      "keywords": [
+        "金字塔层级",
+        "归一化互相关",
+        "贪婪度",
+        "评分阈值"
+      ],
+      "followUp": "如果目标物体有遮挡，你会如何调整参数？greediness 设置过高会有什么风险？",
+      "hint": "从计算效率、搜索策略、参数对匹配结果的影响入手。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "detectionDirection": "传统 2D 视觉",
+      "bestAnswer": "HALCON 的模板匹配采用金字塔搜索策略，先在低分辨率图像上快速找到候选位置，再逐层细化到原始分辨率，从而大幅减少计算量。score 阈值用于控制最终匹配的相似度下限，低于该阈值的候选会被拒绝，防止误匹配。greediness 参数决定搜索过程中提前终止的“贪婪”程度：值越大，算法越早放弃低相似度的候选，速度更快，但可能漏掉被遮挡或变形的目标；值越小，搜索越保守，鲁棒性更好。实际应用中需根据场景中遮挡程度、干扰数量平衡二者。",
+      "principle": "金字塔搜索通过降采样构建图像金字塔，在顶层用较小的搜索窗口快速定位可能区域，然后沿金字塔向下映射，仅在候选区域附近进行细化匹配。匹配相似度通常基于归一化互相关（NCC）或形状相似度。greediness 利用分支限界思想，在搜索过程中若当前相似度低于阈值与剩余层数可能达到的最大值之和，则剪枝，从而加速。参数设置直接影响召回率与准确率。",
+      "id": "aiq-038795c3",
+      "generatedAt": "2026-09-02T13:05:33.928Z",
+      "provider": "opencode-go",
+      "model": "deepseek-v4-flash",
+      "project": "机器视觉专业知识",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "HALCON",
+      "detectionDirectionFilter": "随机方向"
+    },
+    {
+      "title": "HALCON中edges_sub_pix算子提取亚像素边缘时，滞后阈值与平滑系数如何影响边缘检测结果？",
+      "type": "算法原理",
+      "category": "图像处理",
+      "source": "专业",
+      "sourceType": "官方文档整理",
+      "knowledgePoints": [
+        "亚像素边缘提取原理",
+        "滞后阈值机制",
+        "平滑系数与噪声抑制",
+        "参数调整策略"
+      ],
+      "difficulty": "中等",
+      "tags": [
+        "HALCON",
+        "亚像素边缘",
+        "Canny",
+        "参数调优"
+      ],
+      "keywords": [
+        "亚像素边缘",
+        "滞后阈值",
+        "平滑系数",
+        "Canny算法"
+      ],
+      "followUp": "当图像噪声较大且目标边缘对比度较低时，应如何调整这两个参数？为什么？",
+      "hint": "先解释滞后阈值的高/低阈值作用，再说明平滑系数与高斯滤波的关系，最后给出参数调整策略。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "detectionDirection": "传统 2D 视觉",
+      "bestAnswer": "edges_sub_pix基于Canny算法，滞后阈值需要设置两个值：高阈值用于确定强边缘，低阈值用于保留与强边缘相连的弱边缘。平滑系数控制高斯滤波的尺度，系数越大，抑制噪声能力越强，但边缘定位精度会下降。当噪声大且对比度低时，应适当提高平滑系数以抑制噪声，同时降低低阈值以保留弱边缘，但需注意高阈值不宜过高，否则会断裂边缘。实际调试时可通过灰度直方图观察边缘幅值分布来设定阈值。",
+      "principle": "Canny边缘检测首先用高斯滤波平滑图像，然后计算梯度幅值和方向，进行非极大值抑制，最后用双阈值连接边缘。HALCON的edges_sub_pix在亚像素层面拟合边缘位置，通过插值或矩方法获得亚像素坐标。平滑系数对应高斯核的标准差，阈值则基于梯度幅值直方图。",
+      "id": "aiq-54071399",
+      "generatedAt": "2026-09-02T13:05:33.928Z",
+      "provider": "opencode-go",
+      "model": "deepseek-v4-flash",
+      "project": "机器视觉专业知识",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "HALCON",
+      "detectionDirectionFilter": "随机方向"
+    },
+    {
+      "title": "使用HALCON卡尺工具（如measure_pos）进行尺寸测量时，测量矩形的宽度、长度和边缘阈值对测量稳定性的影响是什么？",
+      "type": "工程实践",
+      "category": "测量技术",
+      "source": "专业",
+      "sourceType": "技术教程整理",
+      "knowledgePoints": [
+        "一维灰度剖面分析",
+        "测量矩形参数作用",
+        "边缘极性过滤",
+        "抗干扰测量策略"
+      ],
+      "difficulty": "中等",
+      "tags": [
+        "HALCON",
+        "卡尺测量",
+        "尺寸测量",
+        "参数优化"
+      ],
+      "keywords": [
+        "卡尺工具",
+        "测量矩形",
+        "边缘阈值",
+        "重复性"
+      ],
+      "followUp": "当被测物体表面有反光或毛刺时，如何调整测量参数以保证测量重复性？",
+      "hint": "从测量矩形各参数的功能入手，分析对边缘定位的影响，再给出抗干扰调整方法。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "detectionDirection": "传统 2D 视觉",
+      "bestAnswer": "测量矩形的宽度决定边缘法线方向参与平均的像素行数，宽度过小易受噪声干扰，过大则模糊边缘；长度决定搜索范围，需覆盖边缘位置波动范围；边缘阈值设定边缘幅值门限，阈值过高可能漏检弱边缘，过低则误检干扰。对于反光或毛刺，可适当增加宽度以平滑灰度曲线，同时提高阈值并利用边缘极性过滤，也可使用多次测量取中值或均值来提高稳定性。",
+      "principle": "卡尺工具在测量矩形内沿边缘法线方向提取一维灰度剖面，通过计算灰度梯度并搜索极值点确定边缘位置。测量矩形的宽度对应剖面平均的线数，长度对应剖面长度，阈值则用于筛选梯度幅值足够大的边缘点，从而抑制伪边缘。",
+      "id": "aiq-59de75cb",
+      "generatedAt": "2026-09-02T13:05:33.928Z",
+      "provider": "opencode-go",
+      "model": "deepseek-v4-flash",
+      "project": "机器视觉专业知识",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "HALCON",
+      "detectionDirectionFilter": "随机方向"
+    },
+    {
+      "title": "HALCON中edges_sub_pix亚像素边缘提取的原理是什么？如何通过参数控制边缘提取的精度与抗噪性？",
+      "type": "算法原理",
+      "category": "图像处理",
+      "source": "专业",
+      "sourceType": "AI知识整理",
+      "knowledgePoints": [
+        "亚像素边缘提取原理",
+        "参数Sigma对平滑与定位的影响",
+        "阈值参数的作用"
+      ],
+      "difficulty": "中等",
+      "tags": [
+        "HALCON",
+        "亚像素边缘提取",
+        "edges_sub_pix"
+      ],
+      "keywords": [
+        "亚像素",
+        "边缘提取",
+        "Sigma",
+        "阈值"
+      ],
+      "followUp": "如果图像中同时存在强边缘和弱边缘，如何设置参数才能避免漏检弱边缘且不产生过多伪边缘？",
+      "hint": "从亚像素插值原理、高斯平滑、滞后阈值等方面组织回答。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "detectionDirection": "传统 2D 视觉",
+      "bestAnswer": "edges_sub_pix基于Canny算法思想，先通过高斯滤波抑制噪声，再计算梯度幅值和方向，进行非极大值抑制，最后用滞后阈值连接边缘。亚像素位置通过边缘附近灰度梯度插值获得。Sigma控制高斯平滑程度，Sigma越大，抗噪越强但边缘定位精度下降；Threshold和MinAmplitude控制边缘响应阈值，较高的阈值可减少伪边缘但可能漏检弱边缘。实际应用中需根据图像噪声水平和边缘对比度权衡。",
+      "principle": "HALCON的edges_sub_pix在梯度方向上对梯度幅值进行抛物线插值，得到边缘点的亚像素坐标。高斯滤波的尺度决定了边缘的平滑范围，Sigma越大，滤波越强，边缘越粗，定位偏差越大。阈值参数通过抑制低响应梯度点来筛选边缘，滞后阈值利用双阈值连接边缘，提高连续性。",
+      "id": "aiq-dbc852d4",
+      "generatedAt": "2026-09-02T13:05:33.928Z",
+      "provider": "opencode-go",
+      "model": "deepseek-v4-flash",
+      "project": "机器视觉专业知识",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "HALCON",
+      "detectionDirectionFilter": "随机方向"
+    },
+    {
+      "title": "HALCON中如何使用频域滤波进行纹理表面缺陷检测？请说明流程及高通滤波器参数选择依据。",
+      "type": "算法原理",
+      "category": "图像处理",
+      "source": "专业",
+      "sourceType": "AI知识整理",
+      "knowledgePoints": [
+        "傅里叶变换在图像处理中的应用",
+        "HALCON频域滤波算子（fft_generic、highpass_image）",
+        "高通滤波器截止频率的确定方法",
+        "频域滤波与空间域Blob分析的结合"
+      ],
+      "difficulty": "中等",
+      "tags": [
+        "HALCON",
+        "频域滤波",
+        "缺陷检测",
+        "纹理分析"
+      ],
+      "keywords": [
+        "fft_generic",
+        "highpass_image",
+        "高通滤波",
+        "频谱分析",
+        "截止频率"
+      ],
+      "followUp": "如果缺陷信号与背景纹理的频率重叠，如何调整滤波策略？",
+      "hint": "从傅里叶变换原理出发，描述频域滤波的完整流程，并说明如何通过频谱图确定截止频率。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "detectionDirection": "传统 2D 视觉",
+      "bestAnswer": "在HALCON中，频域滤波缺陷检测的流程为：首先对图像进行FFT变换（使用fft_generic），将空间域信息转换为频谱图；然后设计高通滤波器（如highpass_image）抑制低频背景纹理，保留缺陷对应的高频成分；再通过逆FFT（fft_generic）将滤波后的频谱还原为空间域图像；最后对输出图像进行阈值分割和Blob分析，提取缺陷区域。参数选择需观察频谱图，确定纹理主频位置，设置截止频率低于缺陷频率，同时避免过度放大噪声。该方法特别适用于周期性纹理表面的细小缺陷检测。",
+      "principle": "傅里叶变换将图像分解为不同频率的正弦波分量。周期性纹理在频域中表现为离散的峰值，而缺陷（如划痕、污点）通常产生宽带高频信号。高通滤波通过衰减低频分量和周期性峰值，使缺陷信号相对增强。fft_generic执行快速傅里叶变换，highpass_image实现频域滤波，逆变换恢复空间域。合理选择滤波器尺寸和截止频率，可在抑制背景的同时保留缺陷细节。",
+      "id": "aiq-50f2944a",
+      "generatedAt": "2026-09-02T13:05:33.928Z",
+      "provider": "opencode-go",
+      "model": "deepseek-v4-flash",
+      "project": "机器视觉专业知识",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "HALCON",
+      "detectionDirectionFilter": "随机方向"
+    },
+    {
+      "title": "HALCON中使用fit_circle_contour_xld拟合圆时，如何选择拟合算法？请比较代数拟合、几何拟合和鲁棒拟合的适用场景及参数影响。",
+      "type": "算法原理",
+      "category": "轮廓分析",
+      "source": "专业",
+      "sourceType": "AI知识整理",
+      "knowledgePoints": [
+        "XLD亚像素轮廓的几何拟合原理",
+        "代数拟合与几何拟合的数学差异",
+        "鲁棒拟合对离群点的处理机制",
+        "拟合参数（Algorithm、MaxNumPoints、ClippingFactor）对精度的影响"
+      ],
+      "difficulty": "中等",
+      "tags": [
+        "HALCON",
+        "XLD",
+        "轮廓拟合",
+        "最小二乘"
+      ],
+      "keywords": [
+        "fit_circle_contour_xld",
+        "Algorithm参数",
+        "geometric",
+        "algebraic",
+        "robust",
+        "离群点"
+      ],
+      "followUp": "如果轮廓中包含少量离群点，你会选择哪种算法？为什么？请说明参数如何调整。",
+      "hint": "先解释三种拟合算法的数学原理，再对比噪声鲁棒性和计算效率，最后给出参数选择建议。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "detectionDirection": "传统 2D 视觉",
+      "bestAnswer": "HALCON中fit_circle_contour_xld提供三种拟合算法。代数拟合（algebraic）通过最小化代数距离，计算速度快，但对噪声敏感；几何拟合（geometric）最小化点到圆的几何距离，精度高，但迭代计算较慢；鲁棒拟合（robust）采用Huber或Tukey权重函数抑制离群点影响，适合含噪声或局部缺陷的轮廓。实际选型时，若轮廓质量高且需实时性，选代数拟合；若精度优先，选几何拟合；若轮廓存在离群点，选鲁棒拟合，并调整MaxNumPoints限制点数或设置ClippingFactor控制离群阈值。还需注意轮廓的闭合性和方向。",
+      "principle": "代数拟合将圆方程隐式化，通过求解线性方程组最小化代数距离，计算简单但不满足几何不变性；几何拟合基于牛顿迭代最小化点到圆的欧氏距离，精度高但依赖初始值；鲁棒拟合通过迭代加权最小二乘，降低大残差点的权重，从而削弱离群点影响。HALCON中Algorithm参数选择拟合策略，MaxNumPoints用于降采样，MaxClosureDist处理不完整圆弧。理解这些原理有助于根据图像噪声和精度要求选择合适的拟合方式。",
+      "id": "aiq-ef4ce324",
+      "generatedAt": "2026-09-02T13:05:33.928Z",
       "provider": "opencode-go",
       "model": "deepseek-v4-flash",
       "project": "机器视觉专业知识",
