@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-02T07:30:11.198Z",
+  "updatedAt": "2026-09-02T07:30:15.482Z",
   "data": {
     "vision-interview-records": [
       {
@@ -2007,6 +2007,35 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788334216052-riwhz6sl",
+        "timestamp": "2026-09-02T07:30:16.052Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788334179286-pdtwgnjv",
+        "event": "question-bank.ai-request.duration",
+        "message": "单个并行 AI 请求完成",
+        "context": {
+          "attempt": 1,
+          "workerIndex": 4,
+          "parallelRequests": 5,
+          "requestedCount": 2,
+          "receivedCount": 2,
+          "durationMs": 26098
+        }
+      },
+      {
+        "id": "1788334215138-cs2tzak1",
+        "timestamp": "2026-09-02T07:30:15.138Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "81e3c2a3ccf1"
+        }
+      },
       {
         "id": "1788334212006-pvij1pnh",
         "timestamp": "2026-09-02T07:30:12.006Z",
@@ -15653,50 +15682,6 @@
           "requestedCount": 1,
           "receivedCount": 1,
           "durationMs": 36626
-        }
-      },
-      {
-        "id": "1788268017244-8enaxdkg",
-        "timestamp": "2026-09-01T13:06:57.244Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788267920001-m70g11yz",
-        "event": "question-group.prepare.started",
-        "message": "开始准备题组",
-        "context": {
-          "project": "机器视觉专业知识",
-          "mode": "专业知识",
-          "questionCount": 10,
-          "sourceMode": "network",
-          "adaptiveQuestions": true,
-          "focusCategories": [
-            "算法原理",
-            "工程实践",
-            "图像预处理",
-            "模板与定位"
-          ]
-        }
-      },
-      {
-        "id": "1788268016558-6p7xreg9",
-        "timestamp": "2026-09-01T13:06:56.558Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788267920001-m70g11yz",
-        "event": "question-group.prepare.started",
-        "message": "开始准备题组",
-        "context": {
-          "project": "机器视觉专业知识",
-          "mode": "专业知识",
-          "questionCount": 10,
-          "sourceMode": "network",
-          "adaptiveQuestions": true,
-          "focusCategories": [
-            "算法原理",
-            "工程实践",
-            "图像预处理",
-            "模板与定位"
-          ]
         }
       }
     ]
