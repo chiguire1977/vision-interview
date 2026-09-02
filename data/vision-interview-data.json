@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-02T08:48:32.913Z",
+  "updatedAt": "2026-09-02T08:48:38.973Z",
   "data": {
     "vision-interview-records": [
       {
@@ -2007,6 +2007,136 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788338920373-h1okrzj9",
+        "timestamp": "2026-09-02T08:48:40.373Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "question-bank.close.flush",
+        "message": "关闭或后台切换时提交完整 AI 题库",
+        "context": {
+          "entryCount": 101,
+          "pendingCount": 10,
+          "transport": "keepalive"
+        }
+      },
+      {
+        "id": "1788338920366-gvt3fxtb",
+        "timestamp": "2026-09-02T08:48:40.366Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.close.flush",
+        "message": "页面关闭或进入后台，提交最后一次备份"
+      },
+      {
+        "id": "1788338917714-gfukfy4m",
+        "timestamp": "2026-09-02T08:48:37.714Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788338320411-38gvsbsd",
+        "event": "question-group.prepare.completed",
+        "message": "AI 已生成完整 10 道题目、标准回答和技术原理；远程题库正在后台同步。",
+        "context": {
+          "source": "AI",
+          "questionCount": 10
+        }
+      },
+      {
+        "id": "1788338917711-eykwci27",
+        "timestamp": "2026-09-02T08:48:37.711Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788338320411-38gvsbsd",
+        "event": "github.backup.started",
+        "message": "开始备份数据到 GitHub",
+        "context": {
+          "operation": "ai-question-bank",
+          "entryCount": 10,
+          "pendingCount": 10,
+          "totalCount": 101,
+          "complete": true
+        }
+      },
+      {
+        "id": "1788338917704-fbdntzqu",
+        "timestamp": "2026-09-02T08:48:37.704Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788338320411-38gvsbsd",
+        "event": "question-bank.ai-request.duration",
+        "message": "单个并行 AI 请求完成",
+        "context": {
+          "attempt": 4,
+          "workerIndex": 1,
+          "parallelRequests": 4,
+          "requestedCount": 1,
+          "receivedCount": 1,
+          "durationMs": 51869
+        }
+      },
+      {
+        "id": "1788338917326-76jzckty",
+        "timestamp": "2026-09-02T08:48:37.326Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "666c590aec77"
+        }
+      },
+      {
+        "id": "1788338915060-xikt3wf2",
+        "timestamp": "2026-09-02T08:48:35.060Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788338320411-38gvsbsd",
+        "event": "question-group.prepare.started",
+        "message": "开始准备题组",
+        "context": {
+          "project": "机器视觉专业知识",
+          "mode": "专业知识",
+          "questionCount": 10,
+          "sourceMode": "network",
+          "adaptiveQuestions": false,
+          "focusCategories": []
+        }
+      },
+      {
+        "id": "1788338913824-lftfch61",
+        "timestamp": "2026-09-02T08:48:33.824Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788338320411-38gvsbsd",
+        "event": "question-group.prepare.started",
+        "message": "开始准备题组",
+        "context": {
+          "project": "机器视觉专业知识",
+          "mode": "专业知识",
+          "questionCount": 10,
+          "sourceMode": "network",
+          "adaptiveQuestions": false,
+          "focusCategories": []
+        }
+      },
+      {
+        "id": "1788338913267-dq53jnc9",
+        "timestamp": "2026-09-02T08:48:33.267Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788338320411-38gvsbsd",
+        "event": "question-group.prepare.started",
+        "message": "开始准备题组",
+        "context": {
+          "project": "机器视觉专业知识",
+          "mode": "专业知识",
+          "questionCount": 10,
+          "sourceMode": "network",
+          "adaptiveQuestions": false,
+          "focusCategories": []
+        }
+      },
       {
         "id": "1788338907824-fuzf53cd",
         "timestamp": "2026-09-02T08:48:27.824Z",
@@ -15134,103 +15264,6 @@
         "context": {
           "reason": "change",
           "commit": "0d38f5946de7"
-        }
-      },
-      {
-        "id": "1788276252866-1f2jykjy",
-        "timestamp": "2026-09-01T15:24:12.866Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.close.flush",
-        "message": "页面关闭或进入后台，提交最后一次备份"
-      },
-      {
-        "id": "1788276247586-hvul30z3",
-        "timestamp": "2026-09-01T15:24:07.586Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "bc10adee049d"
-        }
-      },
-      {
-        "id": "1788276239478-9i1aei2t",
-        "timestamp": "2026-09-01T15:23:59.478Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "eefcd65d5620"
-        }
-      },
-      {
-        "id": "1788276238839-4jmr09g8",
-        "timestamp": "2026-09-01T15:23:58.839Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.close.flush",
-        "message": "页面关闭或进入后台，提交最后一次备份"
-      },
-      {
-        "id": "1788276234767-w8y16h15",
-        "timestamp": "2026-09-01T15:23:54.767Z",
-        "level": "ERROR",
-        "kind": "system",
-        "event": "backup.push.failed",
-        "message": "运行数据备份失败",
-        "context": {
-          "status": 502,
-          "reason": "GitHub 备份失败（HTTP 409）：{\"message\":\"data/vision-interview-data.json does not match 56bdea386058dbc6282896d8d29d536257dc4b29\",\"documentation_url\":\"https://docs.github.com/rest/repos/contents#create-or-update-file-contents\",\"status\":\"409\"}"
-        }
-      },
-      {
-        "id": "1788276228019-axz5e9uj",
-        "timestamp": "2026-09-01T15:23:48.019Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788276226276-xpf9thjq",
-        "event": "question-bank.remote.loaded",
-        "message": "GitHub AI 历史题库加载完成",
-        "context": {
-          "questionCount": 23,
-          "githubQuestionCount": 23,
-          "pendingCount": 0
-        }
-      },
-      {
-        "id": "1788276226270-bu1m0txo",
-        "timestamp": "2026-09-01T15:23:46.269Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.startup.loaded",
-        "message": "启动配置加载完成",
-        "context": {
-          "source": "github",
-          "updatedAt": "2026-09-01T15:17:18.776Z"
-        }
-      },
-      {
-        "id": "1788276225055-eg9gaici",
-        "timestamp": "2026-09-01T15:23:45.055Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.close.flush",
-        "message": "页面关闭或进入后台，提交最后一次备份"
-      },
-      {
-        "id": "1788276225051-bjx9hi3q",
-        "timestamp": "2026-09-01T15:23:45.051Z",
-        "level": "ERROR",
-        "kind": "system",
-        "event": "backup.push.failed",
-        "message": "运行数据备份请求失败",
-        "context": {
-          "error": "Failed to fetch"
         }
       }
     ]
