@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-02T10:06:04.876Z",
+  "updatedAt": "2026-09-02T10:06:32.530Z",
   "data": {
     "vision-interview-records": [
       {
@@ -2007,6 +2007,35 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788343588975-8xrmdi74",
+        "timestamp": "2026-09-02T10:06:28.975Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788343468196-zjzo0dai",
+        "event": "question-bank.ai-request.duration",
+        "message": "单个并行 AI 请求完成",
+        "context": {
+          "attempt": 2,
+          "workerIndex": 4,
+          "parallelRequests": 4,
+          "requestedCount": 2,
+          "receivedCount": 2,
+          "durationMs": 51211
+        }
+      },
+      {
+        "id": "1788343558130-1jog2ri7",
+        "timestamp": "2026-09-02T10:05:58.130Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "fdd84e90973a"
+        }
+      },
       {
         "id": "1788343551554-720tu8xc",
         "timestamp": "2026-09-02T10:05:51.554Z",
@@ -16627,31 +16656,6 @@
         "context": {
           "reason": "change",
           "commit": "dd01c54bd52c"
-        }
-      },
-      {
-        "id": "1788334210453-wcioikm5",
-        "timestamp": "2026-09-02T07:30:10.453Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.close.flush",
-        "message": "页面关闭或进入后台，提交最后一次备份"
-      },
-      {
-        "id": "1788334205617-gtvfpdul",
-        "timestamp": "2026-09-02T07:30:05.617Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788334179286-pdtwgnjv",
-        "event": "question-group.prepare.started",
-        "message": "开始准备题组",
-        "context": {
-          "project": "机器视觉专业知识",
-          "mode": "专业知识",
-          "questionCount": 10,
-          "sourceMode": "network",
-          "adaptiveQuestions": false,
-          "focusCategories": []
         }
       }
     ]
