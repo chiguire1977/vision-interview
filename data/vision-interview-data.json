@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-02T07:07:29.055Z",
+  "updatedAt": "2026-09-02T07:07:34.361Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1528,7 +1528,8 @@
       "upstreamFormat": "chat-completions",
       "questionGroupSize": 10,
       "parallelRequests": 5,
-      "adaptiveQuestions": false
+      "adaptiveQuestions": false,
+      "reviewEnabled": true
     },
     "vision-interview-ai-provider-settings": {
       "deepseek": {
@@ -1816,6 +1817,18 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788332853064-rjigub17",
+        "timestamp": "2026-09-02T07:07:33.064Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "01bb11df5439"
+        }
+      },
       {
         "id": "1788332849728-vwpluy9x",
         "timestamp": "2026-09-02T07:07:29.728Z",
@@ -15639,24 +15652,6 @@
           "sourceCount": 0,
           "workerIndex": 2,
           "parallelRequests": 5
-        }
-      },
-      {
-        "id": "1788266641542-z0kpd221",
-        "timestamp": "2026-09-01T12:44:01.542Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264675884-efebbymx",
-        "event": "question-bank.web-search.started",
-        "message": "开始联网检索本轮题目资料",
-        "context": {
-          "attempt": 4,
-          "query": "机器视觉 面试知识点 HALCON 算法原理 工程实践 图像预处理 模板与定位 深度图 点云 法线估计 RANSAC find_surface_model 原理 工程实践",
-          "mode": "专业知识",
-          "excludedCount": 7,
-          "workerIndex": 3,
-          "parallelRequests": 5,
-          "requestedCount": 1
         }
       }
     ]
