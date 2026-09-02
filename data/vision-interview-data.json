@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-02T13:03:33.784Z",
+  "updatedAt": "2026-09-02T13:03:37.583Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1817,6 +1817,35 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788354219740-raeiayfd",
+        "timestamp": "2026-09-02T13:03:39.740Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "8b4733dbc60b"
+        }
+      },
+      {
+        "id": "1788354214030-zeemtqi0",
+        "timestamp": "2026-09-02T13:03:34.030Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788345131423-wywacu41",
+        "event": "question-bank.ai-request.duration",
+        "message": "单个并行 AI 请求完成",
+        "context": {
+          "attempt": 2,
+          "workerIndex": 2,
+          "parallelRequests": 4,
+          "requestedCount": 1,
+          "receivedCount": 1,
+          "durationMs": 21669
+        }
+      },
       {
         "id": "1788354213540-s1tv013u",
         "timestamp": "2026-09-02T13:03:33.540Z",
@@ -17053,30 +17082,6 @@
           "questionCount": 101,
           "githubQuestionCount": 101,
           "pendingCount": 0
-        }
-      },
-      {
-        "id": "1788339278559-zkbwqdqg",
-        "timestamp": "2026-09-02T08:54:38.559Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.startup.loaded",
-        "message": "启动配置加载完成",
-        "context": {
-          "source": "github",
-          "updatedAt": "2026-09-02T08:54:31.555Z"
-        }
-      },
-      {
-        "id": "1788339272224-b986wiy9",
-        "timestamp": "2026-09-02T08:54:32.224Z",
-        "level": "ERROR",
-        "kind": "system",
-        "event": "backup.push.failed",
-        "message": "运行数据备份失败",
-        "context": {
-          "status": 502,
-          "reason": "GitHub 备份失败（HTTP 409）：{\"message\":\"data/vision-interview-data.json does not match e8dc93d015c958d7690eb6bf0b1a9210197c8f2a\",\"documentation_url\":\"https://docs.github.com/rest/repos/contents#create-or-update-file-contents\",\"status\":\"409\"}"
         }
       }
     ]
