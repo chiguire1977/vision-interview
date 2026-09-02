@@ -8,7 +8,7 @@ import {
 } from "@/lib/training-preparation-dom.mjs";
 
 function findTransportCancelButton() {
-  for (const button of document.querySelectorAll("button")) {
+  for (const button of Array.from(document.querySelectorAll("button"))) {
     if (button.id === TRAINING_PREPARATION_CANCEL_ID) continue;
     if ((button.textContent || "").trim() === "中断准备") return button as HTMLButtonElement;
   }
