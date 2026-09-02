@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-02T08:43:14.878Z",
+  "updatedAt": "2026-09-02T08:43:17.338Z",
   "data": {
     "vision-interview-records": [
       {
@@ -2008,12 +2008,76 @@
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
       {
+        "id": "1788338597760-g5urteno",
+        "timestamp": "2026-09-02T08:43:17.760Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788338320411-38gvsbsd",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 3,
+          "query": "机器视觉 面试知识点 HALCON 传统 2D 视觉 仅限二维图像处理，排除 3D、三维、点云、深度图、法线估计、平面拟合、立体视觉、结构光和双目 原理 工程实践",
+          "sourceCount": 8,
+          "parallelRequests": 4,
+          "requestedCount": 10,
+          "durationMs": 3,
+          "sharedAcrossWorkers": true
+        }
+      },
+      {
+        "id": "1788338597758-d3vsr5hu",
+        "timestamp": "2026-09-02T08:43:17.758Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788338320411-38gvsbsd",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 3,
+          "query": "机器视觉 面试知识点 HALCON 传统 2D 视觉 仅限二维图像处理，排除 3D、三维、点云、深度图、法线估计、平面拟合、立体视觉、结构光和双目 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 8,
+          "parallelRequests": 4,
+          "requestedCount": 10
+        }
+      },
+      {
+        "id": "1788338597755-c5aw4siy",
+        "timestamp": "2026-09-02T08:43:17.755Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788338320411-38gvsbsd",
+        "event": "question-bank.ai-request.failed",
+        "message": "单个并行 AI 请求失败",
+        "context": {
+          "attempt": 2,
+          "workerIndex": 3,
+          "parallelRequests": 4,
+          "requestedCount": 1,
+          "durationMs": 60217,
+          "error": "AI 请求超时，请稍后重试。"
+        }
+      },
+      {
         "id": "1788338596003-bczfhpoo",
         "timestamp": "2026-09-02T08:43:16.003Z",
         "level": "INFO",
         "kind": "system",
         "event": "backup.close.flush",
         "message": "页面关闭或进入后台，提交最后一次备份"
+      },
+      {
+        "id": "1788338586168-zi2m6yww",
+        "timestamp": "2026-09-02T08:43:06.168Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "2a4f573acf48"
+        }
       },
       {
         "id": "1788338580411-v1m0lvmk",
@@ -14951,74 +15015,6 @@
           "collectedCount": 2,
           "workerIndex": 2,
           "parallelRequests": 5,
-          "error": "AI 请求超时，请稍后重试。"
-        }
-      },
-      {
-        "id": "1788271120624-l493sduh",
-        "timestamp": "2026-09-01T13:58:40.624Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788270845321-n003ywzy",
-        "event": "question-bank.attempt.failed",
-        "message": "第 3/6 轮（并行 1/5）：本轮请求失败：AI 请求超时，请稍后重试。，准备下一轮…",
-        "context": {
-          "attempt": 3,
-          "maxAttempts": 6,
-          "collectedCount": 2,
-          "workerIndex": 1,
-          "parallelRequests": 5,
-          "error": "AI 请求超时，请稍后重试。"
-        }
-      },
-      {
-        "id": "1788271120617-hsgid94y",
-        "timestamp": "2026-09-01T13:58:40.617Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788270845321-n003ywzy",
-        "event": "question-bank.ai-request.failed",
-        "message": "单个并行 AI 请求失败",
-        "context": {
-          "attempt": 3,
-          "workerIndex": 5,
-          "parallelRequests": 5,
-          "requestedCount": 1,
-          "durationMs": 60296,
-          "error": "AI 请求超时，请稍后重试。"
-        }
-      },
-      {
-        "id": "1788271120610-3czstmqo",
-        "timestamp": "2026-09-01T13:58:40.610Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788270845321-n003ywzy",
-        "event": "question-bank.ai-request.failed",
-        "message": "单个并行 AI 请求失败",
-        "context": {
-          "attempt": 3,
-          "workerIndex": 3,
-          "parallelRequests": 5,
-          "requestedCount": 2,
-          "durationMs": 60307,
-          "error": "AI 请求超时，请稍后重试。"
-        }
-      },
-      {
-        "id": "1788271120604-y8sjh4ah",
-        "timestamp": "2026-09-01T13:58:40.604Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788270845321-n003ywzy",
-        "event": "question-bank.ai-request.failed",
-        "message": "单个并行 AI 请求失败",
-        "context": {
-          "attempt": 3,
-          "workerIndex": 4,
-          "parallelRequests": 5,
-          "requestedCount": 1,
-          "durationMs": 60292,
           "error": "AI 请求超时，请稍后重试。"
         }
       }
