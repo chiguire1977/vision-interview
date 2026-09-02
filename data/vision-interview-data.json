@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-02T08:42:17.525Z",
+  "updatedAt": "2026-09-02T08:42:35.201Z",
   "data": {
     "vision-interview-records": [
       {
@@ -2007,6 +2007,35 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788338551497-ej8ojntx",
+        "timestamp": "2026-09-02T08:42:31.497Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788338320411-38gvsbsd",
+        "event": "question-group.prepare.started",
+        "message": "开始准备题组",
+        "context": {
+          "project": "机器视觉专业知识",
+          "mode": "专业知识",
+          "questionCount": 10,
+          "sourceMode": "network",
+          "adaptiveQuestions": false,
+          "focusCategories": []
+        }
+      },
+      {
+        "id": "1788338542318-nsaeh894",
+        "timestamp": "2026-09-02T08:42:22.318Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "d564c946f0a4"
+        }
+      },
       {
         "id": "1788338538522-dl83jffg",
         "timestamp": "2026-09-02T08:42:18.522Z",
@@ -15025,40 +15054,6 @@
           "parallelRequests": 5,
           "requestedCount": 2,
           "durationMs": 62144,
-          "error": "AI 请求超时，请稍后重试。"
-        }
-      },
-      {
-        "id": "1788271055697-nerzirid",
-        "timestamp": "2026-09-01T13:57:35.697Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788270845321-n003ywzy",
-        "event": "question-bank.ai-request.failed",
-        "message": "单个并行 AI 请求失败",
-        "context": {
-          "attempt": 2,
-          "workerIndex": 5,
-          "parallelRequests": 5,
-          "requestedCount": 2,
-          "durationMs": 62013,
-          "error": "AI 请求超时，请稍后重试。"
-        }
-      },
-      {
-        "id": "1788271055690-ehmqigwv",
-        "timestamp": "2026-09-01T13:57:35.690Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788270845321-n003ywzy",
-        "event": "question-bank.ai-request.failed",
-        "message": "单个并行 AI 请求失败",
-        "context": {
-          "attempt": 2,
-          "workerIndex": 3,
-          "parallelRequests": 5,
-          "requestedCount": 2,
-          "durationMs": 62020,
           "error": "AI 请求超时，请稍后重试。"
         }
       }
