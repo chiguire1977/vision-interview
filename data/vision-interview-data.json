@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-02T11:48:56.557Z",
+  "updatedAt": "2026-09-02T11:48:59.663Z",
   "data": {
     "vision-interview-records": [
       {
@@ -2007,6 +2007,41 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788349741578-3acx35ck",
+        "timestamp": "2026-09-02T11:49:01.578Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "96ff94db2f9f"
+        }
+      },
+      {
+        "id": "1788349738517-b53hturk",
+        "timestamp": "2026-09-02T11:48:58.517Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788345131423-wywacu41",
+        "event": "group.review.started",
+        "message": "题组已完成，开始统一评审"
+      },
+      {
+        "id": "1788349738515-lutk7wfi",
+        "timestamp": "2026-09-02T11:48:58.515Z",
+        "level": "WARN",
+        "kind": "user",
+        "sessionId": "1788345131423-wywacu41",
+        "event": "answer.skipped",
+        "message": "当前题目已跳过",
+        "context": {
+          "question": "在HALCON中训练自定义OCR分类器时，如何构建训练样本并评估识别性能？",
+          "mode": "专业知识",
+          "project": "机器视觉专业知识"
+        }
+      },
       {
         "id": "1788349736277-14nusp8m",
         "timestamp": "2026-09-02T11:48:56.277Z",
@@ -17278,57 +17313,6 @@
           "requestedCount": 10,
           "durationMs": 2,
           "sharedAcrossWorkers": true
-        }
-      },
-      {
-        "id": "1788338823954-jt9iofll",
-        "timestamp": "2026-09-02T08:47:03.954Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788338320411-38gvsbsd",
-        "event": "question-bank.web-search.started",
-        "message": "开始联网检索本轮题目资料",
-        "context": {
-          "attempt": 3,
-          "query": "机器视觉 面试知识点 HALCON 传统 2D 视觉 仅限二维图像处理，排除 3D、三维、点云、深度图、法线估计、平面拟合、立体视觉、结构光和双目 原理 工程实践",
-          "mode": "专业知识",
-          "excludedCount": 8,
-          "parallelRequests": 4,
-          "requestedCount": 10
-        }
-      },
-      {
-        "id": "1788338823951-ic95m20i",
-        "timestamp": "2026-09-02T08:47:03.951Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788338320411-38gvsbsd",
-        "event": "question-bank.ai-request.failed",
-        "message": "单个并行 AI 请求失败",
-        "context": {
-          "attempt": 2,
-          "workerIndex": 2,
-          "parallelRequests": 4,
-          "requestedCount": 2,
-          "durationMs": 60310,
-          "error": "AI 请求超时，请稍后重试。"
-        }
-      },
-      {
-        "id": "1788338821989-88yzthei",
-        "timestamp": "2026-09-02T08:47:01.989Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788338320411-38gvsbsd",
-        "event": "question-group.prepare.started",
-        "message": "开始准备题组",
-        "context": {
-          "project": "机器视觉专业知识",
-          "mode": "专业知识",
-          "questionCount": 10,
-          "sourceMode": "network",
-          "adaptiveQuestions": false,
-          "focusCategories": []
         }
       }
     ]
