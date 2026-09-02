@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-02T10:09:36.351Z",
+  "updatedAt": "2026-09-02T10:09:51.510Z",
   "data": {
     "vision-interview-records": [
       {
@@ -2007,6 +2007,87 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788343791166-smakox1q",
+        "timestamp": "2026-09-02T10:09:51.166Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788343728457-e0wb33gd",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 2,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "sourceCount": 0,
+          "parallelRequests": 4,
+          "requestedCount": 10,
+          "durationMs": 472,
+          "sharedAcrossWorkers": true
+        }
+      },
+      {
+        "id": "1788343790694-0630ct7j",
+        "timestamp": "2026-09-02T10:09:50.694Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788343728457-e0wb33gd",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 2,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 4,
+          "parallelRequests": 4,
+          "requestedCount": 10
+        }
+      },
+      {
+        "id": "1788343790692-5w3in8za",
+        "timestamp": "2026-09-02T10:09:50.692Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788343728457-e0wb33gd",
+        "event": "question-bank.ai-request.failed",
+        "message": "单个并行 AI 请求失败",
+        "context": {
+          "attempt": 1,
+          "workerIndex": 2,
+          "parallelRequests": 4,
+          "requestedCount": 3,
+          "durationMs": 60169,
+          "error": "AI 请求超时，请稍后重试。"
+        }
+      },
+      {
+        "id": "1788343790689-j3k23i4y",
+        "timestamp": "2026-09-02T10:09:50.689Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788343728457-e0wb33gd",
+        "event": "question-bank.ai-request.failed",
+        "message": "单个并行 AI 请求失败",
+        "context": {
+          "attempt": 1,
+          "workerIndex": 1,
+          "parallelRequests": 4,
+          "requestedCount": 3,
+          "durationMs": 60167,
+          "error": "AI 请求超时，请稍后重试。"
+        }
+      },
+      {
+        "id": "1788343780894-26wc6ssk",
+        "timestamp": "2026-09-02T10:09:40.894Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "fb1f02cf92a9"
+        }
+      },
       {
         "id": "1788343772844-ge9wmz71",
         "timestamp": "2026-09-02T10:09:32.844Z",
@@ -16838,58 +16919,6 @@
         "kind": "system",
         "event": "backup.close.flush",
         "message": "页面关闭或进入后台，提交最后一次备份"
-      },
-      {
-        "id": "1788336180733-r6oxezio",
-        "timestamp": "2026-09-02T08:03:00.733Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "2b752739e5ab"
-        }
-      },
-      {
-        "id": "1788336169833-ar63l17z",
-        "timestamp": "2026-09-02T08:02:49.832Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.close.flush",
-        "message": "页面关闭或进入后台，提交最后一次备份"
-      },
-      {
-        "id": "1788336009868-go64f4ze",
-        "timestamp": "2026-09-02T08:00:09.868Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "1a0e0861a030"
-        }
-      },
-      {
-        "id": "1788336000374-z3j6azkr",
-        "timestamp": "2026-09-02T08:00:00.374Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.close.flush",
-        "message": "页面关闭或进入后台，提交最后一次备份"
-      },
-      {
-        "id": "1788335920927-up62pvog",
-        "timestamp": "2026-09-02T07:58:40.926Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "2481897d4a6b"
-        }
       }
     ]
   }
