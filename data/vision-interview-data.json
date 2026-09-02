@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-02T05:01:00.255Z",
+  "updatedAt": "2026-09-02T05:00:59.839Z",
   "data": {
     "vision-interview-records": [
       {
@@ -2006,6 +2006,25 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788325260294-lbbaqim4",
+        "timestamp": "2026-09-02T05:01:00.294Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.close.flush",
+        "message": "页面关闭或进入后台，提交最后一次备份"
+      },
+      {
+        "id": "1788325260291-aot563sw",
+        "timestamp": "2026-09-02T05:01:00.291Z",
+        "level": "ERROR",
+        "kind": "system",
+        "event": "backup.push.failed",
+        "message": "运行数据备份请求失败",
+        "context": {
+          "error": "Failed to fetch"
+        }
+      },
       {
         "id": "1788325256920-o5hn9zzv",
         "timestamp": "2026-09-02T05:00:56.920Z",
@@ -16380,33 +16399,6 @@
         "context": {
           "reason": "change",
           "commit": "a4086c6b99a9"
-        }
-      },
-      {
-        "id": "1788265838354-c504uf4i",
-        "timestamp": "2026-09-01T12:30:38.354Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264675884-efebbymx",
-        "event": "question-group.prepare.completed",
-        "message": "AI 已生成完整 10 道题目、标准回答和技术原理；远程题库正在后台同步。",
-        "context": {
-          "source": "AI",
-          "questionCount": 10
-        }
-      },
-      {
-        "id": "1788265838350-vogk74ad",
-        "timestamp": "2026-09-01T12:30:38.350Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264675884-efebbymx",
-        "event": "github.backup.started",
-        "message": "开始备份数据到 GitHub",
-        "context": {
-          "operation": "ai-question-bank",
-          "entryCount": 10,
-          "pendingCount": 10
         }
       }
     ]
