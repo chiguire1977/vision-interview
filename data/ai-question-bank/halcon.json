@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-09-02T10:36:47.497Z",
+  "updatedAt": "2026-09-02T11:11:52.043Z",
   "questions": [
     {
       "title": "在 HALCON 中，基于形状的模板匹配（shape-based matching）常用于定位工件。请说明金字塔层数、最小分数（MinScore）、最大重叠（MaxOverlap）和贪婪度（Greediness）这几个参数对匹配速度和鲁棒性的影响，并说明现场调试时如何取舍。",
@@ -5165,6 +5165,451 @@
       "categoryFilter": "随机类型",
       "difficultyFilter": "随机难度",
       "techStackFilter": "随机技术栈",
+      "detectionDirectionFilter": "随机方向"
+    },
+    {
+      "title": "HALCON为什么能在工业机器视觉中成为事实标准？请从算子架构和开发流程角度说明。",
+      "type": "工程实践",
+      "category": "机器视觉平台架构",
+      "source": "专业",
+      "sourceType": "技术教程整理",
+      "knowledgePoints": [
+        "HALCON算子库规模与覆盖范围",
+        "HDevelop交互式开发环境",
+        "跨平台多语言集成能力"
+      ],
+      "difficulty": "基础",
+      "tags": [
+        "HALCON",
+        "算子库",
+        "HDevelop",
+        "工业视觉"
+      ],
+      "keywords": [
+        "2000+算子",
+        "HDevelop",
+        "跨平台",
+        "多语言集成"
+      ],
+      "followUp": "如果客户在OpenCV和HALCON之间犹豫，你会如何用技术论据说明HALCON的不可替代性？",
+      "hint": "从算法成熟度、开发效率、部署灵活性三个维度回答。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "detectionDirection": "传统 2D 视觉",
+      "bestAnswer": "HALCON由德国MVTec开发，包含超过2000个预训练算子，覆盖图像采集、预处理、特征提取、目标检测、识别等完整视觉流程，算法鲁棒性强且经过工业场景验证。HDevelop提供交互式原型开发环境，支持快速验证算法流程并生成代码，显著缩短开发周期。同时HALCON支持C++、C#、Python等多种语言集成，并具备跨平台兼容性，便于部署到不同操作系统和硬件平台。这些因素使其成为工业自动化、智能制造领域的行业标准。",
+      "principle": "HALCON的核心是模块化算子库，每个算子封装了经过优化的数学算法，如滤波、形态学、模板匹配等。HDevelop通过可视化数据流和即时调试，让开发者能快速组合算子形成解决方案。跨语言接口基于底层API封装，保证算法在不同编程环境中一致性。这种分层架构既保证了算法性能，又提供了灵活的集成方式。",
+      "id": "aiq-725df282",
+      "generatedAt": "2026-09-02T11:11:51.247Z",
+      "provider": "opencode-go",
+      "model": "deepseek-v4-flash",
+      "project": "机器视觉专业知识",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "HALCON",
+      "detectionDirectionFilter": "随机方向"
+    },
+    {
+      "title": "在HALCON中做表面缺陷检测时，如何选择图像预处理滤波器和形态学结构元素？请结合具体场景说明。",
+      "type": "算法原理",
+      "category": "图像处理",
+      "source": "专业",
+      "sourceType": "技术教程整理",
+      "knowledgePoints": [
+        "图像预处理滤波器的作用与选择",
+        "形态学操作（膨胀、腐蚀、开闭运算）原理",
+        "结构元素形状与尺寸对检测结果的影响"
+      ],
+      "difficulty": "中等",
+      "tags": [
+        "HALCON",
+        "图像预处理",
+        "形态学",
+        "缺陷检测"
+      ],
+      "keywords": [
+        "中值滤波",
+        "高斯滤波",
+        "结构元素",
+        "开闭运算"
+      ],
+      "followUp": "如果缺陷是细长划痕，而背景有纹理噪声，你会如何调整预处理和形态学参数？",
+      "hint": "先分析噪声类型和缺陷特征，再选择对应滤波器，最后用形态学操作分离目标。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "detectionDirection": "传统 2D 视觉",
+      "bestAnswer": "对于表面缺陷检测，若噪声为椒盐噪声，优先使用中值滤波；若为高斯噪声，则用高斯滤波。滤波核大小应根据缺陷尺寸设定，过大会模糊缺陷边缘。形态学操作中，开运算可去除细小亮点噪声，闭运算可填充暗色空洞。结构元素形状需匹配缺陷形态，例如检测划痕时用矩形或线形结构元素，检测斑点时用圆形。结构元素尺寸应略小于缺陷最小尺寸，避免将缺陷误删除。",
+      "principle": "图像预处理通过卷积或统计排序抑制噪声，增强目标与背景对比度。形态学基于集合运算，膨胀扩大亮区域，腐蚀缩小亮区域，开运算为先腐蚀后膨胀，用于去除小物体，闭运算为先膨胀后腐蚀，用于填充小孔。结构元素是形态学操作的模板，其形状和大小决定了操作的几何影响范围。HALCON中通过算子如median_image、gauss_filter、opening、closing等实现，参数选择需结合图像分辨率和缺陷特征。",
+      "id": "aiq-e4987d60",
+      "generatedAt": "2026-09-02T11:11:51.247Z",
+      "provider": "opencode-go",
+      "model": "deepseek-v4-flash",
+      "project": "机器视觉专业知识",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "HALCON",
+      "detectionDirectionFilter": "随机方向"
+    },
+    {
+      "title": "在HALCON项目中，当检测节拍无法满足产线要求时，你会从哪些方面进行性能优化？请给出具体措施。",
+      "type": "现场故障",
+      "category": "性能优化",
+      "source": "专业",
+      "sourceType": "工程案例整理",
+      "knowledgePoints": [
+        "ROI区域裁剪减少计算量",
+        "算子选择与参数调整",
+        "并行处理与硬件加速"
+      ],
+      "difficulty": "困难",
+      "tags": [
+        "HALCON",
+        "性能优化",
+        "ROI",
+        "并行处理"
+      ],
+      "keywords": [
+        "reduce_domain",
+        "金字塔",
+        "多线程",
+        "GPU加速"
+      ],
+      "followUp": "如果优化后仍然达不到节拍，你会如何进一步定位瓶颈？",
+      "hint": "从图像采集、预处理、检测算法、部署环境四个层面分析。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "detectionDirection": "传统 2D 视觉",
+      "bestAnswer": "首先通过reduce_domain将检测区域裁剪到ROI，减少参与计算的像素数。其次检查算子选择，例如用更快的匹配策略（如基于形状的匹配中设置金字塔层数）或替换高耗时算子。利用HALCON的并行处理能力，将多个独立检测任务分配到不同线程，或使用GPU加速算子。还可以调整图像采集参数，如降低分辨率或使用ROI采集。最后考虑硬件升级，如更换更高性能的工业相机或增加计算单元。",
+      "principle": "HALCON性能瓶颈通常出现在图像数据量和算法复杂度上。ROI裁剪通过缩小图像域，使后续算子只处理有效区域，计算量随像素数线性下降。算子内部实现经过SIMD优化，但不同算子复杂度差异大，选择合适算法可降低时间复杂度。并行处理利用多核CPU或GPU的并行架构，将数据划分到多个处理单元。HALCON提供par_start/par_join等并行机制，以及针对特定算子的GPU版本。",
+      "id": "aiq-211d0564",
+      "generatedAt": "2026-09-02T11:11:51.247Z",
+      "provider": "opencode-go",
+      "model": "deepseek-v4-flash",
+      "project": "机器视觉专业知识",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "HALCON",
+      "detectionDirectionFilter": "随机方向"
+    },
+    {
+      "title": "请描述Halcon中Blob分析的标准流程，并说明目标与背景灰度接近时的改进策略",
+      "type": "工程实践",
+      "category": "目标检测",
+      "source": "专业",
+      "sourceType": "技术教程整理",
+      "knowledgePoints": [
+        "Blob分析流程",
+        "阈值分割方法",
+        "连通域标记",
+        "特征筛选"
+      ],
+      "difficulty": "基础",
+      "tags": [
+        "HALCON",
+        "Blob分析",
+        "阈值分割"
+      ],
+      "keywords": [
+        "threshold",
+        "connection",
+        "select_shape",
+        "动态阈值"
+      ],
+      "followUp": "在Halcon中，dyn_threshold和threshold有什么区别？分别适用于什么场景？",
+      "hint": "按图像采集、预处理、分割、连通域、特征筛选的顺序回答；灰度接近时考虑局部阈值或边缘辅助。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "bestAnswer": "Blob分析流程为：图像采集、预处理（滤波、增强）、阈值分割（threshold或dyn_threshold）、连通域分析（connection）、特征筛选（select_shape）。阈值分割将像素分为前景和背景，连通域将相邻前景像素标记为独立区域，再根据面积、圆度、长宽比等特征筛选目标。若目标与背景灰度接近，可使用动态阈值dyn_threshold，通过比较原图与平滑图像的差异分割，或结合边缘检测提取目标边界。",
+      "principle": "Blob分析基于灰度阈值和连通域。threshold使用全局灰度阈值，dyn_threshold利用局部背景灰度差异，对光照不均更鲁棒。连通域标记通过像素邻接关系聚类，特征筛选基于区域几何属性。",
+      "reference": {
+        "title": "Halcon机器视觉算法原理与编程实战 - 博客园",
+        "url": "https://www.cnblogs.com/txwtech/p/18972841"
+      },
+      "id": "aiq-009045c6",
+      "generatedAt": "2026-09-02T11:11:51.247Z",
+      "provider": "opencode-go",
+      "model": "deepseek-v4-flash",
+      "project": "机器视觉专业知识",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "HALCON",
+      "detectionDirectionFilter": "随机方向"
+    },
+    {
+      "title": "Halcon中基于形状的模板匹配参数如何影响匹配性能？如何应对遮挡场景？",
+      "type": "算法原理",
+      "category": "模板匹配",
+      "source": "专业",
+      "sourceType": "技术教程整理",
+      "knowledgePoints": [
+        "形状模板匹配原理",
+        "金字塔搜索",
+        "参数NumLevels/MinScore/Greediness",
+        "遮挡处理策略"
+      ],
+      "difficulty": "困难",
+      "tags": [
+        "HALCON",
+        "模板匹配",
+        "定位"
+      ],
+      "keywords": [
+        "find_shape_model",
+        "NumLevels",
+        "MinScore",
+        "Greediness",
+        "遮挡"
+      ],
+      "followUp": "当目标存在旋转和缩放时，应如何设置AngleStart/AngleExtent和ScaleMin/ScaleMax？",
+      "hint": "从金字塔层数、角度范围、最小分数、贪婪度四个参数说明，再讨论遮挡时的局部匹配或部件匹配。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "bestAnswer": "find_shape_model的关键参数包括NumLevels（金字塔层数）、AngleStart/AngleExtent（角度搜索范围）、MinScore（最小匹配分数）、Greediness（贪婪度）。NumLevels越大速度越快但可能丢失细节；MinScore越高越严格，但易漏检；Greediness越大搜索越快，但可能跳过候选。遮挡场景可降低MinScore、使用局部ROI或基于部件的匹配（如find_shape_model的组件）。",
+      "principle": "形状匹配通过边缘点梯度方向建立模板，在搜索图像中计算相似度。金字塔层数通过降采样加速粗定位，再逐层精化。Greediness控制搜索时提前终止的阈值，影响速度与鲁棒性。",
+      "reference": {
+        "title": "Halcon机器视觉算法：从原理到实战的系统解析-百度开发者中心",
+        "url": "https://developer.baidu.com/article/detail.html?id=8339979"
+      },
+      "id": "aiq-c0f0b1f8",
+      "generatedAt": "2026-09-02T11:11:51.247Z",
+      "provider": "opencode-go",
+      "model": "deepseek-v4-flash",
+      "project": "机器视觉专业知识",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "HALCON",
+      "detectionDirectionFilter": "随机方向"
+    },
+    {
+      "title": "HALCON 的算子化架构与 HDevelop 快速原型验证机制",
+      "type": "算法原理",
+      "category": "HALCON 开发基础",
+      "source": "专业",
+      "sourceType": "技术教程整理",
+      "knowledgePoints": [
+        "HALCON 算子化架构",
+        "HDevelop 交互式开发",
+        "HALCON 运行时部署",
+        "多语言集成"
+      ],
+      "difficulty": "中等",
+      "tags": [
+        "HALCON",
+        "HDevelop",
+        "算子",
+        "部署"
+      ],
+      "keywords": [
+        "算子化架构",
+        "HDevelop 原型验证",
+        "运行时库",
+        "多语言集成"
+      ],
+      "followUp": "如果现场需要调整检测参数，你会直接在 HDevelop 中修改后重新导出，还是设计参数配置文件？为什么？",
+      "hint": "从算子封装、数据流、开发环境与运行时分离三个层面回答。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "detectionDirection": "传统 2D 视觉",
+      "bestAnswer": "HALCON 将底层算法封装为独立算子，每个算子有明确输入输出和控制参数，通过数据流连接形成处理流程。HDevelop 提供交互式执行、变量监视和图像可视化，便于快速验证算法链。实际部署时，HDevelop 是开发调试环境，不适合直接作为产线运行时；导出为 C#/C++ 工程后，可集成到上位机系统，利用 HALCON 运行时库执行，便于错误处理、并发控制和界面整合。",
+      "principle": "算子化设计降低算法耦合度，算子间通过图像、区域、轮廓等数据类型传递，HDevelop 的即时执行机制让开发者逐步观察中间结果，缩短调参周期。导出代码后，HDevelop 脚本被翻译为对应编程语言的 HALCON 接口调用，运行时依赖 HALCON Runtime 而非 HDevelop，保证执行效率和部署灵活性。",
+      "id": "aiq-cf583017",
+      "generatedAt": "2026-09-02T11:11:51.247Z",
+      "provider": "opencode-go",
+      "model": "deepseek-v4-flash",
+      "project": "机器视觉专业知识",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "HALCON",
+      "detectionDirectionFilter": "随机方向"
+    },
+    {
+      "title": "HALCON 缺陷检测中形态学处理与 OCR 识别的技术路径",
+      "type": "工程实践",
+      "category": "图像处理与 OCR 应用",
+      "source": "专业",
+      "sourceType": "技术教程整理",
+      "knowledgePoints": [
+        "形态学开闭运算",
+        "OCR 字符识别流程",
+        "阈值分割与动态阈值",
+        "HALCON OCR 算子"
+      ],
+      "difficulty": "困难",
+      "tags": [
+        "HALCON",
+        "OCR",
+        "形态学",
+        "缺陷检测"
+      ],
+      "keywords": [
+        "开运算",
+        "闭运算",
+        "OCR 流程",
+        "动态阈值",
+        "参数调整"
+      ],
+      "followUp": "如果同一产线有多种字体或字符大小，你会如何保证 OCR 的鲁棒性？",
+      "hint": "先讲整体流程，再分别说明形态学作用和参数调整方向。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "detectionDirection": "传统 2D 视觉",
+      "bestAnswer": "流程：图像采集→灰度化→ROI截取→阈值分割或动态阈值提取字符区域→形态学处理→字符分割→OCR识别→结果输出。开运算先腐蚀后膨胀，可去除字符边缘小突起和孤立噪点；闭运算先膨胀后腐蚀，可填补字符断裂和内部孔洞。反光导致灰度不均时，优先调整阈值分割参数或使用局部动态阈值，并配合滤波抑制噪声；油污造成粘连时，调整形态学结构元素大小和形状，必要时用连通域分析分离字符。",
+      "principle": "形态学运算基于集合论，结构元素决定处理邻域形状和大小。开运算对亮背景暗字符可消除细小亮噪声，闭运算可连接断裂笔画。OCR 识别依赖字符区域质量和分割准确性，预处理目标是增强字符与背景对比度、消除噪声、保持笔画连通性。HALCON 中 read_ocr_class_mlp 等算子需要训练好的分类器，字符区域质量直接影响置信度输出。",
+      "id": "aiq-35248533",
+      "generatedAt": "2026-09-02T11:11:51.247Z",
+      "provider": "opencode-go",
+      "model": "deepseek-v4-flash",
+      "project": "机器视觉专业知识",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "HALCON",
+      "detectionDirectionFilter": "随机方向"
+    },
+    {
+      "title": "在HALCON的HDevelop环境中，如何高效地进行视觉算法的原型验证和性能优化？请列举至少两种性能优化手段。",
+      "type": "工程实践",
+      "category": "开发环境",
+      "source": "专业",
+      "sourceType": "技术教程整理",
+      "knowledgePoints": [
+        "HDevelop交互式开发",
+        "并行处理机制",
+        "GPU加速",
+        "代码导出"
+      ],
+      "difficulty": "困难",
+      "tags": [
+        "HDevelop",
+        "性能优化",
+        "HALCON"
+      ],
+      "keywords": [
+        "HDevelop",
+        "并行处理",
+        "GPU加速",
+        "代码导出"
+      ],
+      "followUp": "HDevelop中如何将原型代码导出到C++/C#等语言？",
+      "hint": "从HDevelop的交互式开发特点入手，再谈性能优化。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "detectionDirection": "传统 2D 视觉",
+      "bestAnswer": "HDevelop提供交互式开发环境，可逐行执行算子并实时查看中间结果，便于快速验证算法。性能优化方面，可使用HALCON的并行处理机制，如par_start和par_join实现算子级并行；也可利用GPU加速，通过open_compute_device和activate_compute_device将算子部署到GPU。此外，应避免在循环中重复分配大对象，合理设置ROI减少计算量。原型验证后，可通过“文件→导出”生成C++或C#代码，并嵌入到实际项目中。",
+      "principle": "HDevelop基于HALCON引擎，支持脚本式开发。并行处理利用多核CPU资源，通过数据并行或任务并行提升吞吐量。GPU加速则利用显卡的大规模并行计算能力，适合像素级操作和卷积等任务。导出功能将脚本转换为静态语言代码，便于集成和部署。",
+      "id": "aiq-28680c26",
+      "generatedAt": "2026-09-02T11:11:51.247Z",
+      "provider": "opencode-go",
+      "model": "deepseek-v4-flash",
+      "project": "机器视觉专业知识",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "HALCON",
+      "detectionDirectionFilter": "随机方向"
+    },
+    {
+      "title": "在HALCON中实现高精度尺寸测量时，如何设计一维测量流程？请说明关键步骤和影响测量精度的主要因素。",
+      "type": "工程实践",
+      "category": "尺寸测量",
+      "source": "专业",
+      "sourceType": "技术教程整理",
+      "knowledgePoints": [
+        "一维测量算子（measure_pos/measure_pairs）的使用流程",
+        "亚像素边缘定位原理",
+        "相机标定与像素当量换算",
+        "测量精度影响因素与优化策略"
+      ],
+      "difficulty": "中等",
+      "tags": [
+        "HALCON",
+        "尺寸测量",
+        "一维测量",
+        "亚像素"
+      ],
+      "keywords": [
+        "measure_pos",
+        "ROI",
+        "边缘阈值",
+        "标定",
+        "像素当量",
+        "亚像素插值"
+      ],
+      "followUp": "如果被测物体边缘存在倒角或毛刺，导致测量结果波动，你会如何优化？",
+      "hint": "从测量流程入手：标定→创建测量ROI→设置参数→提取边缘→计算尺寸；再分析精度影响因素，如光照、镜头畸变、标定误差、边缘质量等，并给出针对性优化。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "detectionDirection": "传统 2D 视觉",
+      "bestAnswer": "在HALCON中实现高精度尺寸测量，通常采用一维测量算子（如measure_pos、measure_pairs）流程：首先对相机进行标定，获取像素当量或畸变系数；然后在被测位置创建ROI并生成测量矩形或圆弧；接着设置边缘阈值、最小边缘幅度和亚像素插值等参数，调用measure_pos提取边缘点；最后根据边缘点间距计算实际物理尺寸。关键步骤包括：1）标定保证像素到毫米的准确转换；2）ROI方向与边缘垂直，宽度覆盖边缘过渡带；3）合理设置Sigma平滑系数以抑制噪声；4）使用亚像素精度提高重复性。影响精度的主要因素有光照变化导致边缘偏移、镜头畸变、标定板精度、物体表面反光、振动等。实际中可通过多次测量取平均、增加边缘点拟合、使用高精度标定板等方法来提升稳定性。",
+      "principle": "一维测量基于灰度值剖面分析：测量矩形沿长度方向投影得到一维灰度轮廓，边缘点位于灰度跳变处。HALCON通过计算轮廓的一阶导数，并利用亚像素插值（如抛物线拟合）定位极值点，从而获得比像素更精确的边缘位置。测量精度取决于边缘对比度、平滑参数Sigma（高斯滤波宽度）以及边缘阈值。标定将图像坐标转换为世界坐标，像素当量误差会线性影响测量结果。此外，镜头畸变在视场边缘造成非线性误差，需通过标定模型校正。",
+      "id": "aiq-162b5c73",
+      "generatedAt": "2026-09-02T11:11:51.247Z",
+      "provider": "opencode-go",
+      "model": "deepseek-v4-flash",
+      "project": "机器视觉专业知识",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "HALCON",
+      "detectionDirectionFilter": "随机方向"
+    },
+    {
+      "title": "在HALCON中训练自定义OCR分类器时，如何构建训练样本并评估识别性能？",
+      "type": "工程实践",
+      "category": "OCR识别",
+      "source": "专业",
+      "sourceType": "技术教程整理",
+      "knowledgePoints": [
+        "OCR分类器创建流程",
+        "训练样本构建与标注",
+        "MLP网络训练原理",
+        "识别性能评估与优化"
+      ],
+      "difficulty": "中等",
+      "tags": [
+        "HALCON",
+        "OCR",
+        "MLP",
+        "字符识别"
+      ],
+      "keywords": [
+        "create_ocr_class_mlp",
+        "append_ocr_trainf",
+        "trainf_ocr_class_mlp",
+        "do_ocr_single_class_mlp",
+        "识别率评估"
+      ],
+      "followUp": "如果目标字符包含相似形状（如0和O），你会如何提升分类精度？",
+      "hint": "回答时先讲训练流程，再讲评估方法，最后提优化手段；注意说明样本标注和归一化的重要性。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "detectionDirection": "传统 2D 视觉",
+      "bestAnswer": "在HALCON中训练自定义OCR分类器，首先采集目标字符图像，通过阈值分割和Blob分析提取字符区域，并归一化到统一尺寸。使用create_ocr_class_mlp创建MLP分类器，设定特征维数（如灰度投影特征）。用append_ocr_trainf将样本和对应字符标签写入训练文件，调用trainf_ocr_class_mlp训练模型，训练完成后用write_ocr_class_mlp保存。评估时使用do_ocr_single_class_mlp对测试集识别，计算混淆矩阵和识别率。若识别率低，可增加样本多样性、改进预处理（如去噪、二值化）、调整特征类型或增大网络隐藏层节点数。",
+      "principle": "OCR分类器基于统计模式识别，MLP通过多层非线性变换学习图像特征到字符类别的映射。训练采用反向传播算法最小化分类误差。特征提取将字符图像转换为低维向量，降低计算复杂度并提升泛化能力。HALCON的OCR训练流程将字符图像与ASCII标签绑定，通过迭代优化网络权重，使同类字符特征聚集、异类字符特征分离，从而实现对不同字体和噪声的鲁棒识别。",
+      "id": "aiq-5286d6e7",
+      "generatedAt": "2026-09-02T11:11:51.247Z",
+      "provider": "opencode-go",
+      "model": "deepseek-v4-flash",
+      "project": "机器视觉专业知识",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "HALCON",
       "detectionDirectionFilter": "随机方向"
     }
   ]
