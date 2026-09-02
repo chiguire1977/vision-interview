@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-02T08:02:52.402Z",
+  "updatedAt": "2026-09-02T08:02:54.234Z",
   "data": {
     "vision-interview-records": [
       {
@@ -2014,6 +2014,18 @@
         "kind": "system",
         "event": "backup.close.flush",
         "message": "页面关闭或进入后台，提交最后一次备份"
+      },
+      {
+        "id": "1788336009868-go64f4ze",
+        "timestamp": "2026-09-02T08:00:09.868Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "1a0e0861a030"
+        }
       },
       {
         "id": "1788336000374-z3j6azkr",
@@ -15388,23 +15400,6 @@
           "parallelRequests": 5,
           "requestedCount": 2,
           "durationMs": 60304,
-          "error": "AI 请求超时，请稍后重试。"
-        }
-      },
-      {
-        "id": "1788268732737-zc7dvfcw",
-        "timestamp": "2026-09-01T13:18:52.737Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788268598852-h9gw1c87",
-        "event": "question-bank.ai-request.failed",
-        "message": "单个并行 AI 请求失败",
-        "context": {
-          "attempt": 2,
-          "workerIndex": 3,
-          "parallelRequests": 5,
-          "requestedCount": 2,
-          "durationMs": 60298,
           "error": "AI 请求超时，请稍后重试。"
         }
       }
