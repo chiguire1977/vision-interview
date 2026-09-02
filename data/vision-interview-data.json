@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-02T10:34:39.070Z",
+  "updatedAt": "2026-09-02T10:34:54.762Z",
   "data": {
     "vision-interview-records": [
       {
@@ -2007,6 +2007,35 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788345294125-2ib4ugd0",
+        "timestamp": "2026-09-02T10:34:54.125Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788345131423-wywacu41",
+        "event": "question-bank.ai-request.duration",
+        "message": "单个并行 AI 请求完成",
+        "context": {
+          "attempt": 3,
+          "workerIndex": 1,
+          "parallelRequests": 4,
+          "requestedCount": 2,
+          "receivedCount": 2,
+          "durationMs": 36623
+        }
+      },
+      {
+        "id": "1788345283919-1uaguq07",
+        "timestamp": "2026-09-02T10:34:43.919Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "e0d6498f41f9"
+        }
+      },
       {
         "id": "1788345275683-vty41lwl",
         "timestamp": "2026-09-02T10:34:35.683Z",
@@ -17338,26 +17367,6 @@
           "reason": "change",
           "commit": "36059a876255"
         }
-      },
-      {
-        "id": "1788338604201-7fup35c8",
-        "timestamp": "2026-09-02T08:43:24.201Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "8410a05b50ba"
-        }
-      },
-      {
-        "id": "1788338599104-50fk7fh8",
-        "timestamp": "2026-09-02T08:43:19.104Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.close.flush",
-        "message": "页面关闭或进入后台，提交最后一次备份"
       }
     ]
   }
