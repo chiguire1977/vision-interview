@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-02T09:54:24.435Z",
+  "updatedAt": "2026-09-02T09:54:46.971Z",
   "data": {
     "vision-interview-records": [
       {
@@ -2007,6 +2007,35 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788342885664-dajtwomy",
+        "timestamp": "2026-09-02T09:54:45.664Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788342627776-o0aqz996",
+        "event": "question-group.prepare.started",
+        "message": "开始准备题组",
+        "context": {
+          "project": "机器视觉专业知识",
+          "mode": "专业知识",
+          "questionCount": 10,
+          "sourceMode": "network",
+          "adaptiveQuestions": false,
+          "focusCategories": []
+        }
+      },
+      {
+        "id": "1788342868825-kgi5dc1o",
+        "timestamp": "2026-09-02T09:54:28.825Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "991366209b4d"
+        }
+      },
       {
         "id": "1788342865138-1lkszfcl",
         "timestamp": "2026-09-02T09:54:25.137Z",
@@ -16625,35 +16654,6 @@
           "requestedCount": 2,
           "durationMs": 60236,
           "error": "AI 请求超时，请稍后重试。"
-        }
-      },
-      {
-        "id": "1788328543390-7kdeoc33",
-        "timestamp": "2026-09-02T05:55:43.390Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "ae54b3fef445"
-        }
-      },
-      {
-        "id": "1788328540878-vmn1mxtd",
-        "timestamp": "2026-09-02T05:55:40.878Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788328410366-861xutz0",
-        "event": "question-bank.ai-request.duration",
-        "message": "单个并行 AI 请求完成",
-        "context": {
-          "attempt": 1,
-          "workerIndex": 5,
-          "parallelRequests": 5,
-          "requestedCount": 2,
-          "receivedCount": 2,
-          "durationMs": 56767
         }
       }
     ]
