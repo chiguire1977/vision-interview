@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-02T02:34:31.456Z",
+  "updatedAt": "2026-09-02T02:34:55.828Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1962,55 +1962,67 @@
         "openaiBaseUrl": "https://dingdangapii.cn",
         "availableModels": [
           {
-            "label": "codex-auto-review · Chat Completions（兼容 OpenAI）",
+            "label": "codex-auto-review · Responses（OpenAI 原生）",
             "value": "codex-auto-review",
-            "upstreamFormat": "chat-completions"
+            "upstreamFormat": "responses"
           },
           {
-            "label": "gpt-4o-mini · Chat Completions（兼容 OpenAI）",
+            "label": "gpt-4o-mini · Responses（OpenAI 原生）",
             "value": "gpt-4o-mini",
-            "upstreamFormat": "chat-completions"
+            "upstreamFormat": "responses"
           },
           {
-            "label": "gpt-5.4 · Chat Completions（兼容 OpenAI）",
+            "label": "gpt-5.4 · Responses（OpenAI 原生）",
             "value": "gpt-5.4",
-            "upstreamFormat": "chat-completions"
+            "upstreamFormat": "responses"
           },
           {
-            "label": "gpt-5.4-mini · Chat Completions（兼容 OpenAI）",
+            "label": "gpt-5.4-mini · Responses（OpenAI 原生）",
             "value": "gpt-5.4-mini",
-            "upstreamFormat": "chat-completions"
+            "upstreamFormat": "responses"
           },
           {
-            "label": "gpt-5.5 · Chat Completions（兼容 OpenAI）",
+            "label": "gpt-5.5 · Responses（OpenAI 原生）",
             "value": "gpt-5.5",
-            "upstreamFormat": "chat-completions"
+            "upstreamFormat": "responses"
           },
           {
-            "label": "gpt-5.6 · Chat Completions（兼容 OpenAI）",
+            "label": "gpt-5.6 · Responses（OpenAI 原生）",
             "value": "gpt-5.6",
-            "upstreamFormat": "chat-completions"
+            "upstreamFormat": "responses"
           },
           {
-            "label": "gpt-5.6-luna · Chat Completions（兼容 OpenAI）",
+            "label": "gpt-5.6-luna · Responses（OpenAI 原生）",
             "value": "gpt-5.6-luna",
-            "upstreamFormat": "chat-completions"
+            "upstreamFormat": "responses"
           },
           {
-            "label": "gpt-5.6-sol · Chat Completions（兼容 OpenAI）",
+            "label": "gpt-5.6-sol · Responses（OpenAI 原生）",
             "value": "gpt-5.6-sol",
-            "upstreamFormat": "chat-completions"
+            "upstreamFormat": "responses"
           },
           {
-            "label": "gpt-5.6-terra · Chat Completions（兼容 OpenAI）",
+            "label": "gpt-5.6-terra · Responses（OpenAI 原生）",
             "value": "gpt-5.6-terra",
-            "upstreamFormat": "chat-completions"
+            "upstreamFormat": "responses"
           }
         ]
       }
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788316473767-j3preask",
+        "timestamp": "2026-09-02T02:34:33.767Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "ab2fe40282b4"
+        }
+      },
       {
         "id": "1788316459955-kjf1apyh",
         "timestamp": "2026-09-02T02:34:19.955Z",
@@ -17342,20 +17354,6 @@
           "aiCount": 5,
           "fallbackCount": 5,
           "targetCount": 10
-        }
-      },
-      {
-        "id": "1788265062578-lqkoawou",
-        "timestamp": "2026-09-01T12:17:42.578Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264675884-efebbymx",
-        "event": "github.backup.started",
-        "message": "开始备份数据到 GitHub",
-        "context": {
-          "operation": "ai-question-bank",
-          "entryCount": 7,
-          "pendingCount": 7
         }
       }
     ]
