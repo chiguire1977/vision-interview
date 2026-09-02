@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-02T09:47:40.441Z",
+  "updatedAt": "2026-09-02T09:47:40.460Z",
   "data": {
     "vision-interview-records": [
       {
@@ -2007,32 +2007,6 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
-      {
-        "id": "1788342462001-cfxq9psq",
-        "timestamp": "2026-09-02T09:47:42.001Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.close.flush",
-        "message": "页面关闭或进入后台，提交最后一次备份"
-      },
-      {
-        "id": "1788342461837-jt3vlfgi",
-        "timestamp": "2026-09-02T09:47:41.837Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788342412490-5wzm9eij",
-        "event": "question-bank.web-search.completed",
-        "message": "本轮联网检索完成",
-        "context": {
-          "attempt": 3,
-          "query": "机器视觉 面试知识点 HALCON 原理 工程实践",
-          "sourceCount": 0,
-          "parallelRequests": 4,
-          "requestedCount": 10,
-          "durationMs": 319,
-          "sharedAcrossWorkers": true
-        }
-      },
       {
         "id": "1788342461669-zj9z76hg",
         "timestamp": "2026-09-02T09:47:41.669Z",
@@ -16416,6 +16390,39 @@
         "context": {
           "source": "AI",
           "questionCount": 10
+        }
+      },
+      {
+        "id": "1788325400961-12sstmww",
+        "timestamp": "2026-09-02T05:03:20.961Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788325262027-rws3kdto",
+        "event": "github.backup.started",
+        "message": "开始备份数据到 GitHub",
+        "context": {
+          "operation": "ai-question-bank",
+          "entryCount": 10,
+          "pendingCount": 10,
+          "totalCount": 53,
+          "complete": true
+        }
+      },
+      {
+        "id": "1788325400949-ftsbjgzs",
+        "timestamp": "2026-09-02T05:03:20.949Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788325262027-rws3kdto",
+        "event": "question-bank.ai-request.duration",
+        "message": "单个并行 AI 请求完成",
+        "context": {
+          "attempt": 1,
+          "workerIndex": 3,
+          "parallelRequests": 5,
+          "requestedCount": 2,
+          "receivedCount": 2,
+          "durationMs": 38531
         }
       }
     ]
