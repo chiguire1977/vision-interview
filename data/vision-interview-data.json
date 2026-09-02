@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-02T02:34:13.067Z",
+  "updatedAt": "2026-09-02T02:34:17.451Z",
   "data": {
     "vision-interview-records": [
       {
@@ -2011,6 +2011,32 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788316455661-2a2urxt0",
+        "timestamp": "2026-09-02T02:34:15.661Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "2db915f7aa3f"
+        }
+      },
+      {
+        "id": "1788316449365-pwvu5mt9",
+        "timestamp": "2026-09-02T02:34:09.365Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788316445479-h5oh7005",
+        "event": "question-bank.remote.loaded",
+        "message": "GitHub AI 历史题库加载完成",
+        "context": {
+          "questionCount": 23,
+          "githubQuestionCount": 23,
+          "pendingCount": 0
+        }
+      },
       {
         "id": "1788316445452-682bevb9",
         "timestamp": "2026-09-02T02:34:05.451Z",
@@ -17332,31 +17358,6 @@
           "aiCount": 7,
           "fallbackCount": 3,
           "targetCount": 10
-        }
-      },
-      {
-        "id": "1788265057848-vnfi5fua",
-        "timestamp": "2026-09-01T12:17:37.848Z",
-        "level": "ERROR",
-        "kind": "system",
-        "event": "backup.push.failed",
-        "message": "运行数据备份失败",
-        "context": {
-          "status": 502,
-          "reason": "GitHub 备份失败（HTTP 409）：{\"message\":\"is at 67423f36918d089d34e4c5f5deabd8d997b5b172 but expected 4d1794b78199b0ebb677f8aecb5c34f152f00834\",\"documentation_url\":\"https://docs.github.com/rest/repos/contents#create-or-update-file-contents\",\"status\":\"409\"}"
-        }
-      },
-      {
-        "id": "1788265057241-b0d4uxlx",
-        "timestamp": "2026-09-01T12:17:37.241Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264675884-efebbymx",
-        "event": "question-bank.cache.saved",
-        "message": "AI 题库已完成远程同步",
-        "context": {
-          "questionCount": 8,
-          "pendingCount": 0
         }
       }
     ]
