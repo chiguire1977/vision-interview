@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-02T08:53:39.101Z",
+  "updatedAt": "2026-09-02T08:53:45.498Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1877,6 +1877,32 @@
     },
     "vision-interview-project-view": "card",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788339223975-e47bq2y4",
+        "timestamp": "2026-09-02T08:53:43.975Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "6bb10ce77768"
+        }
+      },
+      {
+        "id": "1788339219837-x6tthpsq",
+        "timestamp": "2026-09-02T08:53:39.837Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788339215394-0x4c3viv",
+        "event": "question-bank.remote.loaded",
+        "message": "GitHub AI 历史题库加载完成",
+        "context": {
+          "questionCount": 101,
+          "githubQuestionCount": 101,
+          "pendingCount": 0
+        }
+      },
       {
         "id": "1788339215237-m1ljixju",
         "timestamp": "2026-09-02T08:53:35.237Z",
@@ -17139,41 +17165,6 @@
           "workerIndex": 2,
           "parallelRequests": 3,
           "requestedCount": 3
-        }
-      },
-      {
-        "id": "1788244048406-xy0bhtyc",
-        "timestamp": "2026-09-01T06:27:28.406Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788244030036-b95au3ik",
-        "event": "question-bank.web-search.started",
-        "message": "开始联网检索本轮题目资料",
-        "context": {
-          "attempt": 3,
-          "query": "机器视觉 面试知识点 图像预处理 边缘与特征 故障排查 模板与定位 梯度算子 非极大值抑制 双阈值 亚像素精度 本题未作答 原理 工程实践",
-          "mode": "专业知识",
-          "excludedCount": 0,
-          "workerIndex": 1,
-          "parallelRequests": 3,
-          "requestedCount": 4
-        }
-      },
-      {
-        "id": "1788244048403-pn7vvbki",
-        "timestamp": "2026-09-01T06:27:28.403Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788244030036-b95au3ik",
-        "event": "question-bank.attempt.failed",
-        "message": "第 2/6 轮（并行 3/3）：本轮请求失败：请先配置当前 AI 服务商的 API Key。，准备下一轮…",
-        "context": {
-          "attempt": 2,
-          "maxAttempts": 6,
-          "collectedCount": 0,
-          "workerIndex": 3,
-          "parallelRequests": 3,
-          "error": "请先配置当前 AI 服务商的 API Key。"
         }
       }
     ]
