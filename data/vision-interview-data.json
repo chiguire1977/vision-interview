@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-02T09:56:15.147Z",
+  "updatedAt": "2026-09-02T09:56:18.311Z",
   "data": {
     "vision-interview-records": [
       {
@@ -2007,6 +2007,48 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788342979991-5gh4o1pp",
+        "timestamp": "2026-09-02T09:56:19.991Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "24f616ac6eee"
+        }
+      },
+      {
+        "id": "1788342978306-ef1qzy8i",
+        "timestamp": "2026-09-02T09:56:18.306Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788342627776-o0aqz996",
+        "event": "question-bank.cache.saved",
+        "message": "AI 题库已完成远程同步",
+        "context": {
+          "questionCount": 10,
+          "pendingCount": 0
+        }
+      },
+      {
+        "id": "1788342978306-ead9n2ca",
+        "timestamp": "2026-09-02T09:56:18.306Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788342627776-o0aqz996",
+        "event": "github.backup.succeeded",
+        "message": "数据已成功备份到 GitHub",
+        "context": {
+          "operation": "ai-question-bank",
+          "entryCount": 10,
+          "pendingCount": 0,
+          "totalCount": 111,
+          "status": 200,
+          "complete": true
+        }
+      },
       {
         "id": "1788342973952-vcg9d51x",
         "timestamp": "2026-09-02T09:56:13.952Z",
@@ -16587,58 +16629,6 @@
           "workerIndex": 2,
           "parallelRequests": 5,
           "requestedCount": 1
-        }
-      },
-      {
-        "id": "1788328607619-1qmkx0rn",
-        "timestamp": "2026-09-02T05:56:47.619Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788328410366-861xutz0",
-        "event": "question-bank.ai-request.started",
-        "message": "第 3/6 轮（并行 1/5）：正在请求 AI 生成题目（1 道）…",
-        "context": {
-          "attempt": 3,
-          "maxAttempts": 6,
-          "collectedCount": 8,
-          "workerIndex": 1,
-          "parallelRequests": 5,
-          "requestedCount": 1
-        }
-      },
-      {
-        "id": "1788328607614-i7t795bt",
-        "timestamp": "2026-09-02T05:56:47.614Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788328410366-861xutz0",
-        "event": "question-bank.web-search.completed",
-        "message": "本轮联网检索完成",
-        "context": {
-          "attempt": 3,
-          "query": "机器视觉 面试知识点 HALCON 传统 2D 视觉 仅限二维图像处理，排除 3D、三维、点云、深度图、法线估计、平面拟合、立体视觉、结构光和双目 原理 工程实践",
-          "sourceCount": 0,
-          "parallelRequests": 5,
-          "requestedCount": 10,
-          "durationMs": 2611,
-          "sharedAcrossWorkers": true
-        }
-      },
-      {
-        "id": "1788328605002-9bmt1u5x",
-        "timestamp": "2026-09-02T05:56:45.002Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788328410366-861xutz0",
-        "event": "question-bank.web-search.started",
-        "message": "开始联网检索本轮题目资料",
-        "context": {
-          "attempt": 3,
-          "query": "机器视觉 面试知识点 HALCON 传统 2D 视觉 仅限二维图像处理，排除 3D、三维、点云、深度图、法线估计、平面拟合、立体视觉、结构光和双目 原理 工程实践",
-          "mode": "专业知识",
-          "excludedCount": 8,
-          "parallelRequests": 5,
-          "requestedCount": 10
         }
       }
     ]
