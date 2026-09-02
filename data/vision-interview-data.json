@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-02T05:00:59.839Z",
+  "updatedAt": "2026-09-02T05:01:04.911Z",
   "data": {
     "vision-interview-records": [
       {
@@ -2007,6 +2007,32 @@
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
       {
+        "id": "1788325263578-2edydfsq",
+        "timestamp": "2026-09-02T05:01:03.578Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788325262027-rws3kdto",
+        "event": "question-bank.remote.loaded",
+        "message": "GitHub AI 历史题库加载完成",
+        "context": {
+          "questionCount": 43,
+          "githubQuestionCount": 43,
+          "pendingCount": 0
+        }
+      },
+      {
+        "id": "1788325262024-730rv35j",
+        "timestamp": "2026-09-02T05:01:02.024Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.startup.loaded",
+        "message": "启动配置加载完成",
+        "context": {
+          "source": "github",
+          "updatedAt": "2026-09-02T04:59:22.963Z"
+        }
+      },
+      {
         "id": "1788325260294-lbbaqim4",
         "timestamp": "2026-09-02T05:01:00.294Z",
         "level": "INFO",
@@ -2032,6 +2058,18 @@
         "kind": "system",
         "event": "backup.close.flush",
         "message": "页面关闭或进入后台，提交最后一次备份"
+      },
+      {
+        "id": "1788325166077-csacs5oq",
+        "timestamp": "2026-09-02T04:59:26.077Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "37846d6312e8"
+        }
       },
       {
         "id": "1788325159195-1o62z1mw",
@@ -16359,46 +16397,6 @@
         "context": {
           "questionCount": 10,
           "pendingCount": 10
-        }
-      },
-      {
-        "id": "1788265845354-kt44xd8j",
-        "timestamp": "2026-09-01T12:30:45.354Z",
-        "level": "ERROR",
-        "kind": "system",
-        "sessionId": "1788264675884-efebbymx",
-        "event": "github.backup.failed",
-        "message": "数据备份到 GitHub 失败",
-        "context": {
-          "operation": "ai-question-bank",
-          "entryCount": 10,
-          "pendingCount": 10,
-          "status": 409,
-          "reason": "github_conflict"
-        }
-      },
-      {
-        "id": "1788265845332-lty96raf",
-        "timestamp": "2026-09-01T12:30:45.332Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "a68b00e1bd02"
-        }
-      },
-      {
-        "id": "1788265841232-rgzmhbb5",
-        "timestamp": "2026-09-01T12:30:41.232Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "a4086c6b99a9"
         }
       }
     ]
