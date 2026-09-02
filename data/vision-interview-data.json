@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-02T02:35:40.159Z",
+  "updatedAt": "2026-09-02T02:35:46.343Z",
   "data": {
     "vision-interview-records": [
       {
@@ -2011,6 +2011,35 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788316543479-a36lo84z",
+        "timestamp": "2026-09-02T02:35:43.479Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "5d099796b9e2"
+        }
+      },
+      {
+        "id": "1788316538919-0tkxxkd4",
+        "timestamp": "2026-09-02T02:35:38.919Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788316445479-h5oh7005",
+        "event": "question-bank.ai-request.duration",
+        "message": "单个并行 AI 请求完成",
+        "context": {
+          "attempt": 1,
+          "workerIndex": 1,
+          "parallelRequests": 5,
+          "requestedCount": 2,
+          "receivedCount": 2,
+          "durationMs": 40174
+        }
+      },
       {
         "id": "1788316534321-baf0d6td",
         "timestamp": "2026-09-02T02:35:34.321Z",
@@ -17340,41 +17369,6 @@
           "workerIndex": 2,
           "parallelRequests": 3,
           "requestedCount": 3
-        }
-      },
-      {
-        "id": "1788265113249-0oslts56",
-        "timestamp": "2026-09-01T12:18:33.249Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264675884-efebbymx",
-        "event": "question-bank.web-search.started",
-        "message": "开始联网检索本轮题目资料",
-        "context": {
-          "attempt": 4,
-          "query": "机器视觉 面试知识点 HALCON 传统 2D 视觉 算法原理 工程实践 图像预处理 模板与定位 深度图 点云 法线估计 RANSAC find_surface_model 原理 工程实践",
-          "mode": "专业知识",
-          "excludedCount": 0,
-          "workerIndex": 1,
-          "parallelRequests": 3,
-          "requestedCount": 4
-        }
-      },
-      {
-        "id": "1788265113246-womge1la",
-        "timestamp": "2026-09-01T12:18:33.246Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788264675884-efebbymx",
-        "event": "question-bank.attempt.failed",
-        "message": "第 3/6 轮（并行 3/3）：本轮请求失败：AI 请求超时，请稍后重试。，准备下一轮…",
-        "context": {
-          "attempt": 3,
-          "maxAttempts": 6,
-          "collectedCount": 0,
-          "workerIndex": 3,
-          "parallelRequests": 3,
-          "error": "AI 请求超时，请稍后重试。"
         }
       }
     ]
