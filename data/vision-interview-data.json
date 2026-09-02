@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-02T08:44:48.387Z",
+  "updatedAt": "2026-09-02T08:44:51.894Z",
   "data": {
     "vision-interview-records": [
       {
@@ -2007,6 +2007,35 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788338693030-e8lt7pwu",
+        "timestamp": "2026-09-02T08:44:53.030Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "bb7180cd5d2e"
+        }
+      },
+      {
+        "id": "1788338691639-u6nhspsy",
+        "timestamp": "2026-09-02T08:44:51.639Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788338320411-38gvsbsd",
+        "event": "question-group.prepare.started",
+        "message": "开始准备题组",
+        "context": {
+          "project": "机器视觉专业知识",
+          "mode": "专业知识",
+          "questionCount": 10,
+          "sourceMode": "network",
+          "adaptiveQuestions": false,
+          "focusCategories": []
+        }
+      },
       {
         "id": "1788338688914-oc7fm73g",
         "timestamp": "2026-09-02T08:44:48.914Z",
@@ -14874,40 +14903,6 @@
           "maxAttempts": 6,
           "collectedCount": 6,
           "workerIndex": 3,
-          "parallelRequests": 5,
-          "error": "The user aborted a request."
-        }
-      },
-      {
-        "id": "1788271825229-vchg3htp",
-        "timestamp": "2026-09-01T14:10:25.229Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788270845321-n003ywzy",
-        "event": "question-bank.attempt.failed",
-        "message": "第 5/6 轮（并行 2/5）：本轮请求失败：The user aborted a request.，准备下一轮…",
-        "context": {
-          "attempt": 5,
-          "maxAttempts": 6,
-          "collectedCount": 6,
-          "workerIndex": 2,
-          "parallelRequests": 5,
-          "error": "The user aborted a request."
-        }
-      },
-      {
-        "id": "1788271825225-ywq8upxe",
-        "timestamp": "2026-09-01T14:10:25.225Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788270845321-n003ywzy",
-        "event": "question-bank.attempt.failed",
-        "message": "第 5/6 轮（并行 1/5）：本轮请求失败：The user aborted a request.，准备下一轮…",
-        "context": {
-          "attempt": 5,
-          "maxAttempts": 6,
-          "collectedCount": 6,
-          "workerIndex": 1,
           "parallelRequests": 5,
           "error": "The user aborted a request."
         }
