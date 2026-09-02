@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-02T04:32:45.247Z",
+  "updatedAt": "2026-09-02T04:32:48.354Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1816,6 +1816,26 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788323568448-rpylslxv",
+        "timestamp": "2026-09-02T04:32:48.448Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "589b755f52e3"
+        }
+      },
+      {
+        "id": "1788323566754-8kqcbtlc",
+        "timestamp": "2026-09-02T04:32:46.754Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.close.flush",
+        "message": "页面关闭或进入后台，提交最后一次备份"
+      },
       {
         "id": "1788323565347-cyofz9jj",
         "timestamp": "2026-09-02T04:32:45.347Z",
@@ -16662,34 +16682,6 @@
         "kind": "system",
         "event": "backup.close.flush",
         "message": "页面关闭或进入后台，提交最后一次备份"
-      },
-      {
-        "id": "1788265561075-4nf5dyvm",
-        "timestamp": "2026-09-01T12:26:01.075Z",
-        "level": "ERROR",
-        "kind": "system",
-        "sessionId": "1788264675884-efebbymx",
-        "event": "github.backup.failed",
-        "message": "数据备份到 GitHub 失败",
-        "context": {
-          "operation": "ai-question-bank",
-          "entryCount": 0,
-          "pendingCount": 3,
-          "status": 409,
-          "reason": "github_conflict"
-        }
-      },
-      {
-        "id": "1788265558907-9dsbz03n",
-        "timestamp": "2026-09-01T12:25:58.907Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "9ac7eb304ebb"
-        }
       }
     ]
   }
