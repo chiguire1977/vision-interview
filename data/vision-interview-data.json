@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-02T10:07:43.856Z",
+  "updatedAt": "2026-09-02T10:08:16.816Z",
   "data": {
     "vision-interview-records": [
       {
@@ -2007,6 +2007,35 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788343693101-beqqhg2g",
+        "timestamp": "2026-09-02T10:08:13.101Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788343468196-zjzo0dai",
+        "event": "question-bank.ai-request.duration",
+        "message": "单个并行 AI 请求完成",
+        "context": {
+          "attempt": 4,
+          "workerIndex": 1,
+          "parallelRequests": 4,
+          "requestedCount": 1,
+          "receivedCount": 1,
+          "durationMs": 31995
+        }
+      },
+      {
+        "id": "1788343670166-6c3kzins",
+        "timestamp": "2026-09-02T10:07:50.166Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "450e49bb13c6"
+        }
+      },
       {
         "id": "1788343665538-9xadd1k9",
         "timestamp": "2026-09-02T10:07:45.538Z",
@@ -16687,34 +16716,6 @@
         "message": "当前题目已跳过",
         "context": {
           "question": "HALCON 中基于形状的模板匹配（create_shape_model）为什么对光照变化和遮挡具有一定的鲁棒性？其核心原理是什么？",
-          "mode": "专业知识",
-          "project": "机器视觉专业知识"
-        }
-      },
-      {
-        "id": "1788334294899-0y7n9u9w",
-        "timestamp": "2026-09-02T07:31:34.899Z",
-        "level": "WARN",
-        "kind": "user",
-        "sessionId": "1788334179286-pdtwgnjv",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "在 HALCON 中，当光照变化导致固定阈值分割失效时，如何选择合适的阈值策略？请对比全局阈值与局部阈值方法的适用场景。",
-          "mode": "专业知识",
-          "project": "机器视觉专业知识"
-        }
-      },
-      {
-        "id": "1788334294731-n5ygymk3",
-        "timestamp": "2026-09-02T07:31:34.731Z",
-        "level": "WARN",
-        "kind": "user",
-        "sessionId": "1788334179286-pdtwgnjv",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "HALCON中如何获取图像指定像素的灰度值？请说明HImage的数据组织方式。",
           "mode": "专业知识",
           "project": "机器视觉专业知识"
         }
