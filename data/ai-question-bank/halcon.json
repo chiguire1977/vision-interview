@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-09-02T10:03:37.749Z",
+  "updatedAt": "2026-09-02T10:13:19.169Z",
   "questions": [
     {
       "title": "在 HALCON 中，基于形状的模板匹配（shape-based matching）常用于定位工件。请说明金字塔层数、最小分数（MinScore）、最大重叠（MaxOverlap）和贪婪度（Greediness）这几个参数对匹配速度和鲁棒性的影响，并说明现场调试时如何取舍。",
@@ -4493,6 +4493,140 @@
       "principle": "手眼标定本质是求解AX=XB（眼在手上）或AX=YB（眼在手外）的矩阵方程。眼在手上时，A为机器人末端到基座的变换，B为标定板到相机的变换，X为相机到末端的变换；眼在手外时，A为机器人末端到基座的变换，B为标定板到相机的变换，X为相机到基座的变换，Y为标定板到基座的变换。通过多组位姿构建超定方程组，采用Tsai-Lenz或Park-Martin等线性方法求解初值，再以非线性优化最小化重投影误差。HALCON的calibrate_hand_eye封装了上述求解过程，并支持自动剔除异常位姿。",
       "id": "aiq-9971c4f8",
       "generatedAt": "2026-09-02T10:03:38.191Z",
+      "provider": "opencode-go",
+      "model": "deepseek-v4-flash",
+      "project": "机器视觉专业知识",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "随机技术栈",
+      "detectionDirectionFilter": "随机方向"
+    },
+    {
+      "title": "在HALCON中，使用Blob分析提取目标区域时，如何选择阈值分割方法和连通域特征？请结合一个实际工程场景说明完整流程。",
+      "type": "工程实践",
+      "category": "Blob分析",
+      "source": "专业",
+      "sourceType": "AI知识整理",
+      "knowledgePoints": [
+        "全局阈值与局部阈值的适用场景",
+        "连通域分析的基本概念",
+        "特征筛选（面积、圆度、位置）",
+        "HALCON中threshold和connection算子的使用"
+      ],
+      "difficulty": "中等",
+      "tags": [
+        "HALCON",
+        "Blob分析",
+        "阈值分割",
+        "连通域",
+        "特征提取"
+      ],
+      "keywords": [
+        "threshold",
+        "connection",
+        "select_shape",
+        "面积",
+        "圆度"
+      ],
+      "followUp": "如果目标与背景灰度接近，全局阈值失效，你会改用哪些HALCON算子或方法？",
+      "hint": "先说明阈值分割的两种思路，再以工件检测为例，描述预处理、分割、连通域、特征筛选、结果输出的完整流程。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "detectionDirection": "传统 2D 视觉",
+      "bestAnswer": "在HALCON中，Blob分析通常先对图像进行预处理（如高斯滤波减少噪声），然后使用threshold算子进行全局阈值分割，适用于目标与背景灰度差异明显的场景；若光照不均，则使用局部阈值方法如dyn_threshold或var_threshold。分割后得到二值图，通过connection算子将相邻像素合并为连通域，再用select_shape根据面积、圆度、宽度等特征筛选目标区域。例如检测传送带上的圆形工件，可先设定灰度阈值提取暗色工件，然后按面积范围过滤小噪声，按圆度（接近1）排除不规则物体，最后用smallest_circle获取圆心和半径用于定位。",
+      "principle": "阈值分割基于灰度直方图，将像素按灰度值分类为目标和背景；全局阈值适合双峰直方图，局部阈值通过比较像素与邻域统计量适应光照变化。连通域分析采用区域生长或等价标记算法，将满足连通性的像素集合标记为独立区域。特征筛选利用区域几何属性（面积、周长、圆度、矩等）进行形态学过滤，从而从复杂背景中提取感兴趣目标。HALCON的region处理机制支持快速形态学运算和特征计算，适合工业视觉中的实时检测。",
+      "id": "aiq-68856bc0",
+      "generatedAt": "2026-09-02T10:13:18.818Z",
+      "provider": "opencode-go",
+      "model": "deepseek-v4-flash",
+      "project": "机器视觉专业知识",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "随机技术栈",
+      "detectionDirectionFilter": "随机方向"
+    },
+    {
+      "title": "在HALCON中，基于形状的模板匹配（Shape-Based Matching）的核心原理是什么？实际工程中如何设置create_shape_model和find_shape_model的参数来平衡匹配精度与速度？",
+      "type": "算法原理",
+      "category": "算法原理",
+      "source": "专业",
+      "sourceType": "技术教程整理",
+      "knowledgePoints": [
+        "基于形状的模板匹配原理（边缘点梯度方向相似度）",
+        "图像金字塔层级搜索策略",
+        "关键参数MinScore、Greediness、AngleExtent对匹配结果的影响",
+        "工程中模板匹配参数调优方法"
+      ],
+      "difficulty": "中等",
+      "tags": [
+        "HALCON",
+        "模板匹配",
+        "形状匹配",
+        "参数调优"
+      ],
+      "keywords": [
+        "形状模型",
+        "梯度方向",
+        "金字塔层级",
+        "MinScore",
+        "Greediness"
+      ],
+      "followUp": "当目标物体存在部分遮挡或现场光照变化时，基于形状的模板匹配是否仍然可靠？你会如何调整策略或改用其他方法？",
+      "hint": "首先阐述形状匹配的核心原理（梯度方向一致性），然后说明金字塔搜索机制，最后结合参数说明工程调优的权衡策略",
+      "techStacks": [
+        "HALCON"
+      ],
+      "detectionDirection": "传统 2D 视觉",
+      "bestAnswer": "基于形状的模板匹配通过提取模板中目标边缘点的梯度方向构建形状模型，匹配时在搜索图像中计算对应位置梯度方向与模板的一致性得分。HALCON中create_shape_model创建模型，关键参数包括NumLevels（金字塔层数）、AngleStart/AngleExtent（旋转搜索范围）和MinScore（最小匹配分数）；find_shape_model执行匹配时，Greediness控制搜索贪婪程度。工程调优时，先设置较大AngleExtent和较低MinScore（如0.5）验证模型可行性，再逐步收紧；旋转范围大时增加AngleExtent，存在遮挡时降低MinScore并减小Greediness以提高鲁棒性。",
+      "principle": "形状匹配的核心是梯度方向相似度度量：模板边缘点的梯度方向与搜索图像对应位置的梯度方向通过点积计算匹配分数，因此对光照变化和灰度差异具有鲁棒性。HALCON采用图像金字塔实现由粗到精的搜索策略，在低分辨率层快速定位候选区域，再逐层细化到原始分辨率精确定位。Greediness参数采用分支定界算法，在搜索过程中提前终止低相似度候选，在保证精度的前提下大幅提升搜索速度。create_shape_model还会对模板边缘点进行预排序和空间索引，加速匹配时的最近邻搜索。",
+      "id": "aiq-f17e51d1",
+      "generatedAt": "2026-09-02T10:13:18.818Z",
+      "provider": "opencode-go",
+      "model": "deepseek-v4-flash",
+      "project": "机器视觉专业知识",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "随机技术栈",
+      "detectionDirectionFilter": "随机方向"
+    },
+    {
+      "title": "在HALCON中，使用edges_sub_pix提取亚像素边缘时，如何选择Sigma、Alpha和Low/High参数？请结合精密测量场景说明参数调整策略。",
+      "type": "工程实践",
+      "category": "图像处理",
+      "source": "专业",
+      "sourceType": "官方文档整理",
+      "knowledgePoints": [
+        "亚像素边缘提取原理",
+        "HALCON中edges_sub_pix参数作用",
+        "参数对测量精度的影响",
+        "实际场景参数调整策略"
+      ],
+      "difficulty": "中等",
+      "tags": [
+        "HALCON",
+        "亚像素边缘",
+        "精密测量"
+      ],
+      "keywords": [
+        "Sigma平滑",
+        "Alpha滞后阈值",
+        "边缘幅度",
+        "亚像素精度"
+      ],
+      "followUp": "如果测量对象表面有轻微纹理，如何调整参数避免伪边缘？",
+      "hint": "先说明亚像素边缘提取的基本原理，再分别解释Sigma、Alpha、Low/High的作用，最后给出调整策略。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "detectionDirection": "传统 2D 视觉",
+      "bestAnswer": "在HALCON中，edges_sub_pix基于Canny算法扩展，通过高斯平滑抑制噪声，用Sobel等算子计算梯度幅值和方向，再通过非极大值抑制和滞后阈值得到像素级边缘，最后用抛物线拟合或矩方法定位亚像素位置。Sigma控制高斯平滑程度，Sigma越大，噪声抑制越强，但边缘定位偏差可能增大；Alpha是滞后阈值的高阈值比例，实际低阈值为Alpha*High，用于连接边缘；Low和High分别表示滞后阈值的低阈值和高阈值，直接影响边缘的连续性和数量。在精密测量中，若零件表面光亮且边缘清晰，可选用较小Sigma（如0.8~1.0）保留细节，设置High为较高值（如30~50），Alpha设为0.5~0.7，以获取稳定边缘。若表面有轻微纹理，可适当增大Sigma至1.5~2.0，并提高High以滤除弱纹理边缘，同时调整Alpha保持边缘连续。最终需通过标准件校验测量重复性。",
+      "principle": "edges_sub_pix是HALCON中基于Canny改进的亚像素边缘提取算子。其原理是：先用高斯滤波器对图像进行平滑，减少噪声；然后计算图像梯度（通常用Sobel算子）得到梯度幅值和方向；接着进行非极大值抑制，细化边缘脊；再使用滞后阈值（Low和High）连接边缘，其中Alpha用于自动计算低阈值（Low = Alpha * High）。最后，在像素级边缘位置附近，利用灰度梯度或矩方法进行亚像素插值，使边缘定位精度达到亚像素级别。参数Sigma影响平滑范围和边缘偏移，Alpha和High共同决定边缘提取的灵敏度与连续性，实际工程中需根据图像噪声、边缘清晰度和测量精度要求进行平衡。",
+      "id": "aiq-ad132df3",
+      "generatedAt": "2026-09-02T10:13:18.818Z",
       "provider": "opencode-go",
       "model": "deepseek-v4-flash",
       "project": "机器视觉专业知识",
