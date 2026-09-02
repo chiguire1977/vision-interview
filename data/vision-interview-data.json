@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-02T04:27:28.378Z",
+  "updatedAt": "2026-09-02T04:27:35.120Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1876,6 +1876,32 @@
     },
     "vision-interview-project-view": "card",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788323252286-5dnpwfxw",
+        "timestamp": "2026-09-02T04:27:32.286Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "432eb8057025"
+        }
+      },
+      {
+        "id": "1788323247502-m6gjbsm8",
+        "timestamp": "2026-09-02T04:27:27.502Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788323242087-yn78d6t9",
+        "event": "question-bank.remote.loaded",
+        "message": "GitHub AI 历史题库加载完成",
+        "context": {
+          "questionCount": 33,
+          "githubQuestionCount": 33,
+          "pendingCount": 0
+        }
+      },
       {
         "id": "1788323242083-3echhjp2",
         "timestamp": "2026-09-02T04:27:22.083Z",
@@ -17845,41 +17871,6 @@
           "workerIndex": 2,
           "parallelRequests": 3,
           "requestedCount": 3
-        }
-      },
-      {
-        "id": "1788240068315-j0s102zq",
-        "timestamp": "2026-09-01T05:21:08.315Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788240054212-hn70rg9v",
-        "event": "question-bank.web-search.started",
-        "message": "开始联网检索本轮题目资料",
-        "context": {
-          "attempt": 5,
-          "query": "机器视觉 面试知识点 原理 工程实践",
-          "mode": "专业知识",
-          "excludedCount": 0,
-          "workerIndex": 1,
-          "parallelRequests": 3,
-          "requestedCount": 4
-        }
-      },
-      {
-        "id": "1788240068308-dy6aq7i0",
-        "timestamp": "2026-09-01T05:21:08.308Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788240054212-hn70rg9v",
-        "event": "question-bank.attempt.failed",
-        "message": "第 4/6 轮（并行 3/3）：本轮请求失败：Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON，准备下一轮…",
-        "context": {
-          "attempt": 4,
-          "maxAttempts": 6,
-          "collectedCount": 0,
-          "workerIndex": 3,
-          "parallelRequests": 3,
-          "error": "Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON"
         }
       }
     ]
