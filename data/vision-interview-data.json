@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-02T09:54:58.423Z",
+  "updatedAt": "2026-09-02T09:55:26.431Z",
   "data": {
     "vision-interview-records": [
       {
@@ -2007,6 +2007,70 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788342925765-pb9f9znu",
+        "timestamp": "2026-09-02T09:55:25.765Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788342627776-o0aqz996",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 5,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "sourceCount": 0,
+          "parallelRequests": 4,
+          "requestedCount": 10,
+          "durationMs": 464,
+          "sharedAcrossWorkers": true
+        }
+      },
+      {
+        "id": "1788342925301-a3i5ktre",
+        "timestamp": "2026-09-02T09:55:25.301Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788342627776-o0aqz996",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 5,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 9,
+          "parallelRequests": 4,
+          "requestedCount": 10
+        }
+      },
+      {
+        "id": "1788342925300-8tx5a343",
+        "timestamp": "2026-09-02T09:55:25.300Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788342627776-o0aqz996",
+        "event": "question-bank.ai-request.failed",
+        "message": "单个并行 AI 请求失败",
+        "context": {
+          "attempt": 4,
+          "workerIndex": 1,
+          "parallelRequests": 4,
+          "requestedCount": 1,
+          "durationMs": 60162,
+          "error": "AI 请求超时，请稍后重试。"
+        }
+      },
+      {
+        "id": "1788342902871-qxgctlox",
+        "timestamp": "2026-09-02T09:55:02.871Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "4d130dedf937"
+        }
+      },
       {
         "id": "1788342898062-26kjxpcg",
         "timestamp": "2026-09-02T09:54:58.062Z",
@@ -16577,64 +16641,6 @@
         "kind": "system",
         "event": "backup.close.flush",
         "message": "页面关闭或进入后台，提交最后一次备份"
-      },
-      {
-        "id": "1788328549267-uckkruik",
-        "timestamp": "2026-09-02T05:55:49.267Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "a665c9b36e5e"
-        }
-      },
-      {
-        "id": "1788328546318-vjdzzsgz",
-        "timestamp": "2026-09-02T05:55:46.318Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "1c8ea422a5db"
-        }
-      },
-      {
-        "id": "1788328544823-56lqe2mi",
-        "timestamp": "2026-09-02T05:55:44.823Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788328410366-861xutz0",
-        "event": "question-bank.ai-request.started",
-        "message": "第 2/6 轮（并行 2/5）：正在请求 AI 生成题目（1 道）…",
-        "context": {
-          "attempt": 2,
-          "maxAttempts": 6,
-          "collectedCount": 8,
-          "workerIndex": 2,
-          "parallelRequests": 5,
-          "requestedCount": 1
-        }
-      },
-      {
-        "id": "1788328544818-ftkk48rk",
-        "timestamp": "2026-09-02T05:55:44.818Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788328410366-861xutz0",
-        "event": "question-bank.ai-request.started",
-        "message": "第 2/6 轮（并行 1/5）：正在请求 AI 生成题目（1 道）…",
-        "context": {
-          "attempt": 2,
-          "maxAttempts": 6,
-          "collectedCount": 8,
-          "workerIndex": 1,
-          "parallelRequests": 5,
-          "requestedCount": 1
-        }
       }
     ]
   }
