@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-02T09:53:23.885Z",
+  "updatedAt": "2026-09-02T09:53:53.088Z",
   "data": {
     "vision-interview-records": [
       {
@@ -2007,6 +2007,35 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788342830742-lu5s1ck2",
+        "timestamp": "2026-09-02T09:53:50.742Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788342627776-o0aqz996",
+        "event": "question-bank.ai-request.duration",
+        "message": "单个并行 AI 请求完成",
+        "context": {
+          "attempt": 3,
+          "workerIndex": 2,
+          "parallelRequests": 4,
+          "requestedCount": 1,
+          "receivedCount": 1,
+          "durationMs": 26408
+        }
+      },
+      {
+        "id": "1788342809070-m3dp4rnf",
+        "timestamp": "2026-09-02T09:53:29.070Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "186826673794"
+        }
+      },
       {
         "id": "1788342805535-44smqdxw",
         "timestamp": "2026-09-02T09:53:25.535Z",
@@ -16633,41 +16662,6 @@
           "workerIndex": 1,
           "parallelRequests": 5,
           "requestedCount": 2
-        }
-      },
-      {
-        "id": "1788328484078-5j8z6td0",
-        "timestamp": "2026-09-02T05:54:44.078Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788328410366-861xutz0",
-        "event": "question-bank.web-search.completed",
-        "message": "本轮联网检索完成",
-        "context": {
-          "attempt": 1,
-          "query": "机器视觉 面试知识点 HALCON 传统 2D 视觉 仅限二维图像处理，排除 3D、三维、点云、深度图、法线估计、平面拟合、立体视觉、结构光和双目 原理 工程实践",
-          "sourceCount": 0,
-          "parallelRequests": 5,
-          "requestedCount": 10,
-          "durationMs": 3267,
-          "sharedAcrossWorkers": true
-        }
-      },
-      {
-        "id": "1788328480811-jna5t6xx",
-        "timestamp": "2026-09-02T05:54:40.811Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788328410366-861xutz0",
-        "event": "question-bank.web-search.started",
-        "message": "开始联网检索本轮题目资料",
-        "context": {
-          "attempt": 1,
-          "query": "机器视觉 面试知识点 HALCON 传统 2D 视觉 仅限二维图像处理，排除 3D、三维、点云、深度图、法线估计、平面拟合、立体视觉、结构光和双目 原理 工程实践",
-          "mode": "专业知识",
-          "excludedCount": 0,
-          "parallelRequests": 5,
-          "requestedCount": 10
         }
       }
     ]
