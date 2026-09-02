@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-02T09:50:48.846Z",
+  "updatedAt": "2026-09-02T09:51:16.539Z",
   "data": {
     "vision-interview-records": [
       {
@@ -2007,6 +2007,47 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788342676826-s6rcev8u",
+        "timestamp": "2026-09-02T09:51:16.826Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788342627776-o0aqz996",
+        "event": "ai.connection-test.completed",
+        "message": "真实聊天连接测试成功",
+        "context": {
+          "provider": "opencode-go",
+          "model": "deepseek-v4-flash",
+          "upstreamFormat": "chat-completions",
+          "durationMs": 1341
+        }
+      },
+      {
+        "id": "1788342675485-0iqhsxkw",
+        "timestamp": "2026-09-02T09:51:15.485Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788342627776-o0aqz996",
+        "event": "ai.connection-test.started",
+        "message": "开始真实聊天连接测试",
+        "context": {
+          "provider": "opencode-go",
+          "model": "deepseek-v4-flash",
+          "upstreamFormat": "chat-completions"
+        }
+      },
+      {
+        "id": "1788342653632-hequ2y1r",
+        "timestamp": "2026-09-02T09:50:53.632Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "092d2d68a9a8"
+        }
+      },
       {
         "id": "1788342646982-q34k3kfg",
         "timestamp": "2026-09-02T09:50:46.982Z",
@@ -16487,41 +16528,6 @@
           "question": "在HALCON中进行Blob分析时，如何合理设置阈值和最小面积参数以稳定提取目标区域？",
           "seconds": 0
         }
-      },
-      {
-        "id": "1788326458026-onhz86y5",
-        "timestamp": "2026-09-02T05:20:58.026Z",
-        "level": "INFO",
-        "kind": "user",
-        "sessionId": "1788325262027-rws3kdto",
-        "event": "answer.submit.started",
-        "message": "保存当前回答，等待题组评审",
-        "context": {
-          "question": "在HALCON中进行Blob分析时，如何合理设置阈值和最小面积参数以稳定提取目标区域？",
-          "mode": "专业知识",
-          "project": "机器视觉专业知识",
-          "answerLength": 32
-        }
-      },
-      {
-        "id": "1788326393604-whw58gxu",
-        "timestamp": "2026-09-02T05:19:53.604Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "54bc22c3593c"
-        }
-      },
-      {
-        "id": "1788326386165-hvl2whpt",
-        "timestamp": "2026-09-02T05:19:46.165Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.close.flush",
-        "message": "页面关闭或进入后台，提交最后一次备份"
       }
     ]
   }
