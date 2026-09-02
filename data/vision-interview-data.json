@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-02T08:42:55.358Z",
+  "updatedAt": "2026-09-02T08:43:01.472Z",
   "data": {
     "vision-interview-records": [
       {
@@ -2007,6 +2007,52 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788338580411-v1m0lvmk",
+        "timestamp": "2026-09-02T08:43:00.411Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788338320411-38gvsbsd",
+        "event": "question-bank.ai-request.duration",
+        "message": "单个并行 AI 请求完成",
+        "context": {
+          "attempt": 2,
+          "workerIndex": 2,
+          "parallelRequests": 4,
+          "requestedCount": 1,
+          "receivedCount": 1,
+          "durationMs": 42874
+        }
+      },
+      {
+        "id": "1788338580311-gh4rjg83",
+        "timestamp": "2026-09-02T08:43:00.311Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788338320411-38gvsbsd",
+        "event": "question-group.prepare.started",
+        "message": "开始准备题组",
+        "context": {
+          "project": "机器视觉专业知识",
+          "mode": "专业知识",
+          "questionCount": 10,
+          "sourceMode": "network",
+          "adaptiveQuestions": false,
+          "focusCategories": []
+        }
+      },
+      {
+        "id": "1788338579909-ayefd4ze",
+        "timestamp": "2026-09-02T08:42:59.909Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "cceaaccd4ded"
+        }
+      },
       {
         "id": "1788338576563-71vidl92",
         "timestamp": "2026-09-02T08:42:56.563Z",
@@ -14983,47 +15029,6 @@
           "requestedCount": 2,
           "durationMs": 60302,
           "error": "AI 请求超时，请稍后重试。"
-        }
-      },
-      {
-        "id": "1788271120516-gissyjzf",
-        "timestamp": "2026-09-01T13:58:40.516Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788270845321-n003ywzy",
-        "event": "question-bank.ai-request.failed",
-        "message": "单个并行 AI 请求失败",
-        "context": {
-          "attempt": 3,
-          "workerIndex": 1,
-          "parallelRequests": 5,
-          "requestedCount": 2,
-          "durationMs": 60227,
-          "error": "AI 请求超时，请稍后重试。"
-        }
-      },
-      {
-        "id": "1788271069580-ubmem3xf",
-        "timestamp": "2026-09-01T13:57:49.580Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "a7376216a04c"
-        }
-      },
-      {
-        "id": "1788271064363-o1uct44u",
-        "timestamp": "2026-09-01T13:57:44.363Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "07c4a8b57fd0"
         }
       }
     ]
