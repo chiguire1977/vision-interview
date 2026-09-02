@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-02T10:34:54.762Z",
+  "updatedAt": "2026-09-02T10:35:01.792Z",
   "data": {
     "vision-interview-records": [
       {
@@ -2007,6 +2007,35 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788345301157-ibg52n36",
+        "timestamp": "2026-09-02T10:35:01.157Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788345131423-wywacu41",
+        "event": "question-bank.ai-request.duration",
+        "message": "单个并行 AI 请求完成",
+        "context": {
+          "attempt": 3,
+          "workerIndex": 3,
+          "parallelRequests": 4,
+          "requestedCount": 1,
+          "receivedCount": 1,
+          "durationMs": 43654
+        }
+      },
+      {
+        "id": "1788345299888-rg8ebwjb",
+        "timestamp": "2026-09-02T10:34:59.888Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "13ca9c74cd1c"
+        }
+      },
       {
         "id": "1788345294125-2ib4ugd0",
         "timestamp": "2026-09-02T10:34:54.125Z",
@@ -17337,35 +17366,6 @@
         "context": {
           "reason": "change",
           "commit": "9c9a08785123"
-        }
-      },
-      {
-        "id": "1788338612163-r20ev5lt",
-        "timestamp": "2026-09-02T08:43:32.163Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788338320411-38gvsbsd",
-        "event": "question-group.prepare.started",
-        "message": "开始准备题组",
-        "context": {
-          "project": "机器视觉专业知识",
-          "mode": "专业知识",
-          "questionCount": 10,
-          "sourceMode": "network",
-          "adaptiveQuestions": false,
-          "focusCategories": []
-        }
-      },
-      {
-        "id": "1788338610826-92tq6anp",
-        "timestamp": "2026-09-02T08:43:30.826Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "36059a876255"
         }
       }
     ]
