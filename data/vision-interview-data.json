@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-02T10:36:44.158Z",
+  "updatedAt": "2026-09-02T10:36:56.771Z",
   "data": {
     "vision-interview-records": [
       {
@@ -2007,6 +2007,47 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788345416239-ix5xen8i",
+        "timestamp": "2026-09-02T10:36:56.239Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788345131423-wywacu41",
+        "event": "question-bank.cache.pending",
+        "message": "AI 题库已进入本地待同步队列（10 条）",
+        "context": {
+          "questionCount": 10,
+          "pendingCount": 10
+        }
+      },
+      {
+        "id": "1788345416238-hid54yrc",
+        "timestamp": "2026-09-02T10:36:56.238Z",
+        "level": "ERROR",
+        "kind": "system",
+        "sessionId": "1788345131423-wywacu41",
+        "event": "github.backup.failed",
+        "message": "数据备份到 GitHub 失败",
+        "context": {
+          "operation": "ai-question-bank",
+          "entryCount": 10,
+          "pendingCount": 10,
+          "totalCount": 150,
+          "reason": "signal timed out"
+        }
+      },
+      {
+        "id": "1788345409565-5vnd5008",
+        "timestamp": "2026-09-02T10:36:49.565Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "80507325e92a"
+        }
+      },
       {
         "id": "1788345405841-c7qj30s3",
         "timestamp": "2026-09-02T10:36:45.841Z",
@@ -17345,48 +17386,6 @@
       {
         "id": "1788338673232-yxfihs4x",
         "timestamp": "2026-09-02T08:44:33.232Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.close.flush",
-        "message": "页面关闭或进入后台，提交最后一次备份"
-      },
-      {
-        "id": "1788338672033-kwx34h88",
-        "timestamp": "2026-09-02T08:44:32.033Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788338320411-38gvsbsd",
-        "event": "question-group.prepare.started",
-        "message": "开始准备题组",
-        "context": {
-          "project": "机器视觉专业知识",
-          "mode": "专业知识",
-          "questionCount": 10,
-          "sourceMode": "network",
-          "adaptiveQuestions": false,
-          "focusCategories": []
-        }
-      },
-      {
-        "id": "1788338669501-2xyusgye",
-        "timestamp": "2026-09-02T08:44:29.501Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788338320411-38gvsbsd",
-        "event": "question-group.prepare.started",
-        "message": "开始准备题组",
-        "context": {
-          "project": "机器视觉专业知识",
-          "mode": "专业知识",
-          "questionCount": 10,
-          "sourceMode": "network",
-          "adaptiveQuestions": false,
-          "focusCategories": []
-        }
-      },
-      {
-        "id": "1788338667399-qn6ft15n",
-        "timestamp": "2026-09-02T08:44:27.399Z",
         "level": "INFO",
         "kind": "system",
         "event": "backup.close.flush",
