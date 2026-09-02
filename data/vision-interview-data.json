@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-02T10:33:15.546Z",
+  "updatedAt": "2026-09-02T10:33:59.987Z",
   "data": {
     "vision-interview-records": [
       {
@@ -2007,6 +2007,52 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788345237797-laqiwxf1",
+        "timestamp": "2026-09-02T10:33:57.797Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788345131423-wywacu41",
+        "event": "question-bank.ai-request.duration",
+        "message": "单个并行 AI 请求完成",
+        "context": {
+          "attempt": 2,
+          "workerIndex": 1,
+          "parallelRequests": 4,
+          "requestedCount": 3,
+          "receivedCount": 3,
+          "durationMs": 42278
+        }
+      },
+      {
+        "id": "1788345226494-hq0pjik9",
+        "timestamp": "2026-09-02T10:33:46.494Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788345131423-wywacu41",
+        "event": "question-bank.ai-request.duration",
+        "message": "单个并行 AI 请求完成",
+        "context": {
+          "attempt": 2,
+          "workerIndex": 4,
+          "parallelRequests": 4,
+          "requestedCount": 2,
+          "receivedCount": 2,
+          "durationMs": 30973
+        }
+      },
+      {
+        "id": "1788345200354-khlezy9u",
+        "timestamp": "2026-09-02T10:33:20.354Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "049a3a527840"
+        }
+      },
       {
         "id": "1788345195518-59gcy0fy",
         "timestamp": "2026-09-02T10:33:15.518Z",
@@ -17297,52 +17343,6 @@
         "context": {
           "reason": "change",
           "commit": "17dbd072a9fb"
-        }
-      },
-      {
-        "id": "1788338571750-wxefu7m4",
-        "timestamp": "2026-09-02T08:42:51.750Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788338320411-38gvsbsd",
-        "event": "question-group.prepare.started",
-        "message": "开始准备题组",
-        "context": {
-          "project": "机器视觉专业知识",
-          "mode": "专业知识",
-          "questionCount": 10,
-          "sourceMode": "network",
-          "adaptiveQuestions": false,
-          "focusCategories": []
-        }
-      },
-      {
-        "id": "1788338570161-w1gea5su",
-        "timestamp": "2026-09-02T08:42:50.161Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "150f4a93b371"
-        }
-      },
-      {
-        "id": "1788338569865-mxxt2ds7",
-        "timestamp": "2026-09-02T08:42:49.865Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788338320411-38gvsbsd",
-        "event": "question-bank.ai-request.duration",
-        "message": "单个并行 AI 请求完成",
-        "context": {
-          "attempt": 2,
-          "workerIndex": 1,
-          "parallelRequests": 4,
-          "requestedCount": 2,
-          "receivedCount": 2,
-          "durationMs": 32328
         }
       }
     ]
