@@ -8,9 +8,13 @@ import {
   filterHighQualityWebResearchSources,
   isQuestionGenerationPayload,
 } from "@/lib/ai-question-quality.mjs";
+import {
+  combineAbortSignals,
+  createQuestionPreparationAbortManager,
+} from "@/lib/question-preparation-cancel.mjs";
 
 type StreamProgress = {
-  phase: "streaming" | "validating";
+  phase: "searching" | "streaming" | "validating";
   candidateCount: number;
   acceptedCount: number;
   knowledgeCount: number;
@@ -22,6 +26,7 @@ let lastGenerationActivity = 0;
 let completedCandidateCount = 0;
 let acceptedQuestionCount = 0;
 const activeCandidateCounts = new Map<symbol, number>();
+const preparationAbortManager = createQuestionPreparationAbortManager();
 const SESSION_IDLE_RESET_MS = 120000;
 
 function resetCoverageSession() {
@@ -81,6 +86,11 @@ function responseWithJson(response: Response, payload: unknown) {
   return new Response(JSON.stringify(payload), { status: response.status, statusText: response.statusText, headers });
 }
 
+function requestSignal(input: RequestInfo | URL, init?: RequestInit) {
+  const inheritedSignal = typeof Request !== "undefined" && input instanceof Request ? input.signal : undefined;
+  return combineAbortSignals(inheritedSignal, init?.signal, preparationAbortManager.begin());
+}
+
 async function consumeSse(response: Response, onContent: (content: string) => void) {
   if (!response.body) return "";
   const reader = response.body.getReader();
@@ -133,7 +143,12 @@ export function AiQuestionTransportBridge() {
       if (!detail) return;
       if (hideTimer) clearTimeout(hideTimer);
       setProgress(detail);
-      if (detail.phase === "validating") hideTimer = setTimeout(() => setProgress(null), 1800);
+      if (detail.phase === "validating") {
+        hideTimer = setTimeout(() => {
+          setProgress(null);
+          if (activeGenerationRequests === 0) preparationAbortManager.reset();
+        }, 1800);
+      }
     };
     window.addEventListener("vision-interview-ai-stream-progress", onProgress);
 
@@ -147,12 +162,16 @@ export function AiQuestionTransportBridge() {
         if (activeGenerationRequests === 0 && typeof init?.body === "string") {
           try {
             const searchPayload = JSON.parse(init.body) as { excludedTitles?: unknown };
-            if (Array.isArray(searchPayload.excludedTitles) && searchPayload.excludedTitles.length === 0) resetCoverageSession();
+            if (Array.isArray(searchPayload.excludedTitles) && searchPayload.excludedTitles.length === 0) {
+              resetCoverageSession();
+              preparationAbortManager.reset();
+            }
           } catch {
             // Search payload is optional for quality filtering.
           }
         }
-        const response = await originalFetch(input, init);
+        dispatchProgress("searching");
+        const response = await originalFetch(input, { ...init, signal: requestSignal(input, init) });
         if (!response.ok) return response;
         try {
           const payload = await response.clone().json() as { sources?: unknown[] } & Record<string, unknown>;
@@ -178,6 +197,7 @@ export function AiQuestionTransportBridge() {
         const response = await originalFetch(input, {
           ...init,
           headers: requestHeaders,
+          signal: requestSignal(input, init),
           body: JSON.stringify({ ...payload, stream: true }),
         });
         const contentType = (response.headers.get("content-type") || "").toLowerCase();
@@ -214,22 +234,49 @@ export function AiQuestionTransportBridge() {
 
     return () => {
       if (hideTimer) clearTimeout(hideTimer);
+      preparationAbortManager.abort("题组准备组件已卸载");
+      preparationAbortManager.reset();
       window.removeEventListener("vision-interview-ai-stream-progress", onProgress);
       window.fetch = originalFetch;
     };
   }, []);
 
+  const cancelPreparation = () => {
+    if (!preparationAbortManager.abort("用户中断题组准备")) return;
+    setProgress(null);
+    window.setTimeout(() => window.location.reload(), 0);
+  };
+
   if (!progress) return null;
+  const title = progress.phase === "searching"
+    ? "正在检索题组参考资料"
+    : progress.phase === "streaming"
+      ? "AI 正在流式生成题目"
+      : "正在校验题组质量";
+
   return (
-    <div className="pointer-events-none fixed right-5 top-20 z-[80] w-[min(360px,calc(100vw-2.5rem))] rounded-xl border border-blue-200 bg-white/95 p-4 shadow-lg backdrop-blur">
+    <div className="pointer-events-auto fixed right-5 top-20 z-[80] w-[min(360px,calc(100vw-2.5rem))] rounded-xl border border-slate-200 bg-white/95 p-4 shadow-lg backdrop-blur">
       <div className="flex items-center justify-between gap-3">
-        <p className="text-sm font-semibold text-slate-900">{progress.phase === "streaming" ? "AI 正在流式生成题目" : "正在校验题组质量"}</p>
+        <p className="text-sm font-semibold text-slate-900">{title}</p>
         <span className="size-2 animate-pulse rounded-full bg-blue-500" />
       </div>
-      <p className="mt-2 text-xs leading-5 text-slate-600">
-        已收到 <strong className="text-blue-700">{progress.candidateCount}</strong> 道候选题，覆盖 <strong className="text-blue-700">{progress.knowledgeCount}</strong> 个知识点；已通过覆盖校验 {progress.acceptedCount} 道。
-      </p>
+      {progress.phase === "searching" ? (
+        <p className="mt-2 text-xs leading-5 text-slate-600">正在检索并筛选官方文档、论文和高质量技术资料，为本题组生成提供依据。</p>
+      ) : (
+        <p className="mt-2 text-xs leading-5 text-slate-600">
+          已收到 <strong className="text-blue-700">{progress.candidateCount}</strong> 道候选题，覆盖 <strong className="text-blue-700">{progress.knowledgeCount}</strong> 个知识点；已通过覆盖校验 {progress.acceptedCount} 道。
+        </p>
+      )}
       <p className="mt-1 text-[11px] leading-4 text-slate-400">完整题组准备完成后才会进入答题，不会用半组题提前开始。</p>
+      <div className="mt-3 flex justify-end border-t border-slate-100 pt-3">
+        <button
+          type="button"
+          onClick={cancelPreparation}
+          className="rounded-md border border-slate-300 bg-white px-3 py-1.5 text-xs font-medium text-slate-700 transition-colors hover:border-red-300 hover:bg-red-50 hover:text-red-700 focus:outline-none focus:ring-2 focus:ring-red-200"
+        >
+          中断准备
+        </button>
+      </div>
     </div>
   );
 }
