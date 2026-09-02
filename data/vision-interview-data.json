@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-02T12:49:23.858Z",
+  "updatedAt": "2026-09-02T12:49:32.910Z",
   "data": {
     "vision-interview-records": [
       {
@@ -2008,12 +2008,36 @@
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
       {
+        "id": "1788353371179-r59ekpu2",
+        "timestamp": "2026-09-02T12:49:31.179Z",
+        "level": "ERROR",
+        "kind": "system",
+        "event": "backup.push.failed",
+        "message": "运行数据备份失败",
+        "context": {
+          "status": 502,
+          "reason": "GitHub 备份失败（HTTP 409）：{\"message\":\"data/vision-interview-data.json does not match efe1c8440a022ec64f485e23aaea8fb012b0551b\",\"documentation_url\":\"https://docs.github.com/rest/repos/contents#create-or-update-file-contents\",\"status\":\"409\"}"
+        }
+      },
+      {
         "id": "1788353360850-s3f95em0",
         "timestamp": "2026-09-02T12:49:20.850Z",
         "level": "INFO",
         "kind": "system",
         "event": "backup.close.flush",
         "message": "页面关闭或进入后台，提交最后一次备份"
+      },
+      {
+        "id": "1788351763794-l7t2jhu1",
+        "timestamp": "2026-09-02T12:22:43.794Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "f99c92954553"
+        }
       },
       {
         "id": "1788351755645-e55v54wi",
@@ -17188,40 +17212,6 @@
         "context": {
           "reason": "change",
           "commit": "666c590aec77"
-        }
-      },
-      {
-        "id": "1788338915060-xikt3wf2",
-        "timestamp": "2026-09-02T08:48:35.060Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788338320411-38gvsbsd",
-        "event": "question-group.prepare.started",
-        "message": "开始准备题组",
-        "context": {
-          "project": "机器视觉专业知识",
-          "mode": "专业知识",
-          "questionCount": 10,
-          "sourceMode": "network",
-          "adaptiveQuestions": false,
-          "focusCategories": []
-        }
-      },
-      {
-        "id": "1788338913824-lftfch61",
-        "timestamp": "2026-09-02T08:48:33.824Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788338320411-38gvsbsd",
-        "event": "question-group.prepare.started",
-        "message": "开始准备题组",
-        "context": {
-          "project": "机器视觉专业知识",
-          "mode": "专业知识",
-          "questionCount": 10,
-          "sourceMode": "network",
-          "adaptiveQuestions": false,
-          "focusCategories": []
         }
       }
     ]
