@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-02T04:31:05.180Z",
+  "updatedAt": "2026-09-02T04:31:08.996Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1823,6 +1823,18 @@
         "kind": "system",
         "event": "backup.close.flush",
         "message": "页面关闭或进入后台，提交最后一次备份"
+      },
+      {
+        "id": "1788323437276-dpld2436",
+        "timestamp": "2026-09-02T04:30:37.276Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "6eb1ba4cd529"
+        }
       },
       {
         "id": "1788323431860-pylrx6uf",
@@ -16676,19 +16688,6 @@
         "context": {
           "reason": "change",
           "commit": "abf3dc11441c"
-        }
-      },
-      {
-        "id": "1788265341129-ba02m9a3",
-        "timestamp": "2026-09-01T12:22:21.129Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264675884-efebbymx",
-        "event": "question-group.prepare.completed",
-        "message": "AI 多轮联网检索后获得 3/10 道完整题目，其余使用本地题库兜底；远程题库正在后台同步。",
-        "context": {
-          "source": "AI",
-          "questionCount": 10
         }
       }
     ]
