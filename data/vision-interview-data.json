@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-02T07:30:36.441Z",
+  "updatedAt": "2026-09-02T07:30:42.138Z",
   "data": {
     "vision-interview-records": [
       {
@@ -2007,6 +2007,70 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788334242898-md3a0vte",
+        "timestamp": "2026-09-02T07:30:42.898Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "1c797043e03b"
+        }
+      },
+      {
+        "id": "1788334240262-us73m07i",
+        "timestamp": "2026-09-02T07:30:40.262Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788334179286-pdtwgnjv",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 2,
+          "query": "机器视觉 面试知识点 HALCON 传统 2D 视觉 仅限二维图像处理，排除 3D、三维、点云、深度图、法线估计、平面拟合、立体视觉、结构光和双目 原理 工程实践",
+          "sourceCount": 0,
+          "parallelRequests": 5,
+          "requestedCount": 10,
+          "durationMs": 541,
+          "sharedAcrossWorkers": true
+        }
+      },
+      {
+        "id": "1788334239722-p5fqdkw1",
+        "timestamp": "2026-09-02T07:30:39.722Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788334179286-pdtwgnjv",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 2,
+          "query": "机器视觉 面试知识点 HALCON 传统 2D 视觉 仅限二维图像处理，排除 3D、三维、点云、深度图、法线估计、平面拟合、立体视觉、结构光和双目 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 9,
+          "parallelRequests": 5,
+          "requestedCount": 10
+        }
+      },
+      {
+        "id": "1788334239716-jkfmqbv6",
+        "timestamp": "2026-09-02T07:30:39.716Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788334179286-pdtwgnjv",
+        "event": "question-bank.ai-request.duration",
+        "message": "单个并行 AI 请求完成",
+        "context": {
+          "attempt": 1,
+          "workerIndex": 1,
+          "parallelRequests": 5,
+          "requestedCount": 2,
+          "receivedCount": 2,
+          "durationMs": 49771
+        }
+      },
       {
         "id": "1788334237187-h6mtjuws",
         "timestamp": "2026-09-02T07:30:37.187Z",
@@ -15624,64 +15688,6 @@
           "excludedCount": 9,
           "parallelRequests": 5,
           "requestedCount": 10
-        }
-      },
-      {
-        "id": "1788268042124-501vge1i",
-        "timestamp": "2026-09-01T13:07:22.124Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788267920001-m70g11yz",
-        "event": "question-bank.ai-request.failed",
-        "message": "单个并行 AI 请求失败",
-        "context": {
-          "attempt": 2,
-          "workerIndex": 5,
-          "parallelRequests": 5,
-          "requestedCount": 1,
-          "durationMs": 60278,
-          "error": "AI 请求超时，请稍后重试。"
-        }
-      },
-      {
-        "id": "1788268038647-21alrvex",
-        "timestamp": "2026-09-01T13:07:18.647Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "b0677075a129"
-        }
-      },
-      {
-        "id": "1788268036340-v7i81trc",
-        "timestamp": "2026-09-01T13:07:16.340Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788267920001-m70g11yz",
-        "event": "question-bank.ai-request.duration",
-        "message": "单个并行 AI 请求完成",
-        "context": {
-          "attempt": 2,
-          "workerIndex": 1,
-          "parallelRequests": 5,
-          "requestedCount": 2,
-          "receivedCount": 2,
-          "durationMs": 54495
-        }
-      },
-      {
-        "id": "1788268034646-4375efjj",
-        "timestamp": "2026-09-01T13:07:14.646Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "c06aa5828634"
         }
       }
     ]
