@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-09-02T04:33:33.731Z",
+  "updatedAt": "2026-09-02T05:03:20.541Z",
   "questions": [
     {
       "title": "在 HALCON 中，基于形状的模板匹配（shape-based matching）常用于定位工件。请说明金字塔层数、最小分数（MinScore）、最大重叠（MaxOverlap）和贪婪度（Greediness）这几个参数对匹配速度和鲁棒性的影响，并说明现场调试时如何取舍。",
@@ -1716,6 +1716,447 @@
       "principle": "Blob分析的核心是将灰度图像转化为二值图像，通过连通域标记将像素聚类成区域。区域特征基于几何矩计算，如面积是零阶矩，重心是一阶矩，圆度由面积和周长推导。select_shape利用这些特征进行条件过滤，实现目标与干扰的分离。",
       "id": "aiq-2ec79114",
       "generatedAt": "2026-09-02T04:33:31.833Z",
+      "provider": "opencode-go",
+      "model": "deepseek-v4-flash",
+      "project": "机器视觉专业知识",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "基础",
+      "techStackFilter": "HALCON",
+      "detectionDirectionFilter": "传统 2D 视觉"
+    },
+    {
+      "title": "HALCON 中全局阈值分割（threshold）的原理是什么？如何根据灰度直方图确定合适的阈值？",
+      "type": "算法原理",
+      "category": "图像分割",
+      "source": "专业",
+      "sourceType": "官方文档整理",
+      "knowledgePoints": [
+        "全局阈值分割的基本原理：像素灰度与阈值比较生成二值区域",
+        "灰度直方图双峰法选择阈值的依据",
+        "光照不均匀对全局阈值的影响及应对思路"
+      ],
+      "difficulty": "基础",
+      "tags": [
+        "HALCON",
+        "threshold",
+        "灰度直方图",
+        "阈值分割"
+      ],
+      "keywords": [
+        "阈值",
+        "直方图",
+        "双峰",
+        "光照不均",
+        "动态阈值"
+      ],
+      "followUp": "如果图像光照不均匀导致全局阈值失效，你会如何在 HALCON 中处理？",
+      "hint": "先说明 threshold 操作符的输入输出，再解释直方图双峰与谷底选择，最后补充不均匀光照下的替代方案（如局部阈值、动态阈值）。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "detectionDirection": "传统 2D 视觉",
+      "bestAnswer": "HALCON 的 threshold 操作符将灰度图像中所有灰度值在给定区间内的像素点归为一个区域，输出为二值区域。确定阈值时，先统计灰度直方图，若目标和背景灰度差异明显，直方图会呈现双峰，阈值通常选在两峰之间的谷底处，以最小化误分割。若光照不均匀，全局阈值难以兼顾整幅图像，可改用局部阈值方法（如 dyn_threshold）或先做光照校正（如 divide_image 配合背景估计），再使用全局阈值。",
+      "principle": "threshold 基于像素级灰度比较，对每个像素独立判断，计算简单但缺乏空间上下文。直方图双峰法假设目标和背景各自形成单峰分布，谷底对应边界灰度，能最大化类间分离。光照不均匀会使同一目标在不同位置的灰度漂移，导致全局阈值无法同时适应亮区和暗区，因此需要引入局部邻域信息或背景补偿。",
+      "id": "aiq-851bcfc8",
+      "generatedAt": "2026-09-02T05:03:20.956Z",
+      "provider": "opencode-go",
+      "model": "deepseek-v4-flash",
+      "project": "机器视觉专业知识",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "基础",
+      "techStackFilter": "HALCON",
+      "detectionDirectionFilter": "传统 2D 视觉"
+    },
+    {
+      "title": "HALCON 中 Blob 分析的基本流程是什么？如何通过特征筛选去除干扰区域？",
+      "type": "工程实践",
+      "category": "区域分析",
+      "source": "专业",
+      "sourceType": "官方文档整理",
+      "knowledgePoints": [
+        "Blob 分析的标准流程：预处理、阈值分割、连通域提取、特征筛选",
+        "常用特征：面积、圆度、矩形度、位置等",
+        "形态学操作在改善 Blob 质量中的作用"
+      ],
+      "difficulty": "基础",
+      "tags": [
+        "HALCON",
+        "Blob分析",
+        "连通域",
+        "特征筛选",
+        "形态学"
+      ],
+      "keywords": [
+        "连通域",
+        "面积",
+        "圆度",
+        "select_shape",
+        "形态学"
+      ],
+      "followUp": "当目标区域存在粘连时，你会如何改进 Blob 分析流程？",
+      "hint": "先描述从图像到区域的完整链路，再说明 select_shape 等特征筛选操作符，最后补充形态学开闭运算对粘连和噪声的处理。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "detectionDirection": "传统 2D 视觉",
+      "bestAnswer": "HALCON 中 Blob 分析通常包括：图像采集、预处理（如滤波、形态学）、阈值分割得到二值区域、通过 connection 将区域拆分为连通域、使用 select_shape 按面积、圆度、宽高等特征筛选目标区域。若存在噪声或粘连，可先用 opening/closing 去除小颗粒或平滑边界，再对粘连区域使用 watersheds 或距离变换分割。特征筛选时需根据实际目标设定合理阈值范围，避免误检和漏检。",
+      "principle": "Blob 分析基于连通域标记算法，将二值图像中相邻的相同灰度像素归为同一区域。connection 采用像素邻接关系遍历，生成独立连通域。select_shape 通过计算区域几何特征（如面积、周长、形状因子）与预设范围比较，实现快速过滤。形态学操作通过结构元素与区域相互作用，能去除小噪声、填充孔洞或分离弱粘连，提升后续特征提取的稳定性。",
+      "id": "aiq-268f9c91",
+      "generatedAt": "2026-09-02T05:03:20.956Z",
+      "provider": "opencode-go",
+      "model": "deepseek-v4-flash",
+      "project": "机器视觉专业知识",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "基础",
+      "techStackFilter": "HALCON",
+      "detectionDirectionFilter": "传统 2D 视觉"
+    },
+    {
+      "title": "HALCON 中阈值分割后区域存在大量细小噪点，如何在不影响目标区域完整性的前提下进行有效处理？请说明常用算子的选择依据和参数影响。",
+      "type": "工程实践",
+      "category": "图像分割",
+      "source": "专业",
+      "sourceType": "官方文档整理",
+      "knowledgePoints": [
+        "阈值分割后区域后处理的基本流程",
+        "connection 与 select_shape 的配合使用",
+        "开运算与闭运算对区域形态的影响",
+        "参数选择对处理结果的影响"
+      ],
+      "difficulty": "基础",
+      "tags": [
+        "HALCON",
+        "阈值分割",
+        "区域后处理",
+        "形态学",
+        "噪点抑制"
+      ],
+      "keywords": [
+        "connection",
+        "select_shape",
+        "opening_circle",
+        "closing_circle",
+        "区域面积阈值"
+      ],
+      "followUp": "如果目标区域内部存在孔洞，你会如何调整处理流程？请说明 area_holes 算子的作用。",
+      "hint": "先分离连通域，再基于几何特征筛选目标区域；形态学操作需注意结构元素大小对边缘的影响。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "detectionDirection": "传统 2D 视觉",
+      "bestAnswer": "首先使用 connection 将阈值分割得到的区域拆分为独立连通域，然后通过 select_shape 依据面积、宽度、高度等几何特征筛选出目标区域，从而去除小面积噪点。若噪点与目标区域粘连，可先使用 opening_circle 去除细小突出，再用 closing_circle 填补目标内部细小孔洞。选择结构元素大小时需权衡：过小无法有效去噪，过大会腐蚀目标边缘或合并相邻区域。最后可通过 fill_up 填充目标内部孔洞，确保区域完整性。",
+      "principle": "阈值分割得到的是满足灰度范围的像素集合，但未考虑空间连通性。connection 基于像素邻接关系将区域分解为连通分量，使每个独立区域可单独分析。select_shape 通过区域特征（如面积、矩形度）进行筛选，利用噪点与目标在几何尺寸上的差异实现分离。形态学开运算先腐蚀后膨胀，可去除细小突出；闭运算先膨胀后腐蚀，可填补内部孔洞。结构元素尺寸决定操作的粒度，需根据目标实际尺寸设定。",
+      "id": "aiq-583f710d",
+      "generatedAt": "2026-09-02T05:03:20.956Z",
+      "provider": "opencode-go",
+      "model": "deepseek-v4-flash",
+      "project": "机器视觉专业知识",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "基础",
+      "techStackFilter": "HALCON",
+      "detectionDirectionFilter": "传统 2D 视觉"
+    },
+    {
+      "title": "在 HALCON 中，如何通过 Blob 分析实现工件定位？请说明从图像采集到输出坐标的完整流程及各步骤的作用。",
+      "type": "算法原理",
+      "category": "Blob 分析",
+      "source": "专业",
+      "sourceType": "官方文档整理",
+      "knowledgePoints": [
+        "Blob 分析的基本流程",
+        "图像预处理与阈值分割的作用",
+        "区域特征计算与坐标输出",
+        "area_center 算子的使用"
+      ],
+      "difficulty": "基础",
+      "tags": [
+        "HALCON",
+        "Blob分析",
+        "工件定位",
+        "阈值分割",
+        "区域特征"
+      ],
+      "keywords": [
+        "read_image",
+        "threshold",
+        "connection",
+        "select_shape",
+        "area_center"
+      ],
+      "followUp": "如果工件与背景灰度差异不明显，你会如何改进预处理步骤？请说明灰度直方图在阈值选择中的作用。",
+      "hint": "按图像读取、预处理、分割、筛选、特征提取的顺序组织回答，强调每步对最终定位精度的影响。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "detectionDirection": "传统 2D 视觉",
+      "bestAnswer": "Blob 分析定位工件的流程为：首先使用 read_image 读取图像，必要时通过 median_image 或 Gaussian 滤波降噪；然后使用 threshold 根据灰度直方图选择合适阈值将工件与背景分离，得到二值区域；接着用 connection 拆分连通域，并通过 select_shape 依据面积、圆度等特征筛选出目标工件；最后使用 area_center 计算工件的中心坐标和面积，实现定位。若工件存在孔洞，可用 fill_up 填充后再计算中心，确保坐标准确。",
+      "principle": "Blob 分析的核心是将图像分割为前景和背景区域，再对区域进行特征提取。阈值分割基于灰度直方图，通过设定灰度范围将目标像素归类为前景。连通域分析将像素集合按邻接关系分组，使每个工件成为独立区域。区域特征（如面积、中心矩）通过像素坐标累加计算，area_center 利用一阶矩求质心，其精度受分割质量影响。预处理可减少噪声干扰，提高阈值分割的稳定性。",
+      "id": "aiq-73a5462f",
+      "generatedAt": "2026-09-02T05:03:20.956Z",
+      "provider": "opencode-go",
+      "model": "deepseek-v4-flash",
+      "project": "机器视觉专业知识",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "基础",
+      "techStackFilter": "HALCON",
+      "detectionDirectionFilter": "传统 2D 视觉"
+    },
+    {
+      "title": "HALCON中全局阈值与局部阈值分割的适用场景及参数选择",
+      "type": "算法原理",
+      "category": "图像分割",
+      "source": "专业",
+      "sourceType": "AI知识整理",
+      "knowledgePoints": [
+        "全局阈值threshold的适用条件",
+        "局部阈值dyn_threshold的邻域参数影响",
+        "阈值分割在Blob分析中的前置作用"
+      ],
+      "difficulty": "基础",
+      "tags": [
+        "HALCON",
+        "阈值分割",
+        "图像分割",
+        "传统2D视觉"
+      ],
+      "keywords": [
+        "threshold",
+        "dyn_threshold",
+        "Offset",
+        "光照不均"
+      ],
+      "followUp": "当目标与背景灰度差异不大时，你会如何调整阈值分割策略？",
+      "hint": "先说明两种方法的原理，再对比适用场景，最后给出参数调整建议。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "detectionDirection": "传统 2D 视觉",
+      "bestAnswer": "全局阈值threshold适用于目标与背景灰度对比明显且光照均匀的场景，直接根据灰度直方图选取阈值。局部阈值dyn_threshold适用于光照不均或背景灰度缓慢变化的场景，它通过比较原图与平滑滤波后的图像，利用Offset参数控制分割灵敏度。选择时先观察图像灰度分布，若直方图双峰明显则用全局阈值；否则使用局部阈值，并调整滤波核大小和Offset。实际中还需结合形态学操作去除噪声。",
+      "principle": "阈值分割的本质是根据灰度值将像素划分为前景和背景。全局阈值仅依赖单个灰度值，计算简单但对光照敏感。局部阈值通过邻域均值或中值作为动态基准，利用原图与基准图的灰度差进行分割，能适应局部灰度变化。Offset决定了分割的严格程度，Offset越小越容易分割出细节，但噪声也越多。正确选择阈值方法可显著提高后续区域分析的稳定性。",
+      "id": "aiq-1a665254",
+      "generatedAt": "2026-09-02T05:03:20.956Z",
+      "provider": "opencode-go",
+      "model": "deepseek-v4-flash",
+      "project": "机器视觉专业知识",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "基础",
+      "techStackFilter": "HALCON",
+      "detectionDirectionFilter": "传统 2D 视觉"
+    },
+    {
+      "title": "HALCON中Blob分析的标准流程与区域特征筛选",
+      "type": "工程实践",
+      "category": "Blob分析",
+      "source": "专业",
+      "sourceType": "AI知识整理",
+      "knowledgePoints": [
+        "Blob分析的基本步骤",
+        "区域连通域提取",
+        "特征筛选在缺陷检测中的作用"
+      ],
+      "difficulty": "基础",
+      "tags": [
+        "HALCON",
+        "Blob分析",
+        "区域处理",
+        "特征提取"
+      ],
+      "keywords": [
+        "threshold",
+        "connection",
+        "select_shape",
+        "特征筛选"
+      ],
+      "followUp": "如果提取到的Blob区域包含多个粘连目标，你会如何分离它们？",
+      "hint": "按图像采集、预处理、分割、连通域、特征筛选的顺序回答，并说明每一步的目的。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "detectionDirection": "传统 2D 视觉",
+      "bestAnswer": "Blob分析的标准流程为：先采集图像并进行预处理（如高斯滤波去噪），然后通过阈值分割得到二值区域，再使用connection将连通域分离为独立区域，接着用select_shape根据面积、圆度、长宽比等特征筛选目标区域，最后可进行特征测量或结果输出。在HALCON中常用threshold、connection、select_shape等算子组合实现。该流程广泛应用于缺陷检测、目标定位等场景，关键在于特征参数的选择需结合具体样本。",
+      "principle": "Blob分析的核心是将图像中灰度一致且连通的像素集合提取为有意义的目标区域。阈值分割将灰度转化为二值图，连通域分析将相邻前景像素归并为独立区域，特征筛选则利用几何和灰度特征剔除噪声和无关区域。HALCON的区域数据结构支持高效的形态学和特征计算，使得Blob分析成为传统2D视觉中最基础且实用的技术路线。",
+      "id": "aiq-c367d680",
+      "generatedAt": "2026-09-02T05:03:20.956Z",
+      "provider": "opencode-go",
+      "model": "deepseek-v4-flash",
+      "project": "机器视觉专业知识",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "基础",
+      "techStackFilter": "HALCON",
+      "detectionDirectionFilter": "传统 2D 视觉"
+    },
+    {
+      "title": "在HALCON中进行Blob分析时，如何合理设置阈值和最小面积参数以稳定提取目标区域？",
+      "type": "工程实践",
+      "category": "图像分割",
+      "source": "专业",
+      "sourceType": "官方文档整理",
+      "knowledgePoints": [
+        "阈值分割原理",
+        "区域连接与特征筛选",
+        "参数对结果的影响"
+      ],
+      "difficulty": "基础",
+      "tags": [
+        "HALCON",
+        "Blob分析",
+        "阈值分割"
+      ],
+      "keywords": [
+        "threshold",
+        "connection",
+        "select_shape",
+        "灰度直方图"
+      ],
+      "followUp": "如果目标与背景灰度重叠，阈值分割效果不佳，你会如何改进？",
+      "hint": "先分析灰度直方图，再选择阈值；利用形态学操作；考虑使用局部阈值或动态阈值。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "detectionDirection": "传统 2D 视觉",
+      "bestAnswer": "在HALCON中，Blob分析通常先通过threshold算子根据灰度直方图选取阈值，将目标与背景分离，得到区域；再用connection将连通域拆分为独立区域；最后用select_shape根据面积、宽高等特征筛选目标。阈值设置需观察直方图波峰波谷，选择谷底值；最小面积等参数需根据目标实际尺寸和噪声大小设定，过小会引入噪声，过大会漏检。若灰度重叠，可尝试使用dyn_threshold或局部阈值，并结合形态学闭运算填充空洞。",
+      "principle": "threshold基于全局灰度阈值进行二值化，其核心是寻找最佳分割阈值，使类间方差最大或误差最小。connection通过连通性分析将像素集合划分为多个连通分量，基于8邻域或4邻域。select_shape通过区域特征（如面积、周长、矩形度）进行滤波，从而剔除不符合目标几何特征的干扰区域。参数设置直接影响分割精度和稳定性。",
+      "id": "aiq-79da10d5",
+      "generatedAt": "2026-09-02T05:03:20.956Z",
+      "provider": "opencode-go",
+      "model": "deepseek-v4-flash",
+      "project": "机器视觉专业知识",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "基础",
+      "techStackFilter": "HALCON",
+      "detectionDirectionFilter": "传统 2D 视觉"
+    },
+    {
+      "title": "HALCON中基于形状的模板匹配（create_shape_model）为什么对线性光照变化不敏感？",
+      "type": "算法原理",
+      "category": "模板匹配",
+      "source": "专业",
+      "sourceType": "官方文档整理",
+      "knowledgePoints": [
+        "形状匹配原理",
+        "梯度方向",
+        "归一化互相关"
+      ],
+      "difficulty": "基础",
+      "tags": [
+        "HALCON",
+        "模板匹配",
+        "形状模型"
+      ],
+      "keywords": [
+        "create_shape_model",
+        "梯度方向",
+        "归一化",
+        "鲁棒性"
+      ],
+      "followUp": "如果目标发生旋转或缩放，HALCON模板匹配如何处理？",
+      "hint": "从模板表示和相似度度量两方面解释。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "detectionDirection": "传统 2D 视觉",
+      "bestAnswer": "基于形状的模板匹配在创建模板时，提取目标边缘的梯度方向和位置信息，而非灰度值。匹配时，通过计算搜索图像中边缘点的梯度方向与模板梯度方向的相似度，并使用归一化互相关作为度量。由于梯度方向对灰度值的线性变化（如整体变亮或变暗）具有不变性，因此对线性光照变化不敏感。HALCON通过金字塔分层搜索加速匹配，同时支持旋转和缩放。",
+      "principle": "形状匹配将模板表示为一系列边缘点及其梯度方向向量。相似度度量采用归一化互相关，计算模板与搜索图像对应位置的梯度方向一致性。线性光照变化相当于灰度值乘以常数并加偏移，梯度方向是灰度变化的方向，不受乘性常数影响，因此鲁棒。金字塔搜索通过降采样图像减少计算量，并在高层粗定位、低层精定位。",
+      "id": "aiq-f2ea75c1",
+      "generatedAt": "2026-09-02T05:03:20.956Z",
+      "provider": "opencode-go",
+      "model": "deepseek-v4-flash",
+      "project": "机器视觉专业知识",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "基础",
+      "techStackFilter": "HALCON",
+      "detectionDirectionFilter": "传统 2D 视觉"
+    },
+    {
+      "title": "在 HALCON 中，如何将一张灰度图像转换为可用于后续处理的区域（Region）？请说明 threshold 算子的输入输出以及区域在 HALCON 中的基本表示方式。",
+      "type": "算法原理",
+      "category": "图像处理基础",
+      "source": "专业",
+      "sourceType": "AI知识整理",
+      "knowledgePoints": [
+        "灰度图像的像素类型与取值范围",
+        "threshold 算子的阈值分割原理",
+        "区域（Region）的行程编码表示",
+        "区域与图像的区别及转换关系"
+      ],
+      "difficulty": "基础",
+      "tags": [
+        "HALCON",
+        "阈值分割",
+        "区域",
+        "灰度图像"
+      ],
+      "keywords": [
+        "threshold",
+        "区域",
+        "灰度值",
+        "MinGray",
+        "MaxGray"
+      ],
+      "followUp": "如果输入图像是彩色图像，直接使用 threshold 会怎样？应如何预处理？",
+      "hint": "先说明图像类型，再描述 threshold 的参数和输出，最后解释区域的数据结构。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "detectionDirection": "传统 2D 视觉",
+      "bestAnswer": "在 HALCON 中，灰度图像通常以 byte 类型存储，像素值范围为 0~255。使用 threshold 算子时，输入为单通道图像，通过设定 MinGray 和 MaxGray 两个阈值，将灰度值落在该闭区间内的像素标记为前景，输出一个区域（Region）。区域在 HALCON 内部采用行程编码表示，即按行记录连续像素段的起点和终点，因此内存紧凑且便于形态学操作。若输入为彩色图像，需先通过 decompose3 或 convert_image_type 转换为单通道灰度图，否则 threshold 会因通道数不匹配而报错。",
+      "principle": "threshold 的核心思想是基于灰度直方图的全局分割：将每个像素的灰度值与给定阈值区间比较，满足条件的像素集合构成区域。区域是一种像素坐标集合的抽象表示，不保存每个像素的灰度值，只保存位置信息。行程编码将同一行中连续的像素段压缩为起点和终点，大幅减少存储量，同时支持快速的逻辑运算和几何变换。HALCON 的区域对象是面向对象编程中的句柄类型，通过算子创建后需用 reduce_domain 等操作与图像关联。",
+      "id": "aiq-91ca945a",
+      "generatedAt": "2026-09-02T05:03:20.956Z",
+      "provider": "opencode-go",
+      "model": "deepseek-v4-flash",
+      "project": "机器视觉专业知识",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "基础",
+      "techStackFilter": "HALCON",
+      "detectionDirectionFilter": "传统 2D 视觉"
+    },
+    {
+      "title": "请简述 HALCON 中 Blob 分析的基本流程，并说明为什么在阈值分割后通常需要执行 connection 和 select_shape 操作。",
+      "type": "工程实践",
+      "category": "Blob分析",
+      "source": "专业",
+      "sourceType": "AI知识整理",
+      "knowledgePoints": [
+        "Blob 分析的标准步骤",
+        "connection 连通域分割的作用",
+        "select_shape 特征选择原理",
+        "形态学后处理在 Blob 分析中的位置"
+      ],
+      "difficulty": "基础",
+      "tags": [
+        "HALCON",
+        "Blob分析",
+        "连通域",
+        "特征提取"
+      ],
+      "keywords": [
+        "threshold",
+        "connection",
+        "select_shape",
+        "连通域",
+        "特征"
+      ],
+      "followUp": "如果目标物体存在内部孔洞，select_shape 时应该选择哪些特征来排除孔洞干扰？",
+      "hint": "按图像采集、预处理、分割、连通域、特征选择、输出的顺序组织回答。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "detectionDirection": "传统 2D 视觉",
+      "bestAnswer": "HALCON 中 Blob 分析通常包括以下步骤：首先通过 grab_image 或 read_image 获取图像，然后进行预处理（如平滑、增强），接着使用 threshold 将目标与背景分离得到初始区域。由于初始区域可能包含多个互不相连的目标，需要用 connection 将区域拆分为独立的连通域。之后通过 select_shape 基于面积、宽度、高度、圆度等特征筛选出符合要求的目标区域。最后可结合 morphology 操作（如 opening/closing）修正边缘，再输出结果。connection 是区分不同目标的关键，select_shape 则用于剔除噪声和干扰，两者缺一不可。",
+      "principle": "threshold 得到的是所有满足灰度条件的像素集合，可能包含多个不相连的子集。connection 基于 8 邻域或 4 邻域的连通性，将像素集合划分为多个连通分量，每个分量对应一个独立目标。select_shape 通过计算区域的各种几何特征（如面积、矩形度、凸度）与设定范围比较，实现基于规则的分类。Blob 分析本质上是基于灰度阈值和几何特征的快速目标提取方法，适用于背景简单、目标与背景灰度差异明显的场景，是传统 2D 视觉中最基础且高效的算法流程。",
+      "id": "aiq-8e7e55ae",
+      "generatedAt": "2026-09-02T05:03:20.956Z",
       "provider": "opencode-go",
       "model": "deepseek-v4-flash",
       "project": "机器视觉专业知识",
