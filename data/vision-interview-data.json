@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-02T08:42:38.801Z",
+  "updatedAt": "2026-09-02T08:42:42.326Z",
   "data": {
     "vision-interview-records": [
       {
@@ -2007,6 +2007,52 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788338563452-zxec2fn2",
+        "timestamp": "2026-09-02T08:42:43.452Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "72aafdb8e545"
+        }
+      },
+      {
+        "id": "1788338562060-07wdqdnq",
+        "timestamp": "2026-09-02T08:42:42.060Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788338320411-38gvsbsd",
+        "event": "question-bank.ai-request.duration",
+        "message": "单个并行 AI 请求完成",
+        "context": {
+          "attempt": 2,
+          "workerIndex": 4,
+          "parallelRequests": 4,
+          "requestedCount": 1,
+          "receivedCount": 1,
+          "durationMs": 24523
+        }
+      },
+      {
+        "id": "1788338560732-hqonhiko",
+        "timestamp": "2026-09-02T08:42:40.732Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788338320411-38gvsbsd",
+        "event": "question-group.prepare.started",
+        "message": "开始准备题组",
+        "context": {
+          "project": "机器视觉专业知识",
+          "mode": "专业知识",
+          "questionCount": 10,
+          "sourceMode": "network",
+          "adaptiveQuestions": false,
+          "focusCategories": []
+        }
+      },
       {
         "id": "1788338559819-xz7bb05r",
         "timestamp": "2026-09-02T08:42:39.819Z",
@@ -14999,57 +15045,6 @@
           "targetCount": 10,
           "parallelRequests": 5,
           "requestedCount": 10
-        }
-      },
-      {
-        "id": "1788271055843-3wrabxah",
-        "timestamp": "2026-09-01T13:57:35.843Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788270845321-n003ywzy",
-        "event": "question-bank.attempt.failed",
-        "message": "第 2/6 轮（并行 5/5）：本轮请求失败：AI 请求超时，请稍后重试。，准备下一轮…",
-        "context": {
-          "attempt": 2,
-          "maxAttempts": 6,
-          "collectedCount": 0,
-          "workerIndex": 5,
-          "parallelRequests": 5,
-          "error": "AI 请求超时，请稍后重试。"
-        }
-      },
-      {
-        "id": "1788271055836-7noerevo",
-        "timestamp": "2026-09-01T13:57:35.836Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788270845321-n003ywzy",
-        "event": "question-bank.attempt.failed",
-        "message": "第 2/6 轮（并行 3/5）：本轮请求失败：AI 请求超时，请稍后重试。，准备下一轮…",
-        "context": {
-          "attempt": 2,
-          "maxAttempts": 6,
-          "collectedCount": 0,
-          "workerIndex": 3,
-          "parallelRequests": 5,
-          "error": "AI 请求超时，请稍后重试。"
-        }
-      },
-      {
-        "id": "1788271055828-phaaj24u",
-        "timestamp": "2026-09-01T13:57:35.828Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788270845321-n003ywzy",
-        "event": "question-bank.attempt.failed",
-        "message": "第 2/6 轮（并行 2/5）：本轮请求失败：AI 请求超时，请稍后重试。，准备下一轮…",
-        "context": {
-          "attempt": 2,
-          "maxAttempts": 6,
-          "collectedCount": 0,
-          "workerIndex": 2,
-          "parallelRequests": 5,
-          "error": "AI 请求超时，请稍后重试。"
         }
       }
     ]
