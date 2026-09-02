@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-02T10:07:39.416Z",
+  "updatedAt": "2026-09-02T10:07:43.856Z",
   "data": {
     "vision-interview-records": [
       {
@@ -2007,6 +2007,70 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788343665538-9xadd1k9",
+        "timestamp": "2026-09-02T10:07:45.538Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "3943816f4195"
+        }
+      },
+      {
+        "id": "1788343661106-aaeswhqf",
+        "timestamp": "2026-09-02T10:07:41.106Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788343468196-zjzo0dai",
+        "event": "question-bank.ai-request.started",
+        "message": "第 4/6 轮（并行 2/4）：正在请求 AI 生成题目（1 道）…",
+        "context": {
+          "attempt": 4,
+          "maxAttempts": 6,
+          "collectedCount": 8,
+          "workerIndex": 2,
+          "parallelRequests": 4,
+          "requestedCount": 1
+        }
+      },
+      {
+        "id": "1788343661105-jwppclcy",
+        "timestamp": "2026-09-02T10:07:41.105Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788343468196-zjzo0dai",
+        "event": "question-bank.ai-request.started",
+        "message": "第 4/6 轮（并行 1/4）：正在请求 AI 生成题目（1 道）…",
+        "context": {
+          "attempt": 4,
+          "maxAttempts": 6,
+          "collectedCount": 8,
+          "workerIndex": 1,
+          "parallelRequests": 4,
+          "requestedCount": 1
+        }
+      },
+      {
+        "id": "1788343661104-gxgspqzt",
+        "timestamp": "2026-09-02T10:07:41.104Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788343468196-zjzo0dai",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 4,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "sourceCount": 0,
+          "parallelRequests": 4,
+          "requestedCount": 10,
+          "durationMs": 2436,
+          "sharedAcrossWorkers": true
+        }
+      },
       {
         "id": "1788343658668-zn0el1lp",
         "timestamp": "2026-09-02T10:07:38.668Z",
@@ -16651,62 +16715,6 @@
         "message": "当前题目已跳过",
         "context": {
           "question": "HALCON中如何获取图像指定像素的灰度值？请说明HImage的数据组织方式。",
-          "mode": "专业知识",
-          "project": "机器视觉专业知识"
-        }
-      },
-      {
-        "id": "1788334294549-mlxhcbgj",
-        "timestamp": "2026-09-02T07:31:34.549Z",
-        "level": "WARN",
-        "kind": "user",
-        "sessionId": "1788334179286-pdtwgnjv",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "在HALCON中，如何提取亚像素边缘并拟合直线？",
-          "mode": "专业知识",
-          "project": "机器视觉专业知识"
-        }
-      },
-      {
-        "id": "1788334294364-6d5e5m9d",
-        "timestamp": "2026-09-02T07:31:34.364Z",
-        "level": "WARN",
-        "kind": "user",
-        "sessionId": "1788334179286-pdtwgnjv",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "在HALCON中，如何利用灰度直方图确定阈值进行Blob分析？",
-          "mode": "专业知识",
-          "project": "机器视觉专业知识"
-        }
-      },
-      {
-        "id": "1788334294196-hjc8ymg2",
-        "timestamp": "2026-09-02T07:31:34.196Z",
-        "level": "WARN",
-        "kind": "user",
-        "sessionId": "1788334179286-pdtwgnjv",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "在HALCON中使用find_shape_model进行模板匹配时，如何设置参数以兼顾速度和精度？",
-          "mode": "专业知识",
-          "project": "机器视觉专业知识"
-        }
-      },
-      {
-        "id": "1788334294032-b7d90zst",
-        "timestamp": "2026-09-02T07:31:34.032Z",
-        "level": "WARN",
-        "kind": "user",
-        "sessionId": "1788334179286-pdtwgnjv",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "HALCON中threshold算子进行图像分割时，如何根据直方图选择合适的阈值范围？",
           "mode": "专业知识",
           "project": "机器视觉专业知识"
         }
