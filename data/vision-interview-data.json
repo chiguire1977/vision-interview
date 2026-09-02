@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-02T05:03:07.752Z",
+  "updatedAt": "2026-09-02T05:03:10.747Z",
   "data": {
     "vision-interview-records": [
       {
@@ -2006,6 +2006,43 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788325391058-k1phps5f",
+        "timestamp": "2026-09-02T05:03:11.058Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "4ce68de93b3e"
+        }
+      },
+      {
+        "id": "1788325389997-hd0dvh85",
+        "timestamp": "2026-09-02T05:03:09.997Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788325262027-rws3kdto",
+        "event": "question-bank.ai-request.duration",
+        "message": "单个并行 AI 请求完成",
+        "context": {
+          "attempt": 1,
+          "workerIndex": 4,
+          "parallelRequests": 5,
+          "requestedCount": 2,
+          "receivedCount": 2,
+          "durationMs": 27577
+        }
+      },
+      {
+        "id": "1788325388328-ko5nfbn3",
+        "timestamp": "2026-09-02T05:03:08.328Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.close.flush",
+        "message": "页面关闭或进入后台，提交最后一次备份"
+      },
       {
         "id": "1788325388057-fcafkgjn",
         "timestamp": "2026-09-02T05:03:08.057Z",
@@ -16288,47 +16325,6 @@
           "pendingCount": 10,
           "status": 409,
           "reason": "github_conflict"
-        }
-      },
-      {
-        "id": "1788265860925-nhq8kw9z",
-        "timestamp": "2026-09-01T12:31:00.925Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264675884-efebbymx",
-        "event": "github.backup.succeeded",
-        "message": "数据已成功备份到 GitHub",
-        "context": {
-          "operation": "ai-question-bank",
-          "entryCount": 0,
-          "pendingCount": 0,
-          "status": 200
-        }
-      },
-      {
-        "id": "1788265860846-m26no8wp",
-        "timestamp": "2026-09-01T12:31:00.846Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264675884-efebbymx",
-        "event": "github.backup.started",
-        "message": "开始备份数据到 GitHub",
-        "context": {
-          "operation": "ai-question-bank",
-          "entryCount": 10,
-          "pendingCount": 20
-        }
-      },
-      {
-        "id": "1788265856989-a1d9k6k6",
-        "timestamp": "2026-09-01T12:30:56.989Z",
-        "level": "ERROR",
-        "kind": "system",
-        "event": "backup.push.failed",
-        "message": "运行数据备份失败",
-        "context": {
-          "status": 502,
-          "reason": "GitHub 备份失败（HTTP 409）：{\"message\":\"is at 7963e9572401541a1973bb93f0f775cf8aeb1352 but expected d839c3413ce721362e9468bb92a25b972613dda1\",\"documentation_url\":\"https://docs.github.com/rest/repos/contents#create-or-update-file-contents\",\"status\":\"409\"}"
         }
       }
     ]
