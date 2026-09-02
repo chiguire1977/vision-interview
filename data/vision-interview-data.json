@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-02T04:26:52.705Z",
+  "updatedAt": "2026-09-02T04:26:56.321Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1816,6 +1816,62 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788323216292-7bwmejln",
+        "timestamp": "2026-09-02T04:26:56.292Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "c34957ac3328"
+        }
+      },
+      {
+        "id": "1788323213525-2jtl7kcn",
+        "timestamp": "2026-09-02T04:26:53.525Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788322216752-snsgtjpn",
+        "event": "question-group.prepare.cached",
+        "message": "题组已从本机缓存恢复",
+        "context": {
+          "questionCount": 10
+        }
+      },
+      {
+        "id": "1788323213521-qlhoexcv",
+        "timestamp": "2026-09-02T04:26:53.521Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788322216752-snsgtjpn",
+        "event": "question-group.prepare.started",
+        "message": "开始准备题组",
+        "context": {
+          "project": "机器视觉专业知识",
+          "mode": "专业知识",
+          "questionCount": 1,
+          "sourceMode": "network",
+          "adaptiveQuestions": false,
+          "focusCategories": []
+        }
+      },
+      {
+        "id": "1788323213512-huv3uwfa",
+        "timestamp": "2026-09-02T04:26:53.512Z",
+        "level": "INFO",
+        "kind": "user",
+        "sessionId": "1788322216752-snsgtjpn",
+        "event": "answer.submit.completed",
+        "message": "回答审阅完成",
+        "context": {
+          "question": "HALCON中如何通过算子实现相机采集与图像预处理？",
+          "mastery": "低",
+          "reviewSource": "AI",
+          "seconds": 0
+        }
+      },
       {
         "id": "1788323210588-m3qre0kk",
         "timestamp": "2026-09-02T04:26:50.588Z",
@@ -16970,78 +17026,6 @@
         "context": {
           "reason": "change",
           "commit": "de1c00b29ce5"
-        }
-      },
-      {
-        "id": "1788264897089-qrat54xl",
-        "timestamp": "2026-09-01T12:14:57.089Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264675884-efebbymx",
-        "event": "question-group.prepare.started",
-        "message": "开始准备题组",
-        "context": {
-          "project": "机器视觉专业知识",
-          "mode": "专业知识",
-          "questionCount": 10,
-          "sourceMode": "network",
-          "adaptiveQuestions": true,
-          "focusCategories": [
-            "算法原理",
-            "工程实践",
-            "图像预处理",
-            "模板与定位"
-          ]
-        }
-      },
-      {
-        "id": "1788264896787-lchwc6e5",
-        "timestamp": "2026-09-01T12:14:56.787Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264675884-efebbymx",
-        "event": "question-bank.ai-request.started",
-        "message": "第 1/6 轮（并行 2/3）：正在请求 AI 生成题目（3 道）…",
-        "context": {
-          "attempt": 1,
-          "maxAttempts": 6,
-          "collectedCount": 0,
-          "workerIndex": 2,
-          "parallelRequests": 3,
-          "requestedCount": 3
-        }
-      },
-      {
-        "id": "1788264896784-1hrerrmb",
-        "timestamp": "2026-09-01T12:14:56.784Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264675884-efebbymx",
-        "event": "question-bank.web-search.completed",
-        "message": "本轮联网检索完成",
-        "context": {
-          "attempt": 1,
-          "query": "机器视觉 面试知识点 HALCON 算法原理 工程实践 图像预处理 模板与定位 深度图 点云 法线估计 RANSAC find_surface_model 原理 工程实践",
-          "sourceCount": 0,
-          "workerIndex": 2,
-          "parallelRequests": 3
-        }
-      },
-      {
-        "id": "1788264896777-ywkqh5nk",
-        "timestamp": "2026-09-01T12:14:56.777Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264675884-efebbymx",
-        "event": "question-bank.ai-request.started",
-        "message": "第 1/6 轮（并行 3/3）：正在请求 AI 生成题目（3 道）…",
-        "context": {
-          "attempt": 1,
-          "maxAttempts": 6,
-          "collectedCount": 0,
-          "workerIndex": 3,
-          "parallelRequests": 3,
-          "requestedCount": 3
         }
       }
     ]
