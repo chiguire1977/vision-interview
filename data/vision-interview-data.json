@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-02T10:32:08.176Z",
+  "updatedAt": "2026-09-02T10:32:12.860Z",
   "data": {
     "vision-interview-records": [
       {
@@ -2008,12 +2008,135 @@
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
       {
+        "id": "1788345134432-rwjgozee",
+        "timestamp": "2026-09-02T10:32:14.432Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788345131423-wywacu41",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 1,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "sourceCount": 0,
+          "parallelRequests": 4,
+          "requestedCount": 10,
+          "durationMs": 988,
+          "sharedAcrossWorkers": true
+        }
+      },
+      {
+        "id": "1788345133804-3caoyrym",
+        "timestamp": "2026-09-02T10:32:13.804Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788345131423-wywacu41",
+        "event": "question-group.prepare.started",
+        "message": "开始准备题组",
+        "context": {
+          "project": "机器视觉专业知识",
+          "mode": "专业知识",
+          "questionCount": 10,
+          "sourceMode": "network",
+          "adaptiveQuestions": false,
+          "focusCategories": []
+        }
+      },
+      {
+        "id": "1788345133800-j3bu7yj3",
+        "timestamp": "2026-09-02T10:32:13.800Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788345131423-wywacu41",
+        "event": "question-bank.remote.loaded",
+        "message": "GitHub AI 历史题库加载完成",
+        "context": {
+          "questionCount": 140,
+          "githubQuestionCount": 140,
+          "pendingCount": 0
+        }
+      },
+      {
+        "id": "1788345133444-b8j4qmsq",
+        "timestamp": "2026-09-02T10:32:13.444Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788345131423-wywacu41",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 1,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 0,
+          "parallelRequests": 4,
+          "requestedCount": 10
+        }
+      },
+      {
+        "id": "1788345133439-7fvt296h",
+        "timestamp": "2026-09-02T10:32:13.439Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788345131423-wywacu41",
+        "event": "question-group.prepare.started",
+        "message": "开始准备题组",
+        "context": {
+          "project": "机器视觉专业知识",
+          "mode": "专业知识",
+          "questionCount": 10,
+          "sourceMode": "network",
+          "adaptiveQuestions": false,
+          "focusCategories": []
+        }
+      },
+      {
+        "id": "1788345133437-fzh1w5bh",
+        "timestamp": "2026-09-02T10:32:13.437Z",
+        "level": "INFO",
+        "kind": "user",
+        "sessionId": "1788345131423-wywacu41",
+        "event": "training.started",
+        "message": "用户开始新的训练题组",
+        "context": {
+          "category": "随机类型",
+          "difficulty": "随机难度",
+          "techStack": "随机技术栈",
+          "detectionDirection": "随机方向",
+          "questionCount": 10
+        }
+      },
+      {
+        "id": "1788345131421-ko9hff8v",
+        "timestamp": "2026-09-02T10:32:11.421Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.startup.loaded",
+        "message": "启动配置加载完成",
+        "context": {
+          "source": "github",
+          "updatedAt": "2026-09-02T10:27:53.220Z"
+        }
+      },
+      {
         "id": "1788345129960-d6ftsgcs",
         "timestamp": "2026-09-02T10:32:09.960Z",
         "level": "INFO",
         "kind": "system",
         "event": "backup.close.flush",
         "message": "页面关闭或进入后台，提交最后一次备份"
+      },
+      {
+        "id": "1788344880328-zc4izzz5",
+        "timestamp": "2026-09-02T10:28:00.328Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "c15e9ea29367"
+        }
       },
       {
         "id": "1788344874879-mn75sxph",
@@ -17223,128 +17346,6 @@
           "sourceMode": "network",
           "adaptiveQuestions": false,
           "focusCategories": []
-        }
-      },
-      {
-        "id": "1788338542318-nsaeh894",
-        "timestamp": "2026-09-02T08:42:22.318Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "d564c946f0a4"
-        }
-      },
-      {
-        "id": "1788338538522-dl83jffg",
-        "timestamp": "2026-09-02T08:42:18.522Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "1283c39e7a18"
-        }
-      },
-      {
-        "id": "1788338537535-f7psq0ok",
-        "timestamp": "2026-09-02T08:42:17.535Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788338320411-38gvsbsd",
-        "event": "question-bank.web-search.completed",
-        "message": "本轮联网检索完成",
-        "context": {
-          "attempt": 2,
-          "query": "机器视觉 面试知识点 HALCON 传统 2D 视觉 仅限二维图像处理，排除 3D、三维、点云、深度图、法线估计、平面拟合、立体视觉、结构光和双目 原理 工程实践",
-          "sourceCount": 8,
-          "parallelRequests": 4,
-          "requestedCount": 10,
-          "durationMs": 2,
-          "sharedAcrossWorkers": true
-        }
-      },
-      {
-        "id": "1788338537532-3r797qd8",
-        "timestamp": "2026-09-02T08:42:17.532Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788338320411-38gvsbsd",
-        "event": "question-bank.web-search.started",
-        "message": "开始联网检索本轮题目资料",
-        "context": {
-          "attempt": 2,
-          "query": "机器视觉 面试知识点 HALCON 传统 2D 视觉 仅限二维图像处理，排除 3D、三维、点云、深度图、法线估计、平面拟合、立体视觉、结构光和双目 原理 工程实践",
-          "mode": "专业知识",
-          "excludedCount": 5,
-          "parallelRequests": 4,
-          "requestedCount": 10
-        }
-      },
-      {
-        "id": "1788338537530-p7a479yk",
-        "timestamp": "2026-09-02T08:42:17.530Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788338320411-38gvsbsd",
-        "event": "question-bank.ai-request.failed",
-        "message": "单个并行 AI 请求失败",
-        "context": {
-          "attempt": 1,
-          "workerIndex": 1,
-          "parallelRequests": 4,
-          "requestedCount": 3,
-          "durationMs": 60299,
-          "error": "AI 请求超时，请稍后重试。"
-        }
-      },
-      {
-        "id": "1788338537528-53zbtsgx",
-        "timestamp": "2026-09-02T08:42:17.528Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788338320411-38gvsbsd",
-        "event": "question-bank.ai-request.failed",
-        "message": "单个并行 AI 请求失败",
-        "context": {
-          "attempt": 1,
-          "workerIndex": 4,
-          "parallelRequests": 4,
-          "requestedCount": 2,
-          "durationMs": 60286,
-          "error": "AI 请求超时，请稍后重试。"
-        }
-      },
-      {
-        "id": "1788338536961-yfgc1pzv",
-        "timestamp": "2026-09-02T08:42:16.961Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788338320411-38gvsbsd",
-        "event": "question-bank.ai-request.duration",
-        "message": "单个并行 AI 请求完成",
-        "context": {
-          "attempt": 1,
-          "workerIndex": 2,
-          "parallelRequests": 4,
-          "requestedCount": 3,
-          "receivedCount": 3,
-          "durationMs": 59728
-        }
-      },
-      {
-        "id": "1788338534891-8wgnd5wv",
-        "timestamp": "2026-09-02T08:42:14.891Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "febf2c9c5227"
         }
       }
     ]
