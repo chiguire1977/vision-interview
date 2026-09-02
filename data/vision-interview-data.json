@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-02T13:03:27.862Z",
+  "updatedAt": "2026-09-02T13:03:33.784Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1817,6 +1817,35 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788354213540-s1tv013u",
+        "timestamp": "2026-09-02T13:03:33.540Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "88cade03b9b7"
+        }
+      },
+      {
+        "id": "1788354212934-u0jg91m7",
+        "timestamp": "2026-09-02T13:03:32.934Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788345131423-wywacu41",
+        "event": "question-bank.ai-request.duration",
+        "message": "单个并行 AI 请求完成",
+        "context": {
+          "attempt": 2,
+          "workerIndex": 4,
+          "parallelRequests": 4,
+          "requestedCount": 1,
+          "receivedCount": 1,
+          "durationMs": 20572
+        }
+      },
       {
         "id": "1788354207001-d65clind",
         "timestamp": "2026-09-02T13:03:27.001Z",
@@ -17048,35 +17077,6 @@
         "context": {
           "status": 502,
           "reason": "GitHub 备份失败（HTTP 409）：{\"message\":\"data/vision-interview-data.json does not match e8dc93d015c958d7690eb6bf0b1a9210197c8f2a\",\"documentation_url\":\"https://docs.github.com/rest/repos/contents#create-or-update-file-contents\",\"status\":\"409\"}"
-        }
-      },
-      {
-        "id": "1788339267314-53i11g66",
-        "timestamp": "2026-09-02T08:54:27.314Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "fc45b2a6003e"
-        }
-      },
-      {
-        "id": "1788339264145-g2jmso6v",
-        "timestamp": "2026-09-02T08:54:24.145Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788339260839-5j3a4n94",
-        "event": "question-group.prepare.started",
-        "message": "开始准备题组",
-        "context": {
-          "project": "机器视觉专业知识",
-          "mode": "专业知识",
-          "questionCount": 10,
-          "sourceMode": "network",
-          "adaptiveQuestions": false,
-          "focusCategories": []
         }
       }
     ]
