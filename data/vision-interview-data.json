@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-02T04:33:08.947Z",
+  "updatedAt": "2026-09-02T04:33:11.694Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1816,6 +1816,35 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788323591833-5b8z67pr",
+        "timestamp": "2026-09-02T04:33:11.833Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "e5f5c5275f71"
+        }
+      },
+      {
+        "id": "1788323590953-wwtolt2i",
+        "timestamp": "2026-09-02T04:33:10.953Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788322216752-snsgtjpn",
+        "event": "question-bank.ai-request.duration",
+        "message": "单个并行 AI 请求完成",
+        "context": {
+          "attempt": 1,
+          "workerIndex": 3,
+          "parallelRequests": 5,
+          "requestedCount": 2,
+          "receivedCount": 2,
+          "durationMs": 27194
+        }
+      },
       {
         "id": "1788323585832-xm5h9nas",
         "timestamp": "2026-09-02T04:33:05.832Z",
@@ -16645,40 +16674,6 @@
             "HALCON 手眼标定中“眼在手上”和“眼在手外”有什么区别？标定时需要注意什么？",
             "在 HALCON 中做表面缺陷检测，你会如何选择传统图像处理与深度学习的方案？"
           ]
-        }
-      },
-      {
-        "id": "1788265581374-egiu2tax",
-        "timestamp": "2026-09-01T12:26:21.374Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264675884-efebbymx",
-        "event": "question-group.prepare.started",
-        "message": "开始准备题组",
-        "context": {
-          "project": "机器视觉专业知识",
-          "mode": "专业知识",
-          "questionCount": 3,
-          "sourceMode": "network",
-          "adaptiveQuestions": true,
-          "focusCategories": [
-            "算法原理",
-            "工程实践",
-            "图像预处理",
-            "模板与定位"
-          ]
-        }
-      },
-      {
-        "id": "1788265566238-w7cbb56j",
-        "timestamp": "2026-09-01T12:26:06.237Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "32b92f32c50c"
         }
       }
     ]
