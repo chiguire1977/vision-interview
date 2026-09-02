@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-02T09:18:35.052Z",
+  "updatedAt": "2026-09-02T09:18:36.941Z",
   "data": {
     "vision-interview-records": [
       {
@@ -2007,6 +2007,144 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788340718078-53qt8yda",
+        "timestamp": "2026-09-02T09:18:38.078Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "6fb352000230"
+        }
+      },
+      {
+        "id": "1788340716593-xd7cgn5r",
+        "timestamp": "2026-09-02T09:18:36.593Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788340687728-30w9bjr4",
+        "event": "question-group.prepare.completed",
+        "message": "AI 多轮联网搜索与生成后仍未获得有效题目，已使用本地题库与标准答案。",
+        "context": {
+          "source": "本地规则",
+          "questionCount": 10
+        }
+      },
+      {
+        "id": "1788340716590-oifz3lv6",
+        "timestamp": "2026-09-02T09:18:36.590Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788340687728-30w9bjr4",
+        "event": "question-bank.network.fallback",
+        "message": "联网搜索与 AI 生成未获得有效题目，已切换为题库",
+        "context": {
+          "targetCount": 10,
+          "fallbackCount": 10
+        }
+      },
+      {
+        "id": "1788340716588-6oe9t85l",
+        "timestamp": "2026-09-02T09:18:36.588Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788340687728-30w9bjr4",
+        "event": "question-bank.network.partial-fallback",
+        "message": "联网获得的完整题目数量不足，已使用题库补足",
+        "context": {
+          "aiCount": 0,
+          "fallbackCount": 10,
+          "targetCount": 10
+        }
+      },
+      {
+        "id": "1788340716585-7nl2d6ux",
+        "timestamp": "2026-09-02T09:18:36.585Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788340687728-30w9bjr4",
+        "event": "question-bank.ai-request.failed",
+        "message": "单个并行 AI 请求失败",
+        "context": {
+          "attempt": 6,
+          "workerIndex": 4,
+          "parallelRequests": 4,
+          "requestedCount": 2,
+          "durationMs": 270,
+          "error": "请先配置当前 AI 服务商的 API Key。"
+        }
+      },
+      {
+        "id": "1788340716528-drgecdu9",
+        "timestamp": "2026-09-02T09:18:36.528Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788340687728-30w9bjr4",
+        "event": "question-bank.ai-request.failed",
+        "message": "单个并行 AI 请求失败",
+        "context": {
+          "attempt": 6,
+          "workerIndex": 2,
+          "parallelRequests": 4,
+          "requestedCount": 3,
+          "durationMs": 214,
+          "error": "请先配置当前 AI 服务商的 API Key。"
+        }
+      },
+      {
+        "id": "1788340716522-dryjpvme",
+        "timestamp": "2026-09-02T09:18:36.522Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788340687728-30w9bjr4",
+        "event": "question-bank.ai-request.failed",
+        "message": "单个并行 AI 请求失败",
+        "context": {
+          "attempt": 6,
+          "workerIndex": 3,
+          "parallelRequests": 4,
+          "requestedCount": 2,
+          "durationMs": 207,
+          "error": "请先配置当前 AI 服务商的 API Key。"
+        }
+      },
+      {
+        "id": "1788340716520-torkmtcu",
+        "timestamp": "2026-09-02T09:18:36.520Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788340687728-30w9bjr4",
+        "event": "question-bank.ai-request.failed",
+        "message": "单个并行 AI 请求失败",
+        "context": {
+          "attempt": 6,
+          "workerIndex": 1,
+          "parallelRequests": 4,
+          "requestedCount": 3,
+          "durationMs": 205,
+          "error": "请先配置当前 AI 服务商的 API Key。"
+        }
+      },
+      {
+        "id": "1788340716312-zl9bd8ta",
+        "timestamp": "2026-09-02T09:18:36.312Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788340687728-30w9bjr4",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 6,
+          "query": "机器视觉 面试知识点 HALCON 原理 工程实践",
+          "sourceCount": 0,
+          "parallelRequests": 4,
+          "requestedCount": 10,
+          "durationMs": 411,
+          "sharedAcrossWorkers": true
+        }
+      },
       {
         "id": "1788340716070-w73hjg57",
         "timestamp": "2026-09-02T09:18:36.070Z",
@@ -15576,135 +15714,6 @@
       {
         "id": "1788323374379-l02uxo4u",
         "timestamp": "2026-09-02T04:29:34.379Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788322216752-snsgtjpn",
-        "event": "question-group.prepare.started",
-        "message": "开始准备题组",
-        "context": {
-          "project": "机器视觉专业知识",
-          "mode": "专业知识",
-          "questionCount": 1,
-          "sourceMode": "network",
-          "adaptiveQuestions": false,
-          "focusCategories": []
-        }
-      },
-      {
-        "id": "1788323374375-u28ljz87",
-        "timestamp": "2026-09-02T04:29:34.375Z",
-        "level": "WARN",
-        "kind": "user",
-        "sessionId": "1788322216752-snsgtjpn",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "HALCON中如何通过算子实现相机采集与图像预处理？",
-          "mode": "专业知识",
-          "project": "机器视觉专业知识"
-        }
-      },
-      {
-        "id": "1788323374218-o538tgpm",
-        "timestamp": "2026-09-02T04:29:34.218Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788322216752-snsgtjpn",
-        "event": "question-group.prepare.cached",
-        "message": "题组已从本机缓存恢复",
-        "context": {
-          "questionCount": 10
-        }
-      },
-      {
-        "id": "1788323374215-ps5uhupm",
-        "timestamp": "2026-09-02T04:29:34.215Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788322216752-snsgtjpn",
-        "event": "question-group.prepare.started",
-        "message": "开始准备题组",
-        "context": {
-          "project": "机器视觉专业知识",
-          "mode": "专业知识",
-          "questionCount": 1,
-          "sourceMode": "network",
-          "adaptiveQuestions": false,
-          "focusCategories": []
-        }
-      },
-      {
-        "id": "1788323374211-5o6wu941",
-        "timestamp": "2026-09-02T04:29:34.211Z",
-        "level": "WARN",
-        "kind": "user",
-        "sessionId": "1788322216752-snsgtjpn",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "HALCON中如何通过算子实现相机采集与图像预处理？",
-          "mode": "专业知识",
-          "project": "机器视觉专业知识"
-        }
-      },
-      {
-        "id": "1788323374041-ujrsssft",
-        "timestamp": "2026-09-02T04:29:34.041Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788322216752-snsgtjpn",
-        "event": "question-group.prepare.cached",
-        "message": "题组已从本机缓存恢复",
-        "context": {
-          "questionCount": 10
-        }
-      },
-      {
-        "id": "1788323374038-hsj8vmmj",
-        "timestamp": "2026-09-02T04:29:34.038Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788322216752-snsgtjpn",
-        "event": "question-group.prepare.started",
-        "message": "开始准备题组",
-        "context": {
-          "project": "机器视觉专业知识",
-          "mode": "专业知识",
-          "questionCount": 1,
-          "sourceMode": "network",
-          "adaptiveQuestions": false,
-          "focusCategories": []
-        }
-      },
-      {
-        "id": "1788323374034-2n30pjxf",
-        "timestamp": "2026-09-02T04:29:34.034Z",
-        "level": "WARN",
-        "kind": "user",
-        "sessionId": "1788322216752-snsgtjpn",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "HALCON中如何通过算子实现相机采集与图像预处理？",
-          "mode": "专业知识",
-          "project": "机器视觉专业知识"
-        }
-      },
-      {
-        "id": "1788323373852-aodnevfq",
-        "timestamp": "2026-09-02T04:29:33.852Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788322216752-snsgtjpn",
-        "event": "question-group.prepare.cached",
-        "message": "题组已从本机缓存恢复",
-        "context": {
-          "questionCount": 10
-        }
-      },
-      {
-        "id": "1788323373849-1nlshj7q",
-        "timestamp": "2026-09-02T04:29:33.849Z",
         "level": "INFO",
         "kind": "system",
         "sessionId": "1788322216752-snsgtjpn",
