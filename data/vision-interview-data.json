@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-02T04:12:35.210Z",
+  "updatedAt": "2026-09-02T04:12:40.000Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1816,6 +1816,81 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788322359952-pzxpi6iu",
+        "timestamp": "2026-09-02T04:12:39.952Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "374c7b71fc28"
+        }
+      },
+      {
+        "id": "1788322355934-lq8ttlws",
+        "timestamp": "2026-09-02T04:12:35.934Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788322216752-snsgtjpn",
+        "event": "question-group.prepare.completed",
+        "message": "AI 已生成完整 10 道题目、标准回答和技术原理；远程题库正在后台同步。",
+        "context": {
+          "source": "AI",
+          "questionCount": 10
+        }
+      },
+      {
+        "id": "1788322355929-urbesf6y",
+        "timestamp": "2026-09-02T04:12:35.929Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788322216752-snsgtjpn",
+        "event": "github.backup.started",
+        "message": "开始备份数据到 GitHub",
+        "context": {
+          "operation": "ai-question-bank",
+          "entryCount": 10,
+          "pendingCount": 10,
+          "totalCount": 33,
+          "complete": true
+        }
+      },
+      {
+        "id": "1788322355923-bkkiju4m",
+        "timestamp": "2026-09-02T04:12:35.923Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788322216752-snsgtjpn",
+        "event": "question-bank.ai-request.completed",
+        "message": "第 2/6 轮：AI 已返回 10/10 道有效题目。",
+        "context": {
+          "attempt": 2,
+          "maxAttempts": 6,
+          "collectedCount": 10,
+          "targetCount": 10,
+          "parallelRequests": 5,
+          "requestedCount": 2
+        }
+      },
+      {
+        "id": "1788322355919-42u2dr0x",
+        "timestamp": "2026-09-02T04:12:35.919Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788322216752-snsgtjpn",
+        "event": "question-bank.ai-request.duration",
+        "message": "单个并行 AI 请求完成",
+        "context": {
+          "attempt": 2,
+          "workerIndex": 2,
+          "parallelRequests": 5,
+          "requestedCount": 1,
+          "receivedCount": 1,
+          "durationMs": 38659
+        }
+      },
       {
         "id": "1788322351591-23jq6ly2",
         "timestamp": "2026-09-02T04:12:31.591Z",
@@ -17033,100 +17108,6 @@
         "context": {
           "reason": "change",
           "commit": "c5151300fb48"
-        }
-      },
-      {
-        "id": "1788264869923-0c5idt7d",
-        "timestamp": "2026-09-01T12:14:29.923Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264675884-efebbymx",
-        "event": "question-group.prepare.started",
-        "message": "开始准备题组",
-        "context": {
-          "project": "机器视觉专业知识",
-          "mode": "专业知识",
-          "questionCount": 10,
-          "sourceMode": "network",
-          "adaptiveQuestions": true,
-          "focusCategories": [
-            "算法原理",
-            "工程实践",
-            "图像预处理",
-            "模板与定位"
-          ]
-        }
-      },
-      {
-        "id": "1788264868796-ffblc4jw",
-        "timestamp": "2026-09-01T12:14:28.796Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264675884-efebbymx",
-        "event": "question-group.prepare.started",
-        "message": "开始准备题组",
-        "context": {
-          "project": "机器视觉专业知识",
-          "mode": "专业知识",
-          "questionCount": 10,
-          "sourceMode": "network",
-          "adaptiveQuestions": true,
-          "focusCategories": [
-            "算法原理",
-            "工程实践",
-            "图像预处理",
-            "模板与定位"
-          ]
-        }
-      },
-      {
-        "id": "1788264867896-l80hpq2a",
-        "timestamp": "2026-09-01T12:14:27.896Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264675884-efebbymx",
-        "event": "question-bank.ai-request.started",
-        "message": "第 4/6 轮（并行 2/3）：正在请求 AI 生成题目（1 道）…",
-        "context": {
-          "attempt": 4,
-          "maxAttempts": 6,
-          "collectedCount": 7,
-          "workerIndex": 2,
-          "parallelRequests": 3,
-          "requestedCount": 1
-        }
-      },
-      {
-        "id": "1788264867892-3ks514ah",
-        "timestamp": "2026-09-01T12:14:27.892Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264675884-efebbymx",
-        "event": "question-bank.web-search.completed",
-        "message": "本轮联网检索完成",
-        "context": {
-          "attempt": 4,
-          "query": "机器视觉 面试知识点 HALCON 算法原理 工程实践 图像预处理 模板与定位 深度图 点云 法线估计 RANSAC find_surface_model 原理 工程实践",
-          "sourceCount": 0,
-          "workerIndex": 2,
-          "parallelRequests": 3
-        }
-      },
-      {
-        "id": "1788264867881-8dppv8by",
-        "timestamp": "2026-09-01T12:14:27.881Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264675884-efebbymx",
-        "event": "question-bank.ai-request.started",
-        "message": "第 4/6 轮（并行 3/3）：正在请求 AI 生成题目（1 道）…",
-        "context": {
-          "attempt": 4,
-          "maxAttempts": 6,
-          "collectedCount": 7,
-          "workerIndex": 3,
-          "parallelRequests": 3,
-          "requestedCount": 1
         }
       }
     ]
