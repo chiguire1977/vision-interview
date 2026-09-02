@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-02T15:50:34.228Z",
+  "updatedAt": "2026-09-02T15:51:13.862Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1817,6 +1817,31 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788364273339-g4qa5t9q",
+        "timestamp": "2026-09-02T15:51:13.339Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788345131423-wywacu41",
+        "event": "group.review.completed",
+        "message": "题组统一评审完成",
+        "context": {
+          "reviewSource": "本地规则",
+          "questionCount": 10
+        }
+      },
+      {
+        "id": "1788364243073-6zgml2j4",
+        "timestamp": "2026-09-02T15:50:43.073Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "3ab897217a66"
+        }
+      },
       {
         "id": "1788364232613-apptor88",
         "timestamp": "2026-09-02T15:50:32.613Z",
@@ -16978,40 +17003,6 @@
           "requestedCount": 3,
           "durationMs": 1612,
           "error": "请先配置当前 AI 服务商的 API Key。"
-        }
-      },
-      {
-        "id": "1788340697039-e8ndytmy",
-        "timestamp": "2026-09-02T09:18:17.039Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788340687728-30w9bjr4",
-        "event": "question-bank.ai-request.failed",
-        "message": "单个并行 AI 请求失败",
-        "context": {
-          "attempt": 1,
-          "workerIndex": 1,
-          "parallelRequests": 4,
-          "requestedCount": 3,
-          "durationMs": 1612,
-          "error": "请先配置当前 AI 服务商的 API Key。"
-        }
-      },
-      {
-        "id": "1788340695433-ovzvb3l6",
-        "timestamp": "2026-09-02T09:18:15.433Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788340687728-30w9bjr4",
-        "event": "question-bank.ai-request.started",
-        "message": "第 1/6 轮（并行 4/4）：正在请求 AI 生成题目（2 道）…",
-        "context": {
-          "attempt": 1,
-          "maxAttempts": 6,
-          "collectedCount": 0,
-          "workerIndex": 4,
-          "parallelRequests": 4,
-          "requestedCount": 2
         }
       }
     ]
