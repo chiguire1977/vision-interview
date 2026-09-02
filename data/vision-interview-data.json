@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-02T10:27:47.696Z",
+  "updatedAt": "2026-09-02T10:27:53.220Z",
   "data": {
     "vision-interview-records": [
       {
@@ -2007,6 +2007,48 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788344874879-mn75sxph",
+        "timestamp": "2026-09-02T10:27:54.879Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "c4784bd38e75"
+        }
+      },
+      {
+        "id": "1788344872626-5am5q7tn",
+        "timestamp": "2026-09-02T10:27:52.626Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788343728457-e0wb33gd",
+        "event": "question-bank.cache.saved",
+        "message": "AI 题库已完成远程同步",
+        "context": {
+          "questionCount": 9,
+          "pendingCount": 0
+        }
+      },
+      {
+        "id": "1788344872623-phqk8vfp",
+        "timestamp": "2026-09-02T10:27:52.623Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788343728457-e0wb33gd",
+        "event": "github.backup.succeeded",
+        "message": "数据已成功备份到 GitHub",
+        "context": {
+          "operation": "ai-question-bank",
+          "entryCount": 9,
+          "pendingCount": 0,
+          "totalCount": 140,
+          "status": 200,
+          "complete": true
+        }
+      },
       {
         "id": "1788344869365-pye98765",
         "timestamp": "2026-09-02T10:27:49.365Z",
@@ -17304,47 +17346,6 @@
         "kind": "system",
         "event": "backup.close.flush",
         "message": "页面关闭或进入后台，提交最后一次备份"
-      },
-      {
-        "id": "1788338528874-dt410lzn",
-        "timestamp": "2026-09-02T08:42:08.874Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788338320411-38gvsbsd",
-        "event": "question-bank.ai-request.duration",
-        "message": "单个并行 AI 请求完成",
-        "context": {
-          "attempt": 1,
-          "workerIndex": 3,
-          "parallelRequests": 4,
-          "requestedCount": 2,
-          "receivedCount": 2,
-          "durationMs": 51636
-        }
-      },
-      {
-        "id": "1788338527056-jrm9b1vz",
-        "timestamp": "2026-09-02T08:42:07.056Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "05d634660e9b"
-        }
-      },
-      {
-        "id": "1788338523197-ydtlz7hd",
-        "timestamp": "2026-09-02T08:42:03.197Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "929379d55e32"
-        }
       }
     ]
   }
