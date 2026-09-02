@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-02T09:08:13.992Z",
+  "updatedAt": "2026-09-02T09:08:21.733Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1877,6 +1877,32 @@
     },
     "vision-interview-project-view": "card",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788340099658-b2zcvedq",
+        "timestamp": "2026-09-02T09:08:19.658Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "d5a1b26d5704"
+        }
+      },
+      {
+        "id": "1788340093767-xyfv5n1u",
+        "timestamp": "2026-09-02T09:08:13.767Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788340088832-plizzj93",
+        "event": "question-bank.remote.loaded",
+        "message": "GitHub AI 历史题库加载完成",
+        "context": {
+          "questionCount": 101,
+          "githubQuestionCount": 101,
+          "pendingCount": 0
+        }
+      },
       {
         "id": "1788340088828-ul7b4pje",
         "timestamp": "2026-09-02T09:08:08.828Z",
@@ -16904,40 +16930,6 @@
           "maxAttempts": 6,
           "collectedCount": 0,
           "workerIndex": 3,
-          "parallelRequests": 3,
-          "error": "Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON"
-        }
-      },
-      {
-        "id": "1788244050628-shzs7mn3",
-        "timestamp": "2026-09-01T06:27:30.628Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788244030036-b95au3ik",
-        "event": "question-bank.attempt.failed",
-        "message": "第 5/6 轮（并行 2/3）：本轮请求失败：Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON，准备下一轮…",
-        "context": {
-          "attempt": 5,
-          "maxAttempts": 6,
-          "collectedCount": 0,
-          "workerIndex": 2,
-          "parallelRequests": 3,
-          "error": "Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON"
-        }
-      },
-      {
-        "id": "1788244050625-e48ekhcx",
-        "timestamp": "2026-09-01T06:27:30.625Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788244030036-b95au3ik",
-        "event": "question-bank.attempt.failed",
-        "message": "第 5/6 轮（并行 1/3）：本轮请求失败：Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON，准备下一轮…",
-        "context": {
-          "attempt": 5,
-          "maxAttempts": 6,
-          "collectedCount": 0,
-          "workerIndex": 1,
           "parallelRequests": 3,
           "error": "Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON"
         }
