@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-02T10:08:49.863Z",
+  "updatedAt": "2026-09-02T10:08:52.631Z",
   "data": {
     "vision-interview-records": [
       {
@@ -2007,6 +2007,35 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788343734229-kjj3f7re",
+        "timestamp": "2026-09-02T10:08:54.229Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "dbada1282bad"
+        }
+      },
+      {
+        "id": "1788343732786-tpja6ji6",
+        "timestamp": "2026-09-02T10:08:52.786Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788343728457-e0wb33gd",
+        "event": "question-group.prepare.started",
+        "message": "开始准备题组",
+        "context": {
+          "project": "机器视觉专业知识",
+          "mode": "专业知识",
+          "questionCount": 10,
+          "sourceMode": "network",
+          "adaptiveQuestions": false,
+          "focusCategories": []
+        }
+      },
       {
         "id": "1788343730524-5rrqa9fq",
         "timestamp": "2026-09-02T10:08:50.524Z",
@@ -16802,36 +16831,6 @@
         "context": {
           "reason": "change",
           "commit": "b01c075570b7"
-        }
-      },
-      {
-        "id": "1788334919067-xfc4r6jc",
-        "timestamp": "2026-09-02T07:41:59.067Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788334916919-cjunkdai",
-        "event": "question-bank.remote.loaded",
-        "message": "GitHub AI 历史题库加载完成",
-        "context": {
-          "questionCount": 83,
-          "githubQuestionCount": 83,
-          "pendingCount": 0
-        }
-      },
-      {
-        "id": "1788334916909-89zsgzkk",
-        "timestamp": "2026-09-02T07:41:56.909Z",
-        "level": "WARN",
-        "kind": "system",
-        "event": "backup.close.deferred",
-        "message": "上次关闭时部分超大数据已延期，将由本次自动备份补交",
-        "context": {
-          "detail": {
-            "keys": [],
-            "entries": {
-              "vision-interview-runtime-logs": 833
-            }
-          }
         }
       }
     ]
