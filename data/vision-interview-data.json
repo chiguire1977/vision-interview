@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-02T08:48:38.973Z",
+  "updatedAt": "2026-09-02T08:48:43.938Z",
   "data": {
     "vision-interview-records": [
       {
@@ -2007,6 +2007,48 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788338923588-4fymop0u",
+        "timestamp": "2026-09-02T08:48:43.588Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788338320411-38gvsbsd",
+        "event": "question-bank.cache.saved",
+        "message": "AI 题库已完成远程同步",
+        "context": {
+          "questionCount": 10,
+          "pendingCount": 0
+        }
+      },
+      {
+        "id": "1788338923582-sj2d9rs0",
+        "timestamp": "2026-09-02T08:48:43.582Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788338320411-38gvsbsd",
+        "event": "github.backup.succeeded",
+        "message": "数据已成功备份到 GitHub",
+        "context": {
+          "operation": "ai-question-bank",
+          "entryCount": 10,
+          "pendingCount": 0,
+          "totalCount": 101,
+          "status": 200,
+          "complete": true
+        }
+      },
+      {
+        "id": "1788338922059-38x4ijlp",
+        "timestamp": "2026-09-02T08:48:42.059Z",
+        "level": "ERROR",
+        "kind": "system",
+        "event": "backup.push.failed",
+        "message": "运行数据备份失败",
+        "context": {
+          "status": 502,
+          "reason": "GitHub 备份失败（HTTP 409）：{\"message\":\"is at d39a92b1161a75920125a12fde4f8348a8f6dbf3 but expected 666c590aec778630cce18274cc4f905bd07df017\",\"documentation_url\":\"https://docs.github.com/rest/repos/contents#create-or-update-file-contents\",\"status\":\"409\"}"
+        }
+      },
       {
         "id": "1788338920373-h1okrzj9",
         "timestamp": "2026-09-02T08:48:40.373Z",
@@ -15233,38 +15275,6 @@
         "kind": "system",
         "event": "backup.close.flush",
         "message": "页面关闭或进入后台，提交最后一次备份"
-      },
-      {
-        "id": "1788276273985-8hyvgp4g",
-        "timestamp": "2026-09-01T15:24:33.985Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "3f7168e8841f"
-        }
-      },
-      {
-        "id": "1788276266054-ax2w6on9",
-        "timestamp": "2026-09-01T15:24:26.054Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.close.flush",
-        "message": "页面关闭或进入后台，提交最后一次备份"
-      },
-      {
-        "id": "1788276260429-sw6sf4ou",
-        "timestamp": "2026-09-01T15:24:20.429Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "0d38f5946de7"
-        }
       }
     ]
   }
