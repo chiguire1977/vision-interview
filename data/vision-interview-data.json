@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-02T15:50:32.075Z",
+  "updatedAt": "2026-09-02T15:50:34.228Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1824,6 +1824,18 @@
         "kind": "system",
         "event": "backup.close.flush",
         "message": "页面关闭或进入后台，提交最后一次备份"
+      },
+      {
+        "id": "1788364222565-dcin8tdm",
+        "timestamp": "2026-09-02T15:50:22.565Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "453bf35d057b"
+        }
       },
       {
         "id": "1788364219073-m8xfa61a",
@@ -16998,23 +17010,6 @@
           "maxAttempts": 6,
           "collectedCount": 0,
           "workerIndex": 4,
-          "parallelRequests": 4,
-          "requestedCount": 2
-        }
-      },
-      {
-        "id": "1788340695430-jj67e9d0",
-        "timestamp": "2026-09-02T09:18:15.430Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788340687728-30w9bjr4",
-        "event": "question-bank.ai-request.started",
-        "message": "第 1/6 轮（并行 3/4）：正在请求 AI 生成题目（2 道）…",
-        "context": {
-          "attempt": 1,
-          "maxAttempts": 6,
-          "collectedCount": 0,
-          "workerIndex": 3,
           "parallelRequests": 4,
           "requestedCount": 2
         }
