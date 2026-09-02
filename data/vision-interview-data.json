@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-02T07:42:00.214Z",
+  "updatedAt": "2026-09-02T07:42:49.622Z",
   "data": {
     "vision-interview-records": [
       {
@@ -2007,6 +2007,32 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788334967400-0iwp6o3u",
+        "timestamp": "2026-09-02T07:42:47.400Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788334965815-j2jpjr3o",
+        "event": "question-bank.remote.loaded",
+        "message": "GitHub AI 历史题库加载完成",
+        "context": {
+          "questionCount": 83,
+          "githubQuestionCount": 83,
+          "pendingCount": 0
+        }
+      },
+      {
+        "id": "1788334965801-8wjf5bgz",
+        "timestamp": "2026-09-02T07:42:45.801Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.startup.loaded",
+        "message": "启动配置加载完成",
+        "context": {
+          "source": "github",
+          "updatedAt": "2026-09-02T07:42:00.214Z"
+        }
+      },
       {
         "id": "1788334919067-xfc4r6jc",
         "timestamp": "2026-09-02T07:41:59.067Z",
@@ -15497,41 +15523,6 @@
           "workerIndex": 2,
           "parallelRequests": 5,
           "requestedCount": 2
-        }
-      },
-      {
-        "id": "1788268611659-or9t9dif",
-        "timestamp": "2026-09-01T13:16:51.659Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788268598852-h9gw1c87",
-        "event": "question-bank.ai-request.started",
-        "message": "第 1/6 轮（并行 1/5）：正在请求 AI 生成题目（2 道）…",
-        "context": {
-          "attempt": 1,
-          "maxAttempts": 6,
-          "collectedCount": 0,
-          "workerIndex": 1,
-          "parallelRequests": 5,
-          "requestedCount": 2
-        }
-      },
-      {
-        "id": "1788268611656-nzap0pte",
-        "timestamp": "2026-09-01T13:16:51.656Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788268598852-h9gw1c87",
-        "event": "question-bank.web-search.completed",
-        "message": "本轮联网检索完成",
-        "context": {
-          "attempt": 1,
-          "query": "机器视觉 面试知识点 算法原理 工程实践 图像预处理 模板与定位 深度图 点云 法线估计 RANSAC find_surface_model 原理 工程实践",
-          "sourceCount": 0,
-          "parallelRequests": 5,
-          "requestedCount": 10,
-          "durationMs": 541,
-          "sharedAcrossWorkers": true
         }
       }
     ]
