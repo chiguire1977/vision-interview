@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-02T04:34:45.099Z",
+  "updatedAt": "2026-09-02T04:34:53.091Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1816,6 +1816,30 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788323691042-xjidejry",
+        "timestamp": "2026-09-02T04:34:51.042Z",
+        "level": "ERROR",
+        "kind": "system",
+        "event": "backup.push.failed",
+        "message": "运行数据备份失败",
+        "context": {
+          "status": 502,
+          "reason": "GitHub 备份失败（HTTP 409）：{\"message\":\"data/vision-interview-data.json does not match 31d608e8e443894dbceaf73559e9a6d0ac07f3b0\",\"documentation_url\":\"https://docs.github.com/rest/repos/contents#create-or-update-file-contents\",\"status\":\"409\"}"
+        }
+      },
+      {
+        "id": "1788323686222-0nd1rtx0",
+        "timestamp": "2026-09-02T04:34:46.222Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "8dcf8f6abcb9"
+        }
+      },
       {
         "id": "1788323685525-srhpumsi",
         "timestamp": "2026-09-02T04:34:45.525Z",
@@ -16499,40 +16523,6 @@
         "message": "题组已从本机缓存恢复",
         "context": {
           "questionCount": 3
-        }
-      },
-      {
-        "id": "1788265809867-58bm4rdz",
-        "timestamp": "2026-09-01T12:30:09.867Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264675884-efebbymx",
-        "event": "question-group.prepare.started",
-        "message": "开始准备题组",
-        "context": {
-          "project": "机器视觉专业知识",
-          "mode": "专业知识",
-          "questionCount": 3,
-          "sourceMode": "network",
-          "adaptiveQuestions": true,
-          "focusCategories": [
-            "算法原理",
-            "工程实践",
-            "图像预处理",
-            "模板与定位"
-          ]
-        }
-      },
-      {
-        "id": "1788265809219-hxf91gh8",
-        "timestamp": "2026-09-01T12:30:09.219Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "bf3d0059c332"
         }
       }
     ]
