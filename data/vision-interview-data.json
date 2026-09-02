@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-02T02:12:14.265Z",
+  "updatedAt": "2026-09-02T02:12:19.916Z",
   "data": {
     "vision-interview-records": [
       {
@@ -2006,6 +2006,120 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788315136738-dbowhpuk",
+        "timestamp": "2026-09-02T02:12:16.738Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "293392356fb0"
+        }
+      },
+      {
+        "id": "1788315134149-el6ijd8h",
+        "timestamp": "2026-09-02T02:12:14.149Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788315013982-ed4i2mk8",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 6,
+          "query": "机器视觉 面试知识点 HALCON 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 0,
+          "parallelRequests": 5,
+          "requestedCount": 10
+        }
+      },
+      {
+        "id": "1788315134134-kkx5usq4",
+        "timestamp": "2026-09-02T02:12:14.134Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788315013982-ed4i2mk8",
+        "event": "question-bank.ai-request.failed",
+        "message": "单个并行 AI 请求失败",
+        "context": {
+          "attempt": 5,
+          "workerIndex": 4,
+          "parallelRequests": 5,
+          "requestedCount": 2,
+          "durationMs": 4253,
+          "error": "请先配置当前 AI 服务商的 API Key。"
+        }
+      },
+      {
+        "id": "1788315133669-llyqntsk",
+        "timestamp": "2026-09-02T02:12:13.669Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788315013982-ed4i2mk8",
+        "event": "question-bank.ai-request.failed",
+        "message": "单个并行 AI 请求失败",
+        "context": {
+          "attempt": 5,
+          "workerIndex": 5,
+          "parallelRequests": 5,
+          "requestedCount": 2,
+          "durationMs": 3788,
+          "error": "请先配置当前 AI 服务商的 API Key。"
+        }
+      },
+      {
+        "id": "1788315133427-f08cr08p",
+        "timestamp": "2026-09-02T02:12:13.427Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788315013982-ed4i2mk8",
+        "event": "question-bank.ai-request.failed",
+        "message": "单个并行 AI 请求失败",
+        "context": {
+          "attempt": 5,
+          "workerIndex": 1,
+          "parallelRequests": 5,
+          "requestedCount": 2,
+          "durationMs": 3556,
+          "error": "请先配置当前 AI 服务商的 API Key。"
+        }
+      },
+      {
+        "id": "1788315132994-4f1uqtcw",
+        "timestamp": "2026-09-02T02:12:12.994Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788315013982-ed4i2mk8",
+        "event": "question-bank.ai-request.failed",
+        "message": "单个并行 AI 请求失败",
+        "context": {
+          "attempt": 5,
+          "workerIndex": 3,
+          "parallelRequests": 5,
+          "requestedCount": 2,
+          "durationMs": 3114,
+          "error": "请先配置当前 AI 服务商的 API Key。"
+        }
+      },
+      {
+        "id": "1788315132829-8t8seo6p",
+        "timestamp": "2026-09-02T02:12:12.829Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788315013982-ed4i2mk8",
+        "event": "question-bank.ai-request.failed",
+        "message": "单个并行 AI 请求失败",
+        "context": {
+          "attempt": 5,
+          "workerIndex": 2,
+          "parallelRequests": 5,
+          "requestedCount": 2,
+          "durationMs": 2949,
+          "error": "请先配置当前 AI 服务商的 API Key。"
+        }
+      },
       {
         "id": "1788315129978-oac1q304",
         "timestamp": "2026-09-02T02:12:09.978Z",
@@ -17269,129 +17383,6 @@
         "context": {
           "reason": "change",
           "commit": "9f720c45dd9e"
-        }
-      },
-      {
-        "id": "1788264875560-tscughb4",
-        "timestamp": "2026-09-01T12:14:35.560Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264675884-efebbymx",
-        "event": "question-group.prepare.started",
-        "message": "开始准备题组",
-        "context": {
-          "project": "机器视觉专业知识",
-          "mode": "专业知识",
-          "questionCount": 10,
-          "sourceMode": "network",
-          "adaptiveQuestions": true,
-          "focusCategories": [
-            "算法原理",
-            "工程实践",
-            "图像预处理",
-            "模板与定位"
-          ]
-        }
-      },
-      {
-        "id": "1788264874504-ipz416wl",
-        "timestamp": "2026-09-01T12:14:34.504Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "8f63a9dd22b4"
-        }
-      },
-      {
-        "id": "1788264870607-mi2yj5in",
-        "timestamp": "2026-09-01T12:14:30.607Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "c5151300fb48"
-        }
-      },
-      {
-        "id": "1788264869923-0c5idt7d",
-        "timestamp": "2026-09-01T12:14:29.923Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264675884-efebbymx",
-        "event": "question-group.prepare.started",
-        "message": "开始准备题组",
-        "context": {
-          "project": "机器视觉专业知识",
-          "mode": "专业知识",
-          "questionCount": 10,
-          "sourceMode": "network",
-          "adaptiveQuestions": true,
-          "focusCategories": [
-            "算法原理",
-            "工程实践",
-            "图像预处理",
-            "模板与定位"
-          ]
-        }
-      },
-      {
-        "id": "1788264868796-ffblc4jw",
-        "timestamp": "2026-09-01T12:14:28.796Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264675884-efebbymx",
-        "event": "question-group.prepare.started",
-        "message": "开始准备题组",
-        "context": {
-          "project": "机器视觉专业知识",
-          "mode": "专业知识",
-          "questionCount": 10,
-          "sourceMode": "network",
-          "adaptiveQuestions": true,
-          "focusCategories": [
-            "算法原理",
-            "工程实践",
-            "图像预处理",
-            "模板与定位"
-          ]
-        }
-      },
-      {
-        "id": "1788264867896-l80hpq2a",
-        "timestamp": "2026-09-01T12:14:27.896Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264675884-efebbymx",
-        "event": "question-bank.ai-request.started",
-        "message": "第 4/6 轮（并行 2/3）：正在请求 AI 生成题目（1 道）…",
-        "context": {
-          "attempt": 4,
-          "maxAttempts": 6,
-          "collectedCount": 7,
-          "workerIndex": 2,
-          "parallelRequests": 3,
-          "requestedCount": 1
-        }
-      },
-      {
-        "id": "1788264867892-3ks514ah",
-        "timestamp": "2026-09-01T12:14:27.892Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264675884-efebbymx",
-        "event": "question-bank.web-search.completed",
-        "message": "本轮联网检索完成",
-        "context": {
-          "attempt": 4,
-          "query": "机器视觉 面试知识点 HALCON 算法原理 工程实践 图像预处理 模板与定位 深度图 点云 法线估计 RANSAC find_surface_model 原理 工程实践",
-          "sourceCount": 0,
-          "workerIndex": 2,
-          "parallelRequests": 3
         }
       }
     ]
