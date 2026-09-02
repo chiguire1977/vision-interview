@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-02T11:10:57.511Z",
+  "updatedAt": "2026-09-02T11:11:03.059Z",
   "data": {
     "vision-interview-records": [
       {
@@ -2007,6 +2007,35 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788347463479-n8zvad1f",
+        "timestamp": "2026-09-02T11:11:03.479Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788345131423-wywacu41",
+        "event": "question-bank.ai-request.duration",
+        "message": "单个并行 AI 请求完成",
+        "context": {
+          "attempt": 1,
+          "workerIndex": 4,
+          "parallelRequests": 4,
+          "requestedCount": 2,
+          "receivedCount": 2,
+          "durationMs": 36734
+        }
+      },
+      {
+        "id": "1788347463131-qbfqkewy",
+        "timestamp": "2026-09-02T11:11:03.131Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "b1b38ca96cd4"
+        }
+      },
       {
         "id": "1788347459354-jif81jd3",
         "timestamp": "2026-09-02T11:10:59.354Z",
@@ -17334,35 +17363,6 @@
         "context": {
           "reason": "change",
           "commit": "b2b8d92b070e"
-        }
-      },
-      {
-        "id": "1788338709825-ff20p2u3",
-        "timestamp": "2026-09-02T08:45:09.825Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "834efbd052ec"
-        }
-      },
-      {
-        "id": "1788338707521-grtp3tzb",
-        "timestamp": "2026-09-02T08:45:07.521Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788338320411-38gvsbsd",
-        "event": "question-group.prepare.started",
-        "message": "开始准备题组",
-        "context": {
-          "project": "机器视觉专业知识",
-          "mode": "专业知识",
-          "questionCount": 10,
-          "sourceMode": "network",
-          "adaptiveQuestions": false,
-          "focusCategories": []
         }
       }
     ]
