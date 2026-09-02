@@ -1,0 +1,49 @@
+{
+  "version": 1,
+  "updatedAt": "2026-09-02T10:36:47.497Z",
+  "questions": [
+    {
+      "title": "VisionPro现场图像模糊，如何快速定位是光学、运动还是软件问题？",
+      "type": "现场故障",
+      "category": "图像采集",
+      "source": "专业",
+      "sourceType": "AI知识整理",
+      "knowledgePoints": [
+        "图像清晰度评估",
+        "光学对焦",
+        "运动模糊",
+        "软件处理"
+      ],
+      "difficulty": "困难",
+      "tags": [
+        "现场排障",
+        "VisionPro",
+        "图像模糊"
+      ],
+      "keywords": [
+        "清晰度评价",
+        "对焦",
+        "曝光时间",
+        "振动"
+      ],
+      "followUp": "如何用软件方法判断模糊类型？",
+      "hint": "从硬件和软件两方面排查，使用控制变量法。",
+      "techStacks": [
+        "VisionPro"
+      ],
+      "detectionDirection": "传统 2D 视觉",
+      "bestAnswer": "现场图像模糊先区分是全局模糊还是局部模糊。全局模糊常见原因：对焦不准（镜头未调焦或工作距离变化）、镜头污损、相机分辨率不足。若图像沿运动方向有拖影，则是运动模糊，可能因曝光时间过长或振动。软件方面检查采集卡丢帧、图像处理滤波过度。可用清晰度评价函数（如Tenengrad、Laplacian方差）量化模糊程度，对比不同条件下的图像。必要时用测试卡或标定板辅助判断。",
+      "principle": "图像模糊本质是高频信息丢失。光学离焦导致点扩散函数变大，运动模糊是像素沿运动轨迹积分。清晰度评价基于梯度能量，高频分量多则清晰。排查时通过控制变量法，分别检查光学、机械、电气和软件环节。",
+      "id": "aiq-520523f0",
+      "generatedAt": "2026-09-02T10:36:41.227Z",
+      "provider": "opencode-go",
+      "model": "deepseek-v4-flash",
+      "project": "机器视觉专业知识",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "随机技术栈",
+      "detectionDirectionFilter": "随机方向"
+    }
+  ]
+}
