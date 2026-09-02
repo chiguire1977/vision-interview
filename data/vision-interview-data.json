@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-02T07:23:14.214Z",
+  "updatedAt": "2026-09-02T07:23:19.292Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1818,6 +1818,32 @@
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
       {
+        "id": "1788333798630-pmvf2nl5",
+        "timestamp": "2026-09-02T07:23:18.630Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788333797003-ujurbatm",
+        "event": "question-bank.remote.loaded",
+        "message": "GitHub AI 历史题库加载完成",
+        "context": {
+          "questionCount": 73,
+          "githubQuestionCount": 73,
+          "pendingCount": 0
+        }
+      },
+      {
+        "id": "1788333796998-otej1vgn",
+        "timestamp": "2026-09-02T07:23:16.998Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.startup.loaded",
+        "message": "启动配置加载完成",
+        "context": {
+          "source": "github",
+          "updatedAt": "2026-09-02T07:10:43.452Z"
+        }
+      },
+      {
         "id": "1788333795205-29kktwfe",
         "timestamp": "2026-09-02T07:23:15.205Z",
         "level": "INFO",
@@ -1910,6 +1936,18 @@
           "requestedCount": 1,
           "receivedCount": 1,
           "durationMs": 24212
+        }
+      },
+      {
+        "id": "1788333047460-5pk8pcex",
+        "timestamp": "2026-09-02T07:10:47.460Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "f7361bc87669"
         }
       },
       {
@@ -15563,52 +15601,6 @@
           "requestedCount": 2,
           "receivedCount": 2,
           "durationMs": 41243
-        }
-      },
-      {
-        "id": "1788267961788-ekkoqska",
-        "timestamp": "2026-09-01T13:06:01.788Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "c720bc22aa60"
-        }
-      },
-      {
-        "id": "1788267957110-tp0u159y",
-        "timestamp": "2026-09-01T13:05:57.110Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788267920001-m70g11yz",
-        "event": "question-bank.ai-request.duration",
-        "message": "单个并行 AI 请求完成",
-        "context": {
-          "attempt": 1,
-          "workerIndex": 2,
-          "parallelRequests": 5,
-          "requestedCount": 2,
-          "receivedCount": 2,
-          "durationMs": 36415
-        }
-      },
-      {
-        "id": "1788267956495-72n5koi8",
-        "timestamp": "2026-09-01T13:05:56.495Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788267920001-m70g11yz",
-        "event": "question-bank.ai-request.duration",
-        "message": "单个并行 AI 请求完成",
-        "context": {
-          "attempt": 1,
-          "workerIndex": 1,
-          "parallelRequests": 5,
-          "requestedCount": 2,
-          "receivedCount": 2,
-          "durationMs": 35808
         }
       }
     ]
