@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-02T15:50:12.408Z",
+  "updatedAt": "2026-09-02T15:50:16.213Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1817,6 +1817,26 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788364219073-m8xfa61a",
+        "timestamp": "2026-09-02T15:50:19.073Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "839fecc7d151"
+        }
+      },
+      {
+        "id": "1788364216745-ygxtks0k",
+        "timestamp": "2026-09-02T15:50:16.745Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.close.flush",
+        "message": "页面关闭或进入后台，提交最后一次备份"
+      },
       {
         "id": "1788364215295-07du2slv",
         "timestamp": "2026-09-02T15:50:15.295Z",
@@ -17006,41 +17026,6 @@
           "workerIndex": 2,
           "parallelRequests": 4,
           "requestedCount": 3
-        }
-      },
-      {
-        "id": "1788340695425-94nmdvxb",
-        "timestamp": "2026-09-02T09:18:15.425Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788340687728-30w9bjr4",
-        "event": "question-bank.ai-request.started",
-        "message": "第 1/6 轮（并行 1/4）：正在请求 AI 生成题目（3 道）…",
-        "context": {
-          "attempt": 1,
-          "maxAttempts": 6,
-          "collectedCount": 0,
-          "workerIndex": 1,
-          "parallelRequests": 4,
-          "requestedCount": 3
-        }
-      },
-      {
-        "id": "1788340695423-6l84emb5",
-        "timestamp": "2026-09-02T09:18:15.423Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788340687728-30w9bjr4",
-        "event": "question-bank.web-search.completed",
-        "message": "本轮联网检索完成",
-        "context": {
-          "attempt": 1,
-          "query": "机器视觉 面试知识点 原理 工程实践",
-          "sourceCount": 0,
-          "parallelRequests": 4,
-          "requestedCount": 10,
-          "durationMs": 633,
-          "sharedAcrossWorkers": true
         }
       }
     ]
