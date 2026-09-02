@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-02T09:50:23.432Z",
+  "updatedAt": "2026-09-02T09:50:33.069Z",
   "data": {
     "vision-interview-records": [
       {
@@ -2008,12 +2008,50 @@
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
       {
+        "id": "1788342629576-3mta21qd",
+        "timestamp": "2026-09-02T09:50:29.576Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788342627776-o0aqz996",
+        "event": "question-bank.remote.loaded",
+        "message": "GitHub AI 历史题库加载完成",
+        "context": {
+          "questionCount": 101,
+          "githubQuestionCount": 101,
+          "pendingCount": 0
+        }
+      },
+      {
+        "id": "1788342627771-zsq6gin8",
+        "timestamp": "2026-09-02T09:50:27.771Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.startup.loaded",
+        "message": "启动配置加载完成",
+        "context": {
+          "source": "github",
+          "updatedAt": "2026-09-02T09:47:47.803Z"
+        }
+      },
+      {
         "id": "1788342623507-kccq69ij",
         "timestamp": "2026-09-02T09:50:23.507Z",
         "level": "INFO",
         "kind": "system",
         "event": "backup.close.flush",
         "message": "页面关闭或进入后台，提交最后一次备份"
+      },
+      {
+        "id": "1788342472138-dwprws5k",
+        "timestamp": "2026-09-02T09:47:52.138Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "eedbe36eed2c"
+        }
       },
       {
         "id": "1788342469083-cbjhs2si",
@@ -16491,46 +16529,6 @@
           "mode": "专业知识",
           "project": "机器视觉专业知识",
           "answerLength": 73
-        }
-      },
-      {
-        "id": "1788326304014-pyb4dizf",
-        "timestamp": "2026-09-02T05:18:24.014Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "63e5f81b3204"
-        }
-      },
-      {
-        "id": "1788326260836-i0l3h92o",
-        "timestamp": "2026-09-02T05:17:40.836Z",
-        "level": "INFO",
-        "kind": "user",
-        "sessionId": "1788325262027-rws3kdto",
-        "event": "answer.submit.completed",
-        "message": "回答已保存，等待题组完成后统一评审",
-        "context": {
-          "question": "HALCON中全局阈值与局部阈值分割的适用场景及参数选择",
-          "seconds": 0
-        }
-      },
-      {
-        "id": "1788326260833-ak840a1v",
-        "timestamp": "2026-09-02T05:17:40.833Z",
-        "level": "INFO",
-        "kind": "user",
-        "sessionId": "1788325262027-rws3kdto",
-        "event": "answer.submit.started",
-        "message": "保存当前回答，等待题组评审",
-        "context": {
-          "question": "HALCON中全局阈值与局部阈值分割的适用场景及参数选择",
-          "mode": "专业知识",
-          "project": "机器视觉专业知识",
-          "answerLength": 65
         }
       }
     ]
