@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-02T02:34:17.451Z",
+  "updatedAt": "2026-09-02T02:34:31.456Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1525,7 +1525,7 @@
       "bestAnswer": true,
       "smartFollowUp": true,
       "webQuestions": true,
-      "upstreamFormat": "chat-completions",
+      "upstreamFormat": "responses",
       "questionGroupSize": 10,
       "parallelRequests": 5,
       "adaptiveQuestions": false
@@ -2011,6 +2011,18 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788316459955-kjf1apyh",
+        "timestamp": "2026-09-02T02:34:19.955Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "331f9e346d4a"
+        }
+      },
       {
         "id": "1788316455661-2a2urxt0",
         "timestamp": "2026-09-02T02:34:15.661Z",
@@ -17344,20 +17356,6 @@
           "operation": "ai-question-bank",
           "entryCount": 7,
           "pendingCount": 7
-        }
-      },
-      {
-        "id": "1788265062574-x255o4s5",
-        "timestamp": "2026-09-01T12:17:42.574Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788264675884-efebbymx",
-        "event": "question-bank.network.partial-fallback",
-        "message": "联网获得的完整题目数量不足，已使用题库补足",
-        "context": {
-          "aiCount": 7,
-          "fallbackCount": 3,
-          "targetCount": 10
         }
       }
     ]
