@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-02T08:47:17.324Z",
+  "updatedAt": "2026-09-02T08:47:20.989Z",
   "data": {
     "vision-interview-records": [
       {
@@ -2007,6 +2007,82 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788338838767-bysejt0q",
+        "timestamp": "2026-09-02T08:47:18.767Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788338320411-38gvsbsd",
+        "event": "github.backup.started",
+        "message": "开始备份数据到 GitHub",
+        "context": {
+          "operation": "ai-question-bank",
+          "entryCount": 8,
+          "pendingCount": 8,
+          "totalCount": 91,
+          "complete": true
+        }
+      },
+      {
+        "id": "1788338838757-8przi0ur",
+        "timestamp": "2026-09-02T08:47:18.757Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788338320411-38gvsbsd",
+        "event": "question-bank.network.partial-fallback",
+        "message": "联网获得的完整题目数量不足，已使用题库补足",
+        "context": {
+          "aiCount": 8,
+          "fallbackCount": 2,
+          "targetCount": 10
+        }
+      },
+      {
+        "id": "1788338838740-8cgwbgh8",
+        "timestamp": "2026-09-02T08:47:18.740Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788338320411-38gvsbsd",
+        "event": "question-bank.ai-request.failed",
+        "message": "单个并行 AI 请求失败",
+        "context": {
+          "attempt": 6,
+          "workerIndex": 2,
+          "parallelRequests": 4,
+          "requestedCount": 1,
+          "durationMs": 60183,
+          "error": "AI 请求超时，请稍后重试。"
+        }
+      },
+      {
+        "id": "1788338838725-m9kg1tb3",
+        "timestamp": "2026-09-02T08:47:18.725Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788338320411-38gvsbsd",
+        "event": "question-bank.ai-request.failed",
+        "message": "单个并行 AI 请求失败",
+        "context": {
+          "attempt": 6,
+          "workerIndex": 1,
+          "parallelRequests": 4,
+          "requestedCount": 1,
+          "durationMs": 60169,
+          "error": "AI 请求超时，请稍后重试。"
+        }
+      },
+      {
+        "id": "1788338832819-itwhc1s9",
+        "timestamp": "2026-09-02T08:47:12.819Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "74ee15c7860c"
+        }
+      },
       {
         "id": "1788338827141-5g633cj2",
         "timestamp": "2026-09-02T08:47:07.141Z",
@@ -15103,54 +15179,6 @@
         "kind": "system",
         "event": "backup.close.flush",
         "message": "页面关闭或进入后台，提交最后一次备份"
-      },
-      {
-        "id": "1788275568700-7jbe07ji",
-        "timestamp": "2026-09-01T15:12:48.700Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.close.flush",
-        "message": "页面关闭或进入后台，提交最后一次备份"
-      },
-      {
-        "id": "1788275563130-4rpuwm5b",
-        "timestamp": "2026-09-01T15:12:43.130Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.close.flush",
-        "message": "页面关闭或进入后台，提交最后一次备份"
-      },
-      {
-        "id": "1788275548507-7hmwe3om",
-        "timestamp": "2026-09-01T15:12:28.507Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "f91db02cede0"
-        }
-      },
-      {
-        "id": "1788275538694-q5d9jyc6",
-        "timestamp": "2026-09-01T15:12:18.694Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.close.flush",
-        "message": "页面关闭或进入后台，提交最后一次备份"
-      },
-      {
-        "id": "1788275534269-je3l8jyb",
-        "timestamp": "2026-09-01T15:12:14.269Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "930d30c70360"
-        }
       }
     ]
   }
