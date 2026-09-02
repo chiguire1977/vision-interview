@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-02T09:51:16.539Z",
+  "updatedAt": "2026-09-02T09:51:22.531Z",
   "data": {
     "vision-interview-records": [
       {
@@ -2007,6 +2007,154 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788342682537-1l40sgoq",
+        "timestamp": "2026-09-02T09:51:22.537Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788342627776-o0aqz996",
+        "event": "question-bank.ai-request.started",
+        "message": "第 1/6 轮（并行 4/4）：正在请求 AI 生成题目（2 道）…",
+        "context": {
+          "attempt": 1,
+          "maxAttempts": 6,
+          "collectedCount": 0,
+          "workerIndex": 4,
+          "parallelRequests": 4,
+          "requestedCount": 2
+        }
+      },
+      {
+        "id": "1788342682534-d8geklgc",
+        "timestamp": "2026-09-02T09:51:22.534Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788342627776-o0aqz996",
+        "event": "question-bank.ai-request.started",
+        "message": "第 1/6 轮（并行 3/4）：正在请求 AI 生成题目（2 道）…",
+        "context": {
+          "attempt": 1,
+          "maxAttempts": 6,
+          "collectedCount": 0,
+          "workerIndex": 3,
+          "parallelRequests": 4,
+          "requestedCount": 2
+        }
+      },
+      {
+        "id": "1788342682531-du15bldf",
+        "timestamp": "2026-09-02T09:51:22.531Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788342627776-o0aqz996",
+        "event": "question-bank.ai-request.started",
+        "message": "第 1/6 轮（并行 2/4）：正在请求 AI 生成题目（3 道）…",
+        "context": {
+          "attempt": 1,
+          "maxAttempts": 6,
+          "collectedCount": 0,
+          "workerIndex": 2,
+          "parallelRequests": 4,
+          "requestedCount": 3
+        }
+      },
+      {
+        "id": "1788342682528-vcpr8t1g",
+        "timestamp": "2026-09-02T09:51:22.528Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788342627776-o0aqz996",
+        "event": "question-bank.ai-request.started",
+        "message": "第 1/6 轮（并行 1/4）：正在请求 AI 生成题目（3 道）…",
+        "context": {
+          "attempt": 1,
+          "maxAttempts": 6,
+          "collectedCount": 0,
+          "workerIndex": 1,
+          "parallelRequests": 4,
+          "requestedCount": 3
+        }
+      },
+      {
+        "id": "1788342682526-8tnoz33m",
+        "timestamp": "2026-09-02T09:51:22.526Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788342627776-o0aqz996",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 1,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "sourceCount": 0,
+          "parallelRequests": 4,
+          "requestedCount": 10,
+          "durationMs": 475,
+          "sharedAcrossWorkers": true
+        }
+      },
+      {
+        "id": "1788342682051-wlk8itkw",
+        "timestamp": "2026-09-02T09:51:22.051Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788342627776-o0aqz996",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 1,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 0,
+          "parallelRequests": 4,
+          "requestedCount": 10
+        }
+      },
+      {
+        "id": "1788342682046-0zptook7",
+        "timestamp": "2026-09-02T09:51:22.046Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788342627776-o0aqz996",
+        "event": "question-group.prepare.started",
+        "message": "开始准备题组",
+        "context": {
+          "project": "机器视觉专业知识",
+          "mode": "专业知识",
+          "questionCount": 10,
+          "sourceMode": "network",
+          "adaptiveQuestions": false,
+          "focusCategories": []
+        }
+      },
+      {
+        "id": "1788342682042-aqh3349w",
+        "timestamp": "2026-09-02T09:51:22.042Z",
+        "level": "INFO",
+        "kind": "user",
+        "sessionId": "1788342627776-o0aqz996",
+        "event": "training.started",
+        "message": "用户开始新的训练题组",
+        "context": {
+          "category": "随机类型",
+          "difficulty": "随机难度",
+          "techStack": "随机技术栈",
+          "detectionDirection": "随机方向",
+          "questionCount": 10
+        }
+      },
+      {
+        "id": "1788342682004-mj4sten0",
+        "timestamp": "2026-09-02T09:51:22.004Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "b8e198803824"
+        }
+      },
       {
         "id": "1788342676826-s6rcev8u",
         "timestamp": "2026-09-02T09:51:16.826Z",
@@ -16406,126 +16554,6 @@
         "message": "回答已保存，等待题组完成后统一评审",
         "context": {
           "question": "请简述 HALCON 中 Blob 分析的基本流程，并说明为什么在阈值分割后通常需要执行 connection 和 select_shape 操作。",
-          "seconds": 0
-        }
-      },
-      {
-        "id": "1788326754743-hk6k5rq4",
-        "timestamp": "2026-09-02T05:25:54.743Z",
-        "level": "INFO",
-        "kind": "user",
-        "sessionId": "1788325262027-rws3kdto",
-        "event": "answer.submit.started",
-        "message": "保存当前回答，等待题组评审",
-        "context": {
-          "question": "请简述 HALCON 中 Blob 分析的基本流程，并说明为什么在阈值分割后通常需要执行 connection 和 select_shape 操作。",
-          "mode": "专业知识",
-          "project": "机器视觉专业知识",
-          "answerLength": 50
-        }
-      },
-      {
-        "id": "1788326677485-j5u74clr",
-        "timestamp": "2026-09-02T05:24:37.485Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "d382549b2acb"
-        }
-      },
-      {
-        "id": "1788326667434-v2jrtjkj",
-        "timestamp": "2026-09-02T05:24:27.434Z",
-        "level": "INFO",
-        "kind": "user",
-        "sessionId": "1788325262027-rws3kdto",
-        "event": "answer.submit.completed",
-        "message": "回答已保存，等待题组完成后统一评审",
-        "context": {
-          "question": "在 HALCON 中，如何将一张灰度图像转换为可用于后续处理的区域（Region）？请说明 threshold 算子的输入输出以及区域在 HALCON 中的基本表示方式。",
-          "seconds": 0
-        }
-      },
-      {
-        "id": "1788326667431-4zxe4m2z",
-        "timestamp": "2026-09-02T05:24:27.431Z",
-        "level": "INFO",
-        "kind": "user",
-        "sessionId": "1788325262027-rws3kdto",
-        "event": "answer.submit.started",
-        "message": "保存当前回答，等待题组评审",
-        "context": {
-          "question": "在 HALCON 中，如何将一张灰度图像转换为可用于后续处理的区域（Region）？请说明 threshold 算子的输入输出以及区域在 HALCON 中的基本表示方式。",
-          "mode": "专业知识",
-          "project": "机器视觉专业知识",
-          "answerLength": 89
-        }
-      },
-      {
-        "id": "1788326595562-a0v02ygp",
-        "timestamp": "2026-09-02T05:23:15.562Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "867a5076835f"
-        }
-      },
-      {
-        "id": "1788326589188-dlbqpyom",
-        "timestamp": "2026-09-02T05:23:09.188Z",
-        "level": "INFO",
-        "kind": "user",
-        "sessionId": "1788325262027-rws3kdto",
-        "event": "answer.submit.completed",
-        "message": "回答已保存，等待题组完成后统一评审",
-        "context": {
-          "question": "HALCON中基于形状的模板匹配（create_shape_model）为什么对线性光照变化不敏感？",
-          "seconds": 0
-        }
-      },
-      {
-        "id": "1788326589186-fc2er4qu",
-        "timestamp": "2026-09-02T05:23:09.186Z",
-        "level": "INFO",
-        "kind": "user",
-        "sessionId": "1788325262027-rws3kdto",
-        "event": "answer.submit.started",
-        "message": "保存当前回答，等待题组评审",
-        "context": {
-          "question": "HALCON中基于形状的模板匹配（create_shape_model）为什么对线性光照变化不敏感？",
-          "mode": "专业知识",
-          "project": "机器视觉专业知识",
-          "answerLength": 82
-        }
-      },
-      {
-        "id": "1788326463823-wbj3xy68",
-        "timestamp": "2026-09-02T05:21:03.823Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "d8a70c7c94f2"
-        }
-      },
-      {
-        "id": "1788326458029-mpr6a58l",
-        "timestamp": "2026-09-02T05:20:58.029Z",
-        "level": "INFO",
-        "kind": "user",
-        "sessionId": "1788325262027-rws3kdto",
-        "event": "answer.submit.completed",
-        "message": "回答已保存，等待题组完成后统一评审",
-        "context": {
-          "question": "在HALCON中进行Blob分析时，如何合理设置阈值和最小面积参数以稳定提取目标区域？",
           "seconds": 0
         }
       }
