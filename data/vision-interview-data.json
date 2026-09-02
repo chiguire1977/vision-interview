@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-02T02:38:21.724Z",
+  "updatedAt": "2026-09-02T02:38:28.036Z",
   "data": {
     "vision-interview-records": [
       {
@@ -2011,6 +2011,70 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788316704373-vel5gd1q",
+        "timestamp": "2026-09-02T02:38:24.373Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "8143a8bf6262"
+        }
+      },
+      {
+        "id": "1788316700474-m179wgfb",
+        "timestamp": "2026-09-02T02:38:20.474Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788316445479-h5oh7005",
+        "event": "question-bank.ai-request.started",
+        "message": "第 4/6 轮（并行 2/5）：正在请求 AI 生成题目（1 道）…",
+        "context": {
+          "attempt": 4,
+          "maxAttempts": 6,
+          "collectedCount": 8,
+          "workerIndex": 2,
+          "parallelRequests": 5,
+          "requestedCount": 1
+        }
+      },
+      {
+        "id": "1788316700456-ky16zito",
+        "timestamp": "2026-09-02T02:38:20.456Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788316445479-h5oh7005",
+        "event": "question-bank.ai-request.started",
+        "message": "第 4/6 轮（并行 1/5）：正在请求 AI 生成题目（1 道）…",
+        "context": {
+          "attempt": 4,
+          "maxAttempts": 6,
+          "collectedCount": 8,
+          "workerIndex": 1,
+          "parallelRequests": 5,
+          "requestedCount": 1
+        }
+      },
+      {
+        "id": "1788316700429-ok7a0s01",
+        "timestamp": "2026-09-02T02:38:20.429Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788316445479-h5oh7005",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 4,
+          "query": "机器视觉 标定与坐标 原理 工程实践",
+          "sourceCount": 0,
+          "parallelRequests": 5,
+          "requestedCount": 10,
+          "durationMs": 3421,
+          "sharedAcrossWorkers": true
+        }
+      },
       {
         "id": "1788316697008-9dc6qotf",
         "timestamp": "2026-09-02T02:38:17.008Z",
@@ -17328,67 +17392,6 @@
           "workerIndex": 2,
           "parallelRequests": 3,
           "requestedCount": 2
-        }
-      },
-      {
-        "id": "1788265280921-ufmq0zy7",
-        "timestamp": "2026-09-01T12:21:20.921Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788264675884-efebbymx",
-        "event": "question-bank.web-search.failed",
-        "message": "signal timed out",
-        "context": {
-          "attempt": 6,
-          "query": "机器视觉 面试知识点 HALCON 传统 2D 视觉 算法原理 工程实践 图像预处理 模板与定位 深度图 点云 法线估计 RANSAC find_surface_model 原理 工程实践",
-          "continueToAi": true,
-          "workerIndex": 2,
-          "parallelRequests": 3
-        }
-      },
-      {
-        "id": "1788265280917-v3ef1hgj",
-        "timestamp": "2026-09-01T12:21:20.917Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264675884-efebbymx",
-        "event": "question-bank.ai-request.started",
-        "message": "第 6/6 轮（并行 1/3）：正在请求 AI 生成题目（3 道）…",
-        "context": {
-          "attempt": 6,
-          "maxAttempts": 6,
-          "collectedCount": 3,
-          "workerIndex": 1,
-          "parallelRequests": 3,
-          "requestedCount": 3
-        }
-      },
-      {
-        "id": "1788265280914-02o6avn1",
-        "timestamp": "2026-09-01T12:21:20.914Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788264675884-efebbymx",
-        "event": "question-bank.web-search.failed",
-        "message": "signal timed out",
-        "context": {
-          "attempt": 6,
-          "query": "机器视觉 面试知识点 HALCON 传统 2D 视觉 算法原理 工程实践 图像预处理 模板与定位 深度图 点云 法线估计 RANSAC find_surface_model 原理 工程实践",
-          "continueToAi": true,
-          "workerIndex": 1,
-          "parallelRequests": 3
-        }
-      },
-      {
-        "id": "1788265270449-epvxp69g",
-        "timestamp": "2026-09-01T12:21:10.449Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "c3f48dd97cd2"
         }
       }
     ]
