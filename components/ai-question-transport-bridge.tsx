@@ -22,7 +22,16 @@ let lastGenerationActivity = 0;
 let completedCandidateCount = 0;
 let acceptedQuestionCount = 0;
 const activeCandidateCounts = new Map<symbol, number>();
-const SESSION_IDLE_RESET_MS = 4000;
+const SESSION_IDLE_RESET_MS = 120000;
+
+function resetCoverageSession() {
+  if (activeGenerationRequests > 0) return;
+  coverageState = createKnowledgeCoverageState();
+  completedCandidateCount = 0;
+  acceptedQuestionCount = 0;
+  activeCandidateCounts.clear();
+  lastGenerationActivity = Date.now();
+}
 
 function dispatchProgress(phase: StreamProgress["phase"]) {
   if (typeof window === "undefined") return;
@@ -39,12 +48,7 @@ function dispatchProgress(phase: StreamProgress["phase"]) {
 
 function beginGenerationRequest() {
   const now = Date.now();
-  if (activeGenerationRequests === 0 && now - lastGenerationActivity > SESSION_IDLE_RESET_MS) {
-    coverageState = createKnowledgeCoverageState();
-    completedCandidateCount = 0;
-    acceptedQuestionCount = 0;
-    activeCandidateCounts.clear();
-  }
+  if (activeGenerationRequests === 0 && now - lastGenerationActivity > SESSION_IDLE_RESET_MS) resetCoverageSession();
   const requestId = Symbol("ai-question-stream");
   activeGenerationRequests += 1;
   lastGenerationActivity = now;
@@ -140,6 +144,14 @@ export function AiQuestionTransportBridge() {
       try { pathname = new URL(rawUrl, window.location.origin).pathname; } catch { pathname = rawUrl; }
 
       if (pathname === "/api/web-search") {
+        if (activeGenerationRequests === 0 && typeof init?.body === "string") {
+          try {
+            const searchPayload = JSON.parse(init.body) as { excludedTitles?: unknown };
+            if (Array.isArray(searchPayload.excludedTitles) && searchPayload.excludedTitles.length === 0) resetCoverageSession();
+          } catch {
+            // Search payload is optional for quality filtering.
+          }
+        }
         const response = await originalFetch(input, init);
         if (!response.ok) return response;
         try {
@@ -161,9 +173,11 @@ export function AiQuestionTransportBridge() {
 
       const requestId = beginGenerationRequest();
       try {
+        const requestHeaders = new Headers(init.headers);
+        requestHeaders.set("Content-Type", "application/json");
         const response = await originalFetch(input, {
           ...init,
-          headers: { ...(init.headers ?? {}), "Content-Type": "application/json" },
+          headers: requestHeaders,
           body: JSON.stringify({ ...payload, stream: true }),
         });
         const contentType = (response.headers.get("content-type") || "").toLowerCase();
