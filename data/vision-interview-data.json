@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-02T13:03:12.868Z",
+  "updatedAt": "2026-09-02T13:03:27.862Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1817,6 +1817,35 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788354207001-d65clind",
+        "timestamp": "2026-09-02T13:03:27.001Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788345131423-wywacu41",
+        "event": "question-bank.ai-request.duration",
+        "message": "单个并行 AI 请求完成",
+        "context": {
+          "attempt": 2,
+          "workerIndex": 3,
+          "parallelRequests": 4,
+          "requestedCount": 1,
+          "receivedCount": 1,
+          "durationMs": 14640
+        }
+      },
+      {
+        "id": "1788354198344-kf0st5le",
+        "timestamp": "2026-09-02T13:03:18.344Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "e17e115242bb"
+        }
+      },
       {
         "id": "1788354192354-h5vbttky",
         "timestamp": "2026-09-02T13:03:12.354Z",
@@ -17048,36 +17077,6 @@
           "sourceMode": "network",
           "adaptiveQuestions": false,
           "focusCategories": []
-        }
-      },
-      {
-        "id": "1788339264138-0a2zvft5",
-        "timestamp": "2026-09-02T08:54:24.138Z",
-        "level": "INFO",
-        "kind": "user",
-        "sessionId": "1788339260839-5j3a4n94",
-        "event": "training.started",
-        "message": "用户开始新的训练题组",
-        "context": {
-          "category": "随机类型",
-          "difficulty": "基础",
-          "techStack": "HALCON",
-          "detectionDirection": "传统 2D 视觉",
-          "questionCount": 10
-        }
-      },
-      {
-        "id": "1788339262972-ll6if3xy",
-        "timestamp": "2026-09-02T08:54:22.972Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788339260839-5j3a4n94",
-        "event": "question-bank.remote.loaded",
-        "message": "GitHub AI 历史题库加载完成",
-        "context": {
-          "questionCount": 101,
-          "githubQuestionCount": 101,
-          "pendingCount": 0
         }
       }
     ]
