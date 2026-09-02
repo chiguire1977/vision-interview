@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-02T04:33:11.694Z",
+  "updatedAt": "2026-09-02T04:33:21.966Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1816,6 +1816,52 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788323600116-yrw9fjqk",
+        "timestamp": "2026-09-02T04:33:20.116Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788322216752-snsgtjpn",
+        "event": "question-bank.ai-request.duration",
+        "message": "单个并行 AI 请求完成",
+        "context": {
+          "attempt": 1,
+          "workerIndex": 5,
+          "parallelRequests": 5,
+          "requestedCount": 2,
+          "receivedCount": 2,
+          "durationMs": 36350
+        }
+      },
+      {
+        "id": "1788323599725-mn8nigih",
+        "timestamp": "2026-09-02T04:33:19.725Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788322216752-snsgtjpn",
+        "event": "question-bank.ai-request.duration",
+        "message": "单个并行 AI 请求完成",
+        "context": {
+          "attempt": 1,
+          "workerIndex": 1,
+          "parallelRequests": 5,
+          "requestedCount": 2,
+          "receivedCount": 2,
+          "durationMs": 35972
+        }
+      },
+      {
+        "id": "1788323595052-ofqcbq68",
+        "timestamp": "2026-09-02T04:33:15.052Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "bf1921e0a0d3"
+        }
+      },
       {
         "id": "1788323591833-5b8z67pr",
         "timestamp": "2026-09-02T04:33:11.833Z",
@@ -16600,80 +16646,6 @@
           "sourceCount": 8,
           "workerIndex": 1,
           "parallelRequests": 1
-        }
-      },
-      {
-        "id": "1788265582787-nr35zhdi",
-        "timestamp": "2026-09-01T12:26:22.787Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264675884-efebbymx",
-        "event": "question-group.prepare.started",
-        "message": "开始准备题组",
-        "context": {
-          "project": "机器视觉专业知识",
-          "mode": "专业知识",
-          "questionCount": 3,
-          "sourceMode": "network",
-          "adaptiveQuestions": true,
-          "focusCategories": [
-            "算法原理",
-            "工程实践",
-            "图像预处理",
-            "模板与定位"
-          ]
-        }
-      },
-      {
-        "id": "1788265581384-0zkev5fm",
-        "timestamp": "2026-09-01T12:26:21.384Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264675884-efebbymx",
-        "event": "question-bank.web-search.started",
-        "message": "开始联网检索本轮题目资料",
-        "context": {
-          "attempt": 1,
-          "query": "机器视觉 面试知识点 HALCON 传统 2D 视觉 算法原理 工程实践 图像预处理 模板与定位 深度图 点云 法线估计 RANSAC find_surface_model 原理 工程实践",
-          "mode": "专业知识",
-          "excludedCount": 0,
-          "workerIndex": 1,
-          "parallelRequests": 1,
-          "requestedCount": 3
-        }
-      },
-      {
-        "id": "1788265581378-uteljsrq",
-        "timestamp": "2026-09-01T12:26:21.378Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264675884-efebbymx",
-        "event": "question-bank.focus.applied",
-        "message": "本轮题组已启用薄弱知识强化",
-        "context": {
-          "categories": [
-            "算法原理",
-            "工程实践",
-            "图像预处理",
-            "模板与定位"
-          ],
-          "keywords": [
-            "深度图",
-            "点云",
-            "法线估计",
-            "RANSAC",
-            "find_surface_model",
-            "本题未作答",
-            "无法判断你是否真正掌握了知识点。",
-            "先用一句话给出结论"
-          ],
-          "questionTitles": [
-            "HALCON 中 3D 视觉测量的基本流程是什么？点云处理常用哪些算子？",
-            "现场调试时模板匹配经常出现误匹配或漏匹配，请描述你的排查思路。",
-            "HALCON 程序运行速度慢时，你会从哪些方面进行性能优化？",
-            "HALCON 手眼标定中“眼在手上”和“眼在手外”有什么区别？标定时需要注意什么？",
-            "在 HALCON 中做表面缺陷检测，你会如何选择传统图像处理与深度学习的方案？"
-          ]
         }
       }
     ]
