@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-02T02:36:48.487Z",
+  "updatedAt": "2026-09-02T02:37:13.639Z",
   "data": {
     "vision-interview-records": [
       {
@@ -2011,6 +2011,120 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788316629163-iabe1x4y",
+        "timestamp": "2026-09-02T02:37:09.163Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788316445479-h5oh7005",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 3,
+          "query": "机器视觉 标定与坐标 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 8,
+          "parallelRequests": 5,
+          "requestedCount": 10
+        }
+      },
+      {
+        "id": "1788316629147-u682ep44",
+        "timestamp": "2026-09-02T02:37:09.147Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788316445479-h5oh7005",
+        "event": "question-bank.ai-request.completed",
+        "message": "第 2/6 轮：AI 已返回 8/10 道有效题目，继续补齐…",
+        "context": {
+          "attempt": 2,
+          "maxAttempts": 6,
+          "collectedCount": 8,
+          "targetCount": 10,
+          "parallelRequests": 5,
+          "requestedCount": 8
+        }
+      },
+      {
+        "id": "1788316629132-gr2ydmlo",
+        "timestamp": "2026-09-02T02:37:09.132Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788316445479-h5oh7005",
+        "event": "question-bank.attempt.failed",
+        "message": "第 2/6 轮（并行 5/5）：本轮请求失败：AI 请求超时，请稍后重试。，准备下一轮…",
+        "context": {
+          "attempt": 2,
+          "maxAttempts": 6,
+          "collectedCount": 2,
+          "workerIndex": 5,
+          "parallelRequests": 5,
+          "error": "AI 请求超时，请稍后重试。"
+        }
+      },
+      {
+        "id": "1788316629116-a33ffdlp",
+        "timestamp": "2026-09-02T02:37:09.116Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788316445479-h5oh7005",
+        "event": "question-bank.attempt.failed",
+        "message": "第 2/6 轮（并行 4/5）：本轮请求失败：AI 请求超时，请稍后重试。，准备下一轮…",
+        "context": {
+          "attempt": 2,
+          "maxAttempts": 6,
+          "collectedCount": 2,
+          "workerIndex": 4,
+          "parallelRequests": 5,
+          "error": "AI 请求超时，请稍后重试。"
+        }
+      },
+      {
+        "id": "1788316629089-v1tnjzm3",
+        "timestamp": "2026-09-02T02:37:09.089Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788316445479-h5oh7005",
+        "event": "question-bank.ai-request.failed",
+        "message": "单个并行 AI 请求失败",
+        "context": {
+          "attempt": 2,
+          "workerIndex": 5,
+          "parallelRequests": 5,
+          "requestedCount": 1,
+          "durationMs": 63431,
+          "error": "AI 请求超时，请稍后重试。"
+        }
+      },
+      {
+        "id": "1788316628142-ek13050q",
+        "timestamp": "2026-09-02T02:37:08.141Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788316445479-h5oh7005",
+        "event": "question-bank.ai-request.failed",
+        "message": "单个并行 AI 请求失败",
+        "context": {
+          "attempt": 2,
+          "workerIndex": 4,
+          "parallelRequests": 5,
+          "requestedCount": 1,
+          "durationMs": 62497,
+          "error": "AI 请求超时，请稍后重试。"
+        }
+      },
+      {
+        "id": "1788316611007-maxw2ehn",
+        "timestamp": "2026-09-02T02:36:51.007Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "13598384394b"
+        }
+      },
       {
         "id": "1788316604945-vrkep656",
         "timestamp": "2026-09-02T02:36:44.945Z",
@@ -17278,121 +17392,6 @@
           "attempt": 5,
           "maxAttempts": 6,
           "collectedCount": 3,
-          "workerIndex": 1,
-          "parallelRequests": 3,
-          "requestedCount": 3
-        }
-      },
-      {
-        "id": "1788265204682-73lv99rf",
-        "timestamp": "2026-09-01T12:20:04.682Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788264675884-efebbymx",
-        "event": "question-bank.web-search.failed",
-        "message": "网络检索超时，请稍后重试。",
-        "context": {
-          "attempt": 5,
-          "query": "机器视觉 面试知识点 HALCON 传统 2D 视觉 算法原理 工程实践 图像预处理 模板与定位 深度图 点云 法线估计 RANSAC find_surface_model 原理 工程实践",
-          "continueToAi": true,
-          "workerIndex": 1,
-          "parallelRequests": 3
-        }
-      },
-      {
-        "id": "1788265204677-3euau32g",
-        "timestamp": "2026-09-01T12:20:04.677Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264675884-efebbymx",
-        "event": "question-bank.ai-request.started",
-        "message": "第 5/6 轮（并行 2/3）：正在请求 AI 生成题目（2 道）…",
-        "context": {
-          "attempt": 5,
-          "maxAttempts": 6,
-          "collectedCount": 3,
-          "workerIndex": 2,
-          "parallelRequests": 3,
-          "requestedCount": 2
-        }
-      },
-      {
-        "id": "1788265204673-9e0zs5b9",
-        "timestamp": "2026-09-01T12:20:04.673Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788264675884-efebbymx",
-        "event": "question-bank.web-search.failed",
-        "message": "网络检索超时，请稍后重试。",
-        "context": {
-          "attempt": 5,
-          "query": "机器视觉 面试知识点 HALCON 传统 2D 视觉 算法原理 工程实践 图像预处理 模板与定位 深度图 点云 法线估计 RANSAC find_surface_model 原理 工程实践",
-          "continueToAi": true,
-          "workerIndex": 2,
-          "parallelRequests": 3
-        }
-      },
-      {
-        "id": "1788265195877-7tczhdj9",
-        "timestamp": "2026-09-01T12:19:55.877Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "de74343fd102"
-        }
-      },
-      {
-        "id": "1788265189511-bnlj7quu",
-        "timestamp": "2026-09-01T12:19:49.511Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264675884-efebbymx",
-        "event": "question-bank.web-search.started",
-        "message": "开始联网检索本轮题目资料",
-        "context": {
-          "attempt": 5,
-          "query": "机器视觉 面试知识点 HALCON 传统 2D 视觉 算法原理 工程实践 图像预处理 模板与定位 深度图 点云 法线估计 RANSAC find_surface_model 原理 工程实践",
-          "mode": "专业知识",
-          "excludedCount": 3,
-          "workerIndex": 3,
-          "parallelRequests": 3,
-          "requestedCount": 2
-        }
-      },
-      {
-        "id": "1788265189507-xvm33jpt",
-        "timestamp": "2026-09-01T12:19:49.507Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264675884-efebbymx",
-        "event": "question-bank.web-search.started",
-        "message": "开始联网检索本轮题目资料",
-        "context": {
-          "attempt": 5,
-          "query": "机器视觉 面试知识点 HALCON 传统 2D 视觉 算法原理 工程实践 图像预处理 模板与定位 深度图 点云 法线估计 RANSAC find_surface_model 原理 工程实践",
-          "mode": "专业知识",
-          "excludedCount": 3,
-          "workerIndex": 2,
-          "parallelRequests": 3,
-          "requestedCount": 2
-        }
-      },
-      {
-        "id": "1788265189503-7qte26m0",
-        "timestamp": "2026-09-01T12:19:49.502Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264675884-efebbymx",
-        "event": "question-bank.web-search.started",
-        "message": "开始联网检索本轮题目资料",
-        "context": {
-          "attempt": 5,
-          "query": "机器视觉 面试知识点 HALCON 传统 2D 视觉 算法原理 工程实践 图像预处理 模板与定位 深度图 点云 法线估计 RANSAC find_surface_model 原理 工程实践",
-          "mode": "专业知识",
-          "excludedCount": 3,
           "workerIndex": 1,
           "parallelRequests": 3,
           "requestedCount": 3
