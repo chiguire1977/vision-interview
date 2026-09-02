@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-02T09:14:33.707Z",
+  "updatedAt": "2026-09-02T09:15:41.497Z",
   "data": {
     "vision-interview-records": [
       {
@@ -2007,6 +2007,40 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788340540455-w5eaig4r",
+        "timestamp": "2026-09-02T09:15:40.455Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.close.flush",
+        "message": "页面关闭或进入后台，提交最后一次备份"
+      },
+      {
+        "id": "1788340538087-tzov3jqj",
+        "timestamp": "2026-09-02T09:15:38.087Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788340536452-qpwnio8f",
+        "event": "question-bank.remote.loaded",
+        "message": "GitHub AI 历史题库加载完成",
+        "context": {
+          "questionCount": 101,
+          "githubQuestionCount": 101,
+          "pendingCount": 0
+        }
+      },
+      {
+        "id": "1788340536420-04dr331e",
+        "timestamp": "2026-09-02T09:15:36.420Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.startup.loaded",
+        "message": "启动配置加载完成",
+        "context": {
+          "source": "github",
+          "updatedAt": "2026-09-02T09:14:33.707Z"
+        }
+      },
       {
         "id": "1788340471883-yb6bf24f",
         "timestamp": "2026-09-02T09:14:31.883Z",
@@ -15244,52 +15278,6 @@
         "context": {
           "reason": "change",
           "commit": "fd666249779f"
-        }
-      },
-      {
-        "id": "1788322332183-96y9ebko",
-        "timestamp": "2026-09-02T04:12:12.183Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788322216752-snsgtjpn",
-        "event": "question-bank.ai-request.duration",
-        "message": "单个并行 AI 请求完成",
-        "context": {
-          "attempt": 2,
-          "workerIndex": 1,
-          "parallelRequests": 5,
-          "requestedCount": 1,
-          "receivedCount": 1,
-          "durationMs": 14928
-        }
-      },
-      {
-        "id": "1788322322773-ebtorfy3",
-        "timestamp": "2026-09-02T04:12:02.773Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "9983b9526c8a"
-        }
-      },
-      {
-        "id": "1788322317256-65o59576",
-        "timestamp": "2026-09-02T04:11:57.256Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788322216752-snsgtjpn",
-        "event": "question-bank.ai-request.started",
-        "message": "第 2/6 轮（并行 2/5）：正在请求 AI 生成题目（1 道）…",
-        "context": {
-          "attempt": 2,
-          "maxAttempts": 6,
-          "collectedCount": 8,
-          "workerIndex": 2,
-          "parallelRequests": 5,
-          "requestedCount": 1
         }
       }
     ]
