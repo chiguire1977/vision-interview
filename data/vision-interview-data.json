@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-02T05:24:34.113Z",
+  "updatedAt": "2026-09-02T05:25:58.648Z",
   "data": {
     "vision-interview-records": [
       {
@@ -2006,6 +2006,55 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788326756082-b4cxoz95",
+        "timestamp": "2026-09-02T05:25:56.082Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788325262027-rws3kdto",
+        "event": "group.review.started",
+        "message": "题组已完成，开始统一评审"
+      },
+      {
+        "id": "1788326754746-9c50yf2l",
+        "timestamp": "2026-09-02T05:25:54.746Z",
+        "level": "INFO",
+        "kind": "user",
+        "sessionId": "1788325262027-rws3kdto",
+        "event": "answer.submit.completed",
+        "message": "回答已保存，等待题组完成后统一评审",
+        "context": {
+          "question": "请简述 HALCON 中 Blob 分析的基本流程，并说明为什么在阈值分割后通常需要执行 connection 和 select_shape 操作。",
+          "seconds": 0
+        }
+      },
+      {
+        "id": "1788326754743-hk6k5rq4",
+        "timestamp": "2026-09-02T05:25:54.743Z",
+        "level": "INFO",
+        "kind": "user",
+        "sessionId": "1788325262027-rws3kdto",
+        "event": "answer.submit.started",
+        "message": "保存当前回答，等待题组评审",
+        "context": {
+          "question": "请简述 HALCON 中 Blob 分析的基本流程，并说明为什么在阈值分割后通常需要执行 connection 和 select_shape 操作。",
+          "mode": "专业知识",
+          "project": "机器视觉专业知识",
+          "answerLength": 50
+        }
+      },
+      {
+        "id": "1788326677485-j5u74clr",
+        "timestamp": "2026-09-02T05:24:37.485Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "d382549b2acb"
+        }
+      },
       {
         "id": "1788326667434-v2jrtjkj",
         "timestamp": "2026-09-02T05:24:27.434Z",
@@ -16059,64 +16108,6 @@
             "图像预处理",
             "模板与定位"
           ]
-        }
-      },
-      {
-        "id": "1788265976268-lvdzsryc",
-        "timestamp": "2026-09-01T12:32:56.268Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "29d23d399917"
-        }
-      },
-      {
-        "id": "1788265969886-gd4lh9iy",
-        "timestamp": "2026-09-01T12:32:49.886Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264675884-efebbymx",
-        "event": "question-group.prepare.started",
-        "message": "开始准备题组",
-        "context": {
-          "project": "机器视觉专业知识",
-          "mode": "专业知识",
-          "questionCount": 10,
-          "sourceMode": "network",
-          "adaptiveQuestions": true,
-          "focusCategories": [
-            "算法原理",
-            "工程实践",
-            "图像预处理",
-            "模板与定位"
-          ]
-        }
-      },
-      {
-        "id": "1788265961723-hklyfjzs",
-        "timestamp": "2026-09-01T12:32:41.723Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "664f03d7a3f4"
-        }
-      },
-      {
-        "id": "1788265958149-j9zj4dnm",
-        "timestamp": "2026-09-01T12:32:38.149Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "3016a4a07b4c"
         }
       }
     ]
