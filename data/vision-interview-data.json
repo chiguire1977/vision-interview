@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-02T04:32:59.125Z",
+  "updatedAt": "2026-09-02T04:33:08.947Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1816,6 +1816,35 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788323585832-xm5h9nas",
+        "timestamp": "2026-09-02T04:33:05.832Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788322216752-snsgtjpn",
+        "event": "question-bank.ai-request.duration",
+        "message": "单个并行 AI 请求完成",
+        "context": {
+          "attempt": 1,
+          "workerIndex": 2,
+          "parallelRequests": 5,
+          "requestedCount": 2,
+          "receivedCount": 2,
+          "durationMs": 22076
+        }
+      },
+      {
+        "id": "1788323582934-xkhj3ht9",
+        "timestamp": "2026-09-02T04:33:02.934Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "d334e1781593"
+        }
+      },
       {
         "id": "1788323575327-94p0lz9o",
         "timestamp": "2026-09-02T04:32:55.327Z",
@@ -16650,34 +16679,6 @@
         "context": {
           "reason": "change",
           "commit": "32b92f32c50c"
-        }
-      },
-      {
-        "id": "1788265562568-24ldvffc",
-        "timestamp": "2026-09-01T12:26:02.568Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "b8896daad115"
-        }
-      },
-      {
-        "id": "1788265561419-nf7amw2e",
-        "timestamp": "2026-09-01T12:26:01.419Z",
-        "level": "ERROR",
-        "kind": "system",
-        "sessionId": "1788264675884-efebbymx",
-        "event": "github.backup.failed",
-        "message": "数据备份到 GitHub 失败",
-        "context": {
-          "operation": "ai-question-bank",
-          "entryCount": 0,
-          "pendingCount": 3,
-          "status": 409,
-          "reason": "github_conflict"
         }
       }
     ]
