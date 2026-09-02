@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-02T05:03:10.747Z",
+  "updatedAt": "2026-09-02T05:03:13.137Z",
   "data": {
     "vision-interview-records": [
       {
@@ -2006,6 +2006,31 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788325393666-05b2m4qp",
+        "timestamp": "2026-09-02T05:03:13.666Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.close.flush",
+        "message": "页面关闭或进入后台，提交最后一次备份"
+      },
+      {
+        "id": "1788325392249-oodjhxmr",
+        "timestamp": "2026-09-02T05:03:12.249Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788325262027-rws3kdto",
+        "event": "question-group.prepare.started",
+        "message": "开始准备题组",
+        "context": {
+          "project": "机器视觉专业知识",
+          "mode": "专业知识",
+          "questionCount": 10,
+          "sourceMode": "network",
+          "adaptiveQuestions": false,
+          "focusCategories": []
+        }
+      },
       {
         "id": "1788325391058-k1phps5f",
         "timestamp": "2026-09-02T05:03:11.058Z",
@@ -16297,34 +16322,6 @@
         "context": {
           "reason": "change",
           "commit": "971ea783e423"
-        }
-      },
-      {
-        "id": "1788265862259-ql5q5j4p",
-        "timestamp": "2026-09-01T12:31:02.259Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "b69263863aff"
-        }
-      },
-      {
-        "id": "1788265862145-47tbkx29",
-        "timestamp": "2026-09-01T12:31:02.145Z",
-        "level": "ERROR",
-        "kind": "system",
-        "sessionId": "1788264675884-efebbymx",
-        "event": "github.backup.failed",
-        "message": "数据备份到 GitHub 失败",
-        "context": {
-          "operation": "ai-question-bank",
-          "entryCount": 0,
-          "pendingCount": 10,
-          "status": 409,
-          "reason": "github_conflict"
         }
       }
     ]
