@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-02T05:55:33.581Z",
+  "updatedAt": "2026-09-02T05:55:39.924Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1816,6 +1816,52 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788328539464-t2ul6btz",
+        "timestamp": "2026-09-02T05:55:39.464Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788328410366-861xutz0",
+        "event": "question-bank.ai-request.duration",
+        "message": "单个并行 AI 请求完成",
+        "context": {
+          "attempt": 1,
+          "workerIndex": 1,
+          "parallelRequests": 5,
+          "requestedCount": 2,
+          "receivedCount": 2,
+          "durationMs": 55376
+        }
+      },
+      {
+        "id": "1788328537914-eg9k6vf5",
+        "timestamp": "2026-09-02T05:55:37.914Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788328410366-861xutz0",
+        "event": "question-bank.ai-request.duration",
+        "message": "单个并行 AI 请求完成",
+        "context": {
+          "attempt": 1,
+          "workerIndex": 4,
+          "parallelRequests": 5,
+          "requestedCount": 2,
+          "receivedCount": 2,
+          "durationMs": 53808
+        }
+      },
+      {
+        "id": "1788328537299-htvco6at",
+        "timestamp": "2026-09-02T05:55:37.299Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "1de1162a29b3"
+        }
+      },
       {
         "id": "1788328531024-kxotsgnf",
         "timestamp": "2026-09-02T05:55:31.024Z",
@@ -15679,80 +15725,6 @@
           "workerIndex": 2,
           "parallelRequests": 5,
           "requestedCount": 2
-        }
-      },
-      {
-        "id": "1788266453967-5rnxigws",
-        "timestamp": "2026-09-01T12:40:53.967Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264675884-efebbymx",
-        "event": "question-bank.web-search.started",
-        "message": "开始联网检索本轮题目资料",
-        "context": {
-          "attempt": 1,
-          "query": "机器视觉 面试知识点 HALCON 算法原理 工程实践 图像预处理 模板与定位 深度图 点云 法线估计 RANSAC find_surface_model 原理 工程实践",
-          "mode": "专业知识",
-          "excludedCount": 0,
-          "workerIndex": 1,
-          "parallelRequests": 5,
-          "requestedCount": 2
-        }
-      },
-      {
-        "id": "1788266453963-hayz889w",
-        "timestamp": "2026-09-01T12:40:53.963Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264675884-efebbymx",
-        "event": "question-bank.focus.applied",
-        "message": "本轮题组已启用薄弱知识强化",
-        "context": {
-          "categories": [
-            "算法原理",
-            "工程实践",
-            "图像预处理",
-            "模板与定位"
-          ],
-          "keywords": [
-            "深度图",
-            "点云",
-            "法线估计",
-            "RANSAC",
-            "find_surface_model",
-            "本题未作答",
-            "无法判断你是否真正掌握了知识点。",
-            "先用一句话给出结论"
-          ],
-          "questionTitles": [
-            "HALCON 中 3D 视觉测量的基本流程是什么？点云处理常用哪些算子？",
-            "现场调试时模板匹配经常出现误匹配或漏匹配，请描述你的排查思路。",
-            "HALCON 程序运行速度慢时，你会从哪些方面进行性能优化？",
-            "HALCON 手眼标定中“眼在手上”和“眼在手外”有什么区别？标定时需要注意什么？",
-            "在 HALCON 中做表面缺陷检测，你会如何选择传统图像处理与深度学习的方案？"
-          ]
-        }
-      },
-      {
-        "id": "1788266453959-hmsaggqc",
-        "timestamp": "2026-09-01T12:40:53.959Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264675884-efebbymx",
-        "event": "question-group.prepare.started",
-        "message": "开始准备题组",
-        "context": {
-          "project": "机器视觉专业知识",
-          "mode": "专业知识",
-          "questionCount": 10,
-          "sourceMode": "network",
-          "adaptiveQuestions": true,
-          "focusCategories": [
-            "算法原理",
-            "工程实践",
-            "图像预处理",
-            "模板与定位"
-          ]
         }
       }
     ]
