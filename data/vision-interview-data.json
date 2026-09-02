@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-02T11:07:23.422Z",
+  "updatedAt": "2026-09-02T11:10:16.115Z",
   "data": {
     "vision-interview-records": [
       {
@@ -2007,6 +2007,27 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788347415489-0nfe2v8d",
+        "timestamp": "2026-09-02T11:10:15.489Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "question-bank.close.flush",
+        "message": "关闭或后台切换时提交完整 AI 题库",
+        "context": {
+          "entryCount": 150,
+          "pendingCount": 10,
+          "transport": "keepalive"
+        }
+      },
+      {
+        "id": "1788347415484-0qs1nvrt",
+        "timestamp": "2026-09-02T11:10:15.484Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.close.flush",
+        "message": "页面关闭或进入后台，提交最后一次备份"
+      },
       {
         "id": "1788347240648-za6mtl3c",
         "timestamp": "2026-09-02T11:07:20.648Z",
@@ -17352,26 +17373,6 @@
         "context": {
           "reason": "change",
           "commit": "f602f418c6f3"
-        }
-      },
-      {
-        "id": "1788338694784-l138818z",
-        "timestamp": "2026-09-02T08:44:54.784Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.close.flush",
-        "message": "页面关闭或进入后台，提交最后一次备份"
-      },
-      {
-        "id": "1788338693030-e8lt7pwu",
-        "timestamp": "2026-09-02T08:44:53.030Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "bb7180cd5d2e"
         }
       }
     ]
