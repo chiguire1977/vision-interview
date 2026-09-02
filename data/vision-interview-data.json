@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-02T04:28:36.720Z",
+  "updatedAt": "2026-09-02T04:28:39.609Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1816,6 +1816,62 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788323319708-l077ilvb",
+        "timestamp": "2026-09-02T04:28:39.708Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "1214b4461dc5"
+        }
+      },
+      {
+        "id": "1788323318615-yistiswn",
+        "timestamp": "2026-09-02T04:28:38.615Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788322216752-snsgtjpn",
+        "event": "question-group.prepare.cached",
+        "message": "题组已从本机缓存恢复",
+        "context": {
+          "questionCount": 10
+        }
+      },
+      {
+        "id": "1788323318611-pnavdtck",
+        "timestamp": "2026-09-02T04:28:38.611Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788322216752-snsgtjpn",
+        "event": "question-group.prepare.started",
+        "message": "开始准备题组",
+        "context": {
+          "project": "机器视觉专业知识",
+          "mode": "专业知识",
+          "questionCount": 1,
+          "sourceMode": "network",
+          "adaptiveQuestions": false,
+          "focusCategories": []
+        }
+      },
+      {
+        "id": "1788323318604-kajzfo7e",
+        "timestamp": "2026-09-02T04:28:38.604Z",
+        "level": "INFO",
+        "kind": "user",
+        "sessionId": "1788322216752-snsgtjpn",
+        "event": "answer.submit.completed",
+        "message": "回答审阅完成",
+        "context": {
+          "question": "HALCON中如何通过算子实现相机采集与图像预处理？",
+          "mastery": "低",
+          "reviewSource": "AI",
+          "seconds": 0
+        }
+      },
       {
         "id": "1788323312188-elgy0c6t",
         "timestamp": "2026-09-02T04:28:32.188Z",
@@ -16918,75 +16974,6 @@
           "sourceCount": 0,
           "workerIndex": 2,
           "parallelRequests": 3
-        }
-      },
-      {
-        "id": "1788264899952-2ls5f6v9",
-        "timestamp": "2026-09-01T12:14:59.952Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264675884-efebbymx",
-        "event": "question-bank.ai-request.started",
-        "message": "第 1/6 轮（并行 1/3）：正在请求 AI 生成题目（4 道）…",
-        "context": {
-          "attempt": 1,
-          "maxAttempts": 6,
-          "collectedCount": 0,
-          "workerIndex": 1,
-          "parallelRequests": 3,
-          "requestedCount": 4
-        }
-      },
-      {
-        "id": "1788264899948-wb8rsp5a",
-        "timestamp": "2026-09-01T12:14:59.948Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264675884-efebbymx",
-        "event": "question-bank.web-search.completed",
-        "message": "本轮联网检索完成",
-        "context": {
-          "attempt": 1,
-          "query": "机器视觉 面试知识点 HALCON 传统 2D 视觉 算法原理 工程实践 图像预处理 模板与定位 深度图 点云 法线估计 RANSAC find_surface_model 原理 工程实践",
-          "sourceCount": 0,
-          "workerIndex": 1,
-          "parallelRequests": 3
-        }
-      },
-      {
-        "id": "1788264899638-mgsjeb1u",
-        "timestamp": "2026-09-01T12:14:59.638Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264675884-efebbymx",
-        "event": "question-bank.web-search.started",
-        "message": "开始联网检索本轮题目资料",
-        "context": {
-          "attempt": 1,
-          "query": "机器视觉 面试知识点 HALCON 传统 2D 视觉 算法原理 工程实践 图像预处理 模板与定位 深度图 点云 法线估计 RANSAC find_surface_model 原理 工程实践",
-          "mode": "专业知识",
-          "excludedCount": 0,
-          "workerIndex": 3,
-          "parallelRequests": 3,
-          "requestedCount": 3
-        }
-      },
-      {
-        "id": "1788264899634-sy1smmbk",
-        "timestamp": "2026-09-01T12:14:59.634Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264675884-efebbymx",
-        "event": "question-bank.web-search.started",
-        "message": "开始联网检索本轮题目资料",
-        "context": {
-          "attempt": 1,
-          "query": "机器视觉 面试知识点 HALCON 传统 2D 视觉 算法原理 工程实践 图像预处理 模板与定位 深度图 点云 法线估计 RANSAC find_surface_model 原理 工程实践",
-          "mode": "专业知识",
-          "excludedCount": 0,
-          "workerIndex": 2,
-          "parallelRequests": 3,
-          "requestedCount": 3
         }
       }
     ]
