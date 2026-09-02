@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-02T04:41:38.640Z",
+  "updatedAt": "2026-09-02T04:41:46.779Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1817,6 +1817,18 @@
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
       {
+        "id": "1788324104524-5tf0duvi",
+        "timestamp": "2026-09-02T04:41:44.524Z",
+        "level": "ERROR",
+        "kind": "system",
+        "event": "backup.push.failed",
+        "message": "运行数据备份失败",
+        "context": {
+          "status": 502,
+          "reason": "GitHub 备份失败（HTTP 409）：{\"message\":\"is at 58dd4772a5aad3b18635b81ee354fbfca2c7cd81 but expected 7e3b438f5e3c8de76e9ce5b73ac1eda1233d0c01\",\"documentation_url\":\"https://docs.github.com/rest/repos/contents#create-or-update-file-contents\",\"status\":\"409\"}"
+        }
+      },
+      {
         "id": "1788324096125-2e3oha3f",
         "timestamp": "2026-09-02T04:41:36.125Z",
         "level": "INFO",
@@ -1831,6 +1843,18 @@
         "kind": "system",
         "event": "backup.close.flush",
         "message": "页面关闭或进入后台，提交最后一次备份"
+      },
+      {
+        "id": "1788323820746-1swjcklq",
+        "timestamp": "2026-09-02T04:37:00.746Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "5862a620552b"
+        }
       },
       {
         "id": "1788323817111-znulbqsx",
@@ -16400,39 +16424,6 @@
           "query": "机器视觉 面试知识点 HALCON 算法原理 工程实践 图像预处理 模板与定位 深度图 点云 法线估计 RANSAC find_surface_model 原理 工程实践",
           "sourceCount": 0,
           "workerIndex": 4,
-          "parallelRequests": 5
-        }
-      },
-      {
-        "id": "1788265822399-gn1cgwvg",
-        "timestamp": "2026-09-01T12:30:22.399Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264675884-efebbymx",
-        "event": "question-bank.ai-request.started",
-        "message": "第 1/6 轮（并行 2/5）：正在请求 AI 生成题目（2 道）…",
-        "context": {
-          "attempt": 1,
-          "maxAttempts": 6,
-          "collectedCount": 0,
-          "workerIndex": 2,
-          "parallelRequests": 5,
-          "requestedCount": 2
-        }
-      },
-      {
-        "id": "1788265822396-ikgs7j6j",
-        "timestamp": "2026-09-01T12:30:22.396Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264675884-efebbymx",
-        "event": "question-bank.web-search.completed",
-        "message": "本轮联网检索完成",
-        "context": {
-          "attempt": 1,
-          "query": "机器视觉 面试知识点 HALCON 算法原理 工程实践 图像预处理 模板与定位 深度图 点云 法线估计 RANSAC find_surface_model 原理 工程实践",
-          "sourceCount": 0,
-          "workerIndex": 2,
           "parallelRequests": 5
         }
       }
