@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-02T11:11:14.465Z",
+  "updatedAt": "2026-09-02T11:11:52.356Z",
   "data": {
     "vision-interview-records": [
       {
@@ -2007,6 +2007,81 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788347511253-mqqdlv12",
+        "timestamp": "2026-09-02T11:11:51.253Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788345131423-wywacu41",
+        "event": "question-group.prepare.completed",
+        "message": "AI 已生成完整 10 道题目、标准回答和技术原理；远程题库正在后台同步。",
+        "context": {
+          "source": "AI",
+          "questionCount": 10
+        }
+      },
+      {
+        "id": "1788347511250-lr8km3gm",
+        "timestamp": "2026-09-02T11:11:51.250Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788345131423-wywacu41",
+        "event": "github.backup.started",
+        "message": "开始备份数据到 GitHub",
+        "context": {
+          "operation": "ai-question-bank",
+          "entryCount": 10,
+          "pendingCount": 10,
+          "totalCount": 160,
+          "complete": true
+        }
+      },
+      {
+        "id": "1788347511245-x8rg5odl",
+        "timestamp": "2026-09-02T11:11:51.245Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788345131423-wywacu41",
+        "event": "question-bank.ai-request.duration",
+        "message": "单个并行 AI 请求完成",
+        "context": {
+          "attempt": 2,
+          "workerIndex": 1,
+          "parallelRequests": 4,
+          "requestedCount": 1,
+          "receivedCount": 1,
+          "durationMs": 42344
+        }
+      },
+      {
+        "id": "1788347510073-62ydoo1b",
+        "timestamp": "2026-09-02T11:11:50.073Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788345131423-wywacu41",
+        "event": "question-bank.ai-request.duration",
+        "message": "单个并行 AI 请求完成",
+        "context": {
+          "attempt": 2,
+          "workerIndex": 2,
+          "parallelRequests": 4,
+          "requestedCount": 1,
+          "receivedCount": 1,
+          "durationMs": 41171
+        }
+      },
+      {
+        "id": "1788347480410-5lcpib6y",
+        "timestamp": "2026-09-02T11:11:20.410Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "533ec907cb93"
+        }
+      },
       {
         "id": "1788347476303-eeupp9vq",
         "timestamp": "2026-09-02T11:11:16.303Z",
@@ -17306,72 +17381,6 @@
           "requestedCount": 2,
           "receivedCount": 2,
           "durationMs": 41207
-        }
-      },
-      {
-        "id": "1788338744482-9xcm7gx9",
-        "timestamp": "2026-09-02T08:45:44.482Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "75162f27d63f"
-        }
-      },
-      {
-        "id": "1788338741714-d6gs64h1",
-        "timestamp": "2026-09-02T08:45:41.714Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788338320411-38gvsbsd",
-        "event": "question-group.prepare.started",
-        "message": "开始准备题组",
-        "context": {
-          "project": "机器视觉专业知识",
-          "mode": "专业知识",
-          "questionCount": 10,
-          "sourceMode": "network",
-          "adaptiveQuestions": false,
-          "focusCategories": []
-        }
-      },
-      {
-        "id": "1788338740062-djkdy2k3",
-        "timestamp": "2026-09-02T08:45:40.062Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.close.flush",
-        "message": "页面关闭或进入后台，提交最后一次备份"
-      },
-      {
-        "id": "1788338735130-kqfuzauz",
-        "timestamp": "2026-09-02T08:45:35.130Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788338320411-38gvsbsd",
-        "event": "question-group.prepare.started",
-        "message": "开始准备题组",
-        "context": {
-          "project": "机器视觉专业知识",
-          "mode": "专业知识",
-          "questionCount": 10,
-          "sourceMode": "network",
-          "adaptiveQuestions": false,
-          "focusCategories": []
-        }
-      },
-      {
-        "id": "1788338727694-7uf60xty",
-        "timestamp": "2026-09-02T08:45:27.694Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "83645d1fc0dd"
         }
       }
     ]
