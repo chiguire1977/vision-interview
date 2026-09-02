@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-02T04:13:32.100Z",
+  "updatedAt": "2026-09-02T04:24:06.007Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1816,6 +1816,26 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788323041443-tl0pbb3u",
+        "timestamp": "2026-09-02T04:24:01.443Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.close.flush",
+        "message": "页面关闭或进入后台，提交最后一次备份"
+      },
+      {
+        "id": "1788322415717-fn1yty2g",
+        "timestamp": "2026-09-02T04:13:35.717Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "014e7a49296f"
+        }
+      },
       {
         "id": "1788322406359-9e4hd9z4",
         "timestamp": "2026-09-02T04:13:26.359Z",
@@ -17071,33 +17091,6 @@
             "图像预处理",
             "模板与定位"
           ]
-        }
-      },
-      {
-        "id": "1788264894219-3d6j2zvu",
-        "timestamp": "2026-09-01T12:14:54.219Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "e60f569f2563"
-        }
-      },
-      {
-        "id": "1788264888864-bcfk95v3",
-        "timestamp": "2026-09-01T12:14:48.864Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788264675884-efebbymx",
-        "event": "ai.connection-test.completed",
-        "message": "真实聊天连接测试成功",
-        "context": {
-          "provider": "opencode-go",
-          "model": "deepseek-v4-flash",
-          "upstreamFormat": "chat-completions",
-          "durationMs": 812
         }
       }
     ]
