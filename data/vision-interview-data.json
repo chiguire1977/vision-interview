@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-03T08:59:19.920Z",
+  "updatedAt": "2026-09-03T08:59:45.444Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1866,6 +1866,34 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788425979409-spq6atcl",
+        "timestamp": "2026-09-03T08:59:39.409Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788425875497-nv0lfcbl",
+        "event": "ai.connection-test.failed",
+        "message": "AI 请求超时，请稍后重试。",
+        "context": {
+          "provider": "custom-mtl4b9ce-o9bdfg",
+          "model": "gpt-5.6-terra",
+          "upstreamFormat": "chat-completions",
+          "status": 504,
+          "durationMs": 63723
+        }
+      },
+      {
+        "id": "1788425961368-tocxizh5",
+        "timestamp": "2026-09-03T08:59:21.368Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "d808045a1762"
+        }
+      },
       {
         "id": "1788425954483-2enio5uq",
         "timestamp": "2026-09-03T08:59:14.483Z",
@@ -15220,26 +15248,6 @@
       {
         "id": "1788147324017-qlyplkq1",
         "timestamp": "2026-08-31T03:35:24.017Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.close.flush",
-        "message": "页面关闭或进入后台，提交最后一次备份"
-      },
-      {
-        "id": "1788147212426-camvz1l2",
-        "timestamp": "2026-08-31T03:33:32.426Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "d2e8877500c7"
-        }
-      },
-      {
-        "id": "1788147205233-mutlqyj3",
-        "timestamp": "2026-08-31T03:33:25.233Z",
         "level": "INFO",
         "kind": "system",
         "event": "backup.close.flush",
