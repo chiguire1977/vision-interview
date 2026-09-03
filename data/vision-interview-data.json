@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-03T09:03:26.232Z",
+  "updatedAt": "2026-09-03T09:03:36.517Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1869,6 +1869,48 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788426208689-p0deumzb",
+        "timestamp": "2026-09-03T09:03:28.689Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788426101801-g4umlvs0",
+        "event": "question-bank.cache.saved",
+        "message": "AI 题库已完成远程同步",
+        "context": {
+          "questionCount": 10,
+          "pendingCount": 0
+        }
+      },
+      {
+        "id": "1788426208685-wy865mch",
+        "timestamp": "2026-09-03T09:03:28.685Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788426101801-g4umlvs0",
+        "event": "github.backup.succeeded",
+        "message": "数据已成功备份到 GitHub",
+        "context": {
+          "operation": "ai-question-bank",
+          "entryCount": 10,
+          "pendingCount": 0,
+          "totalCount": 190,
+          "status": 200,
+          "complete": true
+        }
+      },
+      {
+        "id": "1788426207559-y1a0209a",
+        "timestamp": "2026-09-03T09:03:27.559Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "37e0be689573"
+        }
+      },
       {
         "id": "1788426201766-7e2k9dqp",
         "timestamp": "2026-09-03T09:03:21.766Z",
@@ -15366,34 +15408,6 @@
           "reason": "change",
           "commit": "316aedc0efa3"
         }
-      },
-      {
-        "id": "1788148042536-71tucnmb",
-        "timestamp": "2026-08-31T03:47:22.536Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.close.flush",
-        "message": "页面关闭或进入后台，提交最后一次备份"
-      },
-      {
-        "id": "1788148032153-1qvedtxk",
-        "timestamp": "2026-08-31T03:47:12.153Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "86ff54defda5"
-        }
-      },
-      {
-        "id": "1788148027736-uf07zvz0",
-        "timestamp": "2026-08-31T03:47:07.736Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.close.flush",
-        "message": "页面关闭或进入后台，提交最后一次备份"
       }
     ]
   }
