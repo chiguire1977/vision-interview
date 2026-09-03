@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-03T13:57:57.913Z",
+  "updatedAt": "2026-09-03T13:58:07.292Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1862,6 +1862,18 @@
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
       {
+        "id": "1788443883963-oj8wiswy",
+        "timestamp": "2026-09-03T13:58:03.963Z",
+        "level": "ERROR",
+        "kind": "system",
+        "event": "backup.push.failed",
+        "message": "运行数据备份失败",
+        "context": {
+          "status": 502,
+          "reason": "GitHub 备份失败（HTTP 409）：{\"message\":\"is at 4bda0191bb4a436d66b79e86b5b6f302ed196543 but expected ab0b0c08eb701733d991c0c143f3de29624b6647\",\"documentation_url\":\"https://docs.github.com/rest/repos/contents#create-or-update-file-contents\",\"status\":\"409\"}"
+        }
+      },
+      {
         "id": "1788443875438-ssqwi6f6",
         "timestamp": "2026-09-03T13:57:55.438Z",
         "level": "INFO",
@@ -1876,6 +1888,18 @@
         "kind": "system",
         "event": "backup.close.flush",
         "message": "页面关闭或进入后台，提交最后一次备份"
+      },
+      {
+        "id": "1788440543650-jir8ad1q",
+        "timestamp": "2026-09-03T13:02:23.650Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "b41f0f99fd86"
+        }
       },
       {
         "id": "1788440529003-arl7w6qt",
@@ -15818,22 +15842,6 @@
       {
         "id": "1788166700607-wu8nbb7i",
         "timestamp": "2026-08-31T08:58:20.607Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.close.flush",
-        "message": "页面关闭或进入后台，提交最后一次备份"
-      },
-      {
-        "id": "1788166635265-mzrm233k",
-        "timestamp": "2026-08-31T08:57:15.265Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.close.flush",
-        "message": "页面关闭或进入后台，提交最后一次备份"
-      },
-      {
-        "id": "1788166627082-ws2slypg",
-        "timestamp": "2026-08-31T08:57:07.082Z",
         "level": "INFO",
         "kind": "system",
         "event": "backup.close.flush",
