@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-03T10:11:34.839Z",
+  "updatedAt": "2026-09-03T10:11:40.939Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1861,6 +1861,47 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788430307577-5kuu8cqz",
+        "timestamp": "2026-09-03T10:11:47.577Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "e9b18b1c9164"
+        }
+      },
+      {
+        "id": "1788430305828-ytzkw4oh",
+        "timestamp": "2026-09-03T10:11:45.828Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788430277838-pnlsdrs7",
+        "event": "ai.connection-test.completed",
+        "message": "真实聊天连接测试成功",
+        "context": {
+          "provider": "opencode-go",
+          "model": "deepseek-v4-flash",
+          "upstreamFormat": "chat-completions",
+          "durationMs": 2012
+        }
+      },
+      {
+        "id": "1788430303816-eegvzb7i",
+        "timestamp": "2026-09-03T10:11:43.816Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788430277838-pnlsdrs7",
+        "event": "ai.connection-test.started",
+        "message": "开始真实聊天连接测试",
+        "context": {
+          "provider": "opencode-go",
+          "model": "deepseek-v4-flash",
+          "upstreamFormat": "chat-completions"
+        }
+      },
       {
         "id": "1788430297693-zay22xrl",
         "timestamp": "2026-09-03T10:11:37.693Z",
@@ -15641,44 +15682,6 @@
         "context": {
           "reason": "change",
           "commit": "93b07d125bf5"
-        }
-      },
-      {
-        "id": "1788164829684-93qryg5g",
-        "timestamp": "2026-08-31T08:27:09.684Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788164727758-4j1db2oj",
-        "event": "question-group.prepare.completed",
-        "message": "AI 已生成完整 10 道题目、标准回答和技术原理；已缓存到远程题库。",
-        "context": {
-          "source": "AI",
-          "questionCount": 10
-        }
-      },
-      {
-        "id": "1788164829683-mq35nsn1",
-        "timestamp": "2026-08-31T08:27:09.683Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788164727758-4j1db2oj",
-        "event": "question-bank.cache.saved",
-        "message": "已缓存到远程题库",
-        "context": {
-          "questionCount": 10,
-          "pendingCount": 0
-        }
-      },
-      {
-        "id": "1788164801167-r8en5wq3",
-        "timestamp": "2026-08-31T08:26:41.167Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "94972eb8128d"
         }
       }
     ]
