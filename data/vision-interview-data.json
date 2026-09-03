@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-03T10:13:40.626Z",
+  "updatedAt": "2026-09-03T10:15:40.843Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1861,6 +1861,386 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788430498329-yufwrqct",
+        "timestamp": "2026-09-03T10:14:58.329Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788430316486-caocj3jp",
+        "event": "question-bank.cache.saved",
+        "message": "AI 题库已完成远程同步",
+        "context": {
+          "questionCount": 10,
+          "pendingCount": 0
+        }
+      },
+      {
+        "id": "1788430498322-7fir4oyv",
+        "timestamp": "2026-09-03T10:14:58.322Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788430316486-caocj3jp",
+        "event": "github.backup.succeeded",
+        "message": "数据已成功备份到 GitHub",
+        "context": {
+          "operation": "ai-question-bank",
+          "entryCount": 10,
+          "pendingCount": 0,
+          "totalCount": 200,
+          "status": 200,
+          "complete": true
+        }
+      },
+      {
+        "id": "1788430490894-xg7x6iee",
+        "timestamp": "2026-09-03T10:14:50.894Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788430316486-caocj3jp",
+        "event": "question-group.prepare.completed",
+        "message": "AI 已生成完整 10 道题目、标准回答和技术原理；远程题库正在后台同步。",
+        "context": {
+          "source": "AI",
+          "questionCount": 10
+        }
+      },
+      {
+        "id": "1788430490886-gzymrsr6",
+        "timestamp": "2026-09-03T10:14:50.886Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788430316486-caocj3jp",
+        "event": "github.backup.started",
+        "message": "开始备份数据到 GitHub",
+        "context": {
+          "operation": "ai-question-bank",
+          "entryCount": 10,
+          "pendingCount": 10,
+          "totalCount": 200,
+          "complete": true
+        }
+      },
+      {
+        "id": "1788430490873-mk16d7f4",
+        "timestamp": "2026-09-03T10:14:50.873Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788430316486-caocj3jp",
+        "event": "question-bank.ai-request.completed",
+        "message": "第 5/6 轮：AI 已返回 10/10 道有效题目。",
+        "context": {
+          "attempt": 5,
+          "maxAttempts": 6,
+          "collectedCount": 10,
+          "targetCount": 10,
+          "parallelRequests": 4,
+          "requestedCount": 1
+        }
+      },
+      {
+        "id": "1788430490869-7z1pq1wr",
+        "timestamp": "2026-09-03T10:14:50.869Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788430316486-caocj3jp",
+        "event": "question-bank.ai-request.duration",
+        "message": "单个并行 AI 请求完成",
+        "context": {
+          "attempt": 5,
+          "workerIndex": 1,
+          "parallelRequests": 4,
+          "requestedCount": 1,
+          "receivedCount": 1,
+          "durationMs": 16577
+        }
+      },
+      {
+        "id": "1788430474288-8g3t7cqm",
+        "timestamp": "2026-09-03T10:14:34.288Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788430316486-caocj3jp",
+        "event": "question-bank.ai-request.started",
+        "message": "第 5/6 轮（并行 1/4）：正在请求 AI 生成题目（1 道）…",
+        "context": {
+          "attempt": 5,
+          "maxAttempts": 6,
+          "collectedCount": 9,
+          "workerIndex": 1,
+          "parallelRequests": 4,
+          "requestedCount": 1
+        }
+      },
+      {
+        "id": "1788430474284-cze9u4xd",
+        "timestamp": "2026-09-03T10:14:34.284Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788430316486-caocj3jp",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 5,
+          "query": "机器视觉 面试知识点 HALCON 传统 2D 视觉 仅限二维图像处理，排除 3D、三维、点云、深度图、法线估计、平面拟合、立体视觉、结构光和双目 原理 工程实践",
+          "sourceCount": 0,
+          "parallelRequests": 4,
+          "requestedCount": 10,
+          "durationMs": 4528,
+          "sharedAcrossWorkers": true
+        }
+      },
+      {
+        "id": "1788430469758-yavemjb7",
+        "timestamp": "2026-09-03T10:14:29.758Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788430316486-caocj3jp",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 5,
+          "query": "机器视觉 面试知识点 HALCON 传统 2D 视觉 仅限二维图像处理，排除 3D、三维、点云、深度图、法线估计、平面拟合、立体视觉、结构光和双目 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 9,
+          "parallelRequests": 4,
+          "requestedCount": 10
+        }
+      },
+      {
+        "id": "1788430469750-pkuit0dh",
+        "timestamp": "2026-09-03T10:14:29.750Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788430316486-caocj3jp",
+        "event": "question-bank.ai-request.completed",
+        "message": "第 4/6 轮：AI 已返回 9/10 道有效题目，继续补齐…",
+        "context": {
+          "attempt": 4,
+          "maxAttempts": 6,
+          "collectedCount": 9,
+          "targetCount": 10,
+          "parallelRequests": 4,
+          "requestedCount": 1
+        }
+      },
+      {
+        "id": "1788430469742-9v21azvy",
+        "timestamp": "2026-09-03T10:14:29.742Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788430316486-caocj3jp",
+        "event": "question-bank.ai-request.duration",
+        "message": "单个并行 AI 请求完成",
+        "context": {
+          "attempt": 4,
+          "workerIndex": 1,
+          "parallelRequests": 4,
+          "requestedCount": 1,
+          "receivedCount": 1,
+          "durationMs": 9698
+        }
+      },
+      {
+        "id": "1788430460038-5d89fvw5",
+        "timestamp": "2026-09-03T10:14:20.038Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788430316486-caocj3jp",
+        "event": "question-bank.ai-request.started",
+        "message": "第 4/6 轮（并行 1/4）：正在请求 AI 生成题目（1 道）…",
+        "context": {
+          "attempt": 4,
+          "maxAttempts": 6,
+          "collectedCount": 9,
+          "workerIndex": 1,
+          "parallelRequests": 4,
+          "requestedCount": 1
+        }
+      },
+      {
+        "id": "1788430460031-5iuf40gw",
+        "timestamp": "2026-09-03T10:14:20.031Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788430316486-caocj3jp",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 4,
+          "query": "机器视觉 面试知识点 HALCON 传统 2D 视觉 仅限二维图像处理，排除 3D、三维、点云、深度图、法线估计、平面拟合、立体视觉、结构光和双目 原理 工程实践",
+          "sourceCount": 0,
+          "parallelRequests": 4,
+          "requestedCount": 10,
+          "durationMs": 608,
+          "sharedAcrossWorkers": true
+        }
+      },
+      {
+        "id": "1788430459423-m5hlu9ta",
+        "timestamp": "2026-09-03T10:14:19.423Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788430316486-caocj3jp",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 4,
+          "query": "机器视觉 面试知识点 HALCON 传统 2D 视觉 仅限二维图像处理，排除 3D、三维、点云、深度图、法线估计、平面拟合、立体视觉、结构光和双目 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 9,
+          "parallelRequests": 4,
+          "requestedCount": 10
+        }
+      },
+      {
+        "id": "1788430459420-it1phznm",
+        "timestamp": "2026-09-03T10:14:19.420Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788430316486-caocj3jp",
+        "event": "question-bank.ai-request.completed",
+        "message": "第 3/6 轮：AI 已返回 9/10 道有效题目，继续补齐…",
+        "context": {
+          "attempt": 3,
+          "maxAttempts": 6,
+          "collectedCount": 9,
+          "targetCount": 10,
+          "parallelRequests": 4,
+          "requestedCount": 1
+        }
+      },
+      {
+        "id": "1788430459416-ka6pv60b",
+        "timestamp": "2026-09-03T10:14:19.416Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788430316486-caocj3jp",
+        "event": "question-bank.ai-request.duration",
+        "message": "单个并行 AI 请求完成",
+        "context": {
+          "attempt": 3,
+          "workerIndex": 1,
+          "parallelRequests": 4,
+          "requestedCount": 1,
+          "receivedCount": 1,
+          "durationMs": 13492
+        }
+      },
+      {
+        "id": "1788430445920-9cuamknr",
+        "timestamp": "2026-09-03T10:14:05.920Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788430316486-caocj3jp",
+        "event": "question-bank.ai-request.started",
+        "message": "第 3/6 轮（并行 1/4）：正在请求 AI 生成题目（1 道）…",
+        "context": {
+          "attempt": 3,
+          "maxAttempts": 6,
+          "collectedCount": 9,
+          "workerIndex": 1,
+          "parallelRequests": 4,
+          "requestedCount": 1
+        }
+      },
+      {
+        "id": "1788430445916-wq759imq",
+        "timestamp": "2026-09-03T10:14:05.916Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788430316486-caocj3jp",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 3,
+          "query": "机器视觉 面试知识点 HALCON 传统 2D 视觉 仅限二维图像处理，排除 3D、三维、点云、深度图、法线估计、平面拟合、立体视觉、结构光和双目 原理 工程实践",
+          "sourceCount": 0,
+          "parallelRequests": 4,
+          "requestedCount": 10,
+          "durationMs": 1860,
+          "sharedAcrossWorkers": true
+        }
+      },
+      {
+        "id": "1788430444056-dh0aw9gc",
+        "timestamp": "2026-09-03T10:14:04.056Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788430316486-caocj3jp",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 3,
+          "query": "机器视觉 面试知识点 HALCON 传统 2D 视觉 仅限二维图像处理，排除 3D、三维、点云、深度图、法线估计、平面拟合、立体视觉、结构光和双目 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 9,
+          "parallelRequests": 4,
+          "requestedCount": 10
+        }
+      },
+      {
+        "id": "1788430444047-nkg20cm2",
+        "timestamp": "2026-09-03T10:14:04.047Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788430316486-caocj3jp",
+        "event": "question-bank.ai-request.completed",
+        "message": "第 2/6 轮：AI 已返回 9/10 道有效题目，继续补齐…",
+        "context": {
+          "attempt": 2,
+          "maxAttempts": 6,
+          "collectedCount": 9,
+          "targetCount": 10,
+          "parallelRequests": 4,
+          "requestedCount": 3
+        }
+      },
+      {
+        "id": "1788430444039-0gnvsrrg",
+        "timestamp": "2026-09-03T10:14:04.039Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788430316486-caocj3jp",
+        "event": "question-bank.attempt.failed",
+        "message": "第 2/6 轮（并行 1/4）：本轮请求失败：AI 请求超时，请稍后重试。，准备下一轮…",
+        "context": {
+          "attempt": 2,
+          "maxAttempts": 6,
+          "collectedCount": 7,
+          "workerIndex": 1,
+          "parallelRequests": 4,
+          "error": "AI 请求超时，请稍后重试。"
+        }
+      },
+      {
+        "id": "1788430444033-c3is0pu6",
+        "timestamp": "2026-09-03T10:14:04.033Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788430316486-caocj3jp",
+        "event": "question-bank.ai-request.failed",
+        "message": "单个并行 AI 请求失败",
+        "context": {
+          "attempt": 2,
+          "workerIndex": 1,
+          "parallelRequests": 4,
+          "requestedCount": 1,
+          "durationMs": 60746,
+          "error": "AI 请求超时，请稍后重试。"
+        }
+      },
+      {
+        "id": "1788430423358-8la7rbkz",
+        "timestamp": "2026-09-03T10:13:43.358Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "ef84d2cd23a1"
+        }
+      },
       {
         "id": "1788430399973-iwu5dfy2",
         "timestamp": "2026-09-03T10:13:19.973Z",
@@ -15487,287 +15867,6 @@
           "question": "在视觉测量中，如何标定相机以获取准确的像素当量？请说明标定板的选择和操作要点。",
           "mode": "专业知识",
           "project": "轮胎字符深度 OCR"
-        }
-      },
-      {
-        "id": "1788165252911-4n37qmn5",
-        "timestamp": "2026-08-31T08:34:12.911Z",
-        "level": "WARN",
-        "kind": "user",
-        "sessionId": "1788164727758-4j1db2oj",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "现场视觉系统出现图像模糊，可能的原因有哪些？请列出排查步骤。",
-          "mode": "专业知识",
-          "project": "轮胎字符深度 OCR"
-        }
-      },
-      {
-        "id": "1788165252567-exqarejf",
-        "timestamp": "2026-08-31T08:34:12.567Z",
-        "level": "WARN",
-        "kind": "user",
-        "sessionId": "1788164727758-4j1db2oj",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "在视觉检测中，如何通过参数调整来平衡过拟合与欠拟合？请以缺陷检测为例。",
-          "mode": "专业知识",
-          "project": "轮胎字符深度 OCR"
-        }
-      },
-      {
-        "id": "1788165252407-7o17x79f",
-        "timestamp": "2026-08-31T08:34:12.407Z",
-        "level": "WARN",
-        "kind": "user",
-        "sessionId": "1788164727758-4j1db2oj",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "解释图像滤波中高斯滤波与中值滤波的区别，并说明各自适用的噪声类型。",
-          "mode": "专业知识",
-          "project": "轮胎字符深度 OCR"
-        }
-      },
-      {
-        "id": "1788165252240-c9begnji",
-        "timestamp": "2026-08-31T08:34:12.240Z",
-        "level": "WARN",
-        "kind": "user",
-        "sessionId": "1788164727758-4j1db2oj",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "在机器视觉项目中，如何选择合适的光源颜色和照明方式？请结合具体场景说明。",
-          "mode": "专业知识",
-          "project": "轮胎字符深度 OCR"
-        }
-      },
-      {
-        "id": "1788165251004-3jrpcxmw",
-        "timestamp": "2026-08-31T08:34:11.004Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "b89c9dc23f2c"
-        }
-      },
-      {
-        "id": "1788165248945-8lw1vpvt",
-        "timestamp": "2026-08-31T08:34:08.945Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788164727758-4j1db2oj",
-        "event": "question-group.prepare.cached",
-        "message": "题组已从本机缓存恢复",
-        "context": {
-          "questionCount": 10
-        }
-      },
-      {
-        "id": "1788165248944-cq483mcv",
-        "timestamp": "2026-08-31T08:34:08.944Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788164727758-4j1db2oj",
-        "event": "question-group.prepare.started",
-        "message": "开始准备题组",
-        "context": {
-          "project": "轮胎字符深度 OCR",
-          "mode": "专业知识",
-          "questionCount": 10
-        }
-      },
-      {
-        "id": "1788165242145-gz7r3oow",
-        "timestamp": "2026-08-31T08:34:02.145Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788164727758-4j1db2oj",
-        "event": "question-group.prepare.completed",
-        "message": "AI 两次生成均未获得有效题目，已使用本地题库与标准答案。",
-        "context": {
-          "source": "本地规则",
-          "questionCount": 4
-        }
-      },
-      {
-        "id": "1788165196047-c4upx0ke",
-        "timestamp": "2026-08-31T08:33:16.047Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "c01adf12ce4b"
-        }
-      },
-      {
-        "id": "1788165192907-qysxc4xt",
-        "timestamp": "2026-08-31T08:33:12.907Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "b23676038584"
-        }
-      },
-      {
-        "id": "1788165190176-60qhradm",
-        "timestamp": "2026-08-31T08:33:10.176Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788164727758-4j1db2oj",
-        "event": "question-group.prepare.started",
-        "message": "开始准备题组",
-        "context": {
-          "project": "轮胎字符深度 OCR",
-          "mode": "专业知识",
-          "questionCount": 4
-        }
-      },
-      {
-        "id": "1788165189546-auhg5q9g",
-        "timestamp": "2026-08-31T08:33:09.546Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "744ab0699524"
-        }
-      },
-      {
-        "id": "1788165188243-fj833cqu",
-        "timestamp": "2026-08-31T08:33:08.243Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788164727758-4j1db2oj",
-        "event": "question-group.prepare.cached",
-        "message": "题组已从本机缓存恢复",
-        "context": {
-          "questionCount": 10
-        }
-      },
-      {
-        "id": "1788165188242-h8iddf64",
-        "timestamp": "2026-08-31T08:33:08.242Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788164727758-4j1db2oj",
-        "event": "question-group.prepare.started",
-        "message": "开始准备题组",
-        "context": {
-          "project": "轮胎字符深度 OCR",
-          "mode": "专业知识",
-          "questionCount": 3
-        }
-      },
-      {
-        "id": "1788165184442-6r4qxdof",
-        "timestamp": "2026-08-31T08:33:04.442Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788164727758-4j1db2oj",
-        "event": "question-group.prepare.cached",
-        "message": "题组已从本机缓存恢复",
-        "context": {
-          "questionCount": 10
-        }
-      },
-      {
-        "id": "1788165184441-uid84xmt",
-        "timestamp": "2026-08-31T08:33:04.441Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788164727758-4j1db2oj",
-        "event": "question-group.prepare.started",
-        "message": "开始准备题组",
-        "context": {
-          "project": "轮胎字符深度 OCR",
-          "mode": "专业知识",
-          "questionCount": 10
-        }
-      },
-      {
-        "id": "1788165167132-iy2ln05k",
-        "timestamp": "2026-08-31T08:32:47.132Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "f8b2e6d478ec"
-        }
-      },
-      {
-        "id": "1788165160786-0ey45z85",
-        "timestamp": "2026-08-31T08:32:40.786Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.close.flush",
-        "message": "页面关闭或进入后台，提交最后一次备份"
-      },
-      {
-        "id": "1788165148117-4ljdu5hb",
-        "timestamp": "2026-08-31T08:32:28.117Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "1e0039b487f7"
-        }
-      },
-      {
-        "id": "1788165145540-hclw8ifb",
-        "timestamp": "2026-08-31T08:32:25.540Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "8ffe376d5451"
-        }
-      },
-      {
-        "id": "1788165143228-tpigtxzi",
-        "timestamp": "2026-08-31T08:32:23.228Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.close.flush",
-        "message": "页面关闭或进入后台，提交最后一次备份"
-      },
-      {
-        "id": "1788165137698-i3xgm32k",
-        "timestamp": "2026-08-31T08:32:17.698Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.close.flush",
-        "message": "页面关闭或进入后台，提交最后一次备份"
-      },
-      {
-        "id": "1788165052614-94sn3hut",
-        "timestamp": "2026-08-31T08:30:52.614Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "7ac6b59e0a28"
         }
       }
     ]
