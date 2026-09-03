@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-03T02:11:27.552Z",
+  "updatedAt": "2026-09-03T02:11:39.379Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1817,6 +1817,32 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788401489701-zzj0511y",
+        "timestamp": "2026-09-03T02:11:29.701Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "e4e878be27cf"
+        }
+      },
+      {
+        "id": "1788401480186-hbmqfxr8",
+        "timestamp": "2026-09-03T02:11:20.186Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788401475366-eg94ho5d",
+        "event": "question-bank.remote.loaded",
+        "message": "GitHub AI 历史题库加载完成",
+        "context": {
+          "questionCount": 170,
+          "githubQuestionCount": 170,
+          "pendingCount": 0
+        }
+      },
       {
         "id": "1788401475328-6y3m0f43",
         "timestamp": "2026-09-03T02:11:15.320Z",
@@ -16878,40 +16904,6 @@
           "parallelRequests": 4,
           "requestedCount": 2,
           "durationMs": 199,
-          "error": "请先配置当前 AI 服务商的 API Key。"
-        }
-      },
-      {
-        "id": "1788340697885-q5zkqz78",
-        "timestamp": "2026-09-02T09:18:17.885Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788340687728-30w9bjr4",
-        "event": "question-bank.ai-request.failed",
-        "message": "单个并行 AI 请求失败",
-        "context": {
-          "attempt": 2,
-          "workerIndex": 2,
-          "parallelRequests": 4,
-          "requestedCount": 3,
-          "durationMs": 199,
-          "error": "请先配置当前 AI 服务商的 API Key。"
-        }
-      },
-      {
-        "id": "1788340697875-ej6cqkjz",
-        "timestamp": "2026-09-02T09:18:17.875Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788340687728-30w9bjr4",
-        "event": "question-bank.ai-request.failed",
-        "message": "单个并行 AI 请求失败",
-        "context": {
-          "attempt": 2,
-          "workerIndex": 1,
-          "parallelRequests": 4,
-          "requestedCount": 3,
-          "durationMs": 192,
           "error": "请先配置当前 AI 服务商的 API Key。"
         }
       }
