@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-03T02:30:38.195Z",
+  "updatedAt": "2026-09-03T02:30:40.484Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1822,6 +1822,52 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788402639303-nelkzqsx",
+        "timestamp": "2026-09-03T02:30:39.303Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "35e7034fba37"
+        }
+      },
+      {
+        "id": "1788402639086-vsxtwc9p",
+        "timestamp": "2026-09-03T02:30:39.086Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788402556921-k1tor8t8",
+        "event": "question-bank.ai-request.duration",
+        "message": "单个并行 AI 请求完成",
+        "context": {
+          "attempt": 1,
+          "workerIndex": 1,
+          "parallelRequests": 4,
+          "requestedCount": 3,
+          "receivedCount": 3,
+          "durationMs": 15536
+        }
+      },
+      {
+        "id": "1788402637550-gvwurwub",
+        "timestamp": "2026-09-03T02:30:37.550Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788402556921-k1tor8t8",
+        "event": "question-bank.ai-request.duration",
+        "message": "单个并行 AI 请求完成",
+        "context": {
+          "attempt": 1,
+          "workerIndex": 4,
+          "parallelRequests": 4,
+          "requestedCount": 2,
+          "receivedCount": 2,
+          "durationMs": 13995
+        }
+      },
       {
         "id": "1788402637025-pq0nymfa",
         "timestamp": "2026-09-03T02:30:37.025Z",
@@ -9204,53 +9250,6 @@
           "requestedCount": 2,
           "receivedCount": 2,
           "durationMs": 38561
-        }
-      },
-      {
-        "id": "1788343323068-jmn97ooo",
-        "timestamp": "2026-09-02T10:02:03.068Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "10669042452b"
-        }
-      },
-      {
-        "id": "1788343318562-ag6le6bd",
-        "timestamp": "2026-09-02T10:01:58.562Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788343256212-l22d0wno",
-        "event": "question-bank.web-search.completed",
-        "message": "本轮联网检索完成",
-        "context": {
-          "attempt": 2,
-          "query": "机器视觉 面试知识点 原理 工程实践",
-          "sourceCount": 0,
-          "parallelRequests": 4,
-          "requestedCount": 10,
-          "durationMs": 467,
-          "sharedAcrossWorkers": true
-        }
-      },
-      {
-        "id": "1788343318095-3md7vzy8",
-        "timestamp": "2026-09-02T10:01:58.095Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788343256212-l22d0wno",
-        "event": "question-bank.web-search.started",
-        "message": "开始联网检索本轮题目资料",
-        "context": {
-          "attempt": 2,
-          "query": "机器视觉 面试知识点 原理 工程实践",
-          "mode": "专业知识",
-          "excludedCount": 2,
-          "parallelRequests": 4,
-          "requestedCount": 10
         }
       },
       {
