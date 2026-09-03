@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-03T06:02:32.439Z",
+  "updatedAt": "2026-09-03T08:54:18.819Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1830,6 +1830,95 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788425655964-s8lxdyx1",
+        "timestamp": "2026-09-03T08:54:15.964Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788425653738-frpqvksu",
+        "event": "question-bank.remote.loaded",
+        "message": "GitHub AI 历史题库加载完成",
+        "context": {
+          "questionCount": 180,
+          "githubQuestionCount": 180,
+          "pendingCount": 0
+        }
+      },
+      {
+        "id": "1788425653732-p9nz90uo",
+        "timestamp": "2026-09-03T08:54:13.731Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.startup.loaded",
+        "message": "启动配置加载完成",
+        "context": {
+          "source": "github",
+          "updatedAt": "2026-09-03T06:02:32.439Z"
+        }
+      },
+      {
+        "id": "1788415725910-fvxafe2i",
+        "timestamp": "2026-09-03T06:08:45.910Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.close.flush",
+        "message": "页面关闭或进入后台，提交最后一次备份"
+      },
+      {
+        "id": "1788415699013-dfwzyfp2",
+        "timestamp": "2026-09-03T06:08:19.013Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.close.flush",
+        "message": "页面关闭或进入后台，提交最后一次备份"
+      },
+      {
+        "id": "1788415576195-xdkfyu1o",
+        "timestamp": "2026-09-03T06:06:16.195Z",
+        "level": "ERROR",
+        "kind": "system",
+        "event": "backup.push.failed",
+        "message": "运行数据备份请求失败",
+        "context": {
+          "error": "Failed to fetch"
+        }
+      },
+      {
+        "id": "1788415533484-4d4qsqq2",
+        "timestamp": "2026-09-03T06:05:33.484Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.close.flush",
+        "message": "页面关闭或进入后台，提交最后一次备份"
+      },
+      {
+        "id": "1788415530009-zdlf8qer",
+        "timestamp": "2026-09-03T06:05:30.009Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.close.flush",
+        "message": "页面关闭或进入后台，提交最后一次备份"
+      },
+      {
+        "id": "1788415527094-3ylds99r",
+        "timestamp": "2026-09-03T06:05:27.094Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.close.flush",
+        "message": "页面关闭或进入后台，提交最后一次备份"
+      },
+      {
+        "id": "1788415354358-py3ja1ts",
+        "timestamp": "2026-09-03T06:02:34.358Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "77dfbc5b9975"
+        }
+      },
       {
         "id": "1788415349087-yrym3dzj",
         "timestamp": "2026-09-03T06:02:29.087Z",
@@ -15083,116 +15172,6 @@
         "context": {
           "status": 503,
           "reason": "未配置 GitHub 备份凭据。"
-        }
-      },
-      {
-        "id": "1788145970343-zcy0db6a",
-        "timestamp": "2026-08-31T03:12:50.343Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "question-group.prepare.cached",
-        "message": "题组已从本机缓存恢复",
-        "context": {
-          "questionCount": 10
-        }
-      },
-      {
-        "id": "1788145970340-7pobjkl1",
-        "timestamp": "2026-08-31T03:12:50.340Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "question-group.prepare.started",
-        "message": "开始准备题组",
-        "context": {
-          "project": "轮胎字符深度 OCR",
-          "mode": "专业专项",
-          "questionCount": 10
-        }
-      },
-      {
-        "id": "1788145970328-aurwtcs4",
-        "timestamp": "2026-08-31T03:12:50.328Z",
-        "level": "WARN",
-        "kind": "system",
-        "event": "backup.startup.offline",
-        "message": "启动时未能读取 GitHub 配置",
-        "context": {
-          "status": 502,
-          "reason": "GitHub 读取失败（HTTP 403）：\r\nRequest forbidden by administrative rules. Please make sure your request has a User-Agent header (https://docs.github.com/en/rest/overview/resources-in-the-rest-api#user-agent-required). Check https://developer.github.com for other possib"
-        }
-      },
-      {
-        "id": "1788145715532-l292vae3",
-        "timestamp": "2026-08-31T03:08:35.532Z",
-        "level": "ERROR",
-        "kind": "system",
-        "event": "backup.push.failed",
-        "message": "运行数据备份失败",
-        "context": {
-          "status": 503,
-          "reason": "未配置 GitHub 备份凭据。"
-        }
-      },
-      {
-        "id": "1788145712326-zyxh21nh",
-        "timestamp": "2026-08-31T03:08:32.326Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "question-group.prepare.cached",
-        "message": "题组已从本机缓存恢复",
-        "context": {
-          "questionCount": 10
-        }
-      },
-      {
-        "id": "1788145712322-fx3p44j3",
-        "timestamp": "2026-08-31T03:08:32.322Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "question-group.prepare.started",
-        "message": "开始准备题组",
-        "context": {
-          "project": "轮胎字符深度 OCR",
-          "mode": "专业专项",
-          "questionCount": 10
-        }
-      },
-      {
-        "id": "1788145711899-j464x8re",
-        "timestamp": "2026-08-31T03:08:31.899Z",
-        "level": "WARN",
-        "kind": "system",
-        "event": "backup.startup.offline",
-        "message": "启动时未能读取 GitHub 配置",
-        "context": {
-          "status": 502,
-          "reason": "GitHub 读取失败（HTTP 403）：\r\nRequest forbidden by administrative rules. Please make sure your request has a User-Agent header (https://docs.github.com/en/rest/overview/resources-in-the-rest-api#user-agent-required). Check https://developer.github.com for other possib"
-        }
-      },
-      {
-        "id": "1788145026772-bs16aw08",
-        "timestamp": "2026-08-31T02:57:06.772Z",
-        "level": "WARN",
-        "kind": "user",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "在轮胎字符深度OCR项目中，如何利用HALCON的深度学习工具进行模型训练和部署？请描述流程。",
-          "mode": "专业专项",
-          "project": "轮胎字符深度 OCR"
-        }
-      },
-      {
-        "id": "1788145026581-cjtb84ez",
-        "timestamp": "2026-08-31T02:57:06.581Z",
-        "level": "WARN",
-        "kind": "user",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "在轮胎字符OCR项目中，为什么选择Modbus TCP而不是其他通信协议？请比较Modbus TCP与EtherCAT的适用场景。",
-          "mode": "专业专项",
-          "project": "轮胎字符深度 OCR"
         }
       }
     ]
