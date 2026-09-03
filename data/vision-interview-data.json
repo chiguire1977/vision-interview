@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-03T03:01:40.206Z",
+  "updatedAt": "2026-09-03T03:01:41.553Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1829,6 +1829,18 @@
         "kind": "system",
         "event": "backup.close.flush",
         "message": "页面关闭或进入后台，提交最后一次备份"
+      },
+      {
+        "id": "1788403391538-08xuzd8b",
+        "timestamp": "2026-09-03T02:43:11.538Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "28c6f8922d98"
+        }
       },
       {
         "id": "1788403384305-6826xnn2",
@@ -9192,40 +9204,6 @@
         }
       },
       {
-        "id": "1788343535671-1syb4dhq",
-        "timestamp": "2026-09-02T10:05:35.671Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788343468196-zjzo0dai",
-        "event": "question-bank.attempt.failed",
-        "message": "第 1/6 轮（并行 1/4）：本轮请求失败：AI 请求超时，请稍后重试。，准备下一轮…",
-        "context": {
-          "attempt": 1,
-          "maxAttempts": 6,
-          "collectedCount": 0,
-          "workerIndex": 1,
-          "parallelRequests": 4,
-          "error": "AI 请求超时，请稍后重试。"
-        }
-      },
-      {
-        "id": "1788343535670-0s46zpmn",
-        "timestamp": "2026-09-02T10:05:35.670Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788343468196-zjzo0dai",
-        "event": "question-bank.ai-request.failed",
-        "message": "单个并行 AI 请求失败",
-        "context": {
-          "attempt": 1,
-          "workerIndex": 3,
-          "parallelRequests": 4,
-          "requestedCount": 2,
-          "durationMs": 60372,
-          "error": "AI 请求超时，请稍后重试。"
-        }
-      },
-      {
         "id": "1788167436555-3a1z8zi6",
         "timestamp": "2026-08-31T09:10:36.555Z",
         "level": "INFO",
@@ -15065,6 +15043,18 @@
           "project": "轮胎字符深度 OCR",
           "mode": "专业专项",
           "questionCount": 10
+        }
+      },
+      {
+        "id": "1788144354057-qh5a9la2",
+        "timestamp": "2026-08-31T02:45:54.057Z",
+        "level": "WARN",
+        "kind": "system",
+        "event": "backup.startup.offline",
+        "message": "启动时未能读取 GitHub 配置",
+        "context": {
+          "status": 502,
+          "reason": "GitHub 读取失败（HTTP 403）：\r\nRequest forbidden by administrative rules. Please make sure your request has a User-Agent header (https://docs.github.com/en/rest/overview/resources-in-the-rest-api#user-agent-required). Check https://developer.github.com for other possib"
         }
       }
     ]
