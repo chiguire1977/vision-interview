@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-03T02:42:21.328Z",
+  "updatedAt": "2026-09-03T02:42:25.749Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1829,6 +1829,18 @@
         "kind": "system",
         "event": "backup.close.flush",
         "message": "页面关闭或进入后台，提交最后一次备份"
+      },
+      {
+        "id": "1788403313101-h511uftv",
+        "timestamp": "2026-09-03T02:41:53.101Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "fb373e8a11e0"
+        }
       },
       {
         "id": "1788403303573-mkzodw9x",
@@ -9229,26 +9241,6 @@
         }
       },
       {
-        "id": "1788343520501-g992i74j",
-        "timestamp": "2026-09-02T10:05:20.501Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.close.flush",
-        "message": "页面关闭或进入后台，提交最后一次备份"
-      },
-      {
-        "id": "1788343486485-5wpdyxdf",
-        "timestamp": "2026-09-02T10:04:46.485Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "aca57ae2f08e"
-        }
-      },
-      {
         "id": "1788167436555-3a1z8zi6",
         "timestamp": "2026-08-31T09:10:36.555Z",
         "level": "INFO",
@@ -15088,6 +15080,18 @@
           "project": "轮胎字符深度 OCR",
           "mode": "专业专项",
           "questionCount": 10
+        }
+      },
+      {
+        "id": "1788144354057-qh5a9la2",
+        "timestamp": "2026-08-31T02:45:54.057Z",
+        "level": "WARN",
+        "kind": "system",
+        "event": "backup.startup.offline",
+        "message": "启动时未能读取 GitHub 配置",
+        "context": {
+          "status": 502,
+          "reason": "GitHub 读取失败（HTTP 403）：\r\nRequest forbidden by administrative rules. Please make sure your request has a User-Agent header (https://docs.github.com/en/rest/overview/resources-in-the-rest-api#user-agent-required). Check https://developer.github.com for other possib"
         }
       }
     ]
