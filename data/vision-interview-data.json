@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-03T08:56:22.083Z",
+  "updatedAt": "2026-09-03T08:57:02.158Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1525,7 +1525,7 @@
       "bestAnswer": true,
       "smartFollowUp": true,
       "webQuestions": true,
-      "upstreamFormat": "chat-completions",
+      "upstreamFormat": "anthropic-messages",
       "questionGroupSize": 10,
       "parallelRequests": 4,
       "adaptiveQuestions": false,
@@ -1866,6 +1866,48 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788425819262-ne4ubvlb",
+        "timestamp": "2026-09-03T08:56:59.262Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788425776283-5vq8m9oc",
+        "event": "ai.connection-test.failed",
+        "message": "AI 没有返回有效内容。",
+        "context": {
+          "provider": "custom-mtl4b9ce-o9bdfg",
+          "model": "gpt-5.6-sol",
+          "upstreamFormat": "anthropic-messages",
+          "status": 502,
+          "durationMs": 782
+        }
+      },
+      {
+        "id": "1788425818480-rmm6fh91",
+        "timestamp": "2026-09-03T08:56:58.480Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788425776283-5vq8m9oc",
+        "event": "ai.connection-test.started",
+        "message": "开始真实聊天连接测试",
+        "context": {
+          "provider": "custom-mtl4b9ce-o9bdfg",
+          "model": "gpt-5.6-sol",
+          "upstreamFormat": "anthropic-messages"
+        }
+      },
+      {
+        "id": "1788425787523-lll8bkms",
+        "timestamp": "2026-09-03T08:56:27.523Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "e5a4c4deed11"
+        }
+      },
       {
         "id": "1788425778583-ei42xddp",
         "timestamp": "2026-09-03T08:56:18.583Z",
@@ -15169,44 +15211,6 @@
           "question": "在HALCON中，进行相机标定时，如何评估标定结果的准确性？如果重投影误差较大，可能的原因有哪些？",
           "mode": "专业知识",
           "project": "轮胎字符深度 OCR"
-        }
-      },
-      {
-        "id": "1788146641589-xc9e4ajr",
-        "timestamp": "2026-08-31T03:24:01.589Z",
-        "level": "WARN",
-        "kind": "user",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "在HALCON中，使用create_shape_model进行模板匹配时，金字塔层数（NumLevels）对匹配速度和精度有何影响？如何确定最佳层数？",
-          "mode": "专业知识",
-          "project": "轮胎字符深度 OCR"
-        }
-      },
-      {
-        "id": "1788146640554-aosdz915",
-        "timestamp": "2026-08-31T03:24:00.554Z",
-        "level": "WARN",
-        "kind": "user",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "在HALCON中，如何区分使用阈值分割（threshold）和动态阈值分割（dyn_threshold）？请结合实际应用场景说明选择依据。",
-          "mode": "专业知识",
-          "project": "轮胎字符深度 OCR"
-        }
-      },
-      {
-        "id": "1788146635924-otmwawgc",
-        "timestamp": "2026-08-31T03:23:55.924Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "question-group.prepare.completed",
-        "message": "AI 已生成完整 10 道题目、标准回答和技术原理；已缓存到远程题库。",
-        "context": {
-          "source": "AI",
-          "questionCount": 10
         }
       }
     ]
