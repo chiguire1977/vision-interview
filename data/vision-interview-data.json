@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-03T09:03:09.181Z",
+  "updatedAt": "2026-09-03T09:03:13.392Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1869,6 +1869,69 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788426191465-k515kbvm",
+        "timestamp": "2026-09-03T09:03:11.465Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "139751e0ee9d"
+        }
+      },
+      {
+        "id": "1788426190907-xjpq46y7",
+        "timestamp": "2026-09-03T09:03:10.907Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788426101801-g4umlvs0",
+        "event": "question-bank.ai-request.duration",
+        "message": "单个并行 AI 请求完成",
+        "context": {
+          "attempt": 1,
+          "workerIndex": 1,
+          "parallelRequests": 4,
+          "requestedCount": 3,
+          "receivedCount": 3,
+          "durationMs": 15503
+        }
+      },
+      {
+        "id": "1788426188509-750gn34r",
+        "timestamp": "2026-09-03T09:03:08.509Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788426101801-g4umlvs0",
+        "event": "question-group.prepare.started",
+        "message": "开始准备题组",
+        "context": {
+          "project": "机器视觉专业知识",
+          "mode": "专业知识",
+          "questionCount": 8,
+          "sourceMode": "network",
+          "adaptiveQuestions": false,
+          "focusCategories": []
+        }
+      },
+      {
+        "id": "1788426188396-l37kje6y",
+        "timestamp": "2026-09-03T09:03:08.396Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788426101801-g4umlvs0",
+        "event": "question-bank.ai-request.duration",
+        "message": "单个并行 AI 请求完成",
+        "context": {
+          "attempt": 1,
+          "workerIndex": 3,
+          "parallelRequests": 4,
+          "requestedCount": 2,
+          "receivedCount": 2,
+          "durationMs": 12990
+        }
+      },
       {
         "id": "1788426186102-n0mms6hx",
         "timestamp": "2026-09-03T09:03:06.102Z",
@@ -15297,49 +15360,6 @@
           "project": "轮胎字符深度 OCR",
           "mode": "专业知识",
           "questionCount": 3
-        }
-      },
-      {
-        "id": "1788147933500-dw5jmjua",
-        "timestamp": "2026-08-31T03:45:33.500Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "9cc650abcef1"
-        }
-      },
-      {
-        "id": "1788147926360-3twinf9r",
-        "timestamp": "2026-08-31T03:45:26.360Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.close.flush",
-        "message": "页面关闭或进入后台，提交最后一次备份"
-      },
-      {
-        "id": "1788147919850-wx3z25zl",
-        "timestamp": "2026-08-31T03:45:19.850Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "3f608d8e736e"
-        }
-      },
-      {
-        "id": "1788147915152-1afhppe3",
-        "timestamp": "2026-08-31T03:45:15.152Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "question-group.prepare.cached",
-        "message": "题组已从本机缓存恢复",
-        "context": {
-          "questionCount": 10
         }
       }
     ]
