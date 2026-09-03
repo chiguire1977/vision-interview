@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-03T09:03:18.895Z",
+  "updatedAt": "2026-09-03T09:03:26.232Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1869,6 +1869,64 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788426201766-7e2k9dqp",
+        "timestamp": "2026-09-03T09:03:21.766Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788426101801-g4umlvs0",
+        "event": "question-group.prepare.completed",
+        "message": "AI 已生成完整 10 道题目、标准回答和技术原理；远程题库正在后台同步。",
+        "context": {
+          "source": "AI",
+          "questionCount": 10
+        }
+      },
+      {
+        "id": "1788426201757-8flkl0o7",
+        "timestamp": "2026-09-03T09:03:21.757Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788426101801-g4umlvs0",
+        "event": "github.backup.started",
+        "message": "开始备份数据到 GitHub",
+        "context": {
+          "operation": "ai-question-bank",
+          "entryCount": 10,
+          "pendingCount": 10,
+          "totalCount": 190,
+          "complete": true
+        }
+      },
+      {
+        "id": "1788426201741-sl92fu4h",
+        "timestamp": "2026-09-03T09:03:21.741Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788426101801-g4umlvs0",
+        "event": "question-bank.ai-request.duration",
+        "message": "单个并行 AI 请求完成",
+        "context": {
+          "attempt": 2,
+          "workerIndex": 1,
+          "parallelRequests": 4,
+          "requestedCount": 1,
+          "receivedCount": 1,
+          "durationMs": 5138
+        }
+      },
+      {
+        "id": "1788426200514-kto6f4c6",
+        "timestamp": "2026-09-03T09:03:20.514Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "e767c373e39d"
+        }
+      },
       {
         "id": "1788426196597-cv7fsj8b",
         "timestamp": "2026-09-03T09:03:16.597Z",
@@ -15332,50 +15390,6 @@
       {
         "id": "1788148027736-uf07zvz0",
         "timestamp": "2026-08-31T03:47:07.736Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.close.flush",
-        "message": "页面关闭或进入后台，提交最后一次备份"
-      },
-      {
-        "id": "1788148002899-48h6rlpf",
-        "timestamp": "2026-08-31T03:46:42.899Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "23d4be3affb1"
-        }
-      },
-      {
-        "id": "1788148000487-d93z1cbb",
-        "timestamp": "2026-08-31T03:46:40.487Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "question-group.prepare.completed",
-        "message": "AI 已生成完整 10 道题目、标准回答和技术原理；已缓存到远程题库。",
-        "context": {
-          "source": "AI",
-          "questionCount": 10
-        }
-      },
-      {
-        "id": "1788148000486-xngd144s",
-        "timestamp": "2026-08-31T03:46:40.486Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "question-bank.cache.saved",
-        "message": "已缓存到远程题库",
-        "context": {
-          "questionCount": 10,
-          "pendingCount": 0
-        }
-      },
-      {
-        "id": "1788147997994-tfgrlne1",
-        "timestamp": "2026-08-31T03:46:37.994Z",
         "level": "INFO",
         "kind": "system",
         "event": "backup.close.flush",
