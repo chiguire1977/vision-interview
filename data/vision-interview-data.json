@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-03T02:31:06.558Z",
+  "updatedAt": "2026-09-03T02:31:25.593Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1822,6 +1822,81 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788402680907-2qvm84ty",
+        "timestamp": "2026-09-03T02:31:20.906Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788402556921-k1tor8t8",
+        "event": "question-group.prepare.completed",
+        "message": "AI 已生成完整 10 道题目、标准回答和技术原理；远程题库正在后台同步。",
+        "context": {
+          "source": "AI",
+          "questionCount": 10
+        }
+      },
+      {
+        "id": "1788402680895-h1hx5vlt",
+        "timestamp": "2026-09-03T02:31:20.895Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788402556921-k1tor8t8",
+        "event": "github.backup.started",
+        "message": "开始备份数据到 GitHub",
+        "context": {
+          "operation": "ai-question-bank",
+          "entryCount": 10,
+          "pendingCount": 10,
+          "totalCount": 180,
+          "complete": true
+        }
+      },
+      {
+        "id": "1788402680878-xrsd8xtz",
+        "timestamp": "2026-09-03T02:31:20.878Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788402556921-k1tor8t8",
+        "event": "question-bank.ai-request.completed",
+        "message": "第 3/6 轮：AI 已返回 10/10 道有效题目。",
+        "context": {
+          "attempt": 3,
+          "maxAttempts": 6,
+          "collectedCount": 10,
+          "targetCount": 10,
+          "parallelRequests": 4,
+          "requestedCount": 1
+        }
+      },
+      {
+        "id": "1788402680873-101wt8tk",
+        "timestamp": "2026-09-03T02:31:20.873Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788402556921-k1tor8t8",
+        "event": "question-bank.ai-request.duration",
+        "message": "单个并行 AI 请求完成",
+        "context": {
+          "attempt": 3,
+          "workerIndex": 1,
+          "parallelRequests": 4,
+          "requestedCount": 1,
+          "receivedCount": 1,
+          "durationMs": 17345
+        }
+      },
+      {
+        "id": "1788402668070-10pl9uki",
+        "timestamp": "2026-09-03T02:31:08.070Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "b4c161e97ce9"
+        }
+      },
       {
         "id": "1788402663524-xwwx23t1",
         "timestamp": "2026-09-03T02:31:03.524Z",
@@ -9188,82 +9263,6 @@
           "requestedCount": 10,
           "durationMs": 2170,
           "sharedAcrossWorkers": true
-        }
-      },
-      {
-        "id": "1788343473127-zb2q8u6e",
-        "timestamp": "2026-09-02T10:04:33.127Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788343468196-zjzo0dai",
-        "event": "question-bank.web-search.started",
-        "message": "开始联网检索本轮题目资料",
-        "context": {
-          "attempt": 1,
-          "query": "机器视觉 面试知识点 原理 工程实践",
-          "mode": "专业知识",
-          "excludedCount": 0,
-          "parallelRequests": 4,
-          "requestedCount": 10
-        }
-      },
-      {
-        "id": "1788343473122-gv3hibay",
-        "timestamp": "2026-09-02T10:04:33.122Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788343468196-zjzo0dai",
-        "event": "question-group.prepare.started",
-        "message": "开始准备题组",
-        "context": {
-          "project": "机器视觉专业知识",
-          "mode": "专业知识",
-          "questionCount": 10,
-          "sourceMode": "network",
-          "adaptiveQuestions": false,
-          "focusCategories": []
-        }
-      },
-      {
-        "id": "1788343473120-llo8rw6y",
-        "timestamp": "2026-09-02T10:04:33.120Z",
-        "level": "INFO",
-        "kind": "user",
-        "sessionId": "1788343468196-zjzo0dai",
-        "event": "training.started",
-        "message": "用户开始新的训练题组",
-        "context": {
-          "category": "随机类型",
-          "difficulty": "随机难度",
-          "techStack": "随机技术栈",
-          "detectionDirection": "随机方向",
-          "questionCount": 10
-        }
-      },
-      {
-        "id": "1788343469840-ju5gv696",
-        "timestamp": "2026-09-02T10:04:29.840Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788343468196-zjzo0dai",
-        "event": "question-bank.remote.loaded",
-        "message": "GitHub AI 历史题库加载完成",
-        "context": {
-          "questionCount": 121,
-          "githubQuestionCount": 121,
-          "pendingCount": 0
-        }
-      },
-      {
-        "id": "1788343468192-4aogrjey",
-        "timestamp": "2026-09-02T10:04:28.192Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.startup.loaded",
-        "message": "启动配置加载完成",
-        "context": {
-          "source": "github",
-          "updatedAt": "2026-09-02T10:03:42.393Z"
         }
       },
       {
