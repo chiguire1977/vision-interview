@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-03T09:01:42.204Z",
+  "updatedAt": "2026-09-03T09:01:46.581Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1867,12 +1867,50 @@
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
       {
+        "id": "1788426103732-gmivssj9",
+        "timestamp": "2026-09-03T09:01:43.732Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788426101801-g4umlvs0",
+        "event": "question-bank.remote.loaded",
+        "message": "GitHub AI 历史题库加载完成",
+        "context": {
+          "questionCount": 180,
+          "githubQuestionCount": 180,
+          "pendingCount": 0
+        }
+      },
+      {
+        "id": "1788426101796-lyuaf4e3",
+        "timestamp": "2026-09-03T09:01:41.796Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.startup.loaded",
+        "message": "启动配置加载完成",
+        "context": {
+          "source": "github",
+          "updatedAt": "2026-09-03T09:01:38.095Z"
+        }
+      },
+      {
         "id": "1788426100761-o172s0np",
         "timestamp": "2026-09-03T09:01:40.761Z",
         "level": "INFO",
         "kind": "system",
         "event": "backup.close.flush",
         "message": "页面关闭或进入后台，提交最后一次备份"
+      },
+      {
+        "id": "1788426099504-e1diyjf1",
+        "timestamp": "2026-09-03T09:01:39.504Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "fec2fbe5f6bf"
+        }
       },
       {
         "id": "1788426091692-zsga4aqp",
@@ -15227,39 +15265,6 @@
         "kind": "system",
         "event": "backup.close.flush",
         "message": "页面关闭或进入后台，提交最后一次备份"
-      },
-      {
-        "id": "1788147522642-pgszbnjn",
-        "timestamp": "2026-08-31T03:38:42.642Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.close.flush",
-        "message": "页面关闭或进入后台，提交最后一次备份"
-      },
-      {
-        "id": "1788147517535-pr4ull3j",
-        "timestamp": "2026-08-31T03:38:37.535Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "c1b5252ffb11"
-        }
-      },
-      {
-        "id": "1788147512991-lhpnq8i3",
-        "timestamp": "2026-08-31T03:38:32.991Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "question-group.prepare.started",
-        "message": "开始准备题组",
-        "context": {
-          "project": "轮胎字符深度 OCR",
-          "mode": "专业知识",
-          "questionCount": 10
-        }
       }
     ]
   }
