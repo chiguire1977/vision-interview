@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-09-02T13:05:34.612Z",
+  "updatedAt": "2026-09-03T02:31:22.243Z",
   "questions": [
     {
       "title": "在 HALCON 中，基于形状的模板匹配（shape-based matching）常用于定位工件。请说明金字塔层数、最小分数（MinScore）、最大重叠（MaxOverlap）和贪婪度（Greediness）这几个参数对匹配速度和鲁棒性的影响，并说明现场调试时如何取舍。",
@@ -6050,6 +6050,446 @@
       "difficultyFilter": "随机难度",
       "techStackFilter": "HALCON",
       "detectionDirectionFilter": "随机方向"
+    },
+    {
+      "title": "在 HALCON 中，如何从灰度图像中提取目标区域并筛选出符合条件的连通域？请说明关键算子及参数作用。",
+      "type": "算法原理",
+      "category": "图像处理基础",
+      "source": "专业",
+      "sourceType": "AI知识整理",
+      "knowledgePoints": [
+        "灰度图像与区域（Region）的关系",
+        "阈值分割算子 threshold 的用法",
+        "连通域分析 components_connection 的作用",
+        "select_shape 特征筛选的参数含义"
+      ],
+      "difficulty": "基础",
+      "tags": [
+        "HALCON",
+        "区域处理",
+        "阈值分割",
+        "连通域"
+      ],
+      "keywords": [
+        "threshold",
+        "components_connection",
+        "select_shape",
+        "特征参数"
+      ],
+      "followUp": "如果目标区域内部有孔洞，select_shape 筛选时应该使用哪个特征来排除孔洞干扰？",
+      "hint": "先说明区域是像素集合，再按阈值分割、连通域提取、形状特征筛选的流程回答，并强调每个算子的输入输出。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "detectionDirection": "传统 2D 视觉",
+      "bestAnswer": "在 HALCON 中，首先用 threshold(Image, Region, MinGray, MaxGray) 根据灰度范围提取感兴趣像素，得到区域 Region。然后用 components_connection(Region, ConnectedRegions) 将区域拆分为独立的连通域。最后用 select_shape(ConnectedRegions, SelectedRegions, Features, Operation, Min, Max) 按面积、宽度、高度等特征筛选目标。例如选择面积在 100 到 500 像素之间的区域，可设置 Features='area'，Min=100，Max=500。若需排除孔洞，可结合 fill_up 或使用 'hole_area' 特征。整个过程是区域分析的基础流程，参数需根据实际图像灰度分布和几何特征调整。",
+      "principle": "HALCON 中区域是图像中满足条件的像素集合，以游程编码存储，便于高效计算几何特征。threshold 通过灰度阈值将像素分类为前景和背景；components_connection 基于 4 邻域或 8 邻域连通性将像素集合划分为独立连通分量；select_shape 利用区域特征（如面积、外接矩形、圆度等）进行布尔运算筛选。这些算子共同构成从像素到语义对象的经典处理链，是二维视觉定位、测量和缺陷检测的基础。",
+      "id": "aiq-d967fbaa",
+      "generatedAt": "2026-09-03T02:31:20.886Z",
+      "provider": "opencode-go",
+      "model": "deepseek-v4-flash",
+      "project": "机器视觉专业知识",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "基础",
+      "techStackFilter": "HALCON",
+      "detectionDirectionFilter": "传统 2D 视觉"
+    },
+    {
+      "title": "HALCON 中边缘提取算子 edges_sub_pix 与 threshold_sub_pix 有何区别？在实际应用中如何选择？",
+      "type": "算法原理",
+      "category": "边缘检测",
+      "source": "专业",
+      "sourceType": "AI知识整理",
+      "knowledgePoints": [
+        "亚像素边缘提取原理",
+        "edges_sub_pix 的滞后阈值机制",
+        "threshold_sub_pix 的灰度阈值原理",
+        "不同边缘提取方法的适用场景"
+      ],
+      "difficulty": "基础",
+      "tags": [
+        "HALCON",
+        "边缘提取",
+        "亚像素",
+        "阈值分割"
+      ],
+      "keywords": [
+        "edges_sub_pix",
+        "threshold_sub_pix",
+        "滞后阈值",
+        "亚像素精度"
+      ],
+      "followUp": "当图像存在较强噪声时，使用 edges_sub_pix 应调整哪些参数来减少伪边缘？",
+      "hint": "从算法原理入手，对比两者对边缘响应的处理方式，再结合精度和抗噪性说明选择依据。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "detectionDirection": "传统 2D 视觉",
+      "bestAnswer": "edges_sub_pix 使用 Canny 或 Deriche 等算子计算梯度幅值，并通过非极大值抑制和滞后阈值（High 和 Low）提取亚像素精度边缘，适合边缘连续、精度要求高的场景。threshold_sub_pix 则是直接对图像灰度或滤波后的图像做阈值分割，再提取亚像素轮廓，适合边缘灰度对比明显、背景简单的场景。选择时：若边缘对比度低或噪声较多，优先用 edges_sub_pix 并调整滞后阈值；若只需快速提取二值化边界，threshold_sub_pix 更简单高效。实际中还需结合后续测量精度要求决定。",
+      "principle": "edges_sub_pix 基于梯度幅值图像，通过非极大值抑制细化边缘，并利用双阈值连接边缘，输出亚像素精度的 XLD 轮廓。threshold_sub_pix 则直接对原图或平滑后的图像应用全局阈值，将像素分为前景和背景，再用插值方法提取等值线作为亚像素轮廓。前者对边缘的连续性和定位精度更优，后者对灰度阈值敏感，容易受光照不均影响。两种方法都输出亚像素轮廓，但数学原理和适用条件不同。",
+      "id": "aiq-41485700",
+      "generatedAt": "2026-09-03T02:31:20.886Z",
+      "provider": "opencode-go",
+      "model": "deepseek-v4-flash",
+      "project": "机器视觉专业知识",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "基础",
+      "techStackFilter": "HALCON",
+      "detectionDirectionFilter": "传统 2D 视觉"
+    },
+    {
+      "title": "HALCON 中创建形状模板时，create_shape_model 的 NumLevels、AngleStart、AngleExtent 和 MinContrast 参数分别影响匹配的哪些方面？",
+      "type": "工程实践",
+      "category": "模板匹配",
+      "source": "专业",
+      "sourceType": "AI知识整理",
+      "knowledgePoints": [
+        "形状模板匹配原理",
+        "金字塔层数 NumLevels 对搜索效率与鲁棒性的影响",
+        "角度范围参数的作用",
+        "MinContrast 对光照变化的适应性"
+      ],
+      "difficulty": "基础",
+      "tags": [
+        "HALCON",
+        "模板匹配",
+        "参数调优",
+        "形状匹配"
+      ],
+      "keywords": [
+        "create_shape_model",
+        "NumLevels",
+        "AngleExtent",
+        "MinContrast"
+      ],
+      "followUp": "如果目标在图像中可能发生缩放，应使用哪个 HALCON 算子族来支持多尺度匹配？",
+      "hint": "从模板匹配的搜索策略出发，分别解释每个参数对金字塔搜索、角度搜索和对比度抑制的影响。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "detectionDirection": "传统 2D 视觉",
+      "bestAnswer": "NumLevels 控制金字塔层数，层数越多搜索越快，但层数过高会丢失细节，导致匹配不稳定；AngleStart 和 AngleExtent 定义模板的旋转搜索范围，范围越大搜索空间越大，速度越慢；MinContrast 表示模板与背景的最小对比度，用于抑制低对比度区域，提高对光照变化的鲁棒性。实际调参时，先根据目标大小和计算资源确定 NumLevels，再根据目标可能出现的旋转角度设置 AngleStart 和 AngleExtent，最后根据图像对比度调整 MinContrast，使匹配分数稳定。",
+      "principle": "形状模板匹配通过提取模板轮廓的梯度方向信息，在搜索图像中计算相似度。金字塔层数通过降采样生成多层图像，先在低分辨率层粗定位，再逐层精确定位，从而加速搜索。角度范围参数将搜索空间离散化为多个角度步长，增加范围会扩大搜索维度。MinContrast 在生成模板时忽略梯度幅值低于该值的像素，从而减少光照变化和噪声对梯度方向的干扰，提高匹配鲁棒性。",
+      "id": "aiq-48d826af",
+      "generatedAt": "2026-09-03T02:31:20.886Z",
+      "provider": "opencode-go",
+      "model": "deepseek-v4-flash",
+      "project": "机器视觉专业知识",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "基础",
+      "techStackFilter": "HALCON",
+      "detectionDirectionFilter": "传统 2D 视觉"
+    },
+    {
+      "title": "HALCON 中如何根据图像特点选择全局阈值、局部阈值或自动阈值分割方法？",
+      "type": "算法原理",
+      "category": "图像分割",
+      "source": "专业",
+      "sourceType": "AI知识整理",
+      "knowledgePoints": [
+        "threshold 全局阈值分割原理",
+        "dyn_threshold 局部阈值分割原理",
+        "binary_threshold 自动阈值选择方法",
+        "光照不均对阈值分割的影响"
+      ],
+      "difficulty": "基础",
+      "tags": [
+        "HALCON",
+        "阈值分割",
+        "图像处理"
+      ],
+      "keywords": [
+        "全局阈值",
+        "局部阈值",
+        "自动阈值",
+        "光照不均"
+      ],
+      "followUp": "如果目标与背景灰度差异不大但光照不均，你会优先尝试哪种方法？为什么？",
+      "hint": "先说明三种方法的适用场景，再对比优缺点，最后给出选择依据。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "detectionDirection": "传统 2D 视觉",
+      "bestAnswer": "当图像光照均匀、目标与背景灰度差明显时，优先使用 threshold 进行全局阈值分割，速度快且参数简单。若光照不均导致背景灰度波动，全局阈值会失效，应使用 dyn_threshold 或局部阈值方法，它通过比较像素与邻域均值/中值实现分割。若不确定阈值且目标占比适中，可用 binary_threshold 自动选择全局阈值，其内部基于直方图或最大类间方差。选择时需结合实际图像测试，观察分割结果是否稳定，并考虑实时性要求。",
+      "principle": "threshold 直接根据固定灰度值划分像素，适合双峰直方图。dyn_threshold 利用滤波后的图像与原图逐像素比较，能适应灰度缓慢变化，但计算量较大。binary_threshold 通过分析灰度直方图自动确定阈值，常用方法包括最大类间方差法（Otsu）和基于熵的方法，无需人工指定具体灰度值。",
+      "id": "aiq-d1c23114",
+      "generatedAt": "2026-09-03T02:31:20.886Z",
+      "provider": "opencode-go",
+      "model": "deepseek-v4-flash",
+      "project": "机器视觉专业知识",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "基础",
+      "techStackFilter": "HALCON",
+      "detectionDirectionFilter": "传统 2D 视觉"
+    },
+    {
+      "title": "在 HALCON 中执行 Blob 分析时，为什么通常要先用 connection 将区域拆分为连通域？",
+      "type": "工程实践",
+      "category": "Blob分析",
+      "source": "专业",
+      "sourceType": "AI知识整理",
+      "knowledgePoints": [
+        "Blob 分析基本流程",
+        "connection 连通域拆分作用",
+        "select_shape 特征筛选",
+        "区域特征计算"
+      ],
+      "difficulty": "基础",
+      "tags": [
+        "HALCON",
+        "Blob分析",
+        "连通域"
+      ],
+      "keywords": [
+        "connection",
+        "连通域",
+        "select_shape",
+        "特征提取"
+      ],
+      "followUp": "如果多个目标相互接触，connection 后仍是一个区域，你会如何进一步处理？",
+      "hint": "从 Blob 分析流程入手，说明 connection 的必要性，再举例 select_shape 的典型应用。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "detectionDirection": "传统 2D 视觉",
+      "bestAnswer": "Blob 分析通常包括图像采集、预处理、阈值分割、区域拆分和特征提取。threshold 后得到的区域可能包含多个互不相连的目标，如果不拆分，后续计算面积、位置等特征时会把所有目标当成一个整体，导致结果错误。connection 将区域按 8 邻域或 4 邻域拆分为独立连通域，之后可用 select_shape 按面积、宽度、圆度等特征筛选目标，再通过 area_center、moments 等算子计算每个目标的几何参数。",
+      "principle": "连通域是像素间通过邻接关系连通的集合。connection 基于像素邻接性将输入区域分解为多个最小连通分量，使每个目标成为独立区域。select_shape 通过设定特征范围对区域进行过滤，内部基于区域特征直方图或直接计算特征值实现。该流程是传统 2D 视觉中 Blob 分析的标准范式，适用于缺陷检测、目标计数等场景。",
+      "id": "aiq-306fd313",
+      "generatedAt": "2026-09-03T02:31:20.886Z",
+      "provider": "opencode-go",
+      "model": "deepseek-v4-flash",
+      "project": "机器视觉专业知识",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "基础",
+      "techStackFilter": "HALCON",
+      "detectionDirectionFilter": "传统 2D 视觉"
+    },
+    {
+      "title": "HALCON 中 edges_sub_pix 与 threshold 提取边缘有何本质区别？为什么需要亚像素精度？",
+      "type": "算法原理",
+      "category": "边缘提取",
+      "source": "专业",
+      "sourceType": "AI知识整理",
+      "knowledgePoints": [
+        "像素级边缘与亚像素边缘区别",
+        "edges_sub_pix 原理",
+        "亚像素精度在测量中的意义",
+        "边缘提取参数影响"
+      ],
+      "difficulty": "基础",
+      "tags": [
+        "HALCON",
+        "亚像素",
+        "边缘提取"
+      ],
+      "keywords": [
+        "亚像素",
+        "edges_sub_pix",
+        "边缘精度",
+        "测量"
+      ],
+      "followUp": "在什么场景下必须使用亚像素边缘？如果边缘模糊，你会如何调整参数？",
+      "hint": "先对比两种方法输出类型，再说明亚像素精度的来源和实际价值。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "detectionDirection": "传统 2D 视觉",
+      "bestAnswer": "threshold 得到的是像素级区域边界，精度为一个像素；edges_sub_pix 提取的是亚像素精度的轮廓，通过灰度插值或拟合将边缘定位到像素内部。对于高精度尺寸测量，像素级边缘会带来 ±0.5 像素的量化误差，而亚像素边缘可将误差降低到 0.1 像素以下。edges_sub_pix 基于 Canny、Sobel 等算子结合灰度梯度拟合，输出为 XLD 轮廓，适合后续拟合直线、圆等几何元素。",
+      "principle": "边缘在图像中表现为灰度突变，亚像素边缘提取先计算梯度方向和幅值，再沿梯度方向对灰度剖面进行插值或拟合，找到梯度极大值或灰度变化拐点的精确位置。edges_sub_pix 支持多种滤波器（如 lanser、deriche），通过调整平滑系数和滞后阈值控制边缘连续性和细节保留。亚像素精度是视觉测量系统达到高重复性的关键。",
+      "id": "aiq-c2f1dc65",
+      "generatedAt": "2026-09-03T02:31:20.886Z",
+      "provider": "opencode-go",
+      "model": "deepseek-v4-flash",
+      "project": "机器视觉专业知识",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "基础",
+      "techStackFilter": "HALCON",
+      "detectionDirectionFilter": "传统 2D 视觉"
+    },
+    {
+      "title": "在 HALCON 中，threshold 和 dyn_threshold 都用于图像分割，请说明两者的核心区别，并举例说明在光照不均匀的二维图像中应如何选择？",
+      "type": "算法原理",
+      "category": "图像分割",
+      "source": "专业",
+      "sourceType": "官方文档整理",
+      "knowledgePoints": [
+        "全局阈值分割的原理与局限",
+        "动态阈值分割的局部对比度机制",
+        "光照不均匀对分割结果的影响",
+        "阈值参数的选择策略"
+      ],
+      "difficulty": "基础",
+      "tags": [
+        "HALCON",
+        "阈值分割",
+        "dyn_threshold",
+        "光照补偿"
+      ],
+      "keywords": [
+        "全局阈值",
+        "局部阈值",
+        "光照不均",
+        "对比度",
+        "窗口大小"
+      ],
+      "followUp": "如果使用 dyn_threshold 时，Offset 参数设置过大会产生什么现象？如何根据图像灰度分布确定 Offset？",
+      "hint": "从全局固定阈值和局部自适应阈值的原理出发，对比两者对灰度变化的敏感度，再结合光照不均的实际场景说明选择依据。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "detectionDirection": "传统 2D 视觉",
+      "bestAnswer": "threshold 使用单一灰度阈值分割整幅图像，适合背景与目标灰度差异稳定、光照均匀的场景。dyn_threshold 通过比较原图与平滑滤波后图像的灰度差进行分割，能适应局部灰度变化，适合光照不均匀或背景灰度缓慢变化的图像。选择时，若图像整体灰度分布呈双峰且峰间稳定，优先用 threshold；若同一目标在不同位置灰度不同，或存在阴影、反光，应使用 dyn_threshold，并合理设置平滑滤波核大小和 Offset。Offset 控制灵敏度，过大会漏检弱对比区域，过小则引入噪声。",
+      "principle": "threshold 基于全局灰度直方图选取固定阈值，将像素分为前景和背景，对全局光照变化敏感。dyn_threshold 先对原图进行均值或中值滤波得到背景估计，再逐像素比较原图与背景的灰度差，差值超过 Offset 的像素被选中。该过程相当于高通滤波，抑制了低频光照分量，保留了局部边缘和细节，因此对光照不均具有鲁棒性。",
+      "id": "aiq-57959b66",
+      "generatedAt": "2026-09-03T02:31:20.886Z",
+      "provider": "opencode-go",
+      "model": "deepseek-v4-flash",
+      "project": "机器视觉专业知识",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "基础",
+      "techStackFilter": "HALCON",
+      "detectionDirectionFilter": "传统 2D 视觉"
+    },
+    {
+      "title": "HALCON中如何为threshold算子选择合适的灰度阈值？",
+      "type": "算法原理",
+      "category": "图像分割",
+      "source": "专业",
+      "sourceType": "AI知识整理",
+      "knowledgePoints": [
+        "灰度直方图分析",
+        "阈值分割原理",
+        "Blob分析流程",
+        "参数影响"
+      ],
+      "difficulty": "基础",
+      "tags": [
+        "HALCON",
+        "阈值分割",
+        "Blob分析"
+      ],
+      "keywords": [
+        "灰度直方图",
+        "双峰法",
+        "threshold",
+        "连通域",
+        "特征提取"
+      ],
+      "followUp": "如果图像光照不均匀，全局阈值分割效果差，你会如何改进？",
+      "hint": "先分析直方图，选择谷底；若光照不均，考虑局部阈值或背景校正。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "detectionDirection": "传统 2D 视觉",
+      "bestAnswer": "选择阈值时，先观察灰度直方图，若呈现双峰，取两峰之间的谷底灰度值作为阈值。若直方图单峰或光照不均，可先使用高斯滤波或形态学背景校正，再使用dyn_threshold进行局部阈值分割。分割后通过connection将区域划分为连通域，再用select_shape等算子根据面积、宽度等特征筛选目标区域。实际调试中可借助灰度直方图工具动态调整阈值，并观察分割结果。",
+      "principle": "threshold算子根据像素灰度值与阈值的比较将图像分为前景和背景，属于全局阈值分割。直方图双峰对应目标与背景的灰度分布，谷底是错误分割概率最小的位置。光照不均时全局阈值失效，需利用局部邻域灰度差异，dyn_threshold通过比较原图与平滑后图像实现局部自适应分割。",
+      "id": "aiq-9e0cea6d",
+      "generatedAt": "2026-09-03T02:31:20.886Z",
+      "provider": "opencode-go",
+      "model": "deepseek-v4-flash",
+      "project": "机器视觉专业知识",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "基础",
+      "techStackFilter": "HALCON",
+      "detectionDirectionFilter": "传统 2D 视觉"
+    },
+    {
+      "title": "在 HALCON 中，对二值化后的区域进行形态学处理时，开运算和闭运算分别适用于哪些场景？请结合具体算子说明。",
+      "type": "算法原理/工程实践",
+      "category": "图像处理",
+      "source": "专业",
+      "sourceType": "官方文档整理",
+      "knowledgePoints": [
+        "开运算原理与作用",
+        "闭运算原理与作用",
+        "HALCON 形态学算子参数选择",
+        "形态学处理在 Blob 分析中的应用"
+      ],
+      "difficulty": "基础",
+      "tags": [
+        "HALCON",
+        "形态学",
+        "区域处理",
+        "Blob分析"
+      ],
+      "keywords": [
+        "开运算",
+        "闭运算",
+        "opening_circle",
+        "closing_circle",
+        "噪声去除",
+        "空洞填充"
+      ],
+      "followUp": "如果目标物体内部有细长孔洞，使用闭运算后可能会影响后续测量，如何权衡？",
+      "hint": "先说明开闭运算的数学定义，再结合 Blob 分析中的噪声和空洞问题，最后强调结构元素尺寸的选择。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "detectionDirection": "传统 2D 视觉",
+      "bestAnswer": "开运算先腐蚀后膨胀，能去除区域外部的细小突起和孤立小点，常用于消除二值化后的噪声点；闭运算先膨胀后腐蚀，能填充区域内部的细小空洞和裂缝，常用于连接断裂的目标或填补孔洞。在 HALCON 中常用 opening_circle(Region, RegionOpening, Radius) 和 closing_circle(Region, RegionClosing, Radius)，通过调整 Radius 控制处理强度。实际中若目标边缘有毛刺，用开运算平滑；若目标内部有因光照不均产生的暗孔，用闭运算填充。注意 Radius 不宜过大，否则会改变目标尺寸。",
+      "principle": "形态学开闭运算基于集合论。开运算是先腐蚀后膨胀，腐蚀去除小尺寸前景，膨胀恢复剩余前景的原始尺寸，因此能去除比结构元素小的噪声点而不改变大目标面积；闭运算是先膨胀后腐蚀，膨胀填充小尺寸背景空洞，腐蚀恢复背景尺寸，因此能填充比结构元素小的孔洞。结构元素的大小决定滤波尺度。",
+      "id": "aiq-8d216689",
+      "generatedAt": "2026-09-03T02:31:20.886Z",
+      "provider": "opencode-go",
+      "model": "deepseek-v4-flash",
+      "project": "机器视觉专业知识",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "基础",
+      "techStackFilter": "HALCON",
+      "detectionDirectionFilter": "传统 2D 视觉"
+    },
+    {
+      "title": "在 HALCON 中，reduce_domain 和 crop_domain 有什么区别？在模板匹配预处理中应如何选择？",
+      "type": "算法原理",
+      "category": "随机类型",
+      "source": "专业",
+      "sourceType": "官方文档整理",
+      "knowledgePoints": [
+        "HALCON 图像域（domain）的概念",
+        "reduce_domain 与 crop_domain 的差异",
+        "模板匹配中 ROI 预处理的坐标保持"
+      ],
+      "difficulty": "基础",
+      "tags": [
+        "HALCON",
+        "图像域",
+        "ROI",
+        "模板匹配"
+      ],
+      "keywords": [
+        "reduce_domain",
+        "crop_domain",
+        "domain",
+        "ROI",
+        "坐标映射"
+      ],
+      "followUp": "如果使用 reduce_domain 限定模板区域后，模板匹配得到的匹配位置坐标与原始图像坐标是否一致？",
+      "hint": "从图像域定义出发，对比两个算子对图像尺寸、坐标原点及像素数据的影响，再结合模板匹配的实际需求说明选择依据。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "detectionDirection": "传统 2D 视觉",
+      "bestAnswer": "reduce_domain 仅将图像的有效域（domain）限定为指定区域，不改变图像的行列尺寸，也不复制像素数据，因此像素坐标与原始图像保持一致；crop_domain 则会将图像裁剪成指定区域的大小，生成一张新图像，坐标原点随之改变。在模板匹配预处理中，通常使用 reduce_domain 将模板区域从原图中“逻辑”分离出来，用于创建形状模板，这样匹配时返回的坐标可直接映射到原始图像；若使用 crop_domain，则需额外补偿裁剪偏移。因此，需要保留原始坐标关系时优先选择 reduce_domain。",
+      "principle": "HALCON 中的图像由像素矩阵和域（domain）组成，域定义了参与运算的有效像素范围。reduce_domain 只修改域的几何范围，图像存储结构不变，所以坐标体系不变；crop_domain 会重新分配内存并生成尺寸等于区域外接矩形的图像，坐标体系发生平移。模板匹配中，create_shape_model 需要从图像中提取模板，同时需要知道模板在原始图像中的位置，因此 reduce_domain 能保持坐标一致性，避免后期坐标换算。",
+      "id": "aiq-6d9a38f5",
+      "generatedAt": "2026-09-03T02:31:20.886Z",
+      "provider": "opencode-go",
+      "model": "deepseek-v4-flash",
+      "project": "机器视觉专业知识",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "基础",
+      "techStackFilter": "HALCON",
+      "detectionDirectionFilter": "传统 2D 视觉"
     }
   ]
 }
