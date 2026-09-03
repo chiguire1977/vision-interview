@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-03T08:54:18.819Z",
+  "updatedAt": "2026-09-03T08:55:19.290Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1519,7 +1519,7 @@
     ],
     "vision-interview-ai-preferences": {
       "provider": "custom-mtl4b9ce-o9bdfg",
-      "model": "",
+      "model": "codex-auto-review",
       "openaiBaseUrl": "https://dingdangapii.cn",
       "aiScoring": true,
       "bestAnswer": true,
@@ -1822,14 +1822,62 @@
       "custom-mtl4b9ce-o9bdfg": {
         "name": "DingDang",
         "description": "[REDACTED]",
-        "model": "",
+        "model": "codex-auto-review",
         "baseUrl": "https://dingdangapii.cn",
         "openaiBaseUrl": "https://dingdangapii.cn",
-        "availableModels": []
+        "availableModels": [
+          {
+            "label": "codex-auto-review · Chat Completions（兼容 OpenAI）",
+            "value": "codex-auto-review",
+            "upstreamFormat": "chat-completions"
+          },
+          {
+            "label": "gpt-5.3-codex-spark · Chat Completions（兼容 OpenAI）",
+            "value": "gpt-5.3-codex-spark",
+            "upstreamFormat": "chat-completions"
+          },
+          {
+            "label": "gpt-5.4 · Chat Completions（兼容 OpenAI）",
+            "value": "gpt-5.4",
+            "upstreamFormat": "chat-completions"
+          },
+          {
+            "label": "gpt-5.5 · Chat Completions（兼容 OpenAI）",
+            "value": "gpt-5.5",
+            "upstreamFormat": "chat-completions"
+          },
+          {
+            "label": "gpt-5.6-sol · Chat Completions（兼容 OpenAI）",
+            "value": "gpt-5.6-sol",
+            "upstreamFormat": "chat-completions"
+          },
+          {
+            "label": "gpt-5.6-terra · Chat Completions（兼容 OpenAI）",
+            "value": "gpt-5.6-terra",
+            "upstreamFormat": "chat-completions"
+          },
+          {
+            "label": "gpt-image-2 · Chat Completions（兼容 OpenAI）",
+            "value": "gpt-image-2",
+            "upstreamFormat": "chat-completions"
+          }
+        ]
       }
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788425661361-hwy09d2i",
+        "timestamp": "2026-09-03T08:54:21.361Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "3ae748a4de65"
+        }
+      },
       {
         "id": "1788425655964-s8lxdyx1",
         "timestamp": "2026-09-03T08:54:15.964Z",
@@ -15160,18 +15208,6 @@
         "context": {
           "status": 502,
           "reason": "GitHub 读取失败（HTTP 403）：\r\nRequest forbidden by administrative rules. Please make sure your request has a User-Agent header (https://docs.github.com/en/rest/overview/resources-in-the-rest-api#user-agent-required). Check https://developer.github.com for other possib"
-        }
-      },
-      {
-        "id": "1788145973482-1z0or14g",
-        "timestamp": "2026-08-31T03:12:53.482Z",
-        "level": "ERROR",
-        "kind": "system",
-        "event": "backup.push.failed",
-        "message": "运行数据备份失败",
-        "context": {
-          "status": 503,
-          "reason": "未配置 GitHub 备份凭据。"
         }
       }
     ]
