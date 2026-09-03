@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-03T08:57:13.221Z",
+  "updatedAt": "2026-09-03T08:57:55.712Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1866,6 +1866,29 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788425873234-rk77xjq1",
+        "timestamp": "2026-09-03T08:57:53.234Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.close.flush",
+        "message": "页面关闭或进入后台，提交最后一次备份"
+      },
+      {
+        "id": "1788425873230-tm2zgqjp",
+        "timestamp": "2026-09-03T08:57:53.230Z",
+        "level": "ERROR",
+        "kind": "system",
+        "sessionId": "1788425776283-5vq8m9oc",
+        "event": "ai.connection-test.failed",
+        "message": "无法连接网站服务器，请稍后重试。",
+        "context": {
+          "provider": "custom-mtl4b9ce-o9bdfg",
+          "model": "gpt-5.6-sol",
+          "upstreamFormat": "responses",
+          "durationMs": 46856
+        }
+      },
       {
         "id": "1788425831144-a6kjjtj1",
         "timestamp": "2026-09-03T08:57:11.144Z",
@@ -15187,30 +15210,6 @@
         "kind": "system",
         "event": "backup.close.flush",
         "message": "页面关闭或进入后台，提交最后一次备份"
-      },
-      {
-        "id": "1788146656294-82wt6pnz",
-        "timestamp": "2026-08-31T03:24:16.294Z",
-        "level": "ERROR",
-        "kind": "system",
-        "event": "records.upload.failed",
-        "message": "学习记录上传失败：GitHub 读取失败（HTTP 403）：\r\nRequest forbidden by administrative rules. Please make sure your request has a User-Agent header (https://docs.github.com/en/rest/overview/resources-in-the-rest-api#user-agent-required). Check https://developer.github.com for other possib",
-        "context": {
-          "status": 502,
-          "reason": "GitHub 读取失败（HTTP 403）：\r\nRequest forbidden by administrative rules. Please make sure your request has a User-Agent header (https://docs.github.com/en/rest/overview/resources-in-the-rest-api#user-agent-required). Check https://developer.github.com for other possib",
-          "recordCount": 32
-        }
-      },
-      {
-        "id": "1788146656101-94fljzo7",
-        "timestamp": "2026-08-31T03:24:16.101Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "records.upload.started",
-        "message": "开始统一上传学习记录",
-        "context": {
-          "recordCount": 32
-        }
       }
     ]
   }
