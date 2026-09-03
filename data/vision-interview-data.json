@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-03T08:58:00.325Z",
+  "updatedAt": "2026-09-03T08:58:18.185Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1827,45 +1827,57 @@
         "openaiBaseUrl": "https://dingdangapii.cn",
         "availableModels": [
           {
-            "label": "codex-auto-review · Chat Completions（兼容 OpenAI）",
+            "label": "codex-auto-review · Responses（OpenAI 原生）",
             "value": "codex-auto-review",
-            "upstreamFormat": "chat-completions"
+            "upstreamFormat": "responses"
           },
           {
-            "label": "gpt-5.3-codex-spark · Chat Completions（兼容 OpenAI）",
+            "label": "gpt-5.3-codex-spark · Responses（OpenAI 原生）",
             "value": "gpt-5.3-codex-spark",
-            "upstreamFormat": "chat-completions"
+            "upstreamFormat": "responses"
           },
           {
-            "label": "gpt-5.4 · Chat Completions（兼容 OpenAI）",
+            "label": "gpt-5.4 · Responses（OpenAI 原生）",
             "value": "gpt-5.4",
-            "upstreamFormat": "chat-completions"
+            "upstreamFormat": "responses"
           },
           {
-            "label": "gpt-5.5 · Chat Completions（兼容 OpenAI）",
+            "label": "gpt-5.5 · Responses（OpenAI 原生）",
             "value": "gpt-5.5",
-            "upstreamFormat": "chat-completions"
+            "upstreamFormat": "responses"
           },
           {
-            "label": "gpt-5.6-sol · Chat Completions（兼容 OpenAI）",
+            "label": "gpt-5.6-sol · Responses（OpenAI 原生）",
             "value": "gpt-5.6-sol",
-            "upstreamFormat": "chat-completions"
+            "upstreamFormat": "responses"
           },
           {
-            "label": "gpt-5.6-terra · Chat Completions（兼容 OpenAI）",
+            "label": "gpt-5.6-terra · Responses（OpenAI 原生）",
             "value": "gpt-5.6-terra",
-            "upstreamFormat": "chat-completions"
+            "upstreamFormat": "responses"
           },
           {
-            "label": "gpt-image-2 · Chat Completions（兼容 OpenAI）",
+            "label": "gpt-image-2 · Responses（OpenAI 原生）",
             "value": "gpt-image-2",
-            "upstreamFormat": "chat-completions"
+            "upstreamFormat": "responses"
           }
         ]
       }
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788425881697-0i0wikb7",
+        "timestamp": "2026-09-03T08:58:01.697Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "ac5c953762dd"
+        }
+      },
       {
         "id": "1788425878008-fia7czqd",
         "timestamp": "2026-09-03T08:57:58.008Z",
@@ -15212,14 +15224,6 @@
       {
         "id": "1788146856410-4ve0faek",
         "timestamp": "2026-08-31T03:27:36.410Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.close.flush",
-        "message": "页面关闭或进入后台，提交最后一次备份"
-      },
-      {
-        "id": "1788146799833-pt6pa9ii",
-        "timestamp": "2026-08-31T03:26:39.833Z",
         "level": "INFO",
         "kind": "system",
         "event": "backup.close.flush",
