@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-03T08:55:19.290Z",
+  "updatedAt": "2026-09-03T08:55:38.760Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1519,7 +1519,7 @@
     ],
     "vision-interview-ai-preferences": {
       "provider": "custom-mtl4b9ce-o9bdfg",
-      "model": "codex-auto-review",
+      "model": "gpt-5.6-sol",
       "openaiBaseUrl": "https://dingdangapii.cn",
       "aiScoring": true,
       "bestAnswer": true,
@@ -1822,7 +1822,7 @@
       "custom-mtl4b9ce-o9bdfg": {
         "name": "DingDang",
         "description": "[REDACTED]",
-        "model": "codex-auto-review",
+        "model": "gpt-5.6-sol",
         "baseUrl": "https://dingdangapii.cn",
         "openaiBaseUrl": "https://dingdangapii.cn",
         "availableModels": [
@@ -1866,6 +1866,32 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788425728807-6nmscuvn",
+        "timestamp": "2026-09-03T08:55:28.807Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788425653738-frpqvksu",
+        "event": "ai.connection-test.started",
+        "message": "开始真实聊天连接测试",
+        "context": {
+          "provider": "custom-mtl4b9ce-o9bdfg",
+          "model": "gpt-5.6-sol",
+          "upstreamFormat": "chat-completions"
+        }
+      },
+      {
+        "id": "1788425721789-ta99sm1g",
+        "timestamp": "2026-09-03T08:55:21.789Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "81e65f7a3449"
+        }
+      },
       {
         "id": "1788425661361-hwy09d2i",
         "timestamp": "2026-09-03T08:54:21.361Z",
@@ -15183,31 +15209,6 @@
         "context": {
           "source": "本地规则",
           "questionCount": 10
-        }
-      },
-      {
-        "id": "1788146576642-p2fxz1vu",
-        "timestamp": "2026-08-31T03:22:56.642Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "question-group.prepare.started",
-        "message": "开始准备题组",
-        "context": {
-          "project": "轮胎字符深度 OCR",
-          "mode": "专业知识",
-          "questionCount": 10
-        }
-      },
-      {
-        "id": "1788146576210-vfgd21ro",
-        "timestamp": "2026-08-31T03:22:56.210Z",
-        "level": "WARN",
-        "kind": "system",
-        "event": "backup.startup.offline",
-        "message": "启动时未能读取 GitHub 配置",
-        "context": {
-          "status": 502,
-          "reason": "GitHub 读取失败（HTTP 403）：\r\nRequest forbidden by administrative rules. Please make sure your request has a User-Agent header (https://docs.github.com/en/rest/overview/resources-in-the-rest-api#user-agent-required). Check https://developer.github.com for other possib"
         }
       }
     ]
