@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-03T09:03:13.392Z",
+  "updatedAt": "2026-09-03T09:03:18.895Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1869,6 +1869,70 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788426196597-cv7fsj8b",
+        "timestamp": "2026-09-03T09:03:16.597Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788426101801-g4umlvs0",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 2,
+          "query": "机器视觉 图像处理基础 HALCON 传统 2D 视觉 仅限二维图像处理，排除 3D、三维、点云、深度图、法线估计、平面拟合、立体视觉、结构光和双目 原理 工程实践",
+          "sourceCount": 0,
+          "parallelRequests": 4,
+          "requestedCount": 10,
+          "durationMs": 299,
+          "sharedAcrossWorkers": true
+        }
+      },
+      {
+        "id": "1788426196298-py3ucbmn",
+        "timestamp": "2026-09-03T09:03:16.298Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788426101801-g4umlvs0",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 2,
+          "query": "机器视觉 图像处理基础 HALCON 传统 2D 视觉 仅限二维图像处理，排除 3D、三维、点云、深度图、法线估计、平面拟合、立体视觉、结构光和双目 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 9,
+          "parallelRequests": 4,
+          "requestedCount": 10
+        }
+      },
+      {
+        "id": "1788426196292-exji54ck",
+        "timestamp": "2026-09-03T09:03:16.292Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788426101801-g4umlvs0",
+        "event": "question-bank.ai-request.duration",
+        "message": "单个并行 AI 请求完成",
+        "context": {
+          "attempt": 1,
+          "workerIndex": 2,
+          "parallelRequests": 4,
+          "requestedCount": 3,
+          "receivedCount": 3,
+          "durationMs": 20887
+        }
+      },
+      {
+        "id": "1788426194860-sq2i4gdy",
+        "timestamp": "2026-09-03T09:03:14.860Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "d8eda7181f85"
+        }
+      },
       {
         "id": "1788426191465-k515kbvm",
         "timestamp": "2026-09-03T09:03:11.465Z",
@@ -15316,51 +15380,6 @@
         "kind": "system",
         "event": "backup.close.flush",
         "message": "页面关闭或进入后台，提交最后一次备份"
-      },
-      {
-        "id": "1788147974900-pclvcjuf",
-        "timestamp": "2026-08-31T03:46:14.900Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "fac6ef663870"
-        }
-      },
-      {
-        "id": "1788147970497-jucb747h",
-        "timestamp": "2026-08-31T03:46:10.497Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.close.flush",
-        "message": "页面关闭或进入后台，提交最后一次备份"
-      },
-      {
-        "id": "1788147967730-p1vz4zeh",
-        "timestamp": "2026-08-31T03:46:07.730Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "72d6ae5cab2c"
-        }
-      },
-      {
-        "id": "1788147963215-w9iqz7pc",
-        "timestamp": "2026-08-31T03:46:03.215Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "question-group.prepare.started",
-        "message": "开始准备题组",
-        "context": {
-          "project": "轮胎字符深度 OCR",
-          "mode": "专业知识",
-          "questionCount": 3
-        }
       }
     ]
   }
