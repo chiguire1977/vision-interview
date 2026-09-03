@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-03T09:01:50.468Z",
+  "updatedAt": "2026-09-03T09:02:11.673Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1538,16 +1538,19 @@
         "openaiBaseUrl": "https://api.deepseek.com",
         "availableModels": [
           {
-            "label": "deepseek-v4-flash",
-            "value": "deepseek-v4-flash"
+            "label": "deepseek-v4-flash · Chat Completions（兼容 OpenAI）",
+            "value": "deepseek-v4-flash",
+            "upstreamFormat": "chat-completions"
           },
           {
-            "label": "deepseek-v4-flash-vision-exp",
-            "value": "deepseek-v4-flash-vision-exp"
+            "label": "deepseek-v4-flash-vision-exp · Chat Completions（兼容 OpenAI）",
+            "value": "deepseek-v4-flash-vision-exp",
+            "upstreamFormat": "chat-completions"
           },
           {
-            "label": "deepseek-v4-pro",
-            "value": "deepseek-v4-pro"
+            "label": "deepseek-v4-pro · Chat Completions（兼容 OpenAI）",
+            "value": "deepseek-v4-pro",
+            "upstreamFormat": "chat-completions"
           }
         ]
       },
@@ -1866,6 +1869,47 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788426128912-hw1hysxo",
+        "timestamp": "2026-09-03T09:02:08.912Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788426101801-g4umlvs0",
+        "event": "ai.connection-test.completed",
+        "message": "真实聊天连接测试成功",
+        "context": {
+          "provider": "deepseek",
+          "model": "deepseek-v4-flash",
+          "upstreamFormat": "chat-completions",
+          "durationMs": 729
+        }
+      },
+      {
+        "id": "1788426128182-4qv4hhdw",
+        "timestamp": "2026-09-03T09:02:08.182Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788426101801-g4umlvs0",
+        "event": "ai.connection-test.started",
+        "message": "开始真实聊天连接测试",
+        "context": {
+          "provider": "deepseek",
+          "model": "deepseek-v4-flash",
+          "upstreamFormat": "chat-completions"
+        }
+      },
+      {
+        "id": "1788426112108-h1hjs62y",
+        "timestamp": "2026-09-03T09:01:52.108Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "415c0cd3cd9a"
+        }
+      },
       {
         "id": "1788426108638-bkwolwh2",
         "timestamp": "2026-09-03T09:01:48.638Z",
@@ -15232,42 +15276,6 @@
         "context": {
           "source": "AI",
           "questionCount": 10
-        }
-      },
-      {
-        "id": "1788147540791-1w8jqnql",
-        "timestamp": "2026-08-31T03:39:00.791Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "question-bank.cache.saved",
-        "message": "已缓存到远程题库",
-        "context": {
-          "questionCount": 10,
-          "pendingCount": 0
-        }
-      },
-      {
-        "id": "1788147530858-es67iwqj",
-        "timestamp": "2026-08-31T03:38:50.858Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "89ceaeb72f2c"
-        }
-      },
-      {
-        "id": "1788147527907-z9d65svr",
-        "timestamp": "2026-08-31T03:38:47.907Z",
-        "level": "ERROR",
-        "kind": "system",
-        "event": "backup.push.failed",
-        "message": "运行数据备份失败",
-        "context": {
-          "status": 502,
-          "reason": "GitHub 备份失败（HTTP 409）：{\"message\":\"is at 1a1094d2130bcc0016d3580e94c8af659be755f8 but expected 949cc4e2de75e7486779b4343308e93bc1d6f658\",\"documentation_url\":\"https://docs.github.com/rest/repos/contents#create-or-update-file-contents\",\"status\":\"409\"}"
         }
       }
     ]
