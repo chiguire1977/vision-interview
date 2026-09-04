@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-04T06:35:24.684Z",
+  "updatedAt": "2026-09-04T06:35:41.717Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1870,12 +1870,35 @@
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
       {
+        "id": "1788503734360-ijcb1eqi",
+        "timestamp": "2026-09-04T06:35:34.360Z",
+        "level": "ERROR",
+        "kind": "system",
+        "event": "backup.push.failed",
+        "message": "运行数据备份请求失败",
+        "context": {
+          "error": "Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON"
+        }
+      },
+      {
         "id": "1788503723565-thcczmul",
         "timestamp": "2026-09-04T06:35:23.565Z",
         "level": "INFO",
         "kind": "system",
         "event": "backup.close.flush",
         "message": "页面关闭或进入后台，提交最后一次备份"
+      },
+      {
+        "id": "1788503719846-l2id05ph",
+        "timestamp": "2026-09-04T06:35:19.846Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "723e8891cd32"
+        }
       },
       {
         "id": "1788503716392-o3m7v4zt",
@@ -15689,33 +15712,6 @@
           "attempt": 2,
           "query": "机器视觉 模板与定位 C#视觉开发 原理 工程实践",
           "sourceCount": 0
-        }
-      },
-      {
-        "id": "1788166998137-6fvx4utv",
-        "timestamp": "2026-08-31T09:03:18.137Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788166894899-0xu488ib",
-        "event": "question-bank.web-search.started",
-        "message": "开始联网检索本轮题目资料",
-        "context": {
-          "attempt": 2,
-          "query": "机器视觉 模板与定位 C#视觉开发 原理 工程实践",
-          "mode": "专业知识",
-          "excludedCount": 0
-        }
-      },
-      {
-        "id": "1788166963204-3neoaz9m",
-        "timestamp": "2026-08-31T09:02:43.204Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "0eee07aed9fe"
         }
       }
     ]
