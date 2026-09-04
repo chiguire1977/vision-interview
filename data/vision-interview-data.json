@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-04T03:12:07.543Z",
+  "updatedAt": "2026-09-04T03:49:07.157Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1869,6 +1869,124 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788493743749-s6d6ig27",
+        "timestamp": "2026-09-04T03:49:03.749Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.close.flush",
+        "message": "页面关闭或进入后台，提交最后一次备份"
+      },
+      {
+        "id": "1788493742910-5s4n6x8v",
+        "timestamp": "2026-09-04T03:49:02.910Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788493739687-bqtnnpty",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 1,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 35,
+          "parallelRequests": 4,
+          "requestedCount": 10
+        }
+      },
+      {
+        "id": "1788493742860-nbkxorm4",
+        "timestamp": "2026-09-04T03:49:02.860Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788493739687-bqtnnpty",
+        "event": "question-group.prepare.started",
+        "message": "开始准备题组",
+        "context": {
+          "project": "机器视觉专业知识",
+          "mode": "专业知识",
+          "questionCount": 10,
+          "sourceMode": "network",
+          "adaptiveQuestions": false,
+          "focusCategories": []
+        }
+      },
+      {
+        "id": "1788493742842-a4ol93do",
+        "timestamp": "2026-09-04T03:49:02.842Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788493739687-bqtnnpty",
+        "event": "question-bank.remote.loaded",
+        "message": "GitHub AI 历史题库加载完成",
+        "context": {
+          "questionCount": 210,
+          "githubQuestionCount": 210,
+          "pendingCount": 0
+        }
+      },
+      {
+        "id": "1788493741529-dhz0arfl",
+        "timestamp": "2026-09-04T03:49:01.529Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788493739687-bqtnnpty",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 1,
+          "query": "机器视觉 面试知识点 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 26,
+          "parallelRequests": 4,
+          "requestedCount": 10
+        }
+      },
+      {
+        "id": "1788493741512-ps9senbl",
+        "timestamp": "2026-09-04T03:49:01.512Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788493739687-bqtnnpty",
+        "event": "question-group.prepare.started",
+        "message": "开始准备题组",
+        "context": {
+          "project": "机器视觉专业知识",
+          "mode": "专业知识",
+          "questionCount": 10,
+          "sourceMode": "network",
+          "adaptiveQuestions": false,
+          "focusCategories": []
+        }
+      },
+      {
+        "id": "1788493741496-09edb1d1",
+        "timestamp": "2026-09-04T03:49:01.496Z",
+        "level": "INFO",
+        "kind": "user",
+        "sessionId": "1788493739687-bqtnnpty",
+        "event": "training.started",
+        "message": "用户开始新的训练题组",
+        "context": {
+          "category": "随机类型",
+          "difficulty": "随机难度",
+          "techStack": "随机技术栈",
+          "detectionDirection": "随机方向",
+          "questionCount": 10
+        }
+      },
+      {
+        "id": "1788493739667-6r7bgyab",
+        "timestamp": "2026-09-04T03:48:59.666Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.startup.loaded",
+        "message": "启动配置加载完成",
+        "context": {
+          "source": "github",
+          "updatedAt": "2026-09-04T03:12:07.543Z"
+        }
+      },
       {
         "id": "1788491524140-qeem0bth",
         "timestamp": "2026-09-04T03:12:04.140Z",
@@ -15860,118 +15978,6 @@
         "context": {
           "reason": "change",
           "commit": "15cf25f39d11"
-        }
-      },
-      {
-        "id": "1788166909516-vmaqboqr",
-        "timestamp": "2026-08-31T09:01:49.516Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "bae6466df7cc"
-        }
-      },
-      {
-        "id": "1788166909030-toqaegax",
-        "timestamp": "2026-08-31T09:01:49.030Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788166894899-0xu488ib",
-        "event": "question-group.prepare.completed",
-        "message": "AI 多轮联网搜索与生成后仍未获得有效题目，已使用本地题库与标准答案。",
-        "context": {
-          "source": "本地规则",
-          "questionCount": 4
-        }
-      },
-      {
-        "id": "1788166908877-x8nrllpi",
-        "timestamp": "2026-08-31T09:01:48.877Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788166894899-0xu488ib",
-        "event": "question-bank.web-search.completed",
-        "message": "本轮联网检索完成",
-        "context": {
-          "attempt": 6,
-          "query": "机器视觉 面试知识点 C#视觉开发 原理 工程实践",
-          "sourceCount": 0
-        }
-      },
-      {
-        "id": "1788166908580-qzspu3gk",
-        "timestamp": "2026-08-31T09:01:48.580Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788166894899-0xu488ib",
-        "event": "question-bank.web-search.started",
-        "message": "开始联网检索本轮题目资料",
-        "context": {
-          "attempt": 6,
-          "query": "机器视觉 面试知识点 C#视觉开发 原理 工程实践",
-          "mode": "专业知识",
-          "excludedCount": 0
-        }
-      },
-      {
-        "id": "1788166908431-yk5ihivq",
-        "timestamp": "2026-08-31T09:01:48.431Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788166894899-0xu488ib",
-        "event": "question-bank.web-search.completed",
-        "message": "本轮联网检索完成",
-        "context": {
-          "attempt": 5,
-          "query": "机器视觉 面试知识点 C#视觉开发 原理 工程实践",
-          "sourceCount": 0
-        }
-      },
-      {
-        "id": "1788166908137-i8n96ve9",
-        "timestamp": "2026-08-31T09:01:48.137Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788166894899-0xu488ib",
-        "event": "question-bank.web-search.started",
-        "message": "开始联网检索本轮题目资料",
-        "context": {
-          "attempt": 5,
-          "query": "机器视觉 面试知识点 C#视觉开发 原理 工程实践",
-          "mode": "专业知识",
-          "excludedCount": 0
-        }
-      },
-      {
-        "id": "1788166907988-tf0sy189",
-        "timestamp": "2026-08-31T09:01:47.988Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788166894899-0xu488ib",
-        "event": "question-bank.web-search.completed",
-        "message": "本轮联网检索完成",
-        "context": {
-          "attempt": 4,
-          "query": "机器视觉 面试知识点 C#视觉开发 原理 工程实践",
-          "sourceCount": 0
-        }
-      },
-      {
-        "id": "1788166907637-mrr7z3x1",
-        "timestamp": "2026-08-31T09:01:47.637Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788166894899-0xu488ib",
-        "event": "question-bank.web-search.started",
-        "message": "开始联网检索本轮题目资料",
-        "context": {
-          "attempt": 4,
-          "query": "机器视觉 面试知识点 C#视觉开发 原理 工程实践",
-          "mode": "专业知识",
-          "excludedCount": 0
         }
       }
     ]
