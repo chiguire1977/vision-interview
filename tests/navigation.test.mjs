@@ -74,3 +74,24 @@ test("settings includes a dedicated GitHub synchronization tab", () => {
   assert.match(page, /\/api\/github\/credentials/);
   assert.match(page, /学习记录.*手动上传/);
 });
+
+test("settings replaces the about tab with an editable ordered web-source whitelist", () => {
+  const page = readFileSync(fileURLToPath(new URL("../app/page.tsx", import.meta.url)), "utf8");
+  assert.match(page, /key: "whitelist", title: "网址白名单"/);
+  assert.doesNotMatch(page, /key: "about", title: "关于应用"/);
+  assert.match(page, /拖动网址卡片调整顺序/);
+  assert.match(page, /添加网址/);
+  assert.match(page, /编辑网址/);
+  assert.match(page, /删除白名单网址/);
+  assert.match(page, /reorderWebSourceWhitelist/);
+  assert.match(page, /WEB_SOURCE_WHITELIST_STORAGE_KEY/);
+});
+
+test("whitelist settings validate URLs before saving and expose availability with a switch", () => {
+  const page = readFileSync(fileURLToPath(new URL("../app/page.tsx", import.meta.url)), "utf8");
+  assert.match(page, /\/api\/web-source\/validate/);
+  assert.match(page, /检测并添加/);
+  assert.match(page, /重新检测/);
+  assert.match(page, /available !== false/);
+  assert.match(page, /<Switch checked=\{entry\.enabled\}/);
+});
