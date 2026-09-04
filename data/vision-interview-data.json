@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-04T00:52:36.515Z",
+  "updatedAt": "2026-09-04T00:52:40.260Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1869,6 +1869,47 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788483158478-vshbb4xa",
+        "timestamp": "2026-09-04T00:52:38.478Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "53439d228a09"
+        }
+      },
+      {
+        "id": "1788483156655-nff8wnnt",
+        "timestamp": "2026-09-04T00:52:36.655Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788480919065-g4d0uu26",
+        "event": "ai.connection-test.completed",
+        "message": "真实聊天连接测试成功",
+        "context": {
+          "provider": "deepseek",
+          "model": "deepseek-v4-flash",
+          "upstreamFormat": "chat-completions",
+          "durationMs": 2679
+        }
+      },
+      {
+        "id": "1788483153975-wwcufqnh",
+        "timestamp": "2026-09-04T00:52:33.975Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788480919065-g4d0uu26",
+        "event": "ai.connection-test.started",
+        "message": "开始真实聊天连接测试",
+        "context": {
+          "provider": "deepseek",
+          "model": "deepseek-v4-flash",
+          "upstreamFormat": "chat-completions"
+        }
+      },
       {
         "id": "1788483152462-4qpn3w4n",
         "timestamp": "2026-09-04T00:52:32.462Z",
@@ -15599,49 +15640,6 @@
           "mode": "专业知识",
           "project": "轮胎字符深度 OCR",
           "answerLength": 155
-        }
-      },
-      {
-        "id": "1788164233937-lqzgadqk",
-        "timestamp": "2026-08-31T08:17:13.937Z",
-        "level": "INFO",
-        "kind": "user",
-        "sessionId": "1788162608770-pf75wyuo",
-        "event": "answer.submit.completed",
-        "message": "回答审阅完成",
-        "context": {
-          "question": "HALCON 的 dyn_threshold 与普通 threshold 有什么区别？",
-          "mastery": "低",
-          "reviewSource": "本地规则",
-          "seconds": 0
-        }
-      },
-      {
-        "id": "1788164233681-cwk7mf20",
-        "timestamp": "2026-08-31T08:17:13.681Z",
-        "level": "INFO",
-        "kind": "user",
-        "sessionId": "1788162608770-pf75wyuo",
-        "event": "answer.submit.started",
-        "message": "开始审阅回答",
-        "context": {
-          "question": "HALCON 的 dyn_threshold 与普通 threshold 有什么区别？",
-          "mode": "专业知识",
-          "project": "轮胎字符深度 OCR",
-          "answerLength": 3
-        }
-      },
-      {
-        "id": "1788164224724-7fz2t46s",
-        "timestamp": "2026-08-31T08:17:04.724Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788162608770-pf75wyuo",
-        "event": "question-group.prepare.completed",
-        "message": "AI 两次生成均未获得有效题目，已使用本地题库与标准答案。",
-        "context": {
-          "source": "本地规则",
-          "questionCount": 0
         }
       }
     ]
