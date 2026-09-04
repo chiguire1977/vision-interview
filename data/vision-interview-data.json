@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-04T07:38:20.253Z",
+  "updatedAt": "2026-09-04T07:38:24.339Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1869,6 +1869,32 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788507503224-x3hpln3y",
+        "timestamp": "2026-09-04T07:38:23.224Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "a7f37e84d4e6"
+        }
+      },
+      {
+        "id": "1788507498336-jlmotfye",
+        "timestamp": "2026-09-04T07:38:18.336Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788507493840-q5mq1e7c",
+        "event": "question-bank.remote.loaded",
+        "message": "GitHub AI 历史题库加载完成",
+        "context": {
+          "questionCount": 210,
+          "githubQuestionCount": 210,
+          "pendingCount": 0
+        }
+      },
       {
         "id": "1788507493833-9ssoscw8",
         "timestamp": "2026-09-04T07:38:13.831Z",
@@ -15607,26 +15633,6 @@
           "status": 502,
           "reason": "GitHub 备份失败（HTTP 409）：{\"message\":\"data/vision-interview-data.json does not match 9839acf2807552fe7ed45f792c9093e26cbf8d2e\",\"documentation_url\":\"https://docs.github.com/rest/repos/contents#create-or-update-file-contents\",\"status\":\"409\"}"
         }
-      },
-      {
-        "id": "1788167428820-sab13in0",
-        "timestamp": "2026-08-31T09:10:28.820Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "9432aa3bfc9e"
-        }
-      },
-      {
-        "id": "1788167428464-h3099tzn",
-        "timestamp": "2026-08-31T09:10:28.464Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.close.flush",
-        "message": "页面关闭或进入后台，提交最后一次备份"
       }
     ]
   }
