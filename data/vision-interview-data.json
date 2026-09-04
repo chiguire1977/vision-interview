@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-04T07:51:58.339Z",
+  "updatedAt": "2026-09-04T07:52:05.133Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1869,6 +1869,32 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788508321608-jqr36b17",
+        "timestamp": "2026-09-04T07:52:01.608Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "e3d3a480e9a2"
+        }
+      },
+      {
+        "id": "1788508320063-q54vai1c",
+        "timestamp": "2026-09-04T07:52:00.063Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788508147825-8ymtzymx",
+        "event": "question-bank.remote.loaded",
+        "message": "GitHub AI 历史题库加载完成",
+        "context": {
+          "questionCount": 210,
+          "githubQuestionCount": 210,
+          "pendingCount": 0
+        }
+      },
       {
         "id": "1788508145724-d86fdi7a",
         "timestamp": "2026-09-04T07:49:05.724Z",
@@ -15594,40 +15620,6 @@
           "collectedCount": 2,
           "workerIndex": 1,
           "parallelRequests": 4,
-          "error": "AI 请求超时，请稍后重试。"
-        }
-      },
-      {
-        "id": "1788343598005-s0oi7abd",
-        "timestamp": "2026-09-02T10:06:38.005Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788343468196-zjzo0dai",
-        "event": "question-bank.ai-request.failed",
-        "message": "单个并行 AI 请求失败",
-        "context": {
-          "attempt": 2,
-          "workerIndex": 2,
-          "parallelRequests": 4,
-          "requestedCount": 2,
-          "durationMs": 60244,
-          "error": "AI 请求超时，请稍后重试。"
-        }
-      },
-      {
-        "id": "1788343598004-33zcz7gp",
-        "timestamp": "2026-09-02T10:06:38.004Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788343468196-zjzo0dai",
-        "event": "question-bank.ai-request.failed",
-        "message": "单个并行 AI 请求失败",
-        "context": {
-          "attempt": 2,
-          "workerIndex": 1,
-          "parallelRequests": 4,
-          "requestedCount": 2,
-          "durationMs": 60243,
           "error": "AI 请求超时，请稍后重试。"
         }
       }
