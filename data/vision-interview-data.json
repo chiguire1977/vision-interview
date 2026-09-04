@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-04T07:41:45.873Z",
+  "updatedAt": "2026-09-04T07:41:56.598Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1869,6 +1869,34 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788507711745-gbi04nf6",
+        "timestamp": "2026-09-04T07:41:51.745Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788507700312-gzv74zf7",
+        "event": "question-bank.web-whitelist.changed",
+        "message": "联网题目网址白名单已更新",
+        "context": {
+          "count": 1,
+          "enabledCount": 1,
+          "order": [
+            "https://www.yuque.com/dashboard"
+          ]
+        }
+      },
+      {
+        "id": "1788507707959-sgu0n4bn",
+        "timestamp": "2026-09-04T07:41:47.959Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "234066ae444a"
+        }
+      },
       {
         "id": "1788507702684-uvc1yrsk",
         "timestamp": "2026-09-04T07:41:42.684Z",
@@ -15613,37 +15641,17 @@
           "reason": "change",
           "commit": "754440c3146f"
         }
-      },
-      {
-        "id": "1788167349237-zlmc8o68",
-        "timestamp": "2026-08-31T09:09:09.237Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788166894899-0xu488ib",
-        "event": "question-bank.web-search.completed",
-        "message": "本轮联网检索完成",
-        "context": {
-          "attempt": 4,
-          "query": "机器视觉 模板与定位 通用原理 原理 工程实践",
-          "sourceCount": 0
-        }
-      },
-      {
-        "id": "1788167348818-e3a25omd",
-        "timestamp": "2026-08-31T09:09:08.818Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788166894899-0xu488ib",
-        "event": "question-bank.web-search.started",
-        "message": "开始联网检索本轮题目资料",
-        "context": {
-          "attempt": 4,
-          "query": "机器视觉 模板与定位 通用原理 原理 工程实践",
-          "mode": "专业知识",
-          "excludedCount": 0
-        }
       }
     ],
-    "vision-interview-web-source-whitelist": []
+    "vision-interview-web-source-whitelist": [
+      {
+        "id": "source-mtmnb9gc",
+        "url": "https://www.yuque.com/dashboard",
+        "enabled": true,
+        "displayName": "登录 · 语雀",
+        "available": true,
+        "lastCheckedAt": "2026-09-04T07:41:51.744Z"
+      }
+    ]
   }
 }
