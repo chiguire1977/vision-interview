@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-04T02:25:51.183Z",
+  "updatedAt": "2026-09-04T02:25:54.232Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1869,6 +1869,98 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788488753257-5owh21k0",
+        "timestamp": "2026-09-04T02:25:53.257Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "e7f632f52092"
+        }
+      },
+      {
+        "id": "1788488753109-52e17jzg",
+        "timestamp": "2026-09-04T02:25:53.109Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788480919065-g4d0uu26",
+        "event": "question-group.prepare.completed",
+        "message": "AI 已生成完整 10 道题目、标准回答和技术原理；远程题库正在后台同步。",
+        "context": {
+          "source": "AI",
+          "questionCount": 10
+        }
+      },
+      {
+        "id": "1788488753096-ixj94n2t",
+        "timestamp": "2026-09-04T02:25:53.096Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788480919065-g4d0uu26",
+        "event": "github.backup.started",
+        "message": "开始备份数据到 GitHub",
+        "context": {
+          "operation": "ai-question-bank",
+          "entryCount": 10,
+          "pendingCount": 10,
+          "totalCount": 210,
+          "complete": true
+        }
+      },
+      {
+        "id": "1788488753077-ivad49cs",
+        "timestamp": "2026-09-04T02:25:53.077Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788480919065-g4d0uu26",
+        "event": "question-bank.ai-request.duration",
+        "message": "单个并行 AI 请求完成",
+        "context": {
+          "attempt": 2,
+          "workerIndex": 3,
+          "parallelRequests": 4,
+          "requestedCount": 1,
+          "receivedCount": 1,
+          "durationMs": 8355
+        }
+      },
+      {
+        "id": "1788488752711-qog9rnwq",
+        "timestamp": "2026-09-04T02:25:52.711Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788480919065-g4d0uu26",
+        "event": "question-bank.ai-request.duration",
+        "message": "单个并行 AI 请求完成",
+        "context": {
+          "attempt": 2,
+          "workerIndex": 2,
+          "parallelRequests": 4,
+          "requestedCount": 1,
+          "receivedCount": 1,
+          "durationMs": 7990
+        }
+      },
+      {
+        "id": "1788488751277-v0abzbgz",
+        "timestamp": "2026-09-04T02:25:51.277Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788480919065-g4d0uu26",
+        "event": "question-bank.ai-request.duration",
+        "message": "单个并行 AI 请求完成",
+        "context": {
+          "attempt": 2,
+          "workerIndex": 1,
+          "parallelRequests": 4,
+          "requestedCount": 1,
+          "receivedCount": 1,
+          "durationMs": 6556
+        }
+      },
       {
         "id": "1788488750157-rcxcf869",
         "timestamp": "2026-09-04T02:25:50.157Z",
@@ -15532,82 +15624,6 @@
           "project": "轮胎字符深度 OCR",
           "mode": "专业知识",
           "questionCount": 10
-        }
-      },
-      {
-        "id": "1788164903059-xtl953xo",
-        "timestamp": "2026-08-31T08:28:23.059Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788164727758-4j1db2oj",
-        "event": "question-group.prepare.cached",
-        "message": "题组已从本机缓存恢复",
-        "context": {
-          "questionCount": 10
-        }
-      },
-      {
-        "id": "1788164903058-q1mehal4",
-        "timestamp": "2026-08-31T08:28:23.058Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788164727758-4j1db2oj",
-        "event": "question-group.prepare.started",
-        "message": "开始准备题组",
-        "context": {
-          "project": "轮胎字符深度 OCR",
-          "mode": "专业知识",
-          "questionCount": 10
-        }
-      },
-      {
-        "id": "1788164899615-rdt0kqg6",
-        "timestamp": "2026-08-31T08:28:19.615Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "5ad28a167282"
-        }
-      },
-      {
-        "id": "1788164894387-qw6avb6m",
-        "timestamp": "2026-08-31T08:28:14.387Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788164727758-4j1db2oj",
-        "event": "question-group.prepare.completed",
-        "message": "AI 已生成完整 10 道题目、标准回答和技术原理；已缓存到远程题库。",
-        "context": {
-          "source": "AI",
-          "questionCount": 10
-        }
-      },
-      {
-        "id": "1788164894385-40f29x12",
-        "timestamp": "2026-08-31T08:28:14.385Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788164727758-4j1db2oj",
-        "event": "question-bank.cache.saved",
-        "message": "已缓存到远程题库",
-        "context": {
-          "questionCount": 10,
-          "pendingCount": 0
-        }
-      },
-      {
-        "id": "1788164862290-jvs1mxi0",
-        "timestamp": "2026-08-31T08:27:42.290Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "f4e14665ef6b"
         }
       }
     ]
