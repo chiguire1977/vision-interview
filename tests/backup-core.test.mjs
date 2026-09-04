@@ -10,6 +10,7 @@ import {
   createRecordsUploadPayload,
   DEFAULT_GITHUB_SYNC_SETTINGS,
   GITHUB_CONNECTION_SETTINGS_STORAGE_KEY,
+  WEB_SOURCE_WHITELIST_STORAGE_KEY,
   filterRuntimeLogs,
   filterRuntimeLogsBySession,
   normalizeGitHubConnectionSettings,
@@ -80,6 +81,7 @@ test("createScopedAutoBackupSnapshot keeps only enabled GitHub backup scopes", (
     }],
     "vision-interview-github-sync-settings": { syncFavorites: false },
     "vision-interview-github-connection-settings": { repository: "acme/vision-bank", branch: "release" },
+    [WEB_SOURCE_WHITELIST_STORAGE_KEY]: [{ id: "source-1", url: "https://docs.example.com/", enabled: false, displayName: "Example Docs" }],
   }, {
     ...DEFAULT_GITHUB_SYNC_SETTINGS,
     syncAiSettings: false,
@@ -100,7 +102,44 @@ test("createScopedAutoBackupSnapshot keeps only enabled GitHub backup scopes", (
     }],
     "vision-interview-github-sync-settings": { syncFavorites: false },
     "vision-interview-github-connection-settings": { repository: "acme/vision-bank", branch: "release" },
+    [WEB_SOURCE_WHITELIST_STORAGE_KEY]: [{ id: "source-1", url: "https://docs.example.com/", enabled: false, displayName: "Example Docs" }],
   });
+});
+
+test("auto backup snapshots include the complete web source whitelist", () => {
+  const whitelist = [
+    {
+      id: "source-1",
+      url: "https://docs.example.com/",
+      enabled: false,
+      displayName: "Example Docs",
+      available: true,
+      lastCheckedAt: "2026-09-04T00:00:00.000Z",
+    },
+  ];
+
+  const snapshot = createAutoBackupSnapshot({ [WEB_SOURCE_WHITELIST_STORAGE_KEY]: whitelist });
+  assert.deepEqual(snapshot[WEB_SOURCE_WHITELIST_STORAGE_KEY], whitelist);
+});
+
+test("startup merge restores the GitHub web source whitelist and close payload sends changes", () => {
+  const remoteWhitelist = [{
+    id: "source-1",
+    url: "https://docs.example.com/",
+    enabled: true,
+    displayName: "Example Docs",
+    available: false,
+    lastCheckedAt: "2026-09-04T00:00:00.000Z",
+    checkError: "连接超时",
+  }];
+  const merged = mergeBackupData({}, { [WEB_SOURCE_WHITELIST_STORAGE_KEY]: remoteWhitelist });
+  assert.deepEqual(merged[WEB_SOURCE_WHITELIST_STORAGE_KEY], remoteWhitelist);
+
+  const payload = createCloseBackupPayload(
+    JSON.stringify({ [WEB_SOURCE_WHITELIST_STORAGE_KEY]: [{ ...remoteWhitelist[0], enabled: false }] }),
+    JSON.stringify({ [WEB_SOURCE_WHITELIST_STORAGE_KEY]: remoteWhitelist }),
+  );
+  assert.deepEqual(payload.data[WEB_SOURCE_WHITELIST_STORAGE_KEY], remoteWhitelist);
 });
 
 test("createAutoBackupSnapshot keeps favorite questions without credentials", () => {
@@ -505,6 +544,15 @@ test("storage helpers restore GitHub configuration without touching unrelated br
     "vision-interview-ai-preferences": { provider: "deepseek" },
     "vision-interview-project-view": "list",
   });
+});
+
+test("storage helpers persist the web source whitelist for the next startup", () => {
+  const storage = createStorage();
+  const whitelist = [{ id: "source-1", url: "https://docs.example.com/", enabled: true, displayName: "Example Docs" }];
+
+  writeBackupToStorage(storage, { [WEB_SOURCE_WHITELIST_STORAGE_KEY]: whitelist });
+
+  assert.deepEqual(readBackupFromStorage(storage)[WEB_SOURCE_WHITELIST_STORAGE_KEY], whitelist);
 });
 
 test("readBackupFromStorage tolerates blocked browser storage", () => {
