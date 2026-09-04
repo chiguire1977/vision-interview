@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-04T00:56:45.254Z",
+  "updatedAt": "2026-09-04T00:56:50.771Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1869,6 +1869,31 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788483409858-vtssw66y",
+        "timestamp": "2026-09-04T00:56:49.858Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "db01ebbebacc"
+        }
+      },
+      {
+        "id": "1788483405822-vv2tfrya",
+        "timestamp": "2026-09-04T00:56:45.822Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788480919065-g4d0uu26",
+        "event": "group.review.completed",
+        "message": "题组统一评审完成",
+        "context": {
+          "reviewSource": "AI",
+          "questionCount": 9
+        }
+      },
       {
         "id": "1788483404125-2m51ugkf",
         "timestamp": "2026-09-04T00:56:44.125Z",
@@ -15602,32 +15627,6 @@
         "context": {
           "status": 502,
           "reason": "GitHub 备份失败（HTTP 409）：{\"message\":\"data/vision-interview-data.json does not match dd2a23f63ca9be89d3d6376e439a8f5899a96dc5\",\"documentation_url\":\"https://docs.github.com/rest/repos/contents#create-or-update-file-contents\",\"status\":\"409\"}"
-        }
-      },
-      {
-        "id": "1788164674007-24jpefua",
-        "timestamp": "2026-08-31T08:24:34.007Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788164673987-kp9my2ml",
-        "event": "question-group.prepare.cached",
-        "message": "题组已从本机缓存恢复",
-        "context": {
-          "questionCount": 10
-        }
-      },
-      {
-        "id": "1788164674005-j5e786id",
-        "timestamp": "2026-08-31T08:24:34.005Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788164673987-kp9my2ml",
-        "event": "question-group.prepare.started",
-        "message": "开始准备题组",
-        "context": {
-          "project": "轮胎字符深度 OCR",
-          "mode": "专业知识",
-          "questionCount": 10
         }
       }
     ]
