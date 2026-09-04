@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-04T02:25:42.237Z",
+  "updatedAt": "2026-09-04T02:25:44.908Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1869,6 +1869,86 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788488743963-758c0t8o",
+        "timestamp": "2026-09-04T02:25:43.963Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "7d1ae2bfd57f"
+        }
+      },
+      {
+        "id": "1788488743954-ok2ttkir",
+        "timestamp": "2026-09-04T02:25:43.954Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788480919065-g4d0uu26",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 2,
+          "query": "机器视觉 面试知识点 HALCON 传统 2D 视觉 仅限二维图像处理，排除 3D、三维、点云、深度图、法线估计、平面拟合、立体视觉、结构光和双目 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 7,
+          "parallelRequests": 4,
+          "requestedCount": 10
+        }
+      },
+      {
+        "id": "1788488743950-wxt47ssz",
+        "timestamp": "2026-09-04T02:25:43.950Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788480919065-g4d0uu26",
+        "event": "question-bank.ai-request.duration",
+        "message": "单个并行 AI 请求完成",
+        "context": {
+          "attempt": 1,
+          "workerIndex": 1,
+          "parallelRequests": 4,
+          "requestedCount": 3,
+          "receivedCount": 3,
+          "durationMs": 15296
+        }
+      },
+      {
+        "id": "1788488742881-mgle0tw4",
+        "timestamp": "2026-09-04T02:25:42.881Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788480919065-g4d0uu26",
+        "event": "question-bank.ai-request.duration",
+        "message": "单个并行 AI 请求完成",
+        "context": {
+          "attempt": 1,
+          "workerIndex": 2,
+          "parallelRequests": 4,
+          "requestedCount": 3,
+          "receivedCount": 3,
+          "durationMs": 14223
+        }
+      },
+      {
+        "id": "1788488742061-o1hyokob",
+        "timestamp": "2026-09-04T02:25:42.061Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788480919065-g4d0uu26",
+        "event": "question-bank.ai-request.duration",
+        "message": "单个并行 AI 请求完成",
+        "context": {
+          "attempt": 1,
+          "workerIndex": 3,
+          "parallelRequests": 4,
+          "requestedCount": 2,
+          "receivedCount": 2,
+          "durationMs": 13399
+        }
+      },
       {
         "id": "1788488739366-lniwc9i3",
         "timestamp": "2026-09-04T02:25:39.366Z",
@@ -15530,76 +15610,6 @@
         "message": "当前题目已跳过",
         "context": {
           "question": "在HALCON中，使用OCR识别字符时，如果识别率低，你会从哪些方面进行优化？",
-          "mode": "专业知识",
-          "project": "轮胎字符深度 OCR"
-        }
-      },
-      {
-        "id": "1788164852887-lisqhivn",
-        "timestamp": "2026-08-31T08:27:32.887Z",
-        "level": "WARN",
-        "kind": "user",
-        "sessionId": "1788164727758-4j1db2oj",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "在HALCON中，进行图像拼接时，如何解决图像之间的光照差异和重叠区域的重合问题？",
-          "mode": "专业知识",
-          "project": "轮胎字符深度 OCR"
-        }
-      },
-      {
-        "id": "1788164852728-5v9j2dct",
-        "timestamp": "2026-08-31T08:27:32.728Z",
-        "level": "WARN",
-        "kind": "user",
-        "sessionId": "1788164727758-4j1db2oj",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "在HALCON中，如何实现多模板匹配？当目标物体存在多种形态时，如何处理以提高匹配鲁棒性？",
-          "mode": "专业知识",
-          "project": "轮胎字符深度 OCR"
-        }
-      },
-      {
-        "id": "1788164852560-lu1l21nw",
-        "timestamp": "2026-08-31T08:27:32.560Z",
-        "level": "WARN",
-        "kind": "user",
-        "sessionId": "1788164727758-4j1db2oj",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "在HALCON中，使用measure_pos进行一维测量时，如果测量结果不稳定（如位置波动），可能的原因有哪些？如何提高稳定性？",
-          "mode": "专业知识",
-          "project": "轮胎字符深度 OCR"
-        }
-      },
-      {
-        "id": "1788164852392-jhdl22ik",
-        "timestamp": "2026-08-31T08:27:32.392Z",
-        "level": "WARN",
-        "kind": "user",
-        "sessionId": "1788164727758-4j1db2oj",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "在HALCON中，进行边缘提取时，常用的算子有sobel_amp、canny和edges_sub_pix，它们各自的特点和适用场景是什么？",
-          "mode": "专业知识",
-          "project": "轮胎字符深度 OCR"
-        }
-      },
-      {
-        "id": "1788164852223-v353uzsu",
-        "timestamp": "2026-08-31T08:27:32.223Z",
-        "level": "WARN",
-        "kind": "user",
-        "sessionId": "1788164727758-4j1db2oj",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "在HALCON中，使用blob分析进行缺陷检测时，如果目标缺陷与背景灰度差异很小，你会采用哪些图像预处理方法增强对比度？",
           "mode": "专业知识",
           "project": "轮胎字符深度 OCR"
         }
