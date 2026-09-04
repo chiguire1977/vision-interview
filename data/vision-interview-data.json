@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-04T07:42:39.299Z",
+  "updatedAt": "2026-09-04T07:42:48.494Z",
   "data": {
     "vision-interview-records": [
       {
@@ -1870,6 +1870,32 @@
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
       {
+        "id": "1788507765779-cm64f63u",
+        "timestamp": "2026-09-04T07:42:45.779Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788507763204-6t8uo2py",
+        "event": "question-bank.remote.loaded",
+        "message": "GitHub AI 历史题库加载完成",
+        "context": {
+          "questionCount": 210,
+          "githubQuestionCount": 210,
+          "pendingCount": 0
+        }
+      },
+      {
+        "id": "1788507763198-3ibulvyf",
+        "timestamp": "2026-09-04T07:42:43.198Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.startup.loaded",
+        "message": "启动配置加载完成",
+        "context": {
+          "source": "github",
+          "updatedAt": "2026-09-04T07:42:39.299Z"
+        }
+      },
+      {
         "id": "1788507758204-tpu0epsg",
         "timestamp": "2026-09-04T07:42:38.204Z",
         "level": "INFO",
@@ -1909,6 +1935,18 @@
             "https://www.yuque.com/dashboard",
             "https://www.google.com.hk/"
           ]
+        }
+      },
+      {
+        "id": "1788507725574-1lnis9z4",
+        "timestamp": "2026-09-04T07:42:05.574Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "cb945b4d704d"
         }
       },
       {
@@ -15604,43 +15642,6 @@
         "context": {
           "reason": "change",
           "commit": "1a9f1cb21722"
-        }
-      },
-      {
-        "id": "1788343537763-2r7bmp6s",
-        "timestamp": "2026-09-02T10:05:37.763Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788343468196-zjzo0dai",
-        "event": "question-bank.ai-request.started",
-        "message": "第 2/6 轮（并行 4/4）：正在请求 AI 生成题目（2 道）…",
-        "context": {
-          "attempt": 2,
-          "maxAttempts": 6,
-          "collectedCount": 2,
-          "workerIndex": 4,
-          "parallelRequests": 4,
-          "requestedCount": 2
-        }
-      },
-      {
-        "id": "1788167436555-3a1z8zi6",
-        "timestamp": "2026-08-31T09:10:36.555Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.close.flush",
-        "message": "页面关闭或进入后台，提交最后一次备份"
-      },
-      {
-        "id": "1788167435537-t4ucqu2d",
-        "timestamp": "2026-08-31T09:10:35.537Z",
-        "level": "ERROR",
-        "kind": "system",
-        "event": "backup.push.failed",
-        "message": "运行数据备份失败",
-        "context": {
-          "status": 502,
-          "reason": "GitHub 备份失败（HTTP 409）：{\"message\":\"data/vision-interview-data.json does not match 9839acf2807552fe7ed45f792c9093e26cbf8d2e\",\"documentation_url\":\"https://docs.github.com/rest/repos/contents#create-or-update-file-contents\",\"status\":\"409\"}"
         }
       }
     ],
