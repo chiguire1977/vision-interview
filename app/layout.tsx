@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { BackupSync } from "@/components/backup-sync";
-import { AiQuestionTransportBridge } from "@/components/ai-question-transport-bridge";
-import { TrainingPreparationCancelBridge } from "@/components/training-preparation-cancel-bridge";
 
 export const metadata: Metadata = {
   title: "VisionInterview 机器视觉面试训练台",
@@ -17,8 +15,6 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="zh-CN">
       <body className="antialiased">
-        <AiQuestionTransportBridge />
-        <TrainingPreparationCancelBridge />
         <BackupSync>{children}</BackupSync>
       </body>
     </html>

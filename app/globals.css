@@ -19,38 +19,206 @@
 }
 
 :root {
-  --background: #f2f5f8;
-  --foreground: #172033;
+  --background: #eef3f8;
+  --foreground: #0f172a;
   --card: #ffffff;
-  --card-foreground: #171717;
+  --card-foreground: #0f172a;
   --popover: #ffffff;
-  --popover-foreground: #171717;
-  --primary: #2563eb;
-  --primary-foreground: #fafafa;
-  --secondary: #f5f5f5;
-  --secondary-foreground: #171717;
-  --muted: #f5f5f5;
-  --muted-foreground: #737373;
-  --accent: #f5f5f5;
-  --accent-foreground: #171717;
+  --popover-foreground: #0f172a;
+  --primary: #1d4ed8;
+  --primary-foreground: #ffffff;
+  --secondary: #e8eef6;
+  --secondary-foreground: #1e293b;
+  --muted: #f4f7fb;
+  --muted-foreground: #475569;
+  --accent: #dbeafe;
+  --accent-foreground: #1e3a8a;
   --destructive: #e7000b;
-  --border: #e5e5e5;
-  --input: #e5e5e5;
-  --ring: #60a5fa;
+  --border: #cbd5e1;
+  --input: #cbd5e1;
+  --ring: #2563eb;
   --chart-1: #f54900;
   --chart-2: #009689;
   --chart-3: #104e64;
   --chart-4: #ffb900;
   --chart-5: #fe9a00;
   --radius: 0.625rem;
-  --sidebar: #101d2b;
-  --sidebar-foreground: #dbe6f3;
-  --sidebar-primary: #3b82f6;
-  --sidebar-primary-foreground: #fafafa;
-  --sidebar-accent: #1b2d40;
-  --sidebar-accent-foreground: #ffffff;
+  --sidebar: #102033;
+  --sidebar-foreground: #e2e8f0;
+  --sidebar-primary: #60a5fa;
+  --sidebar-primary-foreground: #07111f;
+  --sidebar-accent: #1f3b5c;
+  --sidebar-accent-foreground: #f8fafc;
   --sidebar-border: rgba(255,255,255,.08);
   --sidebar-ring: #60a5fa;
+  --surface-muted: #f4f7fb;
+}
+
+[data-theme="midnight"] {
+  color-scheme: dark;
+  --background: #0b1220;
+  --foreground: #f8fafc;
+  --card: #111c2e;
+  --card-foreground: #f8fafc;
+  --popover: #17243a;
+  --popover-foreground: #f8fafc;
+  --primary: #60a5fa;
+  --primary-foreground: #08111f;
+  --secondary: #1a2940;
+  --secondary-foreground: #e5edf7;
+  --muted: #17243a;
+  --muted-foreground: #c3d0df;
+  --accent: #1e3a5f;
+  --accent-foreground: #dbeafe;
+  --border: #3a4d68;
+  --input: #3a4d68;
+  --ring: #93c5fd;
+  --sidebar: #07111f;
+  --sidebar-foreground: #e8f0fa;
+  --sidebar-primary: #60a5fa;
+  --sidebar-primary-foreground: #08111f;
+  --sidebar-accent: #1a3150;
+  --sidebar-accent-foreground: #f8fafc;
+  --surface-muted: #17243a;
+}
+
+[data-theme="graphite"] {
+  color-scheme: dark;
+  --background: #1f2429;
+  --foreground: #f8fafc;
+  --card: #2a3138;
+  --card-foreground: #f8fafc;
+  --popover: #343c45;
+  --popover-foreground: #f8fafc;
+  --primary: #2dd4bf;
+  --primary-foreground: #06201e;
+  --secondary: #343c45;
+  --secondary-foreground: #f1f5f9;
+  --muted: #343c45;
+  --muted-foreground: #d0d7de;
+  --accent: #164e63;
+  --accent-foreground: #ccfbf1;
+  --border: #596775;
+  --input: #596775;
+  --ring: #5eead4;
+  --sidebar: #171c21;
+  --sidebar-foreground: #edf2f7;
+  --sidebar-primary: #2dd4bf;
+  --sidebar-primary-foreground: #06201e;
+  --sidebar-accent: #303b46;
+  --sidebar-accent-foreground: #f8fafc;
+  --surface-muted: #343c45;
+}
+
+[data-theme="vscode-light"] {
+  --background: #f3f3f3;
+  --foreground: #1f1f1f;
+  --card: #ffffff;
+  --card-foreground: #1f1f1f;
+  --popover: #ffffff;
+  --popover-foreground: #1f1f1f;
+  --primary: #0066b8;
+  --primary-foreground: #ffffff;
+  --secondary: #e7e7e7;
+  --secondary-foreground: #333333;
+  --muted: #f3f3f3;
+  --muted-foreground: #616161;
+  --accent: #e5f1fb;
+  --accent-foreground: #004578;
+  --border: #c8c8c8;
+  --input: #c8c8c8;
+  --ring: #0066b8;
+  --sidebar: #333333;
+  --sidebar-foreground: #f3f3f3;
+  --sidebar-primary: #75beff;
+  --sidebar-primary-foreground: #1f1f1f;
+  --sidebar-accent: #3e3e42;
+  --sidebar-accent-foreground: #ffffff;
+  --surface-muted: #f3f3f3;
+}
+
+[data-theme="vscode-dark"] {
+  color-scheme: dark;
+  --background: #1e1e1e;
+  --foreground: #d4d4d4;
+  --card: #252526;
+  --card-foreground: #d4d4d4;
+  --popover: #2d2d30;
+  --popover-foreground: #d4d4d4;
+  --primary: #007acc;
+  --primary-foreground: #ffffff;
+  --secondary: #2d2d30;
+  --secondary-foreground: #d4d4d4;
+  --muted: #2d2d30;
+  --muted-foreground: #b8b8b8;
+  --accent: #264f78;
+  --accent-foreground: #ffffff;
+  --border: #3e3e42;
+  --input: #3e3e42;
+  --ring: #3794ff;
+  --sidebar: #252526;
+  --sidebar-foreground: #d4d4d4;
+  --sidebar-primary: #3794ff;
+  --sidebar-primary-foreground: #1e1e1e;
+  --sidebar-accent: #37373d;
+  --sidebar-accent-foreground: #ffffff;
+  --surface-muted: #2d2d30;
+}
+
+[data-theme="one-dark"] {
+  color-scheme: dark;
+  --background: #282c34;
+  --foreground: #abb2bf;
+  --card: #21252b;
+  --card-foreground: #abb2bf;
+  --popover: #2c323c;
+  --popover-foreground: #abb2bf;
+  --primary: #61afef;
+  --primary-foreground: #1e2127;
+  --secondary: #2c323c;
+  --secondary-foreground: #abb2bf;
+  --muted: #2c323c;
+  --muted-foreground: #c4c8d0;
+  --accent: #3e4451;
+  --accent-foreground: #f0f0f0;
+  --border: #3e4451;
+  --input: #3e4451;
+  --ring: #61afef;
+  --sidebar: #21252b;
+  --sidebar-foreground: #abb2bf;
+  --sidebar-primary: #61afef;
+  --sidebar-primary-foreground: #1e2127;
+  --sidebar-accent: #2c323c;
+  --sidebar-accent-foreground: #f0f0f0;
+  --surface-muted: #2c323c;
+}
+
+[data-theme="dracula"] {
+  color-scheme: dark;
+  --background: #282a36;
+  --foreground: #f8f8f2;
+  --card: #21222c;
+  --card-foreground: #f8f8f2;
+  --popover: #343746;
+  --popover-foreground: #f8f8f2;
+  --primary: #bd93f9;
+  --primary-foreground: #282a36;
+  --secondary: #343746;
+  --secondary-foreground: #f8f8f2;
+  --muted: #343746;
+  --muted-foreground: #c7c9d1;
+  --accent: #44475a;
+  --accent-foreground: #f8f8f2;
+  --border: #44475a;
+  --input: #44475a;
+  --ring: #bd93f9;
+  --sidebar: #21222c;
+  --sidebar-foreground: #f8f8f2;
+  --sidebar-primary: #bd93f9;
+  --sidebar-primary-foreground: #282a36;
+  --sidebar-accent: #44475a;
+  --sidebar-accent-foreground: #f8f8f2;
+  --surface-muted: #343746;
 }
 
 @theme inline {
@@ -107,10 +275,232 @@ textarea {
 }
 
 .panel {
-  border: 1px solid #dfe5ec;
+  border: 1px solid color-mix(in srgb, var(--border) 62%, transparent);
   border-radius: 10px;
-  background: #ffffff;
-  box-shadow: 0 1px 2px rgb(15 23 42 / 0.035);
+  background: var(--card);
+  box-shadow: 0 8px 24px color-mix(in srgb, var(--foreground) 5%, transparent);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+}
+
+[data-theme="midnight"] body,
+[data-theme="graphite"] body {
+  --tw-shadow-color: rgb(0 0 0 / 0.25);
+}
+
+/* Keep the interface calm: separators should support grouping without
+   turning every section into a hard-edged box. */
+[class*="border-slate-"],
+[class*="border-blue-"],
+[class*="border-violet-"],
+[class*="border-cyan-"],
+[class*="border-amber-"],
+[class*="border-emerald-"],
+[class*="border-rose-"] {
+  border-color: color-mix(in srgb, var(--border) 58%, transparent) !important;
+}
+
+[class*="divide-slate-"] > :not([hidden]) ~ :not([hidden]) {
+  border-color: color-mix(in srgb, var(--border) 48%, transparent) !important;
+}
+
+[data-theme="midnight"] .bg-white,
+[data-theme="graphite"] .bg-white,
+[data-theme="midnight"] [class*="bg-white/"],
+[data-theme="graphite"] [class*="bg-white/"] {
+  background-color: var(--card) !important;
+}
+
+[data-theme="midnight"] .bg-\[\#f2f5f8\],
+[data-theme="graphite"] .bg-\[\#f2f5f8\] {
+  background-color: var(--background) !important;
+}
+
+[data-theme="midnight"] [class*="bg-slate-"],
+[data-theme="graphite"] [class*="bg-slate-"] {
+  background-color: var(--surface-muted) !important;
+}
+
+[data-theme="midnight"] [class*="border-slate-"],
+[data-theme="graphite"] [class*="border-slate-"] {
+  border-color: color-mix(in srgb, var(--border) 58%, transparent) !important;
+}
+
+[data-theme="midnight"] [class*="text-slate-950"],
+[data-theme="midnight"] [class*="text-slate-900"],
+[data-theme="midnight"] [class*="text-slate-800"],
+[data-theme="graphite"] [class*="text-slate-950"],
+[data-theme="graphite"] [class*="text-slate-900"],
+[data-theme="graphite"] [class*="text-slate-800"] {
+  color: var(--foreground) !important;
+}
+
+[data-theme="midnight"] [class*="text-slate-700"],
+[data-theme="midnight"] [class*="text-slate-600"],
+[data-theme="midnight"] [class*="text-slate-500"],
+[data-theme="midnight"] [class*="text-slate-400"],
+[data-theme="graphite"] [class*="text-slate-700"],
+[data-theme="graphite"] [class*="text-slate-600"],
+[data-theme="graphite"] [class*="text-slate-500"],
+[data-theme="graphite"] [class*="text-slate-400"] {
+  color: var(--muted-foreground) !important;
+}
+
+[data-theme="midnight"] [class*="bg-blue-50"],
+[data-theme="graphite"] [class*="bg-blue-50"],
+[data-theme="midnight"] [class*="bg-violet-50"],
+[data-theme="graphite"] [class*="bg-violet-50"] {
+  background-color: color-mix(in srgb, var(--primary) 14%, var(--card)) !important;
+}
+
+/* Colored selection chips use the same semantic foreground as their themed surface. */
+[data-theme="midnight"] [class*="bg-blue-50"][class*="text-blue-"],
+[data-theme="midnight"] [class*="bg-violet-50"][class*="text-violet-"],
+[data-theme="midnight"] [class*="bg-cyan-50"][class*="text-cyan-"],
+[data-theme="graphite"] [class*="bg-blue-50"][class*="text-blue-"],
+[data-theme="graphite"] [class*="bg-violet-50"][class*="text-violet-"],
+[data-theme="graphite"] [class*="bg-cyan-50"][class*="text-cyan-"] {
+  color: var(--accent-foreground) !important;
+}
+
+/* The added editor themes follow the same neutral utility mapping. */
+[data-theme="vscode-dark"] .bg-white,
+[data-theme="one-dark"] .bg-white,
+[data-theme="dracula"] .bg-white,
+[data-theme="vscode-dark"] [class*="bg-white/"],
+[data-theme="one-dark"] [class*="bg-white/"],
+[data-theme="dracula"] [class*="bg-white/"],
+[data-theme="vscode-dark"] .bg-\[\#f2f5f8\],
+[data-theme="one-dark"] .bg-\[\#f2f5f8\],
+[data-theme="dracula"] .bg-\[\#f2f5f8\] {
+  background-color: var(--card) !important;
+}
+
+[data-theme="vscode-dark"] [class*="bg-slate-"],
+[data-theme="one-dark"] [class*="bg-slate-"],
+[data-theme="dracula"] [class*="bg-slate-"] {
+  background-color: var(--surface-muted) !important;
+}
+
+[data-theme="vscode-dark"] [class*="border-slate-"],
+[data-theme="one-dark"] [class*="border-slate-"],
+[data-theme="dracula"] [class*="border-slate-"] {
+  border-color: color-mix(in srgb, var(--border) 58%, transparent) !important;
+}
+
+[data-theme="vscode-dark"] [class*="text-slate-950"],
+[data-theme="vscode-dark"] [class*="text-slate-900"],
+[data-theme="vscode-dark"] [class*="text-slate-800"],
+[data-theme="one-dark"] [class*="text-slate-950"],
+[data-theme="one-dark"] [class*="text-slate-900"],
+[data-theme="one-dark"] [class*="text-slate-800"],
+[data-theme="dracula"] [class*="text-slate-950"],
+[data-theme="dracula"] [class*="text-slate-900"],
+[data-theme="dracula"] [class*="text-slate-800"] {
+  color: var(--foreground) !important;
+}
+
+[data-theme="vscode-dark"] [class*="text-slate-700"],
+[data-theme="vscode-dark"] [class*="text-slate-600"],
+[data-theme="vscode-dark"] [class*="text-slate-500"],
+[data-theme="vscode-dark"] [class*="text-slate-400"],
+[data-theme="one-dark"] [class*="text-slate-700"],
+[data-theme="one-dark"] [class*="text-slate-600"],
+[data-theme="one-dark"] [class*="text-slate-500"],
+[data-theme="one-dark"] [class*="text-slate-400"],
+[data-theme="dracula"] [class*="text-slate-700"],
+[data-theme="dracula"] [class*="text-slate-600"],
+[data-theme="dracula"] [class*="text-slate-500"],
+[data-theme="dracula"] [class*="text-slate-400"] {
+  color: var(--muted-foreground) !important;
+}
+
+[data-theme="vscode-dark"] [class*="bg-blue-50"],
+[data-theme="vscode-dark"] [class*="bg-violet-50"],
+[data-theme="one-dark"] [class*="bg-blue-50"],
+[data-theme="one-dark"] [class*="bg-violet-50"],
+[data-theme="dracula"] [class*="bg-blue-50"],
+[data-theme="dracula"] [class*="bg-violet-50"] {
+  background-color: color-mix(in srgb, var(--primary) 14%, var(--card)) !important;
+}
+
+/* Status chips remain quiet and readable on dark editor palettes instead of
+   importing bright light-mode blocks into an otherwise unified surface. */
+[data-theme="midnight"] [class*="bg-amber-50"],
+[data-theme="midnight"] [class*="bg-emerald-50"],
+[data-theme="midnight"] [class*="bg-rose-50"],
+[data-theme="midnight"] [class*="bg-cyan-50"],
+[data-theme="graphite"] [class*="bg-amber-50"],
+[data-theme="graphite"] [class*="bg-emerald-50"],
+[data-theme="graphite"] [class*="bg-rose-50"],
+[data-theme="graphite"] [class*="bg-cyan-50"],
+[data-theme="vscode-dark"] [class*="bg-amber-50"],
+[data-theme="vscode-dark"] [class*="bg-emerald-50"],
+[data-theme="vscode-dark"] [class*="bg-rose-50"],
+[data-theme="vscode-dark"] [class*="bg-cyan-50"],
+[data-theme="one-dark"] [class*="bg-amber-50"],
+[data-theme="one-dark"] [class*="bg-emerald-50"],
+[data-theme="one-dark"] [class*="bg-rose-50"],
+[data-theme="one-dark"] [class*="bg-cyan-50"],
+[data-theme="dracula"] [class*="bg-amber-50"],
+[data-theme="dracula"] [class*="bg-emerald-50"],
+[data-theme="dracula"] [class*="bg-rose-50"],
+[data-theme="dracula"] [class*="bg-cyan-50"] {
+  background-color: color-mix(in srgb, var(--primary) 10%, var(--card)) !important;
+}
+
+[data-theme="midnight"] [class*="bg-amber-50"][class*="text-"],
+[data-theme="midnight"] [class*="bg-emerald-50"][class*="text-"],
+[data-theme="midnight"] [class*="bg-rose-50"][class*="text-"],
+[data-theme="midnight"] [class*="bg-cyan-50"][class*="text-"],
+[data-theme="graphite"] [class*="bg-amber-50"][class*="text-"],
+[data-theme="graphite"] [class*="bg-emerald-50"][class*="text-"],
+[data-theme="graphite"] [class*="bg-rose-50"][class*="text-"],
+[data-theme="graphite"] [class*="bg-cyan-50"][class*="text-"],
+[data-theme="vscode-dark"] [class*="bg-amber-50"][class*="text-"],
+[data-theme="vscode-dark"] [class*="bg-emerald-50"][class*="text-"],
+[data-theme="vscode-dark"] [class*="bg-rose-50"][class*="text-"],
+[data-theme="vscode-dark"] [class*="bg-cyan-50"][class*="text-"],
+[data-theme="one-dark"] [class*="bg-amber-50"][class*="text-"],
+[data-theme="one-dark"] [class*="bg-emerald-50"][class*="text-"],
+[data-theme="one-dark"] [class*="bg-rose-50"][class*="text-"],
+[data-theme="one-dark"] [class*="bg-cyan-50"][class*="text-"],
+[data-theme="dracula"] [class*="bg-amber-50"][class*="text-"],
+[data-theme="dracula"] [class*="bg-emerald-50"][class*="text-"],
+[data-theme="dracula"] [class*="bg-rose-50"][class*="text-"],
+[data-theme="dracula"] [class*="bg-cyan-50"][class*="text-"] {
+  color: var(--accent-foreground) !important;
+}
+
+[data-theme="vscode-dark"] [class*="bg-blue-50"][class*="text-blue-"],
+[data-theme="vscode-dark"] [class*="bg-violet-50"][class*="text-violet-"],
+[data-theme="vscode-dark"] [class*="bg-cyan-50"][class*="text-cyan-"],
+[data-theme="one-dark"] [class*="bg-blue-50"][class*="text-blue-"],
+[data-theme="one-dark"] [class*="bg-violet-50"][class*="text-violet-"],
+[data-theme="one-dark"] [class*="bg-cyan-50"][class*="text-cyan-"],
+[data-theme="dracula"] [class*="bg-blue-50"][class*="text-blue-"],
+[data-theme="dracula"] [class*="bg-violet-50"][class*="text-violet-"],
+[data-theme="dracula"] [class*="bg-cyan-50"][class*="text-cyan-"] {
+  color: var(--accent-foreground) !important;
+}
+
+/* Common shell surfaces use semantic variables so each theme stays coherent. */
+header,
+footer {
+  background-color: color-mix(in srgb, var(--card) 96%, transparent);
+  color: var(--foreground);
+  border-color: var(--border) !important;
+}
+
+[data-theme] input,
+[data-theme] textarea,
+[data-theme] select {
+  color: var(--foreground);
+  border-color: var(--input);
+  background-color: var(--card);
 }
 
 .wavebar {

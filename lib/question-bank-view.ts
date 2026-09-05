@@ -20,7 +20,7 @@ export type QuestionBankViewItem = {
   knowledgePoints?: string[];
   techStacks?: string[];
   detectionDirection?: string;
-  reference?: { title: string; url: string };
+  reference?: { title: string; url: string; snippet?: string };
   bestAnswer?: string;
   principle?: string;
   origin: QuestionBankViewOrigin;
@@ -47,7 +47,9 @@ function normalizeReference(value: unknown) {
   const record = value as Record<string, unknown>;
   const title = cleanText(record.title);
   const url = cleanText(record.url);
-  return title && url ? { title, url } : undefined;
+  if (!title || !/^https?:\/\//i.test(url)) return undefined;
+  const snippet = cleanText(record.snippet);
+  return { title, url, ...(snippet ? { snippet } : {}) };
 }
 
 function normalizeTitle(value: string) {

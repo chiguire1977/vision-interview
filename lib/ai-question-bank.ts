@@ -1,5 +1,17 @@
 import { normalizeKnowledgeCategory, normalizeTechStack } from "./taxonomy.mjs";
 import { normalizeDetectionDirection } from "./detection-direction.mjs";
+import { normalizeQuestionBlueprint } from "./question-blueprint.mjs";
+
+export type AiQuestionBlueprint = {
+  version: number;
+  knowledgeKey: string;
+  corePoints: string[];
+  criticalPoints: string[];
+  supportingPoints: string[];
+  ability: string[];
+  scenario: string;
+  commonMistakes: string[];
+};
 
 export type AiGeneratedQuestion = {
   title: string;
@@ -17,8 +29,9 @@ export type AiGeneratedQuestion = {
   detectionDirection?: string;
   bestAnswer: string;
   principle: string;
+  blueprint?: AiQuestionBlueprint;
   basis?: string;
-  reference?: { title: string; url: string };
+  reference?: { title: string; url: string; snippet?: string };
 };
 
 export type QuestionBankArchiveEntry = AiGeneratedQuestion & {
@@ -48,6 +61,14 @@ export type QuestionBankArchiveMetadata = {
 
 export type AiQuestionSourceFilter = "专业" | "项目" | "专业或项目";
 export const AI_QUESTION_MAX_ATTEMPTS = 6;
+const AI_QUESTION_DIVERSITY_LANES = [
+  "原理与机制",
+  "参数与边界",
+  "工程实践与性能",
+  "现场故障与排查",
+  "方案取舍与对比",
+  "验证与项目落地",
+];
 export type AiQuestionGroupProgressPhase = "requesting" | "searching" | "search-completed" | "search-failed" | "ai-requesting" | "received" | "failed";
 export type AiQuestionGroupProgress = {
   phase: AiQuestionGroupProgressPhase;
@@ -141,6 +162,7 @@ function questionSearchText(question: Partial<AiGeneratedQuestion>) {
     question.principle,
     question.reference?.title,
     question.reference?.url,
+    question.reference?.snippet,
   ].filter(Boolean).join("|");
 }
 
@@ -206,12 +228,93 @@ export function normalizeQuestionTitleKey(value: unknown) {
   return cleanString(value).toLocaleLowerCase();
 }
 
+function questionSimilaritySignals(question: Partial<AiGeneratedQuestion>) {
+  const title = normalizedComparison(question.title);
+  const signals = new Set<string>();
+  const chineseCharacters = Array.from(title).filter((character) => /[\u4e00-\u9fff]/.test(character));
+  for (let index = 0; index < chineseCharacters.length - 1; index += 1) {
+    signals.add(`${chineseCharacters[index]}${chineseCharacters[index + 1]}`);
+  }
+  for (const token of title.match(/[a-z0-9]+/g) ?? []) {
+    if (token.length >= 3) signals.add(token);
+  }
+  return signals;
+}
+
+function questionClassSignals(question: Partial<AiGeneratedQuestion>) {
+  const signals = new Set<string>();
+  // Knowledge points are the explicit semantic contract from the generator.
+  // Do not infer a whole class from generic tags/keywords when older records
+  // do not contain knowledgePoints; title similarity remains the safe fallback.
+  for (const value of question.knowledgePoints ?? []) {
+    const token = normalizedComparison(value);
+    if (token.length >= 2) signals.add(token);
+  }
+  return signals;
+}
+
+function questionScopeMatches(left: Partial<AiGeneratedQuestion>, right: Partial<AiGeneratedQuestion>) {
+  const leftCategory = normalizedComparison(left.category);
+  const rightCategory = normalizedComparison(right.category);
+  if (leftCategory && rightCategory && leftCategory !== rightCategory) return false;
+  const leftStacks = new Set((left.techStacks ?? []).map(normalizedComparison).filter(Boolean));
+  const rightStacks = new Set((right.techStacks ?? []).map(normalizedComparison).filter(Boolean));
+  if (leftStacks.size && rightStacks.size && ![...leftStacks].some((stack) => rightStacks.has(stack))) return false;
+  const leftDirection = normalizedComparison(left.detectionDirection);
+  const rightDirection = normalizedComparison(right.detectionDirection);
+  return !leftDirection || !rightDirection || leftDirection === rightDirection;
+}
+
+/** Returns a stable class key used to coordinate parallel workers and retries. */
+export function questionKnowledgeClassKey(question: Partial<AiGeneratedQuestion>) {
+  const signals = [...questionClassSignals(question)].sort();
+  if (!signals.length) return normalizeQuestionTitleKey(question.title);
+  return [
+    normalizedComparison(question.category),
+    [...new Set((question.techStacks ?? []).map(normalizedComparison).filter(Boolean))].sort().join(","),
+    signals.slice(0, 6).join(","),
+  ].join("|");
+}
+
+function questionClassSimilarity(left: Partial<AiGeneratedQuestion>, right: Partial<AiGeneratedQuestion>) {
+  if (!questionScopeMatches(left, right)) return 0;
+  const leftSignals = questionClassSignals(left);
+  const rightSignals = questionClassSignals(right);
+  if (leftSignals.size < 2 || rightSignals.size < 2) return 0;
+  let intersection = 0;
+  for (const signal of leftSignals) if (rightSignals.has(signal)) intersection += 1;
+  return intersection / Math.min(leftSignals.size, rightSignals.size);
+}
+
+function questionSimilarity(left: Partial<AiGeneratedQuestion>, right: Partial<AiGeneratedQuestion>) {
+  if (questionClassSimilarity(left, right) >= 0.6) return 1;
+  const leftSignals = questionSimilaritySignals(left);
+  const rightSignals = questionSimilaritySignals(right);
+  if (leftSignals.size < 3 || rightSignals.size < 3) return 0;
+  let intersection = 0;
+  for (const signal of leftSignals) if (rightSignals.has(signal)) intersection += 1;
+  return intersection / Math.min(leftSignals.size, rightSignals.size);
+}
+
+/** Removes paraphrased questions from a single generated group without altering the archive. */
+export function filterSimilarQuestionGroup(values: unknown[], threshold = 0.38) {
+  const normalized = normalizeAiGeneratedQuestions(values);
+  const result: AiGeneratedQuestion[] = [];
+  for (const question of normalized) {
+    if (result.some((existing) => questionSimilarity(existing, question) >= threshold)) continue;
+    result.push(question);
+  }
+  return result;
+}
+
 function normalizeReference(value: unknown) {
   if (!value || typeof value !== "object") return undefined;
   const record = value as Record<string, unknown>;
   const title = cleanString(record.title);
   const url = cleanString(record.url);
-  return title && url ? { title, url } : undefined;
+  if (!title || !/^https?:\/\//i.test(url)) return undefined;
+  const snippet = cleanText(record.snippet);
+  return { title, url, ...(snippet ? { snippet } : {}) };
 }
 
 function normalizeAiGeneratedQuestion(value: unknown): AiGeneratedQuestion | null {
@@ -238,6 +341,9 @@ function normalizeAiGeneratedQuestion(value: unknown): AiGeneratedQuestion | nul
   const detectionDirection = normalizeDetectionDirection(record.detectionDirection);
   const basis = cleanText(record.basis);
   const reference = normalizeReference(record.reference);
+  const rawBlueprint = record.blueprint && typeof record.blueprint === "object"
+    ? normalizeQuestionBlueprint(record.blueprint)
+    : undefined;
   return {
     title,
     type,
@@ -254,6 +360,7 @@ function normalizeAiGeneratedQuestion(value: unknown): AiGeneratedQuestion | nul
     ...(detectionDirection ? { detectionDirection } : {}),
     bestAnswer,
     principle,
+    ...(rawBlueprint ? { blueprint: rawBlueprint } : {}),
     ...(basis ? { basis } : {}),
     ...(reference ? { reference } : {}),
   };
@@ -271,6 +378,11 @@ export function normalizeAiGeneratedQuestions(values: unknown[]) {
     result.push(question);
   }
   return result;
+}
+
+export function filterPersistableQuestions(values: unknown[], { requiresVerifiedReference = false } = {}) {
+  const normalized = normalizeAiGeneratedQuestions(values);
+  return requiresVerifiedReference ? normalized.filter((question) => Boolean(question.reference)) : normalized;
 }
 
 function safeAttemptError(error: unknown) {
@@ -332,19 +444,23 @@ export function deferAsyncTask<T>(
 }
 
 export async function collectAiQuestionGroup(
-  request: (count: number, excludedTitles: string[], attempt: number, workerIndex?: number, roundContext?: unknown) => Promise<unknown[]>,
+  request: (count: number, excludedTitles: string[], attempt: number, workerIndex?: number, roundContext?: unknown, workerContext?: unknown) => Promise<unknown[]>,
   targetCount: number,
   maxAttempts = AI_QUESTION_MAX_ATTEMPTS,
   onProgress?: (progress: AiQuestionGroupProgress) => void,
   options: {
     parallelRequests?: number;
     prepareAttempt?: (attempt: number, excludedTitles: string[]) => Promise<unknown>;
+    initialExcludedTitles?: string[];
+    initialExcludedQuestionClasses?: string[];
   } = {},
 ) {
   const target = Math.max(0, Math.floor(targetCount));
   const attempts = Math.max(1, Math.floor(maxAttempts));
   const parallelRequests = Math.max(1, Math.floor(options.parallelRequests ?? 1));
   let collected: AiGeneratedQuestion[] = [];
+  const initialExcludedTitles = [...new Set((options.initialExcludedTitles ?? []).filter(Boolean))];
+  const excludedQuestionClasses = new Set<string>((options.initialExcludedQuestionClasses ?? []).filter(Boolean));
   const report = (progress: AiQuestionGroupProgress) => {
     try { onProgress?.(progress); } catch { /* 进度回调不能影响题组生成 */ }
   };
@@ -355,7 +471,7 @@ export async function collectAiQuestionGroup(
     const workerCount = Math.min(parallelRequests, missing);
     const baseCount = Math.floor(missing / workerCount);
     const remainder = missing % workerCount;
-    const excludedTitles = collected.map((question) => question.title);
+    const excludedTitles = [...initialExcludedTitles, ...collected.map((question) => question.title)];
     let roundContext: unknown;
     if (options.prepareAttempt) {
       try {
@@ -376,7 +492,12 @@ export async function collectAiQuestionGroup(
     const workerRequests = Array.from({ length: workerCount }, (_, workerOffset) => {
       const workerIndex = workerOffset + 1;
       const count = baseCount + (workerOffset < remainder ? 1 : 0);
-      return Promise.resolve().then(() => request(count, excludedTitles, attempt, workerIndex, roundContext));
+      const laneIndex = ((attempt - 1) * workerCount + workerOffset) % AI_QUESTION_DIVERSITY_LANES.length;
+      const workerContext = {
+        lane: AI_QUESTION_DIVERSITY_LANES[laneIndex],
+        excludedQuestionClasses: [...excludedQuestionClasses],
+      };
+      return Promise.resolve().then(() => request(count, excludedTitles, attempt, workerIndex, roundContext, workerContext));
     });
     const results = await Promise.allSettled(workerRequests);
     const received: unknown[] = [];
@@ -401,7 +522,11 @@ export async function collectAiQuestionGroup(
       });
     });
 
-    collected = normalizeAiGeneratedQuestions([...collected, ...received]).slice(0, target);
+    collected = filterSimilarQuestionGroup([...collected, ...received]).slice(0, target);
+    for (const question of collected) {
+      const key = questionKnowledgeClassKey(question);
+      if (key) excludedQuestionClasses.add(key);
+    }
     if (received.length > 0) {
       report({
         phase: "received",
@@ -430,7 +555,7 @@ export async function collectAiQuestionGroup(
 
 export function fillQuestionGroup(aiValues: unknown[], fallbackValues: unknown[], targetCount: number) {
   const target = Math.max(0, Math.floor(targetCount));
-  const ai = normalizeAiGeneratedQuestions(aiValues).slice(0, target);
+  const ai = filterSimilarQuestionGroup(aiValues).slice(0, target);
   const fallback = normalizeAiGeneratedQuestions(fallbackValues);
   const questions: AiGeneratedQuestion[] = [...ai];
   const seen = new Set(questions.map((question) => normalizeQuestionTitleKey(question.title)));
@@ -438,7 +563,7 @@ export function fillQuestionGroup(aiValues: unknown[], fallbackValues: unknown[]
   for (const question of fallback) {
     if (questions.length >= target) break;
     const key = normalizeQuestionTitleKey(question.title);
-    if (!key || seen.has(key)) continue;
+    if (!key || seen.has(key) || questions.some((existing) => questionSimilarity(existing, question) >= 0.38)) continue;
     seen.add(key);
     questions.push(question);
   }
@@ -539,7 +664,8 @@ function markdownReference(value: QuestionBankArchiveEntry["reference"]) {
   if (!value) return "未提供";
   const title = markdownInline(value.title);
   const url = value.url.trim();
-  return /^https?:\/\//i.test(url) ? `[${title}](${url.replace(/[()]/g, "\\$&")})` : `${title}：${markdownInline(url)}`;
+  const link = /^https?:\/\//i.test(url) ? `[${title}](${url.replace(/[()]/g, "\\$&")})` : `${title}：${markdownInline(url)}`;
+  return value.snippet ? `${link}\n\n> ${markdownBody(value.snippet)}` : link;
 }
 
 export function createQuestionBankMarkdown(values: unknown[], updatedAt = new Date().toISOString()) {

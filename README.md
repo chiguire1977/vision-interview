@@ -96,12 +96,13 @@ actions tied to the current ChatGPT user. Leave public content anonymous.
 
 ## GitHub Backups
 
-AI-generated interview questions are placed in a local pending queue first and, before the generated group is shown, are sent through the server-side sync route to `data/ai-question-bank.json`. To enable GitHub writes, configure a fine-grained token with Contents read/write permission for this repository:
+AI-generated interview questions are placed in a local pending queue first and, before the generated group is shown, are sent through the server-side sync route to `data/ai-question-bank.json` and the human-readable `data/ai-question-bank.md`. To enable GitHub writes, configure a fine-grained token with Contents read/write permission for this repository:
 
 - `VISION_INTERVIEW_GITHUB_TOKEN`: required for automatic GitHub backup
 - `VISION_INTERVIEW_GITHUB_REPOSITORY`: optional, defaults to `chiguire1977/vision-interview`
 - `VISION_INTERVIEW_GITHUB_BRANCH`: optional, defaults to `main`
 - `VISION_INTERVIEW_GITHUB_ARCHIVE_PATH`: optional, defaults to `data/ai-question-bank.json`
+- `VISION_INTERVIEW_GITHUB_MARKDOWN_PATH`: optional, defaults to `data/ai-question-bank.md`
 
 Do not expose the GitHub token to browser code. Without a server-side token, generated questions remain in the local pending-backup queue and training continues normally.
 

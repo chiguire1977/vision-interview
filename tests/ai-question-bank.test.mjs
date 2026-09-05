@@ -138,6 +138,26 @@ test("normalizes and deduplicates AI generated questions", () => {
   assert.equal(result[1].difficulty, "hard");
 });
 
+test("only persists verified http sources and keeps source excerpts in the archive", () => {
+  const [valid, invalid] = bank.normalizeAiGeneratedQuestions([
+    generated("Verified source", { reference: { title: "Official docs", url: "https://docs.example.com/vision", snippet: "confirmed excerpt" } }),
+    generated("Invalid source", { reference: { title: "Unverified", url: "javascript:alert(1)", snippet: "do not save" } }),
+  ]);
+  assert.deepEqual(valid.reference, { title: "Official docs", url: "https://docs.example.com/vision", snippet: "confirmed excerpt" });
+  assert.equal(invalid.reference, undefined);
+  const [archived] = bank.createQuestionBankArchiveEntries([valid], { generatedAt: "2026-09-04T00:00:00.000Z" });
+  assert.deepEqual(archived.reference, valid.reference);
+});
+
+test("does not persist network questions when no verified source was acquired", () => {
+  const persistable = bank.filterPersistableQuestions([
+    generated("With source", { reference: { title: "Docs", url: "https://docs.example.com/a" } }),
+    generated("Without source"),
+  ], { requiresVerifiedReference: true });
+  assert.deepEqual(persistable.map((question) => question.title), ["With source"]);
+  assert.deepEqual(bank.filterPersistableQuestions([generated("Without source")], { requiresVerifiedReference: false }).map((question) => question.title), ["Without source"]);
+});
+
 test("normalizes legacy taxonomy labels without breaking technology-stack filtering", () => {
   const [question] = bank.normalizeAiGeneratedQuestions([generated("Legacy communication question", {
     category: "PLC与现场",
@@ -154,6 +174,15 @@ test("normalizes legacy taxonomy labels without breaking technology-stack filter
     category: "通讯协议",
     techStack: "C#",
   }).length, 1);
+});
+
+test("preserves and normalizes question blueprints for mastery review", () => {
+  const [question] = bank.normalizeAiGeneratedQuestions([generated("Blueprint question", {
+    blueprint: { criticalPoints: ["窗口大小"], supportingPoints: ["误检验证"], ability: ["参数判断"] },
+  })]);
+  assert.deepEqual(question.blueprint.criticalPoints, ["窗口大小"]);
+  assert.deepEqual(question.blueprint.supportingPoints, ["误检验证"]);
+  assert.deepEqual(question.blueprint.corePoints, ["窗口大小", "误检验证"]);
 });
 
 test("preserves knowledge-driven source metadata in normalized questions and markdown", () => {
@@ -178,6 +207,22 @@ test("fills only the missing slots with local fallback", () => {
   assert.equal(merged.aiCount, 7);
   assert.deepEqual(merged.questions.slice(0, 7).map((q) => q.title), ai.map((q) => q.title));
   assert.deepEqual(merged.questions.slice(7).map((q) => q.title), ["LOCAL-1", "LOCAL-2", "LOCAL-3"]);
+});
+
+test("filters paraphrased questions within one group while keeping distinct angles", () => {
+  const similar = generated("NCC 模板匹配的阈值和匹配分数应该如何设置？", {
+    keywords: ["阈值", "匹配分数", "候选筛选"],
+  });
+  const paraphrase = generated("模板匹配分数阈值怎么调，如何筛选候选位置？", {
+    keywords: ["阈值", "匹配分数", "候选筛选"],
+  });
+  const distinct = generated("如何排查相机曝光不足导致的图像噪声？", {
+    keywords: ["曝光", "噪声", "增益"],
+  });
+
+  const result = bank.filterSimilarQuestionGroup([similar, paraphrase, distinct]);
+
+  assert.deepEqual(result.map((question) => question.title), [similar.title, distinct.title]);
 });
 
 test("merges GitHub archive entries by stable normalized title", () => {
@@ -266,6 +311,67 @@ test("prepares one shared context per retry round for parallel workers", async (
   assert.equal(contexts.length, 3);
   assert.ok(contexts.every((context) => context?.sources?.[0] === "shared-source"));
   assert.ok(contexts.every((context) => context === contexts[0]));
+});
+
+test("filters parallel questions that target the same knowledge class despite different wording", () => {
+  const result = bank.filterSimilarQuestionGroup([
+    generated("如何选择局部阈值窗口", {
+      category: "图像处理基础",
+      knowledgePoints: ["局部阈值", "窗口大小", "光照不均"],
+      tags: ["阈值分割", "光照"],
+      keywords: ["局部阈值", "窗口大小"],
+      type: "参数选择",
+    }),
+    generated("光照变化时动态分割参数怎么调", {
+      category: "图像处理基础",
+      knowledgePoints: ["局部阈值", "窗口大小", "光照不均"],
+      tags: ["阈值分割", "光照"],
+      keywords: ["局部阈值", "窗口大小"],
+      type: "工程实践",
+    }),
+  ]);
+
+  assert.equal(result.length, 1);
+});
+
+test("assigns distinct diversity lanes to parallel workers", async () => {
+  const workerContexts = [];
+  await bank.collectAiQuestionGroup(
+    async (count, _excludedTitles, _attempt, workerIndex, _roundContext, workerContext) => {
+      workerContexts.push({ workerIndex, workerContext });
+      return Array.from({ length: count }, (_, index) => generated(`lane-${workerIndex}-${index}`));
+    },
+    6,
+    1,
+    undefined,
+    { parallelRequests: 3 },
+  );
+
+  assert.equal(workerContexts.length, 3);
+  assert.equal(new Set(workerContexts.map(({ workerContext }) => workerContext?.lane)).size, 3);
+  assert.ok(workerContexts.every(({ workerContext }) => Array.isArray(workerContext?.excludedQuestionClasses)));
+});
+
+test("shares local question exclusions with every parallel worker", async () => {
+  const calls = [];
+  await bank.collectAiQuestionGroup(
+    async (count, excludedTitles, _attempt, workerIndex, _roundContext, workerContext) => {
+      calls.push({ count, excludedTitles, workerIndex, workerContext });
+      return Array.from({ length: count }, (_, index) => generated(`fresh-${workerIndex}-${index}`));
+    },
+    4,
+    1,
+    undefined,
+    {
+      parallelRequests: 2,
+      initialExcludedTitles: ["本地题目"],
+      initialExcludedQuestionClasses: ["图像处理基础||局部阈值,窗口大小"],
+    },
+  );
+
+  assert.equal(calls.length, 2);
+  assert.ok(calls.every((call) => call.excludedTitles.includes("本地题目")));
+  assert.ok(calls.every((call) => call.workerContext.excludedQuestionClasses.includes("图像处理基础||局部阈值,窗口大小")));
 });
 
 test("continues parallel rounds when one worker fails", async () => {
