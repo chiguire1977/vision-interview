@@ -1,8 +1,2082 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-05T01:17:17.237Z",
+  "updatedAt": "2026-09-05T01:17:21.965Z",
   "data": {
     "vision-interview-records": [
+      {
+        "question": "请说明HALCON中gauss_filter和median_image两种滤波算子的原理区别，以及在传统2D视觉预处理中的适用场景。",
+        "project": "机器视觉专业知识",
+        "date": "2026/9/3",
+        "timestamp": "2026/9/3 20:53:20",
+        "action": "跳过题目",
+        "mode": "专业知识",
+        "category": "随机类型",
+        "source": "专业",
+        "seconds": 0,
+        "answer": "",
+        "bestAnswer": "gauss_filter是线性高斯滤波，通过卷积核加权平均抑制高斯噪声，但会平滑边缘；median_image是非线性中值滤波，取邻域中值，对椒盐噪声和离群点有极强去除能力，且能较好保持边缘。在传统2D视觉中，若图像含椒盐噪声，应优先使用median_image；若仅含高斯噪声，可用gauss_filter。两者可组合：先用中值滤波去除椒盐噪声，再用高斯滤波平滑剩余噪声，但需注意过度平滑会损失细节。",
+        "bestAnswerViewed": false,
+        "reviewStatus": "reviewed",
+        "answerKeywords": [
+          "高斯滤波",
+          "中值滤波",
+          "椒盐噪声",
+          "边缘保持"
+        ],
+        "principle": "高斯滤波是线性卷积操作，核内像素按高斯分布加权求和，频域上相当于低通滤波，能抑制随机高斯噪声但模糊阶跃边缘；中值滤波是排序统计滤波，将邻域像素排序后取中值替代中心像素，对脉冲型噪声（椒盐噪声）响应为零，且不产生线性模糊，因此能在去噪同时保持边缘位置。选择滤波器需根据噪声模型和后续特征提取要求权衡平滑度与细节保留。",
+        "id": "1788439940395-8a3a8d2b2385d8",
+        "reviewIssues": [
+          "本题未回答，无法与最佳回答进行要点对照。"
+        ],
+        "reviewSuggestions": [
+          "请补充最佳回答中的关键内容：高斯滤波、中值滤波、椒盐噪声。"
+        ],
+        "mastery": "低",
+        "masteryUpdatedAt": "2026/9/3 20:53:20",
+        "masteryReason": "内置要点评审：未回答。遗漏：高斯滤波、中值滤波、椒盐噪声。",
+        "reviewSource": "本地规则"
+      },
+      {
+        "question": "HALCON中区域（Region）和XLD轮廓（Contour）在数据结构、精度和使用场景上有哪些主要区别？",
+        "project": "机器视觉专业知识",
+        "date": "2026/9/3",
+        "timestamp": "2026/9/3 20:53:20",
+        "action": "跳过题目",
+        "mode": "专业知识",
+        "category": "算法原理",
+        "source": "专业",
+        "seconds": 0,
+        "answer": "",
+        "bestAnswer": "区域是像素级栅格数据结构，表示满足条件的像素集合，精度为一个像素，常用于Blob分析、形态学操作和特征筛选。XLD是亚像素精度的轮廓数据结构，由一系列浮点坐标点组成，能更精确地描述边缘和形状，常用于边缘提取、几何拟合和测量。当需要高精度测量或拟合直线、圆等几何元素时，应将区域转换为XLD轮廓，例如使用gen_contour_region_xld将区域边界转换为亚像素轮廓。区域适合快速处理连通域，XLD适合精确几何计算。",
+        "bestAnswerViewed": false,
+        "reviewStatus": "reviewed",
+        "answerKeywords": [
+          "像素精度",
+          "亚像素精度",
+          "栅格数据",
+          "矢量轮廓",
+          "gen_contour_region_xld"
+        ],
+        "principle": "区域以游程编码或像素坐标集合存储，每个像素是离散单元，精度受限于像素网格。XLD以浮点坐标存储轮廓点，可表示亚像素位置，通过边缘提取算子获得。区域转XLD时，gen_contour_region_xld提取区域边界并拟合为亚像素轮廓，从而支持更精确的尺寸测量和几何拟合。两者是HALCON中不同层级的数据抽象，区域适合像素级处理，XLD适合亚像素级分析。",
+        "id": "1788439939474-1520226074f6c8",
+        "reviewIssues": [
+          "本题未回答，无法与最佳回答进行要点对照。"
+        ],
+        "reviewSuggestions": [
+          "请补充最佳回答中的关键内容：像素精度、亚像素精度、栅格数据、gen_contour_region_xld。"
+        ],
+        "mastery": "低",
+        "masteryUpdatedAt": "2026/9/3 20:53:20",
+        "masteryReason": "内置要点评审：未回答。遗漏：像素精度、亚像素精度、栅格数据、gen_contour_region_xld。",
+        "reviewSource": "本地规则"
+      },
+      {
+        "question": "请解释HALCON中形态学开运算（opening）和闭运算（closing）在传统2D视觉区域分析中的作用，并说明结构元素参数的选择原则。",
+        "project": "机器视觉专业知识",
+        "date": "2026/9/3",
+        "timestamp": "2026/9/3 20:53:20",
+        "action": "跳过题目",
+        "mode": "专业知识",
+        "category": "算法原理",
+        "source": "专业",
+        "seconds": 0,
+        "answer": "",
+        "bestAnswer": "开运算是先腐蚀后膨胀，能去除细小噪声点、断开狭窄连接，同时保持较大区域形状基本不变；闭运算是先膨胀后腐蚀，能填充区域内部小孔洞、连接邻近区域。在HALCON中常用opening_circle和closing_circle，结构元素半径越大，处理力度越强。选择原则是：噪声点尺寸小于目标特征时，开运算半径应略大于噪声尺寸；孔洞较小时，闭运算半径应略大于孔洞尺寸。实际中可通过灰度直方图或试错法确定。",
+        "bestAnswerViewed": false,
+        "reviewStatus": "reviewed",
+        "answerKeywords": [
+          "opening",
+          "closing",
+          "结构元素",
+          "噪声去除",
+          "区域平滑"
+        ],
+        "principle": "形态学操作基于集合论，腐蚀操作将结构元素在区域内滑动，仅当结构元素完全包含在区域内时保留该点，从而缩小区域并消除小凸起；膨胀操作将结构元素与区域求并集，扩大区域并填充凹陷。开运算先腐蚀后膨胀，能平滑边界并去除小物体；闭运算先膨胀后腐蚀，能填充小孔洞并连接邻近区域。结构元素的形状和大小决定了操作的几何选择性，圆盘形结构元素各向同性，适合通用场景。",
+        "id": "1788439939265-1ca15e75b56c88",
+        "reviewIssues": [
+          "本题未回答，无法与最佳回答进行要点对照。"
+        ],
+        "reviewSuggestions": [
+          "请补充最佳回答中的关键内容：opening、closing、结构元素。"
+        ],
+        "mastery": "低",
+        "masteryUpdatedAt": "2026/9/3 20:53:20",
+        "masteryReason": "内置要点评审：未回答。遗漏：opening、closing、结构元素。",
+        "reviewSource": "本地规则"
+      },
+      {
+        "question": "请解释HALCON中形状匹配（create_shape_model / find_shape_model）的基本原理，并说明金字塔层数和角度范围参数对匹配性能的影响。",
+        "project": "机器视觉专业知识",
+        "date": "2026/9/3",
+        "timestamp": "2026/9/3 20:53:20",
+        "action": "完成答题",
+        "mode": "专业知识",
+        "category": "模板匹配",
+        "source": "专业",
+        "seconds": 0,
+        "answer": "无",
+        "bestAnswer": "形状匹配通过提取模板边缘点的梯度方向，在搜索图像中滑动窗口，计算模板边缘与图像边缘的梯度方向一致性，得到相似度得分。create_shape_model生成模板时，numLevels决定金字塔层数，层数越多搜索越快，但层数过高可能丢失细节；AngleStart和AngleExtent定义模板旋转范围，范围越大搜索越慢。find_shape_model在金字塔顶层粗定位，再逐层细化，最终输出目标位置和得分。",
+        "bestAnswerViewed": false,
+        "reviewStatus": "reviewed",
+        "answerKeywords": [
+          "梯度方向",
+          "金字塔",
+          "numLevels",
+          "角度范围"
+        ],
+        "principle": "形状匹配利用边缘梯度方向的局部特征，对光照变化不敏感。图像金字塔通过降采样减少像素数量，在低分辨率层快速排除大部分位置，再在高分辨率层精确匹配，从而大幅提高搜索效率。角度范围参数影响模板旋转样本的生成数量，范围越大计算量越大，因此应根据实际工况合理设置。",
+        "id": "1788439934237-c0cf5c3fcf7218",
+        "reviewIssues": [
+          "与最佳回答相比，尚未覆盖：梯度方向、金字塔、numLevels。"
+        ],
+        "reviewSuggestions": [
+          "请补充最佳回答中的关键内容：梯度方向、金字塔、numLevels。"
+        ],
+        "mastery": "中",
+        "masteryUpdatedAt": "2026/9/3 20:53:20",
+        "masteryReason": "内置要点评审：存在关键遗漏。遗漏：梯度方向、金字塔、numLevels。",
+        "reviewSource": "本地规则"
+      },
+      {
+        "question": "在HALCON中，请描述基于传统2D视觉的Blob分析完整流程，并说明如何选择阈值以准确分割目标区域。",
+        "project": "机器视觉专业知识",
+        "date": "2026/9/3",
+        "timestamp": "2026/9/3 20:53:20",
+        "action": "完成答题",
+        "mode": "专业知识",
+        "category": "图像分割与区域分析",
+        "source": "专业",
+        "seconds": 0,
+        "answer": "无。",
+        "bestAnswer": "Blob分析通常包括：图像采集、预处理（如高斯滤波去噪）、阈值分割（threshold或auto_threshold）、连通域分析（connection）、形态学修正（如开运算去毛刺、闭运算填孔）、特征提取（select_shape按面积、圆度等筛选目标）。阈值选择可基于灰度直方图双峰确定，或使用auto_threshold自动计算；若光照不均，可用动态阈值（dyn_threshold）结合背景估计。最终通过area_center等算子获取目标位置和尺寸。",
+        "bestAnswerViewed": false,
+        "reviewStatus": "reviewed",
+        "answerKeywords": [
+          "图像预处理",
+          "阈值",
+          "连通域",
+          "select_shape"
+        ],
+        "principle": "Blob分析的核心是利用目标与背景的灰度差异，通过阈值将像素分为前景和背景，再通过连通域标记将相邻前景像素聚合成独立区域，最后依据几何特征（面积、周长、形状因子）对区域进行筛选。阈值选取直接影响分割准确性，形态学运算可消除噪声和微小干扰，提高特征提取的鲁棒性。",
+        "id": "1788439901112-847bdd23619b8",
+        "reviewIssues": [
+          "与最佳回答相比，尚未覆盖：阈值、连通域、select_shape。"
+        ],
+        "reviewSuggestions": [
+          "请补充最佳回答中的关键内容：阈值、连通域、select_shape。"
+        ],
+        "mastery": "中",
+        "masteryUpdatedAt": "2026/9/3 20:53:20",
+        "masteryReason": "内置要点评审：存在关键遗漏。遗漏：阈值、连通域、select_shape。",
+        "reviewSource": "本地规则"
+      },
+      {
+        "question": "HALCON中Blob分析的基本流程及区域特征筛选方法是什么？",
+        "project": "机器视觉专业知识",
+        "date": "2026/9/3",
+        "timestamp": "2026/9/3 20:53:20",
+        "action": "完成答题",
+        "mode": "专业知识",
+        "category": "机器视觉基础",
+        "source": "专业",
+        "seconds": 0,
+        "answer": "blob分析的流程是：1. 预处理图像 2. threshold阈值分割 3. connection连通性拆分 4. select_shape根据圆度、矩形度、面积等进行特征筛选；\n特征筛选的方式有圆度、面积、长宽和矩形度等。",
+        "bestAnswer": "Blob分析是传统2D视觉中常用的目标检测方法。基本流程：先通过threshold将目标与背景分离，得到二值区域；再用connection将连通区域分割为独立Blob；最后用select_shape根据面积、圆度、宽高等特征筛选目标。例如只保留面积最大的区域，可先计算各区域area，再用select_shape_max或排序后选取。该方法适合目标与背景灰度差异明显、形状相对规则的场景。",
+        "bestAnswerViewed": false,
+        "reviewStatus": "reviewed",
+        "answerKeywords": [
+          "threshold",
+          "connection",
+          "select_shape",
+          "area",
+          "circularity"
+        ],
+        "principle": "Blob分析基于连通域理论。threshold将像素按灰度分类，形成前景区域；connection通过8邻域或4邻域连通性将区域划分为独立连通分量；select_shape利用区域特征（如面积、周长、圆度）进行筛选。该流程能快速提取目标位置和几何参数，是许多视觉系统的核心步骤，但依赖阈值选择，对噪声和光照变化敏感。",
+        "id": "1788438985734-1aada4f55eb5b8",
+        "reviewIssues": [
+          "与最佳回答相比，尚未覆盖：area。"
+        ],
+        "reviewSuggestions": [
+          "请补充最佳回答中的关键内容：area。"
+        ],
+        "mastery": "中",
+        "masteryUpdatedAt": "2026/9/3 20:53:20",
+        "masteryReason": "内置要点评审：存在关键遗漏。遗漏：area。",
+        "reviewSource": "本地规则"
+      },
+      {
+        "question": "HALCON中threshold与dyn_threshold的区别及适用场景是什么？",
+        "project": "机器视觉专业知识",
+        "date": "2026/9/3",
+        "timestamp": "2026/9/3 20:53:20",
+        "action": "完成答题",
+        "mode": "专业知识",
+        "category": "图像处理",
+        "source": "专业",
+        "seconds": 0,
+        "answer": "threshold适用于光照均匀或对比度明显的场景，而dyn_threshold适用于光照不均匀或对比度不明显的场景；",
+        "bestAnswer": "threshold是全局阈值分割，直接根据灰度范围提取区域，适用于光照均匀、目标与背景对比度稳定的场景。dyn_threshold是动态阈值，需要原图与平滑图像作比较，通过Offset控制灵敏度，适用于光照不均或背景灰度缓慢变化的场景。实际使用中，若目标灰度与背景接近，可先用mean_image生成平滑图像，再调用dyn_threshold。选择时需根据图像质量、光照稳定性和实时性要求综合判断。",
+        "bestAnswerViewed": false,
+        "reviewStatus": "reviewed",
+        "answerKeywords": [
+          "threshold",
+          "dyn_threshold",
+          "全局阈值",
+          "局部阈值",
+          "Offset"
+        ],
+        "principle": "threshold基于像素灰度值独立判断，简单快速，但无法适应空间灰度变化。dyn_threshold通过比较原图与平滑图像的局部灰度差来分割，能抑制背景灰度漂移。其原理是：对每个像素，计算原图灰度与平滑图像灰度的差值，若差值大于Offset且方向符合LightDark，则归属目标区域。Offset越大，分割越严格，区域越小。",
+        "id": "1788438875152-136a49ae3933a",
+        "reviewIssues": [
+          "与最佳回答相比，尚未覆盖：全局阈值、Offset。"
+        ],
+        "reviewSuggestions": [
+          "请补充最佳回答中的关键内容：全局阈值、Offset。"
+        ],
+        "mastery": "中",
+        "masteryUpdatedAt": "2026/9/3 20:53:20",
+        "masteryReason": "内置要点评审：存在关键遗漏。遗漏：全局阈值、Offset。",
+        "reviewSource": "本地规则"
+      },
+      {
+        "question": "在HALCON中，edges_sub_pix算子如何实现亚像素边缘提取？它与像素级边缘提取有何区别？",
+        "project": "机器视觉专业知识",
+        "date": "2026/9/3",
+        "timestamp": "2026/9/3 20:53:20",
+        "action": "完成答题",
+        "mode": "专业知识",
+        "category": "边缘提取",
+        "source": "专业",
+        "seconds": 0,
+        "answer": "edges_sub_pix的原理是canny边缘检测，他的处理步骤是：1. 高斯过滤去除图像的噪点 2. 使用soble计算xy方向的梯度 3. 双阈值过滤出局部梯度最大值 4. 忘记了；",
+        "bestAnswer": "edges_sub_pix算子基于Canny边缘检测原理，先对图像进行高斯滤波平滑，计算梯度幅值和方向，通过非极大值抑制得到像素级边缘，再在梯度方向上进行灰度插值，将边缘位置定位到亚像素精度。输出为XLD轮廓，包含亚像素坐标。与像素级边缘相比，亚像素边缘能提供更精细的位置信息，适用于高精度测量和定位。",
+        "bestAnswerViewed": false,
+        "reviewStatus": "reviewed",
+        "answerKeywords": [
+          "edges_sub_pix",
+          "亚像素",
+          "Canny",
+          "轮廓",
+          "插值"
+        ],
+        "principle": "亚像素边缘提取利用边缘附近灰度分布的连续性，通过拟合或插值估计边缘的真实位置。常见方法包括基于梯度幅值的抛物线插值、基于灰度矩的拟合等。HALCON的edges_sub_pix在Canny框架下，对梯度方向上的响应进行插值，找到梯度极大值的亚像素位置，从而突破像素分辨率限制。",
+        "id": "1788438818075-2c1bd6e31e7488",
+        "reviewIssues": [
+          "与最佳回答相比，尚未覆盖：亚像素、轮廓、插值。"
+        ],
+        "reviewSuggestions": [
+          "请补充最佳回答中的关键内容：亚像素、轮廓、插值。"
+        ],
+        "mastery": "中",
+        "masteryUpdatedAt": "2026/9/3 20:53:20",
+        "masteryReason": "内置要点评审：存在关键遗漏。遗漏：亚像素、轮廓、插值。",
+        "reviewSource": "本地规则"
+      },
+      {
+        "question": "HALCON基于形状的模板匹配（shape-based matching）的核心原理是什么？create_shape_model和find_shape_model分别完成什么任务？",
+        "project": "机器视觉专业知识",
+        "date": "2026/9/3",
+        "timestamp": "2026/9/3 20:53:20",
+        "action": "完成答题",
+        "mode": "专业知识",
+        "category": "模板匹配",
+        "source": "专业",
+        "seconds": 0,
+        "answer": "核心原理： 1. 高斯过滤去除图像噪声 2. 计算图像在xy方向上的梯度；3. 先在高层进行粗匹配，然后再到底层进行精确匹配；4. 使用移动角度进行匹配；\ncreate是创建模板，find是使用创建好的模板去图像中查找目标；",
+        "bestAnswer": "基于形状的模板匹配利用目标轮廓的梯度方向信息建立模板模型。create_shape_model从参考图像中提取轮廓，生成多分辨率金字塔模型，并存储轮廓点的梯度方向；find_shape_model在搜索图像中滑动窗口，计算模板与候选位置的相似度，通过金字塔逐层搜索，先粗后精，最终输出最匹配位置和得分。该方法对光照变化和部分遮挡有一定鲁棒性，常用于定位和视觉引导。",
+        "bestAnswerViewed": false,
+        "reviewStatus": "reviewed",
+        "answerKeywords": [
+          "create_shape_model",
+          "find_shape_model",
+          "金字塔",
+          "归一化互相关",
+          "轮廓"
+        ],
+        "principle": "形状匹配的核心是边缘梯度方向的一致性度量。模板由轮廓点集及其梯度方向组成，匹配时计算搜索图像中对应位置的梯度方向与模板方向之间的夹角，通过归一化互相关或相似度函数评估匹配程度。金字塔策略通过降采样减少计算量，先在上层粗定位，再逐层细化到原图精度。",
+        "id": "1788438549047-f8573b17858048",
+        "reviewIssues": [
+          "与最佳回答相比，尚未覆盖：create_shape_model、find_shape_model、金字塔、轮廓。"
+        ],
+        "reviewSuggestions": [
+          "请补充最佳回答中的关键内容：create_shape_model、find_shape_model、金字塔、轮廓。"
+        ],
+        "mastery": "中",
+        "masteryUpdatedAt": "2026/9/3 20:53:20",
+        "masteryReason": "内置要点评审：存在关键遗漏。遗漏：create_shape_model、find_shape_model、金字塔、轮廓。",
+        "reviewSource": "本地规则"
+      },
+      {
+        "question": "HALCON中如何从灰度图像中提取目标区域并分离连通域？请说明threshold和connection算子的作用及使用顺序。",
+        "project": "机器视觉专业知识",
+        "date": "2026/9/3",
+        "timestamp": "2026/9/3 20:53:20",
+        "action": "完成答题",
+        "mode": "专业知识",
+        "category": "图像处理基础",
+        "source": "专业",
+        "seconds": 0,
+        "answer": "通过阈值进行判断，在阈值内像素计为前1前景，0为背景；然后将所有前景联合在一起就是；threshold通过设置MinGray和MaxGray来过滤目标灰度值的区域，Connection会将不粘连的区域分割成独立的区域；在实际场景下， 一般是先threshold在connection.。",
+        "bestAnswer": "在HALCON中，图像由像素灰度值构成，区域是满足特定条件的像素集合。threshold(Image, Region, MinGray, MaxGray)根据灰度区间提取像素，生成区域；connection(Region, ConnectedRegions)将区域中互不连通的像素分割为多个独立区域。通常先threshold得到所有目标像素，再用connection分离出每个目标实例。例如检测多个零件时，threshold后得到所有零件像素，connection后每个零件对应一个区域，便于后续单独处理。",
+        "bestAnswerViewed": false,
+        "reviewStatus": "reviewed",
+        "answerKeywords": [
+          "threshold",
+          "connection",
+          "区域",
+          "灰度值",
+          "连通域"
+        ],
+        "principle": "threshold基于灰度直方图设定阈值区间，将灰度落在区间内的像素标记为前景，形成二值区域。connection利用像素间的4邻域或8邻域连通性，对区域进行连通分量标记，将互不接触的像素集合拆分为独立区域。这是Blob分析的基础流程，适用于背景与目标灰度差异明显的场景。",
+        "id": "1788437862552-1376a9ed45f2d8",
+        "reviewIssues": [],
+        "reviewSuggestions": [],
+        "mastery": "高",
+        "masteryUpdatedAt": "2026/9/3 20:53:20",
+        "masteryReason": "内置要点评审：回答完整。已覆盖最佳回答中的关键内容。",
+        "reviewSource": "本地规则"
+      },
+      {
+        "question": "HALCON中使用fit_circle_contour_xld拟合圆时，如何选择拟合算法？请比较代数拟合、几何拟合和鲁棒拟合的适用场景及参数影响。",
+        "project": "机器视觉专业知识",
+        "date": "2026/9/2",
+        "timestamp": "2026/9/2 23:51:13",
+        "action": "跳过题目",
+        "mode": "专业知识",
+        "category": "轮廓分析",
+        "source": "专业",
+        "seconds": 0,
+        "answer": "",
+        "bestAnswer": "HALCON中fit_circle_contour_xld提供三种拟合算法。代数拟合（algebraic）通过最小化代数距离，计算速度快，但对噪声敏感；几何拟合（geometric）最小化点到圆的几何距离，精度高，但迭代计算较慢；鲁棒拟合（robust）采用Huber或Tukey权重函数抑制离群点影响，适合含噪声或局部缺陷的轮廓。实际选型时，若轮廓质量高且需实时性，选代数拟合；若精度优先，选几何拟合；若轮廓存在离群点，选鲁棒拟合，并调整MaxNumPoints限制点数或设置ClippingFactor控制离群阈值。还需注意轮廓的闭合性和方向。",
+        "bestAnswerViewed": false,
+        "reviewStatus": "reviewed",
+        "answerKeywords": [
+          "fit_circle_contour_xld",
+          "Algorithm参数",
+          "geometric",
+          "algebraic",
+          "robust",
+          "离群点"
+        ],
+        "principle": "代数拟合将圆方程隐式化，通过求解线性方程组最小化代数距离，计算简单但不满足几何不变性；几何拟合基于牛顿迭代最小化点到圆的欧氏距离，精度高但依赖初始值；鲁棒拟合通过迭代加权最小二乘，降低大残差点的权重，从而削弱离群点影响。HALCON中Algorithm参数选择拟合策略，MaxNumPoints用于降采样，MaxClosureDist处理不完整圆弧。理解这些原理有助于根据图像噪声和精度要求选择合适的拟合方式。",
+        "id": "1788364213152-7a50871bf61608",
+        "reviewIssues": [
+          "本题未回答，无法与最佳回答进行要点对照。"
+        ],
+        "reviewSuggestions": [
+          "请补充最佳回答中的关键内容：fit_circle_contour_xld、geometric、algebraic、robust、离群点。"
+        ],
+        "mastery": "低",
+        "masteryUpdatedAt": "2026/9/2 23:51:13",
+        "masteryReason": "内置要点评审：未回答。遗漏：fit_circle_contour_xld、geometric、algebraic、robust、离群点。",
+        "reviewSource": "本地规则"
+      },
+      {
+        "question": "HALCON中如何使用频域滤波进行纹理表面缺陷检测？请说明流程及高通滤波器参数选择依据。",
+        "project": "机器视觉专业知识",
+        "date": "2026/9/2",
+        "timestamp": "2026/9/2 23:51:13",
+        "action": "跳过题目",
+        "mode": "专业知识",
+        "category": "图像处理",
+        "source": "专业",
+        "seconds": 0,
+        "answer": "",
+        "bestAnswer": "在HALCON中，频域滤波缺陷检测的流程为：首先对图像进行FFT变换（使用fft_generic），将空间域信息转换为频谱图；然后设计高通滤波器（如highpass_image）抑制低频背景纹理，保留缺陷对应的高频成分；再通过逆FFT（fft_generic）将滤波后的频谱还原为空间域图像；最后对输出图像进行阈值分割和Blob分析，提取缺陷区域。参数选择需观察频谱图，确定纹理主频位置，设置截止频率低于缺陷频率，同时避免过度放大噪声。该方法特别适用于周期性纹理表面的细小缺陷检测。",
+        "bestAnswerViewed": false,
+        "reviewStatus": "reviewed",
+        "answerKeywords": [
+          "fft_generic",
+          "highpass_image",
+          "高通滤波",
+          "频谱分析",
+          "截止频率"
+        ],
+        "principle": "傅里叶变换将图像分解为不同频率的正弦波分量。周期性纹理在频域中表现为离散的峰值，而缺陷（如划痕、污点）通常产生宽带高频信号。高通滤波通过衰减低频分量和周期性峰值，使缺陷信号相对增强。fft_generic执行快速傅里叶变换，highpass_image实现频域滤波，逆变换恢复空间域。合理选择滤波器尺寸和截止频率，可在抑制背景的同时保留缺陷细节。",
+        "id": "1788364212941-17fcb33d9acb38",
+        "reviewIssues": [
+          "本题未回答，无法与最佳回答进行要点对照。"
+        ],
+        "reviewSuggestions": [
+          "请补充最佳回答中的关键内容：fft_generic、highpass_image、高通滤波、截止频率。"
+        ],
+        "mastery": "低",
+        "masteryUpdatedAt": "2026/9/2 23:51:13",
+        "masteryReason": "内置要点评审：未回答。遗漏：fft_generic、highpass_image、高通滤波、截止频率。",
+        "reviewSource": "本地规则"
+      },
+      {
+        "question": "HALCON中edges_sub_pix亚像素边缘提取的原理是什么？如何通过参数控制边缘提取的精度与抗噪性？",
+        "project": "机器视觉专业知识",
+        "date": "2026/9/2",
+        "timestamp": "2026/9/2 23:51:13",
+        "action": "跳过题目",
+        "mode": "专业知识",
+        "category": "图像处理",
+        "source": "专业",
+        "seconds": 0,
+        "answer": "",
+        "bestAnswer": "edges_sub_pix基于Canny算法思想，先通过高斯滤波抑制噪声，再计算梯度幅值和方向，进行非极大值抑制，最后用滞后阈值连接边缘。亚像素位置通过边缘附近灰度梯度插值获得。Sigma控制高斯平滑程度，Sigma越大，抗噪越强但边缘定位精度下降；Threshold和MinAmplitude控制边缘响应阈值，较高的阈值可减少伪边缘但可能漏检弱边缘。实际应用中需根据图像噪声水平和边缘对比度权衡。",
+        "bestAnswerViewed": false,
+        "reviewStatus": "reviewed",
+        "answerKeywords": [
+          "亚像素",
+          "边缘提取",
+          "Sigma",
+          "阈值"
+        ],
+        "principle": "HALCON的edges_sub_pix在梯度方向上对梯度幅值进行抛物线插值，得到边缘点的亚像素坐标。高斯滤波的尺度决定了边缘的平滑范围，Sigma越大，滤波越强，边缘越粗，定位偏差越大。阈值参数通过抑制低响应梯度点来筛选边缘，滞后阈值利用双阈值连接边缘，提高连续性。",
+        "id": "1788364212647-68fc14ceb75ae",
+        "reviewIssues": [
+          "本题未回答，无法与最佳回答进行要点对照。"
+        ],
+        "reviewSuggestions": [
+          "请补充最佳回答中的关键内容：亚像素、Sigma、阈值。"
+        ],
+        "mastery": "低",
+        "masteryUpdatedAt": "2026/9/2 23:51:13",
+        "masteryReason": "内置要点评审：未回答。遗漏：亚像素、Sigma、阈值。",
+        "reviewSource": "本地规则"
+      },
+      {
+        "question": "使用HALCON卡尺工具（如measure_pos）进行尺寸测量时，测量矩形的宽度、长度和边缘阈值对测量稳定性的影响是什么？",
+        "project": "机器视觉专业知识",
+        "date": "2026/9/2",
+        "timestamp": "2026/9/2 23:51:13",
+        "action": "跳过题目",
+        "mode": "专业知识",
+        "category": "测量技术",
+        "source": "专业",
+        "seconds": 0,
+        "answer": "",
+        "bestAnswer": "测量矩形的宽度决定边缘法线方向参与平均的像素行数，宽度过小易受噪声干扰，过大则模糊边缘；长度决定搜索范围，需覆盖边缘位置波动范围；边缘阈值设定边缘幅值门限，阈值过高可能漏检弱边缘，过低则误检干扰。对于反光或毛刺，可适当增加宽度以平滑灰度曲线，同时提高阈值并利用边缘极性过滤，也可使用多次测量取中值或均值来提高稳定性。",
+        "bestAnswerViewed": false,
+        "reviewStatus": "reviewed",
+        "answerKeywords": [
+          "卡尺工具",
+          "测量矩形",
+          "边缘阈值",
+          "重复性"
+        ],
+        "principle": "卡尺工具在测量矩形内沿边缘法线方向提取一维灰度剖面，通过计算灰度梯度并搜索极值点确定边缘位置。测量矩形的宽度对应剖面平均的线数，长度对应剖面长度，阈值则用于筛选梯度幅值足够大的边缘点，从而抑制伪边缘。",
+        "id": "1788364212172-010e786b0f7388",
+        "reviewIssues": [
+          "本题未回答，无法与最佳回答进行要点对照。"
+        ],
+        "reviewSuggestions": [
+          "请补充最佳回答中的关键内容：测量矩形、边缘阈值。"
+        ],
+        "mastery": "低",
+        "masteryUpdatedAt": "2026/9/2 23:51:13",
+        "masteryReason": "内置要点评审：未回答。遗漏：测量矩形、边缘阈值。",
+        "reviewSource": "本地规则"
+      },
+      {
+        "question": "HALCON中edges_sub_pix算子提取亚像素边缘时，滞后阈值与平滑系数如何影响边缘检测结果？",
+        "project": "机器视觉专业知识",
+        "date": "2026/9/2",
+        "timestamp": "2026/9/2 23:51:13",
+        "action": "跳过题目",
+        "mode": "专业知识",
+        "category": "图像处理",
+        "source": "专业",
+        "seconds": 0,
+        "answer": "",
+        "bestAnswer": "edges_sub_pix基于Canny算法，滞后阈值需要设置两个值：高阈值用于确定强边缘，低阈值用于保留与强边缘相连的弱边缘。平滑系数控制高斯滤波的尺度，系数越大，抑制噪声能力越强，但边缘定位精度会下降。当噪声大且对比度低时，应适当提高平滑系数以抑制噪声，同时降低低阈值以保留弱边缘，但需注意高阈值不宜过高，否则会断裂边缘。实际调试时可通过灰度直方图观察边缘幅值分布来设定阈值。",
+        "bestAnswerViewed": false,
+        "reviewStatus": "reviewed",
+        "answerKeywords": [
+          "亚像素边缘",
+          "滞后阈值",
+          "平滑系数",
+          "Canny算法"
+        ],
+        "principle": "Canny边缘检测首先用高斯滤波平滑图像，然后计算梯度幅值和方向，进行非极大值抑制，最后用双阈值连接边缘。HALCON的edges_sub_pix在亚像素层面拟合边缘位置，通过插值或矩方法获得亚像素坐标。平滑系数对应高斯核的标准差，阈值则基于梯度幅值直方图。",
+        "id": "1788364211898-a8e166174ea34",
+        "reviewIssues": [
+          "本题未回答，无法与最佳回答进行要点对照。"
+        ],
+        "reviewSuggestions": [
+          "请补充最佳回答中的关键内容：滞后阈值、平滑系数、Canny算法。"
+        ],
+        "mastery": "低",
+        "masteryUpdatedAt": "2026/9/2 23:51:13",
+        "masteryReason": "内置要点评审：未回答。遗漏：滞后阈值、平滑系数、Canny算法。",
+        "reviewSource": "本地规则"
+      },
+      {
+        "question": "HALCON 模板匹配中为什么使用金字塔搜索？请解释其原理，并说明 score 阈值和 greediness 参数的作用。",
+        "project": "机器视觉专业知识",
+        "date": "2026/9/2",
+        "timestamp": "2026/9/2 23:51:13",
+        "action": "完成答题",
+        "mode": "专业知识",
+        "category": "模板匹配",
+        "source": "专业",
+        "seconds": 0,
+        "answer": "通过金字塔搜索可以大大减短匹配的时间，可以从低分配获取大致坐标，然后高精度是否是符合要求的结果；\nscore分度太高容易漏检，太低容易增加查找时间，贪婪度会增加搜索耗时；",
+        "bestAnswer": "HALCON 的模板匹配采用金字塔搜索策略，先在低分辨率图像上快速找到候选位置，再逐层细化到原始分辨率，从而大幅减少计算量。score 阈值用于控制最终匹配的相似度下限，低于该阈值的候选会被拒绝，防止误匹配。greediness 参数决定搜索过程中提前终止的“贪婪”程度：值越大，算法越早放弃低相似度的候选，速度更快，但可能漏掉被遮挡或变形的目标；值越小，搜索越保守，鲁棒性更好。实际应用中需根据场景中遮挡程度、干扰数量平衡二者。",
+        "bestAnswerViewed": false,
+        "reviewStatus": "reviewed",
+        "answerKeywords": [
+          "金字塔层级",
+          "归一化互相关",
+          "贪婪度",
+          "评分阈值"
+        ],
+        "principle": "金字塔搜索通过降采样构建图像金字塔，在顶层用较小的搜索窗口快速定位可能区域，然后沿金字塔向下映射，仅在候选区域附近进行细化匹配。匹配相似度通常基于归一化互相关（NCC）或形状相似度。greediness 利用分支限界思想，在搜索过程中若当前相似度低于阈值与剩余层数可能达到的最大值之和，则剪枝，从而加速。参数设置直接影响召回率与准确率。",
+        "id": "1788364204896-8fa69a696b492",
+        "reviewIssues": [],
+        "reviewSuggestions": [],
+        "mastery": "高",
+        "masteryUpdatedAt": "2026/9/2 23:51:13",
+        "masteryReason": "内置要点评审：回答完整。已覆盖最佳回答中的关键内容。",
+        "reviewSource": "本地规则"
+      },
+      {
+        "question": "HALCON中Blob分析流程是什么？如何通过形态学操作解决目标粘连或孔洞问题？",
+        "project": "机器视觉专业知识",
+        "date": "2026/9/2",
+        "timestamp": "2026/9/2 23:51:13",
+        "action": "完成答题",
+        "mode": "专业知识",
+        "category": "Blob分析",
+        "source": "专业",
+        "seconds": 0,
+        "answer": "图像处理、阈值分割thresold、connection区域联通、select_shap特征筛选；\n如果是目标粘连可以使用开运算，如果是空洞可以使用避闭运算；",
+        "bestAnswer": "Blob分析典型流程：图像预处理（如高斯滤波）、阈值分割（threshold）、形态学操作（如开运算去除细小噪声，闭运算填充孔洞）、连通域分析（connection）、特征筛选（select_shape）。对于目标粘连，可用开运算分离细小连接；对于目标内部孔洞，可用闭运算或fill_up填充。若灰度接近，可采用局部自适应阈值或边缘信息辅助分割。最后通过面积、圆度、长宽比等特征筛选目标。",
+        "bestAnswerViewed": false,
+        "reviewStatus": "reviewed",
+        "answerKeywords": [
+          "threshold",
+          "connection",
+          "select_shape",
+          "opening",
+          "closing",
+          "fill_up"
+        ],
+        "principle": "Blob分析基于灰度阈值将图像分为前景和背景，连通域标记将相邻像素组成区域。形态学操作通过结构元素与区域进行交并运算，开运算先腐蚀后膨胀，能去除小物体；闭运算先膨胀后腐蚀，能填充小孔。特征筛选利用区域属性（如面积、形状）排除干扰。",
+        "id": "1788364022496-26dc42a96473a8",
+        "reviewIssues": [
+          "与最佳回答相比，尚未覆盖：threshold、select_shape、fill_up。"
+        ],
+        "reviewSuggestions": [
+          "请补充最佳回答中的关键内容：threshold、select_shape、fill_up。"
+        ],
+        "mastery": "中",
+        "masteryUpdatedAt": "2026/9/2 23:51:13",
+        "masteryReason": "内置要点评审：存在关键遗漏。遗漏：threshold、select_shape、fill_up。",
+        "reviewSource": "本地规则"
+      },
+      {
+        "question": "HALCON中Blob分析因光照变化导致阈值分割不稳定，如何优化？",
+        "project": "机器视觉专业知识",
+        "date": "2026/9/2",
+        "timestamp": "2026/9/2 23:51:13",
+        "action": "完成答题",
+        "mode": "专业知识",
+        "category": "Blob分析",
+        "source": "专业",
+        "seconds": 0,
+        "answer": "使用动态阈值dyn_threshold；",
+        "bestAnswer": "首先，应保证光源和相机参数固定，减少环境光干扰。其次，使用预处理方法如高斯滤波或中值滤波平滑图像，减少噪声。阈值分割可采用全局阈值（threshold）或局部自适应阈值（dyn_threshold），后者通过比较原图与平滑图像的差异来适应光照不均。若仍不稳定，可考虑使用灰度形态学顶帽变换（top-hat）校正背景，或使用基于边缘的检测方法。分割后，通过形态学开闭运算去除小噪声和填充孔洞，再根据缺陷的面积、圆度、长宽比等特征进行筛选，避免仅依赖灰度阈值。此外，可建立离线测试集，调整参数使算法鲁棒。",
+        "bestAnswerViewed": false,
+        "reviewStatus": "reviewed",
+        "answerKeywords": [
+          "dyn_threshold",
+          "顶帽变换",
+          "形态学",
+          "特征筛选"
+        ],
+        "principle": "Blob分析是将图像中灰度值满足条件的像素区域提取为连通域，然后计算其形状特征。动态阈值利用背景估计（如均值滤波）与原始图像的灰度差进行分割，对光照变化有一定适应性。形态学操作通过结构元素改变区域形状，用于去噪和连接。特征筛选基于几何属性区分真实缺陷与噪声。",
+        "id": "1788363908496-8c5f196d17ef48",
+        "reviewIssues": [
+          "与最佳回答相比，尚未覆盖：顶帽变换、形态学。"
+        ],
+        "reviewSuggestions": [
+          "请补充最佳回答中的关键内容：顶帽变换、形态学。"
+        ],
+        "mastery": "中",
+        "masteryUpdatedAt": "2026/9/2 23:51:13",
+        "masteryReason": "内置要点评审：存在关键遗漏。遗漏：顶帽变换、形态学。",
+        "reviewSource": "本地规则"
+      },
+      {
+        "question": "HALCON二维测量中相机标定的作用、流程及标定误差影响",
+        "project": "机器视觉专业知识",
+        "date": "2026/9/2",
+        "timestamp": "2026/9/2 23:51:13",
+        "action": "完成答题",
+        "mode": "专业知识",
+        "category": "相机标定",
+        "source": "专业",
+        "seconds": 0,
+        "answer": "相机标定的作用是确定相机的内外参，建立相机与图像的坐标系；\n相机标定的流程是相机拍照不同位姿下的标定板、标定得到相机内外参；\n不清楚；",
+        "bestAnswer": "相机标定是为了确定相机内参（焦距、主点、畸变系数）和外参（相机相对于世界坐标系的位姿），从而将像素坐标转换为物理坐标，并校正镜头畸变。标定板是已知精确尺寸的图案（如棋盘格或圆点阵），通过提取特征点建立像素坐标与物理坐标的对应关系。流程包括：采集不同位姿的标定板图像、提取特征点、使用calibrate_cameras计算参数、评估标定误差。标定误差会导致测量结果产生系统性偏差，例如长度测量不准确；畸变校正不全会使图像边缘区域变形，影响定位精度。因此标定板应清晰、平整，拍摄角度不宜过大。",
+        "bestAnswerViewed": false,
+        "reviewStatus": "reviewed",
+        "answerKeywords": [
+          "标定板",
+          "内参",
+          "外参",
+          "畸变系数",
+          "像素当量"
+        ],
+        "principle": "相机标定基于针孔成像模型，通过最小化重投影误差来求解相机参数。标定板提供已知的世界坐标与像素坐标对应点，利用多视图几何约束求解内参和外参。畸变模型通常包含径向畸变和切向畸变，校正后图像符合理想透视投影。",
+        "id": "1788363862759-5f3a8946a60f78",
+        "reviewIssues": [
+          "与最佳回答相比，尚未覆盖：内参、畸变系数。"
+        ],
+        "reviewSuggestions": [
+          "请补充最佳回答中的关键内容：内参、畸变系数。"
+        ],
+        "mastery": "中",
+        "masteryUpdatedAt": "2026/9/2 23:51:13",
+        "masteryReason": "内置要点评审：存在关键遗漏。遗漏：内参、畸变系数。",
+        "reviewSource": "本地规则"
+      },
+      {
+        "question": "HALCON中基于形状的模板匹配如何处理旋转、缩放和光照变化？",
+        "project": "机器视觉专业知识",
+        "date": "2026/9/2",
+        "timestamp": "2026/9/2 23:51:13",
+        "action": "完成答题",
+        "mode": "专业知识",
+        "category": "模板匹配",
+        "source": "专业",
+        "seconds": 0,
+        "answer": "通过将模板的边缘旋转一定角度，然后去查找，如0~360；\n缩放是因为它通过图像金字塔进行匹配查找，先粗后细匹配；\n光照不清楚；",
+        "bestAnswer": "针对旋转和缩放，在create_shape_model中设置AngleStart和AngleExtent覆盖可能的旋转范围，并通过ScaleMin/ScaleMax（或使用create_scaled_shape_model）设置缩放范围。光照变化大时，基于形状的匹配对灰度变化不敏感，但应确保模板图像对比度清晰。NumLevels控制金字塔层数，层数越多速度越快，但可能丢失细节；通常根据物体尺寸和复杂度选择。MinScore是匹配分数阈值，过低会误匹配，过高会漏检，一般设为0.5-0.8。Greediness控制搜索贪婪度，值越大速度越快但可能错过匹配，常用0.7-0.9。若速度慢，优先提高Greediness或增加金字塔层数，同时适当降低MinScore。",
+        "bestAnswerViewed": false,
+        "reviewStatus": "reviewed",
+        "answerKeywords": [
+          "NumLevels",
+          "AngleStart/AngleExtent",
+          "MinScore",
+          "Greediness",
+          "金字塔搜索"
+        ],
+        "principle": "基于形状的匹配利用物体边缘的梯度方向信息，通过边缘点集与模板的相似度进行匹配。金字塔搜索通过逐层降采样缩小搜索空间，高层金字塔先粗定位，再逐层精确定位。角度和缩放通过参数化搜索空间实现。Greediness决定在搜索时是否提前终止不匹配的候选点，从而加速。",
+        "id": "1788363285567-ff7b31c482ac18",
+        "reviewIssues": [
+          "与最佳回答相比，尚未覆盖：NumLevels、MinScore、Greediness。"
+        ],
+        "reviewSuggestions": [
+          "请补充最佳回答中的关键内容：NumLevels、MinScore、Greediness。"
+        ],
+        "mastery": "中",
+        "masteryUpdatedAt": "2026/9/2 23:51:13",
+        "masteryReason": "内置要点评审：存在关键遗漏。遗漏：NumLevels、MinScore、Greediness。",
+        "reviewSource": "本地规则"
+      },
+      {
+        "question": "在HALCON中训练自定义OCR分类器时，如何构建训练样本并评估识别性能？",
+        "project": "机器视觉专业知识",
+        "date": "2026/9/2",
+        "timestamp": "2026/9/2 19:49:32",
+        "action": "跳过题目",
+        "mode": "专业知识",
+        "category": "OCR识别",
+        "source": "专业",
+        "seconds": 0,
+        "answer": "",
+        "bestAnswer": "在HALCON中训练自定义OCR分类器，首先采集目标字符图像，通过阈值分割和Blob分析提取字符区域，并归一化到统一尺寸。使用create_ocr_class_mlp创建MLP分类器，设定特征维数（如灰度投影特征）。用append_ocr_trainf将样本和对应字符标签写入训练文件，调用trainf_ocr_class_mlp训练模型，训练完成后用write_ocr_class_mlp保存。评估时使用do_ocr_single_class_mlp对测试集识别，计算混淆矩阵和识别率。若识别率低，可增加样本多样性、改进预处理（如去噪、二值化）、调整特征类型或增大网络隐藏层节点数。",
+        "bestAnswerViewed": false,
+        "reviewStatus": "reviewed",
+        "answerKeywords": [
+          "create_ocr_class_mlp",
+          "append_ocr_trainf",
+          "trainf_ocr_class_mlp",
+          "do_ocr_single_class_mlp",
+          "识别率评估"
+        ],
+        "principle": "OCR分类器基于统计模式识别，MLP通过多层非线性变换学习图像特征到字符类别的映射。训练采用反向传播算法最小化分类误差。特征提取将字符图像转换为低维向量，降低计算复杂度并提升泛化能力。HALCON的OCR训练流程将字符图像与ASCII标签绑定，通过迭代优化网络权重，使同类字符特征聚集、异类字符特征分离，从而实现对不同字体和噪声的鲁棒识别。",
+        "id": "1788349738519-328069456cdd1",
+        "reviewIssues": [
+          "尚未覆盖：采集目标字符图像，通过阈值分割和Blob分析提取字符区域，归一化到统一尺寸、使用create_ocr_class_mlp创建MLP分类器，设定特征维数、用append_ocr_trainf写入训练文件，trainf_ocr_class_mlp训练模型、用write_ocr_class_mlp保存模型、评估时使用do_ocr_single_class_mlp对测试集识别，计算混淆矩阵和识别率、识别率低时增加样本多样性、改进预处理、调整特征类型或增大网络隐藏层节点数。"
+        ],
+        "reviewSuggestions": [
+          "补充训练样本构建、分类器创建与训练、模型保存以及评估方法等关键内容。"
+        ],
+        "mastery": "低",
+        "masteryUpdatedAt": "2026/9/2 19:49:32",
+        "masteryReason": "用户回答为空字符串，未提供任何内容。",
+        "reviewSource": "AI"
+      },
+      {
+        "question": "在HALCON中实现高精度尺寸测量时，如何设计一维测量流程？请说明关键步骤和影响测量精度的主要因素。",
+        "project": "机器视觉专业知识",
+        "date": "2026/9/2",
+        "timestamp": "2026/9/2 19:49:32",
+        "action": "完成答题",
+        "mode": "专业知识",
+        "category": "尺寸测量",
+        "source": "专业",
+        "seconds": 0,
+        "answer": "无。",
+        "bestAnswer": "在HALCON中实现高精度尺寸测量，通常采用一维测量算子（如measure_pos、measure_pairs）流程：首先对相机进行标定，获取像素当量或畸变系数；然后在被测位置创建ROI并生成测量矩形或圆弧；接着设置边缘阈值、最小边缘幅度和亚像素插值等参数，调用measure_pos提取边缘点；最后根据边缘点间距计算实际物理尺寸。关键步骤包括：1）标定保证像素到毫米的准确转换；2）ROI方向与边缘垂直，宽度覆盖边缘过渡带；3）合理设置Sigma平滑系数以抑制噪声；4）使用亚像素精度提高重复性。影响精度的主要因素有光照变化导致边缘偏移、镜头畸变、标定板精度、物体表面反光、振动等。实际中可通过多次测量取平均、增加边缘点拟合、使用高精度标定板等方法来提升稳定性。",
+        "bestAnswerViewed": false,
+        "reviewStatus": "reviewed",
+        "answerKeywords": [
+          "measure_pos",
+          "ROI",
+          "边缘阈值",
+          "标定",
+          "像素当量",
+          "亚像素插值"
+        ],
+        "principle": "一维测量基于灰度值剖面分析：测量矩形沿长度方向投影得到一维灰度轮廓，边缘点位于灰度跳变处。HALCON通过计算轮廓的一阶导数，并利用亚像素插值（如抛物线拟合）定位极值点，从而获得比像素更精确的边缘位置。测量精度取决于边缘对比度、平滑参数Sigma（高斯滤波宽度）以及边缘阈值。标定将图像坐标转换为世界坐标，像素当量误差会线性影响测量结果。此外，镜头畸变在视场边缘造成非线性误差，需通过标定模型校正。",
+        "id": "1788349736274-4dfc3bdcbf996",
+        "reviewIssues": [
+          "尚未覆盖：使用一维测量算子如measure_pos、measure_pairs、相机标定获取像素当量或畸变系数、创建ROI并生成测量矩形或圆弧、设置边缘阈值、最小边缘幅度和亚像素插值参数、提取边缘点并计算实际物理尺寸、关键步骤：标定、ROI方向与边缘垂直、Sigma平滑系数、亚像素精度、影响因素：光照变化、镜头畸变、标定板精度、表面反光、振动等、提升稳定性：多次测量取平均、增加边缘点拟合、使用高精度标定板。"
+        ],
+        "reviewSuggestions": [
+          "补充一维测量流程的关键步骤、参数设置以及影响精度的主要因素。"
+        ],
+        "mastery": "低",
+        "masteryUpdatedAt": "2026/9/2 19:49:32",
+        "masteryReason": "用户回答为“无”，未提供任何内容。",
+        "reviewSource": "AI"
+      },
+      {
+        "question": "在HALCON的HDevelop环境中，如何高效地进行视觉算法的原型验证和性能优化？请列举至少两种性能优化手段。",
+        "project": "机器视觉专业知识",
+        "date": "2026/9/2",
+        "timestamp": "2026/9/2 19:49:32",
+        "action": "完成答题",
+        "mode": "专业知识",
+        "category": "开发环境",
+        "source": "专业",
+        "seconds": 0,
+        "answer": "无。",
+        "bestAnswer": "HDevelop提供交互式开发环境，可逐行执行算子并实时查看中间结果，便于快速验证算法。性能优化方面，可使用HALCON的并行处理机制，如par_start和par_join实现算子级并行；也可利用GPU加速，通过open_compute_device和activate_compute_device将算子部署到GPU。此外，应避免在循环中重复分配大对象，合理设置ROI减少计算量。原型验证后，可通过“文件→导出”生成C++或C#代码，并嵌入到实际项目中。",
+        "bestAnswerViewed": false,
+        "reviewStatus": "reviewed",
+        "answerKeywords": [
+          "HDevelop",
+          "并行处理",
+          "GPU加速",
+          "代码导出"
+        ],
+        "principle": "HDevelop基于HALCON引擎，支持脚本式开发。并行处理利用多核CPU资源，通过数据并行或任务并行提升吞吐量。GPU加速则利用显卡的大规模并行计算能力，适合像素级操作和卷积等任务。导出功能将脚本转换为静态语言代码，便于集成和部署。",
+        "id": "1788349729418-c6b379f814fc5",
+        "reviewIssues": [
+          "尚未覆盖：HDevelop交互式环境可逐行执行算子并实时查看中间结果、并行处理：par_start和par_join实现算子级并行、GPU加速：open_compute_device和activate_compute_device部署算子到GPU、避免循环中重复分配大对象，合理设置ROI减少计算量、通过“文件→导出”生成C++或C#代码嵌入实际项目。"
+        ],
+        "reviewSuggestions": [
+          "补充HDevelop的交互验证特点，并列举至少两种性能优化手段（如并行处理、GPU加速、ROI优化等）。"
+        ],
+        "mastery": "低",
+        "masteryUpdatedAt": "2026/9/2 19:49:32",
+        "masteryReason": "用户回答为“无”，未提供任何内容。",
+        "reviewSource": "AI"
+      },
+      {
+        "question": "HALCON 缺陷检测中形态学处理与 OCR 识别的技术路径",
+        "project": "机器视觉专业知识",
+        "date": "2026/9/2",
+        "timestamp": "2026/9/2 19:49:32",
+        "action": "完成答题",
+        "mode": "专业知识",
+        "category": "图像处理与 OCR 应用",
+        "source": "专业",
+        "seconds": 0,
+        "answer": "无。",
+        "bestAnswer": "流程：图像采集→灰度化→ROI截取→阈值分割或动态阈值提取字符区域→形态学处理→字符分割→OCR识别→结果输出。开运算先腐蚀后膨胀，可去除字符边缘小突起和孤立噪点；闭运算先膨胀后腐蚀，可填补字符断裂和内部孔洞。反光导致灰度不均时，优先调整阈值分割参数或使用局部动态阈值，并配合滤波抑制噪声；油污造成粘连时，调整形态学结构元素大小和形状，必要时用连通域分析分离字符。",
+        "bestAnswerViewed": false,
+        "reviewStatus": "reviewed",
+        "answerKeywords": [
+          "开运算",
+          "闭运算",
+          "OCR 流程",
+          "动态阈值",
+          "参数调整"
+        ],
+        "principle": "形态学运算基于集合论，结构元素决定处理邻域形状和大小。开运算对亮背景暗字符可消除细小亮噪声，闭运算可连接断裂笔画。OCR 识别依赖字符区域质量和分割准确性，预处理目标是增强字符与背景对比度、消除噪声、保持笔画连通性。HALCON 中 read_ocr_class_mlp 等算子需要训练好的分类器，字符区域质量直接影响置信度输出。",
+        "id": "1788349719204-1d9d2ea2ff6ac8",
+        "reviewIssues": [
+          "尚未覆盖：完整流程：图像采集→灰度化→ROI截取→阈值分割或动态阈值提取字符区域→形态学处理→字符分割→OCR识别→结果输出、开运算去除字符边缘小突起和孤立噪点、闭运算填补字符断裂和内部孔洞、反光导致灰度不均时调整阈值参数或使用局部动态阈值，配合滤波抑制噪声、油污造成粘连时调整形态学结构元素大小和形状，必要时用连通域分析分离字符。"
+        ],
+        "reviewSuggestions": [
+          "补充缺陷检测中形态学处理与OCR识别的完整技术路径及具体应对措施。"
+        ],
+        "mastery": "低",
+        "masteryUpdatedAt": "2026/9/2 19:49:32",
+        "masteryReason": "用户回答为“无”，未提供任何内容。",
+        "reviewSource": "AI"
+      },
+      {
+        "question": "HALCON 的算子化架构与 HDevelop 快速原型验证机制",
+        "project": "机器视觉专业知识",
+        "date": "2026/9/2",
+        "timestamp": "2026/9/2 19:49:32",
+        "action": "完成答题",
+        "mode": "专业知识",
+        "category": "HALCON 开发基础",
+        "source": "专业",
+        "seconds": 0,
+        "answer": "无。",
+        "bestAnswer": "HALCON 将底层算法封装为独立算子，每个算子有明确输入输出和控制参数，通过数据流连接形成处理流程。HDevelop 提供交互式执行、变量监视和图像可视化，便于快速验证算法链。实际部署时，HDevelop 是开发调试环境，不适合直接作为产线运行时；导出为 C#/C++ 工程后，可集成到上位机系统，利用 HALCON 运行时库执行，便于错误处理、并发控制和界面整合。",
+        "bestAnswerViewed": false,
+        "reviewStatus": "reviewed",
+        "answerKeywords": [
+          "算子化架构",
+          "HDevelop 原型验证",
+          "运行时库",
+          "多语言集成"
+        ],
+        "principle": "算子化设计降低算法耦合度，算子间通过图像、区域、轮廓等数据类型传递，HDevelop 的即时执行机制让开发者逐步观察中间结果，缩短调参周期。导出代码后，HDevelop 脚本被翻译为对应编程语言的 HALCON 接口调用，运行时依赖 HALCON Runtime 而非 HDevelop，保证执行效率和部署灵活性。",
+        "id": "1788349714159-13e8c5cbb01d98",
+        "reviewIssues": [
+          "尚未覆盖：HALCON将底层算法封装为独立算子，有明确输入输出和控制参数、通过数据流连接形成处理流程、HDevelop提供交互式执行、变量监视和图像可视化、HDevelop是开发调试环境，不适合直接作为产线运行时、导出为C#/C++工程后集成到上位机系统，利用HALCON运行时库执行。"
+        ],
+        "reviewSuggestions": [
+          "补充算子化架构的特点、HDevelop的交互验证功能以及从开发到部署的转换流程。"
+        ],
+        "mastery": "低",
+        "masteryUpdatedAt": "2026/9/2 19:49:32",
+        "masteryReason": "用户回答为“无”，未提供任何内容。",
+        "reviewSource": "AI"
+      },
+      {
+        "question": "Halcon中基于形状的模板匹配参数如何影响匹配性能？如何应对遮挡场景？",
+        "project": "机器视觉专业知识",
+        "date": "2026/9/2",
+        "timestamp": "2026/9/2 19:49:32",
+        "action": "完成答题",
+        "mode": "专业知识",
+        "category": "模板匹配",
+        "source": "专业",
+        "seconds": 0,
+        "answer": "无。",
+        "bestAnswer": "find_shape_model的关键参数包括NumLevels（金字塔层数）、AngleStart/AngleExtent（角度搜索范围）、MinScore（最小匹配分数）、Greediness（贪婪度）。NumLevels越大速度越快但可能丢失细节；MinScore越高越严格，但易漏检；Greediness越大搜索越快，但可能跳过候选。遮挡场景可降低MinScore、使用局部ROI或基于部件的匹配（如find_shape_model的组件）。",
+        "bestAnswerViewed": false,
+        "reviewStatus": "reviewed",
+        "answerKeywords": [
+          "find_shape_model",
+          "NumLevels",
+          "MinScore",
+          "Greediness",
+          "遮挡"
+        ],
+        "principle": "形状匹配通过边缘点梯度方向建立模板，在搜索图像中计算相似度。金字塔层数通过降采样加速粗定位，再逐层精化。Greediness控制搜索时提前终止的阈值，影响速度与鲁棒性。",
+        "id": "1788349708845-c9c6fe7e27ea5",
+        "reviewIssues": [
+          "尚未覆盖：NumLevels金字塔层数影响速度和细节保留、AngleStart/AngleExtent角度搜索范围影响搜索空间、MinScore最小匹配分数影响漏检率、Greediness贪婪度影响搜索速度与候选跳过、遮挡场景可降低MinScore、使用局部ROI或基于部件的匹配。"
+        ],
+        "reviewSuggestions": [
+          "补充各参数对性能的影响机制及遮挡场景的应对策略。"
+        ],
+        "mastery": "低",
+        "masteryUpdatedAt": "2026/9/2 19:49:32",
+        "masteryReason": "用户回答为“无”，未提供任何内容。",
+        "reviewSource": "AI"
+      },
+      {
+        "question": "请描述Halcon中Blob分析的标准流程，并说明目标与背景灰度接近时的改进策略",
+        "project": "机器视觉专业知识",
+        "date": "2026/9/2",
+        "timestamp": "2026/9/2 19:49:32",
+        "action": "完成答题",
+        "mode": "专业知识",
+        "category": "目标检测",
+        "source": "专业",
+        "seconds": 0,
+        "answer": "标准流程：预处理+阈值分割+connection拆分区域+select_shapte特征筛选；\n改进策略：使用dyn_threshod动态阈值。",
+        "bestAnswer": "Blob分析流程为：图像采集、预处理（滤波、增强）、阈值分割（threshold或dyn_threshold）、连通域分析（connection）、特征筛选（select_shape）。阈值分割将像素分为前景和背景，连通域将相邻前景像素标记为独立区域，再根据面积、圆度、长宽比等特征筛选目标。若目标与背景灰度接近，可使用动态阈值dyn_threshold，通过比较原图与平滑图像的差异分割，或结合边缘检测提取目标边界。",
+        "bestAnswerViewed": false,
+        "reviewStatus": "reviewed",
+        "answerKeywords": [
+          "threshold",
+          "connection",
+          "select_shape",
+          "动态阈值"
+        ],
+        "principle": "Blob分析基于灰度阈值和连通域。threshold使用全局灰度阈值，dyn_threshold利用局部背景灰度差异，对光照不均更鲁棒。连通域标记通过像素邻接关系聚类，特征筛选基于区域几何属性。",
+        "id": "1788349626741-0aa6c87e595238",
+        "reviewIssues": [
+          "尚未覆盖：图像采集作为流程起点、动态阈值dyn_threshold通过比较原图与平滑图像的差异实现分割、可结合边缘检测提取目标边界。"
+        ],
+        "reviewSuggestions": [
+          "补充图像采集步骤，说明动态阈值的原理，并提及边缘检测作为灰度接近时的备选策略。"
+        ],
+        "mastery": "中",
+        "masteryUpdatedAt": "2026/9/2 19:49:32",
+        "masteryReason": "用户覆盖了Blob分析的主要流程和动态阈值策略，但遗漏了图像采集步骤、动态阈值的实现原理以及边缘检测这一改进策略。",
+        "reviewSource": "AI"
+      },
+      {
+        "question": "在HALCON项目中，当检测节拍无法满足产线要求时，你会从哪些方面进行性能优化？请给出具体措施。",
+        "project": "机器视觉专业知识",
+        "date": "2026/9/2",
+        "timestamp": "2026/9/2 19:49:32",
+        "action": "完成答题",
+        "mode": "专业知识",
+        "category": "性能优化",
+        "source": "专业",
+        "seconds": 0,
+        "answer": "优化算法，减少算法的处理时间；",
+        "bestAnswer": "首先通过reduce_domain将检测区域裁剪到ROI，减少参与计算的像素数。其次检查算子选择，例如用更快的匹配策略（如基于形状的匹配中设置金字塔层数）或替换高耗时算子。利用HALCON的并行处理能力，将多个独立检测任务分配到不同线程，或使用GPU加速算子。还可以调整图像采集参数，如降低分辨率或使用ROI采集。最后考虑硬件升级，如更换更高性能的工业相机或增加计算单元。",
+        "bestAnswerViewed": false,
+        "reviewStatus": "reviewed",
+        "answerKeywords": [
+          "reduce_domain",
+          "金字塔",
+          "多线程",
+          "GPU加速"
+        ],
+        "principle": "HALCON性能瓶颈通常出现在图像数据量和算法复杂度上。ROI裁剪通过缩小图像域，使后续算子只处理有效区域，计算量随像素数线性下降。算子内部实现经过SIMD优化，但不同算子复杂度差异大，选择合适算法可降低时间复杂度。并行处理利用多核CPU或GPU的并行架构，将数据划分到多个处理单元。HALCON提供par_start/par_join等并行机制，以及针对特定算子的GPU版本。",
+        "id": "1788349434609-b516a1270a9ce8",
+        "reviewIssues": [
+          "尚未覆盖：使用reduce_domain裁剪ROI，减少计算像素数、优化算子选择，如设置金字塔层数或替换高耗时算子、利用并行处理，多线程或GPU加速、调整图像采集参数，如降低分辨率或ROI采集、硬件升级，如更换高性能相机或增加计算单元。"
+        ],
+        "reviewSuggestions": [
+          "补充ROI裁剪、算子优化、并行/GPU加速、采集参数调整和硬件升级等具体措施。"
+        ],
+        "mastery": "中",
+        "masteryUpdatedAt": "2026/9/2 19:49:32",
+        "masteryReason": "用户仅说“优化算法，减少算法的处理时间”，过于笼统，未给出任何具体可操作的优化措施。",
+        "reviewSource": "AI"
+      },
+      {
+        "question": "在HALCON中做表面缺陷检测时，如何选择图像预处理滤波器和形态学结构元素？请结合具体场景说明。",
+        "project": "机器视觉专业知识",
+        "date": "2026/9/2",
+        "timestamp": "2026/9/2 19:49:32",
+        "action": "完成答题",
+        "mode": "专业知识",
+        "category": "图像处理",
+        "source": "专业",
+        "seconds": 0,
+        "answer": "根据噪声和实际需要检测物体的大小决定。",
+        "bestAnswer": "对于表面缺陷检测，若噪声为椒盐噪声，优先使用中值滤波；若为高斯噪声，则用高斯滤波。滤波核大小应根据缺陷尺寸设定，过大会模糊缺陷边缘。形态学操作中，开运算可去除细小亮点噪声，闭运算可填充暗色空洞。结构元素形状需匹配缺陷形态，例如检测划痕时用矩形或线形结构元素，检测斑点时用圆形。结构元素尺寸应略小于缺陷最小尺寸，避免将缺陷误删除。",
+        "bestAnswerViewed": false,
+        "reviewStatus": "reviewed",
+        "answerKeywords": [
+          "中值滤波",
+          "高斯滤波",
+          "结构元素",
+          "开闭运算"
+        ],
+        "principle": "图像预处理通过卷积或统计排序抑制噪声，增强目标与背景对比度。形态学基于集合运算，膨胀扩大亮区域，腐蚀缩小亮区域，开运算为先腐蚀后膨胀，用于去除小物体，闭运算为先膨胀后腐蚀，用于填充小孔。结构元素是形态学操作的模板，其形状和大小决定了操作的几何影响范围。HALCON中通过算子如median_image、gauss_filter、opening、closing等实现，参数选择需结合图像分辨率和缺陷特征。",
+        "id": "1788349409109-12d396efe41c4",
+        "reviewIssues": [
+          "尚未覆盖：椒盐噪声用中值滤波，高斯噪声用高斯滤波、滤波核大小应根据缺陷尺寸设定，过大会模糊缺陷边缘、开运算去除细小亮点噪声，闭运算填充暗色空洞、结构元素形状需匹配缺陷形态：划痕用矩形或线形，斑点用圆形、结构元素尺寸应略小于缺陷最小尺寸，避免误删除缺陷。"
+        ],
+        "reviewSuggestions": [
+          "补充具体噪声类型对应的滤波器选择，形态学开闭运算的作用，以及结构元素形状和尺寸的设计原则。"
+        ],
+        "mastery": "中",
+        "masteryUpdatedAt": "2026/9/2 19:49:32",
+        "masteryReason": "用户仅笼统提到“根据噪声和实际需要检测物体的大小决定”，未说明具体滤波器类型、形态学操作、结构元素形状和尺寸的选择原则。",
+        "reviewSource": "AI"
+      },
+      {
+        "question": "HALCON为什么能在工业机器视觉中成为事实标准？请从算子架构和开发流程角度说明。",
+        "project": "机器视觉专业知识",
+        "date": "2026/9/2",
+        "timestamp": "2026/9/2 19:49:32",
+        "action": "完成答题",
+        "mode": "专业知识",
+        "category": "机器视觉平台架构",
+        "source": "专业",
+        "seconds": 0,
+        "answer": "不清楚。",
+        "bestAnswer": "HALCON由德国MVTec开发，包含超过2000个预训练算子，覆盖图像采集、预处理、特征提取、目标检测、识别等完整视觉流程，算法鲁棒性强且经过工业场景验证。HDevelop提供交互式原型开发环境，支持快速验证算法流程并生成代码，显著缩短开发周期。同时HALCON支持C++、C#、Python等多种语言集成，并具备跨平台兼容性，便于部署到不同操作系统和硬件平台。这些因素使其成为工业自动化、智能制造领域的行业标准。",
+        "bestAnswerViewed": false,
+        "reviewStatus": "reviewed",
+        "answerKeywords": [
+          "2000+算子",
+          "HDevelop",
+          "跨平台",
+          "多语言集成"
+        ],
+        "principle": "HALCON的核心是模块化算子库，每个算子封装了经过优化的数学算法，如滤波、形态学、模板匹配等。HDevelop通过可视化数据流和即时调试，让开发者能快速组合算子形成解决方案。跨语言接口基于底层API封装，保证算法在不同编程环境中一致性。这种分层架构既保证了算法性能，又提供了灵活的集成方式。",
+        "id": "1788349353297-1398410542d5",
+        "reviewIssues": [
+          "尚未覆盖：HALCON由德国MVTec开发，包含超过2000个预训练算子、覆盖图像采集、预处理、特征提取、目标检测、识别等完整视觉流程、算法鲁棒性强且经过工业场景验证、HDevelop提供交互式原型开发环境，支持快速验证算法流程并生成代码、支持C++、C#、Python等多种语言集成、具备跨平台兼容性，便于部署到不同操作系统和硬件平台。"
+        ],
+        "reviewSuggestions": [
+          "建议补充HALCON的算子库规模、HDevelop原型验证机制、多语言集成和跨平台特性等关键点。"
+        ],
+        "mastery": "低",
+        "masteryUpdatedAt": "2026/9/2 19:49:32",
+        "masteryReason": "用户回答为“不清楚”，未提供任何有效内容。",
+        "reviewSource": "AI"
+      },
+      {
+        "question": "在HALCON中，为什么要使用reduce_domain来限定图像处理区域？它和change_domain有什么区别？请举例说明在实际视觉项目中的作用。",
+        "project": "机器视觉专业知识",
+        "date": "2026/9/2",
+        "timestamp": "2026/9/2 15:32:06",
+        "action": "跳过题目",
+        "mode": "专业知识",
+        "category": "图像处理基础",
+        "source": "专业",
+        "seconds": 0,
+        "answer": "",
+        "bestAnswer": "在HALCON中，图像不仅包含像素数据，还包含一个定义有效处理范围的域（Domain）。reduce_domain将图像的域缩小到指定的ROI区域，使后续算子只处理该区域内的像素，从而减少计算量、提高速度，同时避开无关背景的干扰，提升稳定性和精度。change_domain则直接将图像的域设置为任意区域，不要求该区域与原域有交集，通常用于设定全新的处理范围。实际项目中，常先通过draw_region或threshold生成ROI，再用reduce_domain限定处理区，例如在定位后只对目标局部做检测，既快又准。",
+        "bestAnswerViewed": false,
+        "reviewStatus": "reviewed",
+        "answerKeywords": [
+          "reduce_domain",
+          "change_domain",
+          "ROI",
+          "处理效率",
+          "干扰抑制"
+        ],
+        "principle": "HALCON的图像模型由像素矩阵和域组成，域是感兴趣区域的集合。算子执行时默认遍历整个域，域越小计算开销越低。reduce_domain本质上是求原域与输入区域的交集，得到新的域；change_domain则完全替换域，不检查交集。这种设计使得处理范围可灵活控制，同时保持像素数据不变，后续算子可通过full_domain或change_domain恢复全图处理。利用域机制，可以在多步骤流程中逐步缩小范围，实现由粗到精的视觉检测策略。",
+        "id": "1788334295623-8acab93fb61b5",
+        "reviewIssues": [
+          "尚未覆盖：reduce_domain将图像域缩小到ROI，减少计算量、避开干扰、change_domain直接设置域，不要求与原域有交集、实际项目中用draw_region或threshold生成ROI，再用reduce_domain限定处理区。"
+        ],
+        "reviewSuggestions": [
+          "请补充回答，需说明reduce_domain的作用、与change_domain的区别，并举例说明实际应用。"
+        ],
+        "mastery": "低",
+        "masteryUpdatedAt": "2026/9/2 15:32:06",
+        "masteryReason": "用户未提供回答，因此未覆盖任何最佳回答中的关键内容。",
+        "reviewSource": "AI"
+      },
+      {
+        "question": "HALCON 中基于形状的模板匹配（create_shape_model）为什么对光照变化和遮挡具有一定的鲁棒性？其核心原理是什么？",
+        "project": "机器视觉专业知识",
+        "date": "2026/9/2",
+        "timestamp": "2026/9/2 15:32:06",
+        "action": "跳过题目",
+        "mode": "专业知识",
+        "category": "模板匹配",
+        "source": "专业",
+        "seconds": 0,
+        "answer": "",
+        "bestAnswer": "基于形状的模板匹配使用图像梯度方向作为特征，而非原始灰度值，因此对光照变化不敏感。匹配时通过金字塔逐层搜索，先在低分辨率层粗定位，再在高分辨率层精确定位，既提高速度又增强鲁棒性。相似度计算采用归一化相关或类似度量，允许部分区域不匹配，因此对轻微遮挡和杂乱背景有一定容忍度。但严重遮挡或形变仍会导致匹配失败，需要结合特征点匹配或训练模型。",
+        "bestAnswerViewed": false,
+        "reviewStatus": "reviewed",
+        "answerKeywords": [
+          "梯度方向",
+          "金字塔",
+          "归一化互相关",
+          "遮挡",
+          "光照不变"
+        ],
+        "principle": "形状匹配将模板和目标图像都转换为梯度方向图，利用边缘方向的一致性进行匹配。金字塔搜索通过降采样生成多层图像，从顶层开始搜索候选位置，逐层映射并细化，减少计算量。归一化相似度度量对灰度幅值变化不敏感，且通过掩码或部分贡献机制支持局部遮挡，从而提升鲁棒性。",
+        "id": "1788334295082-6d632f0896854",
+        "reviewIssues": [
+          "尚未覆盖：使用图像梯度方向作为特征，对光照变化不敏感、金字塔逐层搜索，先粗定位后精确定位，提高速度和鲁棒性、相似度计算采用归一化相关，允许部分不匹配，对遮挡有容忍度、严重遮挡或形变仍会失败。"
+        ],
+        "reviewSuggestions": [
+          "请补充回答，需说明基于形状匹配的特征、搜索策略及对光照和遮挡鲁棒性的原理。"
+        ],
+        "mastery": "低",
+        "masteryUpdatedAt": "2026/9/2 15:32:06",
+        "masteryReason": "用户未提供回答，因此未覆盖任何最佳回答中的关键内容。",
+        "reviewSource": "AI"
+      },
+      {
+        "question": "在 HALCON 中，当光照变化导致固定阈值分割失效时，如何选择合适的阈值策略？请对比全局阈值与局部阈值方法的适用场景。",
+        "project": "机器视觉专业知识",
+        "date": "2026/9/2",
+        "timestamp": "2026/9/2 15:32:06",
+        "action": "跳过题目",
+        "mode": "专业知识",
+        "category": "图像分割",
+        "source": "专业",
+        "seconds": 0,
+        "answer": "",
+        "bestAnswer": "全局阈值 threshold 适用于目标与背景灰度差异明显且光照均匀的场景，但光照变化会导致灰度分布漂移，固定阈值失效。此时可改用局部阈值 dyn_threshold，它通过比较原图与平滑滤波后的图像，逐像素判断灰度差是否超过 Offset，从而适应局部光照变化。工程上还可先做光照校正，如 dividing 或背景拟合，再使用全局阈值。选择策略应基于光照稳定性：稳定时优先全局阈值，简单高效；不稳定时使用局部阈值或预处理+全局阈值。",
+        "bestAnswerViewed": false,
+        "reviewStatus": "reviewed",
+        "answerKeywords": [
+          "全局阈值",
+          "局部阈值",
+          "dyn_threshold",
+          "光照补偿",
+          "预处理"
+        ],
+        "principle": "threshold 基于灰度直方图选取一个固定阈值，将像素分为前景和背景。dyn_threshold 使用一个平滑后的图像作为参考，通过原图与参考图的灰度差进行分割，Offset 控制灵敏度，LightDark 决定提取亮目标还是暗目标。该方法能抑制低频光照变化，但对噪声敏感，需配合滤波或形态学操作。",
+        "id": "1788334294901-fbe49879cff53",
+        "reviewIssues": [
+          "尚未覆盖：全局阈值适用于光照均匀、目标背景差异明显的场景、局部阈值dyn_threshold通过比较原图与平滑图适应光照变化、可先光照校正（如dividing或背景拟合）再使用全局阈值、选择策略基于光照稳定性：稳定用全局，不稳定用局部或预处理+全局。"
+        ],
+        "reviewSuggestions": [
+          "请补充回答，需对比全局与局部阈值的适用条件，并说明光照变化时的处理策略。"
+        ],
+        "mastery": "低",
+        "masteryUpdatedAt": "2026/9/2 15:32:06",
+        "masteryReason": "用户未提供回答，因此未覆盖任何最佳回答中的关键内容。",
+        "reviewSource": "AI"
+      },
+      {
+        "question": "HALCON中如何获取图像指定像素的灰度值？请说明HImage的数据组织方式。",
+        "project": "机器视觉专业知识",
+        "date": "2026/9/2",
+        "timestamp": "2026/9/2 15:32:06",
+        "action": "跳过题目",
+        "mode": "专业知识",
+        "category": "图像处理基础",
+        "source": "专业",
+        "seconds": 0,
+        "answer": "",
+        "bestAnswer": "在HALCON中，图像数据封装在HImage对象中，内部包含图像尺寸、通道数和像素数据。坐标系统以左上角为原点，Row为行坐标（y），Column为列坐标（x）。获取单像素灰度值使用get_grayval(Image, Row, Column, Grayval)，该操作符返回该位置所有通道的灰度值，若图像为单通道则Grayval为单个数值，多通道时Grayval为元组。若需访问特定通道，可先用access_channel(Image, ChannelImage, Channel)提取通道，再调用get_grayval。理解HImage的数据组织方式有助于正确进行像素级操作和图像预处理。",
+        "bestAnswerViewed": false,
+        "reviewStatus": "reviewed",
+        "answerKeywords": [
+          "get_grayval",
+          "Row",
+          "Column",
+          "通道"
+        ],
+        "principle": "HImage是HALCON的图像对象，采用内部数据管理，用户通过操作符访问。get_grayval按行列坐标索引像素，返回灰度值。HALCON的坐标与图像处理惯例一致，Row对应垂直方向，Column对应水平方向。多通道图像每个像素有多个灰度值，HALCON用元组表示。",
+        "id": "1788334294734-2146163a4e4f38",
+        "reviewIssues": [
+          "尚未覆盖：HImage对象包含图像尺寸、通道数和像素数据、坐标系统以左上角为原点，Row为行坐标，Column为列坐标、使用get_grayval获取灰度值，多通道时返回元组、多通道可用access_channel提取通道后再获取。"
+        ],
+        "reviewSuggestions": [
+          "请补充回答，需说明HImage的数据组织、坐标系统及get_grayval的使用方法。"
+        ],
+        "mastery": "低",
+        "masteryUpdatedAt": "2026/9/2 15:32:06",
+        "masteryReason": "用户未提供回答，因此未覆盖任何最佳回答中的关键内容。",
+        "reviewSource": "AI"
+      },
+      {
+        "question": "在HALCON中，如何提取亚像素边缘并拟合直线？",
+        "project": "机器视觉专业知识",
+        "date": "2026/9/2",
+        "timestamp": "2026/9/2 15:32:06",
+        "action": "跳过题目",
+        "mode": "专业知识",
+        "category": "边缘检测",
+        "source": "专业",
+        "seconds": 0,
+        "answer": "",
+        "bestAnswer": "在HALCON中，先对图像进行平滑预处理以减少噪声，然后使用edges_sub_pix算子提取亚像素轮廓。该算子需要设置滤波尺度、滞后阈值等参数。提取后得到XLD轮廓，可通过select_contours_xld根据长度、形状等特征筛选目标轮廓。最后使用fit_line_contour_xld拟合直线，得到直线的起点、终点和角度。若存在干扰边缘，可结合ROI限制搜索区域，或根据直线几何特征进一步筛选。",
+        "bestAnswerViewed": false,
+        "reviewStatus": "reviewed",
+        "answerKeywords": [
+          "edges_sub_pix",
+          "fit_line_contour_xld",
+          "轮廓筛选",
+          "参数设置"
+        ],
+        "principle": "edges_sub_pix基于Canny算法改进，通过高斯滤波计算梯度，采用滞后双阈值检测边缘，并利用亚像素插值精确定位边缘位置。XLD轮廓是亚像素精度的曲线。fit_line_contour_xld使用最小二乘法拟合直线，使轮廓点到直线的距离平方和最小。参数如滤波尺度影响边缘平滑程度，滞后阈值控制边缘连续性。通过轮廓特征筛选可去除短小或无关边缘。",
+        "id": "1788334294551-40715179f85bf",
+        "reviewIssues": [
+          "尚未覆盖：预处理平滑减少噪声、使用edges_sub_pix提取亚像素轮廓，设置滤波尺度和滞后阈值、用select_contours_xld筛选轮廓、用fit_line_contour_xld拟合直线，得到起点、终点和角度。"
+        ],
+        "reviewSuggestions": [
+          "请补充回答，需涵盖边缘提取算子、参数设置、轮廓筛选和直线拟合步骤。"
+        ],
+        "mastery": "低",
+        "masteryUpdatedAt": "2026/9/2 15:32:06",
+        "masteryReason": "用户未提供回答，因此未覆盖任何最佳回答中的关键内容。",
+        "reviewSource": "AI"
+      },
+      {
+        "question": "在HALCON中，如何利用灰度直方图确定阈值进行Blob分析？",
+        "project": "机器视觉专业知识",
+        "date": "2026/9/2",
+        "timestamp": "2026/9/2 15:32:06",
+        "action": "跳过题目",
+        "mode": "专业知识",
+        "category": "图像分割",
+        "source": "专业",
+        "seconds": 0,
+        "answer": "",
+        "bestAnswer": "在HALCON中，首先读取图像并计算灰度直方图，观察目标与背景是否形成双峰。若双峰明显，选择谷底灰度值作为阈值，使用threshold算子生成区域。然后通过connection将连通域分离，使用select_shape等算子根据面积、宽高等特征筛选目标区域。若目标与背景灰度重叠，可改用dyn_threshold或var_threshold进行局部阈值分割，或结合边缘信息辅助分割。最后通过区域特征验证结果，必要时调整阈值或预处理方式。",
+        "bestAnswerViewed": false,
+        "reviewStatus": "reviewed",
+        "answerKeywords": [
+          "双峰直方图",
+          "阈值选择",
+          "区域生成",
+          "连通域分析"
+        ],
+        "principle": "灰度直方图反映图像中每个灰度级的像素数量分布。当目标和背景灰度分布相对集中且差异明显时，直方图呈现双峰，谷底对应最佳分割阈值。threshold算子通过设定灰度范围将像素划分为前景和背景。Blob分析基于连通域提取目标区域，并通过几何特征进行筛选。当灰度重叠时，全局阈值失效，需要利用局部灰度差异或空间上下文信息。",
+        "id": "1788334294366-cfe5a91f1ecaf8",
+        "reviewIssues": [
+          "尚未覆盖：计算直方图，观察目标与背景是否双峰，选谷底阈值、使用threshold生成区域，connection分离连通域，select_shape筛选、灰度重叠时改用dyn_threshold或var_threshold局部阈值。"
+        ],
+        "reviewSuggestions": [
+          "请补充回答，需涵盖直方图阈值选择、Blob分析流程及灰度重叠时的替代方案。"
+        ],
+        "mastery": "低",
+        "masteryUpdatedAt": "2026/9/2 15:32:06",
+        "masteryReason": "用户未提供回答，因此未覆盖任何最佳回答中的关键内容。",
+        "reviewSource": "AI"
+      },
+      {
+        "question": "在HALCON中使用find_shape_model进行模板匹配时，如何设置参数以兼顾速度和精度？",
+        "project": "机器视觉专业知识",
+        "date": "2026/9/2",
+        "timestamp": "2026/9/2 15:32:06",
+        "action": "跳过题目",
+        "mode": "专业知识",
+        "category": "模板匹配",
+        "source": "专业",
+        "seconds": 0,
+        "answer": "",
+        "bestAnswer": "find_shape_model的参数直接影响匹配性能。NumLevels控制金字塔层数，层数越多速度越快，但目标过小或细节丰富时层数过大会导致漏检，通常设为auto或根据目标尺寸调整。MinScore是匹配分数阈值，默认0.5，提高可减少误检但可能漏检，降低则相反。AngleStart和AngleEnd定义搜索角度范围，范围越大耗时越长。Greediness为贪婪度，值越大搜索越快但可能漏检。实际调参应先用create_shape_model生成模型，再通过inspect_shape_model验证金字塔层有效性，最后在测试集上平衡速度与准确率。",
+        "bestAnswerViewed": false,
+        "reviewStatus": "reviewed",
+        "answerKeywords": [
+          "金字塔",
+          "MinScore",
+          "AngleStart/End",
+          "Greediness"
+        ],
+        "principle": "形状模板匹配基于边缘梯度信息，通过归一化互相关计算相似度。金字塔层级通过降采样减少像素数，高层先粗定位，低层精确定位，从而加速搜索。MinScore是相似度阈值，低于该值视为不匹配。Greediness控制搜索时是否跳过部分候选点，值越高跳过越多，速度提升但风险增大。理解这些参数对匹配结果的影响是工程调优的基础。",
+        "id": "1788334294199-3ab1df39a803b",
+        "reviewIssues": [
+          "尚未覆盖：NumLevels控制金字塔层数，层数多速度快但可能漏检、MinScore控制匹配分数阈值，影响误检与漏检、AngleStart和AngleEnd定义搜索角度范围，范围大耗时多、Greediness贪婪度，值大搜索快但可能漏检、用create_shape_model和inspect_shape_model验证参数。"
+        ],
+        "reviewSuggestions": [
+          "请补充回答，需说明各参数对速度和精度的影响及调参方法。"
+        ],
+        "mastery": "低",
+        "masteryUpdatedAt": "2026/9/2 15:32:06",
+        "masteryReason": "用户未提供回答，因此未覆盖任何最佳回答中的关键内容。",
+        "reviewSource": "AI"
+      },
+      {
+        "question": "HALCON中threshold算子进行图像分割时，如何根据直方图选择合适的阈值范围？",
+        "project": "机器视觉专业知识",
+        "date": "2026/9/2",
+        "timestamp": "2026/9/2 15:32:06",
+        "action": "跳过题目",
+        "mode": "专业知识",
+        "category": "图像分割",
+        "source": "专业",
+        "seconds": 0,
+        "answer": "",
+        "bestAnswer": "在HALCON中，threshold(Image, Region, MinGray, MaxGray)通过灰度范围提取区域。选择阈值前应先使用gray_histo或histo_2dim观察灰度直方图，若呈现双峰分布，则阈值应选在两峰之间的谷底附近。MinGray和MaxGray分别定义灰度下限和上限，只有灰度值在该范围内的像素才被选入区域。实际应用中需结合ROI排除干扰，并可通过adjust_threshold或binary_threshold自动计算阈值。若光照不均，可先使用均值滤波或动态阈值方法改善。",
+        "bestAnswerViewed": false,
+        "reviewStatus": "reviewed",
+        "answerKeywords": [
+          "直方图双峰",
+          "阈值范围",
+          "背景与目标分离"
+        ],
+        "principle": "threshold基于全局灰度阈值进行像素分类，本质是设定一个灰度区间，将图像二值化。直方图反映了各灰度级像素频数，双峰对应目标和背景的灰度集中区，谷底是区分两类的最佳阈值点。HALCON的binary_threshold使用Otsu或最大熵方法自动确定阈值，而threshold需要人工指定，因此理解直方图是参数选择的基础。",
+        "id": "1788334294035-9b9dbb4fc4554",
+        "reviewIssues": [
+          "尚未覆盖：使用gray_histo或histo_2dim观察直方图，双峰时选谷底、threshold的MinGray和MaxGray定义灰度范围、结合ROI排除干扰，可用binary_threshold自动计算、光照不均时用滤波或动态阈值改善。"
+        ],
+        "reviewSuggestions": [
+          "请补充回答，需涵盖直方图观察方法、阈值选取原则、参数含义及自动阈值工具。"
+        ],
+        "mastery": "低",
+        "masteryUpdatedAt": "2026/9/2 15:32:06",
+        "masteryReason": "用户未提供回答，因此未覆盖任何最佳回答中的关键内容。",
+        "reviewSource": "AI"
+      },
+      {
+        "question": "HALCON中Region（区域）和XLD（亚像素轮廓）在传统2D视觉中分别代表什么？如何将区域转换为XLD？为什么边缘提取通常使用XLD而不是Region？",
+        "project": "机器视觉专业知识",
+        "date": "2026/9/2",
+        "timestamp": "2026/9/2 15:32:06",
+        "action": "跳过题目",
+        "mode": "专业知识",
+        "category": "区域与轮廓",
+        "source": "专业",
+        "seconds": 0,
+        "answer": "",
+        "bestAnswer": "Region是像素级连通区域，适合表示面积、位置等整体特征；XLD是亚像素精度的轮廓，由一系列控制点组成，能更精确地描述边缘位置。将区域转换为XLD使用gen_contour_region_xld(Region, Contour, 'border')。边缘提取时，亚像素边缘检测算子如edges_sub_pix直接输出XLD，因为实际物体边缘往往不在像素中心，XLD能提供比像素级Region更高的定位精度，适用于测量、定位等对精度要求高的场景。",
+        "bestAnswerViewed": false,
+        "reviewStatus": "reviewed",
+        "answerKeywords": [
+          "gen_contour_region_xld",
+          "亚像素",
+          "边缘提取",
+          "区域",
+          "轮廓"
+        ],
+        "principle": "Region基于像素网格，边缘呈锯齿状，精度受像素大小限制。XLD通过插值或拟合获得亚像素坐标，可达到0.1像素甚至更高精度。gen_contour_region_xld提取区域边界并拟合为平滑轮廓。在测量应用中，XLD能减小量化误差，提高重复性。",
+        "id": "1788334293876-fc61f87093bd",
+        "reviewIssues": [
+          "尚未覆盖：Region是像素级连通区域，XLD是亚像素精度轮廓、使用gen_contour_region_xld将区域转换为XLD、边缘提取用XLD因为定位精度高于像素级Region。"
+        ],
+        "reviewSuggestions": [
+          "请补充回答，需说明Region与XLD的本质区别、转换算子，以及XLD在精度上的优势。"
+        ],
+        "mastery": "低",
+        "masteryUpdatedAt": "2026/9/2 15:32:06",
+        "masteryReason": "用户未提供回答，因此未覆盖任何最佳回答中的关键内容。",
+        "reviewSource": "AI"
+      },
+      {
+        "question": "HALCON中图像数据类型如何影响灰度阈值分割？请说明byte图像与uint2图像的区别，以及如何将uint2图像转换为byte图像。",
+        "project": "机器视觉专业知识",
+        "date": "2026/9/2",
+        "timestamp": "2026/9/2 15:32:06",
+        "action": "跳过题目",
+        "mode": "专业知识",
+        "category": "图像处理基础",
+        "source": "专业",
+        "seconds": 0,
+        "answer": "",
+        "bestAnswer": "HALCON中byte图像每个像素占8位，灰度范围0~255；uint2图像占16位，灰度范围0~65535。threshold算子根据图像类型解释阈值，若对uint2图像使用阈值128~255，则只保留灰度值在128~255之间的像素，导致高动态范围图像中大量信息被截断。正确做法是先用convert_image_type(Image, ImageByte, 'byte')将uint2图像线性映射到0~255，或使用scale_image_max进行灰度拉伸，再进行阈值分割。",
+        "bestAnswerViewed": false,
+        "reviewStatus": "reviewed",
+        "answerKeywords": [
+          "byte",
+          "uint2",
+          "convert_image_type",
+          "灰度范围",
+          "阈值"
+        ],
+        "principle": "HALCON的图像类型决定了像素的存储位数和灰度值解释方式。threshold算子内部将阈值参数转换为与图像类型匹配的数值范围进行比较。uint2图像能表示更大的灰度动态范围，但直接使用byte阈值会导致错误分割。convert_image_type通过缩放或截断将16位灰度映射到8位，保留主要对比度信息。",
+        "id": "1788334293721-7abc00c9e32ed",
+        "reviewIssues": [
+          "尚未覆盖：byte图像8位0~255，uint2图像16位0~65535、threshold算子根据图像类型解释阈值，uint2图像使用128~255会截断高动态范围信息、使用convert_image_type或scale_image_max将uint2转换为byte后再分割。"
+        ],
+        "reviewSuggestions": [
+          "请补充回答，需涵盖byte与uint2的灰度范围差异、threshold对uint2的阈值解释问题，以及转换方法。"
+        ],
+        "mastery": "低",
+        "masteryUpdatedAt": "2026/9/2 15:32:06",
+        "masteryReason": "用户未提供回答，因此未覆盖任何最佳回答中的关键内容。",
+        "reviewSource": "AI"
+      },
+      {
+        "question": "请简述 HALCON 中 Blob 分析的基本流程，并说明为什么在阈值分割后通常需要执行 connection 和 select_shape 操作。",
+        "project": "机器视觉专业知识",
+        "date": "2026/9/2",
+        "timestamp": "2026/9/2 13:26:58",
+        "action": "完成答题",
+        "mode": "专业知识",
+        "category": "Blob分析",
+        "source": "专业",
+        "seconds": 0,
+        "answer": "基本流程是：阈值分割+形态学处理+特征筛选。\n阈值分割后得到的往往是带有噪点的区域，需要拆分并过滤。",
+        "bestAnswer": "HALCON 中 Blob 分析通常包括以下步骤：首先通过 grab_image 或 read_image 获取图像，然后进行预处理（如平滑、增强），接着使用 threshold 将目标与背景分离得到初始区域。由于初始区域可能包含多个互不相连的目标，需要用 connection 将区域拆分为独立的连通域。之后通过 select_shape 基于面积、宽度、高度、圆度等特征筛选出符合要求的目标区域。最后可结合 morphology 操作（如 opening/closing）修正边缘，再输出结果。connection 是区分不同目标的关键，select_shape 则用于剔除噪声和干扰，两者缺一不可。",
+        "bestAnswerViewed": false,
+        "reviewStatus": "reviewed",
+        "answerKeywords": [
+          "threshold",
+          "connection",
+          "select_shape",
+          "连通域",
+          "特征"
+        ],
+        "principle": "threshold 得到的是所有满足灰度条件的像素集合，可能包含多个不相连的子集。connection 基于 8 邻域或 4 邻域的连通性，将像素集合划分为多个连通分量，每个分量对应一个独立目标。select_shape 通过计算区域的各种几何特征（如面积、矩形度、凸度）与设定范围比较，实现基于规则的分类。Blob 分析本质上是基于灰度阈值和几何特征的快速目标提取方法，适用于背景简单、目标与背景灰度差异明显的场景，是传统 2D 视觉中最基础且高效的算法流程。",
+        "id": "1788326754748-5ff9e91eceba5",
+        "reviewIssues": [
+          "与最佳回答相比，尚未覆盖：threshold、connection、select_shape、连通域。"
+        ],
+        "reviewSuggestions": [
+          "请补充最佳回答中的关键内容：threshold、connection、select_shape、连通域。"
+        ],
+        "mastery": "中",
+        "masteryUpdatedAt": "2026/9/2 13:26:58",
+        "masteryReason": "内置要点评审：存在关键遗漏。遗漏：threshold、connection、select_shape、连通域。",
+        "reviewSource": "本地规则"
+      },
+      {
+        "question": "在 HALCON 中，如何将一张灰度图像转换为可用于后续处理的区域（Region）？请说明 threshold 算子的输入输出以及区域在 HALCON 中的基本表示方式。",
+        "project": "机器视觉专业知识",
+        "date": "2026/9/2",
+        "timestamp": "2026/9/2 13:26:58",
+        "action": "完成答题",
+        "mode": "专业知识",
+        "category": "图像处理基础",
+        "source": "专业",
+        "seconds": 0,
+        "answer": "可以通过阈值处理算子，如threshold、dyn_threshold;\nthreshold输入图像和高低阈值，输出是region区域；\n区域在halcno中通过像素的方式表达；",
+        "bestAnswer": "在 HALCON 中，灰度图像通常以 byte 类型存储，像素值范围为 0~255。使用 threshold 算子时，输入为单通道图像，通过设定 MinGray 和 MaxGray 两个阈值，将灰度值落在该闭区间内的像素标记为前景，输出一个区域（Region）。区域在 HALCON 内部采用行程编码表示，即按行记录连续像素段的起点和终点，因此内存紧凑且便于形态学操作。若输入为彩色图像，需先通过 decompose3 或 convert_image_type 转换为单通道灰度图，否则 threshold 会因通道数不匹配而报错。",
+        "bestAnswerViewed": false,
+        "reviewStatus": "reviewed",
+        "answerKeywords": [
+          "threshold",
+          "区域",
+          "灰度值",
+          "MinGray",
+          "MaxGray"
+        ],
+        "principle": "threshold 的核心思想是基于灰度直方图的全局分割：将每个像素的灰度值与给定阈值区间比较，满足条件的像素集合构成区域。区域是一种像素坐标集合的抽象表示，不保存每个像素的灰度值，只保存位置信息。行程编码将同一行中连续的像素段压缩为起点和终点，大幅减少存储量，同时支持快速的逻辑运算和几何变换。HALCON 的区域对象是面向对象编程中的句柄类型，通过算子创建后需用 reduce_domain 等操作与图像关联。",
+        "id": "1788326667437-5632ed8d60ea",
+        "reviewIssues": [
+          "与最佳回答相比，尚未覆盖：灰度值、MinGray、MaxGray。"
+        ],
+        "reviewSuggestions": [
+          "请补充最佳回答中的关键内容：灰度值、MinGray、MaxGray。"
+        ],
+        "mastery": "中",
+        "masteryUpdatedAt": "2026/9/2 13:26:58",
+        "masteryReason": "内置要点评审：存在关键遗漏。遗漏：灰度值、MinGray、MaxGray。",
+        "reviewSource": "本地规则"
+      },
+      {
+        "question": "HALCON中基于形状的模板匹配（create_shape_model）为什么对线性光照变化不敏感？",
+        "project": "机器视觉专业知识",
+        "date": "2026/9/2",
+        "timestamp": "2026/9/2 13:26:58",
+        "action": "完成答题",
+        "mode": "专业知识",
+        "category": "模板匹配",
+        "source": "专业",
+        "seconds": 0,
+        "answer": "因为它不是基于灰度来判断目标的边缘，他是根据边缘的梯度信息来搜索边缘，光照不稳定很容易导致梯度发生变化；create_ncc_shape_model对光照变化敏感；",
+        "bestAnswer": "基于形状的模板匹配在创建模板时，提取目标边缘的梯度方向和位置信息，而非灰度值。匹配时，通过计算搜索图像中边缘点的梯度方向与模板梯度方向的相似度，并使用归一化互相关作为度量。由于梯度方向对灰度值的线性变化（如整体变亮或变暗）具有不变性，因此对线性光照变化不敏感。HALCON通过金字塔分层搜索加速匹配，同时支持旋转和缩放。",
+        "bestAnswerViewed": false,
+        "reviewStatus": "reviewed",
+        "answerKeywords": [
+          "create_shape_model",
+          "梯度方向",
+          "归一化",
+          "鲁棒性"
+        ],
+        "principle": "形状匹配将模板表示为一系列边缘点及其梯度方向向量。相似度度量采用归一化互相关，计算模板与搜索图像对应位置的梯度方向一致性。线性光照变化相当于灰度值乘以常数并加偏移，梯度方向是灰度变化的方向，不受乘性常数影响，因此鲁棒。金字塔搜索通过降采样图像减少计算量，并在高层粗定位、低层精定位。",
+        "id": "1788326589191-fbbaa930063718",
+        "reviewIssues": [
+          "与最佳回答相比，尚未覆盖：梯度方向、归一化。"
+        ],
+        "reviewSuggestions": [
+          "请补充最佳回答中的关键内容：梯度方向、归一化。"
+        ],
+        "mastery": "中",
+        "masteryUpdatedAt": "2026/9/2 13:26:58",
+        "masteryReason": "内置要点评审：存在关键遗漏。遗漏：梯度方向、归一化。",
+        "reviewSource": "本地规则"
+      },
+      {
+        "question": "在HALCON中进行Blob分析时，如何合理设置阈值和最小面积参数以稳定提取目标区域？",
+        "project": "机器视觉专业知识",
+        "date": "2026/9/2",
+        "timestamp": "2026/9/2 13:26:58",
+        "action": "完成答题",
+        "mode": "专业知识",
+        "category": "图像分割",
+        "source": "专业",
+        "seconds": 0,
+        "answer": "分析直方图来合理设定阈值；可以通过halcon内置特征筛选工具；",
+        "bestAnswer": "在HALCON中，Blob分析通常先通过threshold算子根据灰度直方图选取阈值，将目标与背景分离，得到区域；再用connection将连通域拆分为独立区域；最后用select_shape根据面积、宽高等特征筛选目标。阈值设置需观察直方图波峰波谷，选择谷底值；最小面积等参数需根据目标实际尺寸和噪声大小设定，过小会引入噪声，过大会漏检。若灰度重叠，可尝试使用dyn_threshold或局部阈值，并结合形态学闭运算填充空洞。",
+        "bestAnswerViewed": false,
+        "reviewStatus": "reviewed",
+        "answerKeywords": [
+          "threshold",
+          "connection",
+          "select_shape",
+          "灰度直方图"
+        ],
+        "principle": "threshold基于全局灰度阈值进行二值化，其核心是寻找最佳分割阈值，使类间方差最大或误差最小。connection通过连通性分析将像素集合划分为多个连通分量，基于8邻域或4邻域。select_shape通过区域特征（如面积、周长、矩形度）进行滤波，从而剔除不符合目标几何特征的干扰区域。参数设置直接影响分割精度和稳定性。",
+        "id": "1788326458031-bb31fe93a821c8",
+        "reviewIssues": [
+          "与最佳回答相比，尚未覆盖：threshold、connection、select_shape、灰度直方图。"
+        ],
+        "reviewSuggestions": [
+          "请补充最佳回答中的关键内容：threshold、connection、select_shape、灰度直方图。"
+        ],
+        "mastery": "中",
+        "masteryUpdatedAt": "2026/9/2 13:26:58",
+        "masteryReason": "内置要点评审：存在关键遗漏。遗漏：threshold、connection、select_shape、灰度直方图。",
+        "reviewSource": "本地规则"
+      },
+      {
+        "question": "HALCON中Blob分析的标准流程与区域特征筛选",
+        "project": "机器视觉专业知识",
+        "date": "2026/9/2",
+        "timestamp": "2026/9/2 13:26:58",
+        "action": "完成答题",
+        "mode": "专业知识",
+        "category": "Blob分析",
+        "source": "专业",
+        "seconds": 0,
+        "answer": "流程：阈值过滤、形态学处理、特征筛选和area_center。\n区域特征筛选的方式有面积、矩形度、长宽比、圆度筛选方式，select_shape。",
+        "bestAnswer": "Blob分析的标准流程为：先采集图像并进行预处理（如高斯滤波去噪），然后通过阈值分割得到二值区域，再使用connection将连通域分离为独立区域，接着用select_shape根据面积、圆度、长宽比等特征筛选目标区域，最后可进行特征测量或结果输出。在HALCON中常用threshold、connection、select_shape等算子组合实现。该流程广泛应用于缺陷检测、目标定位等场景，关键在于特征参数的选择需结合具体样本。",
+        "bestAnswerViewed": false,
+        "reviewStatus": "reviewed",
+        "answerKeywords": [
+          "threshold",
+          "connection",
+          "select_shape",
+          "特征筛选"
+        ],
+        "principle": "Blob分析的核心是将图像中灰度一致且连通的像素集合提取为有意义的目标区域。阈值分割将灰度转化为二值图，连通域分析将相邻前景像素归并为独立区域，特征筛选则利用几何和灰度特征剔除噪声和无关区域。HALCON的区域数据结构支持高效的形态学和特征计算，使得Blob分析成为传统2D视觉中最基础且实用的技术路线。",
+        "id": "1788326384802-44dd46dad865f",
+        "reviewIssues": [
+          "与最佳回答相比，尚未覆盖：threshold、connection。"
+        ],
+        "reviewSuggestions": [
+          "请补充最佳回答中的关键内容：threshold、connection。"
+        ],
+        "mastery": "中",
+        "masteryUpdatedAt": "2026/9/2 13:26:58",
+        "masteryReason": "内置要点评审：存在关键遗漏。遗漏：threshold、connection。",
+        "reviewSource": "本地规则"
+      },
+      {
+        "question": "HALCON中全局阈值与局部阈值分割的适用场景及参数选择",
+        "project": "机器视觉专业知识",
+        "date": "2026/9/2",
+        "timestamp": "2026/9/2 13:26:58",
+        "action": "完成答题",
+        "mode": "专业知识",
+        "category": "图像分割",
+        "source": "专业",
+        "seconds": 0,
+        "answer": "全局阈值threshold适用于目标物体与图像对比对明显的场景；\n局部阈值分割dyn_threshold适用于亮度出现偏移的场景；",
+        "bestAnswer": "全局阈值threshold适用于目标与背景灰度对比明显且光照均匀的场景，直接根据灰度直方图选取阈值。局部阈值dyn_threshold适用于光照不均或背景灰度缓慢变化的场景，它通过比较原图与平滑滤波后的图像，利用Offset参数控制分割灵敏度。选择时先观察图像灰度分布，若直方图双峰明显则用全局阈值；否则使用局部阈值，并调整滤波核大小和Offset。实际中还需结合形态学操作去除噪声。",
+        "bestAnswerViewed": false,
+        "reviewStatus": "reviewed",
+        "answerKeywords": [
+          "threshold",
+          "dyn_threshold",
+          "Offset",
+          "光照不均"
+        ],
+        "principle": "阈值分割的本质是根据灰度值将像素划分为前景和背景。全局阈值仅依赖单个灰度值，计算简单但对光照敏感。局部阈值通过邻域均值或中值作为动态基准，利用原图与基准图的灰度差进行分割，能适应局部灰度变化。Offset决定了分割的严格程度，Offset越小越容易分割出细节，但噪声也越多。正确选择阈值方法可显著提高后续区域分析的稳定性。",
+        "id": "1788326260838-19961dfc2ceca8",
+        "reviewIssues": [
+          "与最佳回答相比，尚未覆盖：Offset、光照不均。"
+        ],
+        "reviewSuggestions": [
+          "请补充最佳回答中的关键内容：Offset、光照不均。"
+        ],
+        "mastery": "中",
+        "masteryUpdatedAt": "2026/9/2 13:26:58",
+        "masteryReason": "内置要点评审：存在关键遗漏。遗漏：Offset、光照不均。",
+        "reviewSource": "本地规则"
+      },
+      {
+        "question": "在 HALCON 中，如何通过 Blob 分析实现工件定位？请说明从图像采集到输出坐标的完整流程及各步骤的作用。",
+        "project": "机器视觉专业知识",
+        "date": "2026/9/2",
+        "timestamp": "2026/9/2 13:26:58",
+        "action": "完成答题",
+        "mode": "专业知识",
+        "category": "Blob 分析",
+        "source": "专业",
+        "seconds": 0,
+        "answer": "图像采集后预处理后，使用blob+特征筛选过滤出目标工件，area_center获取工件的坐标，然后将坐标发送给plc；",
+        "bestAnswer": "Blob 分析定位工件的流程为：首先使用 read_image 读取图像，必要时通过 median_image 或 Gaussian 滤波降噪；然后使用 threshold 根据灰度直方图选择合适阈值将工件与背景分离，得到二值区域；接着用 connection 拆分连通域，并通过 select_shape 依据面积、圆度等特征筛选出目标工件；最后使用 area_center 计算工件的中心坐标和面积，实现定位。若工件存在孔洞，可用 fill_up 填充后再计算中心，确保坐标准确。",
+        "bestAnswerViewed": false,
+        "reviewStatus": "reviewed",
+        "answerKeywords": [
+          "read_image",
+          "threshold",
+          "connection",
+          "select_shape",
+          "area_center"
+        ],
+        "principle": "Blob 分析的核心是将图像分割为前景和背景区域，再对区域进行特征提取。阈值分割基于灰度直方图，通过设定灰度范围将目标像素归类为前景。连通域分析将像素集合按邻接关系分组，使每个工件成为独立区域。区域特征（如面积、中心矩）通过像素坐标累加计算，area_center 利用一阶矩求质心，其精度受分割质量影响。预处理可减少噪声干扰，提高阈值分割的稳定性。",
+        "id": "1788326140382-49db5c2cd9175",
+        "reviewIssues": [
+          "与最佳回答相比，尚未覆盖：read_image、threshold、connection、select_shape。"
+        ],
+        "reviewSuggestions": [
+          "请补充最佳回答中的关键内容：read_image、threshold、connection、select_shape。"
+        ],
+        "mastery": "中",
+        "masteryUpdatedAt": "2026/9/2 13:26:58",
+        "masteryReason": "内置要点评审：存在关键遗漏。遗漏：read_image、threshold、connection、select_shape。",
+        "reviewSource": "本地规则"
+      },
+      {
+        "question": "HALCON 中阈值分割后区域存在大量细小噪点，如何在不影响目标区域完整性的前提下进行有效处理？请说明常用算子的选择依据和参数影响。",
+        "project": "机器视觉专业知识",
+        "date": "2026/9/2",
+        "timestamp": "2026/9/2 13:26:58",
+        "action": "完成答题",
+        "mode": "专业知识",
+        "category": "图像分割",
+        "source": "专业",
+        "seconds": 0,
+        "answer": "1. 使用面积特征筛选，select_shape，参数调整area的大小即可；\n2. 根据目标形状可以使用开运行算子；",
+        "bestAnswer": "首先使用 connection 将阈值分割得到的区域拆分为独立连通域，然后通过 select_shape 依据面积、宽度、高度等几何特征筛选出目标区域，从而去除小面积噪点。若噪点与目标区域粘连，可先使用 opening_circle 去除细小突出，再用 closing_circle 填补目标内部细小孔洞。选择结构元素大小时需权衡：过小无法有效去噪，过大会腐蚀目标边缘或合并相邻区域。最后可通过 fill_up 填充目标内部孔洞，确保区域完整性。",
+        "bestAnswerViewed": false,
+        "reviewStatus": "reviewed",
+        "answerKeywords": [
+          "connection",
+          "select_shape",
+          "opening_circle",
+          "closing_circle",
+          "区域面积阈值"
+        ],
+        "principle": "阈值分割得到的是满足灰度范围的像素集合，但未考虑空间连通性。connection 基于像素邻接关系将区域分解为连通分量，使每个独立区域可单独分析。select_shape 通过区域特征（如面积、矩形度）进行筛选，利用噪点与目标在几何尺寸上的差异实现分离。形态学开运算先腐蚀后膨胀，可去除细小突出；闭运算先膨胀后腐蚀，可填补内部孔洞。结构元素尺寸决定操作的粒度，需根据目标实际尺寸设定。",
+        "id": "1788326010624-92514011f9b8c8",
+        "reviewIssues": [
+          "与最佳回答相比，尚未覆盖：connection、opening_circle、closing_circle。"
+        ],
+        "reviewSuggestions": [
+          "请补充最佳回答中的关键内容：connection、opening_circle、closing_circle。"
+        ],
+        "mastery": "中",
+        "masteryUpdatedAt": "2026/9/2 13:26:58",
+        "masteryReason": "内置要点评审：存在关键遗漏。遗漏：connection、opening_circle、closing_circle。",
+        "reviewSource": "本地规则"
+      },
+      {
+        "question": "HALCON 中 Blob 分析的基本流程是什么？如何通过特征筛选去除干扰区域？",
+        "project": "机器视觉专业知识",
+        "date": "2026/9/2",
+        "timestamp": "2026/9/2 13:26:58",
+        "action": "完成答题",
+        "mode": "专业知识",
+        "category": "区域分析",
+        "source": "专业",
+        "seconds": 0,
+        "answer": "基本流程是阈值分割、形态学处理和特征筛选；特征筛选可以根据面积、矩形度或者圆度获取需要区域；",
+        "bestAnswer": "HALCON 中 Blob 分析通常包括：图像采集、预处理（如滤波、形态学）、阈值分割得到二值区域、通过 connection 将区域拆分为连通域、使用 select_shape 按面积、圆度、宽高等特征筛选目标区域。若存在噪声或粘连，可先用 opening/closing 去除小颗粒或平滑边界，再对粘连区域使用 watersheds 或距离变换分割。特征筛选时需根据实际目标设定合理阈值范围，避免误检和漏检。",
+        "bestAnswerViewed": false,
+        "reviewStatus": "reviewed",
+        "answerKeywords": [
+          "连通域",
+          "面积",
+          "圆度",
+          "select_shape",
+          "形态学"
+        ],
+        "principle": "Blob 分析基于连通域标记算法，将二值图像中相邻的相同灰度像素归为同一区域。connection 采用像素邻接关系遍历，生成独立连通域。select_shape 通过计算区域几何特征（如面积、周长、形状因子）与预设范围比较，实现快速过滤。形态学操作通过结构元素与区域相互作用，能去除小噪声、填充孔洞或分离弱粘连，提升后续特征提取的稳定性。",
+        "id": "1788325727612-c4ecacac8e3b98",
+        "reviewIssues": [
+          "与最佳回答相比，尚未覆盖：连通域、select_shape。"
+        ],
+        "reviewSuggestions": [
+          "请补充最佳回答中的关键内容：连通域、select_shape。"
+        ],
+        "mastery": "中",
+        "masteryUpdatedAt": "2026/9/2 13:26:58",
+        "masteryReason": "内置要点评审：存在关键遗漏。遗漏：连通域、select_shape。",
+        "reviewSource": "本地规则"
+      },
+      {
+        "question": "HALCON 中全局阈值分割（threshold）的原理是什么？如何根据灰度直方图确定合适的阈值？",
+        "project": "机器视觉专业知识",
+        "date": "2026/9/2",
+        "timestamp": "2026/9/2 13:26:58",
+        "action": "完成答题",
+        "mode": "专业知识",
+        "category": "图像分割",
+        "source": "专业",
+        "seconds": 0,
+        "answer": "原理是获取灰度值在指定范围内的像素；无；",
+        "bestAnswer": "HALCON 的 threshold 操作符将灰度图像中所有灰度值在给定区间内的像素点归为一个区域，输出为二值区域。确定阈值时，先统计灰度直方图，若目标和背景灰度差异明显，直方图会呈现双峰，阈值通常选在两峰之间的谷底处，以最小化误分割。若光照不均匀，全局阈值难以兼顾整幅图像，可改用局部阈值方法（如 dyn_threshold）或先做光照校正（如 divide_image 配合背景估计），再使用全局阈值。",
+        "bestAnswerViewed": false,
+        "reviewStatus": "reviewed",
+        "answerKeywords": [
+          "阈值",
+          "直方图",
+          "双峰",
+          "光照不均",
+          "动态阈值"
+        ],
+        "principle": "threshold 基于像素级灰度比较，对每个像素独立判断，计算简单但缺乏空间上下文。直方图双峰法假设目标和背景各自形成单峰分布，谷底对应边界灰度，能最大化类间分离。光照不均匀会使同一目标在不同位置的灰度漂移，导致全局阈值无法同时适应亮区和暗区，因此需要引入局部邻域信息或背景补偿。",
+        "id": "1788325627693-8544274a6e8e1",
+        "reviewIssues": [
+          "与最佳回答相比，尚未覆盖：阈值、直方图、双峰、光照不均。"
+        ],
+        "reviewSuggestions": [
+          "请补充最佳回答中的关键内容：阈值、直方图、双峰、光照不均。"
+        ],
+        "mastery": "中",
+        "masteryUpdatedAt": "2026/9/2 13:26:58",
+        "masteryReason": "内置要点评审：存在关键遗漏。遗漏：阈值、直方图、双峰、光照不均。",
+        "reviewSource": "本地规则"
+      },
+      {
+        "question": "HALCON中阈值分割与Blob分析：当目标与背景灰度差异不明显时如何调整分割策略？",
+        "project": "机器视觉专业知识",
+        "date": "2026/9/2",
+        "timestamp": "2026/9/2 12:34:41",
+        "action": "跳过题目",
+        "mode": "专业知识",
+        "category": "图像分割",
+        "source": "专业",
+        "seconds": 0,
+        "answer": "",
+        "bestAnswer": "当目标与背景灰度差异不明显时，直接使用threshold难以获得理想结果。首先考虑图像预处理，如使用median_image或gauss_filter去除噪声，使用scale_image增强对比度。其次观察灰度直方图，选择谷底作为阈值。若全局阈值仍不适用，可改用dyn_threshold进行局部阈值分割，它通过比较原图与平滑后图像的灰度差来分割，适合光照不均的场景。最后用connection和select_shape筛选目标区域。",
+        "mastery": "低",
+        "masteryUpdatedAt": "2026/9/2 12:34:41",
+        "reviewIssues": [
+          "本题未作答，无法判断你是否真正掌握了知识点。"
+        ],
+        "reviewSuggestions": [
+          "先用一句话给出结论，再围绕“threshold、dyn_threshold、灰度直方图”展开说明。"
+        ],
+        "masteryReason": "跳过题目，尚未提交回答。",
+        "reviewSource": "本地规则",
+        "answerKeywords": [
+          "threshold",
+          "dyn_threshold",
+          "灰度直方图",
+          "图像滤波",
+          "区域选择"
+        ],
+        "principle": "threshold基于全局灰度分布进行分割，仅考虑像素灰度值，对光照变化敏感。dyn_threshold利用原图与滤波图像的灰度差异进行局部比较，能适应灰度缓慢变化。图像预处理通过滤波平滑噪声、增强对比度，使目标与背景灰度分布分离，从而提高阈值分割的鲁棒性。",
+        "id": "1788323671914-4c97acdc6d026",
+        "bestAnswerViewed": false
+      },
+      {
+        "question": "HALCON中如何通过算子实现相机采集与图像预处理？",
+        "project": "机器视觉专业知识",
+        "date": "2026/9/2",
+        "timestamp": "2026/9/2 12:29:38",
+        "action": "跳过题目",
+        "mode": "专业知识",
+        "category": "图像采集与预处理",
+        "source": "专业",
+        "seconds": 0,
+        "answer": "",
+        "bestAnswer": "在HALCON中，使用open_framegrabber算子配置相机接口（如GigE Vision），设置相机参数（曝光、增益等），然后通过grab_image或grab_image_async采集图像。采集后常用median_image或smooth_image进行降噪预处理。若出现条纹噪声，需检查相机供电、线缆屏蔽、帧率是否过高，并尝试降低增益或开启相机内置的降噪功能。",
+        "bestAnswerViewed": true,
+        "reviewIssues": [
+          "本题未作答，无法判断你是否真正掌握了知识点。"
+        ],
+        "reviewSuggestions": [
+          "先用一句话给出结论，再围绕“open_framegrabber、grab_image、median_image”展开说明。"
+        ],
+        "mastery": "低",
+        "masteryUpdatedAt": "2026/9/2 12:29:38",
+        "masteryReason": "跳过题目，尚未提交回答。",
+        "reviewSource": "本地规则",
+        "answerKeywords": [
+          "open_framegrabber",
+          "grab_image",
+          "median_image",
+          "条纹噪声"
+        ],
+        "principle": "HALCON通过硬件抽象层统一不同相机接口，open_framegrabber根据参数加载对应驱动，采集算子将图像数据从相机缓冲区拷贝到HALCON图像对象。预处理算子如median_image采用中值滤波，在去除椒盐噪声和条纹噪声的同时保留边缘信息，其掩膜大小直接影响平滑程度和细节保留。",
+        "id": "1788323189618-04a88c63c1082"
+      },
+      {
+        "question": "HALCON 中 3D 视觉测量的基本流程是什么？点云处理常用哪些算子？",
+        "project": "轮胎字符深度 OCR",
+        "date": "2026/8/31",
+        "timestamp": "2026/8/31 21:05:15",
+        "action": "跳过题目",
+        "mode": "专业知识",
+        "category": "算法原理",
+        "source": "专业",
+        "seconds": 0,
+        "answer": "",
+        "bestAnswer": "HALCON 3D 视觉包括立体视觉、结构光和点云处理。常用流程：标定相机后采集左右图像或深度图，通过 reconstruct_surface_stereo 或读取 3D 模型生成点云，再用点云滤波、分割和拟合平面或球体进行测量。3D 匹配可用 create_surface_model 和 find_surface_model 定位物体。关键参数包括相机基线、点云采样步长和法线估计半径，精度受标定和环境影响。",
+        "mastery": "低",
+        "masteryUpdatedAt": "2026/8/31 21:05:15",
+        "reviewIssues": [
+          "本题未作答，无法判断你是否真正掌握了知识点。"
+        ],
+        "reviewSuggestions": [
+          "先用一句话给出结论，再围绕“深度图、点云、法线估计”展开说明。"
+        ],
+        "masteryReason": "跳过题目，尚未提交回答。",
+        "reviewSource": "本地规则",
+        "answerKeywords": [
+          "深度图",
+          "点云",
+          "法线估计",
+          "RANSAC",
+          "find_surface_model"
+        ],
+        "principle": "3D 测量通过三角测量原理由视差计算深度，或由结构光编码恢复表面。点云处理基于空间坐标和法线，通过 RANSAC 拟合几何体，表面模型匹配利用点对特征或局部描述子实现位姿估计。",
+        "id": "1788181515396-1bba7253cba6e",
+        "bestAnswerViewed": false
+      },
+      {
+        "question": "现场调试时模板匹配经常出现误匹配或漏匹配，请描述你的排查思路。",
+        "project": "轮胎字符深度 OCR",
+        "date": "2026/8/31",
+        "timestamp": "2026/8/31 21:05:14",
+        "action": "跳过题目",
+        "mode": "专业知识",
+        "category": "现场故障",
+        "source": "专业",
+        "seconds": 0,
+        "answer": "",
+        "bestAnswer": "现场出现模板匹配漂移，先检查图像质量：光照变化、反光、模糊、遮挡都会降低分数。然后确认模板是否来自当前工况，必要时重新创建模板，并调整 MinScore 和 AngleExtent。如果目标位置有背景干扰，可缩小搜索 ROI，或增加特征、使用多个模板。还可以输出匹配分数和姿态，结合日志判断是算法问题还是机械定位问题。",
+        "mastery": "低",
+        "masteryUpdatedAt": "2026/8/31 21:05:14",
+        "reviewIssues": [
+          "本题未作答，无法判断你是否真正掌握了知识点。"
+        ],
+        "reviewSuggestions": [
+          "先用一句话给出结论，再围绕“光照变化、反光、MinScore”展开说明。"
+        ],
+        "masteryReason": "跳过题目，尚未提交回答。",
+        "reviewSource": "本地规则",
+        "answerKeywords": [
+          "光照变化",
+          "反光",
+          "MinScore",
+          "搜索ROI",
+          "重做模板"
+        ],
+        "principle": "模板匹配分数反映模板与搜索图像的一致性，光照和噪声会改变梯度方向，导致分数下降或误匹配。通过限制搜索区域和角度范围减少候选，提高 MinScore 可降低误检，但过高会漏检，需要权衡。",
+        "id": "1788181514871-63a41e8eb873a",
+        "bestAnswerViewed": false
+      },
+      {
+        "question": "HALCON 程序运行速度慢时，你会从哪些方面进行性能优化？",
+        "project": "轮胎字符深度 OCR",
+        "date": "2026/8/31",
+        "timestamp": "2026/8/31 21:05:14",
+        "action": "跳过题目",
+        "mode": "专业知识",
+        "category": "工程实践",
+        "source": "专业",
+        "seconds": 0,
+        "answer": "",
+        "bestAnswer": "性能优化可从算法和工程两方面进行。算法上合理设置搜索范围、金字塔层数和超时参数，避免全图大范围搜索；使用 reduce_domain 缩小 ROI，用 par_start 并行执行独立算子。工程上使用异步采集、多线程处理，注意 HALCON 算子的线程安全，避免频繁创建和销毁句柄，复用模板和标定结果。还可以用 profile 工具定位耗时算子。",
+        "mastery": "低",
+        "masteryUpdatedAt": "2026/8/31 21:05:14",
+        "reviewIssues": [
+          "本题未作答，无法判断你是否真正掌握了知识点。"
+        ],
+        "reviewSuggestions": [
+          "先用一句话给出结论，再围绕“ROI、金字塔、异步采集”展开说明。"
+        ],
+        "masteryReason": "跳过题目，尚未提交回答。",
+        "reviewSource": "本地规则",
+        "answerKeywords": [
+          "ROI",
+          "金字塔",
+          "异步采集",
+          "多线程",
+          "句柄复用"
+        ],
+        "principle": "HALCON 算子大多支持多核并行，内部通过数据并行和任务并行加速。图像金字塔和 ROI 限制能减少计算量，异步采集让采集与处理重叠。句柄复用减少资源分配开销，合理使用并行可以提升吞吐量，但需避免资源竞争。",
+        "id": "1788181514421-cdca8d74b418d8",
+        "bestAnswerViewed": false
+      },
+      {
+        "question": "HALCON 手眼标定中“眼在手上”和“眼在手外”有什么区别？标定时需要注意什么？",
+        "project": "轮胎字符深度 OCR",
+        "date": "2026/8/31",
+        "timestamp": "2026/8/31 21:05:12",
+        "action": "跳过题目",
+        "mode": "专业知识",
+        "category": "算法原理",
+        "source": "专业",
+        "seconds": 0,
+        "answer": "",
+        "bestAnswer": "手眼标定用于确定相机与机器人坐标系的关系。眼在手上时相机随机械臂运动，标定目标是相机到工具末端的变换；眼在手外时相机固定，标定目标是相机到机器人基座的变换。HALCON 提供 hand_eye_calibration，通过采集不同位姿下标定板图像，结合机器人位姿求解 AX=XB 方程。关键是要有足够多且差异明显的位姿，避免纯平移或纯旋转，并保证标定板在视野内。",
+        "mastery": "低",
+        "masteryUpdatedAt": "2026/8/31 21:05:12",
+        "reviewIssues": [
+          "本题未作答，无法判断你是否真正掌握了知识点。"
+        ],
+        "reviewSuggestions": [
+          "先用一句话给出结论，再围绕“工具坐标系、基座坐标系、AX=XB”展开说明。"
+        ],
+        "masteryReason": "跳过题目，尚未提交回答。",
+        "reviewSource": "本地规则",
+        "answerKeywords": [
+          "工具坐标系",
+          "基座坐标系",
+          "AX=XB",
+          "位姿多样性"
+        ],
+        "principle": "手眼标定利用闭环约束 AX=XB，其中 A 为机器人末端运动，B 为相机观察到的标定板运动，X 为待求手眼变换。通过多组运动方程构建超定方程组，用李代数或四元数方法求解旋转和平移，最终统一相机与机器人坐标。",
+        "id": "1788181512278-7156829f98765",
+        "bestAnswerViewed": false
+      },
+      {
+        "question": "在 HALCON 中做表面缺陷检测，你会如何选择传统图像处理与深度学习的方案？",
+        "project": "轮胎字符深度 OCR",
+        "date": "2026/8/31",
+        "timestamp": "2026/8/31 21:05:08",
+        "action": "跳过题目",
+        "mode": "专业知识",
+        "category": "工程实践",
+        "source": "专业",
+        "seconds": 0,
+        "answer": "",
+        "bestAnswer": "表面缺陷检测需先根据缺陷类型选择策略。规则纹理表面可用频域滤波或 Gabor 滤波突出异常；均匀表面可用 Blob 分析提取暗点、划痕；复杂表面可用深度学习分割或异常检测。工程上要重点设计光照，低角度光增强划痕，同轴光检测平整度。还需考虑缺陷样本数量、实时性要求，传统方法可解释性强，深度学习方法适合难以规则化的缺陷。",
+        "mastery": "低",
+        "masteryUpdatedAt": "2026/8/31 21:05:08",
+        "reviewIssues": [
+          "本题未作答，无法判断你是否真正掌握了知识点。"
+        ],
+        "reviewSuggestions": [
+          "先用一句话给出结论，再围绕“Gabor滤波、低角度光、同轴光”展开说明。"
+        ],
+        "masteryReason": "跳过题目，尚未提交回答。",
+        "reviewSource": "本地规则",
+        "answerKeywords": [
+          "Gabor滤波",
+          "低角度光",
+          "同轴光",
+          "异常检测"
+        ],
+        "principle": "缺陷检测本质是寻找图像中与正常模式不一致的局部区域。频域方法通过陷波滤波器去除周期纹理，空域方法利用灰度突变和形态特征，深度方法学习正常样本分布，将偏离分布的像素判为缺陷。",
+        "id": "1788181508010-7ebc76611b5098",
+        "bestAnswerViewed": false
+      },
+      {
+        "question": "HALCON 中如何实现亚像素边缘提取？为什么测量场景通常使用亚像素边缘？",
+        "project": "轮胎字符深度 OCR",
+        "date": "2026/8/31",
+        "timestamp": "2026/8/31 21:03:25",
+        "action": "完成答题",
+        "mode": "专业知识",
+        "category": "算法原理",
+        "source": "专业",
+        "seconds": 0,
+        "answer": "使用canny边缘检测算法可以实现亚像素边缘提取；亚像素可以更好的提取边缘；",
+        "bestAnswer": "HALCON 中 edges_sub_pix 使用 Canny/Deriche 等算子提取亚像素边缘，输出为 XLD 轮廓。与像素级边缘相比，亚像素边缘通过灰度插值或拟合获得更精确的位置，适合高精度测量。提取后可用 segment_contours_xld 分割，再用 fit_line_contour_xld 或 fit_circle_contour_xld 拟合几何元素。关键参数有滤波尺度 Alpha、滞后阈值 Low/High，需要根据噪声和边缘强度调整。",
+        "bestAnswerViewed": false,
+        "reviewIssues": [
+          "未说明HALCON中具体算子（如edges_sub_pix）",
+          "未提及输出为XLD轮廓",
+          "未涉及滞后阈值、非极大值抑制等关键步骤",
+          "未说明后续轮廓分割与几何拟合"
+        ],
+        "reviewSuggestions": [
+          "学习HALCON亚像素边缘提取的标准流程：edges_sub_pix → segment_contours_xld → fit_*_contour_xld",
+          "理解Canny/Deriche算子在HALCON中的实现及参数调节方法",
+          "结合测量场景说明亚像素边缘如何提升拟合精度"
+        ],
+        "mastery": "低",
+        "masteryUpdatedAt": "2026/8/31 21:03:25",
+        "masteryReason": "仅提及Canny算法和亚像素优势，未涉及HALCON具体实现、XLD、参数及拟合等核心内容。",
+        "reviewSource": "AI",
+        "answerKeywords": [
+          "XLD",
+          "滞后阈值",
+          "非极大值抑制",
+          "fit_line_contour_xld"
+        ],
+        "principle": "亚像素边缘检测在梯度极大值附近对灰度剖面进行插值或拟合，将边缘定位到小数像素坐标。Canny 类算子通过高斯滤波抑制噪声，计算梯度幅值和方向，非极大值抑制后双阈值连接边缘，再对边缘点邻域做抛物线拟合得到亚像素位置。",
+        "id": "1788181405896-e1df5b0ac925"
+      },
+      {
+        "question": "HALCON 形状模板匹配的原理是什么？create_shape_model 和 find_shape_model 中哪些参数最影响效果？",
+        "project": "轮胎字符深度 OCR",
+        "date": "2026/8/31",
+        "timestamp": "2026/8/31 21:00:05",
+        "action": "跳过题目",
+        "mode": "专业知识",
+        "category": "算法原理",
+        "source": "专业",
+        "seconds": 0,
+        "answer": "",
+        "bestAnswer": "形状模板匹配用 create_shape_model 创建模板，通过边缘点梯度方向描述目标形状，find_shape_model 在搜索图像中计算相似度。关键参数包括金字塔层数、起始角度、角度范围、最小分数和最大匹配数。层数越多速度越快但可能漏检，分数阈值影响误检与漏检，角度范围影响搜索空间。需要根据目标旋转、遮挡和光照变化调整。",
+        "mastery": "低",
+        "masteryUpdatedAt": "2026/8/31 21:00:05",
+        "reviewIssues": [
+          "本题未作答，无法判断你是否真正掌握了知识点。"
+        ],
+        "reviewSuggestions": [
+          "先用一句话给出结论，再围绕“金字塔层数、角度范围、最小分数”展开说明。"
+        ],
+        "masteryReason": "跳过题目，尚未提交回答。",
+        "reviewSource": "本地规则",
+        "answerKeywords": [
+          "金字塔层数",
+          "角度范围",
+          "最小分数",
+          "梯度方向"
+        ],
+        "principle": "模板匹配通过归一化互相关或边缘梯度方向相似度，在金字塔高层快速搜索候选位置，再逐层细化到原图。梯度方向匹配对光照变化有一定鲁棒性，利用图像金字塔和角度步长降低计算量，最终输出位置、角度和分数。",
+        "id": "1788181205884-271302217a616",
+        "bestAnswerViewed": false
+      },
+      {
+        "question": "请描述 HALCON 中 Blob 分析的标准流程，并说明阈值和特征选择对结果的影响。",
+        "project": "轮胎字符深度 OCR",
+        "date": "2026/8/31",
+        "timestamp": "2026/8/31 20:56:55",
+        "action": "完成答题",
+        "mode": "专业知识",
+        "category": "工程实践",
+        "source": "专业",
+        "seconds": 0,
+        "answer": "标准流程是：1. 图像预处理 2. threshold阈值分割 3. 形态学处理 4. select_shapte筛选出指定特征的额区域；\n阈值",
+        "bestAnswer": "Blob 分析用于提取图像中灰度或颜色一致的连通区域。典型流程：图像采集后预处理，threshold 分割目标，connection 将二值图分成连通域，select_shape 按面积、宽高、圆度等特征筛选，最后计算位置、方向等特征。关键是要保证光照稳定，阈值选择可结合直方图或动态阈值，必要时用形态学开闭运算去除噪声。",
+        "bestAnswerViewed": true,
+        "reviewIssues": [
+          "未解释阈值选择对分割结果的影响",
+          "未解释特征选择（如面积、圆度）对筛选结果的影响",
+          "流程中缺少 connection 连通域分析步骤",
+          "存在拼写错误（select_shapte）"
+        ],
+        "reviewSuggestions": [
+          "补充完整流程：预处理 → 阈值分割 → 连通域分析 → 特征筛选 → 结果计算",
+          "结合直方图或动态阈值说明阈值选择策略，并解释阈值过高/过低的影响",
+          "举例说明面积、圆度等特征如何影响目标筛选，并提及形态学开闭运算的作用"
+        ],
+        "mastery": "低",
+        "masteryUpdatedAt": "2026/8/31 20:56:55",
+        "masteryReason": "回答仅列出流程框架，未说明阈值和特征选择的影响，且流程不完整、存在拼写错误。",
+        "reviewSource": "AI",
+        "answerKeywords": [
+          "预处理",
+          "连通域",
+          "面积",
+          "圆度",
+          "形态学"
+        ],
+        "principle": "Blob 分析基于连通域标记算法，将满足灰度阈值的像素按 4/8 邻域聚合成区域，再通过几何矩计算区域特征。阈值分割把像素分类为目标和背景，连通域算法赋予每个区域唯一标签，特征选择利用区域属性过滤干扰。",
+        "id": "1788181015183-3e7b6f2a1d67d8"
+      },
+      {
+        "question": "HALCON 标定板标定的完整流程是什么？如何评价标定结果是否合格？",
+        "project": "轮胎字符深度 OCR",
+        "date": "2026/8/31",
+        "timestamp": "2026/8/31 20:52:39",
+        "action": "完成答题",
+        "mode": "专业知识",
+        "category": "算法原理",
+        "source": "专业",
+        "seconds": 0,
+        "answer": "使用相机i采集不同位姿的标定板图像，使用Caliber_point_object标定点，使用caliberate_camera标定相机的内外参和畸变参数；标定的结果需要根据重投影偏差是否小于0.1mm，标定的物体需要在相机范围内；",
+        "bestAnswer": "使用 HALCON 标定板，先采集不同位姿的标定板图像，用 find_calib_object 提取标记点，再通过 calibrate_cameras 同时优化内参、外参和畸变系数。关键参数包括标定板描述文件、初始焦距、像元尺寸、畸变模型。标定结果需检查重投影误差，通常小于 0.1 像素。标定时图像要覆盖视野各个区域，并避免反光和运动模糊。",
+        "mastery": "低",
+        "masteryUpdatedAt": "2026/8/31 20:52:39",
+        "reviewIssues": [
+          "函数名拼写错误（Caliber_point_object应为find_calib_object，caliberate_camera应为calibrate_cameras）",
+          "重投影误差单位错误，应为像素而非毫米",
+          "未提及标定板描述文件、初始焦距、像元尺寸等关键参数"
+        ],
+        "reviewSuggestions": [
+          "复习HALCON标准标定流程，重点记忆标定板描述文件的作用和calibrate_cameras的输入参数",
+          "明确重投影误差的单位是像素，并理解其物理意义",
+          "补充学习标定图像采集的规范，如多姿态、覆盖视野、避免干扰"
+        ],
+        "masteryReason": "核心流程方向正确，但重投影误差单位错误（mm而非像素），且遗漏标定板描述文件、初始焦距等关键参数，关键概念缺失。",
+        "reviewSource": "AI",
+        "answerKeywords": [
+          "标定板描述文件",
+          "内参外参",
+          "畸变系数",
+          "重投影误差"
+        ],
+        "principle": "标定利用已知三维标记点与图像投影点的对应关系，建立相机成像模型，通过非线性最小二乘最小化重投影误差，求解内参矩阵、畸变系数和外参，从而将像素坐标转换为度量坐标，是测量和定位的基础。",
+        "id": "1788180226013-3ccb5cd23c5c9",
+        "bestAnswerViewed": false
+      },
+      {
+        "question": "HALCON 中 grab_image 和 grab_image_async 有什么区别？实际项目中如何选择？",
+        "project": "轮胎字符深度 OCR",
+        "date": "2026/8/31",
+        "timestamp": "2026/8/31 20:49:49",
+        "action": "跳过题目",
+        "mode": "专业知识",
+        "category": "工程实践",
+        "source": "专业",
+        "seconds": 0,
+        "answer": "",
+        "bestAnswer": "grab_image 是同步采集，算子执行时阻塞等待图像到达，适合单相机、低吞吐或需要严格时序的场合。grab_image_async 是异步采集，通过内部缓冲区队列让采集与处理并行，MaxDelay 参数控制最大延迟，适合多相机或高速产线，可减少等待时间，但需注意队列溢出和图像时效性。选择时还要考虑相机接口、帧率和处理耗时。",
+        "bestAnswerViewed": false,
+        "reviewIssues": [
+          "本题未作答，无法判断你是否真正掌握了知识点。"
+        ],
+        "reviewSuggestions": [
+          "先用一句话给出结论，再围绕“同步阻塞、异步队列、MaxDelay”展开说明。"
+        ],
+        "mastery": "低",
+        "masteryUpdatedAt": "2026/8/31 20:49:49",
+        "masteryReason": "跳过题目，尚未提交回答。",
+        "reviewSource": "本地规则",
+        "answerKeywords": [
+          "同步阻塞",
+          "异步队列",
+          "MaxDelay",
+          "采集与处理并行"
+        ],
+        "principle": "HALCON 图像采集基于采集接口驱动，同步模式由算子发起采集请求并等待帧完成；异步模式启动后台采集线程，图像存入缓冲区，处理线程从队列取最新帧，通过时间戳控制延迟，实现采集与计算重叠。",
+        "id": "1788179509036-46413bc59b56f"
+      },
       {
         "question": "“轮胎字符深度 OCR”的检测结果和性能指标是如何验证的？",
         "project": "轮胎字符深度 OCR",
@@ -72,13 +2146,15 @@
         ],
         "principle": "基本原理：围绕“引用计数、数据共享、浅拷贝、深拷贝、clone”说明输入、处理过程、输出和适用边界。",
         "id": "1788108908051-07602bc0d9d26",
-        "bestAnswerViewed": false
+        "bestAnswerViewed": false,
+        "reviewStatus": "reviewed",
+        "masteryStage": "未掌握"
       },
       {
         "question": "VisionPro 中 CogCaliper 如何稳定找到边缘，多个卡尺点如何用于直线拟合？",
         "project": "轮胎字符深度 OCR",
         "date": "2026/8/31",
-        "timestamp": "2026/8/31 00:55:07",
+        "timestamp": "2026/8/31 09:34:23",
         "action": "跳过题目",
         "mode": "专业知识",
         "category": "边缘与特征",
@@ -87,7 +2163,7 @@
         "answer": "",
         "bestAnswer": "CogCaliper 沿卡尺方向对灰度进行一维投影，根据边缘极性、对比度阈值和期望位置选择边缘。FindLine 类工具会在多个卡尺位置独立得到边缘点，再对点集拟合直线。稳定性的关键是让卡尺方向垂直于真实边缘、限制搜索范围与极性，并通过异常点剔除或稳健拟合降低毛刺、缺口和反光点的影响。",
         "mastery": "低",
-        "masteryUpdatedAt": "2026/8/31 00:55:07",
+        "masteryUpdatedAt": "2026/8/31 09:34:23",
         "reviewIssues": [
           "本题未作答，无法判断你是否真正掌握了知识点。"
         ],
@@ -106,14 +2182,16 @@
           "阈值"
         ],
         "principle": "基本原理：卡尺沿测量方向把二维图像投影为一维灰度剖面，通过极性和对比度阈值寻找边缘；多位置采样得到点集后，使用剔除异常点的拟合得到稳定直线。",
-        "id": "1788108907799-6eb9cb844c1cc8",
-        "bestAnswerViewed": false
+        "id": "1788140063719-a487ac3627565",
+        "bestAnswerViewed": false,
+        "reviewStatus": "reviewed",
+        "masteryStage": "未掌握"
       },
       {
         "question": "Modbus TCP 与 PLC 进行视觉握手时应包含哪些信号？",
         "project": "轮胎字符深度 OCR",
         "date": "2026/8/31",
-        "timestamp": "2026/8/31 00:55:07",
+        "timestamp": "2026/8/31 09:34:20",
         "action": "跳过题目",
         "mode": "专业知识",
         "category": "PLC与现场",
@@ -122,7 +2200,7 @@
         "answer": "",
         "bestAnswer": "典型握手包含触发、视觉忙、处理完成、结果值、PLC确认和复位，同时建议增加心跳、超时与工件序号。视觉只在检测到触发边沿且当前允许执行时拍照，置忙后完成处理，再写结果与完成信号；PLC读取后写确认，双方按约定复位。工件序号可避免异步处理时结果错位。",
         "mastery": "低",
-        "masteryUpdatedAt": "2026/8/31 00:55:07",
+        "masteryUpdatedAt": "2026/8/31 09:34:20",
         "reviewIssues": [
           "本题未作答，无法判断你是否真正掌握了知识点。"
         ],
@@ -142,14 +2220,16 @@
           "序号"
         ],
         "principle": "基本原理：用触发、忙碌、完成、结果、确认和复位形成状态机，并通过超时、心跳和工件序号处理异常与异步错位，避免重复拍照或结果串件。",
-        "id": "1788108907498-b45729a1fc5f4",
-        "bestAnswerViewed": false
+        "id": "1788140060663-e93b28a4f73ab",
+        "bestAnswerViewed": false,
+        "reviewStatus": "reviewed",
+        "masteryStage": "未掌握"
       },
       {
         "question": "OpenCV findContours 的检索模式和轮廓近似方式如何选择？",
         "project": "轮胎字符深度 OCR",
         "date": "2026/8/31",
-        "timestamp": "2026/8/31 00:55:07",
+        "timestamp": "2026/8/31 09:34:15",
         "action": "跳过题目",
         "mode": "专业知识",
         "category": "边缘与特征",
@@ -158,7 +2238,7 @@
         "answer": "",
         "bestAnswer": "RETR_EXTERNAL 只保留最外层轮廓，适合只关心物体外形；RETR_LIST 返回全部轮廓但不建立层级；RETR_CCOMP 建立两级结构；RETR_TREE 保留完整父子层级，适合孔洞和嵌套结构。CHAIN_APPROX_NONE 保存所有边界点，信息最完整但占内存；CHAIN_APPROX_SIMPLE 会压缩水平、垂直和斜线段，只保留端点，通常更适合常规形状分析。",
         "mastery": "低",
-        "masteryUpdatedAt": "2026/8/31 00:55:07",
+        "masteryUpdatedAt": "2026/8/31 09:34:15",
         "reviewIssues": [
           "本题未作答，无法判断你是否真正掌握了知识点。"
         ],
@@ -177,14 +2257,16 @@
           "内存"
         ],
         "principle": "基本原理：围绕“外轮廓、层级、RETR_EXTERNAL、RETR_TREE、CHAIN_APPROX_NONE”说明输入、处理过程、输出和适用边界。",
-        "id": "1788108907381-462a120108625",
-        "bestAnswerViewed": false
+        "id": "1788140055319-9ccad2f0d115c8",
+        "bestAnswerViewed": false,
+        "reviewStatus": "reviewed",
+        "masteryStage": "未掌握"
       },
       {
         "question": "NCC 模板匹配为什么要先对图像和模板去均值？",
         "project": "轮胎字符深度 OCR",
         "date": "2026/8/31",
-        "timestamp": "2026/8/31 01:02:08",
+        "timestamp": "2026/8/31 09:34:12",
         "action": "跳过题目",
         "mode": "专业知识",
         "category": "模板与定位",
@@ -193,7 +2275,7 @@
         "answer": "",
         "bestAnswer": "NCC 先分别减去模板和搜索窗口的平均灰度，使参与比较的是灰度相对均值的变化，而不是整体亮度。随后再用两侧能量进行归一化，把相关值限制到统一范围。因此它对整体亮度偏移更稳健，但局部阴影、强非线性光照和形变仍可能导致匹配下降。",
         "mastery": "低",
-        "masteryUpdatedAt": "2026/8/31 01:02:08",
+        "masteryUpdatedAt": "2026/8/31 09:34:12",
         "reviewIssues": [
           "本题未作答，无法判断你是否真正掌握了知识点。"
         ],
@@ -213,14 +2295,17 @@
           "分母"
         ],
         "principle": "基本原理：先减去模板和搜索窗口的平均灰度，再用归一化内积比较灰度变化方向，从而降低整体亮度偏移的影响；局部阴影和形变仍需要光学或算法补偿。",
-        "id": "1788108907187-4a863b89a8c7e",
-        "bestAnswerViewed": false
+        "id": "1788079651083-2975aab5912ee8",
+        "bestAnswerViewed": false,
+        "reviewStatus": "reviewed",
+        "score": 58,
+        "masteryStage": "未掌握"
       },
       {
         "question": "形状模板匹配与 NCC 灰度模板匹配有什么区别？",
         "project": "轮胎字符深度 OCR",
         "date": "2026/8/31",
-        "timestamp": "2026/8/31 01:02:07",
+        "timestamp": "2026/8/31 09:34:11",
         "action": "跳过题目",
         "mode": "专业知识",
         "category": "模板与定位",
@@ -229,7 +2314,7 @@
         "answer": "",
         "bestAnswer": "NCC 比较模板与搜索窗口的灰度分布，适合纹理稳定、旋转尺度变化较小的目标。形状模板通常使用轮廓或梯度方向，对整体亮度变化更稳健，也更适合存在旋转、一定遮挡的工业目标。纹理丰富但轮廓不稳定时倾向 NCC；轮廓稳定、光照变化明显时倾向形状模板，最终仍需用现场样本验证。",
         "mastery": "低",
-        "masteryUpdatedAt": "2026/8/31 01:02:07",
+        "masteryUpdatedAt": "2026/8/31 09:34:11",
         "reviewIssues": [
           "本题未作答，无法判断你是否真正掌握了知识点。"
         ],
@@ -249,14 +2334,16 @@
           "尺度"
         ],
         "principle": "基本原理：围绕“灰度、轮廓、梯度、旋转、光照”说明输入、处理过程、输出和适用边界。",
-        "id": "1788108907054-7bc4ff0f459eb8",
-        "bestAnswerViewed": false
+        "id": "1788140051463-7ebe9e8e5e28d",
+        "bestAnswerViewed": false,
+        "reviewStatus": "reviewed",
+        "masteryStage": "未掌握"
       },
       {
         "question": "VisionPro 中 CogFixture 的作用是什么？为什么定位后要建立夹具坐标系？",
         "project": "轮胎字符深度 OCR",
         "date": "2026/8/31",
-        "timestamp": "2026/8/31 01:02:04",
+        "timestamp": "2026/8/31 09:34:07",
         "action": "跳过题目",
         "mode": "专业知识",
         "category": "标定与坐标",
@@ -265,7 +2352,7 @@
         "answer": "",
         "bestAnswer": "CogFixture 根据上游定位得到的位置和角度，在图像空间树中建立随工件运动的新坐标系。下游卡尺、测量和检测 ROI 都在该 Fixture 空间中定义，因此工件发生平移或旋转时，工具区域仍能跟随目标。Fixture 不会自动改变单位：建立在像素空间时下游仍是像素，建立在已标定空间时才可按毫米或英寸测量。",
         "mastery": "低",
-        "masteryUpdatedAt": "2026/8/31 01:02:04",
+        "masteryUpdatedAt": "2026/8/31 09:34:07",
         "reviewIssues": [
           "本题未作答，无法判断你是否真正掌握了知识点。"
         ],
@@ -284,14 +2371,16 @@
           "标定空间"
         ],
         "principle": "基本原理：围绕“坐标系、变换、定位结果、Fixture、测量区域”说明输入、处理过程、输出和适用边界。",
-        "id": "1788108906491-ed18f0776406c8",
-        "bestAnswerViewed": false
+        "id": "1788140047159-21c1761c48e058",
+        "bestAnswerViewed": false,
+        "reviewStatus": "reviewed",
+        "masteryStage": "未掌握"
       },
       {
         "question": "曝光时间和增益分别会对检测结果产生什么影响？",
         "project": "轮胎字符深度 OCR",
         "date": "2026/8/31",
-        "timestamp": "2026/8/31 01:01:58",
+        "timestamp": "2026/8/31 09:34:05",
         "action": "跳过题目",
         "mode": "专业知识",
         "category": "相机镜头光源",
@@ -306,9 +2395,9 @@
         "reviewSuggestions": [
           "先用一句话给出结论，再围绕“亮度、曝光、增益”展开说明。"
         ],
-        "id": "1788090931418-923ecb35655d6",
+        "id": "1788078551028-0c3c26febaa91",
         "mastery": "低",
-        "masteryUpdatedAt": "2026/8/31 01:01:58",
+        "masteryUpdatedAt": "2026/8/31 09:34:05",
         "masteryReason": "跳过题目，尚未提交回答。",
         "reviewSource": "本地规则",
         "answerKeywords": [
@@ -321,7 +2410,10 @@
           "光源",
           "光圈"
         ],
-        "principle": "基本原理：围绕“亮度、曝光、增益、噪声、运动模糊”说明输入、处理过程、输出和适用边界。"
+        "principle": "基本原理：围绕“亮度、曝光、增益、噪声、运动模糊”说明输入、处理过程、输出和适用边界。",
+        "reviewStatus": "reviewed",
+        "score": 58,
+        "masteryStage": "未掌握"
       },
       {
         "question": "HALCON 形状模板匹配中的金字塔、角度范围和 Greediness 如何影响结果？",
@@ -348,13 +2440,15 @@
           "最后补一句：该方案适合什么条件、在哪些情况下会失败，以及你的补救措施。"
         ],
         "id": "1788085630661-10836d63f67638",
-        "mastery": "低"
+        "mastery": "低",
+        "reviewStatus": "reviewed",
+        "masteryStage": "部分掌握"
       },
       {
         "question": "HALCON 的 dyn_threshold 与普通 threshold 有什么区别？",
         "project": "轮胎字符深度 OCR",
         "date": "2026/8/31",
-        "timestamp": "2026/8/31 01:02:07",
+        "timestamp": "2026/8/31 09:34:09",
         "action": "跳过题目",
         "mode": "专业知识",
         "category": "图像处理基础",
@@ -368,10 +2462,10 @@
         "reviewSuggestions": [
           "先用一句话给出结论，再围绕“全局阈值、平滑图像、局部”展开说明。"
         ],
-        "id": "1788085626555-d142aead3849e",
+        "id": "1788140049831-8ab3dad180bc98",
         "mastery": "低",
         "bestAnswer": "threshold 用固定灰度范围对整幅图做全局分割，适合背景稳定、直方图可分的场景。dyn_threshold 将原图与通常经过平滑的参考图逐点比较，根据两者灰度差和 Offset 提取比局部背景更亮或更暗的区域，因此更适合光照不均。平滑尺度应大于目标特征尺度；核太小会把缺陷一起平滑掉，Offset 太小则容易把噪声分出来。",
-        "masteryUpdatedAt": "2026/8/31 01:02:07",
+        "masteryUpdatedAt": "2026/8/31 09:34:09",
         "masteryReason": "跳过题目，尚未提交回答。",
         "reviewSource": "本地规则",
         "answerKeywords": [
@@ -382,13 +2476,15 @@
           "光照不均",
           "Offset"
         ],
-        "principle": "基本原理：threshold 用固定灰度范围做全局分割；dyn_threshold 将原图与平滑得到的局部背景逐点比较，用灰度差和 Offset 判断目标比背景更亮或更暗，所以更适合光照不均。"
+        "principle": "基本原理：threshold 用固定灰度范围做全局分割；dyn_threshold 将原图与平滑得到的局部背景逐点比较，用灰度差和 Offset 判断目标比背景更亮或更暗，所以更适合光照不均。",
+        "reviewStatus": "reviewed",
+        "masteryStage": "未掌握"
       },
       {
         "question": "HALCON 中 Image、Region 和 XLD 的区别是什么？",
         "project": "轮胎字符深度 OCR",
         "date": "2026/8/31",
-        "timestamp": "2026/8/31 01:02:06",
+        "timestamp": "2026/8/31 09:34:08",
         "action": "跳过题目",
         "mode": "专业知识",
         "category": "图像处理基础",
@@ -402,10 +2498,10 @@
         "reviewSuggestions": [
           "先用一句话给出结论，再围绕“灰度、区域、轮廓”展开说明。"
         ],
-        "id": "1788085558555-b653a98f900298",
+        "id": "1788140048079-bb91fa9e46788",
         "mastery": "低",
         "bestAnswer": "Image 保存规则像素网格上的灰度或多通道数据，是滤波、增强和灰度运算的输入；Region 表示由像素集合构成的区域，不保存灰度，适合连通域、面积、形态学等区域运算；XLD 是亚像素轮廓或多边形数据，适合边缘、几何拟合和轮廓匹配。需要亚像素测量时通常使用 XLD，需要掩膜和区域统计时使用 Region。",
-        "masteryUpdatedAt": "2026/8/31 01:02:06",
+        "masteryUpdatedAt": "2026/8/31 09:34:08",
         "masteryReason": "跳过题目，尚未提交回答。",
         "reviewSource": "本地规则",
         "answerKeywords": [
@@ -417,7 +2513,9 @@
           "亚像素",
           "运算对象"
         ],
-        "principle": "基本原理：围绕“灰度、区域、轮廓、像素、几何”说明输入、处理过程、输出和适用边界。"
+        "principle": "基本原理：围绕“灰度、区域、轮廓、像素、几何”说明输入、处理过程、输出和适用边界。",
+        "reviewStatus": "reviewed",
+        "masteryStage": "未掌握"
       },
       {
         "question": "在HALCON中，进行边缘提取时，常用的算子有sobel_amp、canny和edges_sub_pix，它们各自的特点和适用场景是什么？",
@@ -1139,327 +3237,9 @@
         "answer": "123132123123123",
         "bestAnswerViewed": false,
         "id": "1788078544875-4d51e5c1e3ecd8",
-        "mastery": "低"
-      },
-      {
-        "question": "VisionPro 中 CogCaliper 如何稳定找到边缘，多个卡尺点如何用于直线拟合？",
-        "project": "轮胎字符深度 OCR",
-        "date": "2026/8/31",
-        "timestamp": "2026/8/31 09:34:23",
-        "action": "跳过题目",
-        "mode": "专业知识",
-        "category": "边缘与特征",
-        "source": "专业",
-        "seconds": 0,
-        "answer": "",
-        "bestAnswer": "CogCaliper 通过沿搜索方向投影图像灰度，计算一阶导数（梯度）或二阶导数，根据设定的边缘极性（亮到暗/暗到亮）和对比度阈值筛选候选边缘点。稳定找边需：1) 设置合适的搜索区域（卡尺长度和宽度）；2) 调整对比度阈值过滤噪声；3) 选择正确的边缘极性；4) 使用亚像素插值提高精度。多个卡尺点（通常 3-5 个）沿直线排列，每个卡尺输出一个边缘点坐标，通过最小二乘法拟合直线，拟合时可用 RANSAC 或剔除异常点（如偏离拟合线超过阈值的点）提高鲁棒性。",
         "mastery": "低",
-        "masteryUpdatedAt": "2026/8/31 09:34:23",
-        "reviewIssues": [
-          "本题未作答，无法判断你是否真正掌握了知识点。"
-        ],
-        "reviewSuggestions": [
-          "先用一句话给出结论，再围绕“投影、边缘极性、对比度”展开说明。"
-        ],
-        "masteryReason": "跳过题目，尚未提交回答。",
-        "reviewSource": "本地规则",
-        "answerKeywords": [
-          "投影",
-          "边缘极性",
-          "对比度",
-          "卡尺",
-          "异常点",
-          "拟合",
-          "阈值"
-        ],
-        "principle": "CogCaliper 基于投影法，将二维区域内的像素沿搜索方向累加，形成一维灰度剖面，再通过差分计算边缘位置。对比度阈值基于梯度幅值，极性区分上升/下降沿。亚像素通过抛物线插值或重心法获得。直线拟合采用最小二乘，最小化点到直线的垂直距离平方和；异常点剔除可基于残差统计（如 3σ 原则）或 RANSAC 迭代，避免单个噪声点影响拟合角度和位置。",
-        "id": "1788140063719-a487ac3627565",
-        "bestAnswerViewed": false
-      },
-      {
-        "question": "Modbus TCP 与 PLC 进行视觉握手时应包含哪些信号？",
-        "project": "轮胎字符深度 OCR",
-        "date": "2026/8/31",
-        "timestamp": "2026/8/31 09:34:20",
-        "action": "跳过题目",
-        "mode": "专业知识",
-        "category": "PLC与现场",
-        "source": "专业",
-        "seconds": 0,
-        "answer": "",
-        "bestAnswer": "应包含：1) 触发信号（PLC→视觉）：启动拍照；2) 忙碌信号（视觉→PLC）：视觉正在处理，禁止新触发；3) 完成信号（视觉→PLC）：处理结束，结果已就绪；4) 结果信号（视觉→PLC）：OK/NG 及数据（如字符值、置信度）；5) 复位信号（PLC→视觉）：清除当前结果，允许下次触发；6) 超时信号（视觉→PLC）：处理超时报警；7) 心跳信号（双向）：周期性握手，检测通讯中断；8) 序号（双向）：匹配触发与结果，防止错位。",
-        "mastery": "低",
-        "masteryUpdatedAt": "2026/8/31 09:34:20",
-        "reviewIssues": [
-          "本题未作答，无法判断你是否真正掌握了知识点。"
-        ],
-        "reviewSuggestions": [
-          "先用一句话给出结论，再围绕“触发、忙碌、完成”展开说明。"
-        ],
-        "masteryReason": "跳过题目，尚未提交回答。",
-        "reviewSource": "本地规则",
-        "answerKeywords": [
-          "触发",
-          "忙碌",
-          "完成",
-          "结果",
-          "复位",
-          "超时",
-          "心跳",
-          "序号"
-        ],
-        "principle": "视觉握手本质是状态机同步，通过互斥信号（触发/忙碌）避免重复拍照，通过完成/结果信号保证数据有效性，复位信号确保状态循环。心跳和超时用于故障检测，序号用于多任务流水线中结果与工件的对应，防止因延迟导致错配。Modbus TCP 基于请求-响应，需轮询或中断方式读取，信号通常映射到线圈或寄存器，PLC 侧需周期性扫描。",
-        "id": "1788140060663-e93b28a4f73ab",
-        "bestAnswerViewed": false
-      },
-      {
-        "question": "OpenCV findContours 的检索模式和轮廓近似方式如何选择？",
-        "project": "轮胎字符深度 OCR",
-        "date": "2026/8/31",
-        "timestamp": "2026/8/31 09:34:15",
-        "action": "跳过题目",
-        "mode": "专业知识",
-        "category": "边缘与特征",
-        "source": "专业",
-        "seconds": 0,
-        "answer": "",
-        "bestAnswer": "检索模式选择：若只需最外层轮廓（如轮胎字符外边界），用 RETR_EXTERNAL 可忽略内部孔洞，减少计算量；若需完整层级关系（如字符内环），用 RETR_TREE 获取全部轮廓及父子关系。轮廓近似：CHAIN_APPROX_SIMPLE 压缩水平、垂直和对角线段，仅保留端点，节省内存且适合直线拟合；CHAIN_APPROX_NONE 保留所有轮廓点，适合需要精确像素级边缘或曲线拟合的场景。实际中优先用 RETR_EXTERNAL + CHAIN_APPROX_SIMPLE 提取字符外轮廓，再根据字符内部特征决定是否升级为 RETR_TREE。",
-        "mastery": "低",
-        "masteryUpdatedAt": "2026/8/31 09:34:15",
-        "reviewIssues": [
-          "本题未作答，无法判断你是否真正掌握了知识点。"
-        ],
-        "reviewSuggestions": [
-          "先用一句话给出结论，再围绕“外轮廓、层级、RETR_EXTERNAL”展开说明。"
-        ],
-        "masteryReason": "跳过题目，尚未提交回答。",
-        "reviewSource": "本地规则",
-        "answerKeywords": [
-          "外轮廓",
-          "层级",
-          "RETR_EXTERNAL",
-          "RETR_TREE",
-          "CHAIN_APPROX_NONE",
-          "CHAIN_APPROX_SIMPLE",
-          "内存"
-        ],
-        "principle": "findContours 基于拓扑结构分析，RETR_EXTERNAL 仅提取最外层边界，忽略内部孔洞，适合字符外轮廓提取；RETR_TREE 重建完整层级树，便于分析嵌套结构。CHAIN_APPROX_SIMPLE 通过 Douglas-Peucker 算法压缩轮廓点，减少存储和后续计算量，但会丢失微小曲率；CHAIN_APPROX_NONE 保留所有链码点，保留全部几何信息但内存开销大。选择需权衡精度与性能，字符 OCR 通常外轮廓用 SIMPLE 即可满足直线拟合需求。",
-        "id": "1788140055319-9ccad2f0d115c8",
-        "bestAnswerViewed": false
-      },
-      {
-        "question": "形状模板匹配与 NCC 灰度模板匹配有什么区别？",
-        "project": "轮胎字符深度 OCR",
-        "date": "2026/8/31",
-        "timestamp": "2026/8/31 09:34:11",
-        "action": "跳过题目",
-        "mode": "专业知识",
-        "category": "模板与定位",
-        "source": "专业",
-        "seconds": 0,
-        "answer": "",
-        "bestAnswer": "形状模板匹配基于目标的边缘轮廓或梯度信息，通过提取模板的轮廓特征（如亚像素边缘点及其梯度方向）在图像中搜索相似形状，对光照变化、灰度反转、部分遮挡和噪声鲁棒性强，且支持旋转、缩放和尺度变化，但需要目标具有清晰的边缘轮廓。NCC 灰度模板匹配基于像素灰度值的归一化互相关，直接比较模板与搜索窗口的灰度相似度，对纹理丰富、灰度特征明显的目标效果好，但对光照变化敏感，且计算量大，对旋转和尺度变化支持有限。",
-        "mastery": "低",
-        "masteryUpdatedAt": "2026/8/31 09:34:11",
-        "reviewIssues": [
-          "本题未作答，无法判断你是否真正掌握了知识点。"
-        ],
-        "reviewSuggestions": [
-          "先用一句话给出结论，再围绕“灰度、轮廓、梯度”展开说明。"
-        ],
-        "masteryReason": "跳过题目，尚未提交回答。",
-        "reviewSource": "本地规则",
-        "answerKeywords": [
-          "灰度",
-          "轮廓",
-          "梯度",
-          "旋转",
-          "光照",
-          "纹理",
-          "遮挡",
-          "尺度"
-        ],
-        "principle": "形状匹配利用边缘点的梯度方向和位置构建特征描述，通过相似度度量（如 Hausdorff 距离或梯度方向一致性）在搜索空间中匹配，由于不依赖绝对灰度值，因此对光照和灰度偏移不敏感。NCC 通过计算模板与图像窗口的归一化互相关系数，公式为 Σ[(I-μI)(T-μT)] / sqrt(Σ(I-μI)² Σ(T-μT)²)，其值在 [-1,1] 之间，1 表示完全相关。NCC 对线性光照变化（乘性因子和加性偏移）有一定鲁棒性，但对非线性光照和遮挡敏感。",
-        "id": "1788140051463-7ebe9e8e5e28d",
-        "bestAnswerViewed": false
-      },
-      {
-        "question": "HALCON 的 dyn_threshold 与普通 threshold 有什么区别？",
-        "project": "轮胎字符深度 OCR",
-        "date": "2026/8/31",
-        "timestamp": "2026/8/31 09:34:09",
-        "action": "跳过题目",
-        "mode": "专业知识",
-        "category": "图像处理基础",
-        "source": "专业",
-        "seconds": 0,
-        "answer": "",
-        "bestAnswer": "普通 threshold 使用固定灰度阈值对整幅图像进行全局分割，适用于光照均匀、目标与背景灰度差异稳定的场景。dyn_threshold 是局部自适应阈值分割，它通过将原图与平滑后的图像（如 mean_image 或 median_image）逐像素比较，根据局部灰度变化动态确定阈值，能有效处理光照不均、背景灰度缓慢变化的情况。使用 dyn_threshold 时需指定 Offset 参数，用于控制分割的灵敏度，并通常配合 'light' 或 'dark' 等模式选择提取亮或暗区域。",
-        "mastery": "低",
-        "masteryUpdatedAt": "2026/8/31 09:34:09",
-        "reviewIssues": [
-          "本题未作答，无法判断你是否真正掌握了知识点。"
-        ],
-        "reviewSuggestions": [
-          "先用一句话给出结论，再围绕“全局阈值、平滑图像、局部”展开说明。"
-        ],
-        "masteryReason": "跳过题目，尚未提交回答。",
-        "reviewSource": "本地规则",
-        "answerKeywords": [
-          "全局阈值",
-          "平滑图像",
-          "局部",
-          "灰度差",
-          "光照不均",
-          "Offset"
-        ],
-        "principle": "dyn_threshold 的核心原理是：对原图像 f(x,y) 进行平滑滤波得到背景估计 g(x,y)，然后逐像素判断 f(x,y) 与 g(x,y) 的差值是否超过 Offset。若 f - g > Offset 则属于亮区域，若 g - f > Offset 则属于暗区域。由于 g(x,y) 反映了局部背景灰度，因此阈值是随位置变化的，从而克服了全局阈值在光照不均时的失效问题。Offset 的作用是抑制噪声和微小灰度波动，其值越大，分割结果越保守。",
-        "id": "1788140049831-8ab3dad180bc98",
-        "bestAnswerViewed": false
-      },
-      {
-        "question": "HALCON 中 Image、Region 和 XLD 的区别是什么？",
-        "project": "轮胎字符深度 OCR",
-        "date": "2026/8/31",
-        "timestamp": "2026/8/31 09:34:08",
-        "action": "跳过题目",
-        "mode": "专业知识",
-        "category": "图像处理基础",
-        "source": "专业",
-        "seconds": 0,
-        "answer": "",
-        "bestAnswer": "Image 是像素灰度矩阵，用于存储图像数据；Region 是像素级区域，表示感兴趣的区域（如分割结果）；XLD 是亚像素轮廓，用于精确描述边缘或形状。Image 是基础数据，Region 用于区域处理，XLD 用于亚像素精度测量。",
-        "mastery": "低",
-        "masteryUpdatedAt": "2026/8/31 09:34:08",
-        "reviewIssues": [
-          "本题未作答，无法判断你是否真正掌握了知识点。"
-        ],
-        "reviewSuggestions": [
-          "先用一句话给出结论，再围绕“灰度、区域、轮廓”展开说明。"
-        ],
-        "masteryReason": "跳过题目，尚未提交回答。",
-        "reviewSource": "本地规则",
-        "answerKeywords": [
-          "灰度",
-          "区域",
-          "轮廓",
-          "像素",
-          "几何",
-          "亚像素",
-          "运算对象"
-        ],
-        "principle": "Image 以像素为单位存储灰度值；Region 是像素集合，基于图像分割产生；XLD 是亚像素精度的轮廓线，通过边缘提取获得，支持几何变换和测量。三者层次不同，处理精度和用途各异。",
-        "id": "1788140048079-bb91fa9e46788",
-        "bestAnswerViewed": false
-      },
-      {
-        "question": "VisionPro 中 CogFixture 的作用是什么？为什么定位后要建立夹具坐标系？",
-        "project": "轮胎字符深度 OCR",
-        "date": "2026/8/31",
-        "timestamp": "2026/8/31 09:34:07",
-        "action": "跳过题目",
-        "mode": "专业知识",
-        "category": "标定与坐标",
-        "source": "专业",
-        "seconds": 0,
-        "answer": "",
-        "bestAnswer": "CogFixture 用于将定位结果转换为夹具坐标系，使后续测量或检测区域跟随工件位置变化。建立夹具坐标系后，即使工件位置偏移或旋转，检测区域也能自动对准，保证检测稳定性。",
-        "mastery": "低",
-        "masteryUpdatedAt": "2026/8/31 09:34:07",
-        "reviewIssues": [
-          "本题未作答，无法判断你是否真正掌握了知识点。"
-        ],
-        "reviewSuggestions": [
-          "先用一句话给出结论，再围绕“坐标系、变换、定位结果”展开说明。"
-        ],
-        "masteryReason": "跳过题目，尚未提交回答。",
-        "reviewSource": "本地规则",
-        "answerKeywords": [
-          "坐标系",
-          "变换",
-          "定位结果",
-          "Fixture",
-          "测量区域",
-          "跟随",
-          "标定空间"
-        ],
-        "principle": "CogFixture 通过空间变换将图像坐标映射到工件坐标系，实现位置补偿。夹具坐标系基于定位结果建立，后续工具在该坐标系下运行，从而消除工件位置变化的影响。",
-        "id": "1788140047159-21c1761c48e058",
-        "bestAnswerViewed": false
-      },
-      {
-        "question": "NCC 模板匹配为什么要先对图像和模板去均值？",
-        "score": 58,
-        "project": "轮胎字符深度 OCR",
-        "date": "2026/8/31",
-        "timestamp": "2026/8/31 09:34:12",
-        "action": "跳过题目",
-        "mode": "专业知识",
-        "category": "模板与定位",
-        "source": "专业",
-        "seconds": 0,
-        "answer": "",
-        "bestAnswerViewed": false,
-        "id": "1788079651083-2975aab5912ee8",
-        "mastery": "低",
-        "bestAnswer": "去均值是为了消除图像和模板之间的直流分量（即整体亮度偏移）对相关性计算的影响。如果不减去均值，NCC 的结果会受绝对灰度水平影响，导致即使形状相同但亮度不同的区域相关性降低。去均值后，相关性只反映灰度变化模式的相似程度，从而对整体亮度变化（如光照增强或减弱）具有鲁棒性。",
-        "masteryUpdatedAt": "2026/8/31 09:34:12",
-        "reviewIssues": [
-          "本题未作答，无法判断你是否真正掌握了知识点。"
-        ],
-        "reviewSuggestions": [
-          "先用一句话给出结论，再围绕“均值、亮度、相关性”展开说明。"
-        ],
-        "masteryReason": "跳过题目，尚未提交回答。",
-        "reviewSource": "本地规则",
-        "answerKeywords": [
-          "均值",
-          "亮度",
-          "相关性",
-          "归一化",
-          "灰度",
-          "偏移",
-          "分子",
-          "分母"
-        ],
-        "principle": "NCC 公式中的分子 Σ(I-μI)(T-μT) 是协方差，分母是标准差乘积。减去均值后，分子只保留灰度波动（即变化模式）的乘积，而分母对灰度波动幅度进行归一化。这使得 NCC 对加性亮度偏移（即整体灰度加减常数）完全不敏感，对乘性亮度变化（即对比度变化）也有较好的鲁棒性。若不去均值，分子会包含均值乘积项，导致相关性被绝对亮度主导，无法正确反映结构相似性。"
-      },
-      {
-        "question": "曝光时间和增益分别会对检测结果产生什么影响？",
-        "score": 58,
-        "project": "轮胎字符深度 OCR",
-        "date": "2026/8/31",
-        "timestamp": "2026/8/31 09:34:05",
-        "action": "跳过题目",
-        "mode": "专业知识",
-        "category": "相机镜头光源",
-        "source": "专业",
-        "seconds": 0,
-        "answer": "",
-        "bestAnswerViewed": false,
-        "id": "1788078551028-0c3c26febaa91",
-        "mastery": "低",
-        "bestAnswer": "曝光时间控制传感器接收光的时间，影响图像亮度；增益是电子放大信号，影响亮度但会放大噪声。曝光时间过长会导致运动模糊，过短则图像过暗；增益过高会降低信噪比，产生噪点。实际应用中应优先调节光源和光圈，再调整曝光时间，最后才考虑增益。",
-        "masteryUpdatedAt": "2026/8/31 09:34:05",
-        "reviewIssues": [
-          "本题未作答，无法判断你是否真正掌握了知识点。"
-        ],
-        "reviewSuggestions": [
-          "先用一句话给出结论，再围绕“亮度、曝光、增益”展开说明。"
-        ],
-        "masteryReason": "跳过题目，尚未提交回答。",
-        "reviewSource": "本地规则",
-        "answerKeywords": [
-          "亮度",
-          "曝光",
-          "增益",
-          "噪声",
-          "运动模糊",
-          "信噪比",
-          "光源",
-          "光圈"
-        ],
-        "principle": "曝光时间决定光子累积量，影响信噪比和动态范围；增益放大信号的同时放大噪声，降低图像质量。运动模糊与曝光时间成正比，需根据物体运动速度限制曝光时间。"
+        "reviewStatus": "reviewed",
+        "masteryStage": "部分掌握"
       }
     ],
     "vision-interview-favorite-questions": [
