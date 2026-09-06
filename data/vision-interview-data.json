@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-06T07:56:04.139Z",
+  "updatedAt": "2026-09-06T07:56:05.946Z",
   "data": {
     "vision-interview-records": [
       {
@@ -3648,6 +3648,18 @@
         "kind": "system",
         "event": "backup.close.flush",
         "message": "页面关闭或进入后台，提交最后一次备份"
+      },
+      {
+        "id": "1788675090871-1m6zl5f6",
+        "timestamp": "2026-09-06T06:11:30.871Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "df00a0274e6b"
+        }
       },
       {
         "id": "1788675079078-n9es5jgd",
@@ -17393,19 +17405,6 @@
         "context": {
           "status": 502,
           "reason": "GitHub 备份失败（HTTP 409）：{\"message\":\"is at 52b644b6fdc8332bcc842c25bb7b1945b8d8f264 but expected 588339ddf264cef0c033197d74a9d0d91e42740a\",\"documentation_url\":\"https://docs.github.com/rest/repos/contents#create-or-update-file-contents\",\"status\":\"409\"}"
-        }
-      },
-      {
-        "id": "1788167296790-ofg2828v",
-        "timestamp": "2026-08-31T09:08:16.790Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788166894899-0xu488ib",
-        "event": "question-bank.cache.saved",
-        "message": "已缓存到远程题库",
-        "context": {
-          "questionCount": 10,
-          "pendingCount": 0
         }
       }
     ],
