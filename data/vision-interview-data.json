@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-07T02:59:50.491Z",
+  "updatedAt": "2026-09-07T02:59:54.349Z",
   "data": {
     "vision-interview-records": [
       {
@@ -3785,6 +3785,52 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788749995745-wysn0j9n",
+        "timestamp": "2026-09-07T02:59:55.745Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "5e11759994df"
+        }
+      },
+      {
+        "id": "1788749995160-fag4h23y",
+        "timestamp": "2026-09-07T02:59:55.160Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788749906722-jt1tgeok",
+        "event": "question-group.prepare.started",
+        "message": "开始准备题组",
+        "context": {
+          "project": "机器视觉专业知识",
+          "mode": "专业知识",
+          "questionCount": 10,
+          "sourceMode": "network",
+          "adaptiveQuestions": false,
+          "focusCategories": []
+        }
+      },
+      {
+        "id": "1788749993268-hdc4ngr5",
+        "timestamp": "2026-09-07T02:59:53.268Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788749906722-jt1tgeok",
+        "event": "question-bank.ai-request.duration",
+        "message": "单个并行 AI 请求完成",
+        "context": {
+          "attempt": 2,
+          "workerIndex": 4,
+          "parallelRequests": 4,
+          "requestedCount": 1,
+          "receivedCount": 1,
+          "durationMs": 7652
+        }
+      },
       {
         "id": "1788749992055-qnnf7ept",
         "timestamp": "2026-09-07T02:59:52.055Z",
@@ -17483,44 +17529,6 @@
           "provider": "opencode-go",
           "model": "deepseek-v4-flash",
           "upstreamFormat": "chat-completions"
-        }
-      },
-      {
-        "id": "1788402563270-c732hih0",
-        "timestamp": "2026-09-03T02:29:23.270Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "9bc959aa46f7"
-        }
-      },
-      {
-        "id": "1788402558232-4cerb22q",
-        "timestamp": "2026-09-03T02:29:18.232Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788402556921-k1tor8t8",
-        "event": "question-bank.remote.loaded",
-        "message": "GitHub AI 历史题库加载完成",
-        "context": {
-          "questionCount": 170,
-          "githubQuestionCount": 170,
-          "pendingCount": 0
-        }
-      },
-      {
-        "id": "1788402556918-jticxlo2",
-        "timestamp": "2026-09-03T02:29:16.918Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.startup.loaded",
-        "message": "启动配置加载完成",
-        "context": {
-          "source": "github",
-          "updatedAt": "2026-09-03T02:11:54.011Z"
         }
       }
     ],
