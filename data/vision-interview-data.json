@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-07T02:08:04.253Z",
+  "updatedAt": "2026-09-07T02:08:33.177Z",
   "data": {
     "vision-interview-records": [
       {
@@ -3548,6 +3548,33 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788746909718-sxo5k6ic",
+        "timestamp": "2026-09-07T02:08:29.718Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788746868423-rnbkbdu2",
+        "event": "ai.connection-test.completed",
+        "message": "真实聊天连接测试成功",
+        "context": {
+          "provider": "openai",
+          "model": "gpt-5.6-sol",
+          "upstreamFormat": "chat-completions",
+          "durationMs": 29696
+        }
+      },
+      {
+        "id": "1788746889568-onzmsp83",
+        "timestamp": "2026-09-07T02:08:09.568Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "2764f5db0cec"
+        }
+      },
       {
         "id": "1788746885692-rq3cpun4",
         "timestamp": "2026-09-07T02:08:05.692Z",
@@ -17008,26 +17035,6 @@
           "githubQuestionCount": 121,
           "pendingCount": 0
         }
-      },
-      {
-        "id": "1788343728455-gab76zr7",
-        "timestamp": "2026-09-02T10:08:48.455Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.startup.loaded",
-        "message": "启动配置加载完成",
-        "context": {
-          "source": "github",
-          "updatedAt": "2026-09-02T10:08:41.549Z"
-        }
-      },
-      {
-        "id": "1788343727181-8cv8rb5n",
-        "timestamp": "2026-09-02T10:08:47.181Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.close.flush",
-        "message": "页面关闭或进入后台，提交最后一次备份"
       }
     ],
     "vision-interview-web-source-whitelist": [
