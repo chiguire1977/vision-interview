@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-07T02:31:13.088Z",
+  "updatedAt": "2026-09-07T02:31:22.018Z",
   "data": {
     "vision-interview-records": [
       {
@@ -3785,6 +3785,32 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788748281501-w9aygkpx",
+        "timestamp": "2026-09-07T02:31:21.501Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788748236513-ey8smunw",
+        "event": "ai.connection-test.started",
+        "message": "开始真实聊天连接测试",
+        "context": {
+          "provider": "openai",
+          "model": "gpt-5.6-sol",
+          "upstreamFormat": "chat-completions"
+        }
+      },
+      {
+        "id": "1788748277848-89jdi946",
+        "timestamp": "2026-09-07T02:31:17.848Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "fddc8324b647"
+        }
+      },
       {
         "id": "1788748272073-5avgo2bi",
         "timestamp": "2026-09-07T02:31:12.073Z",
@@ -17080,41 +17106,6 @@
           "workerIndex": 2,
           "parallelRequests": 4,
           "requestedCount": 1
-        }
-      },
-      {
-        "id": "1788344722888-tpmlsirk",
-        "timestamp": "2026-09-02T10:25:22.888Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788343728457-e0wb33gd",
-        "event": "question-bank.ai-request.started",
-        "message": "第 4/6 轮（并行 1/4）：正在请求 AI 生成题目（1 道）…",
-        "context": {
-          "attempt": 4,
-          "maxAttempts": 6,
-          "collectedCount": 8,
-          "workerIndex": 1,
-          "parallelRequests": 4,
-          "requestedCount": 1
-        }
-      },
-      {
-        "id": "1788344722886-kufkcn99",
-        "timestamp": "2026-09-02T10:25:22.886Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788343728457-e0wb33gd",
-        "event": "question-bank.web-search.completed",
-        "message": "本轮联网检索完成",
-        "context": {
-          "attempt": 4,
-          "query": "机器视觉 面试知识点 HALCON 原理 工程实践",
-          "sourceCount": 0,
-          "parallelRequests": 4,
-          "requestedCount": 10,
-          "durationMs": 633,
-          "sharedAcrossWorkers": true
         }
       }
     ],
