@@ -4,11 +4,17 @@ import test from "node:test";
 import {
   buildResearchQueries,
   DEFAULT_WEB_SOURCE_WHITELIST,
+  expandResearchQuery,
   normalizeQuestionRetrievalOptions,
   normalizeQuestionRetrievalResult,
   readWebSourceWhitelist,
   retrieveWebSources,
 } from "../lib/question-retrieval.mjs";
+
+test("expands web research with broad interview and knowledge terms", () => {
+  const query = expandResearchQuery("机器视觉 HALCON 原理 工程实践");
+  assert.equal(query, "机器视觉 HALCON 原理 工程实践 (面试 OR 面试题 OR 面试问题 OR 题目 OR 知识点 OR 原理 OR 教程 OR 工程实践 OR 排障)");
+});
 
 test("builds one base query plus GitHub and engineering research queries", () => {
   assert.deepEqual(buildResearchQueries(" HALCON 阈值分割 "), [
