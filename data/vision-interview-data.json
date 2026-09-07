@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-07T02:23:08.875Z",
+  "updatedAt": "2026-09-07T02:23:18.821Z",
   "data": {
     "vision-interview-records": [
       {
@@ -3298,9 +3298,9 @@
       }
     ],
     "vision-interview-ai-preferences": {
-      "provider": "openai",
-      "model": "gpt-5.6-sol",
-      "openaiBaseUrl": "https://dingdangapii.cn",
+      "provider": "deepseek",
+      "model": "deepseek-v4-flash",
+      "openaiBaseUrl": "https://api.deepseek.com",
       "aiScoring": true,
       "bestAnswer": true,
       "smartFollowUp": true,
@@ -3782,6 +3782,18 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788747793386-yaw2hssx",
+        "timestamp": "2026-09-07T02:23:13.386Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "1609cf60a334"
+        }
+      },
       {
         "id": "1788747787805-7qbmzycd",
         "timestamp": "2026-09-07T02:23:07.805Z",
@@ -17181,23 +17193,6 @@
         "context": {
           "reason": "change",
           "commit": "010af9fc1293"
-        }
-      },
-      {
-        "id": "1788343759624-ci0gi0bo",
-        "timestamp": "2026-09-02T10:09:19.624Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788343728457-e0wb33gd",
-        "event": "question-bank.ai-request.duration",
-        "message": "单个并行 AI 请求完成",
-        "context": {
-          "attempt": 1,
-          "workerIndex": 4,
-          "parallelRequests": 4,
-          "requestedCount": 2,
-          "receivedCount": 2,
-          "durationMs": 29100
         }
       }
     ],
