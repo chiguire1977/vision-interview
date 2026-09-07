@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-07T03:51:08.691Z",
+  "updatedAt": "2026-09-07T03:51:13.158Z",
   "data": {
     "vision-interview-records": [
       {
@@ -3785,6 +3785,95 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788753074948-fwvsopo7",
+        "timestamp": "2026-09-07T03:51:14.948Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "187d5fd22d3e"
+        }
+      },
+      {
+        "id": "1788753072925-njs5ayad",
+        "timestamp": "2026-09-07T03:51:12.925Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788752989218-16nqofqp",
+        "event": "question-group.prepare.completed",
+        "message": "AI 已生成完整 10 道题目、标准回答和技术原理；远程题库正在后台同步（10 道题目待验证来源）。",
+        "context": {
+          "source": "AI",
+          "questionCount": 10
+        }
+      },
+      {
+        "id": "1788753072919-ne5di7wh",
+        "timestamp": "2026-09-07T03:51:12.919Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788752989218-16nqofqp",
+        "event": "github.backup.started",
+        "message": "开始备份数据到 GitHub",
+        "context": {
+          "operation": "ai-question-bank",
+          "entryCount": 10,
+          "pendingCount": 10,
+          "totalCount": 242,
+          "complete": true
+        }
+      },
+      {
+        "id": "1788753072911-i0wem8ea",
+        "timestamp": "2026-09-07T03:51:12.911Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788752989218-16nqofqp",
+        "event": "question-bank.cache.unverified",
+        "message": "联网题目已进入题库同步队列，来源待后续补充与核验",
+        "context": {
+          "generatedCount": 10,
+          "persistedCount": 10,
+          "unverifiedCount": 10
+        }
+      },
+      {
+        "id": "1788753072907-3vuekact",
+        "timestamp": "2026-09-07T03:51:12.907Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788752989218-16nqofqp",
+        "event": "question-bank.ai-request.completed",
+        "message": "第 3/6 轮：AI 已返回 10/10 道有效题目。",
+        "context": {
+          "attempt": 3,
+          "maxAttempts": 6,
+          "collectedCount": 10,
+          "targetCount": 10,
+          "parallelRequests": 4,
+          "requestedCount": 2
+        }
+      },
+      {
+        "id": "1788753072902-litszg03",
+        "timestamp": "2026-09-07T03:51:12.902Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788752989218-16nqofqp",
+        "event": "question-bank.ai-request.duration",
+        "message": "单个并行 AI 请求完成",
+        "context": {
+          "attempt": 3,
+          "workerIndex": 1,
+          "parallelRequests": 4,
+          "requestedCount": 1,
+          "receivedCount": 1,
+          "durationMs": 10430
+        }
+      },
       {
         "id": "1788753070292-khora52e",
         "timestamp": "2026-09-07T03:51:10.292Z",
@@ -18084,76 +18173,6 @@
         "context": {
           "source": "github",
           "updatedAt": "2026-09-07T02:04:44.630Z"
-        }
-      },
-      {
-        "id": "1788746686580-cvpp9h24",
-        "timestamp": "2026-09-07T02:04:46.580Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.close.flush",
-        "message": "页面关闭或进入后台，提交最后一次备份"
-      },
-      {
-        "id": "1788746686200-qeuv2mln",
-        "timestamp": "2026-09-07T02:04:46.200Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788746619066-ct6k0ut7",
-        "event": "ai.connection-test.failed",
-        "message": "AI 请求超时，请稍后重试。",
-        "context": {
-          "provider": "openai",
-          "model": "gpt-5.6-sol",
-          "upstreamFormat": "chat-completions",
-          "status": 504,
-          "durationMs": 60178
-        }
-      },
-      {
-        "id": "1788746684377-w0z0mw6u",
-        "timestamp": "2026-09-07T02:04:44.377Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.close.flush",
-        "message": "页面关闭或进入后台，提交最后一次备份"
-      },
-      {
-        "id": "1788746632139-todrlusi",
-        "timestamp": "2026-09-07T02:03:52.139Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "a30294d644ea"
-        }
-      },
-      {
-        "id": "1788746628812-bixw0750",
-        "timestamp": "2026-09-07T02:03:48.812Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "b715f2d46876"
-        }
-      },
-      {
-        "id": "1788746626022-qwt8e0y0",
-        "timestamp": "2026-09-07T02:03:46.022Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788746619066-ct6k0ut7",
-        "event": "ai.connection-test.started",
-        "message": "开始真实聊天连接测试",
-        "context": {
-          "provider": "openai",
-          "model": "gpt-5.6-sol",
-          "upstreamFormat": "chat-completions"
         }
       }
     ],
