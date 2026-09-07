@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-07T03:50:42.720Z",
+  "updatedAt": "2026-09-07T03:50:46.229Z",
   "data": {
     "vision-interview-records": [
       {
@@ -3785,6 +3785,103 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788753048020-cmp7f2az",
+        "timestamp": "2026-09-07T03:50:48.020Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "b266d90952a4"
+        }
+      },
+      {
+        "id": "1788753047125-xp7gv6xv",
+        "timestamp": "2026-09-07T03:50:47.125Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788752989218-16nqofqp",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 3,
+          "query": "机器视觉 面试知识点 HALCON 原理 工程实践 (面试 OR 面试题 OR 面试问题 OR 题目 OR 知识点 OR 原理 OR 教程 OR 工程实践 OR 排障)",
+          "mode": "专业知识",
+          "excludedCount": 21,
+          "parallelRequests": 4,
+          "requestedCount": 10
+        }
+      },
+      {
+        "id": "1788753047122-1ljlspy4",
+        "timestamp": "2026-09-07T03:50:47.122Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788752989218-16nqofqp",
+        "event": "question-bank.ai-request.completed",
+        "message": "第 2/6 轮：AI 已返回 8/10 道有效题目，继续补齐…",
+        "context": {
+          "attempt": 2,
+          "maxAttempts": 6,
+          "collectedCount": 8,
+          "targetCount": 10,
+          "parallelRequests": 4,
+          "requestedCount": 4
+        }
+      },
+      {
+        "id": "1788753047117-urg1c2qp",
+        "timestamp": "2026-09-07T03:50:47.117Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788752989218-16nqofqp",
+        "event": "question-bank.ai-request.duration",
+        "message": "单个并行 AI 请求完成",
+        "context": {
+          "attempt": 2,
+          "workerIndex": 2,
+          "parallelRequests": 4,
+          "requestedCount": 1,
+          "receivedCount": 1,
+          "durationMs": 10643
+        }
+      },
+      {
+        "id": "1788753046475-anogbzkq",
+        "timestamp": "2026-09-07T03:50:46.475Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788752989218-16nqofqp",
+        "event": "question-bank.ai-request.duration",
+        "message": "单个并行 AI 请求完成",
+        "context": {
+          "attempt": 2,
+          "workerIndex": 4,
+          "parallelRequests": 4,
+          "requestedCount": 1,
+          "receivedCount": 1,
+          "durationMs": 9995
+        }
+      },
+      {
+        "id": "1788753045720-azza8inm",
+        "timestamp": "2026-09-07T03:50:45.720Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788752989218-16nqofqp",
+        "event": "question-bank.ai-request.duration",
+        "message": "单个并行 AI 请求完成",
+        "context": {
+          "attempt": 2,
+          "workerIndex": 3,
+          "parallelRequests": 4,
+          "requestedCount": 1,
+          "receivedCount": 1,
+          "durationMs": 9243
+        }
+      },
       {
         "id": "1788753043560-z4f3n7fq",
         "timestamp": "2026-09-07T03:50:43.560Z",
@@ -18037,78 +18134,6 @@
           "reason": "change",
           "commit": "9b19a3f548f9"
         }
-      },
-      {
-        "id": "1788746603715-qwzlo8wl",
-        "timestamp": "2026-09-07T02:03:23.715Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "3adaf943c191"
-        }
-      },
-      {
-        "id": "1788746597145-fp3ea6m1",
-        "timestamp": "2026-09-07T02:03:17.145Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788746588535-8ktw5jo1",
-        "event": "ai.connection-test.started",
-        "message": "开始真实聊天连接测试",
-        "context": {
-          "provider": "openai",
-          "model": "gpt-5.6-sol",
-          "upstreamFormat": "chat-completions"
-        }
-      },
-      {
-        "id": "1788746595430-rfqntgtc",
-        "timestamp": "2026-09-07T02:03:15.430Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "6f0c7fcae218"
-        }
-      },
-      {
-        "id": "1788746590590-cx3ixocz",
-        "timestamp": "2026-09-07T02:03:10.590Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788746588535-8ktw5jo1",
-        "event": "question-bank.remote.loaded",
-        "message": "GitHub AI 历史题库加载完成",
-        "context": {
-          "questionCount": 210,
-          "githubQuestionCount": 210,
-          "pendingCount": 0
-        }
-      },
-      {
-        "id": "1788746588531-3blw3f9c",
-        "timestamp": "2026-09-07T02:03:08.531Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.startup.loaded",
-        "message": "启动配置加载完成",
-        "context": {
-          "source": "github",
-          "updatedAt": "2026-09-07T02:02:39.895Z"
-        }
-      },
-      {
-        "id": "1788746587432-7uqnprej",
-        "timestamp": "2026-09-07T02:03:07.432Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.close.flush",
-        "message": "页面关闭或进入后台，提交最后一次备份"
       }
     ],
     "vision-interview-web-source-whitelist": [
