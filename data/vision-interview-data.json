@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-07T02:27:36.292Z",
+  "updatedAt": "2026-09-07T02:27:42.116Z",
   "data": {
     "vision-interview-records": [
       {
@@ -3792,6 +3792,18 @@
         "kind": "system",
         "event": "backup.close.flush",
         "message": "页面关闭或进入后台，提交最后一次备份"
+      },
+      {
+        "id": "1788748056642-55bj9bwn",
+        "timestamp": "2026-09-07T02:27:36.642Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "2891baf299fa"
+        }
       },
       {
         "id": "1788748051151-k2ntw8p3",
@@ -17146,23 +17158,6 @@
           "targetCount": 10,
           "parallelRequests": 4,
           "requestedCount": 4
-        }
-      },
-      {
-        "id": "1788344701882-mnljoiwl",
-        "timestamp": "2026-09-02T10:25:01.882Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788343728457-e0wb33gd",
-        "event": "question-bank.attempt.failed",
-        "message": "第 2/6 轮（并行 3/4）：本轮请求失败：AI 请求超时，请稍后重试。，准备下一轮…",
-        "context": {
-          "attempt": 2,
-          "maxAttempts": 6,
-          "collectedCount": 6,
-          "workerIndex": 3,
-          "parallelRequests": 4,
-          "error": "AI 请求超时，请稍后重试。"
         }
       }
     ],
