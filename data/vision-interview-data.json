@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-07T03:58:28.705Z",
+  "updatedAt": "2026-09-07T06:12:22.295Z",
   "data": {
     "vision-interview-records": [
       {
@@ -3785,6 +3785,139 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788761543319-xydxnprk",
+        "timestamp": "2026-09-07T06:12:23.319Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788761541654-u7vjeyts",
+        "event": "question-bank.remote.loaded",
+        "message": "GitHub AI 历史题库加载完成",
+        "context": {
+          "questionCount": 250,
+          "githubQuestionCount": 242,
+          "pendingCount": 8
+        }
+      },
+      {
+        "id": "1788761541649-os341mof",
+        "timestamp": "2026-09-07T06:12:21.649Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.startup.loaded",
+        "message": "启动配置加载完成",
+        "context": {
+          "source": "github",
+          "updatedAt": "2026-09-07T03:58:28.705Z"
+        }
+      },
+      {
+        "id": "1788753740592-7fdbua8x",
+        "timestamp": "2026-09-07T04:02:20.592Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "question-bank.close.flush",
+        "message": "关闭或后台切换时提交完整 AI 题库",
+        "context": {
+          "entryCount": 250,
+          "pendingCount": 8,
+          "transport": "keepalive"
+        }
+      },
+      {
+        "id": "1788753740579-j4tzmc3g",
+        "timestamp": "2026-09-07T04:02:20.579Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.close.flush",
+        "message": "页面关闭或进入后台，提交最后一次备份"
+      },
+      {
+        "id": "1788753740571-x5dk7lfl",
+        "timestamp": "2026-09-07T04:02:20.571Z",
+        "level": "ERROR",
+        "kind": "system",
+        "event": "backup.push.failed",
+        "message": "运行数据备份请求失败",
+        "context": {
+          "error": "Failed to fetch"
+        }
+      },
+      {
+        "id": "1788753738959-6ucnph9b",
+        "timestamp": "2026-09-07T04:02:18.959Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "question-bank.close.flush",
+        "message": "关闭或后台切换时提交完整 AI 题库",
+        "context": {
+          "entryCount": 250,
+          "pendingCount": 8,
+          "transport": "keepalive"
+        }
+      },
+      {
+        "id": "1788753738952-25mv74ps",
+        "timestamp": "2026-09-07T04:02:18.952Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.close.flush",
+        "message": "页面关闭或进入后台，提交最后一次备份"
+      },
+      {
+        "id": "1788753735824-15aiavy3",
+        "timestamp": "2026-09-07T04:02:15.824Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "question-bank.close.flush",
+        "message": "关闭或后台切换时提交完整 AI 题库",
+        "context": {
+          "entryCount": 250,
+          "pendingCount": 8,
+          "transport": "keepalive"
+        }
+      },
+      {
+        "id": "1788753735817-5mqg2x06",
+        "timestamp": "2026-09-07T04:02:15.817Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.close.flush",
+        "message": "页面关闭或进入后台，提交最后一次备份"
+      },
+      {
+        "id": "1788753733497-9353d6uz",
+        "timestamp": "2026-09-07T04:02:13.497Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "question-bank.close.flush",
+        "message": "关闭或后台切换时提交完整 AI 题库",
+        "context": {
+          "entryCount": 250,
+          "pendingCount": 8,
+          "transport": "keepalive"
+        }
+      },
+      {
+        "id": "1788753733490-rw8phrkr",
+        "timestamp": "2026-09-07T04:02:13.490Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.close.flush",
+        "message": "页面关闭或进入后台，提交最后一次备份"
+      },
+      {
+        "id": "1788753516726-o19to8md",
+        "timestamp": "2026-09-07T03:58:36.726Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "ae05b4105fe6"
+        }
+      },
       {
         "id": "1788753509477-b2xglzi6",
         "timestamp": "2026-09-07T03:58:29.477Z",
@@ -18186,173 +18319,6 @@
           "question": "在HALCON中，当模板匹配目标存在旋转时，create_shape_model的AngleStart、AngleExtent和AngleStep参数应如何协同设置？现场调试时如何判断角度步长设置过大的迹象？",
           "mode": "专业知识",
           "project": "机器视觉专业知识"
-        }
-      },
-      {
-        "id": "1788748047486-pihy6iqz",
-        "timestamp": "2026-09-07T02:27:27.486Z",
-        "level": "WARN",
-        "kind": "user",
-        "sessionId": "1788747820688-bai5eb99",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "在HALCON的模板匹配流程中，为什么基于形状的匹配（create_shape_model）对目标的线性光照变化不敏感，而基于灰度值的匹配（create_gray_model）却容易受光照影响？请从原理上解释两者在相似度度量上的本质区别。",
-          "mode": "专业知识",
-          "project": "机器视觉专业知识"
-        }
-      },
-      {
-        "id": "1788748047200-a4wxzegc",
-        "timestamp": "2026-09-07T02:27:27.200Z",
-        "level": "WARN",
-        "kind": "user",
-        "sessionId": "1788747820688-bai5eb99",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "在HALCON中，当使用sobel_amp算子提取边缘后，如何理解其输出图像中灰度值大小与边缘强度的关系？请解释Sobel算子的梯度计算原理，并说明在传统2D视觉检测中如何利用该输出进行后续处理。",
-          "mode": "专业知识",
-          "project": "机器视觉专业知识"
-        }
-      },
-      {
-        "id": "1788748043366-lsr4336k",
-        "timestamp": "2026-09-07T02:27:23.366Z",
-        "level": "WARN",
-        "kind": "user",
-        "sessionId": "1788747820688-bai5eb99",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "在HALCON中，使用shape_trans算子将区域转换为最小外接矩形（rectangle2）时，如何获取该矩形的中心坐标和角度？请说明该角度在二维视觉检测中的典型应用。",
-          "mode": "专业知识",
-          "project": "机器视觉专业知识"
-        }
-      },
-      {
-        "id": "1788748042326-i9l6ay9g",
-        "timestamp": "2026-09-07T02:27:22.326Z",
-        "level": "WARN",
-        "kind": "user",
-        "sessionId": "1788747820688-bai5eb99",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "在HALCON中，如何使用灰度投影（gray_projections）实现二维物体的中心定位，并说明其与基于区域特征（如area_center）定位的适用场景差异？",
-          "mode": "专业知识",
-          "project": "机器视觉专业知识"
-        }
-      },
-      {
-        "id": "1788748041892-5nahu84z",
-        "timestamp": "2026-09-07T02:27:21.892Z",
-        "level": "WARN",
-        "kind": "user",
-        "sessionId": "1788747820688-bai5eb99",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "在HALCON中，使用median_image和gauss_filter对含噪声图像进行预处理，两者在去噪效果和边缘保持方面有何差异？现场检测中如何根据噪声类型和后续处理需求选择？",
-          "mode": "专业知识",
-          "project": "机器视觉专业知识"
-        }
-      },
-      {
-        "id": "1788748041460-4lllps3h",
-        "timestamp": "2026-09-07T02:27:21.460Z",
-        "level": "WARN",
-        "kind": "user",
-        "sessionId": "1788747820688-bai5eb99",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "在HALCON中，使用threshold算子对光照不均匀的灰度图像进行全局阈值分割时，目标区域出现断裂或误检。请分析原因并提出至少两种基于图像处理的解决思路。",
-          "mode": "专业知识",
-          "project": "机器视觉专业知识"
-        }
-      },
-      {
-        "id": "1788747894764-98jehzxh",
-        "timestamp": "2026-09-07T02:24:54.764Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "cc0b587f8aee"
-        }
-      },
-      {
-        "id": "1788747889131-anhognzr",
-        "timestamp": "2026-09-07T02:24:49.131Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788747820688-bai5eb99",
-        "event": "question-group.prepare.completed",
-        "message": "AI 题组已准备完成。",
-        "context": {
-          "source": "AI",
-          "questionCount": 10
-        }
-      },
-      {
-        "id": "1788747889129-uylev3uz",
-        "timestamp": "2026-09-07T02:24:49.129Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788747820688-bai5eb99",
-        "event": "question-bank.cache.skipped",
-        "message": "联网题目未获得已验证来源，本轮不写入题库归档",
-        "context": {
-          "generatedCount": 10,
-          "persistedCount": 0
-        }
-      },
-      {
-        "id": "1788747889123-ktq7aelx",
-        "timestamp": "2026-09-07T02:24:49.123Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788747820688-bai5eb99",
-        "event": "question-bank.ai-request.duration",
-        "message": "单个并行 AI 请求完成",
-        "context": {
-          "attempt": 4,
-          "workerIndex": 1,
-          "parallelRequests": 4,
-          "requestedCount": 1,
-          "receivedCount": 1,
-          "durationMs": 7545
-        }
-      },
-      {
-        "id": "1788747887659-iy74bkgw",
-        "timestamp": "2026-09-07T02:24:47.659Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "b4c21c76d5ed"
-        }
-      },
-      {
-        "id": "1788747881575-h0c8qb2b",
-        "timestamp": "2026-09-07T02:24:41.575Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788747820688-bai5eb99",
-        "event": "question-bank.web-search.failed",
-        "message": "联网检索暂不可用",
-        "context": {
-          "attempt": 4,
-          "query": "机器视觉 面试知识点 HALCON 传统 2D 视觉 仅限二维图像处理，排除 3D、三维、点云、深度图、法线估计、平面拟合、立体视觉、结构光和双目 原理 工程实践",
-          "continueToAi": true,
-          "parallelRequests": 4,
-          "requestedCount": 10
         }
       }
     ],
