@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-07T03:17:44.569Z",
+  "updatedAt": "2026-09-07T03:17:55.627Z",
   "data": {
     "vision-interview-records": [
       {
@@ -3785,6 +3785,105 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788751070385-uke1v5cr",
+        "timestamp": "2026-09-07T03:17:50.385Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788750916220-7pqj2l9f",
+        "event": "question-bank.ai-request.started",
+        "message": "第 2/6 轮（并行 4/4）：正在请求 AI 生成题目（1 道）…",
+        "context": {
+          "attempt": 2,
+          "maxAttempts": 6,
+          "collectedCount": 15,
+          "workerIndex": 4,
+          "parallelRequests": 4,
+          "requestedCount": 1
+        }
+      },
+      {
+        "id": "1788751070383-hzb50tuk",
+        "timestamp": "2026-09-07T03:17:50.383Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788750916220-7pqj2l9f",
+        "event": "question-bank.ai-request.started",
+        "message": "第 2/6 轮（并行 3/4）：正在请求 AI 生成题目（1 道）…",
+        "context": {
+          "attempt": 2,
+          "maxAttempts": 6,
+          "collectedCount": 15,
+          "workerIndex": 3,
+          "parallelRequests": 4,
+          "requestedCount": 1
+        }
+      },
+      {
+        "id": "1788751070380-5arny9q5",
+        "timestamp": "2026-09-07T03:17:50.380Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788750916220-7pqj2l9f",
+        "event": "question-bank.ai-request.started",
+        "message": "第 2/6 轮（并行 2/4）：正在请求 AI 生成题目（2 道）…",
+        "context": {
+          "attempt": 2,
+          "maxAttempts": 6,
+          "collectedCount": 15,
+          "workerIndex": 2,
+          "parallelRequests": 4,
+          "requestedCount": 2
+        }
+      },
+      {
+        "id": "1788751070377-i1lxisos",
+        "timestamp": "2026-09-07T03:17:50.377Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788750916220-7pqj2l9f",
+        "event": "question-bank.ai-request.started",
+        "message": "第 2/6 轮（并行 1/4）：正在请求 AI 生成题目（2 道）…",
+        "context": {
+          "attempt": 2,
+          "maxAttempts": 6,
+          "collectedCount": 15,
+          "workerIndex": 1,
+          "parallelRequests": 4,
+          "requestedCount": 2
+        }
+      },
+      {
+        "id": "1788751070374-9yln6x2s",
+        "timestamp": "2026-09-07T03:17:50.374Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788750916220-7pqj2l9f",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 2,
+          "query": "机器视觉 面试知识点 HALCON 传统 2D 视觉 仅限二维图像处理，排除 3D、三维、点云、深度图、法线估计、平面拟合、立体视觉、结构光和双目 原理 工程实践",
+          "sourceCount": 0,
+          "cached": false,
+          "parallelRequests": 4,
+          "requestedCount": 10,
+          "durationMs": 4504,
+          "sharedAcrossWorkers": true
+        }
+      },
+      {
+        "id": "1788751070019-982hor81",
+        "timestamp": "2026-09-07T03:17:50.019Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "607c74c21e11"
+        }
+      },
       {
         "id": "1788751065869-qtdc20qo",
         "timestamp": "2026-09-07T03:17:45.869Z",
@@ -17459,66 +17558,6 @@
         "context": {
           "reason": "change",
           "commit": "0221071d832a"
-        }
-      },
-      {
-        "id": "1788444022216-gyqe8m7o",
-        "timestamp": "2026-09-03T14:00:22.216Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.close.flush",
-        "message": "页面关闭或进入后台，提交最后一次备份"
-      },
-      {
-        "id": "1788443891834-fw74uknm",
-        "timestamp": "2026-09-03T13:58:11.834Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "d7b9056119b3"
-        }
-      },
-      {
-        "id": "1788443883963-oj8wiswy",
-        "timestamp": "2026-09-03T13:58:03.963Z",
-        "level": "ERROR",
-        "kind": "system",
-        "event": "backup.push.failed",
-        "message": "运行数据备份失败",
-        "context": {
-          "status": 502,
-          "reason": "GitHub 备份失败（HTTP 409）：{\"message\":\"is at 4bda0191bb4a436d66b79e86b5b6f302ed196543 but expected ab0b0c08eb701733d991c0c143f3de29624b6647\",\"documentation_url\":\"https://docs.github.com/rest/repos/contents#create-or-update-file-contents\",\"status\":\"409\"}"
-        }
-      },
-      {
-        "id": "1788443875438-ssqwi6f6",
-        "timestamp": "2026-09-03T13:57:55.438Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.close.flush",
-        "message": "页面关闭或进入后台，提交最后一次备份"
-      },
-      {
-        "id": "1788443872028-l2wisgpw",
-        "timestamp": "2026-09-03T13:57:52.028Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.close.flush",
-        "message": "页面关闭或进入后台，提交最后一次备份"
-      },
-      {
-        "id": "1788440543650-jir8ad1q",
-        "timestamp": "2026-09-03T13:02:23.650Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "b41f0f99fd86"
         }
       }
     ],
