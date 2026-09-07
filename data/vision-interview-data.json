@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-07T03:36:33.122Z",
+  "updatedAt": "2026-09-07T03:36:45.247Z",
   "data": {
     "vision-interview-records": [
       {
@@ -3785,6 +3785,65 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788752205799-17nyaeed",
+        "timestamp": "2026-09-07T03:36:45.799Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788752150064-yy5cs4c5",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 1,
+          "query": "机器视觉 面试知识点 HALCON 传统 2D 视觉 仅限二维图像处理，排除 3D、三维、点云、深度图、法线估计、平面拟合、立体视觉、结构光和双目 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 11,
+          "parallelRequests": 4,
+          "requestedCount": 10
+        }
+      },
+      {
+        "id": "1788752205788-px8k9dsy",
+        "timestamp": "2026-09-07T03:36:45.788Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788752150064-yy5cs4c5",
+        "event": "question-group.prepare.started",
+        "message": "开始准备题组",
+        "context": {
+          "project": "机器视觉专业知识",
+          "mode": "专业知识",
+          "questionCount": 10,
+          "sourceMode": "network",
+          "adaptiveQuestions": false,
+          "focusCategories": []
+        }
+      },
+      {
+        "id": "1788752203740-5g48rm7y",
+        "timestamp": "2026-09-07T03:36:43.740Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788752150064-yy5cs4c5",
+        "event": "group.review.completed",
+        "message": "题组统一评审完成",
+        "context": {
+          "reviewSource": "本地规则",
+          "questionCount": 10
+        }
+      },
+      {
+        "id": "1788752198308-qfwev109",
+        "timestamp": "2026-09-07T03:36:38.308Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "f2605a2ad8fc"
+        }
+      },
       {
         "id": "1788752191707-zqwktnei",
         "timestamp": "2026-09-07T03:36:31.707Z",
@@ -17860,56 +17919,6 @@
           "provider": "openai",
           "model": "gpt-5.6-sol",
           "upstreamFormat": "chat-completions"
-        }
-      },
-      {
-        "id": "1788739416685-zwvgy92n",
-        "timestamp": "2026-09-07T00:03:36.685Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "6486a3270233"
-        }
-      },
-      {
-        "id": "1788739397700-x4e0hd1h",
-        "timestamp": "2026-09-07T00:03:17.700Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "46e0ae48696d"
-        }
-      },
-      {
-        "id": "1788739393447-tjqppnwq",
-        "timestamp": "2026-09-07T00:03:13.447Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788739391058-552xskr6",
-        "event": "question-bank.remote.loaded",
-        "message": "GitHub AI 历史题库加载完成",
-        "context": {
-          "questionCount": 210,
-          "githubQuestionCount": 210,
-          "pendingCount": 0
-        }
-      },
-      {
-        "id": "1788739391054-qtiaqul4",
-        "timestamp": "2026-09-07T00:03:11.054Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.startup.loaded",
-        "message": "启动配置加载完成",
-        "context": {
-          "source": "github",
-          "updatedAt": "2026-09-06T16:14:11.643Z"
         }
       }
     ],
