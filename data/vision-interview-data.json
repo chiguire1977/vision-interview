@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-07T02:58:22.993Z",
+  "updatedAt": "2026-09-07T02:58:28.229Z",
   "data": {
     "vision-interview-records": [
       {
@@ -3786,12 +3786,50 @@
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
       {
+        "id": "1788749908415-6yd8h9u8",
+        "timestamp": "2026-09-07T02:58:28.415Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788749906722-jt1tgeok",
+        "event": "question-bank.remote.loaded",
+        "message": "GitHub AI 历史题库加载完成",
+        "context": {
+          "questionCount": 210,
+          "githubQuestionCount": 210,
+          "pendingCount": 0
+        }
+      },
+      {
+        "id": "1788749906718-uv13q3qh",
+        "timestamp": "2026-09-07T02:58:26.718Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.startup.loaded",
+        "message": "启动配置加载完成",
+        "context": {
+          "source": "github",
+          "updatedAt": "2026-09-07T02:48:52.992Z"
+        }
+      },
+      {
         "id": "1788749904975-32n0p5zt",
         "timestamp": "2026-09-07T02:58:24.975Z",
         "level": "INFO",
         "kind": "system",
         "event": "backup.close.flush",
         "message": "页面关闭或进入后台，提交最后一次备份"
+      },
+      {
+        "id": "1788749340443-xsb91tav",
+        "timestamp": "2026-09-07T02:49:00.443Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "76a02cadd687"
+        }
       },
       {
         "id": "1788749331720-eil0e1rf",
@@ -17354,48 +17392,6 @@
         "message": "当前题目已跳过",
         "context": {
           "question": "HALCON中如何使用频域滤波进行纹理表面缺陷检测？请说明流程及高通滤波器参数选择依据。",
-          "mode": "专业知识",
-          "project": "机器视觉专业知识"
-        }
-      },
-      {
-        "id": "1788364212645-dfqs50x9",
-        "timestamp": "2026-09-02T15:50:12.645Z",
-        "level": "WARN",
-        "kind": "user",
-        "sessionId": "1788345131423-wywacu41",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "HALCON中edges_sub_pix亚像素边缘提取的原理是什么？如何通过参数控制边缘提取的精度与抗噪性？",
-          "mode": "专业知识",
-          "project": "机器视觉专业知识"
-        }
-      },
-      {
-        "id": "1788364212169-pk9s5yro",
-        "timestamp": "2026-09-02T15:50:12.169Z",
-        "level": "WARN",
-        "kind": "user",
-        "sessionId": "1788345131423-wywacu41",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "使用HALCON卡尺工具（如measure_pos）进行尺寸测量时，测量矩形的宽度、长度和边缘阈值对测量稳定性的影响是什么？",
-          "mode": "专业知识",
-          "project": "机器视觉专业知识"
-        }
-      },
-      {
-        "id": "1788364211897-xrz5fgei",
-        "timestamp": "2026-09-02T15:50:11.897Z",
-        "level": "WARN",
-        "kind": "user",
-        "sessionId": "1788345131423-wywacu41",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "HALCON中edges_sub_pix算子提取亚像素边缘时，滞后阈值与平滑系数如何影响边缘检测结果？",
           "mode": "专业知识",
           "project": "机器视觉专业知识"
         }
