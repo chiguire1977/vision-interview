@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-07T02:02:32.399Z",
+  "updatedAt": "2026-09-07T02:02:36.262Z",
   "data": {
     "vision-interview-records": [
       {
@@ -3729,59 +3729,22 @@
             "value": "qwen3.8-max"
           }
         ]
-      },
-      "custom-mth2q5s2-c9pbzd": {
-        "name": "dingdang",
-        "description": "兼容 OpenAI 格式的自定义服务商",
-        "model": "gpt-5.6-sol",
-        "baseUrl": "https://dingdangapii.cn",
-        "openaiBaseUrl": "https://dingdangapii.cn",
-        "availableModels": [
-          {
-            "label": "codex-auto-review",
-            "value": "codex-auto-review"
-          },
-          {
-            "label": "gpt-4o-mini",
-            "value": "gpt-4o-mini"
-          },
-          {
-            "label": "gpt-5.4",
-            "value": "gpt-5.4"
-          },
-          {
-            "label": "gpt-5.4-mini",
-            "value": "gpt-5.4-mini"
-          },
-          {
-            "label": "gpt-5.5",
-            "value": "gpt-5.5"
-          },
-          {
-            "label": "gpt-5.6",
-            "value": "gpt-5.6"
-          },
-          {
-            "label": "gpt-5.6-luna",
-            "value": "gpt-5.6-luna"
-          },
-          {
-            "label": "gpt-5.6-sol",
-            "value": "gpt-5.6-sol"
-          },
-          {
-            "label": "gpt-5.6-terra",
-            "value": "gpt-5.6-terra"
-          },
-          {
-            "label": "gpt-image-2",
-            "value": "gpt-image-2"
-          }
-        ]
       }
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788746557357-39c8jggy",
+        "timestamp": "2026-09-07T02:02:37.357Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "6b0f09aa51ed"
+        }
+      },
       {
         "id": "1788746550147-7vw6fbg2",
         "timestamp": "2026-09-07T02:02:30.147Z",
@@ -17459,23 +17422,6 @@
           "parallelRequests": 4,
           "requestedCount": 2,
           "durationMs": 60372,
-          "error": "AI 请求超时，请稍后重试。"
-        }
-      },
-      {
-        "id": "1788343535670-3xotbzix",
-        "timestamp": "2026-09-02T10:05:35.670Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788343468196-zjzo0dai",
-        "event": "question-bank.ai-request.failed",
-        "message": "单个并行 AI 请求失败",
-        "context": {
-          "attempt": 1,
-          "workerIndex": 2,
-          "parallelRequests": 4,
-          "requestedCount": 3,
-          "durationMs": 60371,
           "error": "AI 请求超时，请稍后重试。"
         }
       }
