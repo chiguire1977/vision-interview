@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-07T02:06:54.887Z",
+  "updatedAt": "2026-09-07T02:06:58.710Z",
   "data": {
     "vision-interview-records": [
       {
@@ -3548,6 +3548,33 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788746820080-fic3760c",
+        "timestamp": "2026-09-07T02:07:00.079Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "61c1d3ce9562"
+        }
+      },
+      {
+        "id": "1788746819376-fvy4ublb",
+        "timestamp": "2026-09-07T02:06:59.376Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788746689812-jhfj1mlw",
+        "event": "ai.connection-test.completed",
+        "message": "真实聊天连接测试成功",
+        "context": {
+          "provider": "openai",
+          "model": "gpt-5.6-sol",
+          "upstreamFormat": "responses",
+          "durationMs": 14291
+        }
+      },
       {
         "id": "1788746812757-v6zf9o42",
         "timestamp": "2026-09-07T02:06:52.757Z",
@@ -17086,35 +17113,6 @@
         "context": {
           "reason": "change",
           "commit": "7d7437652cf0"
-        }
-      },
-      {
-        "id": "1788343645384-ay3lnnj0",
-        "timestamp": "2026-09-02T10:07:25.384Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788343468196-zjzo0dai",
-        "event": "question-bank.ai-request.duration",
-        "message": "单个并行 AI 请求完成",
-        "context": {
-          "attempt": 3,
-          "workerIndex": 2,
-          "parallelRequests": 4,
-          "requestedCount": 1,
-          "receivedCount": 1,
-          "durationMs": 46903
-        }
-      },
-      {
-        "id": "1788343638835-wnjbc0ig",
-        "timestamp": "2026-09-02T10:07:18.835Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "2e6fba5f347b"
         }
       }
     ],
