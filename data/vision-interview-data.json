@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-07T03:18:33.397Z",
+  "updatedAt": "2026-09-07T03:18:36.581Z",
   "data": {
     "vision-interview-records": [
       {
@@ -3785,6 +3785,69 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788751118217-tysudfr9",
+        "timestamp": "2026-09-07T03:18:38.217Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "c888ed611386"
+        }
+      },
+      {
+        "id": "1788751115466-9o5hpkf1",
+        "timestamp": "2026-09-07T03:18:35.466Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788750916220-7pqj2l9f",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 5,
+          "query": "机器视觉 面试知识点 HALCON 传统 2D 视觉 仅限二维图像处理，排除 3D、三维、点云、深度图、法线估计、平面拟合、立体视觉、结构光和双目 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 19,
+          "parallelRequests": 4,
+          "requestedCount": 10
+        }
+      },
+      {
+        "id": "1788751115463-j54mwv3b",
+        "timestamp": "2026-09-07T03:18:35.463Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788750916220-7pqj2l9f",
+        "event": "question-bank.ai-request.duration",
+        "message": "单个并行 AI 请求完成",
+        "context": {
+          "attempt": 4,
+          "workerIndex": 2,
+          "parallelRequests": 4,
+          "requestedCount": 1,
+          "receivedCount": 1,
+          "durationMs": 10017
+        }
+      },
+      {
+        "id": "1788751112705-4d7985qq",
+        "timestamp": "2026-09-07T03:18:32.705Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788750916220-7pqj2l9f",
+        "event": "question-bank.ai-request.duration",
+        "message": "单个并行 AI 请求完成",
+        "context": {
+          "attempt": 4,
+          "workerIndex": 1,
+          "parallelRequests": 4,
+          "requestedCount": 1,
+          "receivedCount": 1,
+          "durationMs": 7259
+        }
+      },
       {
         "id": "1788751111883-6lz1yz6q",
         "timestamp": "2026-09-07T03:18:31.883Z",
@@ -17641,59 +17704,6 @@
         "kind": "system",
         "event": "backup.close.flush",
         "message": "页面关闭或进入后台，提交最后一次备份"
-      },
-      {
-        "id": "1788570396572-70tk6jqd",
-        "timestamp": "2026-09-05T01:06:36.572Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "62b9e37552f7"
-        }
-      },
-      {
-        "id": "1788570388093-v03e5xmm",
-        "timestamp": "2026-09-05T01:06:28.093Z",
-        "level": "ERROR",
-        "kind": "system",
-        "sessionId": "1788570378031-vf6q37ep",
-        "event": "github.backup.failed",
-        "message": "数据备份到 GitHub 失败",
-        "context": {
-          "operation": "learning-records",
-          "status": 502,
-          "reason": "GitHub 备份失败（HTTP 409）：{\"message\":\"data/vision-interview-data.json does not match b1532e625358171d8f12692063b54c18bd7d59f2\",\"documentation_url\":\"https://docs.github.com/rest/repos/contents#create-or-update-file-contents\",\"status\":\"409\"}",
-          "recordCount": 97
-        }
-      },
-      {
-        "id": "1788570388090-irctm6hn",
-        "timestamp": "2026-09-05T01:06:28.090Z",
-        "level": "ERROR",
-        "kind": "system",
-        "sessionId": "1788570378031-vf6q37ep",
-        "event": "records.upload.failed",
-        "message": "学习记录上传失败：GitHub 备份失败（HTTP 409）：{\"message\":\"data/vision-interview-data.json does not match b1532e625358171d8f12692063b54c18bd7d59f2\",\"documentation_url\":\"https://docs.github.com/rest/repos/contents#create-or-update-file-contents\",\"status\":\"409\"}",
-        "context": {
-          "status": 502,
-          "reason": "GitHub 备份失败（HTTP 409）：{\"message\":\"data/vision-interview-data.json does not match b1532e625358171d8f12692063b54c18bd7d59f2\",\"documentation_url\":\"https://docs.github.com/rest/repos/contents#create-or-update-file-contents\",\"status\":\"409\"}",
-          "recordCount": 97
-        }
-      },
-      {
-        "id": "1788570387471-ujxo62zs",
-        "timestamp": "2026-09-05T01:06:27.471Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "210324c5f1ac"
-        }
       }
     ],
     "vision-interview-web-source-whitelist": [
