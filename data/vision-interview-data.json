@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-07T02:07:44.740Z",
+  "updatedAt": "2026-09-07T02:07:50.140Z",
   "data": {
     "vision-interview-records": [
       {
@@ -3549,6 +3549,32 @@
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
       {
+        "id": "1788746870188-n7anq43h",
+        "timestamp": "2026-09-07T02:07:50.188Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788746868423-rnbkbdu2",
+        "event": "question-bank.remote.loaded",
+        "message": "GitHub AI 历史题库加载完成",
+        "context": {
+          "questionCount": 210,
+          "githubQuestionCount": 210,
+          "pendingCount": 0
+        }
+      },
+      {
+        "id": "1788746868420-fc3tvl89",
+        "timestamp": "2026-09-07T02:07:48.420Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.startup.loaded",
+        "message": "启动配置加载完成",
+        "context": {
+          "source": "github",
+          "updatedAt": "2026-09-07T02:07:35.892Z"
+        }
+      },
+      {
         "id": "1788746866515-d9kczwbe",
         "timestamp": "2026-09-07T02:07:46.515Z",
         "level": "INFO",
@@ -3569,6 +3595,18 @@
           "model": "gpt-5.6-sol",
           "upstreamFormat": "responses",
           "durationMs": 14723
+        }
+      },
+      {
+        "id": "1788746861167-dsvru2lc",
+        "timestamp": "2026-09-07T02:07:41.167Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "b62c720cbbf6"
         }
       },
       {
@@ -17021,48 +17059,6 @@
           "parallelRequests": 4,
           "requestedCount": 2
         }
-      },
-      {
-        "id": "1788343721307-x6r4p7lh",
-        "timestamp": "2026-09-02T10:08:41.307Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788343468196-zjzo0dai",
-        "event": "question-bank.attempt.failed",
-        "message": "第 4/6 轮（并行 2/4）：本轮请求失败：AI 请求超时，请稍后重试。，准备下一轮…",
-        "context": {
-          "attempt": 4,
-          "maxAttempts": 6,
-          "collectedCount": 8,
-          "workerIndex": 2,
-          "parallelRequests": 4,
-          "error": "AI 请求超时，请稍后重试。"
-        }
-      },
-      {
-        "id": "1788343721305-atd0o25p",
-        "timestamp": "2026-09-02T10:08:41.305Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788343468196-zjzo0dai",
-        "event": "question-bank.ai-request.failed",
-        "message": "单个并行 AI 请求失败",
-        "context": {
-          "attempt": 4,
-          "workerIndex": 2,
-          "parallelRequests": 4,
-          "requestedCount": 1,
-          "durationMs": 60198,
-          "error": "AI 请求超时，请稍后重试。"
-        }
-      },
-      {
-        "id": "1788343720969-yil300rh",
-        "timestamp": "2026-09-02T10:08:40.969Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.close.flush",
-        "message": "页面关闭或进入后台，提交最后一次备份"
       }
     ],
     "vision-interview-web-source-whitelist": [
