@@ -122,3 +122,48 @@ test("returns as soon as enough sources arrive and aborts slower searches", asyn
   assert.equal(result.earlyReturned, true);
   assert.equal(started.length, 3);
 });
+
+test("continues with the next whitelist batch when the first batch is insufficient", async () => {
+  const requests = [];
+  const sourceByHost = {
+    "blog.csdn.net": "CSDN",
+    "github.com": "GitHub",
+    "gitee.com": "Gitee",
+    "www.mvtec.com": "HALCON",
+    "support.cognex.com": "VisionPro",
+    "docs.opencv.org": "OpenCV",
+  };
+  const fetchImpl = async (_url, init) => {
+    const query = JSON.parse(init.body).query;
+    requests.push(query);
+    const host = query.match(/site:([^\s]+)/)?.[1] || "unknown.example.com";
+    const title = sourceByHost[host] || "Fallback";
+    return new Response(JSON.stringify({ ok: true, sources: [{
+      title,
+      url: `https://${host}/guide`,
+      snippet: title,
+    }] }), { status: 200 });
+  };
+
+  const result = await retrieveWebSources({
+    query: "机器视觉阈值分割",
+    fetchImpl,
+    options: {
+      parallelRequests: 3,
+      minimumSources: 4,
+      softTimeoutMs: 1000,
+      whitelist: DEFAULT_WEB_SOURCE_WHITELIST,
+    },
+  });
+
+  assert.deepEqual(requests, [
+    "机器视觉阈值分割 site:blog.csdn.net",
+    "机器视觉阈值分割 site:github.com",
+    "机器视觉阈值分割 site:gitee.com",
+    "机器视觉阈值分割 site:www.mvtec.com",
+    "机器视觉阈值分割 site:support.cognex.com",
+    "机器视觉阈值分割 site:docs.opencv.org",
+  ]);
+  assert.deepEqual(result.sources.map((source) => source.title), ["CSDN", "GitHub", "Gitee", "HALCON"]);
+  assert.equal(result.earlyReturned, true);
+});
