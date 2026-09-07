@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-07T03:02:49.187Z",
+  "updatedAt": "2026-09-07T03:02:51.544Z",
   "data": {
     "vision-interview-records": [
       {
@@ -3785,6 +3785,61 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788750173459-q5nzscei",
+        "timestamp": "2026-09-07T03:02:53.459Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.close.flush",
+        "message": "页面关闭或进入后台，提交最后一次备份"
+      },
+      {
+        "id": "1788750173457-mwflfpk1",
+        "timestamp": "2026-09-07T03:02:53.457Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788749906722-jt1tgeok",
+        "event": "group.review.completed",
+        "message": "题组统一评审完成",
+        "context": {
+          "reviewSource": "本地规则",
+          "questionCount": 10
+        }
+      },
+      {
+        "id": "1788750173453-apireby9",
+        "timestamp": "2026-09-07T03:02:53.453Z",
+        "level": "ERROR",
+        "kind": "system",
+        "event": "backup.push.failed",
+        "message": "运行数据备份请求失败",
+        "context": {
+          "error": "Failed to fetch"
+        }
+      },
+      {
+        "id": "1788750169096-619rimgv",
+        "timestamp": "2026-09-07T03:02:49.096Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788749906722-jt1tgeok",
+        "event": "group.review.started",
+        "message": "题组已完成，开始统一评审"
+      },
+      {
+        "id": "1788750169092-95pk64iv",
+        "timestamp": "2026-09-07T03:02:49.092Z",
+        "level": "WARN",
+        "kind": "user",
+        "sessionId": "1788749906722-jt1tgeok",
+        "event": "answer.skipped",
+        "message": "当前题目已跳过",
+        "context": {
+          "question": "在HALCON中，图像类型（如byte、uint2、int1）对后续图像处理结果有何影响？请以阈值分割为例说明。",
+          "mode": "专业知识",
+          "project": "机器视觉专业知识"
+        }
+      },
       {
         "id": "1788750168662-6xbuyls7",
         "timestamp": "2026-09-07T03:02:48.662Z",
@@ -17484,54 +17539,6 @@
           "reason": "change",
           "commit": "28c6f8922d98"
         }
-      },
-      {
-        "id": "1788403384305-6826xnn2",
-        "timestamp": "2026-09-03T02:43:04.305Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.close.flush",
-        "message": "页面关闭或进入后台，提交最后一次备份"
-      },
-      {
-        "id": "1788403362872-32xowlgk",
-        "timestamp": "2026-09-03T02:42:42.872Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "2edba59e33eb"
-        }
-      },
-      {
-        "id": "1788403356439-tt6nabyb",
-        "timestamp": "2026-09-03T02:42:36.439Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.close.flush",
-        "message": "页面关闭或进入后台，提交最后一次备份"
-      },
-      {
-        "id": "1788403347046-n7ymxz50",
-        "timestamp": "2026-09-03T02:42:27.045Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "8eecf929cf98"
-        }
-      },
-      {
-        "id": "1788403340181-pawlo94c",
-        "timestamp": "2026-09-03T02:42:20.181Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.close.flush",
-        "message": "页面关闭或进入后台，提交最后一次备份"
       }
     ],
     "vision-interview-web-source-whitelist": [
