@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-07T03:17:13.594Z",
+  "updatedAt": "2026-09-07T03:17:26.570Z",
   "data": {
     "vision-interview-records": [
       {
@@ -3785,6 +3785,52 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788751046171-yety5d6r",
+        "timestamp": "2026-09-07T03:17:26.171Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788750916220-7pqj2l9f",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 1,
+          "query": "机器视觉 面试知识点 HALCON 传统 2D 视觉 仅限二维图像处理，排除 3D、三维、点云、深度图、法线估计、平面拟合、立体视觉、结构光和双目 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 11,
+          "parallelRequests": 4,
+          "requestedCount": 10
+        }
+      },
+      {
+        "id": "1788751046162-l67ct73j",
+        "timestamp": "2026-09-07T03:17:26.162Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788750916220-7pqj2l9f",
+        "event": "question-group.prepare.started",
+        "message": "开始准备题组",
+        "context": {
+          "project": "机器视觉专业知识",
+          "mode": "专业知识",
+          "questionCount": 10,
+          "sourceMode": "network",
+          "adaptiveQuestions": false,
+          "focusCategories": []
+        }
+      },
+      {
+        "id": "1788751039264-13yroxiz",
+        "timestamp": "2026-09-07T03:17:19.264Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "1925ad546225"
+        }
+      },
       {
         "id": "1788751032707-w8ralii0",
         "timestamp": "2026-09-07T03:17:12.707Z",
@@ -17402,46 +17448,6 @@
           "mode": "专业知识",
           "project": "机器视觉专业知识",
           "answerLength": 1
-        }
-      },
-      {
-        "id": "1788439912723-71tpwei8",
-        "timestamp": "2026-09-03T12:51:52.723Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "524c2e2d4a3b"
-        }
-      },
-      {
-        "id": "1788439901115-59hzz08u",
-        "timestamp": "2026-09-03T12:51:41.115Z",
-        "level": "INFO",
-        "kind": "user",
-        "sessionId": "1788430316486-caocj3jp",
-        "event": "answer.submit.completed",
-        "message": "回答已保存，已进入下一题或题组评审",
-        "context": {
-          "question": "在HALCON中，请描述基于传统2D视觉的Blob分析完整流程，并说明如何选择阈值以准确分割目标区域。",
-          "seconds": 0
-        }
-      },
-      {
-        "id": "1788439901108-paj49ia8",
-        "timestamp": "2026-09-03T12:51:41.108Z",
-        "level": "INFO",
-        "kind": "user",
-        "sessionId": "1788430316486-caocj3jp",
-        "event": "answer.submit.started",
-        "message": "保存当前回答，等待题组评审",
-        "context": {
-          "question": "在HALCON中，请描述基于传统2D视觉的Blob分析完整流程，并说明如何选择阈值以准确分割目标区域。",
-          "mode": "专业知识",
-          "project": "机器视觉专业知识",
-          "answerLength": 2
         }
       }
     ],
