@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-07T02:07:50.140Z",
+  "updatedAt": "2026-09-07T02:07:53.774Z",
   "data": {
     "vision-interview-records": [
       {
@@ -3305,7 +3305,7 @@
       "bestAnswer": true,
       "smartFollowUp": true,
       "webQuestions": true,
-      "upstreamFormat": "responses",
+      "upstreamFormat": "anthropic-messages",
       "questionGroupSize": 10,
       "parallelRequests": 4,
       "adaptiveQuestions": false,
@@ -3548,6 +3548,48 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788746875231-rumfcl5n",
+        "timestamp": "2026-09-07T02:07:55.231Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "bee2271c8709"
+        }
+      },
+      {
+        "id": "1788746873758-llscjcak",
+        "timestamp": "2026-09-07T02:07:53.758Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788746868423-rnbkbdu2",
+        "event": "ai.connection-test.failed",
+        "message": "AI 没有返回有效内容。",
+        "context": {
+          "provider": "openai",
+          "model": "gpt-5.6-sol",
+          "upstreamFormat": "anthropic-messages",
+          "status": 502,
+          "durationMs": 269
+        }
+      },
+      {
+        "id": "1788746873489-zpiuemxh",
+        "timestamp": "2026-09-07T02:07:53.489Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788746868423-rnbkbdu2",
+        "event": "ai.connection-test.started",
+        "message": "开始真实聊天连接测试",
+        "context": {
+          "provider": "openai",
+          "model": "gpt-5.6-sol",
+          "upstreamFormat": "anthropic-messages"
+        }
+      },
       {
         "id": "1788746870188-n7anq43h",
         "timestamp": "2026-09-07T02:07:50.188Z",
@@ -17006,58 +17048,6 @@
           "workerIndex": 1,
           "parallelRequests": 4,
           "requestedCount": 1
-        }
-      },
-      {
-        "id": "1788343723930-5tatmdub",
-        "timestamp": "2026-09-02T10:08:43.930Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788343468196-zjzo0dai",
-        "event": "question-bank.web-search.completed",
-        "message": "本轮联网检索完成",
-        "context": {
-          "attempt": 5,
-          "query": "机器视觉 面试知识点 原理 工程实践",
-          "sourceCount": 0,
-          "parallelRequests": 4,
-          "requestedCount": 10,
-          "durationMs": 2618,
-          "sharedAcrossWorkers": true
-        }
-      },
-      {
-        "id": "1788343721311-rv5duwac",
-        "timestamp": "2026-09-02T10:08:41.311Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788343468196-zjzo0dai",
-        "event": "question-bank.web-search.started",
-        "message": "开始联网检索本轮题目资料",
-        "context": {
-          "attempt": 5,
-          "query": "机器视觉 面试知识点 原理 工程实践",
-          "mode": "专业知识",
-          "excludedCount": 9,
-          "parallelRequests": 4,
-          "requestedCount": 10
-        }
-      },
-      {
-        "id": "1788343721310-7bcdgat9",
-        "timestamp": "2026-09-02T10:08:41.310Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788343468196-zjzo0dai",
-        "event": "question-bank.ai-request.completed",
-        "message": "第 4/6 轮：AI 已返回 9/10 道有效题目，继续补齐…",
-        "context": {
-          "attempt": 4,
-          "maxAttempts": 6,
-          "collectedCount": 9,
-          "targetCount": 10,
-          "parallelRequests": 4,
-          "requestedCount": 2
         }
       }
     ],
