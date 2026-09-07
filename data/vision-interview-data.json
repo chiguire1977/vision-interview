@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-07T02:07:01.970Z",
+  "updatedAt": "2026-09-07T02:07:05.588Z",
   "data": {
     "vision-interview-records": [
       {
@@ -3548,6 +3548,26 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788746826983-i8cbh3dp",
+        "timestamp": "2026-09-07T02:07:06.983Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "ef44a2d93099"
+        }
+      },
+      {
+        "id": "1788746825275-qhbo7gj0",
+        "timestamp": "2026-09-07T02:07:05.275Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.close.flush",
+        "message": "页面关闭或进入后台，提交最后一次备份"
+      },
       {
         "id": "1788746823366-g0mtcfn1",
         "timestamp": "2026-09-07T02:07:03.366Z",
@@ -17075,40 +17095,6 @@
           "collectedCount": 6,
           "workerIndex": 4,
           "parallelRequests": 4,
-          "error": "AI 请求超时，请稍后重试。"
-        }
-      },
-      {
-        "id": "1788343658662-c6mh1ixv",
-        "timestamp": "2026-09-02T10:07:38.662Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788343468196-zjzo0dai",
-        "event": "question-bank.attempt.failed",
-        "message": "第 3/6 轮（并行 1/4）：本轮请求失败：AI 请求超时，请稍后重试。，准备下一轮…",
-        "context": {
-          "attempt": 3,
-          "maxAttempts": 6,
-          "collectedCount": 6,
-          "workerIndex": 1,
-          "parallelRequests": 4,
-          "error": "AI 请求超时，请稍后重试。"
-        }
-      },
-      {
-        "id": "1788343658661-ismu4vz0",
-        "timestamp": "2026-09-02T10:07:38.661Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788343468196-zjzo0dai",
-        "event": "question-bank.ai-request.failed",
-        "message": "单个并行 AI 请求失败",
-        "context": {
-          "attempt": 3,
-          "workerIndex": 4,
-          "parallelRequests": 4,
-          "requestedCount": 1,
-          "durationMs": 60178,
           "error": "AI 请求超时，请稍后重试。"
         }
       }
