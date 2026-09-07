@@ -19,8 +19,8 @@ test("builds prioritized site queries in whitelist order before fallback queries
   ]);
 
   assert.deepEqual(queries.slice(0, 2), [
-    "HALCON 阈值分割 site:docs.opencv.org",
     "HALCON 阈值分割 site:www.mvtec.com",
+    "HALCON 阈值分割 site:docs.opencv.org",
   ]);
   assert.deepEqual(queries.slice(2), [
     "HALCON 阈值分割",
@@ -47,7 +47,7 @@ test("sorts sources by enabled whitelist order while keeping non-whitelist fallb
     { id: "opencv", url: "https://docs.opencv.org/", enabled: true },
     { id: "mvtec", url: "https://www.mvtec.com/doc/halcon/", enabled: true },
   ]);
-  assert.deepEqual(sorted.map((source) => source.title), ["OpenCV", "MVTEC", "GitHub", "Other"]);
+  assert.deepEqual(sorted.map((source) => source.title), ["MVTEC", "OpenCV", "GitHub", "Other"]);
 });
 
 test("reorders whitelist cards and normalizes invalid entries", () => {
@@ -59,6 +59,22 @@ test("reorders whitelist cards and normalizes invalid entries", () => {
   assert.deepEqual(reorderWebSourceWhitelist(list, 1, 0), [
     { id: "b", url: "https://b.example.com/", enabled: false },
     { id: "a", url: "https://a.example.com/", enabled: true },
+  ]);
+});
+
+test("keeps fixed sources ahead of custom sources after a manual reorder", () => {
+  const list = [
+    { id: "custom", url: "https://custom.example.com", enabled: true },
+    { id: "opencv-docs", url: "https://docs.opencv.org/", enabled: true, fixed: true },
+    { id: "csdn", url: "https://blog.csdn.net/", enabled: true, fixed: true },
+    { id: "github", url: "https://github.com/", enabled: true, fixed: true },
+  ];
+
+  assert.deepEqual(reorderWebSourceWhitelist(list, 0, 3).map((entry) => entry.url), [
+    "https://blog.csdn.net/",
+    "https://github.com/",
+    "https://docs.opencv.org/",
+    "https://custom.example.com/",
   ]);
 });
 
@@ -131,9 +147,10 @@ test("reads a persisted whitelist without allowing malformed values through", ()
       ]);
     },
   };
-  assert.deepEqual(readWebSourceWhitelist(storage), [
-    { id: "valid", url: "https://docs.example.com/", enabled: true },
-  ]);
+  const whitelist = readWebSourceWhitelist(storage);
+  assert.deepEqual(whitelist.find((entry) => entry.id === "valid"), { id: "valid", url: "https://docs.example.com/", enabled: true });
+  assert.ok(whitelist.some((entry) => entry.url === "https://blog.csdn.net/" && entry.fixed));
+  assert.ok(!whitelist.some((entry) => entry.url === "javascript:alert(1)"));
 });
 
 test("retrieves whitelist queries in configured order and ranks their results first", async () => {

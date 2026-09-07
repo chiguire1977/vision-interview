@@ -3,8 +3,10 @@ import test from "node:test";
 
 import {
   buildResearchQueries,
+  DEFAULT_WEB_SOURCE_WHITELIST,
   normalizeQuestionRetrievalOptions,
   normalizeQuestionRetrievalResult,
+  readWebSourceWhitelist,
   retrieveWebSources,
 } from "../lib/question-retrieval.mjs";
 
@@ -21,6 +23,8 @@ test("normalizes retrieval options and result contract", () => {
     parallelRequests: 4,
     requestTimeoutMs: 8000,
     cacheTtlMs: 600000,
+    minimumSources: 4,
+    softTimeoutMs: 4500,
     whitelist: [],
   });
   assert.deepEqual(normalizeQuestionRetrievalResult({ source: "invalid", questions: "bad", aiCount: "2" }, [{ title: "fallback" }]), {
@@ -48,4 +52,73 @@ test("retrieves and merges unique web sources without affecting caller state", a
     "https://docs.example.com/a",
   ]);
   assert.equal(result.cached, false);
+});
+
+test("uses the fixed whitelist defaults in the requested order", () => {
+  const whitelist = readWebSourceWhitelist({ getItem: () => "[]" });
+  assert.deepEqual(whitelist, DEFAULT_WEB_SOURCE_WHITELIST);
+  assert.deepEqual(whitelist.map((entry) => entry.url), [
+    "https://blog.csdn.net/",
+    "https://github.com/",
+    "https://gitee.com/",
+    "https://www.mvtec.com/doc/halcon",
+    "https://support.cognex.com/",
+    "https://docs.opencv.org/",
+  ]);
+  assert.ok(whitelist.every((entry) => entry.enabled && entry.fixed));
+});
+
+test("repairs old saved whitelist order and adds the new fixed sources", () => {
+  const whitelist = readWebSourceWhitelist({
+    getItem: () => JSON.stringify([
+      { id: "custom", url: "https://example.com/", enabled: true },
+      { id: "opencv-docs", url: "https://docs.opencv.org/", enabled: false, fixed: true },
+      { id: "csdn", url: "https://blog.csdn.net/", enabled: true, fixed: true },
+      { id: "halcon-docs", url: "https://www.mvtec.com/doc/halcon", enabled: true, fixed: true },
+    ]),
+  });
+
+  assert.deepEqual(whitelist.map((entry) => entry.url), [
+    "https://blog.csdn.net/",
+    "https://github.com/",
+    "https://gitee.com/",
+    "https://www.mvtec.com/doc/halcon",
+    "https://support.cognex.com/",
+    "https://docs.opencv.org/",
+    "https://example.com/",
+  ]);
+  assert.ok(whitelist.slice(0, 6).every((entry) => entry.enabled && entry.fixed));
+});
+
+test("returns as soon as enough sources arrive and aborts slower searches", async () => {
+  const started = [];
+  const fetchImpl = async (_url, init) => {
+    started.push(init.signal);
+    if (started.length === 1) {
+      return new Response(JSON.stringify({ ok: true, sources: [
+        { title: "One", url: "https://one.example.com/", snippet: "one" },
+        { title: "Two", url: "https://two.example.com/", snippet: "two" },
+        { title: "Three", url: "https://three.example.com/", snippet: "three" },
+        { title: "Four", url: "https://four.example.com/", snippet: "four" },
+      ] }), { status: 200 });
+    }
+    return new Promise((resolve, reject) => {
+      const timer = setTimeout(() => resolve(new Response(JSON.stringify({ ok: true, sources: [] }), { status: 200 })), 200);
+      init.signal.addEventListener("abort", () => {
+        clearTimeout(timer);
+        reject(init.signal.reason || new Error("aborted"));
+      }, { once: true });
+    });
+  };
+  const startedAt = Date.now();
+  const result = await retrieveWebSources({
+    query: "HALCON 阈值",
+    fetchImpl,
+    options: { parallelRequests: 3, minimumSources: 4, softTimeoutMs: 80 },
+  });
+
+  assert.ok(Date.now() - startedAt < 150);
+  assert.equal(result.sources.length, 4);
+  assert.equal(result.earlyReturned, true);
+  assert.equal(started.length, 3);
 });
