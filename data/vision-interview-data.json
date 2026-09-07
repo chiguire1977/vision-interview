@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-07T06:13:13.789Z",
+  "updatedAt": "2026-09-07T06:13:17.935Z",
   "data": {
     "vision-interview-records": [
       {
@@ -3785,6 +3785,54 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788761600442-hdbrt9oa",
+        "timestamp": "2026-09-07T06:13:20.442Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "1dfd6fe93b90"
+        }
+      },
+      {
+        "id": "1788761597077-y9h3lgy5",
+        "timestamp": "2026-09-07T06:13:17.077Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788761541654-u7vjeyts",
+        "event": "question-bank.ai-request.started",
+        "message": "第 3/6 轮（并行 1/4）：正在请求 AI 生成题目（1 道）…",
+        "context": {
+          "attempt": 3,
+          "maxAttempts": 6,
+          "collectedCount": 44,
+          "workerIndex": 1,
+          "parallelRequests": 4,
+          "requestedCount": 1
+        }
+      },
+      {
+        "id": "1788761597072-5rmjxjij",
+        "timestamp": "2026-09-07T06:13:17.072Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788761541654-u7vjeyts",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 3,
+          "query": "机器视觉 面试知识点 原理 工程实践 (面试 OR 面试题 OR 面试问题 OR 题目 OR 知识点 OR 原理 OR 教程 OR 工程实践 OR 排障)",
+          "sourceCount": 0,
+          "cached": false,
+          "parallelRequests": 4,
+          "requestedCount": 10,
+          "durationMs": 1129,
+          "sharedAcrossWorkers": true
+        }
+      },
       {
         "id": "1788761596212-bil8w98t",
         "timestamp": "2026-09-07T06:13:16.212Z",
@@ -18394,39 +18442,6 @@
           "reviewSource": "本地规则",
           "questionCount": 10
         }
-      },
-      {
-        "id": "1788748343602-hvv40h9c",
-        "timestamp": "2026-09-07T02:32:23.602Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "4f06d9c06bbc"
-        }
-      },
-      {
-        "id": "1788748337951-ro2a6xi4",
-        "timestamp": "2026-09-07T02:32:17.951Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "18668315091b"
-        }
-      },
-      {
-        "id": "1788748336981-yl99kyiq",
-        "timestamp": "2026-09-07T02:32:16.981Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788748308741-a6d82x5e",
-        "event": "group.review.started",
-        "message": "题组已完成，开始统一评审"
       }
     ],
     "vision-interview-web-source-whitelist": [
