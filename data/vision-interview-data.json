@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-07T06:12:53.066Z",
+  "updatedAt": "2026-09-07T06:12:57.788Z",
   "data": {
     "vision-interview-records": [
       {
@@ -3785,6 +3785,145 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788761580439-mfg0nv69",
+        "timestamp": "2026-09-07T06:13:00.439Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.close.flush",
+        "message": "页面关闭或进入后台，提交最后一次备份"
+      },
+      {
+        "id": "1788761579836-a3hwydfg",
+        "timestamp": "2026-09-07T06:12:59.836Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788761541654-u7vjeyts",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 2,
+          "query": "机器视觉 面试知识点 原理 工程实践 (面试 OR 面试题 OR 面试问题 OR 题目 OR 知识点 OR 原理 OR 教程 OR 工程实践 OR 排障)",
+          "mode": "专业知识",
+          "excludedCount": 39,
+          "parallelRequests": 4,
+          "requestedCount": 10
+        }
+      },
+      {
+        "id": "1788761579834-l67u559u",
+        "timestamp": "2026-09-07T06:12:59.834Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788761541654-u7vjeyts",
+        "event": "question-bank.ai-request.completed",
+        "message": "第 1/6 轮：AI 已返回 4/10 道有效题目，继续补齐…",
+        "context": {
+          "attempt": 1,
+          "maxAttempts": 6,
+          "collectedCount": 4,
+          "targetCount": 10,
+          "parallelRequests": 4,
+          "requestedCount": 10
+        }
+      },
+      {
+        "id": "1788761579830-0aplpbo3",
+        "timestamp": "2026-09-07T06:12:59.830Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788761541654-u7vjeyts",
+        "event": "question-bank.attempt.failed",
+        "message": "第 1/6 轮（并行 3/4）：本轮请求失败：AI 请求超时，请稍后重试。，准备下一轮…",
+        "context": {
+          "attempt": 1,
+          "maxAttempts": 6,
+          "collectedCount": 0,
+          "workerIndex": 3,
+          "parallelRequests": 4,
+          "error": "AI 请求超时，请稍后重试。"
+        }
+      },
+      {
+        "id": "1788761579827-pxlufprn",
+        "timestamp": "2026-09-07T06:12:59.827Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788761541654-u7vjeyts",
+        "event": "question-bank.attempt.failed",
+        "message": "第 1/6 轮（并行 2/4）：本轮请求失败：AI 请求超时，请稍后重试。，准备下一轮…",
+        "context": {
+          "attempt": 1,
+          "maxAttempts": 6,
+          "collectedCount": 0,
+          "workerIndex": 2,
+          "parallelRequests": 4,
+          "error": "AI 请求超时，请稍后重试。"
+        }
+      },
+      {
+        "id": "1788761579824-7csv606d",
+        "timestamp": "2026-09-07T06:12:59.824Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788761541654-u7vjeyts",
+        "event": "question-bank.ai-request.failed",
+        "message": "单个并行 AI 请求失败",
+        "context": {
+          "attempt": 1,
+          "workerIndex": 3,
+          "parallelRequests": 4,
+          "requestedCount": 2,
+          "durationMs": 15164,
+          "error": "AI 请求超时，请稍后重试。"
+        }
+      },
+      {
+        "id": "1788761579820-73i1tw45",
+        "timestamp": "2026-09-07T06:12:59.820Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788761541654-u7vjeyts",
+        "event": "question-bank.ai-request.failed",
+        "message": "单个并行 AI 请求失败",
+        "context": {
+          "attempt": 1,
+          "workerIndex": 2,
+          "parallelRequests": 4,
+          "requestedCount": 3,
+          "durationMs": 15163,
+          "error": "AI 请求超时，请稍后重试。"
+        }
+      },
+      {
+        "id": "1788761579803-1l4jiz37",
+        "timestamp": "2026-09-07T06:12:59.803Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "7a2678e9dd3f"
+        }
+      },
+      {
+        "id": "1788761579631-ehwut498",
+        "timestamp": "2026-09-07T06:12:59.631Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788761541654-u7vjeyts",
+        "event": "question-bank.ai-request.duration",
+        "message": "单个并行 AI 请求完成",
+        "context": {
+          "attempt": 1,
+          "workerIndex": 1,
+          "parallelRequests": 4,
+          "requestedCount": 3,
+          "receivedCount": 3,
+          "durationMs": 14978
+        }
+      },
       {
         "id": "1788761575486-m5vjq6d8",
         "timestamp": "2026-09-07T06:12:55.486Z",
@@ -18255,123 +18394,6 @@
         "message": "题组已从本机缓存恢复",
         "context": {
           "questionCount": 10
-        }
-      },
-      {
-        "id": "1788748325543-8zj7i0bi",
-        "timestamp": "2026-09-07T02:32:05.543Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788748308741-a6d82x5e",
-        "event": "question-group.prepare.started",
-        "message": "开始准备题组",
-        "context": {
-          "project": "机器视觉专业知识",
-          "mode": "专业知识",
-          "questionCount": 10,
-          "sourceMode": "network",
-          "adaptiveQuestions": false,
-          "focusCategories": []
-        }
-      },
-      {
-        "id": "1788748325539-z7v105cn",
-        "timestamp": "2026-09-07T02:32:05.538Z",
-        "level": "INFO",
-        "kind": "user",
-        "sessionId": "1788748308741-a6d82x5e",
-        "event": "training.started",
-        "message": "用户开始新的训练题组",
-        "context": {
-          "category": "随机类型",
-          "difficulty": "基础",
-          "techStack": "HALCON",
-          "detectionDirection": "传统 2D 视觉",
-          "questionCount": 10
-        }
-      },
-      {
-        "id": "1788748324233-d47p4g9m",
-        "timestamp": "2026-09-07T02:32:04.233Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "05631666843c"
-        }
-      },
-      {
-        "id": "1788748318442-vqejdsz0",
-        "timestamp": "2026-09-07T02:31:58.442Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "41cbd291784c"
-        }
-      },
-      {
-        "id": "1788748318207-vabjngho",
-        "timestamp": "2026-09-07T02:31:58.207Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.close.flush",
-        "message": "页面关闭或进入后台，提交最后一次备份"
-      },
-      {
-        "id": "1788748315370-5u7lmy62",
-        "timestamp": "2026-09-07T02:31:55.370Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "b0bba15d63e1"
-        }
-      },
-      {
-        "id": "1788748312267-i41r0cgz",
-        "timestamp": "2026-09-07T02:31:52.267Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788748308741-a6d82x5e",
-        "event": "ai.connection-test.started",
-        "message": "开始真实聊天连接测试",
-        "context": {
-          "provider": "openai",
-          "model": "gpt-5.6-sol",
-          "upstreamFormat": "chat-completions"
-        }
-      },
-      {
-        "id": "1788748310656-l9si4nwx",
-        "timestamp": "2026-09-07T02:31:50.656Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788748308741-a6d82x5e",
-        "event": "question-bank.remote.loaded",
-        "message": "GitHub AI 历史题库加载完成",
-        "context": {
-          "questionCount": 210,
-          "githubQuestionCount": 210,
-          "pendingCount": 0
-        }
-      },
-      {
-        "id": "1788748308738-ebbg8kuy",
-        "timestamp": "2026-09-07T02:31:48.738Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.startup.loaded",
-        "message": "启动配置加载完成",
-        "context": {
-          "source": "github",
-          "updatedAt": "2026-09-07T02:31:38.951Z"
         }
       }
     ],
