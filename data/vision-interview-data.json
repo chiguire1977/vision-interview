@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-07T02:07:35.892Z",
+  "updatedAt": "2026-09-07T02:07:44.740Z",
   "data": {
     "vision-interview-records": [
       {
@@ -3548,6 +3548,29 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788746866515-d9kczwbe",
+        "timestamp": "2026-09-07T02:07:46.515Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.close.flush",
+        "message": "页面关闭或进入后台，提交最后一次备份"
+      },
+      {
+        "id": "1788746866512-1sloxnag",
+        "timestamp": "2026-09-07T02:07:46.512Z",
+        "level": "ERROR",
+        "kind": "system",
+        "sessionId": "1788746842203-uy66lq2n",
+        "event": "ai.connection-test.failed",
+        "message": "无法连接网站服务器，请稍后重试。",
+        "context": {
+          "provider": "openai",
+          "model": "gpt-5.6-sol",
+          "upstreamFormat": "responses",
+          "durationMs": 14723
+        }
+      },
       {
         "id": "1788746857344-3q7sd4vj",
         "timestamp": "2026-09-07T02:07:37.344Z",
@@ -17036,26 +17059,6 @@
       {
         "id": "1788343720969-yil300rh",
         "timestamp": "2026-09-02T10:08:40.969Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.close.flush",
-        "message": "页面关闭或进入后台，提交最后一次备份"
-      },
-      {
-        "id": "1788343712138-5w8uqwdo",
-        "timestamp": "2026-09-02T10:08:32.138Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "27a01356c69f"
-        }
-      },
-      {
-        "id": "1788343704086-6wicuy8u",
-        "timestamp": "2026-09-02T10:08:24.086Z",
         "level": "INFO",
         "kind": "system",
         "event": "backup.close.flush",
