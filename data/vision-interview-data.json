@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-07T02:07:53.774Z",
+  "updatedAt": "2026-09-07T02:07:57.509Z",
   "data": {
     "vision-interview-records": [
       {
@@ -3337,39 +3337,39 @@
         "openaiBaseUrl": "https://dingdangapii.cn",
         "availableModels": [
           {
-            "label": "codex-auto-review · Responses（OpenAI 原生）",
+            "label": "codex-auto-review · Anthropic Messages",
             "value": "codex-auto-review",
-            "upstreamFormat": "responses"
+            "upstreamFormat": "anthropic-messages"
           },
           {
-            "label": "gpt-5.3-codex-spark · Responses（OpenAI 原生）",
+            "label": "gpt-5.3-codex-spark · Anthropic Messages",
             "value": "gpt-5.3-codex-spark",
-            "upstreamFormat": "responses"
+            "upstreamFormat": "anthropic-messages"
           },
           {
-            "label": "gpt-5.4 · Responses（OpenAI 原生）",
+            "label": "gpt-5.4 · Anthropic Messages",
             "value": "gpt-5.4",
-            "upstreamFormat": "responses"
+            "upstreamFormat": "anthropic-messages"
           },
           {
-            "label": "gpt-5.5 · Responses（OpenAI 原生）",
+            "label": "gpt-5.5 · Anthropic Messages",
             "value": "gpt-5.5",
-            "upstreamFormat": "responses"
+            "upstreamFormat": "anthropic-messages"
           },
           {
-            "label": "gpt-5.6-sol · Responses（OpenAI 原生）",
+            "label": "gpt-5.6-sol · Anthropic Messages",
             "value": "gpt-5.6-sol",
-            "upstreamFormat": "responses"
+            "upstreamFormat": "anthropic-messages"
           },
           {
-            "label": "gpt-5.6-terra · Responses（OpenAI 原生）",
+            "label": "gpt-5.6-terra · Anthropic Messages",
             "value": "gpt-5.6-terra",
-            "upstreamFormat": "responses"
+            "upstreamFormat": "anthropic-messages"
           },
           {
-            "label": "gpt-6-astra · Responses（OpenAI 原生）",
+            "label": "gpt-6-astra · Anthropic Messages",
             "value": "gpt-6-astra",
-            "upstreamFormat": "responses"
+            "upstreamFormat": "anthropic-messages"
           }
         ]
       },
@@ -3548,6 +3548,18 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788746878961-jh84pxix",
+        "timestamp": "2026-09-07T02:07:58.961Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "f1c9cf8e3766"
+        }
+      },
       {
         "id": "1788746875231-rumfcl5n",
         "timestamp": "2026-09-07T02:07:55.231Z",
@@ -17031,23 +17043,6 @@
         "message": "运行数据备份请求失败",
         "context": {
           "error": "Failed to fetch"
-        }
-      },
-      {
-        "id": "1788343723930-r46ya0v5",
-        "timestamp": "2026-09-02T10:08:43.930Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788343468196-zjzo0dai",
-        "event": "question-bank.ai-request.started",
-        "message": "第 5/6 轮（并行 1/4）：正在请求 AI 生成题目（1 道）…",
-        "context": {
-          "attempt": 5,
-          "maxAttempts": 6,
-          "collectedCount": 9,
-          "workerIndex": 1,
-          "parallelRequests": 4,
-          "requestedCount": 1
         }
       }
     ],
