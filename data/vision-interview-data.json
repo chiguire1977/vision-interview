@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-07T06:13:07.670Z",
+  "updatedAt": "2026-09-07T06:13:10.695Z",
   "data": {
     "vision-interview-records": [
       {
@@ -3785,6 +3785,35 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788761593199-z1ittd4q",
+        "timestamp": "2026-09-07T06:13:13.199Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "22fbb717f768"
+        }
+      },
+      {
+        "id": "1788761590504-150zd1dj",
+        "timestamp": "2026-09-07T06:13:10.504Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788761541654-u7vjeyts",
+        "event": "question-bank.ai-request.duration",
+        "message": "单个并行 AI 请求完成",
+        "context": {
+          "attempt": 2,
+          "workerIndex": 4,
+          "parallelRequests": 4,
+          "requestedCount": 1,
+          "receivedCount": 1,
+          "durationMs": 9508
+        }
+      },
       {
         "id": "1788761590182-87ngovys",
         "timestamp": "2026-09-07T06:13:10.182Z",
@@ -18385,32 +18414,6 @@
           "question": "请解释HALCON中形态学腐蚀（erosion）和膨胀（dilation）的基本原理，并说明它们在传统2D视觉检测中的典型应用场景。",
           "mode": "专业知识",
           "project": "机器视觉专业知识"
-        }
-      },
-      {
-        "id": "1788748331432-1b6vkt7x",
-        "timestamp": "2026-09-07T02:32:11.432Z",
-        "level": "WARN",
-        "kind": "user",
-        "sessionId": "1788748308741-a6d82x5e",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "请描述Halcon中Blob分析的标准流程，并说明目标与背景灰度接近时的改进策略",
-          "mode": "专业知识",
-          "project": "机器视觉专业知识"
-        }
-      },
-      {
-        "id": "1788748331407-e2tk0bbb",
-        "timestamp": "2026-09-07T02:32:11.407Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "dcfb329ab165"
         }
       }
     ],
