@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-07T06:13:04.301Z",
+  "updatedAt": "2026-09-07T06:13:07.670Z",
   "data": {
     "vision-interview-records": [
       {
@@ -3785,6 +3785,35 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788761590182-87ngovys",
+        "timestamp": "2026-09-07T06:13:10.182Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "0629e7232b26"
+        }
+      },
+      {
+        "id": "1788761587601-no10bq62",
+        "timestamp": "2026-09-07T06:13:07.601Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788761541654-u7vjeyts",
+        "event": "question-bank.ai-request.duration",
+        "message": "单个并行 AI 请求完成",
+        "context": {
+          "attempt": 2,
+          "workerIndex": 3,
+          "parallelRequests": 4,
+          "requestedCount": 1,
+          "receivedCount": 1,
+          "durationMs": 6616
+        }
+      },
       {
         "id": "1788761586712-q0mn5fnc",
         "timestamp": "2026-09-07T06:13:06.712Z",
@@ -18382,34 +18411,6 @@
         "context": {
           "reason": "change",
           "commit": "dcfb329ab165"
-        }
-      },
-      {
-        "id": "1788748331237-uo46547t",
-        "timestamp": "2026-09-07T02:32:11.237Z",
-        "level": "WARN",
-        "kind": "user",
-        "sessionId": "1788748308741-a6d82x5e",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "在HALCON中，图像类型（如byte、uint2、int1）对后续图像处理结果有何影响？请以阈值分割为例说明。",
-          "mode": "专业知识",
-          "project": "机器视觉专业知识"
-        }
-      },
-      {
-        "id": "1788748331054-mo1zzu3f",
-        "timestamp": "2026-09-07T02:32:11.054Z",
-        "level": "WARN",
-        "kind": "user",
-        "sessionId": "1788748308741-a6d82x5e",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "HALCON现场边缘轮廓出现断裂、毛刺或位置抖动时，如何区分图像质量问题与轮廓参数问题？",
-          "mode": "专业知识",
-          "project": "机器视觉专业知识"
         }
       }
     ],
