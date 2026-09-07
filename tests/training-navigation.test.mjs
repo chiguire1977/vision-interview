@@ -2,6 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import {
   getAnswerCompletionAction,
+  getPreviousQuestionIndex,
   shouldRestartQuestionGroupPreparation,
 } from "../lib/training-navigation.mjs";
 
@@ -27,4 +28,13 @@ test("completing a non-final answer advances to the next question", () => {
 
 test("completing the final answer opens the group review state", () => {
   assert.equal(getAnswerCompletionAction({ questionIndex: 9, totalQuestions: 10 }), "review-group");
+});
+
+test("allows returning to the previous answered question", () => {
+  assert.equal(getPreviousQuestionIndex({ questionIndex: 2, submitted: true }), 1);
+});
+
+test("does not navigate backward from the first question or an unfinished answer", () => {
+  assert.equal(getPreviousQuestionIndex({ questionIndex: 0, submitted: true }), null);
+  assert.equal(getPreviousQuestionIndex({ questionIndex: 2, submitted: false }), null);
 });

@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import {
-  Activity, Archive, BarChart3, BookOpenCheck, Bot, BrainCircuit, Check, ChevronDown,
+  Activity, Archive, BarChart3, BookOpenCheck, Bot, BrainCircuit, Check, ChevronDown, ChevronLeft,
   ChevronRight, CircleAlert, CircleCheck, Clock3, FileText, FolderKanban,
   BookOpen, Clipboard, Eye, EyeOff, Gauge, Globe2, GripVertical, HardDrive, Library, Lightbulb, ListTree, Mic, Pause, Play, RotateCcw, Save, Settings, Star, Upload,
   Palette, Pencil, Plus, ShieldCheck, Sparkles, Target, Trash2, UserRound, Volume2,
@@ -66,7 +66,7 @@ import { primaryNavigationLabels, utilityNavigationLabels } from "@/lib/navigati
 import { analyzeLearningMastery, createImprovementPlan } from "@/lib/personal-center.mjs";
 import { createGitHubBackupLog } from "@/lib/backup-log.mjs";
 import { shouldShowTrainingSettings } from "@/lib/training-ui.mjs";
-import { getAnswerCompletionAction, shouldRestartQuestionGroupPreparation } from "@/lib/training-navigation.mjs";
+import { getAnswerCompletionAction, getPreviousQuestionIndex, shouldRestartQuestionGroupPreparation } from "@/lib/training-navigation.mjs";
 import { THEME_OPTIONS, normalizeThemeId, themeOptionById } from "@/lib/theme.mjs";
 import { modelDisplayName } from "@/lib/model-display.mjs";
 import { detectionDirectionsForTechStack, hasDetectionDirections, inferDetectionDirection, normalizeDetectionDirection } from "@/lib/detection-direction.mjs";
@@ -2429,10 +2429,25 @@ export default function Home() {
       : [...current, item];
   }
 
-  function resetForNextQuestion() {
+  function resetForNextQuestion(savedAnswers = sessionAnswers) {
     stopRecording();
-    setQuestionIndex((value) => value + 1);
-    setAnswer(""); setSubmitted(false); setShowBestAnswer(false); setBestAnswerViewed(false); setSeconds(0);
+    const nextIndex = questionIndex + 1;
+    const nextItem = savedAnswers.find((entry) => entry.question.title === groupQuestions[nextIndex]?.title);
+    setQuestionIndex(nextIndex);
+    setAnswer(nextItem?.answer ?? ""); setSubmitted(false); setShowBestAnswer(false); setBestAnswerViewed(false); setSeconds(nextItem?.seconds ?? 0);
+  }
+
+  function previousQuestion() {
+    const previousIndex = getPreviousQuestionIndex({ questionIndex, submitted });
+    if (previousIndex === null) return;
+    stopRecording();
+    const previousItem = sessionAnswers.find((entry) => entry.question.title === groupQuestions[previousIndex]?.title);
+    setQuestionIndex(previousIndex);
+    setAnswer(previousItem?.answer ?? "");
+    setSubmitted(false);
+    setShowBestAnswer(false);
+    setBestAnswerViewed(false);
+    setSeconds(previousItem?.seconds ?? 0);
   }
 
   async function saveSessionAnswer(item: SessionAnswer) {
@@ -2455,7 +2470,7 @@ export default function Home() {
       await finishGroup(answers);
       return;
     }
-    resetForNextQuestion();
+    resetForNextQuestion(answers);
   }
 
   async function submitAnswer() {
@@ -2656,7 +2671,7 @@ export default function Home() {
           bestAnswer={getBestAnswer(question, project)} showBestAnswer={showBestAnswer} bestAnswerViewed={bestAnswerViewed} onToggleBestAnswer={toggleBestAnswer}
           evaluating={evaluating} preparingGroup={preparingGroup} groupPreparationSource={groupPreparationSource} groupPreparationMessage={groupPreparationMessage}
           currentMastery={currentEvaluation?.reviewStatus === "reviewed" ? currentEvaluation.mastery : undefined} currentMasteryStage={currentEvaluation?.reviewStatus === "reviewed" ? currentEvaluation.masteryStage : undefined} currentReviewSource={currentEvaluation?.reviewStatus === "reviewed" ? currentEvaluation.reviewSource : undefined} currentMasteryReason={currentEvaluation?.reviewStatus === "reviewed" ? currentEvaluation.masteryReason : undefined}
-          onSubmit={submitAnswer} onNext={nextQuestion}
+          onSubmit={submitAnswer} onNext={nextQuestion} onPrevious={previousQuestion}
           onToggleRecording={toggleRecording}
           onReset={() => { stopRecording(); setSpeechError(""); setAnswer(""); setSubmitted(false); setEvaluating(false); setShowBestAnswer(false); setBestAnswerViewed(false); setSeconds(0); }} />)}
         {activeNav === "个人中心" && <PersonalCenterPage records={records} />}
@@ -2769,7 +2784,7 @@ type TrainingProps = {
   bestAnswer: string; showBestAnswer: boolean; bestAnswerViewed: boolean; onToggleBestAnswer: () => void;
   evaluating: boolean; preparingGroup: boolean; groupPreparationSource: "AI" | "本地规则" | "缓存"; groupPreparationMessage: string;
   currentMastery?: MasteryLevel; currentMasteryStage?: MasteryStage; currentReviewSource?: "AI" | "本地规则"; currentMasteryReason?: string;
-  recording: boolean; speechProcessing: boolean; seconds: number; speechError?: string; onSubmit: () => void; onNext: () => void;
+  recording: boolean; speechProcessing: boolean; seconds: number; speechError?: string; onSubmit: () => void; onNext: () => void; onPrevious: () => void;
   onToggleRecording: () => void; onReset: () => void;
 };
 
@@ -2886,7 +2901,8 @@ function TrainingCenter(props: TrainingProps) {
               <div className="sticky bottom-3 z-20 mt-4 -mx-5 -mb-5 border-t border-slate-200 bg-white/95 px-5 py-4 shadow-[0_-8px_18px_-16px_rgba(15,23,42,0.45)] backdrop-blur supports-[backdrop-filter]:bg-white/80">
                 <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                   <span className="text-xs text-slate-400">字数：{props.answer.length} · 建议 120–300 字</span>
-                <div className="flex flex-wrap gap-2 sm:justify-end">
+                  <div className="flex flex-wrap gap-2 sm:justify-end">
+                    <Button onClick={props.onPrevious} disabled={props.questionIndex === 0 || !props.submitted || props.evaluating || props.preparingGroup} variant="outline" className="min-w-28 border-slate-200 bg-white text-slate-700 hover:bg-slate-50"><ChevronLeft />上一题</Button>
                     <Button onClick={props.onSubmit} disabled={props.answer.trim().length === 0 || props.submitted || props.evaluating || props.preparingGroup} className="min-w-28 bg-blue-600 hover:bg-blue-700"><Check />{props.evaluating ? "题组评审中…" : props.submitted ? "已完成回答" : "回答完成"}</Button>
                     <Button onClick={props.onNext} disabled={props.submitted || props.evaluating || props.preparingGroup} variant="outline" className="min-w-28 border-blue-200 bg-white text-blue-700 hover:bg-blue-50"><ChevronRight />{props.submitted ? (props.questionIndex >= props.totalQuestions - 1 ? "完成题组" : "进入下一题") : (props.questionIndex >= props.totalQuestions - 1 ? "跳过并查看复盘" : "跳过此题")}</Button>
                   </div>
