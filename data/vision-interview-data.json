@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-07T03:18:23.049Z",
+  "updatedAt": "2026-09-07T03:18:25.549Z",
   "data": {
     "vision-interview-records": [
       {
@@ -3785,6 +3785,37 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788751107159-8t3ysahv",
+        "timestamp": "2026-09-07T03:18:27.159Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "69bf8f9f0089"
+        }
+      },
+      {
+        "id": "1788751105443-d81ey6gt",
+        "timestamp": "2026-09-07T03:18:25.443Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788750916220-7pqj2l9f",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 4,
+          "query": "机器视觉 面试知识点 HALCON 传统 2D 视觉 仅限二维图像处理，排除 3D、三维、点云、深度图、法线估计、平面拟合、立体视觉、结构光和双目 原理 工程实践",
+          "sourceCount": 0,
+          "cached": false,
+          "parallelRequests": 4,
+          "requestedCount": 10,
+          "durationMs": 4507,
+          "sharedAcrossWorkers": true
+        }
+      },
       {
         "id": "1788751104705-63dz9yr8",
         "timestamp": "2026-09-07T03:18:24.705Z",
@@ -17657,33 +17688,6 @@
         "message": "开始统一上传学习记录",
         "context": {
           "recordCount": 97
-        }
-      },
-      {
-        "id": "1788570383007-5aqy38e4",
-        "timestamp": "2026-09-05T01:06:23.007Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788570378031-vf6q37ep",
-        "event": "github.backup.started",
-        "message": "开始备份数据到 GitHub",
-        "context": {
-          "operation": "learning-records",
-          "recordCount": 97
-        }
-      },
-      {
-        "id": "1788570379832-0pi3ga84",
-        "timestamp": "2026-09-05T01:06:19.832Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788570378031-vf6q37ep",
-        "event": "question-bank.remote.loaded",
-        "message": "GitHub AI 历史题库加载完成",
-        "context": {
-          "questionCount": 210,
-          "githubQuestionCount": 210,
-          "pendingCount": 0
         }
       }
     ],
