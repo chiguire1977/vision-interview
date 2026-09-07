@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-07T01:15:33.806Z",
+  "updatedAt": "2026-09-07T01:15:39.298Z",
   "data": {
     "vision-interview-records": [
       {
@@ -3592,6 +3592,31 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788743740552-kyi3ggsm",
+        "timestamp": "2026-09-07T01:15:40.552Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "9f6f0242b6bc"
+        }
+      },
+      {
+        "id": "1788743735750-a95bvz8c",
+        "timestamp": "2026-09-07T01:15:35.750Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788739391058-552xskr6",
+        "event": "group.review.completed",
+        "message": "题组统一评审完成",
+        "context": {
+          "reviewSource": "本地规则",
+          "questionCount": 10
+        }
+      },
       {
         "id": "1788743732415-i0jmu5l0",
         "timestamp": "2026-09-07T01:15:32.415Z",
@@ -17321,40 +17346,6 @@
           "requestedCount": 10,
           "durationMs": 2170,
           "sharedAcrossWorkers": true
-        }
-      },
-      {
-        "id": "1788343473127-zb2q8u6e",
-        "timestamp": "2026-09-02T10:04:33.127Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788343468196-zjzo0dai",
-        "event": "question-bank.web-search.started",
-        "message": "开始联网检索本轮题目资料",
-        "context": {
-          "attempt": 1,
-          "query": "机器视觉 面试知识点 原理 工程实践",
-          "mode": "专业知识",
-          "excludedCount": 0,
-          "parallelRequests": 4,
-          "requestedCount": 10
-        }
-      },
-      {
-        "id": "1788343473122-gv3hibay",
-        "timestamp": "2026-09-02T10:04:33.122Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788343468196-zjzo0dai",
-        "event": "question-group.prepare.started",
-        "message": "开始准备题组",
-        "context": {
-          "project": "机器视觉专业知识",
-          "mode": "专业知识",
-          "questionCount": 10,
-          "sourceMode": "network",
-          "adaptiveQuestions": false,
-          "focusCategories": []
         }
       }
     ],
