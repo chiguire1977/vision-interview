@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-07T02:47:23.725Z",
+  "updatedAt": "2026-09-07T02:47:26.893Z",
   "data": {
     "vision-interview-records": [
       {
@@ -3785,6 +3785,75 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788749248416-177g337u",
+        "timestamp": "2026-09-07T02:47:28.416Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "305a7adb7745"
+        }
+      },
+      {
+        "id": "1788749247637-cr4w9x3i",
+        "timestamp": "2026-09-07T02:47:27.637Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788748699983-pgd6193m",
+        "event": "question-group.prepare.completed",
+        "message": "AI 题组已准备完成。",
+        "context": {
+          "source": "AI",
+          "questionCount": 10
+        }
+      },
+      {
+        "id": "1788749247633-4erglq0z",
+        "timestamp": "2026-09-07T02:47:27.633Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788748699983-pgd6193m",
+        "event": "question-bank.cache.skipped",
+        "message": "联网题目未获得已验证来源，本轮不写入题库归档",
+        "context": {
+          "generatedCount": 9,
+          "persistedCount": 0
+        }
+      },
+      {
+        "id": "1788749247629-qmubrtll",
+        "timestamp": "2026-09-07T02:47:27.629Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788748699983-pgd6193m",
+        "event": "question-bank.network.partial-fallback",
+        "message": "联网获得的完整题目数量不足，已使用题库补足",
+        "context": {
+          "aiCount": 9,
+          "fallbackCount": 1,
+          "targetCount": 10
+        }
+      },
+      {
+        "id": "1788749247622-6itpqjw8",
+        "timestamp": "2026-09-07T02:47:27.622Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788748699983-pgd6193m",
+        "event": "question-bank.ai-request.duration",
+        "message": "单个并行 AI 请求完成",
+        "context": {
+          "attempt": 6,
+          "workerIndex": 1,
+          "parallelRequests": 4,
+          "requestedCount": 1,
+          "receivedCount": 1,
+          "durationMs": 6500
+        }
+      },
       {
         "id": "1788749245123-shd9v95b",
         "timestamp": "2026-09-07T02:47:25.123Z",
@@ -17327,58 +17396,6 @@
         "kind": "system",
         "event": "backup.close.flush",
         "message": "页面关闭或进入后台，提交最后一次备份"
-      },
-      {
-        "id": "1788359291331-174xxfko",
-        "timestamp": "2026-09-02T14:28:11.331Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "52b7eef245a5"
-        }
-      },
-      {
-        "id": "1788359285096-mo4j3ayj",
-        "timestamp": "2026-09-02T14:28:05.096Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.close.flush",
-        "message": "页面关闭或进入后台，提交最后一次备份"
-      },
-      {
-        "id": "1788359269834-nkj5rhj5",
-        "timestamp": "2026-09-02T14:27:49.833Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "6a6836f18439"
-        }
-      },
-      {
-        "id": "1788359259130-hwgeixzk",
-        "timestamp": "2026-09-02T14:27:39.130Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.close.flush",
-        "message": "页面关闭或进入后台，提交最后一次备份"
-      },
-      {
-        "id": "1788359035395-up31c2ii",
-        "timestamp": "2026-09-02T14:23:55.395Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "f06a0d931f8c"
-        }
       }
     ],
     "vision-interview-web-source-whitelist": [
