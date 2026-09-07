@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-07T02:47:12.757Z",
+  "updatedAt": "2026-09-07T02:47:16.331Z",
   "data": {
     "vision-interview-records": [
       {
@@ -3785,6 +3785,88 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788749237888-3gxe8mpl",
+        "timestamp": "2026-09-07T02:47:17.888Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "5ec84dca4a19"
+        }
+      },
+      {
+        "id": "1788749236636-0ummi2ym",
+        "timestamp": "2026-09-07T02:47:16.636Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788748699983-pgd6193m",
+        "event": "question-group.prepare.started",
+        "message": "开始准备题组",
+        "context": {
+          "project": "机器视觉专业知识",
+          "mode": "专业知识",
+          "questionCount": 10,
+          "sourceMode": "network",
+          "adaptiveQuestions": false,
+          "focusCategories": []
+        }
+      },
+      {
+        "id": "1788749234773-zzx4gfc1",
+        "timestamp": "2026-09-07T02:47:14.773Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788748699983-pgd6193m",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 5,
+          "query": "机器视觉 面试知识点 HALCON 传统 2D 视觉 仅限二维图像处理，排除 3D、三维、点云、深度图、法线估计、平面拟合、立体视觉、结构光和双目 原理 工程实践",
+          "sourceCount": 8,
+          "cached": true,
+          "parallelRequests": 4,
+          "requestedCount": 10,
+          "durationMs": 5,
+          "sharedAcrossWorkers": true
+        }
+      },
+      {
+        "id": "1788749234768-7baumocm",
+        "timestamp": "2026-09-07T02:47:14.768Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788748699983-pgd6193m",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 5,
+          "query": "机器视觉 面试知识点 HALCON 传统 2D 视觉 仅限二维图像处理，排除 3D、三维、点云、深度图、法线估计、平面拟合、立体视觉、结构光和双目 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 20,
+          "parallelRequests": 4,
+          "requestedCount": 10
+        }
+      },
+      {
+        "id": "1788749234762-70wuago8",
+        "timestamp": "2026-09-07T02:47:14.762Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788748699983-pgd6193m",
+        "event": "question-bank.ai-request.duration",
+        "message": "单个并行 AI 请求完成",
+        "context": {
+          "attempt": 4,
+          "workerIndex": 1,
+          "parallelRequests": 4,
+          "requestedCount": 1,
+          "receivedCount": 1,
+          "durationMs": 8691
+        }
+      },
       {
         "id": "1788749234329-jd7nf47s",
         "timestamp": "2026-09-07T02:47:14.329Z",
@@ -17267,92 +17349,6 @@
           "pendingCount": 10,
           "totalCount": 170,
           "complete": true
-        }
-      },
-      {
-        "id": "1788354333919-vzsdlta0",
-        "timestamp": "2026-09-02T13:05:33.919Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788345131423-wywacu41",
-        "event": "question-bank.ai-request.duration",
-        "message": "单个并行 AI 请求完成",
-        "context": {
-          "attempt": 4,
-          "workerIndex": 1,
-          "parallelRequests": 4,
-          "requestedCount": 1,
-          "receivedCount": 1,
-          "durationMs": 43675
-        }
-      },
-      {
-        "id": "1788354290238-2uqlsf1s",
-        "timestamp": "2026-09-02T13:04:50.238Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788345131423-wywacu41",
-        "event": "question-bank.web-search.completed",
-        "message": "本轮联网检索完成",
-        "context": {
-          "attempt": 4,
-          "query": "机器视觉 面试知识点 HALCON 原理 工程实践",
-          "sourceCount": 0,
-          "parallelRequests": 4,
-          "requestedCount": 10,
-          "durationMs": 2615,
-          "sharedAcrossWorkers": true
-        }
-      },
-      {
-        "id": "1788354287624-pbhtntgj",
-        "timestamp": "2026-09-02T13:04:47.624Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788345131423-wywacu41",
-        "event": "question-bank.web-search.started",
-        "message": "开始联网检索本轮题目资料",
-        "context": {
-          "attempt": 4,
-          "query": "机器视觉 面试知识点 HALCON 原理 工程实践",
-          "mode": "专业知识",
-          "excludedCount": 9,
-          "parallelRequests": 4,
-          "requestedCount": 10
-        }
-      },
-      {
-        "id": "1788354287619-ye19c3eo",
-        "timestamp": "2026-09-02T13:04:47.619Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788345131423-wywacu41",
-        "event": "question-bank.ai-request.duration",
-        "message": "单个并行 AI 请求完成",
-        "context": {
-          "attempt": 3,
-          "workerIndex": 1,
-          "parallelRequests": 4,
-          "requestedCount": 1,
-          "receivedCount": 1,
-          "durationMs": 36693
-        }
-      },
-      {
-        "id": "1788354283381-iv50gz3o",
-        "timestamp": "2026-09-02T13:04:43.381Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788345131423-wywacu41",
-        "event": "question-bank.ai-request.duration",
-        "message": "单个并行 AI 请求完成",
-        "context": {
-          "attempt": 3,
-          "workerIndex": 2,
-          "parallelRequests": 4,
-          "requestedCount": 1,
-          "receivedCount": 1,
-          "durationMs": 32454
         }
       }
     ],
