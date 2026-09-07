@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-07T03:13:13.753Z",
+  "updatedAt": "2026-09-07T03:13:20.460Z",
   "data": {
     "vision-interview-records": [
       {
@@ -3785,6 +3785,35 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788750802080-wke8jx20",
+        "timestamp": "2026-09-07T03:13:22.080Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "a7b9292d5065"
+        }
+      },
+      {
+        "id": "1788750801016-k0nh5cwn",
+        "timestamp": "2026-09-07T03:13:21.016Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788750662374-31k341xx",
+        "event": "question-bank.ai-request.duration",
+        "message": "单个并行 AI 请求完成",
+        "context": {
+          "attempt": 3,
+          "workerIndex": 1,
+          "parallelRequests": 4,
+          "requestedCount": 1,
+          "receivedCount": 1,
+          "durationMs": 8183
+        }
+      },
       {
         "id": "1788750795163-yk45x3hl",
         "timestamp": "2026-09-07T03:13:15.163Z",
@@ -17486,33 +17515,6 @@
         "context": {
           "reason": "change",
           "commit": "59f9b4bba3c2"
-        }
-      },
-      {
-        "id": "1788430307577-5kuu8cqz",
-        "timestamp": "2026-09-03T10:11:47.577Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "e9b18b1c9164"
-        }
-      },
-      {
-        "id": "1788430305828-ytzkw4oh",
-        "timestamp": "2026-09-03T10:11:45.828Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788430277838-pnlsdrs7",
-        "event": "ai.connection-test.completed",
-        "message": "真实聊天连接测试成功",
-        "context": {
-          "provider": "opencode-go",
-          "model": "deepseek-v4-flash",
-          "upstreamFormat": "chat-completions",
-          "durationMs": 2012
         }
       }
     ],
