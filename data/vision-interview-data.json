@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-07T03:11:32.881Z",
+  "updatedAt": "2026-09-07T03:11:36.770Z",
   "data": {
     "vision-interview-records": [
       {
@@ -3785,6 +3785,63 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788750698347-n3936fxi",
+        "timestamp": "2026-09-07T03:11:38.347Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "dd24e81a453c"
+        }
+      },
+      {
+        "id": "1788750696330-n5w3h6mh",
+        "timestamp": "2026-09-07T03:11:36.330Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788750662374-31k341xx",
+        "event": "question-group.prepare.cached",
+        "message": "题组已从本机缓存恢复",
+        "context": {
+          "questionCount": 10
+        }
+      },
+      {
+        "id": "1788750696323-xhpzngw8",
+        "timestamp": "2026-09-07T03:11:36.323Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788750662374-31k341xx",
+        "event": "question-group.prepare.started",
+        "message": "开始准备题组",
+        "context": {
+          "project": "机器视觉专业知识",
+          "mode": "专业知识",
+          "questionCount": 10,
+          "sourceMode": "network",
+          "adaptiveQuestions": false,
+          "focusCategories": []
+        }
+      },
+      {
+        "id": "1788750696318-7ym7skbn",
+        "timestamp": "2026-09-07T03:11:36.318Z",
+        "level": "INFO",
+        "kind": "user",
+        "sessionId": "1788750662374-31k341xx",
+        "event": "training.started",
+        "message": "用户开始新的训练题组",
+        "context": {
+          "category": "随机类型",
+          "difficulty": "基础",
+          "techStack": "HALCON",
+          "detectionDirection": "传统 2D 视觉",
+          "questionCount": 10
+        }
+      },
       {
         "id": "1788750691824-qz7hk3ge",
         "timestamp": "2026-09-07T03:11:31.824Z",
@@ -17394,52 +17451,6 @@
           "reason": "change",
           "commit": "0a524ce41fda"
         }
-      },
-      {
-        "id": "1788425881697-0i0wikb7",
-        "timestamp": "2026-09-03T08:58:01.697Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "ac5c953762dd"
-        }
-      },
-      {
-        "id": "1788425878008-fia7czqd",
-        "timestamp": "2026-09-03T08:57:58.008Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788425875497-nv0lfcbl",
-        "event": "question-bank.remote.loaded",
-        "message": "GitHub AI 历史题库加载完成",
-        "context": {
-          "questionCount": 180,
-          "githubQuestionCount": 180,
-          "pendingCount": 0
-        }
-      },
-      {
-        "id": "1788425875491-m8sl0kae",
-        "timestamp": "2026-09-03T08:57:55.491Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.startup.loaded",
-        "message": "启动配置加载完成",
-        "context": {
-          "source": "github",
-          "updatedAt": "2026-09-03T08:57:13.221Z"
-        }
-      },
-      {
-        "id": "1788425873234-rk77xjq1",
-        "timestamp": "2026-09-03T08:57:53.234Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.close.flush",
-        "message": "页面关闭或进入后台，提交最后一次备份"
       }
     ],
     "vision-interview-web-source-whitelist": [
