@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-07T03:03:25.489Z",
+  "updatedAt": "2026-09-07T03:03:49.461Z",
   "data": {
     "vision-interview-records": [
       {
@@ -3785,6 +3785,95 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788750231096-w4tax5pl",
+        "timestamp": "2026-09-07T03:03:51.096Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.close.flush",
+        "message": "页面关闭或进入后台，提交最后一次备份"
+      },
+      {
+        "id": "1788750231090-ztxzqqmi",
+        "timestamp": "2026-09-07T03:03:51.090Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788750175079-wr9wsuln",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 1,
+          "query": "机器视觉 面试知识点 HALCON 传统 2D 视觉 仅限二维图像处理，排除 3D、三维、点云、深度图、法线估计、平面拟合、立体视觉、结构光和双目 原理 工程实践",
+          "sourceCount": 0,
+          "cached": false,
+          "parallelRequests": 4,
+          "requestedCount": 10,
+          "durationMs": 3915,
+          "sharedAcrossWorkers": true
+        }
+      },
+      {
+        "id": "1788750231085-0kdae7vp",
+        "timestamp": "2026-09-07T03:03:51.085Z",
+        "level": "ERROR",
+        "kind": "system",
+        "event": "backup.push.failed",
+        "message": "运行数据备份请求失败",
+        "context": {
+          "error": "Failed to fetch"
+        }
+      },
+      {
+        "id": "1788750228964-a3pqzt21",
+        "timestamp": "2026-09-07T03:03:48.964Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788750175079-wr9wsuln",
+        "event": "question-group.prepare.started",
+        "message": "开始准备题组",
+        "context": {
+          "project": "机器视觉专业知识",
+          "mode": "专业知识",
+          "questionCount": 10,
+          "sourceMode": "network",
+          "adaptiveQuestions": false,
+          "focusCategories": []
+        }
+      },
+      {
+        "id": "1788750227175-2z3dvmxm",
+        "timestamp": "2026-09-07T03:03:47.175Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788750175079-wr9wsuln",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 1,
+          "query": "机器视觉 面试知识点 HALCON 传统 2D 视觉 仅限二维图像处理，排除 3D、三维、点云、深度图、法线估计、平面拟合、立体视觉、结构光和双目 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 11,
+          "parallelRequests": 4,
+          "requestedCount": 10
+        }
+      },
+      {
+        "id": "1788750227164-rvmt13zo",
+        "timestamp": "2026-09-07T03:03:47.164Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788750175079-wr9wsuln",
+        "event": "question-group.prepare.started",
+        "message": "开始准备题组",
+        "context": {
+          "project": "机器视觉专业知识",
+          "mode": "专业知识",
+          "questionCount": 10,
+          "sourceMode": "network",
+          "adaptiveQuestions": false,
+          "focusCategories": []
+        }
+      },
       {
         "id": "1788750201526-hd7sz9ll",
         "timestamp": "2026-09-07T03:03:21.526Z",
@@ -17437,96 +17526,6 @@
           "requestedCount": 2,
           "durationMs": 15281,
           "error": "Failed to fetch"
-        }
-      },
-      {
-        "id": "1788415340040-i4rvb08h",
-        "timestamp": "2026-09-03T06:02:20.040Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788415285095-lgd8akx4",
-        "event": "question-bank.ai-request.failed",
-        "message": "单个并行 AI 请求失败",
-        "context": {
-          "attempt": 2,
-          "workerIndex": 3,
-          "parallelRequests": 4,
-          "requestedCount": 2,
-          "durationMs": 15277,
-          "error": "Failed to fetch"
-        }
-      },
-      {
-        "id": "1788415340034-dgr0f9ms",
-        "timestamp": "2026-09-03T06:02:20.034Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788415285095-lgd8akx4",
-        "event": "question-bank.ai-request.failed",
-        "message": "单个并行 AI 请求失败",
-        "context": {
-          "attempt": 2,
-          "workerIndex": 2,
-          "parallelRequests": 4,
-          "requestedCount": 3,
-          "durationMs": 15272,
-          "error": "Failed to fetch"
-        }
-      },
-      {
-        "id": "1788415340030-s7dfrmyq",
-        "timestamp": "2026-09-03T06:02:20.030Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788415285095-lgd8akx4",
-        "event": "question-bank.ai-request.failed",
-        "message": "单个并行 AI 请求失败",
-        "context": {
-          "attempt": 2,
-          "workerIndex": 1,
-          "parallelRequests": 4,
-          "requestedCount": 3,
-          "durationMs": 15269,
-          "error": "Failed to fetch"
-        }
-      },
-      {
-        "id": "1788415339728-tiosyxp8",
-        "timestamp": "2026-09-03T06:02:19.728Z",
-        "level": "ERROR",
-        "kind": "system",
-        "event": "backup.push.failed",
-        "message": "运行数据备份请求失败",
-        "context": {
-          "error": "Failed to fetch"
-        }
-      },
-      {
-        "id": "1788415324758-nxdbcmqf",
-        "timestamp": "2026-09-03T06:02:04.758Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788415285095-lgd8akx4",
-        "event": "question-bank.web-search.failed",
-        "message": "signal timed out",
-        "context": {
-          "attempt": 2,
-          "query": "机器视觉 面试知识点 HALCON 传统 2D 视觉 仅限二维图像处理，排除 3D、三维、点云、深度图、法线估计、平面拟合、立体视觉、结构光和双目 原理 工程实践",
-          "continueToAi": true,
-          "parallelRequests": 4,
-          "requestedCount": 10
-        }
-      },
-      {
-        "id": "1788415310800-ntg5ooju",
-        "timestamp": "2026-09-03T06:01:50.800Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "0e4eecdd146f"
         }
       }
     ],
