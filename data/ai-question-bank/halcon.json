@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-09-07T03:51:11.411Z",
+  "updatedAt": "2026-09-07T06:12:41.167Z",
   "questions": [
     {
       "title": "在 HALCON 中，基于形状的模板匹配（shape-based matching）常用于定位工件。请说明金字塔层数、最小分数（MinScore）、最大重叠（MaxOverlap）和贪婪度（Greediness）这几个参数对匹配速度和鲁棒性的影响，并说明现场调试时如何取舍。",
@@ -10332,6 +10332,629 @@
       "basis": "本题基于模型知识生成，联网来源暂未获得可验证结果，待验证并补充来源。",
       "id": "aiq-fbce5bd0",
       "generatedAt": "2026-09-07T03:51:12.911Z",
+      "provider": "deepseek",
+      "model": "deepseek-v4-flash",
+      "project": "机器视觉专业知识",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "HALCON",
+      "detectionDirectionFilter": "随机方向"
+    },
+    {
+      "title": "在HALCON中，如何通过调整find_shape_model的MinScore和Greediness参数来平衡匹配速度与可靠性？请结合工程实践说明参数调整策略。",
+      "type": "工程实践",
+      "category": "工程实践与性能",
+      "source": "专业",
+      "sourceType": "AI知识整理（待验证）",
+      "knowledgePoints": [
+        "MinScore参数控制匹配的最低相似度阈值",
+        "Greediness参数控制搜索的贪婪程度，影响速度和鲁棒性",
+        "金字塔搜索（NumLevels）与参数协同作用",
+        "参数调整需结合图像质量、目标遮挡和噪声水平"
+      ],
+      "difficulty": "中等",
+      "tags": [
+        "模板匹配",
+        "参数调优",
+        "HALCON"
+      ],
+      "keywords": [
+        "MinScore",
+        "Greediness",
+        "匹配速度",
+        "匹配可靠性"
+      ],
+      "followUp": "如果目标存在部分遮挡，应如何调整MinScore和Greediness？",
+      "hint": "先解释参数含义，再结合工程案例说明调整策略，最后总结平衡原则。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "detectionDirection": "传统 2D 视觉",
+      "bestAnswer": "MinScore是匹配分数阈值，低于该值的候选被拒绝。提高MinScore可减少误检，但可能漏掉部分遮挡或光照变化的目标。Greediness控制搜索的贪婪程度，值越大搜索越快，但可能跳过真实目标。工程中，先设置较低MinScore（如0.5）和Greediness（如0.7）确保找到目标，再逐步提高MinScore减少误检，最后增大Greediness提升速度。若目标有遮挡，应降低MinScore和Greediness，或使用多个模板。",
+      "principle": "基于形状的模板匹配在金字塔各层搜索目标，MinScore决定是否接受候选，Greediness控制搜索分支的剪枝力度。高Greediness会提前终止低相似度分支，提高速度但可能漏检。参数需根据图像质量、目标复杂度和实时性要求综合设定。",
+      "blueprint": {
+        "version": 1,
+        "knowledgeKey": "工程实践与性能|HALCON|模板匹配参数调优",
+        "corePoints": [
+          "MinScore的作用：低于该分数视为不匹配，提高可减少误检但可能漏检",
+          "Greediness的作用：值越大搜索越快但可能错过目标，值小更鲁棒",
+          "参数需根据实际图像质量、目标变化和速度要求进行平衡",
+          "能解释MinScore和Greediness对匹配结果的具体影响",
+          "能给出参数调整的工程步骤，如从低Greediness开始逐步优化",
+          "金字塔层数影响搜索粒度",
+          "角度范围和缩放范围增加时需降低Greediness"
+        ],
+        "criticalPoints": [
+          "能解释MinScore和Greediness对匹配结果的具体影响",
+          "能给出参数调整的工程步骤，如从低Greediness开始逐步优化"
+        ],
+        "supportingPoints": [
+          "金字塔层数影响搜索粒度",
+          "角度范围和缩放范围增加时需降低Greediness"
+        ],
+        "ability": [
+          "参数影响分析",
+          "工程调优能力"
+        ],
+        "scenario": "工业视觉定位中，模板匹配参数需在速度和精度间权衡",
+        "commonMistakes": [
+          "误以为MinScore越高越好，导致漏检",
+          "忽略Greediness与图像噪声的关系，盲目调高"
+        ]
+      },
+      "basis": "本题基于模型知识生成，联网来源暂未获得可验证结果，待验证并补充来源。",
+      "id": "aiq-e1975232",
+      "generatedAt": "2026-09-07T03:58:16.433Z",
+      "provider": "deepseek",
+      "model": "deepseek-v4-flash",
+      "project": "机器视觉专业知识",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "HALCON",
+      "detectionDirectionFilter": "随机方向"
+    },
+    {
+      "title": "在HALCON中，使用create_shape_model创建模板时，如何选择NumLevels和AngleStep参数以优化匹配性能？请说明其原理。",
+      "type": "工程实践",
+      "category": "工程实践与性能",
+      "source": "专业",
+      "sourceType": "AI知识整理（待验证）",
+      "knowledgePoints": [
+        "NumLevels控制金字塔层数，影响搜索效率",
+        "AngleStep决定角度搜索步长，影响角度精度和速度",
+        "参数选择需考虑目标尺寸和旋转范围",
+        "匹配精度与速度的权衡"
+      ],
+      "difficulty": "中等",
+      "tags": [
+        "模板创建",
+        "参数优化",
+        "HALCON"
+      ],
+      "keywords": [
+        "NumLevels",
+        "AngleStep",
+        "金字塔",
+        "角度步长"
+      ],
+      "followUp": "如果目标在图像中旋转范围较大，应如何调整AngleStep？",
+      "hint": "先解释参数原理，再给出选择建议，最后强调实际测试的重要性。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "detectionDirection": "传统 2D 视觉",
+      "bestAnswer": "NumLevels决定金字塔层数，层数多则搜索快，但顶层图像分辨率低，可能丢失小特征，需确保最粗层仍能识别目标。AngleStep控制角度搜索步长，步长小则角度精度高，但计算量大。一般用'auto'自动计算，若旋转范围大，可适当增大步长以提速，但需保证角度精度满足要求。实际中需测试不同参数，平衡速度和精度。",
+      "principle": "金字塔搜索通过降采样图像，在低分辨率层快速定位候选区域，再逐层细化。NumLevels越多，顶层图像越小，搜索越快，但特征可能消失。AngleStep影响角度搜索的离散化，步长越小，角度分辨率越高，但需在更多角度上匹配，耗时增加。",
+      "blueprint": {
+        "version": 1,
+        "knowledgeKey": "工程实践与性能|HALCON|模板创建参数优化",
+        "corePoints": [
+          "NumLevels越大，搜索越快但可能丢失细节，需保证最小层仍有足够特征",
+          "AngleStep越小，角度定位越精确但计算量增大",
+          "需根据目标大小和旋转范围合理设置",
+          "能解释金字塔层数对匹配的影响",
+          "能说明AngleStep与角度精度的关系",
+          "AngleStep可通过'auto'自动计算",
+          "优化时需测试不同参数组合"
+        ],
+        "criticalPoints": [
+          "能解释金字塔层数对匹配的影响",
+          "能说明AngleStep与角度精度的关系"
+        ],
+        "supportingPoints": [
+          "AngleStep可通过'auto'自动计算",
+          "优化时需测试不同参数组合"
+        ],
+        "ability": [
+          "参数选择能力",
+          "性能优化意识"
+        ],
+        "scenario": "创建模板时需平衡匹配速度和角度精度",
+        "commonMistakes": [
+          "NumLevels设置过大导致模板特征丢失",
+          "AngleStep设置过小导致速度过慢"
+        ]
+      },
+      "basis": "本题基于模型知识生成，联网来源暂未获得可验证结果，待验证并补充来源。",
+      "id": "aiq-f74286f6",
+      "generatedAt": "2026-09-07T03:58:16.433Z",
+      "provider": "deepseek",
+      "model": "deepseek-v4-flash",
+      "project": "机器视觉专业知识",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "HALCON",
+      "detectionDirectionFilter": "随机方向"
+    },
+    {
+      "title": "在 HALCON 中，基于形状的模板匹配（shape-based matching）与基于相关性的模板匹配（correlation-based matching）在原理和适用场景上有何本质区别？请从鲁棒性、精度和速度角度对比，并说明在工业现场如何根据实际需求选择。",
+      "type": "算法原理",
+      "category": "模板匹配",
+      "source": "专业",
+      "sourceType": "AI知识整理（待验证）",
+      "knowledgePoints": [
+        "基于形状的模板匹配利用边缘梯度信息，对光照变化、遮挡和噪声鲁棒",
+        "基于相关性的模板匹配直接比较灰度值，对线性光照变化敏感但实现简单",
+        "形状匹配在金字塔搜索下速度更快，相关性匹配在无缩放旋转时精度较高",
+        "选择匹配方法需考虑目标特征（纹理丰富度）、光照稳定性、实时性要求"
+      ],
+      "difficulty": "中等",
+      "tags": [
+        "模板匹配",
+        "算法对比",
+        "方案选型"
+      ],
+      "keywords": [
+        "形状匹配",
+        "相关性匹配",
+        "梯度",
+        "灰度",
+        "鲁棒性",
+        "金字塔"
+      ],
+      "followUp": "在强光照变化但目标纹理丰富的场景下，你会选择哪种匹配？为什么？",
+      "hint": "先分别阐述两种方法的原理，再对比鲁棒性、精度和速度，最后给出选择建议。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "detectionDirection": "传统 2D 视觉",
+      "bestAnswer": "基于形状的模板匹配通过提取目标的边缘或轮廓梯度信息建立模板，在搜索时利用图像梯度方向与模板轮廓进行相似度计算；它对光照变化、遮挡和噪声具有较强鲁棒性，且支持旋转和缩放，配合金字塔搜索可大幅提升速度。基于相关性的模板匹配则直接在灰度图像上计算模板与搜索窗口的归一化互相关，对线性光照变化敏感，但实现简单，在目标纹理丰富且光照稳定时能达到较高精度，不过通常不支持旋转缩放或需要额外处理。工业现场选择时，若光照多变、目标有遮挡或需旋转缩放，优先选形状匹配；若光照恒定、目标纹理丰富且仅需平移定位，相关性匹配可能更简单高效。",
+      "principle": "形状匹配的核心是边缘梯度方向的一致性度量，通过计算模板轮廓点与图像边缘的法线方向夹角，利用相似度函数（如Hausdorff距离）评估匹配程度；金字塔搜索通过降采样构建多层图像，先在大尺度粗定位再逐层精化，提高效率。相关性匹配则基于灰度值统计，常用归一化互相关（NCC）消除线性光照影响，但非线性光照或局部遮挡会显著降低相关性。",
+      "blueprint": {
+        "version": 1,
+        "knowledgeKey": "模板匹配|HALCON|形状匹配与相关性匹配对比",
+        "corePoints": [
+          "形状匹配基于边缘梯度，相关性匹配基于灰度相关",
+          "形状匹配对光照、遮挡鲁棒，相关性匹配对光照敏感",
+          "形状匹配支持旋转缩放，相关性匹配通常仅平移",
+          "选择依据：目标纹理、光照变化、精度速度权衡",
+          "能清晰说明两种匹配的底层原理差异",
+          "能结合工业场景给出选择建议",
+          "提及金字塔搜索在形状匹配中的作用",
+          "提及相关性匹配在光照均匀时的精度优势"
+        ],
+        "criticalPoints": [
+          "能清晰说明两种匹配的底层原理差异",
+          "能结合工业场景给出选择建议"
+        ],
+        "supportingPoints": [
+          "提及金字塔搜索在形状匹配中的作用",
+          "提及相关性匹配在光照均匀时的精度优势"
+        ],
+        "ability": [
+          "原理理解",
+          "方案对比"
+        ],
+        "scenario": "面试官考察候选人对模板匹配家族的理解深度，能否根据应用场景选择合适算法",
+        "commonMistakes": [
+          "混淆两者原理，认为相关性匹配也基于边缘",
+          "忽略光照鲁棒性差异，盲目推荐形状匹配"
+        ]
+      },
+      "basis": "本题基于模型知识生成，联网来源暂未获得可验证结果，待验证并补充来源。",
+      "id": "aiq-90ba733c",
+      "generatedAt": "2026-09-07T03:58:16.433Z",
+      "provider": "deepseek",
+      "model": "deepseek-v4-flash",
+      "project": "机器视觉专业知识",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "HALCON",
+      "detectionDirectionFilter": "随机方向"
+    },
+    {
+      "title": "在 HALCON 中，使用基于形状的模板匹配时，若现场存在目标局部遮挡和背景干扰，应如何调整 find_shape_model 的参数（如 MinScore、Greediness、NumLevels）以获得稳定结果？请从原理上解释参数作用。",
+      "type": "工程实践",
+      "category": "模板匹配",
+      "source": "专业",
+      "sourceType": "AI知识整理（待验证）",
+      "knowledgePoints": [
+        "MinScore 控制匹配的最低相似度阈值，低值可容忍遮挡但增加误检风险",
+        "Greediness 控制搜索的贪婪程度，值越高速度越快但可能跳过正确匹配",
+        "NumLevels 决定金字塔层数，影响搜索效率与鲁棒性",
+        "遮挡时需降低 MinScore，但需配合增大搜索范围或使用多个模板"
+      ],
+      "difficulty": "中等",
+      "tags": [
+        "模板匹配",
+        "参数调优",
+        "遮挡处理"
+      ],
+      "keywords": [
+        "MinScore",
+        "Greediness",
+        "NumLevels",
+        "遮挡",
+        "鲁棒性"
+      ],
+      "followUp": "如果降低 MinScore 后出现误检，你会如何进一步处理？",
+      "hint": "先解释每个参数的作用，再结合遮挡场景分析调整方向，最后强调平衡策略。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "detectionDirection": "传统 2D 视觉",
+      "bestAnswer": "在存在局部遮挡时，应适当降低 MinScore 以允许部分轮廓不匹配，但不宜过低以免误检；可结合 Greediness 值调整，通常降低 Greediness（如从 0.9 降至 0.7）可让搜索更细致，避免因贪婪跳过正确位置。NumLevels 不宜设置过高，因为遮挡可能使金字塔顶层信息丢失，建议减少层数或使用自动选择。此外，可通过增加模板数量（如不同角度或局部特征模板）提高鲁棒性，同时利用 ROI 限定搜索区域减少背景干扰。调整参数后需用多张现场图像验证，确保在遮挡程度变化时仍有稳定输出。",
+      "principle": "MinScore 是匹配分数阈值，遮挡导致部分边缘不匹配，分数下降，降低阈值可接受较低相似度，但可能使非目标区域分数超过阈值导致误检。Greediness 控制搜索时是否提前放弃低分候选，高值加速但可能错过因遮挡而分数偏低的正确目标。NumLevels 金字塔在高层图像上信息简化，遮挡区域可能被完全忽略，降低层数可保留更多细节。",
+      "blueprint": {
+        "version": 1,
+        "knowledgeKey": "模板匹配|HALCON|遮挡与干扰下的参数调整",
+        "corePoints": [
+          "MinScore 降低可容忍遮挡但增加误检",
+          "Greediness 高值加速但可能漏检",
+          "NumLevels 影响金字塔层数，需平衡速度与精度",
+          "处理遮挡可结合多个模板或局部特征",
+          "能解释 MinScore 和 Greediness 对匹配结果的影响",
+          "能给出针对遮挡的调整策略",
+          "提及金字塔搜索在遮挡场景下的作用",
+          "提及背景干扰可通过 ROI 或图像预处理减少"
+        ],
+        "criticalPoints": [
+          "能解释 MinScore 和 Greediness 对匹配结果的影响",
+          "能给出针对遮挡的调整策略"
+        ],
+        "supportingPoints": [
+          "提及金字塔搜索在遮挡场景下的作用",
+          "提及背景干扰可通过 ROI 或图像预处理减少"
+        ],
+        "ability": [
+          "参数调优",
+          "故障排除"
+        ],
+        "scenario": "现场视觉定位中目标部分被遮挡，匹配不稳定，面试官考察候选人的参数调试思路",
+        "commonMistakes": [
+          "盲目降低 MinScore 导致误检增多",
+          "忽略 Greediness 过高导致漏检"
+        ]
+      },
+      "basis": "本题基于模型知识生成，联网来源暂未获得可验证结果，待验证并补充来源。",
+      "id": "aiq-4831bac7",
+      "generatedAt": "2026-09-07T03:58:16.433Z",
+      "provider": "deepseek",
+      "model": "deepseek-v4-flash",
+      "project": "机器视觉专业知识",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "HALCON",
+      "detectionDirectionFilter": "随机方向"
+    },
+    {
+      "title": "在HALCON中，如何利用灰度投影（gray_projections）实现产品尺寸的在线测量？请结合具体算子流程说明其原理与局限性。",
+      "type": "算法原理",
+      "category": "图像处理基础",
+      "source": "专业",
+      "sourceType": "AI知识整理（待验证）",
+      "knowledgePoints": [
+        "灰度投影的基本原理：将二维图像沿指定方向（如水平或垂直）累加灰度值，得到一维投影曲线，用于定位边缘或特征区域",
+        "HALCON中gray_projections算子的参数（模式：'simple'、'rectangle'等）及其对投影结果的影响",
+        "基于投影的尺寸测量流程：预处理、投影计算、边缘点提取（如使用局部极值或阈值）、亚像素细化",
+        "灰度投影对噪声和光照的敏感性，以及如何通过选择ROI和预处理（如平滑）来改善稳定性"
+      ],
+      "difficulty": "中等",
+      "tags": [
+        "灰度投影",
+        "尺寸测量",
+        "gray_projections"
+      ],
+      "keywords": [
+        "灰度投影",
+        "gray_projections",
+        "边缘定位",
+        "标定",
+        "ROI"
+      ],
+      "followUp": "如果待测产品表面有纹理干扰，如何调整投影策略？",
+      "hint": "先解释投影原理，再结合HALCON算子流程，最后讨论实际应用中的注意事项。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "detectionDirection": "传统 2D 视觉",
+      "bestAnswer": "灰度投影法通过将图像在特定方向（如水平或垂直）上累加灰度值，形成一维曲线。在HALCON中，使用gray_projections算子，可选择模式如'simple'（直接累加）或'rectangle'（加权累加）。测量时，先对ROI内图像进行预处理（如高斯平滑），然后调用gray_projections得到投影曲线，通过计算曲线的一阶导数并寻找极值点来定位边缘，最后结合相机标定将像素距离转换为物理尺寸。该方法速度快，适合边缘规则的产品，但对光照不均和噪声敏感，需在投影前进行图像增强或选择稳定ROI。",
+      "principle": "灰度投影基于图像灰度值的空间累加，将二维数据降为一维信号，从而简化边缘检测。HALCON的gray_projections支持多种模式，'simple'模式直接求和，'rectangle'模式使用矩形窗口加权，可抑制部分噪声。边缘点对应投影曲线上的灰度突变，通过导数极值或阈值法提取。投影法假设边缘在投影方向上具有一致性，因此对复杂形状或遮挡场景鲁棒性较差，需结合其他方法。",
+      "blueprint": {
+        "version": 1,
+        "knowledgeKey": "图像处理基础|HALCON|灰度投影、尺寸测量、算子流程",
+        "corePoints": [
+          "gray_projections的输入输出及模式选择",
+          "从投影曲线提取边缘的方法（如导数极值）",
+          "投影法在工业测量中的适用场景（如规则形状、边缘清晰）及局限性",
+          "必须说明gray_projections的投影方向与模式（如'simple'）如何影响结果",
+          "必须解释如何从投影曲线定位边缘并转换为物理尺寸（需结合标定）",
+          "必须指出投影法对光照不均、噪声的敏感性及对策",
+          "投影法可提高处理速度，适合高速在线检测",
+          "可结合亚像素插值提高测量精度"
+        ],
+        "criticalPoints": [
+          "必须说明gray_projections的投影方向与模式（如'simple'）如何影响结果",
+          "必须解释如何从投影曲线定位边缘并转换为物理尺寸（需结合标定）",
+          "必须指出投影法对光照不均、噪声的敏感性及对策"
+        ],
+        "supportingPoints": [
+          "投影法可提高处理速度，适合高速在线检测",
+          "可结合亚像素插值提高测量精度",
+          "需注意ROI的选取以避免干扰"
+        ],
+        "ability": [
+          "原理理解",
+          "工程应用"
+        ],
+        "scenario": "工业零件尺寸测量，如宽度、间距等",
+        "commonMistakes": [
+          "混淆投影模式，导致曲线形状异常",
+          "忽略标定，直接将像素距离当作物理尺寸",
+          "在复杂背景或强噪声下直接使用投影而不做预处理"
+        ]
+      },
+      "basis": "本题基于模型知识生成，联网来源暂未获得可验证结果，待验证并补充来源。",
+      "id": "aiq-9a5e4c5b",
+      "generatedAt": "2026-09-07T03:58:16.433Z",
+      "provider": "deepseek",
+      "model": "deepseek-v4-flash",
+      "project": "机器视觉专业知识",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "HALCON",
+      "detectionDirectionFilter": "随机方向"
+    },
+    {
+      "title": "在HALCON中，如何利用Blob分析实现缺陷检测？请结合连通域分析和形态学后处理说明关键步骤。",
+      "type": "工程实践",
+      "category": "图像分割",
+      "source": "专业",
+      "sourceType": "AI知识整理（待验证）",
+      "knowledgePoints": [
+        "Blob分析流程（分割、形态学处理、连通域分析、特征提取）",
+        "阈值分割方法（全局阈值、动态阈值）",
+        "形态学开闭运算的作用",
+        "连通域分析（connection）与区域筛选（select_shape）",
+        "特征选择（面积、圆度、长宽比等）"
+      ],
+      "difficulty": "中等",
+      "tags": [
+        "Blob分析",
+        "阈值分割",
+        "形态学",
+        "连通域",
+        "缺陷检测"
+      ],
+      "keywords": [
+        "阈值分割",
+        "开闭运算",
+        "connection",
+        "select_shape",
+        "特征筛选"
+      ],
+      "followUp": "如果缺陷与背景灰度对比度低，你会如何改进分割效果？",
+      "hint": "从Blob分析标准流程入手，逐步说明每一步的目的和常用算子。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "detectionDirection": "传统 2D 视觉",
+      "bestAnswer": "Blob分析通常包括以下步骤：首先通过阈值分割（如threshold或dyn_threshold）将缺陷与背景分离，若光照不均可使用动态阈值或先进行光照校正。接着进行形态学后处理，如开运算去除小噪点、闭运算填补缺陷内部孔洞。然后使用connection算子将二值区域分割为多个连通域。最后通过select_shape基于面积、圆度、长宽比等特征筛选出真正的缺陷区域。关键是根据具体缺陷类型调整分割阈值和特征范围，确保检测的准确性和鲁棒性。",
+      "principle": "Blob分析基于图像分割和区域特征提取。阈值分割将灰度图像转为二值图像，缺陷区域因灰度差异被分离。形态学操作通过结构元素与区域进行膨胀、腐蚀等运算，开运算先腐蚀后膨胀可去除小物体，闭运算先膨胀后腐蚀可填充小孔。连通域分析将相邻的像素集合标记为独立区域，便于逐个分析。特征筛选通过计算区域的几何特征（如面积、周长、圆度）和灰度特征，依据阈值判断是否为缺陷。",
+      "blueprint": {
+        "version": 1,
+        "knowledgeKey": "图像分割|HALCON|Blob分析与缺陷检测",
+        "corePoints": [
+          "Blob分析包括图像分割、形态学处理、连通域标记和特征筛选",
+          "阈值分割将缺陷与背景分离，光照不均时需用动态阈值或预处理",
+          "开运算去除小噪点，闭运算填补孔洞",
+          "连通域分析将二值图像分割为独立区域",
+          "通过select_shape基于形状特征筛选缺陷区域",
+          "说明Blob分析的完整流程",
+          "解释形态学操作在缺陷检测中的作用",
+          "说明如何通过特征筛选区分缺陷与正常区域"
+        ],
+        "criticalPoints": [
+          "说明Blob分析的完整流程",
+          "解释形态学操作在缺陷检测中的作用",
+          "说明如何通过特征筛选区分缺陷与正常区域"
+        ],
+        "supportingPoints": [
+          "阈值选择方法（直方图双峰、Otsu）",
+          "区域特征如面积、圆度、矩形度等",
+          "后处理如膨胀连接邻近缺陷区域"
+        ],
+        "ability": [
+          "工程实践",
+          "算法应用"
+        ],
+        "scenario": "工业表面缺陷检测，如划痕、污点、孔洞",
+        "commonMistakes": [
+          "忽略光照不均导致分割失败",
+          "未进行形态学处理导致噪点干扰",
+          "特征选择不当导致误检或漏检"
+        ]
+      },
+      "basis": "本题基于模型知识生成，联网来源暂未获得可验证结果，待验证并补充来源。",
+      "id": "aiq-046bd41d",
+      "generatedAt": "2026-09-07T03:58:16.433Z",
+      "provider": "deepseek",
+      "model": "deepseek-v4-flash",
+      "project": "机器视觉专业知识",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "HALCON",
+      "detectionDirectionFilter": "随机方向"
+    },
+    {
+      "title": "HALCON 中，如果模板匹配在现场出现频繁误匹配（false positive）或漏匹配（false negative），你会如何系统性地排查和定位原因？请给出你的排障思路和步骤。",
+      "type": "现场故障",
+      "category": "工程实践与性能",
+      "source": "专业",
+      "sourceType": "AI知识整理（待验证）",
+      "knowledgePoints": [
+        "模板匹配参数（MinScore、Greediness、NumLevels）对匹配结果的影响",
+        "图像采集异常（光照波动、噪声、模糊）对匹配稳定性的影响",
+        "模板 ROI 设计不合理导致的匹配歧义",
+        "系统化排障方法论：从现象到根因的逐步排查"
+      ],
+      "difficulty": "困难",
+      "tags": [
+        "模板匹配",
+        "故障排查",
+        "参数调优",
+        "图像质量"
+      ],
+      "keywords": [
+        "MinScore",
+        "Greediness",
+        "光照",
+        "ROI",
+        "误匹配",
+        "漏匹配"
+      ],
+      "followUp": "如果降低 MinScore 后误匹配增加，你会如何权衡？请说明你的策略。",
+      "hint": "从现象分类（误匹配 vs 漏匹配）出发，分别列出可能原因，再结合现场观察和参数调整进行验证。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "detectionDirection": "传统 2D 视觉",
+      "bestAnswer": "首先分类现象：误匹配（false positive）通常由 MinScore 过低、模板不唯一或图像干扰导致；漏匹配（false negative）常因 MinScore 过高、遮挡、光照变化或目标变形引起。排查步骤：1）检查模板 ROI 是否包含足够特征且背景不重复；2）使用 find_shape_model 的 Score 输出，观察实际得分分布，若得分接近阈值，则调整 MinScore；3）检查图像质量，如光照波动，可增加预处理或改用光照鲁棒的特征；4）调整 Greediness 平衡速度与鲁棒性，若漏匹配可降低 Greediness 值；5）验证 NumLevels 是否过高导致小目标丢失。最后，通过可视化匹配结果和得分分布确认改进效果。",
+      "principle": "HALCON 的基于形状的模板匹配利用边缘梯度信息，通过金字塔搜索加速。MinScore 是匹配得分阈值，控制误检与漏检的平衡；Greediness 决定搜索的贪婪程度，高值提高速度但可能跳过正确匹配；NumLevels 影响金字塔层数，高层数对小目标不敏感。光照变化会改变梯度幅值，但方向相对稳定，因此形状匹配对光照有一定鲁棒性，但极端变化仍会影响得分。模板唯一性决定匹配的区分度，若 ROI 内特征重复，易产生误匹配。",
+      "blueprint": {
+        "version": 1,
+        "knowledgeKey": "工程实践与性能|HALCON|模板匹配排障",
+        "corePoints": [
+          "检查 MinScore 和 Greediness 设置是否合理",
+          "验证图像质量（光照、噪声、模糊）是否影响匹配",
+          "分析模板 ROI 是否具有唯一性",
+          "使用调试工具（如 find_shape_model 的可视化）辅助定位",
+          "能区分误匹配和漏匹配的常见原因",
+          "能给出具体的排查步骤和参数调整策略",
+          "能结合现场环境因素（如光照变化）进行分析",
+          "NumLevels 对搜索效率与鲁棒性的影响"
+        ],
+        "criticalPoints": [
+          "能区分误匹配和漏匹配的常见原因",
+          "能给出具体的排查步骤和参数调整策略",
+          "能结合现场环境因素（如光照变化）进行分析"
+        ],
+        "supportingPoints": [
+          "NumLevels 对搜索效率与鲁棒性的影响",
+          "图像预处理（如平滑、对比度增强）的作用"
+        ],
+        "ability": [
+          "故障诊断能力",
+          "参数调优能力",
+          "系统思维"
+        ],
+        "scenario": "工业现场 HALCON 模板匹配系统出现误检或漏检，需快速定位并解决",
+        "commonMistakes": [
+          "盲目调整参数而不先分析根因",
+          "忽略光照变化等环境因素",
+          "未检查模板 ROI 的唯一性"
+        ]
+      },
+      "basis": "本题基于模型知识生成，联网来源暂未获得可验证结果，待验证并补充来源。",
+      "id": "aiq-f46126fe",
+      "generatedAt": "2026-09-07T03:58:16.433Z",
+      "provider": "deepseek",
+      "model": "deepseek-v4-flash",
+      "project": "机器视觉专业知识",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "随机难度",
+      "techStackFilter": "HALCON",
+      "detectionDirectionFilter": "随机方向"
+    },
+    {
+      "title": "在 HALCON 中，如何系统性地验证一个基于形状匹配的定位方案在项目落地时的稳定性？请从模板创建、参数设置、测试验证和现场部署四个阶段说明关键步骤与注意事项。",
+      "type": "工程实践",
+      "category": "工程实践与性能",
+      "source": "专业",
+      "sourceType": "AI知识整理（待验证）",
+      "knowledgePoints": [
+        "模板创建时 ROI 选择与预处理对匹配鲁棒性的影响",
+        "find_shape_model 参数（NumLevels、AngleStart/Extent、MinScore、Greediness）的调试策略",
+        "基于金字塔搜索的匹配原理与速度-鲁棒性权衡",
+        "现场光照变化、遮挡等干扰下的稳定性验证方法"
+      ],
+      "difficulty": "中等",
+      "tags": [
+        "模板匹配",
+        "参数调试",
+        "稳定性验证",
+        "工程落地"
+      ],
+      "keywords": [
+        "模板创建",
+        "金字塔",
+        "MinScore",
+        "Greediness",
+        "稳定性测试"
+      ],
+      "followUp": "如果现场出现频繁误匹配，你会如何调整参数？请从原理上说明调整依据。",
+      "hint": "从模板质量、参数作用、测试覆盖三个层面组织回答，强调金字塔搜索原理与参数间权衡。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "detectionDirection": "传统 2D 视觉",
+      "bestAnswer": "首先，在模板创建阶段，应选择特征丰富、对比度高的区域作为ROI，避免对称或重复纹理；同时确保模板图像与现场图像在光照、噪声水平上一致，必要时进行预处理。其次，参数设置需理解各参数原理：NumLevels决定金字塔层数，建议先用inspect_shape_model检查各层模板仍保留足够特征；AngleStart/Extent需覆盖实际旋转范围；MinScore控制最低匹配分数，Greediness控制搜索的贪婪程度，两者需平衡：降低MinScore可容忍遮挡但增加误检，提高Greediness加速但可能跳过正确匹配。然后，测试验证需使用覆盖正常与干扰（光照变化、遮挡、模糊）的样本集，统计匹配率、定位精度和耗时，并分析失败案例。最后，现场部署时固定环境后重新采集图像微调参数，并建立监控机制，如定期检查匹配分数分布，及时发现漂移。",
+      "principle": "基于形状的模板匹配利用边缘梯度信息，通过金字塔搜索（逐层由粗到精）在图像中寻找与模板最相似的区域。金字塔层数越高，搜索越快但可能丢失细节；MinScore是相似度阈值，低于该值则拒绝匹配；Greediness控制搜索的贪婪程度，值越高，搜索越快但可能跳过潜在匹配。参数间相互影响，需根据图像质量、目标旋转范围、遮挡程度等权衡。验证阶段需模拟现场干扰，确保算法在实际条件下的鲁棒性。",
+      "blueprint": {
+        "version": 1,
+        "knowledgeKey": "工程实践与性能|HALCON|模板匹配验证与落地",
+        "corePoints": [
+          "模板创建阶段：选择具有区分度的ROI，避免对称或重复纹理；预处理（如平滑、对比度增强）需与现场图像一致",
+          "参数设置阶段：NumLevels决定金字塔层数，影响搜索效率与鲁棒性；AngleStart/Extent定义角度范围，需覆盖实际旋转；MinScore控制匹配阈值，Greediness控制贪婪搜索程度",
+          "测试验证阶段：使用代表性样本集（含正常与异常情况）测试，统计匹配率、定位精度和耗时；需包含光照变化、遮挡、模糊等干扰样本",
+          "现场部署阶段：环境固定（相机、光源）后需重新采集图像调整参数；建立监控机制，定期检查匹配分数分布",
+          "模板ROI需选择特征丰富且稳定的区域，避免周期性纹理或低对比度区域",
+          "参数调整需基于金字塔原理：NumLevels过高会丢失细节，过低则速度慢；MinScore与Greediness需平衡漏检与误检",
+          "验证必须覆盖现场实际干扰（光照波动、遮挡、噪声），不能仅用理想图像测试",
+          "可使用inspect_shape_model检查模板金字塔图像，确保各层仍有足够特征"
+        ],
+        "criticalPoints": [
+          "模板ROI需选择特征丰富且稳定的区域，避免周期性纹理或低对比度区域",
+          "参数调整需基于金字塔原理：NumLevels过高会丢失细节，过低则速度慢；MinScore与Greediness需平衡漏检与误检",
+          "验证必须覆盖现场实际干扰（光照波动、遮挡、噪声），不能仅用理想图像测试"
+        ],
+        "supportingPoints": [
+          "可使用inspect_shape_model检查模板金字塔图像，确保各层仍有足够特征",
+          "利用find_shape_model的Score输出分析匹配质量，设置合理阈值",
+          "考虑使用多个模板或训练分类器处理多姿态情况"
+        ],
+        "ability": [
+          "工程实践能力",
+          "问题分析与调试能力"
+        ],
+        "scenario": "基于形状匹配的定位项目从开发到部署的验证过程",
+        "commonMistakes": [
+          "只使用少量理想图像测试，忽略现场光照、噪声等变化",
+          "盲目降低MinScore以解决漏检，导致误检增加",
+          "未检查金字塔各层模板质量，导致高层搜索失败"
+        ]
+      },
+      "basis": "本题基于模型知识生成，联网来源暂未获得可验证结果，待验证并补充来源。",
+      "id": "aiq-1e149ec9",
+      "generatedAt": "2026-09-07T03:58:16.433Z",
       "provider": "deepseek",
       "model": "deepseek-v4-flash",
       "project": "机器视觉专业知识",
