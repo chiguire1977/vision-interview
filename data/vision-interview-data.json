@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-07T03:12:50.547Z",
+  "updatedAt": "2026-09-07T03:12:53.819Z",
   "data": {
     "vision-interview-records": [
       {
@@ -3785,6 +3785,37 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788750775472-nlyjnar1",
+        "timestamp": "2026-09-07T03:12:55.472Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "93286e22c123"
+        }
+      },
+      {
+        "id": "1788750773129-e0fuzco2",
+        "timestamp": "2026-09-07T03:12:53.129Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788750662374-31k341xx",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 2,
+          "query": "机器视觉 面试知识点 HALCON 传统 2D 视觉 仅限二维图像处理，排除 3D、三维、点云、深度图、法线估计、平面拟合、立体视觉、结构光和双目 原理 工程实践",
+          "sourceCount": 0,
+          "cached": false,
+          "parallelRequests": 4,
+          "requestedCount": 10,
+          "durationMs": 4503,
+          "sharedAcrossWorkers": true
+        }
+      },
       {
         "id": "1788750772205-7dhoqcwu",
         "timestamp": "2026-09-07T03:12:52.205Z",
@@ -17437,36 +17468,6 @@
         "context": {
           "reason": "change",
           "commit": "61eefe17a482"
-        }
-      },
-      {
-        "id": "1788426208689-p0deumzb",
-        "timestamp": "2026-09-03T09:03:28.689Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788426101801-g4umlvs0",
-        "event": "question-bank.cache.saved",
-        "message": "AI 题库已完成远程同步",
-        "context": {
-          "questionCount": 10,
-          "pendingCount": 0
-        }
-      },
-      {
-        "id": "1788426208685-wy865mch",
-        "timestamp": "2026-09-03T09:03:28.685Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788426101801-g4umlvs0",
-        "event": "github.backup.succeeded",
-        "message": "数据已成功备份到 GitHub",
-        "context": {
-          "operation": "ai-question-bank",
-          "entryCount": 10,
-          "pendingCount": 0,
-          "totalCount": 190,
-          "status": 200,
-          "complete": true
         }
       }
     ],
