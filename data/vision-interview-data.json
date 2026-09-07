@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-07T02:07:18.678Z",
+  "updatedAt": "2026-09-07T02:07:23.827Z",
   "data": {
     "vision-interview-records": [
       {
@@ -3549,6 +3549,32 @@
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
       {
+        "id": "1788746844131-50ezpsdv",
+        "timestamp": "2026-09-07T02:07:24.131Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788746842203-uy66lq2n",
+        "event": "question-bank.remote.loaded",
+        "message": "GitHub AI 历史题库加载完成",
+        "context": {
+          "questionCount": 210,
+          "githubQuestionCount": 210,
+          "pendingCount": 0
+        }
+      },
+      {
+        "id": "1788746842199-zpscwtv5",
+        "timestamp": "2026-09-07T02:07:22.199Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.startup.loaded",
+        "message": "启动配置加载完成",
+        "context": {
+          "source": "github",
+          "updatedAt": "2026-09-07T02:07:09.223Z"
+        }
+      },
+      {
         "id": "1788746840388-y1vjfk40",
         "timestamp": "2026-09-07T02:07:20.388Z",
         "level": "INFO",
@@ -3569,6 +3595,18 @@
           "model": "gpt-5.6-sol",
           "upstreamFormat": "responses",
           "durationMs": 18000
+        }
+      },
+      {
+        "id": "1788746835798-i531nrel",
+        "timestamp": "2026-09-07T02:07:15.798Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "fad234cbe9d1"
         }
       },
       {
@@ -17024,52 +17062,6 @@
         "context": {
           "reason": "change",
           "commit": "450e49bb13c6"
-        }
-      },
-      {
-        "id": "1788343665538-9xadd1k9",
-        "timestamp": "2026-09-02T10:07:45.538Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "3943816f4195"
-        }
-      },
-      {
-        "id": "1788343661106-aaeswhqf",
-        "timestamp": "2026-09-02T10:07:41.106Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788343468196-zjzo0dai",
-        "event": "question-bank.ai-request.started",
-        "message": "第 4/6 轮（并行 2/4）：正在请求 AI 生成题目（1 道）…",
-        "context": {
-          "attempt": 4,
-          "maxAttempts": 6,
-          "collectedCount": 8,
-          "workerIndex": 2,
-          "parallelRequests": 4,
-          "requestedCount": 1
-        }
-      },
-      {
-        "id": "1788343661105-jwppclcy",
-        "timestamp": "2026-09-02T10:07:41.105Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788343468196-zjzo0dai",
-        "event": "question-bank.ai-request.started",
-        "message": "第 4/6 轮（并行 1/4）：正在请求 AI 生成题目（1 道）…",
-        "context": {
-          "attempt": 4,
-          "maxAttempts": 6,
-          "collectedCount": 8,
-          "workerIndex": 1,
-          "parallelRequests": 4,
-          "requestedCount": 1
         }
       }
     ],
