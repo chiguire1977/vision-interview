@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-07T03:51:03.722Z",
+  "updatedAt": "2026-09-07T03:51:08.691Z",
   "data": {
     "vision-interview-records": [
       {
@@ -3785,6 +3785,35 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788753070292-khora52e",
+        "timestamp": "2026-09-07T03:51:10.292Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788752989218-16nqofqp",
+        "event": "question-bank.ai-request.duration",
+        "message": "单个并行 AI 请求完成",
+        "context": {
+          "attempt": 3,
+          "workerIndex": 2,
+          "parallelRequests": 4,
+          "requestedCount": 1,
+          "receivedCount": 1,
+          "durationMs": 7815
+        }
+      },
+      {
+        "id": "1788753068995-kylzwwme",
+        "timestamp": "2026-09-07T03:51:08.995Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "5bc167519323"
+        }
+      },
       {
         "id": "1788753062473-imic0258",
         "timestamp": "2026-09-07T03:51:02.473Z",
@@ -18125,32 +18154,6 @@
           "provider": "openai",
           "model": "gpt-5.6-sol",
           "upstreamFormat": "chat-completions"
-        }
-      },
-      {
-        "id": "1788746625162-ei0musu4",
-        "timestamp": "2026-09-07T02:03:45.162Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "91eb9b83dbdb"
-        }
-      },
-      {
-        "id": "1788746620890-62mdozel",
-        "timestamp": "2026-09-07T02:03:40.890Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788746619066-ct6k0ut7",
-        "event": "question-bank.remote.loaded",
-        "message": "GitHub AI 历史题库加载完成",
-        "context": {
-          "questionCount": 210,
-          "githubQuestionCount": 210,
-          "pendingCount": 0
         }
       }
     ],
