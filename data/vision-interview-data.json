@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-07T02:07:57.509Z",
+  "updatedAt": "2026-09-07T02:08:00.894Z",
   "data": {
     "vision-interview-records": [
       {
@@ -3305,7 +3305,7 @@
       "bestAnswer": true,
       "smartFollowUp": true,
       "webQuestions": true,
-      "upstreamFormat": "anthropic-messages",
+      "upstreamFormat": "chat-completions",
       "questionGroupSize": 10,
       "parallelRequests": 4,
       "adaptiveQuestions": false,
@@ -3548,6 +3548,32 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788746882361-y0ylo099",
+        "timestamp": "2026-09-07T02:08:02.361Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "48aaa8411306"
+        }
+      },
+      {
+        "id": "1788746880022-twyvt5sc",
+        "timestamp": "2026-09-07T02:08:00.022Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788746868423-rnbkbdu2",
+        "event": "ai.connection-test.started",
+        "message": "开始真实聊天连接测试",
+        "context": {
+          "provider": "openai",
+          "model": "gpt-5.6-sol",
+          "upstreamFormat": "chat-completions"
+        }
+      },
       {
         "id": "1788746878961-jh84pxix",
         "timestamp": "2026-09-07T02:07:58.961Z",
@@ -17014,34 +17040,6 @@
           "collectedCount": 9,
           "workerIndex": 1,
           "parallelRequests": 4,
-          "error": "Failed to fetch"
-        }
-      },
-      {
-        "id": "1788343727179-oq1m1wz8",
-        "timestamp": "2026-09-02T10:08:47.179Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788343468196-zjzo0dai",
-        "event": "question-bank.ai-request.failed",
-        "message": "单个并行 AI 请求失败",
-        "context": {
-          "attempt": 5,
-          "workerIndex": 1,
-          "parallelRequests": 4,
-          "requestedCount": 1,
-          "durationMs": 3248,
-          "error": "Failed to fetch"
-        }
-      },
-      {
-        "id": "1788343727179-opg2y5gb",
-        "timestamp": "2026-09-02T10:08:47.179Z",
-        "level": "ERROR",
-        "kind": "system",
-        "event": "backup.push.failed",
-        "message": "运行数据备份请求失败",
-        "context": {
           "error": "Failed to fetch"
         }
       }
