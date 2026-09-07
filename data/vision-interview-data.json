@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-07T02:03:22.462Z",
+  "updatedAt": "2026-09-07T02:03:35.740Z",
   "data": {
     "vision-interview-records": [
       {
@@ -3548,6 +3548,29 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788746615844-elmlc92x",
+        "timestamp": "2026-09-07T02:03:35.844Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.close.flush",
+        "message": "页面关闭或进入后台，提交最后一次备份"
+      },
+      {
+        "id": "1788746615841-cfibdngt",
+        "timestamp": "2026-09-07T02:03:35.841Z",
+        "level": "ERROR",
+        "kind": "system",
+        "sessionId": "1788746588535-8ktw5jo1",
+        "event": "ai.connection-test.failed",
+        "message": "无法连接网站服务器，请稍后重试。",
+        "context": {
+          "provider": "openai",
+          "model": "gpt-5.6-sol",
+          "upstreamFormat": "chat-completions",
+          "durationMs": 18696
+        }
+      },
       {
         "id": "1788746603715-qwzlo8wl",
         "timestamp": "2026-09-07T02:03:23.715Z",
@@ -17161,40 +17184,6 @@
           "maxAttempts": 6,
           "collectedCount": 2,
           "workerIndex": 4,
-          "parallelRequests": 4,
-          "requestedCount": 2
-        }
-      },
-      {
-        "id": "1788343537762-e7bksg72",
-        "timestamp": "2026-09-02T10:05:37.762Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788343468196-zjzo0dai",
-        "event": "question-bank.ai-request.started",
-        "message": "第 2/6 轮（并行 3/4）：正在请求 AI 生成题目（2 道）…",
-        "context": {
-          "attempt": 2,
-          "maxAttempts": 6,
-          "collectedCount": 2,
-          "workerIndex": 3,
-          "parallelRequests": 4,
-          "requestedCount": 2
-        }
-      },
-      {
-        "id": "1788343537761-35r54k0l",
-        "timestamp": "2026-09-02T10:05:37.761Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788343468196-zjzo0dai",
-        "event": "question-bank.ai-request.started",
-        "message": "第 2/6 轮（并行 2/4）：正在请求 AI 生成题目（2 道）…",
-        "context": {
-          "attempt": 2,
-          "maxAttempts": 6,
-          "collectedCount": 2,
-          "workerIndex": 2,
           "parallelRequests": 4,
           "requestedCount": 2
         }
