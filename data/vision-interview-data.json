@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-07T02:06:12.060Z",
+  "updatedAt": "2026-09-07T02:06:30.523Z",
   "data": {
     "vision-interview-records": [
       {
@@ -3337,39 +3337,39 @@
         "openaiBaseUrl": "https://dingdangapii.cn",
         "availableModels": [
           {
-            "label": "codex-auto-review · Chat Completions（兼容 OpenAI）",
+            "label": "codex-auto-review · Responses（OpenAI 原生）",
             "value": "codex-auto-review",
-            "upstreamFormat": "chat-completions"
+            "upstreamFormat": "responses"
           },
           {
-            "label": "gpt-5.3-codex-spark · Chat Completions（兼容 OpenAI）",
+            "label": "gpt-5.3-codex-spark · Responses（OpenAI 原生）",
             "value": "gpt-5.3-codex-spark",
-            "upstreamFormat": "chat-completions"
+            "upstreamFormat": "responses"
           },
           {
-            "label": "gpt-5.4 · Chat Completions（兼容 OpenAI）",
+            "label": "gpt-5.4 · Responses（OpenAI 原生）",
             "value": "gpt-5.4",
-            "upstreamFormat": "chat-completions"
+            "upstreamFormat": "responses"
           },
           {
-            "label": "gpt-5.5 · Chat Completions（兼容 OpenAI）",
+            "label": "gpt-5.5 · Responses（OpenAI 原生）",
             "value": "gpt-5.5",
-            "upstreamFormat": "chat-completions"
+            "upstreamFormat": "responses"
           },
           {
-            "label": "gpt-5.6-sol · Chat Completions（兼容 OpenAI）",
+            "label": "gpt-5.6-sol · Responses（OpenAI 原生）",
             "value": "gpt-5.6-sol",
-            "upstreamFormat": "chat-completions"
+            "upstreamFormat": "responses"
           },
           {
-            "label": "gpt-5.6-terra · Chat Completions（兼容 OpenAI）",
+            "label": "gpt-5.6-terra · Responses（OpenAI 原生）",
             "value": "gpt-5.6-terra",
-            "upstreamFormat": "chat-completions"
+            "upstreamFormat": "responses"
           },
           {
-            "label": "gpt-6-astra · Chat Completions（兼容 OpenAI）",
+            "label": "gpt-6-astra · Responses（OpenAI 原生）",
             "value": "gpt-6-astra",
-            "upstreamFormat": "chat-completions"
+            "upstreamFormat": "responses"
           }
         ]
       },
@@ -3548,6 +3548,32 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788746789177-i55jaxe6",
+        "timestamp": "2026-09-07T02:06:29.177Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788746689812-jhfj1mlw",
+        "event": "ai.connection-test.started",
+        "message": "开始真实聊天连接测试",
+        "context": {
+          "provider": "openai",
+          "model": "gpt-5.6-sol",
+          "upstreamFormat": "responses"
+        }
+      },
+      {
+        "id": "1788746777126-eyt3lqt6",
+        "timestamp": "2026-09-07T02:06:17.126Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "aae7222198bc"
+        }
+      },
       {
         "id": "1788746706663-otopcehp",
         "timestamp": "2026-09-07T02:05:06.663Z",
@@ -17101,40 +17127,6 @@
           "maxAttempts": 6,
           "collectedCount": 6,
           "workerIndex": 3,
-          "parallelRequests": 4,
-          "requestedCount": 1
-        }
-      },
-      {
-        "id": "1788343598480-jxogqjvz",
-        "timestamp": "2026-09-02T10:06:38.480Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788343468196-zjzo0dai",
-        "event": "question-bank.ai-request.started",
-        "message": "第 3/6 轮（并行 2/4）：正在请求 AI 生成题目（1 道）…",
-        "context": {
-          "attempt": 3,
-          "maxAttempts": 6,
-          "collectedCount": 6,
-          "workerIndex": 2,
-          "parallelRequests": 4,
-          "requestedCount": 1
-        }
-      },
-      {
-        "id": "1788343598478-0edfvxuv",
-        "timestamp": "2026-09-02T10:06:38.478Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788343468196-zjzo0dai",
-        "event": "question-bank.ai-request.started",
-        "message": "第 3/6 轮（并行 1/4）：正在请求 AI 生成题目（1 道）…",
-        "context": {
-          "attempt": 3,
-          "maxAttempts": 6,
-          "collectedCount": 6,
-          "workerIndex": 1,
           "parallelRequests": 4,
           "requestedCount": 1
         }
