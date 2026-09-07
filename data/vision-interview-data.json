@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-07T03:04:36.152Z",
+  "updatedAt": "2026-09-07T03:04:41.597Z",
   "data": {
     "vision-interview-records": [
       {
@@ -3786,12 +3786,50 @@
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
       {
+        "id": "1788750282217-uensta6f",
+        "timestamp": "2026-09-07T03:04:42.217Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788750280175-u88tx1l9",
+        "event": "question-bank.remote.loaded",
+        "message": "GitHub AI 历史题库加载完成",
+        "context": {
+          "questionCount": 210,
+          "githubQuestionCount": 210,
+          "pendingCount": 0
+        }
+      },
+      {
+        "id": "1788750280171-wwn10268",
+        "timestamp": "2026-09-07T03:04:40.171Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.startup.loaded",
+        "message": "启动配置加载完成",
+        "context": {
+          "source": "github",
+          "updatedAt": "2026-09-07T03:04:20.843Z"
+        }
+      },
+      {
         "id": "1788750276595-bwn8u10k",
         "timestamp": "2026-09-07T03:04:36.595Z",
         "level": "INFO",
         "kind": "system",
         "event": "backup.close.flush",
         "message": "页面关闭或进入后台，提交最后一次备份"
+      },
+      {
+        "id": "1788750265683-7a712wwj",
+        "timestamp": "2026-09-07T03:04:25.683Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "571294488b0d"
+        }
       },
       {
         "id": "1788750260761-qs7g8i0w",
@@ -17374,46 +17412,6 @@
         "context": {
           "reason": "change",
           "commit": "6101f8fba79b"
-        }
-      },
-      {
-        "id": "1788415347901-bnnv8ik6",
-        "timestamp": "2026-09-03T06:02:27.901Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788415285095-lgd8akx4",
-        "event": "question-group.prepare.completed",
-        "message": "AI 多轮联网搜索与生成后仍未获得有效题目，已使用本地题库与标准答案。",
-        "context": {
-          "source": "本地规则",
-          "questionCount": 8
-        }
-      },
-      {
-        "id": "1788415347897-23uvh0ry",
-        "timestamp": "2026-09-03T06:02:27.897Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788415285095-lgd8akx4",
-        "event": "question-bank.network.fallback",
-        "message": "联网搜索与 AI 生成未获得有效题目，已切换为题库",
-        "context": {
-          "targetCount": 10,
-          "fallbackCount": 8
-        }
-      },
-      {
-        "id": "1788415347894-ax4vyzwy",
-        "timestamp": "2026-09-03T06:02:27.894Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788415285095-lgd8akx4",
-        "event": "question-bank.network.partial-fallback",
-        "message": "联网获得的完整题目数量不足，已使用题库补足",
-        "context": {
-          "aiCount": 0,
-          "fallbackCount": 10,
-          "targetCount": 10
         }
       }
     ],
