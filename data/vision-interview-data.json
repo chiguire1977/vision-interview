@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-07T00:03:43.176Z",
+  "updatedAt": "2026-09-07T00:03:56.146Z",
   "data": {
     "vision-interview-records": [
       {
@@ -3592,6 +3592,68 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788739434435-q2wp36tf",
+        "timestamp": "2026-09-07T00:03:54.435Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788739391058-552xskr6",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 1,
+          "query": "机器视觉 面试知识点 HALCON 传统 2D 视觉 仅限二维图像处理，排除 3D、三维、点云、深度图、法线估计、平面拟合、立体视觉、结构光和双目 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 11,
+          "parallelRequests": 4,
+          "requestedCount": 10
+        }
+      },
+      {
+        "id": "1788739434426-q80rjuok",
+        "timestamp": "2026-09-07T00:03:54.426Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788739391058-552xskr6",
+        "event": "question-group.prepare.started",
+        "message": "开始准备题组",
+        "context": {
+          "project": "机器视觉专业知识",
+          "mode": "专业知识",
+          "questionCount": 10,
+          "sourceMode": "network",
+          "adaptiveQuestions": false,
+          "focusCategories": []
+        }
+      },
+      {
+        "id": "1788739434419-j0jnq3zg",
+        "timestamp": "2026-09-07T00:03:54.419Z",
+        "level": "INFO",
+        "kind": "user",
+        "sessionId": "1788739391058-552xskr6",
+        "event": "training.started",
+        "message": "用户开始新的训练题组",
+        "context": {
+          "category": "随机类型",
+          "difficulty": "基础",
+          "techStack": "HALCON",
+          "detectionDirection": "传统 2D 视觉",
+          "questionCount": 10
+        }
+      },
+      {
+        "id": "1788739427807-ugx6zr21",
+        "timestamp": "2026-09-07T00:03:47.807Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "0ac15ff883a7"
+        }
+      },
       {
         "id": "1788739423472-ffq7r37a",
         "timestamp": "2026-09-07T00:03:43.472Z",
@@ -17281,64 +17343,6 @@
           "requestedCount": 1,
           "receivedCount": 1,
           "durationMs": 54598
-        }
-      },
-      {
-        "id": "1788342794027-3q8gs1x2",
-        "timestamp": "2026-09-02T09:53:14.027Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788342627776-o0aqz996",
-        "event": "question-bank.ai-request.duration",
-        "message": "单个并行 AI 请求完成",
-        "context": {
-          "attempt": 2,
-          "workerIndex": 3,
-          "parallelRequests": 4,
-          "requestedCount": 1,
-          "receivedCount": 1,
-          "durationMs": 50491
-        }
-      },
-      {
-        "id": "1788342784355-2p4k9q2t",
-        "timestamp": "2026-09-02T09:53:04.355Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "69aa5da4f0d5"
-        }
-      },
-      {
-        "id": "1788342778446-7qnf9gf2",
-        "timestamp": "2026-09-02T09:52:58.446Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788342627776-o0aqz996",
-        "event": "question-group.prepare.started",
-        "message": "开始准备题组",
-        "context": {
-          "project": "机器视觉专业知识",
-          "mode": "专业知识",
-          "questionCount": 10,
-          "sourceMode": "network",
-          "adaptiveQuestions": false,
-          "focusCategories": []
-        }
-      },
-      {
-        "id": "1788342764240-dozd219n",
-        "timestamp": "2026-09-02T09:52:44.240Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "c1d25a666cb0"
         }
       }
     ],
