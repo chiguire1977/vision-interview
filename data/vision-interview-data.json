@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-07T03:00:13.410Z",
+  "updatedAt": "2026-09-07T03:00:22.183Z",
   "data": {
     "vision-interview-records": [
       {
@@ -3785,6 +3785,35 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788750021082-rua06p52",
+        "timestamp": "2026-09-07T03:00:21.082Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788749906722-jt1tgeok",
+        "event": "question-bank.ai-request.duration",
+        "message": "单个并行 AI 请求完成",
+        "context": {
+          "attempt": 4,
+          "workerIndex": 2,
+          "parallelRequests": 4,
+          "requestedCount": 1,
+          "receivedCount": 1,
+          "durationMs": 7642
+        }
+      },
+      {
+        "id": "1788750018692-1ck3cm32",
+        "timestamp": "2026-09-07T03:00:18.692Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "8f59446df5d9"
+        }
+      },
       {
         "id": "1788750014942-7q6vmltc",
         "timestamp": "2026-09-07T03:00:14.942Z",
@@ -17518,35 +17547,6 @@
           "requestedCount": 2,
           "receivedCount": 2,
           "durationMs": 13995
-        }
-      },
-      {
-        "id": "1788402637025-pq0nymfa",
-        "timestamp": "2026-09-03T02:30:37.025Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "7ef5c1413029"
-        }
-      },
-      {
-        "id": "1788402635011-nsiz3ahk",
-        "timestamp": "2026-09-03T02:30:35.011Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788402556921-k1tor8t8",
-        "event": "question-bank.ai-request.duration",
-        "message": "单个并行 AI 请求完成",
-        "context": {
-          "attempt": 1,
-          "workerIndex": 2,
-          "parallelRequests": 4,
-          "requestedCount": 3,
-          "receivedCount": 3,
-          "durationMs": 11459
         }
       }
     ],
