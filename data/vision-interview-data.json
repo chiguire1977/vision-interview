@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-07T00:03:32.367Z",
+  "updatedAt": "2026-09-07T00:03:43.176Z",
   "data": {
     "vision-interview-records": [
       {
@@ -3337,88 +3337,39 @@
         "openaiBaseUrl": "https://dingdangapii.cn",
         "availableModels": [
           {
-            "label": "codex-auto-review",
-            "value": "codex-auto-review"
+            "label": "codex-auto-review · Chat Completions（兼容 OpenAI）",
+            "value": "codex-auto-review",
+            "upstreamFormat": "chat-completions"
           },
           {
-            "label": "gpt-4o-mini",
-            "value": "gpt-4o-mini"
+            "label": "gpt-5.3-codex-spark · Chat Completions（兼容 OpenAI）",
+            "value": "gpt-5.3-codex-spark",
+            "upstreamFormat": "chat-completions"
           },
           {
-            "label": "gpt-5.2",
-            "value": "gpt-5.2"
+            "label": "gpt-5.4 · Chat Completions（兼容 OpenAI）",
+            "value": "gpt-5.4",
+            "upstreamFormat": "chat-completions"
           },
           {
-            "label": "gpt-5.3-codex",
-            "value": "gpt-5.3-codex"
+            "label": "gpt-5.5 · Chat Completions（兼容 OpenAI）",
+            "value": "gpt-5.5",
+            "upstreamFormat": "chat-completions"
           },
           {
-            "label": "gpt-5.3-codex-spark",
-            "value": "gpt-5.3-codex-spark"
+            "label": "gpt-5.6-sol · Chat Completions（兼容 OpenAI）",
+            "value": "gpt-5.6-sol",
+            "upstreamFormat": "chat-completions"
           },
           {
-            "label": "gpt-5.4",
-            "value": "gpt-5.4"
+            "label": "gpt-5.6-terra · Chat Completions（兼容 OpenAI）",
+            "value": "gpt-5.6-terra",
+            "upstreamFormat": "chat-completions"
           },
           {
-            "label": "gpt-5.4-mini",
-            "value": "gpt-5.4-mini"
-          },
-          {
-            "label": "gpt-5.4-openai-compact",
-            "value": "gpt-5.4-openai-compact"
-          },
-          {
-            "label": "gpt-5.5",
-            "value": "gpt-5.5"
-          },
-          {
-            "label": "gpt-5.5-openai-compact",
-            "value": "gpt-5.5-openai-compact"
-          },
-          {
-            "label": "gpt-5.6",
-            "value": "gpt-5.6"
-          },
-          {
-            "label": "gpt-5.6-luna",
-            "value": "gpt-5.6-luna"
-          },
-          {
-            "label": "gpt-5.6-luna-thinking",
-            "value": "gpt-5.6-luna-thinking"
-          },
-          {
-            "label": "gpt-5.6-sol",
-            "value": "gpt-5.6-sol"
-          },
-          {
-            "label": "gpt-5.6-sol-openai-compact",
-            "value": "gpt-5.6-sol-openai-compact"
-          },
-          {
-            "label": "gpt-5.6-sol-thinking",
-            "value": "gpt-5.6-sol-thinking"
-          },
-          {
-            "label": "gpt-5.6-terra",
-            "value": "gpt-5.6-terra"
-          },
-          {
-            "label": "gpt-5.6-terra-thinking",
-            "value": "gpt-5.6-terra-thinking"
-          },
-          {
-            "label": "gpt-image-1",
-            "value": "gpt-image-1"
-          },
-          {
-            "label": "gpt-image-1.5",
-            "value": "gpt-image-1.5"
-          },
-          {
-            "label": "gpt-image-2",
-            "value": "gpt-image-2"
+            "label": "gpt-6-astra · Chat Completions（兼容 OpenAI）",
+            "value": "gpt-6-astra",
+            "upstreamFormat": "chat-completions"
           }
         ]
       },
@@ -3641,6 +3592,32 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788739423472-ffq7r37a",
+        "timestamp": "2026-09-07T00:03:43.472Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788739391058-552xskr6",
+        "event": "ai.connection-test.started",
+        "message": "开始真实聊天连接测试",
+        "context": {
+          "provider": "openai",
+          "model": "gpt-5.6-sol",
+          "upstreamFormat": "chat-completions"
+        }
+      },
+      {
+        "id": "1788739416685-zwvgy92n",
+        "timestamp": "2026-09-07T00:03:36.685Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "6486a3270233"
+        }
+      },
       {
         "id": "1788739397700-x4e0hd1h",
         "timestamp": "2026-09-07T00:03:17.700Z",
@@ -17362,35 +17339,6 @@
         "context": {
           "reason": "change",
           "commit": "c1d25a666cb0"
-        }
-      },
-      {
-        "id": "1788342758915-p63irh0j",
-        "timestamp": "2026-09-02T09:52:38.915Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "656469800db3"
-        }
-      },
-      {
-        "id": "1788342755556-b9rrj0z3",
-        "timestamp": "2026-09-02T09:52:35.556Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788342627776-o0aqz996",
-        "event": "question-group.prepare.started",
-        "message": "开始准备题组",
-        "context": {
-          "project": "机器视觉专业知识",
-          "mode": "专业知识",
-          "questionCount": 10,
-          "sourceMode": "network",
-          "adaptiveQuestions": false,
-          "focusCategories": []
         }
       }
     ],
