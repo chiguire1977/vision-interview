@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-07T03:03:09.995Z",
+  "updatedAt": "2026-09-07T03:03:11.913Z",
   "data": {
     "vision-interview-records": [
       {
@@ -3792,6 +3792,18 @@
         "kind": "system",
         "event": "backup.close.flush",
         "message": "页面关闭或进入后台，提交最后一次备份"
+      },
+      {
+        "id": "1788750191898-fxdjql9e",
+        "timestamp": "2026-09-07T03:03:11.898Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "34ae8a3b1af7"
+        }
       },
       {
         "id": "1788750187776-rkjevz93",
@@ -17523,23 +17535,6 @@
           "parallelRequests": 4,
           "requestedCount": 2,
           "durationMs": 2687,
-          "error": "请先配置当前 AI 服务商的 API Key。"
-        }
-      },
-      {
-        "id": "1788415308467-jv3gtcpx",
-        "timestamp": "2026-09-03T06:01:48.467Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788415285095-lgd8akx4",
-        "event": "question-bank.ai-request.failed",
-        "message": "单个并行 AI 请求失败",
-        "context": {
-          "attempt": 1,
-          "workerIndex": 1,
-          "parallelRequests": 4,
-          "requestedCount": 3,
-          "durationMs": 2405,
           "error": "请先配置当前 AI 服务商的 API Key。"
         }
       }
