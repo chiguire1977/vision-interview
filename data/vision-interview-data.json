@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-07T00:05:05.555Z",
+  "updatedAt": "2026-09-07T00:05:11.571Z",
   "data": {
     "vision-interview-records": [
       {
@@ -3592,6 +3592,54 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788739511467-wkgib7rl",
+        "timestamp": "2026-09-07T00:05:11.467Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788739391058-552xskr6",
+        "event": "question-bank.web-search.failed",
+        "message": "联网检索暂不可用",
+        "context": {
+          "attempt": 2,
+          "query": "机器视觉 面试知识点 HALCON 传统 2D 视觉 仅限二维图像处理，排除 3D、三维、点云、深度图、法线估计、平面拟合、立体视觉、结构光和双目 原理 工程实践",
+          "continueToAi": true,
+          "parallelRequests": 4,
+          "requestedCount": 10
+        }
+      },
+      {
+        "id": "1788739511462-965nngkl",
+        "timestamp": "2026-09-07T00:05:11.462Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788739391058-552xskr6",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 2,
+          "query": "机器视觉 面试知识点 HALCON 传统 2D 视觉 仅限二维图像处理，排除 3D、三维、点云、深度图、法线估计、平面拟合、立体视觉、结构光和双目 原理 工程实践",
+          "sourceCount": 0,
+          "cached": false,
+          "error": "联网检索暂不可用",
+          "parallelRequests": 4,
+          "requestedCount": 10,
+          "durationMs": 8756,
+          "sharedAcrossWorkers": true
+        }
+      },
+      {
+        "id": "1788739509737-gin56mzg",
+        "timestamp": "2026-09-07T00:05:09.737Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "74d5ab44f30b"
+        }
+      },
       {
         "id": "1788739502706-ib9c0oi1",
         "timestamp": "2026-09-07T00:05:02.706Z",
@@ -17291,52 +17339,6 @@
         "context": {
           "reason": "change",
           "commit": "793dbe89f3f3"
-        }
-      },
-      {
-        "id": "1788342891419-eq44rgso",
-        "timestamp": "2026-09-02T09:54:51.419Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788342627776-o0aqz996",
-        "event": "question-group.prepare.started",
-        "message": "开始准备题组",
-        "context": {
-          "project": "机器视觉专业知识",
-          "mode": "专业知识",
-          "questionCount": 10,
-          "sourceMode": "network",
-          "adaptiveQuestions": false,
-          "focusCategories": []
-        }
-      },
-      {
-        "id": "1788342891344-skpza1nw",
-        "timestamp": "2026-09-02T09:54:51.344Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "9ff1738a644a"
-        }
-      },
-      {
-        "id": "1788342885664-dajtwomy",
-        "timestamp": "2026-09-02T09:54:45.664Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788342627776-o0aqz996",
-        "event": "question-group.prepare.started",
-        "message": "开始准备题组",
-        "context": {
-          "project": "机器视觉专业知识",
-          "mode": "专业知识",
-          "questionCount": 10,
-          "sourceMode": "network",
-          "adaptiveQuestions": false,
-          "focusCategories": []
         }
       }
     ],
