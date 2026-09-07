@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-07T06:12:49.966Z",
+  "updatedAt": "2026-09-07T06:12:53.066Z",
   "data": {
     "vision-interview-records": [
       {
@@ -3785,6 +3785,35 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788761575486-m5vjq6d8",
+        "timestamp": "2026-09-07T06:12:55.486Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "1c41e03653c4"
+        }
+      },
+      {
+        "id": "1788761574137-vx9lmqqx",
+        "timestamp": "2026-09-07T06:12:54.137Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788761541654-u7vjeyts",
+        "event": "question-bank.ai-request.duration",
+        "message": "单个并行 AI 请求完成",
+        "context": {
+          "attempt": 1,
+          "workerIndex": 4,
+          "parallelRequests": 4,
+          "requestedCount": 2,
+          "receivedCount": 1,
+          "durationMs": 9474
+        }
+      },
       {
         "id": "1788761572378-79t495ao",
         "timestamp": "2026-09-07T06:12:52.378Z",
@@ -18343,26 +18372,6 @@
         "context": {
           "source": "github",
           "updatedAt": "2026-09-07T02:31:38.951Z"
-        }
-      },
-      {
-        "id": "1788748306750-n0hcwmgh",
-        "timestamp": "2026-09-07T02:31:46.750Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.close.flush",
-        "message": "页面关闭或进入后台，提交最后一次备份"
-      },
-      {
-        "id": "1788748303881-hout1u8e",
-        "timestamp": "2026-09-07T02:31:43.881Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "4930357d7366"
         }
       }
     ],
