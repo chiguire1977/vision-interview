@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-07T02:31:22.018Z",
+  "updatedAt": "2026-09-07T02:31:38.951Z",
   "data": {
     "vision-interview-records": [
       {
@@ -3785,6 +3785,33 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788748296512-ljccsebj",
+        "timestamp": "2026-09-07T02:31:36.512Z",
+        "level": "ERROR",
+        "kind": "system",
+        "sessionId": "1788748236513-ey8smunw",
+        "event": "ai.connection-test.failed",
+        "message": "真实聊天请求超时。",
+        "context": {
+          "provider": "openai",
+          "model": "gpt-5.6-sol",
+          "upstreamFormat": "chat-completions",
+          "durationMs": 15011
+        }
+      },
+      {
+        "id": "1788748287230-qkpcd6j1",
+        "timestamp": "2026-09-07T02:31:27.230Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "fe78a2994669"
+        }
+      },
       {
         "id": "1788748281501-w9aygkpx",
         "timestamp": "2026-09-07T02:31:21.501Z",
@@ -17072,40 +17099,6 @@
           "requestedCount": 1,
           "durationMs": 17998,
           "error": "Unexpected token '用', \"用户要求为HALCO\"... is not valid JSON"
-        }
-      },
-      {
-        "id": "1788344739526-tsi16f79",
-        "timestamp": "2026-09-02T10:25:39.526Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788343728457-e0wb33gd",
-        "event": "question-bank.ai-request.failed",
-        "message": "单个并行 AI 请求失败",
-        "context": {
-          "attempt": 4,
-          "workerIndex": 2,
-          "parallelRequests": 4,
-          "requestedCount": 1,
-          "durationMs": 16635,
-          "error": "Unexpected non-whitespace character after JSON at position 32 (line 2 column 1)"
-        }
-      },
-      {
-        "id": "1788344722890-cdxkds73",
-        "timestamp": "2026-09-02T10:25:22.890Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788343728457-e0wb33gd",
-        "event": "question-bank.ai-request.started",
-        "message": "第 4/6 轮（并行 2/4）：正在请求 AI 生成题目（1 道）…",
-        "context": {
-          "attempt": 4,
-          "maxAttempts": 6,
-          "collectedCount": 8,
-          "workerIndex": 2,
-          "parallelRequests": 4,
-          "requestedCount": 1
         }
       }
     ],
