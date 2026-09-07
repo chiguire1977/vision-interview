@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-07T02:23:45.442Z",
+  "updatedAt": "2026-09-07T02:23:48.619Z",
   "data": {
     "vision-interview-records": [
       {
@@ -3785,6 +3785,35 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788747830157-zjk2vm56",
+        "timestamp": "2026-09-07T02:23:50.157Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "cae51f369dbb"
+        }
+      },
+      {
+        "id": "1788747828496-ezuo8ici",
+        "timestamp": "2026-09-07T02:23:48.496Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788747820688-bai5eb99",
+        "event": "question-group.prepare.started",
+        "message": "开始准备题组",
+        "context": {
+          "project": "机器视觉专业知识",
+          "mode": "专业知识",
+          "questionCount": 10,
+          "sourceMode": "network",
+          "adaptiveQuestions": false,
+          "focusCategories": []
+        }
+      },
       {
         "id": "1788747826960-ws1rsuis",
         "timestamp": "2026-09-07T02:23:46.960Z",
@@ -17147,40 +17176,6 @@
           "requestedCount": 10,
           "durationMs": 2794,
           "sharedAcrossWorkers": true
-        }
-      },
-      {
-        "id": "1788343914435-8mt1vy2m",
-        "timestamp": "2026-09-02T10:11:54.435Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788343728457-e0wb33gd",
-        "event": "question-bank.web-search.started",
-        "message": "开始联网检索本轮题目资料",
-        "context": {
-          "attempt": 4,
-          "query": "机器视觉 面试知识点 原理 工程实践",
-          "mode": "专业知识",
-          "excludedCount": 7,
-          "parallelRequests": 4,
-          "requestedCount": 10
-        }
-      },
-      {
-        "id": "1788343914432-xxd3jw69",
-        "timestamp": "2026-09-02T10:11:54.432Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788343728457-e0wb33gd",
-        "event": "question-bank.ai-request.failed",
-        "message": "单个并行 AI 请求失败",
-        "context": {
-          "attempt": 3,
-          "workerIndex": 1,
-          "parallelRequests": 4,
-          "requestedCount": 2,
-          "durationMs": 60171,
-          "error": "AI 请求超时，请稍后重试。"
         }
       }
     ],
