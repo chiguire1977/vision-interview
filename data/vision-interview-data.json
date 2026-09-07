@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-07T03:57:03.678Z",
+  "updatedAt": "2026-09-07T03:57:09.685Z",
   "data": {
     "vision-interview-records": [
       {
@@ -3785,6 +3785,35 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788753429917-e67it4wx",
+        "timestamp": "2026-09-07T03:57:09.917Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788752989218-16nqofqp",
+        "event": "question-bank.ai-request.duration",
+        "message": "单个并行 AI 请求完成",
+        "context": {
+          "attempt": 1,
+          "workerIndex": 3,
+          "parallelRequests": 4,
+          "requestedCount": 2,
+          "receivedCount": 2,
+          "durationMs": 11106
+        }
+      },
+      {
+        "id": "1788753428731-sdrvnc1r",
+        "timestamp": "2026-09-07T03:57:08.731Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "925548e729f0"
+        }
+      },
       {
         "id": "1788753425267-vjozczit",
         "timestamp": "2026-09-07T03:57:05.267Z",
@@ -18190,36 +18219,6 @@
         "context": {
           "reason": "change",
           "commit": "bee2271c8709"
-        }
-      },
-      {
-        "id": "1788746873758-llscjcak",
-        "timestamp": "2026-09-07T02:07:53.758Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788746868423-rnbkbdu2",
-        "event": "ai.connection-test.failed",
-        "message": "AI 没有返回有效内容。",
-        "context": {
-          "provider": "openai",
-          "model": "gpt-5.6-sol",
-          "upstreamFormat": "anthropic-messages",
-          "status": 502,
-          "durationMs": 269
-        }
-      },
-      {
-        "id": "1788746873489-zpiuemxh",
-        "timestamp": "2026-09-07T02:07:53.489Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788746868423-rnbkbdu2",
-        "event": "ai.connection-test.started",
-        "message": "开始真实聊天连接测试",
-        "context": {
-          "provider": "openai",
-          "model": "gpt-5.6-sol",
-          "upstreamFormat": "anthropic-messages"
         }
       }
     ],
