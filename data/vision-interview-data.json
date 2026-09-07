@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-07T02:08:00.894Z",
+  "updatedAt": "2026-09-07T02:08:04.253Z",
   "data": {
     "vision-interview-records": [
       {
@@ -3548,6 +3548,26 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788746885692-rq3cpun4",
+        "timestamp": "2026-09-07T02:08:05.692Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "0a7102c75008"
+        }
+      },
+      {
+        "id": "1788746884168-8tn1l2y2",
+        "timestamp": "2026-09-07T02:08:04.168Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.close.flush",
+        "message": "页面关闭或进入后台，提交最后一次备份"
+      },
       {
         "id": "1788746882361-y0ylo099",
         "timestamp": "2026-09-07T02:08:02.361Z",
@@ -17008,40 +17028,6 @@
         "kind": "system",
         "event": "backup.close.flush",
         "message": "页面关闭或进入后台，提交最后一次备份"
-      },
-      {
-        "id": "1788343727181-po0pypay",
-        "timestamp": "2026-09-02T10:08:47.180Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788343468196-zjzo0dai",
-        "event": "question-bank.web-search.started",
-        "message": "开始联网检索本轮题目资料",
-        "context": {
-          "attempt": 6,
-          "query": "机器视觉 面试知识点 原理 工程实践",
-          "mode": "专业知识",
-          "excludedCount": 9,
-          "parallelRequests": 4,
-          "requestedCount": 10
-        }
-      },
-      {
-        "id": "1788343727180-5exm4gv1",
-        "timestamp": "2026-09-02T10:08:47.180Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788343468196-zjzo0dai",
-        "event": "question-bank.attempt.failed",
-        "message": "第 5/6 轮（并行 1/4）：本轮请求失败：Failed to fetch，准备下一轮…",
-        "context": {
-          "attempt": 5,
-          "maxAttempts": 6,
-          "collectedCount": 9,
-          "workerIndex": 1,
-          "parallelRequests": 4,
-          "error": "Failed to fetch"
-        }
       }
     ],
     "vision-interview-web-source-whitelist": [
