@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-07T02:06:30.523Z",
+  "updatedAt": "2026-09-07T02:06:44.506Z",
   "data": {
     "vision-interview-records": [
       {
@@ -3548,6 +3548,47 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788746805085-juuprd7m",
+        "timestamp": "2026-09-07T02:06:45.085Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788746689812-jhfj1mlw",
+        "event": "ai.connection-test.started",
+        "message": "开始真实聊天连接测试",
+        "context": {
+          "provider": "openai",
+          "model": "gpt-5.6-sol",
+          "upstreamFormat": "responses"
+        }
+      },
+      {
+        "id": "1788746803048-7u2u8rmz",
+        "timestamp": "2026-09-07T02:06:43.048Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788746689812-jhfj1mlw",
+        "event": "ai.connection-test.completed",
+        "message": "真实聊天连接测试成功",
+        "context": {
+          "provider": "openai",
+          "model": "gpt-5.6-sol",
+          "upstreamFormat": "responses",
+          "durationMs": 13871
+        }
+      },
+      {
+        "id": "1788746794871-5eulx5x8",
+        "timestamp": "2026-09-07T02:06:34.871Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "d42fb9bcff75"
+        }
+      },
       {
         "id": "1788746789177-i55jaxe6",
         "timestamp": "2026-09-07T02:06:29.177Z",
@@ -17083,52 +17124,6 @@
         "context": {
           "reason": "change",
           "commit": "2516dae22acb"
-        }
-      },
-      {
-        "id": "1788343604370-7hkvhchw",
-        "timestamp": "2026-09-02T10:06:44.370Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "7aa652ceaa42"
-        }
-      },
-      {
-        "id": "1788343598483-sc2z62ef",
-        "timestamp": "2026-09-02T10:06:38.483Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788343468196-zjzo0dai",
-        "event": "question-bank.ai-request.started",
-        "message": "第 3/6 轮（并行 4/4）：正在请求 AI 生成题目（1 道）…",
-        "context": {
-          "attempt": 3,
-          "maxAttempts": 6,
-          "collectedCount": 6,
-          "workerIndex": 4,
-          "parallelRequests": 4,
-          "requestedCount": 1
-        }
-      },
-      {
-        "id": "1788343598481-x6vbqszb",
-        "timestamp": "2026-09-02T10:06:38.481Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788343468196-zjzo0dai",
-        "event": "question-bank.ai-request.started",
-        "message": "第 3/6 轮（并行 3/4）：正在请求 AI 生成题目（1 道）…",
-        "context": {
-          "attempt": 3,
-          "maxAttempts": 6,
-          "collectedCount": 6,
-          "workerIndex": 3,
-          "parallelRequests": 4,
-          "requestedCount": 1
         }
       }
     ],
