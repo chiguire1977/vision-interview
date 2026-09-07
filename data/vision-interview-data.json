@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-07T03:13:53.058Z",
+  "updatedAt": "2026-09-07T03:14:00.794Z",
   "data": {
     "vision-interview-records": [
       {
@@ -3785,6 +3785,126 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788750842063-jv16heju",
+        "timestamp": "2026-09-07T03:14:02.063Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788750662374-31k341xx",
+        "event": "question-group.prepare.completed",
+        "message": "AI 多轮联网检索后获得 9/10 道完整题目，其余使用本地题库兜底；远程题库正在后台同步（9 道题目待验证来源）。",
+        "context": {
+          "source": "AI",
+          "questionCount": 10
+        }
+      },
+      {
+        "id": "1788750842058-hkky93fz",
+        "timestamp": "2026-09-07T03:14:02.058Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788750662374-31k341xx",
+        "event": "github.backup.started",
+        "message": "开始备份数据到 GitHub",
+        "context": {
+          "operation": "ai-question-bank",
+          "entryCount": 9,
+          "pendingCount": 9,
+          "totalCount": 219,
+          "complete": true
+        }
+      },
+      {
+        "id": "1788750842052-mudqcuq2",
+        "timestamp": "2026-09-07T03:14:02.052Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788750662374-31k341xx",
+        "event": "question-bank.cache.unverified",
+        "message": "联网题目已进入题库同步队列，来源待后续补充与核验",
+        "context": {
+          "generatedCount": 9,
+          "persistedCount": 9,
+          "unverifiedCount": 9
+        }
+      },
+      {
+        "id": "1788750842049-eco6z4px",
+        "timestamp": "2026-09-07T03:14:02.049Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788750662374-31k341xx",
+        "event": "question-bank.network.partial-fallback",
+        "message": "联网获得的完整题目数量不足，已使用题库补足",
+        "context": {
+          "aiCount": 9,
+          "fallbackCount": 1,
+          "targetCount": 10
+        }
+      },
+      {
+        "id": "1788750842044-z2jiqls8",
+        "timestamp": "2026-09-07T03:14:02.044Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788750662374-31k341xx",
+        "event": "question-bank.ai-request.duration",
+        "message": "单个并行 AI 请求完成",
+        "context": {
+          "attempt": 6,
+          "workerIndex": 1,
+          "parallelRequests": 4,
+          "requestedCount": 1,
+          "receivedCount": 1,
+          "durationMs": 8682
+        }
+      },
+      {
+        "id": "1788750840702-r5paibzm",
+        "timestamp": "2026-09-07T03:14:00.702Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788750662374-31k341xx",
+        "event": "question-group.prepare.started",
+        "message": "开始准备题组",
+        "context": {
+          "project": "机器视觉专业知识",
+          "mode": "专业知识",
+          "questionCount": 10,
+          "sourceMode": "network",
+          "adaptiveQuestions": false,
+          "focusCategories": []
+        }
+      },
+      {
+        "id": "1788750839481-toekb3hh",
+        "timestamp": "2026-09-07T03:13:59.481Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788750662374-31k341xx",
+        "event": "question-group.prepare.started",
+        "message": "开始准备题组",
+        "context": {
+          "project": "机器视觉专业知识",
+          "mode": "专业知识",
+          "questionCount": 10,
+          "sourceMode": "network",
+          "adaptiveQuestions": false,
+          "focusCategories": []
+        }
+      },
+      {
+        "id": "1788750838255-vf22gkb7",
+        "timestamp": "2026-09-07T03:13:58.255Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "f4abb0fff7bf"
+        }
+      },
       {
         "id": "1788750834662-mzsfqi2s",
         "timestamp": "2026-09-07T03:13:54.662Z",
@@ -17407,127 +17527,6 @@
           "excludedCount": 7,
           "parallelRequests": 4,
           "requestedCount": 10
-        }
-      },
-      {
-        "id": "1788430382610-93vpzta6",
-        "timestamp": "2026-09-03T10:13:02.610Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788430316486-caocj3jp",
-        "event": "question-bank.ai-request.completed",
-        "message": "第 1/6 轮：AI 已返回 7/10 道有效题目，继续补齐…",
-        "context": {
-          "attempt": 1,
-          "maxAttempts": 6,
-          "collectedCount": 7,
-          "targetCount": 10,
-          "parallelRequests": 4,
-          "requestedCount": 10
-        }
-      },
-      {
-        "id": "1788430382602-xot8a3nx",
-        "timestamp": "2026-09-03T10:13:02.602Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788430316486-caocj3jp",
-        "event": "question-bank.attempt.failed",
-        "message": "第 1/6 轮（并行 1/4）：本轮请求失败：AI 请求超时，请稍后重试。，准备下一轮…",
-        "context": {
-          "attempt": 1,
-          "maxAttempts": 6,
-          "collectedCount": 0,
-          "workerIndex": 1,
-          "parallelRequests": 4,
-          "error": "AI 请求超时，请稍后重试。"
-        }
-      },
-      {
-        "id": "1788430382596-vxtagzm6",
-        "timestamp": "2026-09-03T10:13:02.596Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788430316486-caocj3jp",
-        "event": "question-bank.ai-request.failed",
-        "message": "单个并行 AI 请求失败",
-        "context": {
-          "attempt": 1,
-          "workerIndex": 1,
-          "parallelRequests": 4,
-          "requestedCount": 3,
-          "durationMs": 60202,
-          "error": "AI 请求超时，请稍后重试。"
-        }
-      },
-      {
-        "id": "1788430375280-1ejqbiik",
-        "timestamp": "2026-09-03T10:12:55.280Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "c35382f543e9"
-        }
-      },
-      {
-        "id": "1788430363897-77lg2fez",
-        "timestamp": "2026-09-03T10:12:43.897Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788430316486-caocj3jp",
-        "event": "question-bank.ai-request.duration",
-        "message": "单个并行 AI 请求完成",
-        "context": {
-          "attempt": 1,
-          "workerIndex": 2,
-          "parallelRequests": 4,
-          "requestedCount": 3,
-          "receivedCount": 3,
-          "durationMs": 41500
-        }
-      },
-      {
-        "id": "1788430347005-se95dtni",
-        "timestamp": "2026-09-03T10:12:27.005Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "7878b426139c"
-        }
-      },
-      {
-        "id": "1788430340815-60quwxg9",
-        "timestamp": "2026-09-03T10:12:20.815Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788430316486-caocj3jp",
-        "event": "question-bank.ai-request.duration",
-        "message": "单个并行 AI 请求完成",
-        "context": {
-          "attempt": 1,
-          "workerIndex": 3,
-          "parallelRequests": 4,
-          "requestedCount": 2,
-          "receivedCount": 2,
-          "durationMs": 18416
-        }
-      },
-      {
-        "id": "1788430336771-5nkwu6yd",
-        "timestamp": "2026-09-03T10:12:16.771Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "4b2cde4614b1"
         }
       }
     ],
