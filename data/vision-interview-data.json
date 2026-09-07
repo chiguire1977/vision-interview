@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-07T13:39:08.548Z",
+  "updatedAt": "2026-09-07T13:54:19.680Z",
   "data": {
     "vision-interview-records": [
       {
@@ -3785,6 +3785,45 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788789156327-4pja1juw",
+        "timestamp": "2026-09-07T13:52:36.327Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.close.flush",
+        "message": "页面关闭或进入后台，提交最后一次备份"
+      },
+      {
+        "id": "1788789149327-swmnw7zs",
+        "timestamp": "2026-09-07T13:52:29.327Z",
+        "level": "ERROR",
+        "kind": "system",
+        "event": "backup.push.failed",
+        "message": "运行数据备份请求失败",
+        "context": {
+          "error": "Failed to fetch"
+        }
+      },
+      {
+        "id": "1788789139267-i12cf7ig",
+        "timestamp": "2026-09-07T13:52:19.267Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.close.flush",
+        "message": "页面关闭或进入后台，提交最后一次备份"
+      },
+      {
+        "id": "1788788360015-93ygo8kh",
+        "timestamp": "2026-09-07T13:39:20.015Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "51470d161610"
+        }
+      },
       {
         "id": "1788788347771-1qm5v87q",
         "timestamp": "2026-09-07T13:39:07.771Z",
@@ -18279,74 +18318,6 @@
           "requestedCount": 10,
           "durationMs": 2,
           "sharedAcrossWorkers": true
-        }
-      },
-      {
-        "id": "1788748872807-oiwvbvu3",
-        "timestamp": "2026-09-07T02:41:12.807Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788748699983-pgd6193m",
-        "event": "question-bank.web-search.started",
-        "message": "开始联网检索本轮题目资料",
-        "context": {
-          "attempt": 3,
-          "query": "机器视觉 面试知识点 HALCON 传统 2D 视觉 仅限二维图像处理，排除 3D、三维、点云、深度图、法线估计、平面拟合、立体视觉、结构光和双目 原理 工程实践",
-          "mode": "专业知识",
-          "excludedCount": 11,
-          "parallelRequests": 4,
-          "requestedCount": 10
-        }
-      },
-      {
-        "id": "1788748872805-c6wn5puz",
-        "timestamp": "2026-09-07T02:41:12.805Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788748699983-pgd6193m",
-        "event": "question-bank.ai-request.failed",
-        "message": "单个并行 AI 请求失败",
-        "context": {
-          "attempt": 2,
-          "workerIndex": 3,
-          "parallelRequests": 4,
-          "requestedCount": 2,
-          "durationMs": 15179,
-          "error": "AI 请求超时，请稍后重试。"
-        }
-      },
-      {
-        "id": "1788748872803-iabyp5uh",
-        "timestamp": "2026-09-07T02:41:12.803Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788748699983-pgd6193m",
-        "event": "question-bank.ai-request.failed",
-        "message": "单个并行 AI 请求失败",
-        "context": {
-          "attempt": 2,
-          "workerIndex": 4,
-          "parallelRequests": 4,
-          "requestedCount": 2,
-          "durationMs": 15176,
-          "error": "AI 请求超时，请稍后重试。"
-        }
-      },
-      {
-        "id": "1788748872792-dfpotezu",
-        "timestamp": "2026-09-07T02:41:12.792Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788748699983-pgd6193m",
-        "event": "question-bank.ai-request.failed",
-        "message": "单个并行 AI 请求失败",
-        "context": {
-          "attempt": 2,
-          "workerIndex": 1,
-          "parallelRequests": 4,
-          "requestedCount": 3,
-          "durationMs": 15167,
-          "error": "AI 请求超时，请稍后重试。"
         }
       }
     ],
