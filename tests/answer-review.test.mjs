@@ -21,6 +21,8 @@ test("built-in review checks coverage of reference answer points instead of answ
 
   assert.deepEqual(result.coveredPoints, ["减去平均灰度", "归一化", "亮度偏移"]);
   assert.deepEqual(result.missingPoints, ["局部阴影"]);
+  assert.deepEqual(result.issues, ["局部阴影"]);
+  assert.deepEqual(result.suggestions, ["局部阴影"]);
   assert.equal(result.conclusion, "存在关键遗漏");
   assert.equal(result.score, undefined);
 });
