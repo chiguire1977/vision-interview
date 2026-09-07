@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-07T02:03:10.340Z",
+  "updatedAt": "2026-09-07T02:03:18.313Z",
   "data": {
     "vision-interview-records": [
       {
@@ -3548,6 +3548,32 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788746597145-fp3ea6m1",
+        "timestamp": "2026-09-07T02:03:17.145Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788746588535-8ktw5jo1",
+        "event": "ai.connection-test.started",
+        "message": "开始真实聊天连接测试",
+        "context": {
+          "provider": "openai",
+          "model": "gpt-5.6-sol",
+          "upstreamFormat": "chat-completions"
+        }
+      },
+      {
+        "id": "1788746595430-rfqntgtc",
+        "timestamp": "2026-09-07T02:03:15.430Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "6f0c7fcae218"
+        }
+      },
       {
         "id": "1788746590590-cx3ixocz",
         "timestamp": "2026-09-07T02:03:10.590Z",
@@ -17176,41 +17202,6 @@
           "workerIndex": 1,
           "parallelRequests": 4,
           "requestedCount": 2
-        }
-      },
-      {
-        "id": "1788343537759-fukc7lqw",
-        "timestamp": "2026-09-02T10:05:37.759Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788343468196-zjzo0dai",
-        "event": "question-bank.web-search.completed",
-        "message": "本轮联网检索完成",
-        "context": {
-          "attempt": 2,
-          "query": "机器视觉 面试知识点 原理 工程实践",
-          "sourceCount": 0,
-          "parallelRequests": 4,
-          "requestedCount": 10,
-          "durationMs": 2085,
-          "sharedAcrossWorkers": true
-        }
-      },
-      {
-        "id": "1788343535674-lbe3gg1y",
-        "timestamp": "2026-09-02T10:05:35.674Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788343468196-zjzo0dai",
-        "event": "question-bank.web-search.started",
-        "message": "开始联网检索本轮题目资料",
-        "context": {
-          "attempt": 2,
-          "query": "机器视觉 面试知识点 原理 工程实践",
-          "mode": "专业知识",
-          "excludedCount": 2,
-          "parallelRequests": 4,
-          "requestedCount": 10
         }
       }
     ],
