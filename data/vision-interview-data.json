@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-07T03:38:19.413Z",
+  "updatedAt": "2026-09-07T03:38:23.079Z",
   "data": {
     "vision-interview-records": [
       {
@@ -3785,6 +3785,92 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788752304806-r133yhie",
+        "timestamp": "2026-09-07T03:38:24.806Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "b0368904df38"
+        }
+      },
+      {
+        "id": "1788752303038-fss0erin",
+        "timestamp": "2026-09-07T03:38:23.038Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788752150064-yy5cs4c5",
+        "event": "question-group.prepare.completed",
+        "message": "AI 多轮联网检索后获得 5/10 道完整题目，其余使用本地题库兜底；远程题库正在后台同步（5 道题目待验证来源）。",
+        "context": {
+          "source": "AI",
+          "questionCount": 10
+        }
+      },
+      {
+        "id": "1788752303032-9oaces3j",
+        "timestamp": "2026-09-07T03:38:23.032Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788752150064-yy5cs4c5",
+        "event": "github.backup.started",
+        "message": "开始备份数据到 GitHub",
+        "context": {
+          "operation": "ai-question-bank",
+          "entryCount": 5,
+          "pendingCount": 5,
+          "totalCount": 232,
+          "complete": true
+        }
+      },
+      {
+        "id": "1788752303025-rt5pflxq",
+        "timestamp": "2026-09-07T03:38:23.025Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788752150064-yy5cs4c5",
+        "event": "question-bank.cache.unverified",
+        "message": "联网题目已进入题库同步队列，来源待后续补充与核验",
+        "context": {
+          "generatedCount": 5,
+          "persistedCount": 5,
+          "unverifiedCount": 5
+        }
+      },
+      {
+        "id": "1788752303022-xdg3b79n",
+        "timestamp": "2026-09-07T03:38:23.022Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788752150064-yy5cs4c5",
+        "event": "question-bank.network.partial-fallback",
+        "message": "联网获得的完整题目数量不足，已使用题库补足",
+        "context": {
+          "aiCount": 5,
+          "fallbackCount": 5,
+          "targetCount": 10
+        }
+      },
+      {
+        "id": "1788752303018-ubmzilgx",
+        "timestamp": "2026-09-07T03:38:23.018Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788752150064-yy5cs4c5",
+        "event": "question-bank.ai-request.failed",
+        "message": "单个并行 AI 请求失败",
+        "context": {
+          "attempt": 6,
+          "workerIndex": 1,
+          "parallelRequests": 4,
+          "requestedCount": 2,
+          "durationMs": 15199,
+          "error": "AI 请求超时，请稍后重试。"
+        }
+      },
       {
         "id": "1788752301128-bmq74fal",
         "timestamp": "2026-09-07T03:38:21.128Z",
@@ -17855,99 +17941,6 @@
         "context": {
           "generatedCount": 4,
           "persistedCount": 0
-        }
-      },
-      {
-        "id": "1788739770800-umcxc4z5",
-        "timestamp": "2026-09-07T00:09:30.800Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788739391058-552xskr6",
-        "event": "question-bank.network.partial-fallback",
-        "message": "联网获得的完整题目数量不足，已使用题库补足",
-        "context": {
-          "aiCount": 4,
-          "fallbackCount": 6,
-          "targetCount": 10
-        }
-      },
-      {
-        "id": "1788739770793-xujrua5n",
-        "timestamp": "2026-09-07T00:09:30.793Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788739391058-552xskr6",
-        "event": "question-bank.ai-request.failed",
-        "message": "单个并行 AI 请求失败",
-        "context": {
-          "attempt": 6,
-          "workerIndex": 4,
-          "parallelRequests": 4,
-          "requestedCount": 1,
-          "durationMs": 10323,
-          "error": "Failed to fetch"
-        }
-      },
-      {
-        "id": "1788739768482-0d8s5lsi",
-        "timestamp": "2026-09-07T00:09:28.482Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788739391058-552xskr6",
-        "event": "question-bank.ai-request.failed",
-        "message": "单个并行 AI 请求失败",
-        "context": {
-          "attempt": 6,
-          "workerIndex": 3,
-          "parallelRequests": 4,
-          "requestedCount": 1,
-          "durationMs": 8012,
-          "error": "Failed to fetch"
-        }
-      },
-      {
-        "id": "1788739761803-ekubpjnu",
-        "timestamp": "2026-09-07T00:09:21.803Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788739391058-552xskr6",
-        "event": "question-bank.ai-request.failed",
-        "message": "单个并行 AI 请求失败",
-        "context": {
-          "attempt": 6,
-          "workerIndex": 2,
-          "parallelRequests": 4,
-          "requestedCount": 2,
-          "durationMs": 1334,
-          "error": "Failed to fetch"
-        }
-      },
-      {
-        "id": "1788739761800-ef2rqwtr",
-        "timestamp": "2026-09-07T00:09:21.800Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788739391058-552xskr6",
-        "event": "question-bank.ai-request.failed",
-        "message": "单个并行 AI 请求失败",
-        "context": {
-          "attempt": 6,
-          "workerIndex": 1,
-          "parallelRequests": 4,
-          "requestedCount": 2,
-          "durationMs": 1332,
-          "error": "Failed to fetch"
-        }
-      },
-      {
-        "id": "1788739761502-u8thdjgb",
-        "timestamp": "2026-09-07T00:09:21.502Z",
-        "level": "ERROR",
-        "kind": "system",
-        "event": "backup.push.failed",
-        "message": "运行数据备份请求失败",
-        "context": {
-          "error": "Failed to fetch"
         }
       }
     ],
