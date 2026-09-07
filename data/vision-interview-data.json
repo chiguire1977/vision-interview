@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-07T03:16:29.629Z",
+  "updatedAt": "2026-09-07T03:16:53.714Z",
   "data": {
     "vision-interview-records": [
       {
@@ -3785,6 +3785,63 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788751010852-vsalzvni",
+        "timestamp": "2026-09-07T03:16:50.852Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788750916220-7pqj2l9f",
+        "event": "question-group.prepare.cached",
+        "message": "题组已从本机缓存恢复",
+        "context": {
+          "questionCount": 10
+        }
+      },
+      {
+        "id": "1788751010845-5nbizjr2",
+        "timestamp": "2026-09-07T03:16:50.845Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788750916220-7pqj2l9f",
+        "event": "question-group.prepare.started",
+        "message": "开始准备题组",
+        "context": {
+          "project": "机器视觉专业知识",
+          "mode": "专业知识",
+          "questionCount": 10,
+          "sourceMode": "network",
+          "adaptiveQuestions": false,
+          "focusCategories": []
+        }
+      },
+      {
+        "id": "1788751010840-uuhwyti7",
+        "timestamp": "2026-09-07T03:16:50.840Z",
+        "level": "INFO",
+        "kind": "user",
+        "sessionId": "1788750916220-7pqj2l9f",
+        "event": "training.started",
+        "message": "用户开始新的训练题组",
+        "context": {
+          "category": "随机类型",
+          "difficulty": "基础",
+          "techStack": "HALCON",
+          "detectionDirection": "传统 2D 视觉",
+          "questionCount": 10
+        }
+      },
+      {
+        "id": "1788750997684-evdmqpm3",
+        "timestamp": "2026-09-07T03:16:37.684Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "29da568ebda7"
+        }
+      },
       {
         "id": "1788750986846-ngeth4sm",
         "timestamp": "2026-09-07T03:16:26.846Z",
@@ -17368,51 +17425,6 @@
         "kind": "system",
         "event": "backup.close.flush",
         "message": "页面关闭或进入后台，提交最后一次备份"
-      },
-      {
-        "id": "1788438579688-74r7cvbg",
-        "timestamp": "2026-09-03T12:29:39.688Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "2a8b1d296a02"
-        }
-      },
-      {
-        "id": "1788438572013-ifnws4st",
-        "timestamp": "2026-09-03T12:29:32.013Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.close.flush",
-        "message": "页面关闭或进入后台，提交最后一次备份"
-      },
-      {
-        "id": "1788438560272-mxc6oow5",
-        "timestamp": "2026-09-03T12:29:20.272Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "ede0c4e668e8"
-        }
-      },
-      {
-        "id": "1788438549049-7qy6x01b",
-        "timestamp": "2026-09-03T12:29:09.049Z",
-        "level": "INFO",
-        "kind": "user",
-        "sessionId": "1788430316486-caocj3jp",
-        "event": "answer.submit.completed",
-        "message": "回答已保存，已进入下一题或题组评审",
-        "context": {
-          "question": "HALCON基于形状的模板匹配（shape-based matching）的核心原理是什么？create_shape_model和find_shape_model分别完成什么任务？",
-          "seconds": 0
-        }
       }
     ],
     "vision-interview-web-source-whitelist": [
