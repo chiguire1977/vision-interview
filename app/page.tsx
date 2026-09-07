@@ -1,4 +1,4 @@
-Warning: truncated output (original token count: 84560)
+Warning: truncated output (original token count: 84555)
 Total output lines: 4670
 
 "use client";
@@ -1617,7 +1617,7 @@ async function evaluateAnswerWithAi(question: Question, answer: string, bestAnsw
     if (!baseUrl || !model) return localFallback;
     const apiKey = sessionStorage.getItem(`vision-interview-ai-key-${provider}`) || "";
     const response = await fetch("/api/ai/chat", {
-      method: "PO…34560 tokens truncated…优先级`}</button>)}</div>
+      method: "PO…34555 tokens truncated…优先级`}</button>)}</div>
       </div>
       {summary.total === 0 ? <div className="grid min-h-56 place-items-center p-8 text-center"><div><CircleCheck className="mx-auto size-8 text-emerald-500" /><h2 className="mt-3 font-medium text-slate-900">暂无待复习题目</h2><p className="mt-1 text-sm text-slate-500">完成训练后，系统会根据掌握度和审阅结果自动建立复习任务。</p></div></div>
         : filteredQueue.length === 0 ? <div className="grid min-h-40 place-items-center p-8 text-center text-sm text-slate-500">当前筛选条件下没有复习任务。</div>

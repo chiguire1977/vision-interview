@@ -34,7 +34,10 @@ test("allows returning to the previous answered question", () => {
   assert.equal(getPreviousQuestionIndex({ questionIndex: 2, submitted: true }), 1);
 });
 
-test("does not navigate backward from the first question or an unfinished answer", () => {
+test("does not navigate backward from the first question", () => {
   assert.equal(getPreviousQuestionIndex({ questionIndex: 0, submitted: true }), null);
-  assert.equal(getPreviousQuestionIndex({ questionIndex: 2, submitted: false }), null);
+});
+
+test("allows returning to the previous question before submitting the current draft", () => {
+  assert.equal(getPreviousQuestionIndex({ questionIndex: 2, submitted: false }), 1);
 });
