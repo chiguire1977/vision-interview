@@ -4,6 +4,7 @@ import {
   extractAiError,
   resolveAiUpstreamFormat,
 } from "@/lib/ai-adapters.mjs";
+import { AI_REQUEST_TIMEOUT_MS } from "@/lib/ai-request-timeout.mjs";
 
 function isPrivateHostname(hostname: string) {
   const host = hostname.toLowerCase();
@@ -61,7 +62,7 @@ export async function POST(request: Request) {
     });
     const response = await fetch(upstreamRequest.endpoint, {
       ...upstreamRequest.init,
-      signal: AbortSignal.timeout(60000),
+      signal: AbortSignal.timeout(AI_REQUEST_TIMEOUT_MS),
     });
     if (response.status >= 300 && response.status < 400) return Response.json({ ok: false, message: "AI 地址发生重定向，请填写最终 HTTPS 地址。" }, { status: 502 });
     let payload: Record<string, unknown> = {};

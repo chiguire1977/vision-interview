@@ -1,3 +1,5 @@
+import { AI_REQUEST_TIMEOUT_MS } from "@/lib/ai-request-timeout.mjs";
+
 function isPrivateHostname(hostname: string) {
   const host = hostname.toLowerCase();
   if (host === "localhost" || host === "0.0.0.0" || host === "::1" || host.endsWith(".local")) return true;
@@ -39,7 +41,7 @@ export async function POST(request: Request) {
       // Edge 运行时仅支持 follow/manual；使用 manual 后显式拒绝重定向，
       // 避免在 Cloudflare/Vinext 中因 redirect: "error" 直接抛出异常。
       redirect: "manual",
-      signal: AbortSignal.timeout(15000),
+      signal: AbortSignal.timeout(AI_REQUEST_TIMEOUT_MS),
     });
 
     if (response.status >= 300 && response.status < 400) {
@@ -77,6 +79,6 @@ export async function POST(request: Request) {
     const message = error instanceof Error && error.name === "TimeoutError"
       ? "连接超时，请检查中转站地址。"
       : error instanceof Error ? error.message : "获取模型时发生异常。";
-    return Response.json({ ok: false, message }, { status: 400 });
+    return Response.json({ ok: false, message }, { status: error instanceof Error && error.name === "TimeoutError" ? 504 : 400 });
   }
 }

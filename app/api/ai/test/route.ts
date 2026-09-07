@@ -1,3 +1,5 @@
+import { AI_REQUEST_TIMEOUT_MS } from "@/lib/ai-request-timeout.mjs";
+
 type ProviderName = "deepseek" | "openai";
 
 const providers: Record<ProviderName, { keyName: string; baseUrl: string }> = {
@@ -24,7 +26,7 @@ export async function POST(request: Request) {
 
     const response = await fetch(`${provider.baseUrl}/models`, {
       headers: { Authorization: `Bearer ${apiKey}` },
-      signal: AbortSignal.timeout(12000),
+      signal: AbortSignal.timeout(AI_REQUEST_TIMEOUT_MS),
     });
 
     if (!response.ok) {

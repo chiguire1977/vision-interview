@@ -117,7 +117,13 @@ test("AI chat route reports upstream timeouts as gateway timeouts", async () => 
   const route = await vite.ssrLoadModule("/app/api/ai/chat/route.ts");
   const previousKey = process.env.DEEPSEEK_API_KEY;
   const previousFetch = globalThis.fetch;
+  const previousTimeout = AbortSignal.timeout;
+  let timeoutMs;
   process.env.DEEPSEEK_API_KEY = "test-key";
+  AbortSignal.timeout = (milliseconds) => {
+    timeoutMs = milliseconds;
+    return new AbortController().signal;
+  };
   globalThis.fetch = async () => { throw new DOMException("timed out", "TimeoutError"); };
   try {
     const response = await route.POST(new Request("http://localhost/api/ai/chat", {
@@ -130,9 +136,11 @@ test("AI chat route reports upstream timeouts as gateway timeouts", async () => 
       }),
     }));
     assert.equal(response.status, 504);
+    assert.equal(timeoutMs, 15000);
     assert.deepEqual(await response.json(), { ok: false, message: "AI 请求超时，请稍后重试。" });
   } finally {
     globalThis.fetch = previousFetch;
+    AbortSignal.timeout = previousTimeout;
     if (previousKey === undefined) delete process.env.DEEPSEEK_API_KEY;
     else process.env.DEEPSEEK_API_KEY = previousKey;
   }
