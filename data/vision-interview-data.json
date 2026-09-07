@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-07T03:58:22.949Z",
+  "updatedAt": "2026-09-07T03:58:27.277Z",
   "data": {
     "vision-interview-records": [
       {
@@ -3785,6 +3785,27 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788753509477-b2xglzi6",
+        "timestamp": "2026-09-07T03:58:29.477Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "question-bank.close.flush",
+        "message": "关闭或后台切换时提交完整 AI 题库",
+        "context": {
+          "entryCount": 250,
+          "pendingCount": 8,
+          "transport": "keepalive"
+        }
+      },
+      {
+        "id": "1788753509468-vdpnsyrh",
+        "timestamp": "2026-09-07T03:58:29.468Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.close.flush",
+        "message": "页面关闭或进入后台，提交最后一次备份"
+      },
       {
         "id": "1788753504755-2tfh1c09",
         "timestamp": "2026-09-07T03:58:24.755Z",
@@ -18340,35 +18361,6 @@
           "requestedCount": 10,
           "durationMs": 8006,
           "sharedAcrossWorkers": true
-        }
-      },
-      {
-        "id": "1788747879549-ylkfzb0n",
-        "timestamp": "2026-09-07T02:24:39.549Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "c9faf0bab376"
-        }
-      },
-      {
-        "id": "1788747873567-qx14wyrp",
-        "timestamp": "2026-09-07T02:24:33.567Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788747820688-bai5eb99",
-        "event": "question-bank.web-search.started",
-        "message": "开始联网检索本轮题目资料",
-        "context": {
-          "attempt": 4,
-          "query": "机器视觉 面试知识点 HALCON 传统 2D 视觉 仅限二维图像处理，排除 3D、三维、点云、深度图、法线估计、平面拟合、立体视觉、结构光和双目 原理 工程实践",
-          "mode": "专业知识",
-          "excludedCount": 20,
-          "parallelRequests": 4,
-          "requestedCount": 10
         }
       }
     ],
