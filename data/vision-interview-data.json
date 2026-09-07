@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-07T03:58:18.860Z",
+  "updatedAt": "2026-09-07T03:58:22.949Z",
   "data": {
     "vision-interview-records": [
       {
@@ -3785,6 +3785,146 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788753504755-2tfh1c09",
+        "timestamp": "2026-09-07T03:58:24.755Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "f4b94b842780"
+        }
+      },
+      {
+        "id": "1788753504749-hpqfte7z",
+        "timestamp": "2026-09-07T03:58:24.749Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788752989218-16nqofqp",
+        "event": "question-bank.cache.pending",
+        "message": "AI 题库已进入本地待同步队列（8 条）",
+        "context": {
+          "questionCount": 8,
+          "pendingCount": 8
+        }
+      },
+      {
+        "id": "1788753504745-v4b73m0t",
+        "timestamp": "2026-09-07T03:58:24.745Z",
+        "level": "ERROR",
+        "kind": "system",
+        "sessionId": "1788752989218-16nqofqp",
+        "event": "github.backup.failed",
+        "message": "数据备份到 GitHub 失败",
+        "context": {
+          "operation": "ai-question-bank",
+          "entryCount": 8,
+          "pendingCount": 8,
+          "totalCount": 250,
+          "status": 409,
+          "reason": "github_conflict"
+        }
+      },
+      {
+        "id": "1788753504014-urdeg4yz",
+        "timestamp": "2026-09-07T03:58:24.014Z",
+        "level": "WARN",
+        "kind": "user",
+        "sessionId": "1788752989218-16nqofqp",
+        "event": "answer.skipped",
+        "message": "当前题目已跳过",
+        "context": {
+          "question": "在 HALCON 中，如何系统性地验证一个基于形状匹配的定位方案在项目落地时的稳定性？请从模板创建、参数设置、测试验证和现场部署四个阶段说明关键步骤与注意事项。",
+          "mode": "专业知识",
+          "project": "机器视觉专业知识"
+        }
+      },
+      {
+        "id": "1788753503491-99eytkdi",
+        "timestamp": "2026-09-07T03:58:23.491Z",
+        "level": "WARN",
+        "kind": "user",
+        "sessionId": "1788752989218-16nqofqp",
+        "event": "answer.skipped",
+        "message": "当前题目已跳过",
+        "context": {
+          "question": "HALCON 中，如果模板匹配在现场出现频繁误匹配（false positive）或漏匹配（false negative），你会如何系统性地排查和定位原因？请给出你的排障思路和步骤。",
+          "mode": "专业知识",
+          "project": "机器视觉专业知识"
+        }
+      },
+      {
+        "id": "1788753502645-6bblqron",
+        "timestamp": "2026-09-07T03:58:22.645Z",
+        "level": "WARN",
+        "kind": "user",
+        "sessionId": "1788752989218-16nqofqp",
+        "event": "answer.skipped",
+        "message": "当前题目已跳过",
+        "context": {
+          "question": "在HALCON中，如何利用Blob分析实现缺陷检测？请结合连通域分析和形态学后处理说明关键步骤。",
+          "mode": "专业知识",
+          "project": "机器视觉专业知识"
+        }
+      },
+      {
+        "id": "1788753502194-idl3p8c3",
+        "timestamp": "2026-09-07T03:58:22.194Z",
+        "level": "WARN",
+        "kind": "user",
+        "sessionId": "1788752989218-16nqofqp",
+        "event": "answer.skipped",
+        "message": "当前题目已跳过",
+        "context": {
+          "question": "在HALCON中，如何利用灰度投影（gray_projections）实现产品尺寸的在线测量？请结合具体算子流程说明其原理与局限性。",
+          "mode": "专业知识",
+          "project": "机器视觉专业知识"
+        }
+      },
+      {
+        "id": "1788753501719-slmndt3a",
+        "timestamp": "2026-09-07T03:58:21.719Z",
+        "level": "WARN",
+        "kind": "user",
+        "sessionId": "1788752989218-16nqofqp",
+        "event": "answer.skipped",
+        "message": "当前题目已跳过",
+        "context": {
+          "question": "在 HALCON 中，使用基于形状的模板匹配时，若现场存在目标局部遮挡和背景干扰，应如何调整 find_shape_model 的参数（如 MinScore、Greediness、NumLevels）以获得稳定结果？请从原理上解释参数作用。",
+          "mode": "专业知识",
+          "project": "机器视觉专业知识"
+        }
+      },
+      {
+        "id": "1788753501245-v20awy8o",
+        "timestamp": "2026-09-07T03:58:21.245Z",
+        "level": "WARN",
+        "kind": "user",
+        "sessionId": "1788752989218-16nqofqp",
+        "event": "answer.skipped",
+        "message": "当前题目已跳过",
+        "context": {
+          "question": "在 HALCON 中，基于形状的模板匹配（shape-based matching）与基于相关性的模板匹配（correlation-based matching）在原理和适用场景上有何本质区别？请从鲁棒性、精度和速度角度对比，并说明在工业现场如何根据实际需求选择。",
+          "mode": "专业知识",
+          "project": "机器视觉专业知识"
+        }
+      },
+      {
+        "id": "1788753501053-iffzs0dq",
+        "timestamp": "2026-09-07T03:58:21.053Z",
+        "level": "WARN",
+        "kind": "user",
+        "sessionId": "1788752989218-16nqofqp",
+        "event": "answer.skipped",
+        "message": "当前题目已跳过",
+        "context": {
+          "question": "在HALCON中，使用create_shape_model创建模板时，如何选择NumLevels和AngleStep参数以优化匹配性能？请说明其原理。",
+          "mode": "专业知识",
+          "project": "机器视觉专业知识"
+        }
+      },
       {
         "id": "1788753500682-i5l67p0k",
         "timestamp": "2026-09-07T03:58:20.682Z",
@@ -18227,163 +18367,6 @@
           "query": "机器视觉 面试知识点 HALCON 传统 2D 视觉 仅限二维图像处理，排除 3D、三维、点云、深度图、法线估计、平面拟合、立体视觉、结构光和双目 原理 工程实践",
           "mode": "专业知识",
           "excludedCount": 20,
-          "parallelRequests": 4,
-          "requestedCount": 10
-        }
-      },
-      {
-        "id": "1788747873562-zaaevmn8",
-        "timestamp": "2026-09-07T02:24:33.562Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788747820688-bai5eb99",
-        "event": "question-bank.ai-request.duration",
-        "message": "单个并行 AI 请求完成",
-        "context": {
-          "attempt": 3,
-          "workerIndex": 1,
-          "parallelRequests": 4,
-          "requestedCount": 1,
-          "receivedCount": 1,
-          "durationMs": 9323
-        }
-      },
-      {
-        "id": "1788747872985-5xlp8yu3",
-        "timestamp": "2026-09-07T02:24:32.985Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788747820688-bai5eb99",
-        "event": "question-bank.ai-request.duration",
-        "message": "单个并行 AI 请求完成",
-        "context": {
-          "attempt": 3,
-          "workerIndex": 3,
-          "parallelRequests": 4,
-          "requestedCount": 1,
-          "receivedCount": 1,
-          "durationMs": 8745
-        }
-      },
-      {
-        "id": "1788747871707-yb1m8aor",
-        "timestamp": "2026-09-07T02:24:31.707Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788747820688-bai5eb99",
-        "event": "question-bank.ai-request.duration",
-        "message": "单个并行 AI 请求完成",
-        "context": {
-          "attempt": 3,
-          "workerIndex": 4,
-          "parallelRequests": 4,
-          "requestedCount": 1,
-          "receivedCount": 1,
-          "durationMs": 7467
-        }
-      },
-      {
-        "id": "1788747871014-9m74y1qj",
-        "timestamp": "2026-09-07T02:24:31.014Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788747820688-bai5eb99",
-        "event": "question-bank.ai-request.duration",
-        "message": "单个并行 AI 请求完成",
-        "context": {
-          "attempt": 3,
-          "workerIndex": 2,
-          "parallelRequests": 4,
-          "requestedCount": 1,
-          "receivedCount": 1,
-          "durationMs": 6775
-        }
-      },
-      {
-        "id": "1788747868634-oz0vusv7",
-        "timestamp": "2026-09-07T02:24:28.634Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "e360fbf1ba81"
-        }
-      },
-      {
-        "id": "1788747864237-01ocxvys",
-        "timestamp": "2026-09-07T02:24:24.237Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788747820688-bai5eb99",
-        "event": "question-bank.web-search.failed",
-        "message": "联网检索暂不可用",
-        "context": {
-          "attempt": 3,
-          "query": "机器视觉 面试知识点 HALCON 传统 2D 视觉 仅限二维图像处理，排除 3D、三维、点云、深度图、法线估计、平面拟合、立体视觉、结构光和双目 原理 工程实践",
-          "continueToAi": true,
-          "parallelRequests": 4,
-          "requestedCount": 10
-        }
-      },
-      {
-        "id": "1788747864234-sr0ufag7",
-        "timestamp": "2026-09-07T02:24:24.234Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788747820688-bai5eb99",
-        "event": "question-bank.web-search.completed",
-        "message": "本轮联网检索完成",
-        "context": {
-          "attempt": 3,
-          "query": "机器视觉 面试知识点 HALCON 传统 2D 视觉 仅限二维图像处理，排除 3D、三维、点云、深度图、法线估计、平面拟合、立体视觉、结构光和双目 原理 工程实践",
-          "sourceCount": 0,
-          "cached": false,
-          "error": "联网检索暂不可用",
-          "parallelRequests": 4,
-          "requestedCount": 10,
-          "durationMs": 8005,
-          "sharedAcrossWorkers": true
-        }
-      },
-      {
-        "id": "1788747863216-bu6fqlpe",
-        "timestamp": "2026-09-07T02:24:23.216Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "ca6c0dc653e3"
-        }
-      },
-      {
-        "id": "1788747859367-ogolqurc",
-        "timestamp": "2026-09-07T02:24:19.367Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "12743baabf96"
-        }
-      },
-      {
-        "id": "1788747856229-h21bfhfw",
-        "timestamp": "2026-09-07T02:24:16.229Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788747820688-bai5eb99",
-        "event": "question-bank.web-search.started",
-        "message": "开始联网检索本轮题目资料",
-        "context": {
-          "attempt": 3,
-          "query": "机器视觉 面试知识点 HALCON 传统 2D 视觉 仅限二维图像处理，排除 3D、三维、点云、深度图、法线估计、平面拟合、立体视觉、结构光和双目 原理 工程实践",
-          "mode": "专业知识",
-          "excludedCount": 17,
           "parallelRequests": 4,
           "requestedCount": 10
         }
