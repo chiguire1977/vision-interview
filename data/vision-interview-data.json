@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-07T02:41:44.999Z",
+  "updatedAt": "2026-09-07T02:41:54.452Z",
   "data": {
     "vision-interview-records": [
       {
@@ -3785,6 +3785,69 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788748914743-t3fl5eig",
+        "timestamp": "2026-09-07T02:41:54.743Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788748699983-pgd6193m",
+        "event": "question-bank.ai-request.duration",
+        "message": "单个并行 AI 请求完成",
+        "context": {
+          "attempt": 4,
+          "workerIndex": 4,
+          "parallelRequests": 4,
+          "requestedCount": 1,
+          "receivedCount": 1,
+          "durationMs": 9656
+        }
+      },
+      {
+        "id": "1788748913778-cl1eg9kp",
+        "timestamp": "2026-09-07T02:41:53.778Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788748699983-pgd6193m",
+        "event": "question-bank.ai-request.duration",
+        "message": "单个并行 AI 请求完成",
+        "context": {
+          "attempt": 4,
+          "workerIndex": 2,
+          "parallelRequests": 4,
+          "requestedCount": 1,
+          "receivedCount": 1,
+          "durationMs": 8691
+        }
+      },
+      {
+        "id": "1788748913160-sgwww9fx",
+        "timestamp": "2026-09-07T02:41:53.160Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788748699983-pgd6193m",
+        "event": "question-bank.ai-request.duration",
+        "message": "单个并行 AI 请求完成",
+        "context": {
+          "attempt": 4,
+          "workerIndex": 3,
+          "parallelRequests": 4,
+          "requestedCount": 1,
+          "receivedCount": 1,
+          "durationMs": 8073
+        }
+      },
+      {
+        "id": "1788748910295-bp5bzb77",
+        "timestamp": "2026-09-07T02:41:50.295Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "39f1e45a9bd2"
+        }
+      },
       {
         "id": "1788748906558-p1kp7bz6",
         "timestamp": "2026-09-07T02:41:46.558Z",
@@ -17007,64 +17070,6 @@
         "context": {
           "questionCount": 10,
           "pendingCount": 0
-        }
-      },
-      {
-        "id": "1788347520139-oyy649jp",
-        "timestamp": "2026-09-02T11:12:00.139Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788345131423-wywacu41",
-        "event": "github.backup.succeeded",
-        "message": "数据已成功备份到 GitHub",
-        "context": {
-          "operation": "ai-question-bank",
-          "entryCount": 10,
-          "pendingCount": 0,
-          "totalCount": 160,
-          "status": 200,
-          "complete": true
-        }
-      },
-      {
-        "id": "1788347517588-m5qha1s2",
-        "timestamp": "2026-09-02T11:11:57.588Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "b81fd355f8c9"
-        }
-      },
-      {
-        "id": "1788347511253-mqqdlv12",
-        "timestamp": "2026-09-02T11:11:51.253Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788345131423-wywacu41",
-        "event": "question-group.prepare.completed",
-        "message": "AI 已生成完整 10 道题目、标准回答和技术原理；远程题库正在后台同步。",
-        "context": {
-          "source": "AI",
-          "questionCount": 10
-        }
-      },
-      {
-        "id": "1788347511250-lr8km3gm",
-        "timestamp": "2026-09-02T11:11:51.250Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788345131423-wywacu41",
-        "event": "github.backup.started",
-        "message": "开始备份数据到 GitHub",
-        "context": {
-          "operation": "ai-question-bank",
-          "entryCount": 10,
-          "pendingCount": 10,
-          "totalCount": 160,
-          "complete": true
         }
       }
     ],
