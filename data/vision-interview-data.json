@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-07T03:17:26.570Z",
+  "updatedAt": "2026-09-07T03:17:31.772Z",
   "data": {
     "vision-interview-records": [
       {
@@ -3785,6 +3785,105 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788751051385-2rvk4k42",
+        "timestamp": "2026-09-07T03:17:31.385Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "2f4d77248fee"
+        }
+      },
+      {
+        "id": "1788751050687-hk84q0if",
+        "timestamp": "2026-09-07T03:17:30.687Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788750916220-7pqj2l9f",
+        "event": "question-bank.ai-request.started",
+        "message": "第 1/6 轮（并行 4/4）：正在请求 AI 生成题目（2 道）…",
+        "context": {
+          "attempt": 1,
+          "maxAttempts": 6,
+          "collectedCount": 11,
+          "workerIndex": 4,
+          "parallelRequests": 4,
+          "requestedCount": 2
+        }
+      },
+      {
+        "id": "1788751050684-pqygw966",
+        "timestamp": "2026-09-07T03:17:30.684Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788750916220-7pqj2l9f",
+        "event": "question-bank.ai-request.started",
+        "message": "第 1/6 轮（并行 3/4）：正在请求 AI 生成题目（2 道）…",
+        "context": {
+          "attempt": 1,
+          "maxAttempts": 6,
+          "collectedCount": 11,
+          "workerIndex": 3,
+          "parallelRequests": 4,
+          "requestedCount": 2
+        }
+      },
+      {
+        "id": "1788751050681-xjokvfqy",
+        "timestamp": "2026-09-07T03:17:30.681Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788750916220-7pqj2l9f",
+        "event": "question-bank.ai-request.started",
+        "message": "第 1/6 轮（并行 2/4）：正在请求 AI 生成题目（3 道）…",
+        "context": {
+          "attempt": 1,
+          "maxAttempts": 6,
+          "collectedCount": 11,
+          "workerIndex": 2,
+          "parallelRequests": 4,
+          "requestedCount": 3
+        }
+      },
+      {
+        "id": "1788751050678-cgrnqz8e",
+        "timestamp": "2026-09-07T03:17:30.678Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788750916220-7pqj2l9f",
+        "event": "question-bank.ai-request.started",
+        "message": "第 1/6 轮（并行 1/4）：正在请求 AI 生成题目（3 道）…",
+        "context": {
+          "attempt": 1,
+          "maxAttempts": 6,
+          "collectedCount": 11,
+          "workerIndex": 1,
+          "parallelRequests": 4,
+          "requestedCount": 3
+        }
+      },
+      {
+        "id": "1788751050675-zrqn8gvk",
+        "timestamp": "2026-09-07T03:17:30.675Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788750916220-7pqj2l9f",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 1,
+          "query": "机器视觉 面试知识点 HALCON 传统 2D 视觉 仅限二维图像处理，排除 3D、三维、点云、深度图、法线估计、平面拟合、立体视觉、结构光和双目 原理 工程实践",
+          "sourceCount": 0,
+          "cached": false,
+          "parallelRequests": 4,
+          "requestedCount": 10,
+          "durationMs": 4505,
+          "sharedAcrossWorkers": true
+        }
+      },
       {
         "id": "1788751046171-yety5d6r",
         "timestamp": "2026-09-07T03:17:26.171Z",
@@ -17369,85 +17468,6 @@
         "context": {
           "reason": "change",
           "commit": "c514feb02ebb"
-        }
-      },
-      {
-        "id": "1788439940391-u21q291k",
-        "timestamp": "2026-09-03T12:52:20.391Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788430316486-caocj3jp",
-        "event": "group.review.started",
-        "message": "题组已完成，开始统一评审"
-      },
-      {
-        "id": "1788439940386-cqmlxcv2",
-        "timestamp": "2026-09-03T12:52:20.386Z",
-        "level": "WARN",
-        "kind": "user",
-        "sessionId": "1788430316486-caocj3jp",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "请说明HALCON中gauss_filter和median_image两种滤波算子的原理区别，以及在传统2D视觉预处理中的适用场景。",
-          "mode": "专业知识",
-          "project": "机器视觉专业知识"
-        }
-      },
-      {
-        "id": "1788439939470-gpw6jv7w",
-        "timestamp": "2026-09-03T12:52:19.470Z",
-        "level": "WARN",
-        "kind": "user",
-        "sessionId": "1788430316486-caocj3jp",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "HALCON中区域（Region）和XLD轮廓（Contour）在数据结构、精度和使用场景上有哪些主要区别？",
-          "mode": "专业知识",
-          "project": "机器视觉专业知识"
-        }
-      },
-      {
-        "id": "1788439939263-xd8u1e1l",
-        "timestamp": "2026-09-03T12:52:19.263Z",
-        "level": "WARN",
-        "kind": "user",
-        "sessionId": "1788430316486-caocj3jp",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "请解释HALCON中形态学开运算（opening）和闭运算（closing）在传统2D视觉区域分析中的作用，并说明结构元素参数的选择原则。",
-          "mode": "专业知识",
-          "project": "机器视觉专业知识"
-        }
-      },
-      {
-        "id": "1788439934240-ayvfozdb",
-        "timestamp": "2026-09-03T12:52:14.240Z",
-        "level": "INFO",
-        "kind": "user",
-        "sessionId": "1788430316486-caocj3jp",
-        "event": "answer.submit.completed",
-        "message": "回答已保存，已进入下一题或题组评审",
-        "context": {
-          "question": "请解释HALCON中形状匹配（create_shape_model / find_shape_model）的基本原理，并说明金字塔层数和角度范围参数对匹配性能的影响。",
-          "seconds": 0
-        }
-      },
-      {
-        "id": "1788439934234-f9mspwe0",
-        "timestamp": "2026-09-03T12:52:14.234Z",
-        "level": "INFO",
-        "kind": "user",
-        "sessionId": "1788430316486-caocj3jp",
-        "event": "answer.submit.started",
-        "message": "保存当前回答，等待题组评审",
-        "context": {
-          "question": "请解释HALCON中形状匹配（create_shape_model / find_shape_model）的基本原理，并说明金字塔层数和角度范围参数对匹配性能的影响。",
-          "mode": "专业知识",
-          "project": "机器视觉专业知识",
-          "answerLength": 1
         }
       }
     ],
