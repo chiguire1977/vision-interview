@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-07T02:47:16.331Z",
+  "updatedAt": "2026-09-07T02:47:19.829Z",
   "data": {
     "vision-interview-records": [
       {
@@ -3785,6 +3785,88 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788749241342-2n75r833",
+        "timestamp": "2026-09-07T02:47:21.342Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "d684f373e4e1"
+        }
+      },
+      {
+        "id": "1788749241118-cuqgtrl0",
+        "timestamp": "2026-09-07T02:47:21.118Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788748699983-pgd6193m",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 6,
+          "query": "机器视觉 面试知识点 HALCON 传统 2D 视觉 仅限二维图像处理，排除 3D、三维、点云、深度图、法线估计、平面拟合、立体视觉、结构光和双目 原理 工程实践",
+          "sourceCount": 8,
+          "cached": true,
+          "parallelRequests": 4,
+          "requestedCount": 10,
+          "durationMs": 4,
+          "sharedAcrossWorkers": true
+        }
+      },
+      {
+        "id": "1788749241114-7egohbx4",
+        "timestamp": "2026-09-07T02:47:21.114Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788748699983-pgd6193m",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 6,
+          "query": "机器视觉 面试知识点 HALCON 传统 2D 视觉 仅限二维图像处理，排除 3D、三维、点云、深度图、法线估计、平面拟合、立体视觉、结构光和双目 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 20,
+          "parallelRequests": 4,
+          "requestedCount": 10
+        }
+      },
+      {
+        "id": "1788749241109-iflzi0rr",
+        "timestamp": "2026-09-07T02:47:21.109Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788748699983-pgd6193m",
+        "event": "question-bank.ai-request.duration",
+        "message": "单个并行 AI 请求完成",
+        "context": {
+          "attempt": 5,
+          "workerIndex": 1,
+          "parallelRequests": 4,
+          "requestedCount": 1,
+          "receivedCount": 1,
+          "durationMs": 6333
+        }
+      },
+      {
+        "id": "1788749238373-f3cpt6qt",
+        "timestamp": "2026-09-07T02:47:18.373Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788748699983-pgd6193m",
+        "event": "question-group.prepare.started",
+        "message": "开始准备题组",
+        "context": {
+          "project": "机器视觉专业知识",
+          "mode": "专业知识",
+          "questionCount": 10,
+          "sourceMode": "network",
+          "adaptiveQuestions": false,
+          "focusCategories": []
+        }
+      },
       {
         "id": "1788749237888-3gxe8mpl",
         "timestamp": "2026-09-07T02:47:17.888Z",
@@ -17279,77 +17361,6 @@
         "kind": "system",
         "event": "backup.close.flush",
         "message": "页面关闭或进入后台，提交最后一次备份"
-      },
-      {
-        "id": "1788354347385-b4gohqy8",
-        "timestamp": "2026-09-02T13:05:47.385Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "a9fbbc908173"
-        }
-      },
-      {
-        "id": "1788354342606-4vq4tnlg",
-        "timestamp": "2026-09-02T13:05:42.606Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788345131423-wywacu41",
-        "event": "question-bank.cache.saved",
-        "message": "AI 题库已完成远程同步",
-        "context": {
-          "questionCount": 10,
-          "pendingCount": 0
-        }
-      },
-      {
-        "id": "1788354342601-wwapn1sz",
-        "timestamp": "2026-09-02T13:05:42.601Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788345131423-wywacu41",
-        "event": "github.backup.succeeded",
-        "message": "数据已成功备份到 GitHub",
-        "context": {
-          "operation": "ai-question-bank",
-          "entryCount": 10,
-          "pendingCount": 0,
-          "totalCount": 170,
-          "status": 200,
-          "complete": true
-        }
-      },
-      {
-        "id": "1788354333945-37iz8d60",
-        "timestamp": "2026-09-02T13:05:33.945Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788345131423-wywacu41",
-        "event": "question-group.prepare.completed",
-        "message": "AI 已生成完整 10 道题目、标准回答和技术原理；远程题库正在后台同步。",
-        "context": {
-          "source": "AI",
-          "questionCount": 10
-        }
-      },
-      {
-        "id": "1788354333935-zz5j5uav",
-        "timestamp": "2026-09-02T13:05:33.935Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788345131423-wywacu41",
-        "event": "github.backup.started",
-        "message": "开始备份数据到 GitHub",
-        "context": {
-          "operation": "ai-question-bank",
-          "entryCount": 10,
-          "pendingCount": 10,
-          "totalCount": 170,
-          "complete": true
-        }
       }
     ],
     "vision-interview-web-source-whitelist": [
