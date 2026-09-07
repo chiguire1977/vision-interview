@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-07T02:23:18.821Z",
+  "updatedAt": "2026-09-07T02:23:22.422Z",
   "data": {
     "vision-interview-records": [
       {
@@ -3318,16 +3318,19 @@
         "openaiBaseUrl": "https://api.deepseek.com",
         "availableModels": [
           {
-            "label": "deepseek-v4-flash",
-            "value": "deepseek-v4-flash"
+            "label": "deepseek-v4-flash · Chat Completions（兼容 OpenAI）",
+            "value": "deepseek-v4-flash",
+            "upstreamFormat": "chat-completions"
           },
           {
-            "label": "deepseek-v4-flash-vision-exp",
-            "value": "deepseek-v4-flash-vision-exp"
+            "label": "deepseek-v4-flash-vision-exp · Chat Completions（兼容 OpenAI）",
+            "value": "deepseek-v4-flash-vision-exp",
+            "upstreamFormat": "chat-completions"
           },
           {
-            "label": "deepseek-v4-pro",
-            "value": "deepseek-v4-pro"
+            "label": "deepseek-v4-pro · Chat Completions（兼容 OpenAI）",
+            "value": "deepseek-v4-pro",
+            "upstreamFormat": "chat-completions"
           }
         ]
       },
@@ -3782,6 +3785,32 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788747803946-7n2yekp3",
+        "timestamp": "2026-09-07T02:23:23.946Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "684b0c10208f"
+        }
+      },
+      {
+        "id": "1788747803692-2eamipxo",
+        "timestamp": "2026-09-07T02:23:23.692Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788747195350-a3b6dc81",
+        "event": "ai.connection-test.started",
+        "message": "开始真实聊天连接测试",
+        "context": {
+          "provider": "deepseek",
+          "model": "deepseek-v4-flash",
+          "upstreamFormat": "chat-completions"
+        }
+      },
       {
         "id": "1788747793386-yaw2hssx",
         "timestamp": "2026-09-07T02:23:13.386Z",
@@ -17169,30 +17198,6 @@
           "requestedCount": 2,
           "receivedCount": 2,
           "durationMs": 42321
-        }
-      },
-      {
-        "id": "1788343763661-g9oab013",
-        "timestamp": "2026-09-02T10:09:23.661Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "a4ecea6ca52a"
-        }
-      },
-      {
-        "id": "1788343760118-a1v5m980",
-        "timestamp": "2026-09-02T10:09:20.118Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "010af9fc1293"
         }
       }
     ],
