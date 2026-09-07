@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-07T02:41:12.463Z",
+  "updatedAt": "2026-09-07T02:41:15.960Z",
   "data": {
     "vision-interview-records": [
       {
@@ -3785,6 +3785,105 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788748877535-764y337y",
+        "timestamp": "2026-09-07T02:41:17.535Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "3808b6d7acea"
+        }
+      },
+      {
+        "id": "1788748874676-86dyrbj9",
+        "timestamp": "2026-09-07T02:41:14.676Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788748699983-pgd6193m",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 2,
+          "query": "机器视觉 面试知识点 HALCON 传统 2D 视觉 仅限二维图像处理，排除 3D、三维、点云、深度图、法线估计、平面拟合、立体视觉、结构光和双目 原理 工程实践",
+          "sourceCount": 8,
+          "cached": true,
+          "parallelRequests": 4,
+          "requestedCount": 10,
+          "durationMs": 2,
+          "sharedAcrossWorkers": true
+        }
+      },
+      {
+        "id": "1788748874674-fr6ojx0f",
+        "timestamp": "2026-09-07T02:41:14.674Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788748699983-pgd6193m",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 2,
+          "query": "机器视觉 面试知识点 HALCON 传统 2D 视觉 仅限二维图像处理，排除 3D、三维、点云、深度图、法线估计、平面拟合、立体视觉、结构光和双目 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 13,
+          "parallelRequests": 4,
+          "requestedCount": 10
+        }
+      },
+      {
+        "id": "1788748874672-c94ndv07",
+        "timestamp": "2026-09-07T02:41:14.672Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788748699983-pgd6193m",
+        "event": "question-bank.ai-request.failed",
+        "message": "单个并行 AI 请求失败",
+        "context": {
+          "attempt": 1,
+          "workerIndex": 4,
+          "parallelRequests": 4,
+          "requestedCount": 2,
+          "durationMs": 15174,
+          "error": "AI 请求超时，请稍后重试。"
+        }
+      },
+      {
+        "id": "1788748874669-t5uxsiam",
+        "timestamp": "2026-09-07T02:41:14.669Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788748699983-pgd6193m",
+        "event": "question-bank.ai-request.failed",
+        "message": "单个并行 AI 请求失败",
+        "context": {
+          "attempt": 1,
+          "workerIndex": 1,
+          "parallelRequests": 4,
+          "requestedCount": 3,
+          "durationMs": 15188,
+          "error": "AI 请求超时，请稍后重试。"
+        }
+      },
+      {
+        "id": "1788748874654-2yyi814b",
+        "timestamp": "2026-09-07T02:41:14.654Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1788748699983-pgd6193m",
+        "event": "question-bank.ai-request.failed",
+        "message": "单个并行 AI 请求失败",
+        "context": {
+          "attempt": 1,
+          "workerIndex": 2,
+          "parallelRequests": 4,
+          "requestedCount": 3,
+          "durationMs": 15167,
+          "error": "AI 请求超时，请稍后重试。"
+        }
+      },
       {
         "id": "1788748872810-igx5oh0w",
         "timestamp": "2026-09-07T02:41:12.810Z",
@@ -16928,72 +17027,6 @@
       {
         "id": "1788347415489-0nfe2v8d",
         "timestamp": "2026-09-02T11:10:15.489Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "question-bank.close.flush",
-        "message": "关闭或后台切换时提交完整 AI 题库",
-        "context": {
-          "entryCount": 150,
-          "pendingCount": 10,
-          "transport": "keepalive"
-        }
-      },
-      {
-        "id": "1788347415484-0qs1nvrt",
-        "timestamp": "2026-09-02T11:10:15.484Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.close.flush",
-        "message": "页面关闭或进入后台，提交最后一次备份"
-      },
-      {
-        "id": "1788347251364-a6tp53zs",
-        "timestamp": "2026-09-02T11:07:31.364Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "cf6e2be42e5d"
-        }
-      },
-      {
-        "id": "1788347240648-za6mtl3c",
-        "timestamp": "2026-09-02T11:07:20.648Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "question-bank.close.flush",
-        "message": "关闭或后台切换时提交完整 AI 题库",
-        "context": {
-          "entryCount": 150,
-          "pendingCount": 10,
-          "transport": "keepalive"
-        }
-      },
-      {
-        "id": "1788347240644-jb80hqtv",
-        "timestamp": "2026-09-02T11:07:20.644Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.close.flush",
-        "message": "页面关闭或进入后台，提交最后一次备份"
-      },
-      {
-        "id": "1788346457715-7nt2fpw7",
-        "timestamp": "2026-09-02T10:54:17.715Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "a8bba2bc4bf3"
-        }
-      },
-      {
-        "id": "1788346445820-e8nz7zyp",
-        "timestamp": "2026-09-02T10:54:05.820Z",
         "level": "INFO",
         "kind": "system",
         "event": "question-bank.close.flush",
