@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-07T02:06:58.710Z",
+  "updatedAt": "2026-09-07T02:07:01.970Z",
   "data": {
     "vision-interview-records": [
       {
@@ -3548,6 +3548,32 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788746823366-g0mtcfn1",
+        "timestamp": "2026-09-07T02:07:03.366Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "b6781f8c29ea"
+        }
+      },
+      {
+        "id": "1788746822386-2fouk267",
+        "timestamp": "2026-09-07T02:07:02.386Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788746689812-jhfj1mlw",
+        "event": "ai.connection-test.started",
+        "message": "开始真实聊天连接测试",
+        "context": {
+          "provider": "openai",
+          "model": "gpt-5.6-sol",
+          "upstreamFormat": "responses"
+        }
+      },
       {
         "id": "1788746820080-fic3760c",
         "timestamp": "2026-09-07T02:07:00.079Z",
@@ -17084,35 +17110,6 @@
           "requestedCount": 1,
           "durationMs": 60178,
           "error": "AI 请求超时，请稍后重试。"
-        }
-      },
-      {
-        "id": "1788343658653-0necgnxv",
-        "timestamp": "2026-09-02T10:07:38.653Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788343468196-zjzo0dai",
-        "event": "question-bank.ai-request.failed",
-        "message": "单个并行 AI 请求失败",
-        "context": {
-          "attempt": 3,
-          "workerIndex": 1,
-          "parallelRequests": 4,
-          "requestedCount": 1,
-          "durationMs": 60175,
-          "error": "AI 请求超时，请稍后重试。"
-        }
-      },
-      {
-        "id": "1788343650984-d50w9b30",
-        "timestamp": "2026-09-02T10:07:30.984Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "7d7437652cf0"
         }
       }
     ],
