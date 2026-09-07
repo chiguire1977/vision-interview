@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-07T03:12:36.705Z",
+  "updatedAt": "2026-09-07T03:12:46.764Z",
   "data": {
     "vision-interview-records": [
       {
@@ -3785,6 +3785,52 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788750766533-ghvzahfq",
+        "timestamp": "2026-09-07T03:12:46.533Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788750662374-31k341xx",
+        "event": "question-bank.ai-request.duration",
+        "message": "单个并行 AI 请求完成",
+        "context": {
+          "attempt": 1,
+          "workerIndex": 4,
+          "parallelRequests": 4,
+          "requestedCount": 2,
+          "receivedCount": 2,
+          "durationMs": 14934
+        }
+      },
+      {
+        "id": "1788750766359-qpcopuv4",
+        "timestamp": "2026-09-07T03:12:46.359Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788750662374-31k341xx",
+        "event": "question-bank.ai-request.duration",
+        "message": "单个并行 AI 请求完成",
+        "context": {
+          "attempt": 1,
+          "workerIndex": 3,
+          "parallelRequests": 4,
+          "requestedCount": 2,
+          "receivedCount": 2,
+          "durationMs": 14762
+        }
+      },
+      {
+        "id": "1788750762238-zn9iqmvt",
+        "timestamp": "2026-09-07T03:12:42.238Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "e6b5c11fa826"
+        }
+      },
       {
         "id": "1788750758144-n71tc2lw",
         "timestamp": "2026-09-07T03:12:38.144Z",
@@ -17416,53 +17462,6 @@
           "requestedCount": 1,
           "receivedCount": 1,
           "durationMs": 5138
-        }
-      },
-      {
-        "id": "1788426200514-kto6f4c6",
-        "timestamp": "2026-09-03T09:03:20.514Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "e767c373e39d"
-        }
-      },
-      {
-        "id": "1788426196597-cv7fsj8b",
-        "timestamp": "2026-09-03T09:03:16.597Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788426101801-g4umlvs0",
-        "event": "question-bank.web-search.completed",
-        "message": "本轮联网检索完成",
-        "context": {
-          "attempt": 2,
-          "query": "机器视觉 图像处理基础 HALCON 传统 2D 视觉 仅限二维图像处理，排除 3D、三维、点云、深度图、法线估计、平面拟合、立体视觉、结构光和双目 原理 工程实践",
-          "sourceCount": 0,
-          "parallelRequests": 4,
-          "requestedCount": 10,
-          "durationMs": 299,
-          "sharedAcrossWorkers": true
-        }
-      },
-      {
-        "id": "1788426196298-py3ucbmn",
-        "timestamp": "2026-09-03T09:03:16.298Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788426101801-g4umlvs0",
-        "event": "question-bank.web-search.started",
-        "message": "开始联网检索本轮题目资料",
-        "context": {
-          "attempt": 2,
-          "query": "机器视觉 图像处理基础 HALCON 传统 2D 视觉 仅限二维图像处理，排除 3D、三维、点云、深度图、法线估计、平面拟合、立体视觉、结构光和双目 原理 工程实践",
-          "mode": "专业知识",
-          "excludedCount": 9,
-          "parallelRequests": 4,
-          "requestedCount": 10
         }
       }
     ],
