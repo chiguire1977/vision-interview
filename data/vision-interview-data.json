@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-07T03:00:22.183Z",
+  "updatedAt": "2026-09-07T03:00:25.574Z",
   "data": {
     "vision-interview-records": [
       {
@@ -3785,6 +3785,71 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788750027137-yk4zogav",
+        "timestamp": "2026-09-07T03:00:27.137Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "52b63b84b2bb"
+        }
+      },
+      {
+        "id": "1788750025265-eaj7fgcx",
+        "timestamp": "2026-09-07T03:00:25.265Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788749906722-jt1tgeok",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 5,
+          "query": "机器视觉 面试知识点 HALCON 传统 2D 视觉 仅限二维图像处理，排除 3D、三维、点云、深度图、法线估计、平面拟合、立体视觉、结构光和双目 原理 工程实践",
+          "sourceCount": 8,
+          "cached": true,
+          "parallelRequests": 4,
+          "requestedCount": 10,
+          "durationMs": 3,
+          "sharedAcrossWorkers": true
+        }
+      },
+      {
+        "id": "1788750025262-wbdwnacj",
+        "timestamp": "2026-09-07T03:00:25.262Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788749906722-jt1tgeok",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 5,
+          "query": "机器视觉 面试知识点 HALCON 传统 2D 视觉 仅限二维图像处理，排除 3D、三维、点云、深度图、法线估计、平面拟合、立体视觉、结构光和双目 原理 工程实践",
+          "mode": "专业知识",
+          "excludedCount": 22,
+          "parallelRequests": 4,
+          "requestedCount": 10
+        }
+      },
+      {
+        "id": "1788750025258-t8xn5zw2",
+        "timestamp": "2026-09-07T03:00:25.258Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788749906722-jt1tgeok",
+        "event": "question-bank.ai-request.duration",
+        "message": "单个并行 AI 请求完成",
+        "context": {
+          "attempt": 4,
+          "workerIndex": 1,
+          "parallelRequests": 4,
+          "requestedCount": 1,
+          "receivedCount": 1,
+          "durationMs": 11819
+        }
+      },
       {
         "id": "1788750021082-rua06p52",
         "timestamp": "2026-09-07T03:00:21.082Z",
@@ -17484,69 +17549,6 @@
           "targetCount": 10,
           "parallelRequests": 4,
           "requestedCount": 10
-        }
-      },
-      {
-        "id": "1788402641788-9t61a2ff",
-        "timestamp": "2026-09-03T02:30:41.788Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788402556921-k1tor8t8",
-        "event": "question-bank.ai-request.duration",
-        "message": "单个并行 AI 请求完成",
-        "context": {
-          "attempt": 1,
-          "workerIndex": 3,
-          "parallelRequests": 4,
-          "requestedCount": 2,
-          "receivedCount": 2,
-          "durationMs": 18235
-        }
-      },
-      {
-        "id": "1788402639303-nelkzqsx",
-        "timestamp": "2026-09-03T02:30:39.303Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "35e7034fba37"
-        }
-      },
-      {
-        "id": "1788402639086-vsxtwc9p",
-        "timestamp": "2026-09-03T02:30:39.086Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788402556921-k1tor8t8",
-        "event": "question-bank.ai-request.duration",
-        "message": "单个并行 AI 请求完成",
-        "context": {
-          "attempt": 1,
-          "workerIndex": 1,
-          "parallelRequests": 4,
-          "requestedCount": 3,
-          "receivedCount": 3,
-          "durationMs": 15536
-        }
-      },
-      {
-        "id": "1788402637550-gvwurwub",
-        "timestamp": "2026-09-03T02:30:37.550Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788402556921-k1tor8t8",
-        "event": "question-bank.ai-request.duration",
-        "message": "单个并行 AI 请求完成",
-        "context": {
-          "attempt": 1,
-          "workerIndex": 4,
-          "parallelRequests": 4,
-          "requestedCount": 2,
-          "receivedCount": 2,
-          "durationMs": 13995
         }
       }
     ],
