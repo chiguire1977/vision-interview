@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-07T03:03:54.207Z",
+  "updatedAt": "2026-09-07T03:03:57.211Z",
   "data": {
     "vision-interview-records": [
       {
@@ -3785,6 +3785,63 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788750238797-qqjfg8st",
+        "timestamp": "2026-09-07T03:03:58.797Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "38bfd08c59d2"
+        }
+      },
+      {
+        "id": "1788750235580-7bmvembz",
+        "timestamp": "2026-09-07T03:03:55.580Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788750232517-3fgf155d",
+        "event": "question-group.prepare.cached",
+        "message": "题组已从本机缓存恢复",
+        "context": {
+          "questionCount": 10
+        }
+      },
+      {
+        "id": "1788750235574-dehqb529",
+        "timestamp": "2026-09-07T03:03:55.574Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788750232517-3fgf155d",
+        "event": "question-group.prepare.started",
+        "message": "开始准备题组",
+        "context": {
+          "project": "机器视觉专业知识",
+          "mode": "专业知识",
+          "questionCount": 10,
+          "sourceMode": "network",
+          "adaptiveQuestions": false,
+          "focusCategories": []
+        }
+      },
+      {
+        "id": "1788750235570-dc6luuyj",
+        "timestamp": "2026-09-07T03:03:55.570Z",
+        "level": "INFO",
+        "kind": "user",
+        "sessionId": "1788750232517-3fgf155d",
+        "event": "training.started",
+        "message": "用户开始新的训练题组",
+        "context": {
+          "category": "随机类型",
+          "difficulty": "基础",
+          "techStack": "HALCON",
+          "detectionDirection": "传统 2D 视觉",
+          "questionCount": 10
+        }
+      },
       {
         "id": "1788750234144-jn18j6p1",
         "timestamp": "2026-09-07T03:03:54.144Z",
@@ -17444,74 +17501,6 @@
           "excludedCount": 0,
           "parallelRequests": 4,
           "requestedCount": 10
-        }
-      },
-      {
-        "id": "1788415346216-0140zdua",
-        "timestamp": "2026-09-03T06:02:26.216Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788415285095-lgd8akx4",
-        "event": "question-bank.ai-request.failed",
-        "message": "单个并行 AI 请求失败",
-        "context": {
-          "attempt": 3,
-          "workerIndex": 4,
-          "parallelRequests": 4,
-          "requestedCount": 2,
-          "durationMs": 166,
-          "error": "请先配置当前 AI 服务商的 API Key。"
-        }
-      },
-      {
-        "id": "1788415346211-dbn265l6",
-        "timestamp": "2026-09-03T06:02:26.211Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788415285095-lgd8akx4",
-        "event": "question-bank.ai-request.failed",
-        "message": "单个并行 AI 请求失败",
-        "context": {
-          "attempt": 3,
-          "workerIndex": 1,
-          "parallelRequests": 4,
-          "requestedCount": 3,
-          "durationMs": 163,
-          "error": "请先配置当前 AI 服务商的 API Key。"
-        }
-      },
-      {
-        "id": "1788415346208-rnfq15dj",
-        "timestamp": "2026-09-03T06:02:26.208Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788415285095-lgd8akx4",
-        "event": "question-bank.ai-request.failed",
-        "message": "单个并行 AI 请求失败",
-        "context": {
-          "attempt": 3,
-          "workerIndex": 3,
-          "parallelRequests": 4,
-          "requestedCount": 2,
-          "durationMs": 158,
-          "error": "请先配置当前 AI 服务商的 API Key。"
-        }
-      },
-      {
-        "id": "1788415346204-3j5lmev9",
-        "timestamp": "2026-09-03T06:02:26.204Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788415285095-lgd8akx4",
-        "event": "question-bank.ai-request.failed",
-        "message": "单个并行 AI 请求失败",
-        "context": {
-          "attempt": 3,
-          "workerIndex": 2,
-          "parallelRequests": 4,
-          "requestedCount": 3,
-          "durationMs": 154,
-          "error": "请先配置当前 AI 服务商的 API Key。"
         }
       }
     ],
