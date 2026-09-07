@@ -158,6 +158,18 @@ test("does not persist network questions when no verified source was acquired", 
   assert.deepEqual(bank.filterPersistableQuestions([generated("Without source")], { requiresVerifiedReference: false }).map((question) => question.title), ["Without source"]);
 });
 
+test("archives network questions without references as explicitly unverified", () => {
+  const [verified, unverified] = bank.prepareQuestionBankArchiveQuestions([
+    generated("Verified source", { reference: { title: "Docs", url: "https://docs.example.com/a" } }),
+    generated("Without source"),
+  ], { requiresVerifiedReference: true });
+
+  assert.equal(verified.reference?.url, "https://docs.example.com/a");
+  assert.equal(unverified.title, "Without source");
+  assert.equal(unverified.sourceType, "AI知识整理（待验证）");
+  assert.match(unverified.basis, /待验证/);
+});
+
 test("normalizes legacy taxonomy labels without breaking technology-stack filtering", () => {
   const [question] = bank.normalizeAiGeneratedQuestions([generated("Legacy communication question", {
     category: "PLC与现场",

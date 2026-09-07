@@ -385,6 +385,26 @@ export function filterPersistableQuestions(values: unknown[], { requiresVerified
   return requiresVerifiedReference ? normalized.filter((question) => Boolean(question.reference)) : normalized;
 }
 
+/**
+ * Keeps every valid generated question in the archive. Network-generated
+ * questions without a verified reference are retained with an explicit label
+ * so they can be uploaded and reviewed without presenting an invented source.
+ */
+export function prepareQuestionBankArchiveQuestions(
+  values: unknown[],
+  { requiresVerifiedReference = false } = {},
+) {
+  const normalized = filterPersistableQuestions(values, { requiresVerifiedReference: false });
+  if (!requiresVerifiedReference) return normalized;
+  return normalized.map((question) => question.reference ? question : ({
+    ...question,
+    sourceType: "AI知识整理（待验证）",
+    basis: question.basis
+      ? `${question.basis}；联网来源待验证。`
+      : "本题基于模型知识生成，联网来源暂未获得可验证结果，待验证并补充来源。",
+  }));
+}
+
 function safeAttemptError(error: unknown) {
   const message = error instanceof Error ? error.message : typeof error === "string" ? error : "请求发生异常";
   return message
