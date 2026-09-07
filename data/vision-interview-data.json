@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-07T03:13:02.794Z",
+  "updatedAt": "2026-09-07T03:13:06.674Z",
   "data": {
     "vision-interview-records": [
       {
@@ -3785,6 +3785,35 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788750788311-dhhw0iwy",
+        "timestamp": "2026-09-07T03:13:08.311Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "430177f084a6"
+        }
+      },
+      {
+        "id": "1788750787521-qvbtitzt",
+        "timestamp": "2026-09-07T03:13:07.521Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788750662374-31k341xx",
+        "event": "question-bank.ai-request.duration",
+        "message": "单个并行 AI 请求完成",
+        "context": {
+          "attempt": 2,
+          "workerIndex": 1,
+          "parallelRequests": 4,
+          "requestedCount": 2,
+          "receivedCount": 2,
+          "durationMs": 14389
+        }
+      },
       {
         "id": "1788750782219-ivyqlb51",
         "timestamp": "2026-09-07T03:13:02.219Z",
@@ -17467,25 +17496,6 @@
         "context": {
           "source": "github",
           "updatedAt": "2026-09-03T09:04:16.257Z"
-        }
-      },
-      {
-        "id": "1788430276820-19720lnt",
-        "timestamp": "2026-09-03T10:11:16.820Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.close.flush",
-        "message": "页面关闭或进入后台，提交最后一次备份"
-      },
-      {
-        "id": "1788430276818-ly0uiz8c",
-        "timestamp": "2026-09-03T10:11:16.818Z",
-        "level": "ERROR",
-        "kind": "system",
-        "event": "backup.push.failed",
-        "message": "运行数据备份请求失败",
-        "context": {
-          "error": "Failed to fetch"
         }
       }
     ],
