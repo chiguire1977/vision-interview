@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-07T03:14:42.585Z",
+  "updatedAt": "2026-09-07T03:14:45.801Z",
   "data": {
     "vision-interview-records": [
       {
@@ -3786,12 +3786,32 @@
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
       {
+        "id": "1788750886773-5lrdy4m9",
+        "timestamp": "2026-09-07T03:14:46.773Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.close.flush",
+        "message": "页面关闭或进入后台，提交最后一次备份"
+      },
+      {
         "id": "1788750884636-lwhif5z1",
         "timestamp": "2026-09-07T03:14:44.636Z",
         "level": "INFO",
         "kind": "system",
         "event": "backup.close.flush",
         "message": "页面关闭或进入后台，提交最后一次备份"
+      },
+      {
+        "id": "1788750878960-yuoxpt0u",
+        "timestamp": "2026-09-07T03:14:38.960Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "566c793b0091"
+        }
       },
       {
         "id": "1788750873352-nhuyd2z8",
@@ -17441,40 +17461,6 @@
           "requestedCount": 10,
           "durationMs": 608,
           "sharedAcrossWorkers": true
-        }
-      },
-      {
-        "id": "1788430459423-m5hlu9ta",
-        "timestamp": "2026-09-03T10:14:19.423Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788430316486-caocj3jp",
-        "event": "question-bank.web-search.started",
-        "message": "开始联网检索本轮题目资料",
-        "context": {
-          "attempt": 4,
-          "query": "机器视觉 面试知识点 HALCON 传统 2D 视觉 仅限二维图像处理，排除 3D、三维、点云、深度图、法线估计、平面拟合、立体视觉、结构光和双目 原理 工程实践",
-          "mode": "专业知识",
-          "excludedCount": 9,
-          "parallelRequests": 4,
-          "requestedCount": 10
-        }
-      },
-      {
-        "id": "1788430459420-it1phznm",
-        "timestamp": "2026-09-03T10:14:19.420Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788430316486-caocj3jp",
-        "event": "question-bank.ai-request.completed",
-        "message": "第 3/6 轮：AI 已返回 9/10 道有效题目，继续补齐…",
-        "context": {
-          "attempt": 3,
-          "maxAttempts": 6,
-          "collectedCount": 9,
-          "targetCount": 10,
-          "parallelRequests": 4,
-          "requestedCount": 1
         }
       }
     ],
