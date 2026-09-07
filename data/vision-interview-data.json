@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-07T02:38:15.111Z",
+  "updatedAt": "2026-09-07T02:38:15.886Z",
   "data": {
     "vision-interview-records": [
       {
@@ -3785,6 +3785,25 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788748697600-29yh9rmm",
+        "timestamp": "2026-09-07T02:38:17.600Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.close.flush",
+        "message": "页面关闭或进入后台，提交最后一次备份"
+      },
+      {
+        "id": "1788748697598-uul6ikyr",
+        "timestamp": "2026-09-07T02:38:17.598Z",
+        "level": "ERROR",
+        "kind": "system",
+        "event": "backup.push.failed",
+        "message": "运行数据备份请求失败",
+        "context": {
+          "error": "Failed to fetch"
+        }
+      },
       {
         "id": "1788748693079-yhb7l8ek",
         "timestamp": "2026-09-07T02:38:13.079Z",
@@ -16978,26 +16997,6 @@
           "durationMs": 60193,
           "error": "AI 请求超时，请稍后重试。"
         }
-      },
-      {
-        "id": "1788345149410-uvm9ongf",
-        "timestamp": "2026-09-02T10:32:29.410Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "669de174c192"
-        }
-      },
-      {
-        "id": "1788345142268-xfzveb1z",
-        "timestamp": "2026-09-02T10:32:22.268Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.close.flush",
-        "message": "页面关闭或进入后台，提交最后一次备份"
       }
     ],
     "vision-interview-web-source-whitelist": [
