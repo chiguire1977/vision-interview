@@ -52,6 +52,16 @@ test("first training screen lets the learner configure scope before starting", (
   assert.match(startPanel, /onDetectionDirectionChange/);
 });
 
+test("training flow can cancel preparation and return to type selection", () => {
+  const page = readFileSync(fileURLToPath(new URL("../app/page.tsx", import.meta.url)), "utf8");
+  assert.match(page, /终止生成并返回选择/);
+  assert.match(page, /onCancel={returnToTrainingSelection}/);
+  assert.match(page, /preparationAbortControllerRef/);
+  assert.match(page, /setTrainingStarted\(false\)/);
+  assert.match(page, /重新选择题目类型/);
+  assert.match(page, /onReturnToSelection/);
+});
+
 test("settings includes a dedicated GitHub synchronization tab", () => {
   const page = readFileSync(fileURLToPath(new URL("../app/page.tsx", import.meta.url)), "utf8");
   assert.match(page, /key: "github", title: "GitHub 同步"/);
@@ -94,4 +104,10 @@ test("whitelist settings validate URLs before saving and expose availability wit
   assert.match(page, /重新检测/);
   assert.match(page, /available !== false/);
   assert.match(page, /<Switch checked=\{entry\.enabled\}/);
+});
+
+test("whitelist settings keep fixed sources enabled and protected from deletion", () => {
+  const page = readFileSync(fileURLToPath(new URL("../app/page.tsx", import.meta.url)), "utf8");
+  assert.match(page, /entry\.fixed/);
+  assert.match(page, /系统固定白名单不可删除/);
 });

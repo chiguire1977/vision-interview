@@ -473,6 +473,7 @@ export async function collectAiQuestionGroup(
     prepareAttempt?: (attempt: number, excludedTitles: string[]) => Promise<unknown>;
     initialExcludedTitles?: string[];
     initialExcludedQuestionClasses?: string[];
+    signal?: AbortSignal;
   } = {},
 ) {
   const target = Math.max(0, Math.floor(targetCount));
@@ -485,6 +486,7 @@ export async function collectAiQuestionGroup(
     try { onProgress?.(progress); } catch { /* 进度回调不能影响题组生成 */ }
   };
   for (let attempt = 1; attempt <= attempts && collected.length < target; attempt += 1) {
+    if (options.signal?.aborted) throw options.signal.reason ?? new DOMException("题组生成已终止", "AbortError");
     const missing = target - collected.length;
     report({ phase: "requesting", attempt, maxAttempts: attempts, targetCount: target, collectedCount: collected.length });
 
@@ -519,6 +521,7 @@ export async function collectAiQuestionGroup(
       };
       return Promise.resolve().then(() => request(count, excludedTitles, attempt, workerIndex, roundContext, workerContext));
     });
+    if (options.signal?.aborted) throw options.signal.reason ?? new DOMException("题组生成已终止", "AbortError");
     const results = await Promise.allSettled(workerRequests);
     const received: unknown[] = [];
     const errors: string[] = [];

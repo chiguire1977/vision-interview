@@ -3,8 +3,14 @@ import assert from "node:assert/strict";
 import {
   getAnswerCompletionAction,
   getPreviousQuestionIndex,
+  isQuestionGroupPreparationCancelled,
   shouldRestartQuestionGroupPreparation,
 } from "../lib/training-navigation.mjs";
+
+test("recognizes an aborted question-group preparation request", () => {
+  assert.equal(isQuestionGroupPreparationCancelled({ name: "AbortError" }), true);
+  assert.equal(isQuestionGroupPreparationCancelled(new Error("network failed")), false);
+});
 
 test("does not restart a prepared group when an answer record changes", () => {
   assert.equal(shouldRestartQuestionGroupPreparation({
