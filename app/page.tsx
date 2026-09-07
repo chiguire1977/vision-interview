@@ -1,6 +1,3 @@
-Warning: truncated output (original token count: 84555)
-Total output lines: 4670
-
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
@@ -185,6 +182,7 @@ type WebSourceWhitelistEntry = {
   id: string;
   url: string;
   enabled: boolean;
+  fixed?: boolean;
   displayName?: string;
   available?: boolean;
   lastCheckedAt?: string;
@@ -1042,7 +1040,7 @@ async function prepareQuestionGroup(
               query: researchQuery,
               excludedTitles,
               storage: localStorage,
-              options: { parallelRequests: 3, requestTimeoutMs: 8000, cacheTtlMs: 600000, whitelist: readWebSourceWhitelist(localStorage) },
+              options: { parallelRequests: Math.min(4, parallelRequests), requestTimeoutMs: 8000, softTimeoutMs: 4500, minimumSources: 4, cacheTtlMs: 600000, whitelist: readWebSourceWhitelist(localStorage) },
             });
             const webSources = retrieval.sources.filter(isWebResearchSource);
             const durationMs = Math.round(performance.now() - searchStartedAt);
@@ -1617,7 +1615,1759 @@ async function evaluateAnswerWithAi(question: Question, answer: string, bestAnsw
     if (!baseUrl || !model) return localFallback;
     const apiKey = sessionStorage.getItem(`vision-interview-ai-key-${provider}`) || "";
     const response = await fetch("/api/ai/chat", {
-      method: "PO…34555 tokens truncated…优先级`}</button>)}</div>
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        provider, upstreamFormat: resolveAiUpstreamFormat(baseUrl, model, preferences.upstreamFormat), baseUrl, model, maxTokens: 1000, temperature: 0.1, ...(apiKey ? { apiKey } : {}),
+        messages: [
+          {
+            role: "system",
+            content: "你是机器视觉工程师面试回答审阅器。不要打分，只判断掌握程度。必须只返回 JSON，不要 Markdown，不要编造项目事实。掌握程度只能是低、中、高：低表示核心概念或关键步骤缺失；中表示方向基本正确但存在明显遗漏；高表示原理、实施、验证和边界条件表达完整。",
+          },
+          {
+            role: "user",
+            content: JSON.stringify({
+              task: "审阅用户回答并给出掌握程度",
+              question: { title: question.title, category: question.category, source: question.source, keywords: question.keywords, blueprint: question.blueprint ?? buildQuestionBlueprint(question) },
+              standardAnswer: bestAnswer,
+              userAnswer: answer.trim(),
+              outputSchema: { mastery: "低|中|高", reason: "一句话判断依据", strengths: ["可保留的内容"], issues: ["与标准答案相比的不足"], missing: ["遗漏的关键点"], suggestions: ["下一步可执行的提升建议"] },
+            }),
+          },
+        ],
+      }),
+    });
+    const result = await response.json() as { ok?: boolean; content?: string };
+    if (!response.ok || !result.ok || !result.content) return localFallback;
+    return parseAiMasteryReview(result.content, fallbackReview) ?? localFallback;
+  } catch {
+    return localFallback;
+  }
+}
+
+type GroupEvaluation = {
+  answers: SessionAnswer[];
+  summary: string;
+  source: "AI" | "本地规则";
+};
+
+function evaluateQuestionGroupLocally(answers: SessionAnswer[]): GroupEvaluation {
+  const reviewed = answers.map((item) => {
+    const review = reviewAnswer(item.answer, item.question, item.bestAnswer);
+    const conclusion = item.status === "skipped" ? "未回答" : review.missing.length ? "存在关键遗漏" : "回答完整";
+    return {
+      ...item,
+      review,
+      mastery: masteryFromConclusion(conclusion),
+      masteryReason: `内置要点评审：${conclusion}。${review.missing.length ? `遗漏：${review.missing.join("、")}。` : "已覆盖最佳回答中的关键内容。"}`,
+      reviewStatus: "reviewed" as const,
+      reviewSource: "本地规则" as const,
+    };
+  });
+  const incomplete = reviewed.filter((item) => item.mastery !== "高").length;
+  return {
+    answers: reviewed,
+    source: "本地规则",
+    summary: incomplete ? `内置评审已完成，${incomplete} 道题存在未覆盖的关键内容。` : "内置评审已完成，题组回答覆盖了各题最佳回答中的关键内容。",
+  };
+}
+
+function parseAiGroupReview(content: string, answers: SessionAnswer[]): GroupEvaluation | null {
+  try {
+    const cleaned = content.replace(/^```(?:json)?\s*/i, "").replace(/\s*```$/i, "").trim();
+    const start = cleaned.indexOf("{");
+    const end = cleaned.lastIndexOf("}");
+    const parsed = JSON.parse(start >= 0 && end >= start ? cleaned.slice(start, end + 1) : cleaned) as Record<string, unknown>;
+    const rawReviews = Array.isArray(parsed.reviews) ? parsed.reviews : [];
+    if (!rawReviews.length) return null;
+    const byQuestion = new Map<string, Record<string, unknown>>();
+    for (const raw of rawReviews) {
+      if (!raw || typeof raw !== "object") continue;
+      const value = raw as Record<string, unknown>;
+      if (typeof value.question === "string" && value.question.trim()) byQuestion.set(value.question.trim(), value);
+    }
+    if (!byQuestion.size) return null;
+    const reviewed = answers.map((item) => {
+      const value = byQuestion.get(item.question.title);
+      if (!value) return evaluateQuestionGroupLocally([item]).answers[0];
+      const conclusion = value.conclusion;
+      if (conclusion !== "回答完整" && conclusion !== "存在关键遗漏" && conclusion !== "未回答") return evaluateQuestionGroupLocally([item]).answers[0];
+      const fallback = reviewAnswer(item.answer, item.question, item.bestAnswer);
+      const coveredPoints = asTextList(value.coveredPoints);
+      const missingPoints = asTextList(value.missingPoints);
+      const coveredCriticalPoints = asTextList(value.coveredCriticalPoints ?? value.criticalCoveredPoints);
+      const missingCriticalPoints = asTextList(value.missingCriticalPoints ?? value.criticalMissingPoints);
+      const review: AnswerReview = {
+        strengths: coveredPoints.length ? [`已覆盖：${coveredPoints.join("、")}。`] : fallback.strengths,
+        issues: missingPoints.length ? [`尚未覆盖：${missingPoints.join("、")}。`] : fallback.issues,
+        suggestions: asTextList(value.suggestions).length ? asTextList(value.suggestions) : fallback.suggestions,
+        missing: missingPoints.length ? missingPoints : fallback.missing,
+        coveredPoints: coveredPoints.length ? coveredPoints : fallback.coveredPoints,
+        criticalCoveredPoints: coveredCriticalPoints.length ? coveredCriticalPoints : fallback.criticalCoveredPoints,
+        criticalMissingPoints: missingCriticalPoints.length ? missingCriticalPoints : fallback.criticalMissingPoints,
+      };
+      return {
+        ...item,
+        review,
+        mastery: masteryFromConclusion(conclusion),
+        masteryReason: typeof value.reason === "string" && value.reason.trim() ? value.reason.trim() : `AI 题组评审：${conclusion}。`,
+        reviewStatus: "reviewed" as const,
+        reviewSource: "AI" as const,
+      };
+    });
+    const summary = typeof parsed.summary === "string" && parsed.summary.trim() ? parsed.summary.trim() : "AI 已根据题组中各题的最佳回答要点完成整体评审。";
+    return { answers: reviewed, summary, source: "AI" };
+  } catch {
+    return null;
+  }
+}
+
+async function evaluateQuestionGroupWithAi(answers: SessionAnswer[]): Promise<GroupEvaluation> {
+  const localFallback = evaluateQuestionGroupLocally(answers);
+  try {
+    const storedPreferences = localStorage.getItem("vision-interview-ai-preferences");
+    const preferences = storedPreferences ? JSON.parse(storedPreferences) as Partial<AiPreferences> : {};
+    if (preferences.aiScoring === false) return localFallback;
+    const provider = typeof preferences.provider === "string" ? preferences.provider : "deepseek";
+    const providerSettings = readAiProviderSettings();
+    const definition = getProviderDefinition(provider, providerSettings);
+    const baseUrl = provider === "deepseek"
+      ? definition.baseUrl
+      : providerSettings[provider]?.baseUrl || providerSettings[provider]?.openaiBaseUrl || preferences.openaiBaseUrl || definition.baseUrl;
+    const model = providerSettings[provider]?.model || (typeof preferences.model === "string" ? preferences.model : definition.models[0]?.value || "");
+    if (!baseUrl || !model) return localFallback;
+    const apiKey = sessionStorage.getItem(`vision-interview-ai-key-${provider}`) || "";
+    const response = await fetch("/api/ai/chat", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        provider, upstreamFormat: resolveAiUpstreamFormat(baseUrl, model, preferences.upstreamFormat), baseUrl, model, maxTokens: 2600, temperature: 0.1, ...(apiKey ? { apiKey } : {}),
+        messages: [
+          {
+            role: "system",
+            content: "你是机器视觉工程师面试题组评审器。不要打分，不要按字数评判。必须比较每道题的最佳回答与用户回答，只判断关键内容是否覆盖。题目蓝图中的 criticalPoints 是必须覆盖的关键点，请单独列出已覆盖和遗漏的关键点。必须只返回 JSON，不要 Markdown。每道题 conclusion 只能是：回答完整、存在关键遗漏、未回答。",
+          },
+          {
+            role: "user",
+            content: JSON.stringify({
+              task: "评审整组回答是否覆盖每道题最佳回答中的关键内容",
+              answers: answers.map((item) => ({
+                question: item.question.title,
+                bestAnswer: item.bestAnswer,
+                userAnswer: item.answer,
+                blueprint: item.question.blueprint ?? buildQuestionBlueprint(item.question),
+              })),
+              outputSchema: {
+                summary: "题组整体评审结论",
+                reviews: [{ question: "必须原样填写题目标题", conclusion: "回答完整|存在关键遗漏|未回答", reason: "判断依据", coveredPoints: ["已覆盖的最佳回答要点"], missingPoints: ["遗漏的最佳回答要点"], coveredCriticalPoints: ["已覆盖的必答关键点"], missingCriticalPoints: ["遗漏的必答关键点"], suggestions: ["针对遗漏内容的补充建议"] }],
+              },
+            }),
+          },
+        ],
+      }),
+    });
+    const result = await response.json() as { ok?: boolean; content?: string };
+    if (!response.ok || !result.ok || !result.content) return localFallback;
+    return parseAiGroupReview(result.content, answers) ?? localFallback;
+  } catch {
+    return localFallback;
+  }
+}
+
+function ThemeSwitcher({ themeId, onChange }: { themeId: ThemeId; onChange: (value: ThemeId) => void }) {
+  const [open, setOpen] = useState(false);
+  const currentTheme = themeOptionById(themeId) ?? THEME_OPTIONS[0];
+  return (
+    <div className="relative">
+      <Button type="button" variant="outline" size="sm" aria-haspopup="menu" aria-expanded={open} aria-label={`切换主题，当前为${currentTheme.label}`}
+        onClick={() => setOpen((value) => !value)} className="bg-[var(--card)] text-slate-700">
+        <Palette className="size-4" /><span className="hidden sm:inline">{currentTheme.label}</span><ChevronDown className={`size-3.5 transition-transform ${open ? "rotate-180" : ""}`} />
+      </Button>
+      {open && (
+        <div role="menu" aria-label="网站主题" className="absolute right-0 top-[calc(100%+0.5rem)] z-50 w-52 rounded-lg border border-slate-200 bg-[var(--card)] p-1.5 shadow-lg">
+          {THEME_OPTIONS.map((option) => {
+            const selected = option.id === themeId;
+            return (
+              <button key={option.id} type="button" role="menuitemradio" aria-checked={selected} onClick={() => { onChange(option.id as ThemeId); setOpen(false); }}
+                className={`flex w-full items-center gap-3 rounded-md px-3 py-2.5 text-left transition ${selected ? "bg-[var(--accent)] text-[var(--accent-foreground)]" : "text-slate-700 hover:bg-slate-50"}`}>
+                <span className="size-3.5 shrink-0 rounded-full ring-2 ring-white ring-offset-1" style={{ backgroundColor: option.swatch }} />
+                <span className="min-w-0 flex-1"><strong className="block text-sm font-medium">{option.label}</strong><span className="mt-0.5 block text-xs text-slate-500">{option.description}</span></span>
+                {selected && <Check className="size-4 shrink-0 text-[var(--primary)]" />}
+              </button>
+            );
+          })}
+        </div>
+      )}
+    </div>
+  );
+}
+
+export default function Home() {
+  const [runtimeSessionId] = useState(() => {
+    if (typeof window === "undefined") return "";
+    if (!activeRuntimeSessionId) activeRuntimeSessionId = startRuntimeSession(localStorage).id;
+    return activeRuntimeSessionId;
+  });
+  const [activeNav, setActiveNav] = useState("开始学习");
+  const [themeId, setThemeId] = useState<ThemeId>("ocean");
+  const project = "机器视觉专业知识";
+  const trainingMode: TrainingMode = "专业知识";
+  const [category, setCategory] = useState("随机类型");
+  const [difficulty, setDifficulty] = useState("随机难度");
+  const [techStack, setTechStack] = useState<(typeof techStackFilters)[number]>("随机技术栈");
+  const [detectionDirection, setDetectionDirection] = useState("随机方向");
+  const [questionIndex, setQuestionIndex] = useState(0);
+  const [answer, setAnswer] = useState("");
+  const [submitted, setSubmitted] = useState(false);
+  const [evaluating, setEvaluating] = useState(false);
+  const [showBestAnswer, setShowBestAnswer] = useState(false);
+  const [bestAnswerViewed, setBestAnswerViewed] = useState(false);
+  const [recording, setRecording] = useState(false);
+  const [seconds, setSeconds] = useState(0);
+  const [records, setRecords] = useState<TrainingRecord[]>([]);
+  const [favoriteQuestions, setFavoriteQuestions] = useState<Question[]>([]);
+  const [remoteQuestionBank, setRemoteQuestionBank] = useState<unknown[]>([]);
+  const [questionBankRemoteState, setQuestionBankRemoteState] = useState<"loading" | "ready" | "local-only" | "error">("loading");
+  const [questionBankRemoteError, setQuestionBankRemoteError] = useState("");
+  const [sessionAnswers, setSessionAnswers] = useState<SessionAnswer[]>([]);
+  const [groupCompleted, setGroupCompleted] = useState(false);
+  const [groupReviewSummary, setGroupReviewSummary] = useState("");
+  const [groupReviewSource, setGroupReviewSource] = useState<"AI" | "本地规则" | "未评审">("未评审");
+  const [groupRound, setGroupRound] = useState(0);
+  const [reviewSessionActive, setReviewSessionActive] = useState(false);
+  const [reviewSessionQuestions, setReviewSessionQuestions] = useState<Question[] | null>(null);
+  const [preparedGroupQuestions, setPreparedGroupQuestions] = useState<Question[] | null>(null);
+  const [trainingStarted, setTrainingStarted] = useState(false);
+  const [preparingGroup, setPreparingGroup] = useState(false);
+  const [groupPreparationSource, setGroupPreparationSource] = useState<"AI" | "本地规则" | "缓存">("本地规则");
+  const [groupPreparationMessage, setGroupPreparationMessage] = useState("");
+  const [speechError, setSpeechError] = useState("");
+  const [speechProcessing, setSpeechProcessing] = useState(false);
+  const mediaRecorderRef = useRef<MediaRecorder | null>(null);
+  const mediaStreamRef = useRef<MediaStream | null>(null);
+  const speechChunksRef = useRef<Blob[]>([]);
+
+  useEffect(() => {
+    let savedTheme: string | null = null;
+    try {
+      savedTheme = localStorage.getItem(THEME_STORAGE_KEY);
+    } catch {
+      savedTheme = null;
+    }
+    const normalized = normalizeThemeId(savedTheme) as ThemeId;
+    setThemeId(normalized);
+    document.documentElement.dataset.theme = normalized;
+  }, []);
+
+  useEffect(() => {
+    document.documentElement.dataset.theme = themeId;
+    try {
+      localStorage.setItem(THEME_STORAGE_KEY, themeId);
+    } catch {
+      // 浏览器存储不可用时，主题仍在当前页面生效。
+    }
+  }, [themeId]);
+
+  const learningFocus = useMemo(() => {
+    let enabled = true;
+    if (typeof window !== "undefined") {
+      try {
+        const preferences = JSON.parse(localStorage.getItem("vision-interview-ai-preferences") || "{}") as Partial<AiPreferences>;
+        enabled = preferences.adaptiveQuestions !== false;
+      } catch {
+        enabled = true;
+      }
+    }
+    return enabled ? buildLearningFocus(records) : buildLearningFocus([]);
+  }, [records, activeNav]);
+
+  useEffect(() => {
+    let active = true;
+    const refreshRemoteQuestionBank = () => {
+      let pending: unknown[] = [];
+      let cached: unknown[] = [];
+      try {
+        const saved = JSON.parse(localStorage.getItem(pendingAiQuestionBackupKey) || "[]") as unknown;
+        pending = Array.isArray(saved) ? saved : [];
+      } catch {
+        pending = [];
+      }
+      try {
+        const saved = JSON.parse(localStorage.getItem(aiQuestionBankStorageKey) || "[]") as unknown;
+        cached = Array.isArray(saved) ? saved : [];
+      } catch {
+        cached = [];
+      }
+      const localArchive = mergeQuestionBankArchive(cached, pending);
+      setRemoteQuestionBank(localArchive);
+
+      void fetch(configuredGithubApiUrl("/api/question-bank"), { cache: "no-store" })
+        .then(async (response) => ({ response, body: await response.json() as { ok?: boolean; available?: boolean; questions?: unknown[]; questionCount?: number; reason?: string } }))
+        .then(({ response, body }) => {
+          if (!active) return;
+          if (body.available === false) {
+            setQuestionBankRemoteState("local-only");
+            recordRuntimeEvent("WARN", "question-bank.remote.unavailable", "GitHub AI 题库未配置，已使用本地缓存题库", { cachedCount: localArchive.length });
+            return;
+          }
+          if (!response.ok || body.ok === false) {
+            setQuestionBankRemoteState("error");
+            setQuestionBankRemoteError(body.reason || "GitHub AI 题库读取失败。");
+            recordRuntimeEvent("WARN", "question-bank.remote.failed", "GitHub AI 题库读取失败，已使用本地缓存题库", { cachedCount: localArchive.length, reason: body.reason || `HTTP ${response.status}` });
+            return;
+          }
+          const loaded = mergeQuestionBankArchive(
+            mergeQuestionBankArchive(cached, Array.isArray(body.questions) ? body.questions : []),
+            pending,
+          );
+          try {
+            localStorage.setItem(aiQuestionBankStorageKey, JSON.stringify(loaded));
+            if (!pending.length) localStorage.setItem(aiQuestionBankLastSyncKey, JSON.stringify(loaded));
+          } catch {
+            // 即使缓存不可用，也继续使用本次从 GitHub 读取的题库。
+          }
+          setRemoteQuestionBank(loaded);
+          setQuestionBankRemoteState("ready");
+          recordRuntimeEvent("INFO", "question-bank.remote.loaded", "GitHub AI 历史题库加载完成", { questionCount: loaded.length, githubQuestionCount: body.questionCount ?? body.questions?.length ?? 0, pendingCount: pending.length });
+        })
+        .catch((error) => {
+          if (!active) return;
+          setQuestionBankRemoteState("error");
+          setQuestionBankRemoteError(error instanceof Error ? error.message : "GitHub AI 题库读取失败。");
+          recordRuntimeEvent("WARN", "question-bank.remote.failed", "GitHub AI 题库请求异常，已使用本地缓存题库", { cachedCount: localArchive.length, reason: error instanceof Error ? error.message : "unknown" });
+        });
+    };
+
+    refreshRemoteQuestionBank();
+    window.addEventListener("vision-interview-question-bank-refresh", refreshRemoteQuestionBank);
+
+    return () => {
+      active = false;
+      window.removeEventListener("vision-interview-question-bank-refresh", refreshRemoteQuestionBank);
+    };
+  }, []);
+
+  function toggleFavorite(questionToToggle: Question) {
+    setFavoriteQuestions((current) => {
+      const next = toggleFavoriteQuestion(current, questionToToggle) as Question[];
+      localStorage.setItem(FAVORITES_STORAGE_KEY, JSON.stringify(next));
+      const added = next.length > current.length;
+      recordRuntimeEvent("INFO", added ? "favorite.added" : "favorite.removed", added ? "题目已加入收藏夹" : "题目已移出收藏夹", {
+        question: questionToToggle.title,
+        source: questionToToggle.source,
+      });
+      return next;
+    });
+  }
+  const archivedProfessionalQuestionBank = useMemo(
+    () => mergeQuestionBankItems(questionBank, remoteQuestionBank)
+      .filter((item) => item.source === "专业") as Question[],
+    [remoteQuestionBank],
+  );
+  const availableQuestions = useMemo(() => {
+    const professional = archivedProfessionalQuestionBank;
+    const matchesDirection = (item: Question) => {
+      if (detectionDirection === "随机方向" || !hasDetectionDirections(techStack)) return true;
+      return normalizeDetectionDirection(item.detectionDirection || inferDetectionDirection(item, techStack)) === normalizeDetectionDirection(detectionDirection)
+        && isQuestionDirectionSemanticallyCompatible(item, detectionDirection);
+    };
+    let result = category !== "随机类型"
+      ? professional.filter((item) => item.category === category)
+      : professional;
+    if (techStack !== "随机技术栈") result = result.filter((item) => (item.techStacks ?? []).includes(techStack));
+    result = result.filter(matchesDirection);
+    if (difficulty !== "随机难度") {
+      result = result.filter((item) => item.difficulty === difficulty);
+    }
+    if (result.length) return result;
+    const categoryFallback = category === "随机类型" ? professional : professional.filter((item) => item.category === category);
+    const stackFallback = techStack === "随机技术栈"
+      ? categoryFallback
+      : categoryFallback.filter((item) => (item.techStacks ?? []).includes(techStack));
+    const directionFallback = stackFallback.filter(matchesDirection);
+    const difficultyFallback = difficulty === "随机难度"
+      ? directionFallback
+      : directionFallback.filter((item) => item.difficulty === difficulty);
+    if (detectionDirection !== "随机方向" && hasDetectionDirections(techStack)) return directionFallback;
+    return difficultyFallback.length ? difficultyFallback : stackFallback.length ? stackFallback : categoryFallback.length ? categoryFallback : professional;
+  }, [category, difficulty, techStack, detectionDirection, archivedProfessionalQuestionBank]);
+  const questionGroupSettings = readQuestionGroupSettings();
+  const groupQuestionSeed = useMemo(() => {
+    const count = Math.min(questionGroupSettings.questionGroupSize, availableQuestions.length);
+    const shouldRandomize = !learningFocus.active && (category === "随机类型" || difficulty === "随机难度" || techStack === "随机技术栈" || detectionDirection === "随机方向");
+    const ordered = shouldRandomize
+      ? [...availableQuestions].sort((left, right) => randomQuestionRank(left.title, groupRound) - randomQuestionRank(right.title, groupRound))
+      : learningFocus.active ? prioritizeQuestionCandidates(availableQuestions, learningFocus) : availableQuestions;
+    const start = shouldRandomize ? 0 : (groupRound * count) % ordered.length;
+    return Array.from({ length: count }, (_, index) => ordered[(start + index) % ordered.length]);
+  }, [availableQuestions, category, difficulty, techStack, detectionDirection, groupRound, questionGroupSettings.questionGroupSize, learningFocus]);
+  let aiSelectionSignature = "";
+  if (typeof window !== "undefined") {
+    try {
+      aiSelectionSignature = localStorage.getItem("vision-interview-ai-preferences") || "";
+    } catch { /* 忽略浏览器存储限制 */ }
+  }
+  const groupPreparationKey = useMemo(() => ["ai-generated-v6-semantic-direction", project, trainingMode, category, difficulty, techStack, detectionDirection, groupRound, questionGroupSettings.questionGroupSize, questionGroupSettings.parallelRequests, aiSelectionSignature, learningFocus.active ? learningFocus.summary : "no-focus", ...groupQuestionSeed.map((item) => item.title)].join("|"), [project, trainingMode, category, difficulty, techStack, detectionDirection, groupRound, questionGroupSettings.questionGroupSize, questionGroupSettings.parallelRequests, aiSelectionSignature, learningFocus, groupQuestionSeed]);
+  const groupQuestions = reviewSessionActive && reviewSessionQuestions?.length
+    ? reviewSessionQuestions
+    : preparedGroupQuestions?.length ? preparedGroupQuestions : groupQuestionSeed;
+  const question = groupQuestions[questionIndex % groupQuestions.length];
+  const currentEvaluation = sessionAnswers.find((item) => item.question.title === question.title);
+  const allQuestionBank = useMemo(
+    () => mergeQuestionBankItems(questionBank.filter((item) => item.source === "专业"), remoteQuestionBank.filter(isProfessionalQuestionValue)),
+    [remoteQuestionBank],
+  );
+
+  function startReview(startTitle = "", questionTitles?: string[]) {
+    const reviewRecords = questionTitles?.length
+      ? records.filter((record) => questionTitles.includes(record.question))
+      : records;
+    const queue = buildReviewQueue(reviewRecords);
+    const selected = selectReviewQuestions(allQuestionBank, reviewRecords, startTitle);
+    if (!selected.length) {
+      recordRuntimeEvent("WARN", "review.start.empty", "复习队列中没有可用题目", { requestedTitle: startTitle });
+      return;
+    }
+    const summary = summarizeReviewQueue(queue);
+    stopRecording();
+    setReviewSessionActive(true);
+    setReviewSessionQuestions(selected);
+    setPreparedGroupQuestions(null);
+    setPreparingGroup(false);
+    setGroupPreparationSource("本地规则");
+    setGroupPreparationMessage(`温故知新复习队列已准备，共 ${selected.length} 道题，按优先级执行。`);
+    setGroupCompleted(false);
+    setSessionAnswers([]);
+    setQuestionIndex(0);
+    setAnswer("");
+    setSubmitted(false);
+    setEvaluating(false);
+    setShowBestAnswer(false);
+    setBestAnswerViewed(false);
+    setSeconds(0);
+    setActiveNav("开始学习");
+    recordRuntimeEvent("INFO", "review.started", "温故知新复习任务已开始", {
+      total: selected.length,
+      highPriority: summary.high,
+      categories: summary.categories,
+      requestedTitle: startTitle || null,
+    });
+  }
+
+  async function transcribeRecordedAudio(chunks: Blob[]) {
+    if (!chunks.length) {
+      setSpeechError("没有采集到有效录音，请重新录音。");
+      recordRuntimeEvent("WARN", "speech.empty", "没有采集到有效录音");
+      return;
+    }
+    setSpeechProcessing(true);
+    setSpeechError("正在上传录音并使用 Whisper 识别…");
+    recordRuntimeEvent("INFO", "speech.transcription.started", "开始使用 Cloudflare Workers AI Whisper 识别语音", { chunkCount: chunks.length });
+    try {
+      const audio = new Blob(chunks, { type: chunks[0]?.type || "audio/webm" });
+      const form = new FormData();
+      form.append("audio", audio, "answer.webm");
+      const response = await fetch("/api/speech/transcribe", {
+        method: "POST",
+        body: form,
+        signal: AbortSignal.timeout(60000),
+      });
+      const result = await response.json() as { ok?: boolean; text?: string; message?: string };
+      if (!response.ok || !result.ok || !result.text?.trim()) throw new Error(result.message || "语音识别服务暂时不可用，请稍后重试。");
+      const transcript = result.text.trim();
+      setAnswer((current) => current.trim() ? `${current.trim()} ${transcript}` : transcript);
+      setSpeechError("");
+      recordRuntimeEvent("INFO", "speech.transcription.completed", "Whisper 语音识别完成", { characters: transcript.length });
+    } catch (error) {
+      const message = error instanceof Error && error.name === "TimeoutError"
+        ? "Whisper 语音识别超时，请缩短录音后重试。"
+        : error instanceof Error ? error.message : "语音识别服务暂时不可用，请稍后重试。";
+      setSpeechError(message);
+      recordRuntimeEvent("ERROR", "speech.transcription.failed", message);
+    } finally {
+      setSpeechProcessing(false);
+    }
+  }
+
+  function stopRecording({ transcribe = false } = {}) {
+    const recorder = mediaRecorderRef.current;
+    mediaRecorderRef.current = null;
+    const stream = mediaStreamRef.current;
+    mediaStreamRef.current = null;
+    if (!recorder || recorder.state === "inactive") {
+      stream?.getTracks().forEach((track) => track.stop());
+      setRecording(false);
+      if (transcribe) void transcribeRecordedAudio(speechChunksRef.current);
+      return;
+    }
+    recorder.onstop = () => {
+      stream?.getTracks().forEach((track) => track.stop());
+      setRecording(false);
+      const chunks = speechChunksRef.current;
+      speechChunksRef.current = [];
+      if (transcribe) void transcribeRecordedAudio(chunks);
+    };
+    try {
+      recorder.stop();
+    } catch {
+      stream?.getTracks().forEach((track) => track.stop());
+      setRecording(false);
+      setSpeechError("录音停止失败，请重新尝试。");
+    }
+  }
+
+  async function toggleRecording() {
+    if (recording) {
+      stopRecording({ transcribe: true });
+      return;
+    }
+    if (speechProcessing) return;
+    if (!navigator.mediaDevices?.getUserMedia || typeof MediaRecorder === "undefined") {
+      setSpeechError("当前浏览器不支持录音，请使用最新版 Edge 或 Chrome。");
+      recordRuntimeEvent("WARN", "speech.unsupported", "当前浏览器不支持 MediaRecorder 录音");
+      return;
+    }
+    setAnswer("");
+    setSeconds(0);
+    setSpeechError("");
+    speechChunksRef.current = [];
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      const mimeType = ["audio/webm;codecs=opus", "audio/webm", "audio/mp4"].find((candidate) => MediaRecorder.isTypeSupported(candidate));
+      const recorder = mimeType ? new MediaRecorder(stream, { mimeType }) : new MediaRecorder(stream);
+      recorder.ondataavailable = (event) => { if (event.data.size > 0) speechChunksRef.current.push(event.data); };
+      recorder.onerror = () => {
+        setSpeechError("录音发生异常，请检查麦克风后重试。");
+        recordRuntimeEvent("ERROR", "speech.recording.failed", "MediaRecorder 录音发生异常");
+      };
+      mediaStreamRef.current = stream;
+      mediaRecorderRef.current = recorder;
+      recorder.start();
+      setRecording(true);
+      recordRuntimeEvent("INFO", "speech.started", "录音已启动，停止后交给 Whisper 识别", { mimeType: recorder.mimeType || "audio/unknown" });
+    } catch (error) {
+      const permissionDenied = error instanceof DOMException && (error.name === "NotAllowedError" || error.name === "PermissionDeniedError");
+      const message = permissionDenied ? "麦克风权限未开启，请允许浏览器访问麦克风后重试。" : "无法启动录音，请检查浏览器的麦克风权限。";
+      setSpeechError(message);
+      recordRuntimeEvent(permissionDenied ? "ERROR" : "WARN", "speech.error", message, { error: error instanceof Error ? error.name : "unknown" });
+    }
+  }
+
+  useEffect(() => {
+    const saved = localStorage.getItem("vision-interview-records");
+    if (!saved) return;
+    try {
+      const normalized = normalizeTrainingRecords(JSON.parse(saved));
+      setRecords(normalized);
+      localStorage.setItem("vision-interview-records", JSON.stringify(normalized));
+    } catch {
+      setRecords([]);
+    }
+  }, []);
+
+  useEffect(() => {
+    const loadFavorites = () => {
+      try {
+        const saved = JSON.parse(localStorage.getItem(FAVORITES_STORAGE_KEY) || "[]") as unknown;
+        setFavoriteQuestions(normalizeFavoriteQuestions(saved) as Question[]);
+      } catch {
+        setFavoriteQuestions([]);
+      }
+    };
+    loadFavorites();
+    window.addEventListener("vision-interview-backup-loaded", loadFavorites);
+    return () => window.removeEventListener("vision-interview-backup-loaded", loadFavorites);
+  }, []);
+
+  useEffect(() => {
+    if (!recording) return;
+    const timer = window.setInterval(() => setSeconds((value) => value + 1), 1000);
+    return () => clearInterval(timer);
+  }, [recording]);
+
+  useEffect(() => () => stopRecording(), []);
+
+  useEffect(() => {
+    if (!shouldRestartQuestionGroupPreparation({
+      trainingStarted,
+      reviewSessionActive,
+      hasPreparedQuestions: Boolean(preparedGroupQuestions?.length),
+    })) return;
+    let active = true;
+    let sourceMode: "network" | "bank" = "network";
+    try {
+      sourceMode = resolveQuestionSourceMode(JSON.parse(localStorage.getItem("vision-interview-ai-preferences") || "{}"));
+    } catch { /* 使用默认联网模式 */ }
+    stopRecording();
+    setSpeechError("");
+    setPreparingGroup(true);
+    setPreparedGroupQuestions(null);
+    setGroupPreparationSource("本地规则");
+    setGroupPreparationMessage(sourceMode === "bank"
+      ? `正在从题库准备 ${questionGroupSettings.questionGroupSize} 道题目…`
+      : learningFocus.active
+        ? `正在根据${learningFocus.categories.slice(0, 2).map((item) => item.category).join("、")}薄弱点联网准备题组…`
+        : `正在联网准备 ${questionGroupSettings.questionGroupSize} 道题目、标准回答和技术原理…`);
+    recordRuntimeEvent("INFO", "question-group.prepare.started", "开始准备题组", {
+      project,
+      mode: trainingMode,
+      questionCount: groupQuestionSeed.length,
+      sourceMode,
+      adaptiveQuestions: learningFocus.active,
+      focusCategories: learningFocus.categories.map((item) => item.category),
+    });
+    setQuestionIndex(0);
+    setAnswer("");
+    setSubmitted(false);
+    setEvaluating(false);
+    setShowBestAnswer(false);
+    setBestAnswerViewed(false);
+    setSessionAnswers([]);
+    setGroupCompleted(false);
+
+    void syncAiQuestionBankBackup([]);
+
+    const cacheKey = `vision-interview-prepared-group-${encodeURIComponent(groupPreparationKey)}`;
+    try {
+      const cached = JSON.parse(localStorage.getItem(cacheKey) || "null") as { questions?: unknown[] } | null;
+      const compatibleCachedQuestions = cached?.questions
+        ? filterAiGeneratedQuestions(cached.questions, {
+          source: questionSourceForTrainingMode(trainingMode),
+          category,
+          difficulty,
+          techStack,
+          detectionDirection,
+        })
+        : [];
+      if (compatibleCachedQuestions.length === questionGroupSettings.questionGroupSize) {
+        if (active) {
+          setPreparedGroupQuestions(compatibleCachedQuestions as Question[]);
+          setGroupPreparationSource("缓存");
+          setGroupPreparationMessage("AI 生成题组已从本机缓存恢复，且已通过当前分类和检测方向校验。");
+          setPreparingGroup(false);
+          recordRuntimeEvent("INFO", "question-group.prepare.cached", "题组已从本机缓存恢复", { questionCount: compatibleCachedQuestions.length });
+        }
+        return () => { active = false; };
+      }
+      if (cached?.questions?.length) {
+        localStorage.removeItem(cacheKey);
+        recordRuntimeEvent("WARN", "question-group.cache.invalidated", "缓存题组未通过当前分类或检测方向校验，已重新生成", {
+          cachedCount: cached.questions.length,
+          compatibleCount: compatibleCachedQuestions.length,
+          category,
+          techStack,
+          detectionDirection,
+        });
+      }
+    } catch { /* 忽略损坏的题组缓存 */ }
+
+    const reportGroupProgress = (progress: AiQuestionGroupProgress) => {
+      if (!active) return;
+      const message = formatAiQuestionGroupProgress(progress);
+      setGroupPreparationMessage(message);
+      if (progress.phase === "ai-requesting") {
+        recordRuntimeEvent("INFO", "question-bank.ai-request.started", message, {
+          attempt: progress.attempt,
+          maxAttempts: progress.maxAttempts,
+          collectedCount: progress.collectedCount,
+          workerIndex: progress.workerIndex,
+          parallelRequests: progress.parallelRequests,
+          requestedCount: progress.requestedCount,
+        });
+      } else if (progress.phase === "received") {
+        recordRuntimeEvent("INFO", "question-bank.ai-request.completed", message, {
+          attempt: progress.attempt,
+          maxAttempts: progress.maxAttempts,
+          collectedCount: progress.collectedCount,
+          targetCount: progress.targetCount,
+          workerIndex: progress.workerIndex,
+          parallelRequests: progress.parallelRequests,
+          requestedCount: progress.requestedCount,
+        });
+      } else if (progress.phase === "failed") {
+        recordRuntimeEvent("WARN", "question-bank.attempt.failed", message, {
+          attempt: progress.attempt,
+          maxAttempts: progress.maxAttempts,
+          collectedCount: progress.collectedCount,
+          workerIndex: progress.workerIndex,
+          parallelRequests: progress.parallelRequests,
+          error: progress.error,
+        });
+      }
+    };
+
+    let request = pendingQuestionGroupRequests.get(groupPreparationKey);
+    if (!request) {
+      request = prepareQuestionGroup(groupQuestionSeed, project, { trainingMode, category, difficulty, techStack, detectionDirection, learningFocus }, reportGroupProgress);
+      pendingQuestionGroupRequests.set(groupPreparationKey, request);
+      void request.finally(() => {
+        if (pendingQuestionGroupRequests.get(groupPreparationKey) === request) pendingQuestionGroupRequests.delete(groupPreparationKey);
+      }).catch(() => undefined);
+    }
+    request.then((result) => {
+      if (!active) return;
+      setPreparedGroupQuestions(result.questions);
+      setGroupPreparationSource(result.source);
+      setGroupPreparationMessage(result.message || "本题组已准备完成。 ");
+      setPreparingGroup(false);
+      recordRuntimeEvent("INFO", "question-group.prepare.completed", result.message || "题组准备完成", {
+        source: result.source,
+        questionCount: result.questions.length,
+      });
+      if (result.source === "AI") {
+        localStorage.setItem(cacheKey, JSON.stringify({ questions: result.questions, preparedAt: new Date().toISOString() }));
+      }
+    }).catch(() => {
+      if (!active) return;
+      setPreparedGroupQuestions(buildQuestionFallbackPool(groupQuestionSeed, project, { trainingMode, category, difficulty, techStack, detectionDirection, learningFocus }).slice(0, questionGroupSettings.questionGroupSize));
+      setGroupPreparationSource("本地规则");
+      setGroupPreparationMessage("AI 题组准备失败，已切换为本地题库与标准答案。");
+      setPreparingGroup(false);
+      recordRuntimeEvent("ERROR", "question-group.prepare.failed", "题组预取失败，已切换为本地题库", {
+        questionCount: groupQuestionSeed.length,
+      });
+    });
+    return () => { active = false; };
+  }, [groupPreparationKey, groupQuestionSeed, project, trainingMode, category, difficulty, techStack, detectionDirection, learningFocus, reviewSessionActive, trainingStarted]);
+
+  useEffect(() => {
+    stopRecording();
+    setSpeechError("");
+    setShowBestAnswer(false);
+    setBestAnswerViewed(false);
+  }, [question.title]);
+
+  function appendRecord(record: TrainingRecord) {
+    setRecords((current) => {
+      const clean = current.filter((item) => item.action !== "查看答案");
+      const key = getRecordKey(record);
+      const existingIndex = clean.findIndex((item) => getRecordKey(item) === key);
+      const existing = existingIndex >= 0 ? clean[existingIndex] : undefined;
+      const merged: TrainingRecord = {
+        ...existing,
+        ...record,
+        id: existing?.id ?? `${Date.now()}-${Math.random().toString(16).slice(2)}`,
+        action: record.action === "跳过题目" ? "跳过题目" : "完成答题",
+        bestAnswerViewed: Boolean(record.bestAnswerViewed || existing?.bestAnswerViewed),
+        bestAnswer: record.bestAnswer || existing?.bestAnswer,
+      };
+      if (record.reviewStatus === "pending" || record.reviewStatus === "disabled") {
+        delete merged.reviewIssues;
+        delete merged.reviewSuggestions;
+        delete merged.mastery;
+        delete merged.masteryStage;
+        delete merged.masteryUpdatedAt;
+        delete merged.masteryReason;
+        delete merged.reviewSource;
+      }
+      const next = existingIndex >= 0
+        ? clean.map((item, index) => index === existingIndex ? merged : item)
+        : [merged, ...clean].slice(0, 100);
+      localStorage.setItem("vision-interview-records", JSON.stringify(next));
+      return next;
+    });
+  }
+
+  async function uploadLearningRecords(): Promise<RecordsUploadResult> {
+    const normalized = normalizeTrainingRecords(records);
+    const logBackup = (stage: "started" | "succeeded" | "failed", context: Record<string, unknown>) => {
+      const log = createGitHubBackupLog(stage, { operation: "learning-records", ...context });
+      recordRuntimeEvent(log.level as RuntimeLogLevel, log.event, log.message, log.context);
+    };
+    logBackup("started", { recordCount: normalized.length });
+    recordRuntimeEvent("INFO", "records.upload.started", "开始统一上传学习记录", {
+      recordCount: normalized.length,
+    });
+    try {
+      const response = await fetch(configuredGithubApiUrl("/api/backup"), {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(createRecordsUploadPayload(normalized)),
+      });
+      const body = await response.json() as {
+        ok?: boolean;
+        available?: boolean;
+        reason?: string;
+        updatedAt?: string;
+      };
+      if (!response.ok || !body.ok) {
+        const reason = body.reason || `HTTP ${response.status}`;
+        const message = body.available === false
+          ? "GitHub 未配置，当前仅本地保存。"
+          : `学习记录上传失败：${reason}`;
+        recordRuntimeEvent("ERROR", "records.upload.failed", message, {
+          status: response.status,
+          reason,
+          recordCount: normalized.length,
+        });
+        logBackup("failed", { status: response.status, reason, recordCount: normalized.length });
+        return { ok: false, message };
+      }
+
+      localStorage.setItem(recordsUploadedSnapshotKey, JSON.stringify(normalized));
+      window.dispatchEvent(new Event("vision-interview-records-uploaded"));
+      recordRuntimeEvent("INFO", "records.upload.saved", "学习记录已统一上传到 GitHub", {
+        recordCount: normalized.length,
+        updatedAt: body.updatedAt || null,
+      });
+      logBackup("succeeded", { recordCount: normalized.length, updatedAt: body.updatedAt || null });
+      return { ok: true, message: `已上传 ${normalized.length} 条学习记录。` };
+    } catch (error) {
+      const message = error instanceof Error ? error.message : "unknown";
+      const detail = "学习记录上传请求失败，记录仍保留在本地。";
+      recordRuntimeEvent("ERROR", "records.upload.failed", detail, {
+        error: message,
+        recordCount: normalized.length,
+      });
+      logBackup("failed", { error: message, recordCount: normalized.length });
+      return { ok: false, message: detail };
+    }
+  }
+
+  function upsertSessionAnswer(current: SessionAnswer[], item: SessionAnswer) {
+    const existingIndex = current.findIndex((entry) => entry.question.title === item.question.title);
+    return existingIndex >= 0
+      ? current.map((entry, index) => index === existingIndex ? item : entry)
+      : [...current, item];
+  }
+
+  function resetForNextQuestion(savedAnswers = sessionAnswers) {
+    stopRecording();
+    const nextIndex = questionIndex + 1;
+    const nextItem = savedAnswers.find((entry) => entry.question.title === groupQuestions[nextIndex]?.title);
+    setQuestionIndex(nextIndex);
+    setAnswer(nextItem?.answer ?? ""); setSubmitted(false); setShowBestAnswer(false); setBestAnswerViewed(false); setSeconds(nextItem?.seconds ?? 0);
+  }
+
+  function previousQuestion() {
+    const previousIndex = getPreviousQuestionIndex({ questionIndex, submitted });
+    if (previousIndex === null) return;
+    stopRecording();
+    const previousItem = sessionAnswers.find((entry) => entry.question.title === groupQuestions[previousIndex]?.title);
+    setQuestionIndex(previousIndex);
+    setAnswer(previousItem?.answer ?? "");
+    setSubmitted(false);
+    setShowBestAnswer(false);
+    setBestAnswerViewed(false);
+    setSeconds(previousItem?.seconds ?? 0);
+  }
+
+  async function saveSessionAnswer(item: SessionAnswer) {
+    if (submitted) return;
+    setSubmitted(true);
+    const answers = upsertSessionAnswer(sessionAnswers, item);
+    setSessionAnswers(answers);
+    const now = new Date();
+    appendRecord({
+      question: item.question.title, project, date: now.toLocaleDateString("zh-CN"),
+      timestamp: now.toLocaleString("zh-CN"), action: item.status === "skipped" ? "跳过题目" : "完成答题", mode: trainingMode,
+      category: item.question.category, source: item.question.source, seconds: item.seconds, answer: item.answer,
+      bestAnswer: item.bestAnswer, bestAnswerViewed, reviewStatus: "pending",
+      answerKeywords: item.question.keywords, principle: item.question.principle || getQuestionPrinciple(item.question, project),
+      knowledgeKey: item.question.blueprint?.knowledgeKey || buildQuestionBlueprint(item.question).knowledgeKey,
+      questionType: item.question.type, attemptId: item.attemptId,
+    });
+    if (getAnswerCompletionAction({ questionIndex, totalQuestions: groupQuestions.length }) === "review-group") {
+      stopRecording();
+      await finishGroup(answers);
+      return;
+    }
+    resetForNextQuestion(answers);
+  }
+
+  async function submitAnswer() {
+    if (preparingGroup || evaluating || submitted) return;
+    recordRuntimeEvent("INFO", "answer.submit.started", "保存当前回答，等待题组评审", {
+      question: question.title,
+      mode: trainingMode,
+      project,
+      answerLength: answer.trim().length,
+    });
+    stopRecording();
+    const bestAnswer = getBestAnswer(question, project);
+    const sessionItem: SessionAnswer = {
+      question, answer: answer.trim(), seconds, status: "answered",
+      bestAnswer, review: emptyAnswerReview(), mastery: "低", reviewStatus: "pending", attemptId: createAttemptId(),
+    };
+    await saveSessionAnswer(sessionItem);
+    recordRuntimeEvent("INFO", "answer.submit.completed", "回答已保存，已进入下一题或题组评审", {
+      question: question.title,
+      seconds,
+    });
+  }
+
+  function toggleBestAnswer() {
+    const opening = !showBestAnswer;
+    setShowBestAnswer(opening);
+    if (opening) setBestAnswerViewed(true);
+  }
+
+  async function finishGroup(answers: SessionAnswer[]) {
+    if (evaluating) return;
+    let reviewEnabled = true;
+    try {
+      const preferences = JSON.parse(localStorage.getItem("vision-interview-ai-preferences") || "{}") as Partial<AiPreferences>;
+      reviewEnabled = shouldRunAnswerReview(preferences);
+    } catch {
+      reviewEnabled = true;
+    }
+    setEvaluating(reviewEnabled);
+    setGroupCompleted(true);
+    setGroupReviewSource("未评审");
+    recordRuntimeEvent("INFO", "group.review.started", reviewEnabled ? "题组已完成，开始统一评审" : "题组已完成，回答评审已关闭");
+    if (!reviewEnabled) {
+      const savedAnswers = answers.map((item) => ({ ...item, reviewStatus: "pending" as const }));
+      setSessionAnswers(savedAnswers);
+      const now = new Date();
+      for (const item of savedAnswers) {
+        appendRecord({
+          question: item.question.title, project, date: now.toLocaleDateString("zh-CN"),
+          timestamp: now.toLocaleString("zh-CN"), action: item.status === "skipped" ? "跳过题目" : "完成答题", mode: trainingMode,
+          category: item.question.category, source: item.question.source, seconds: item.seconds, answer: item.answer,
+          bestAnswer: item.bestAnswer, reviewStatus: "disabled",
+          answerKeywords: item.question.keywords, principle: item.question.principle || getQuestionPrinciple(item.question, project),
+          knowledgeKey: item.question.blueprint?.knowledgeKey || buildQuestionBlueprint(item.question).knowledgeKey,
+          questionType: item.question.type, attemptId: item.attemptId,
+        });
+      }
+      setGroupReviewSummary("已关闭回答评审，本题组仅保存回答内容。");
+      setGroupReviewSource("未评审");
+      setEvaluating(false);
+      setGroupCompleted(true);
+      return;
+    }
+    const evaluation = await evaluateQuestionGroupWithAi(answers);
+    const evaluatedAnswers = evaluation.answers.map((item) => ({
+      ...item,
+      masteryStage: masteryStageForAnswer(item, records, evaluation.answers),
+    }));
+    setSessionAnswers(evaluatedAnswers);
+    setGroupReviewSummary(evaluation.summary);
+    setGroupReviewSource(evaluation.source);
+    setEvaluating(false);
+    setGroupCompleted(true);
+    const now = new Date();
+    for (const item of evaluatedAnswers) {
+      appendRecord({
+        question: item.question.title, project, date: now.toLocaleDateString("zh-CN"),
+        timestamp: now.toLocaleString("zh-CN"), action: item.status === "skipped" ? "跳过题目" : "完成答题", mode: trainingMode,
+        category: item.question.category, source: item.question.source, seconds: item.seconds, answer: item.answer,
+        bestAnswer: item.bestAnswer, reviewIssues: item.review.issues, reviewSuggestions: item.review.suggestions,
+        mastery: item.mastery, masteryUpdatedAt: now.toLocaleString("zh-CN"), masteryReason: item.masteryReason, reviewSource: item.reviewSource, reviewStatus: "reviewed",
+        answerKeywords: item.question.keywords, principle: item.question.principle || getQuestionPrinciple(item.question, project),
+        masteryStage: item.masteryStage, knowledgeKey: item.question.blueprint?.knowledgeKey || buildQuestionBlueprint(item.question).knowledgeKey,
+        questionType: item.question.type, attemptId: item.attemptId,
+      });
+    }
+    recordRuntimeEvent("INFO", "group.review.completed", "题组统一评审完成", { reviewSource: evaluation.source, questionCount: evaluation.answers.length });
+  }
+
+  async function nextQuestion() {
+    if (preparingGroup || evaluating) return;
+    const skipped: SessionAnswer = {
+      question, answer: "", seconds, status: "skipped",
+      bestAnswer: getBestAnswer(question, project), review: emptyAnswerReview(), mastery: "低", reviewStatus: "pending", attemptId: createAttemptId(),
+    };
+    recordRuntimeEvent("WARN", "answer.skipped", "当前题目已跳过", {
+      question: question.title,
+      mode: trainingMode,
+      project,
+    });
+    await saveSessionAnswer(skipped);
+  }
+
+  function restartGroup() {
+    stopRecording();
+    setGroupCompleted(false); setGroupReviewSummary(""); setGroupReviewSource("未评审"); setSessionAnswers([]); setQuestionIndex(0); setAnswer(""); setSubmitted(false); setEvaluating(false);
+    setShowBestAnswer(false); setBestAnswerViewed(false); setRecording(false); setSeconds(0);
+    if (reviewSessionActive && reviewSessionQuestions?.length) {
+      setPreparingGroup(false);
+      setGroupPreparationSource("本地规则");
+      setGroupPreparationMessage(`温故知新复习队列已重新开始，共 ${reviewSessionQuestions.length} 道题。`);
+      return;
+    }
+    setReviewSessionActive(false); setReviewSessionQuestions(null); setPreparedGroupQuestions(null); setPreparingGroup(true);
+    setGroupRound((value) => value + 1);
+  }
+
+  function retryQuestion(index: number) {
+    stopRecording();
+    const previous = sessionAnswers.find((item) => item.question.title === groupQuestions[index]?.title);
+    setGroupCompleted(false); setGroupReviewSummary(""); setGroupReviewSource("未评审"); setQuestionIndex(index); setAnswer(previous?.answer ?? ""); setSubmitted(false); setEvaluating(false);
+    setShowBestAnswer(false); setBestAnswerViewed(false); setRecording(false); setSeconds(0);
+  }
+
+  return (
+    <SidebarProvider style={{ "--sidebar-width": "17rem" } as React.CSSProperties}>
+      <Sidebar collapsible="offcanvas" className="border-r-0 bg-[var(--sidebar)] text-[var(--sidebar-foreground)]">
+        <SidebarHeader className="h-16 justify-center border-b border-white/8 px-5">
+          <div className="flex items-center gap-3">
+            <div className="grid size-9 place-items-center rounded-lg bg-blue-600 text-white"><Gauge className="size-5" /></div>
+            <div><p className="text-[15px] font-semibold text-white">VisionInterview</p><p className="text-[11px] text-slate-400">机器视觉面试训练台</p></div>
+          </div>
+        </SidebarHeader>
+        <SidebarContent className="bg-[var(--sidebar)] px-2 py-3">
+          <SidebarGroup>
+            <SidebarGroupContent>
+              <SidebarMenu className="gap-1">
+                {navItems.map((item) => (
+                  <SidebarMenuItem key={item.label}>
+                    <SidebarMenuButton isActive={activeNav === item.label} onClick={() => setActiveNav(item.label)}
+                      tooltip={item.label} className="h-10 cursor-pointer rounded-md px-3 text-slate-300 hover:bg-white/7 hover:text-white data-[active=true]:bg-blue-500/16 data-[active=true]:text-blue-300">
+                      <item.icon /><span>{item.label}</span>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                ))}
+              </SidebarMenu>
+            </SidebarGroupContent>
+          </SidebarGroup>
+        </SidebarContent>
+        <SidebarFooter className="border-t border-[var(--sidebar-border)] bg-[var(--sidebar)] p-3">
+          <SidebarMenuButton isActive={activeNav === utilityNavLabel} onClick={() => setActiveNav(utilityNavLabel)}
+            className="cursor-pointer text-slate-400 hover:bg-white/7 hover:text-white data-[active=true]:bg-blue-500/16 data-[active=true]:text-blue-300"><Settings /><span>{utilityNavLabel}</span></SidebarMenuButton>
+        </SidebarFooter>
+      </Sidebar>
+
+      <SidebarInset className="min-w-0 bg-[var(--background)]">
+        <header className="sticky top-0 z-20 flex h-16 items-center border-b border-[var(--border)] bg-[var(--card)]/95 px-4 backdrop-blur md:px-6">
+          <SidebarTrigger className="mr-3 md:hidden" />
+          <div className="flex min-w-0 flex-1 items-center gap-2 text-sm text-slate-500">
+            <span>{activeNav}</span><ChevronRight className="size-3.5" />
+            <span className="truncate font-medium text-slate-900">{activeNav === "开始学习" ? "专业知识" : "机器视觉面试训练"}</span>
+          </div>
+          <div className="flex items-center gap-2"><ThemeSwitcher themeId={themeId} onChange={setThemeId} /></div>
+        </header>
+
+        {activeNav === "开始学习" && (!trainingStarted ? (
+          <TrainingStartPanel category={category} difficulty={difficulty} techStack={techStack} detectionDirection={detectionDirection}
+            questionGroupSize={questionGroupSettings.questionGroupSize}
+            onCategoryChange={setCategory}
+            onDifficultyChange={setDifficulty}
+            onTechStackChange={(value) => { setTechStack(value); setDetectionDirection("随机方向"); }}
+            onDetectionDirectionChange={setDetectionDirection}
+            onStart={() => {
+              setTrainingStarted(true);
+              setPreparingGroup(true);
+              recordRuntimeEvent("INFO", "training.started", "用户开始新的训练题组", {
+                category,
+                difficulty,
+                techStack,
+                detectionDirection,
+                questionCount: questionGroupSettings.questionGroupSize,
+              });
+            }} />
+        ) : groupCompleted ? (
+          <GroupReview answers={sessionAnswers} totalQuestions={groupQuestions.length} mode={trainingMode}
+            reviewMode={reviewSessionActive} evaluating={evaluating} reviewSource={groupReviewSource} reviewSummary={groupReviewSummary}
+            onRestart={restartGroup} onRetry={retryQuestion} />
+        ) : preparingGroup && !preparedGroupQuestions?.length && !reviewSessionActive ? (
+          <TrainingPreparingPanel questionGroupSize={questionGroupSettings.questionGroupSize} message={groupPreparationMessage} />
+        ) : <TrainingCenter question={question} questionIndex={questionIndex} totalQuestions={groupQuestions.length} questionGroupSize={questionGroupSettings.questionGroupSize} parallelRequests={questionGroupSettings.parallelRequests} reviewMode={reviewSessionActive}
+          trainingMode={trainingMode} category={category} difficulty={difficulty} techStack={techStack} detectionDirection={detectionDirection} project={project}
+          isFavorite={isFavoriteQuestion(favoriteQuestions, question)} onToggleFavorite={() => toggleFavorite(question)}
+          onCategoryChange={(value) => { setReviewSessionActive(false); setReviewSessionQuestions(null); setCategory(value); setQuestionIndex(0); setAnswer(""); setSubmitted(false); setEvaluating(false); setPreparedGroupQuestions(null); setPreparingGroup(true); setSeconds(0); setSessionAnswers([]); setGroupCompleted(false); setGroupRound(0); }}
+          onDifficultyChange={(value) => { setReviewSessionActive(false); setReviewSessionQuestions(null); setDifficulty(value); setQuestionIndex(0); setAnswer(""); setSubmitted(false); setEvaluating(false); setPreparedGroupQuestions(null); setPreparingGroup(true); setSeconds(0); setSessionAnswers([]); setGroupCompleted(false); setGroupRound(0); }}
+          onTechStackChange={(value) => { setReviewSessionActive(false); setReviewSessionQuestions(null); setTechStack(value); setDetectionDirection("随机方向"); setQuestionIndex(0); setAnswer(""); setSubmitted(false); setEvaluating(false); setPreparedGroupQuestions(null); setPreparingGroup(true); setShowBestAnswer(false); setSeconds(0); setSessionAnswers([]); setGroupCompleted(false); setGroupRound(0); }}
+          onDetectionDirectionChange={(value) => { setReviewSessionActive(false); setReviewSessionQuestions(null); setDetectionDirection(value); setQuestionIndex(0); setAnswer(""); setSubmitted(false); setEvaluating(false); setPreparedGroupQuestions(null); setPreparingGroup(true); setShowBestAnswer(false); setSeconds(0); setSessionAnswers([]); setGroupCompleted(false); setGroupRound(0); }}
+          answer={answer} setAnswer={setAnswer} submitted={submitted} recording={recording} speechProcessing={speechProcessing} seconds={seconds} speechError={speechError}
+          bestAnswer={getBestAnswer(question, project)} showBestAnswer={showBestAnswer} bestAnswerViewed={bestAnswerViewed} onToggleBestAnswer={toggleBestAnswer}
+          evaluating={evaluating} preparingGroup={preparingGroup} groupPreparationSource={groupPreparationSource} groupPreparationMessage={groupPreparationMessage}
+          currentMastery={currentEvaluation?.reviewStatus === "reviewed" ? currentEvaluation.mastery : undefined} currentMasteryStage={currentEvaluation?.reviewStatus === "reviewed" ? currentEvaluation.masteryStage : undefined} currentReviewSource={currentEvaluation?.reviewStatus === "reviewed" ? currentEvaluation.reviewSource : undefined} currentMasteryReason={currentEvaluation?.reviewStatus === "reviewed" ? currentEvaluation.masteryReason : undefined}
+          onSubmit={submitAnswer} onNext={nextQuestion} onPrevious={previousQuestion}
+          onToggleRecording={toggleRecording}
+          onReset={() => { stopRecording(); setSpeechError(""); setAnswer(""); setSubmitted(false); setEvaluating(false); setShowBestAnswer(false); setBestAnswerViewed(false); setSeconds(0); }} />)}
+        {activeNav === "个人中心" && <PersonalCenterPage records={records} />}
+        {activeNav === "题库" && <QuestionBankPage questions={allQuestionBank} favorites={favoriteQuestions} onToggleFavorite={toggleFavorite} remoteState={questionBankRemoteState} remoteError={questionBankRemoteError} />}
+        {activeNav === "收藏夹" && <FavoritesPage questions={favoriteQuestions} onToggleFavorite={toggleFavorite} />}
+        {activeNav === "温故知新" && <ReviewCenter records={records} onStart={startReview} />}
+        {activeNav === "学习记录" && <TrainingReport records={records} onUploadRecords={uploadLearningRecords} />}
+        {activeNav === "运行日志" && <RuntimeLogPage sessionId={runtimeSessionId} />}
+        {activeNav === "设置" && <SettingsPage />}
+
+        <footer className="flex min-h-11 flex-wrap items-center justify-between gap-3 border-t border-[var(--border)] bg-[var(--card)] px-5 py-2 text-xs text-[var(--muted-foreground)]">
+          <span className="flex items-center gap-2"><Volume2 className="size-3.5" />麦克风正常 <i className="size-1.5 rounded-full bg-emerald-500" /></span>
+          <span className="flex items-center gap-2"><Save className="size-3.5" />配置和运行日志自动备份；学习记录可统一上传到 GitHub</span>
+          <span className="flex items-center gap-2"><Clock3 className="size-3.5" />建议复习：明天</span>
+        </footer>
+      </SidebarInset>
+    </SidebarProvider>
+  );
+}
+
+function TrainingStartPanel({
+  category,
+  difficulty,
+  techStack,
+  detectionDirection,
+  questionGroupSize,
+  onCategoryChange,
+  onDifficultyChange,
+  onTechStackChange,
+  onDetectionDirectionChange,
+  onStart,
+}: {
+  category: string;
+  difficulty: string;
+  techStack: (typeof techStackFilters)[number];
+  detectionDirection: string;
+  questionGroupSize: number;
+  onCategoryChange: (value: string) => void;
+  onDifficultyChange: (value: string) => void;
+  onTechStackChange: (value: (typeof techStackFilters)[number]) => void;
+  onDetectionDirectionChange: (value: string) => void;
+  onStart: () => void;
+}) {
+  const detectionDirections = detectionDirectionsForTechStack(techStack);
+  const choiceClass = (selected: boolean) => {
+    return `rounded-md border px-2.5 py-1.5 text-xs transition ${selected
+      ? "border-[var(--primary)] bg-[var(--accent)] font-medium text-[var(--accent-foreground)]"
+      : "border-[var(--border)] bg-[var(--card)] text-[var(--muted-foreground)] hover:bg-[var(--muted)]"}`;
+  };
+  return (
+    <main className="flex-1 p-3 md:p-5">
+      <div className="mx-auto max-w-4xl">
+        <section className="panel overflow-hidden">
+          <div className="bg-[var(--surface-muted)] px-6 py-10 text-center md:px-10 md:py-14">
+            <span className="mx-auto grid size-14 place-items-center rounded-2xl bg-[var(--primary)] text-[var(--primary-foreground)] shadow-sm"><Play className="size-7" fill="currentColor" /></span>
+            <h1 className="mt-5 text-2xl font-semibold tracking-tight text-[var(--foreground)] md:text-3xl">准备开始训练</h1>
+            <p className="mx-auto mt-3 max-w-xl text-sm leading-6 text-[var(--muted-foreground)]">本次训练会根据下面的设置准备一个新题组。点击开始后才会加载题目，避免首次进入时直接显示上一次的历史题目。</p>
+            <div className="mx-auto mt-7 max-w-4xl rounded-xl border border-[var(--border)] bg-[var(--card)] p-4 text-left shadow-sm md:p-5">
+              <p className="text-sm font-semibold text-[var(--foreground)]">选择训练范围</p>
+              <div className="mt-4 space-y-3">
+                <div className="flex flex-wrap items-center gap-2"><span className="w-16 shrink-0 text-xs font-medium text-[var(--muted-foreground)]">知识分类</span>{professionalCategories.map((item) => <button key={item} type="button" onClick={() => onCategoryChange(item)} className={choiceClass(category === item)}>{item}</button>)}</div>
+                <div className="flex flex-wrap items-center gap-2"><span className="w-16 shrink-0 text-xs font-medium text-[var(--muted-foreground)]">难度分类</span>{difficultyFilters.map((item) => <button key={item} type="button" onClick={() => onDifficultyChange(item)} className={choiceClass(difficulty === item)}>{item}</button>)}</div>
+                <div className="flex flex-wrap items-center gap-2"><span className="w-16 shrink-0 text-xs font-medium text-[var(--muted-foreground)]">技术栈</span>{techStackFilters.map((item) => <button key={item} type="button" onClick={() => onTechStackChange(item)} className={choiceClass(techStack === item)}>{item}</button>)}</div>
+                {detectionDirections.length > 0 && <div className="flex flex-wrap items-center gap-2"><span className="w-16 shrink-0 text-xs font-medium text-[var(--muted-foreground)]">检测方向</span>{detectionDirections.map((item) => <button key={item} type="button" onClick={() => onDetectionDirectionChange(item)} className={choiceClass(detectionDirection === item)}>{item}</button>)}</div>}
+              </div>
+            </div>
+            <p className="mt-3 text-xs text-[var(--muted-foreground)]">当前题组：{questionGroupSize} 道题 · 选择完成后点击开始训练</p>
+            <Button onClick={onStart} className="mt-8 min-w-36 bg-[var(--primary)] px-6 text-[var(--primary-foreground)] hover:opacity-90"><Play fill="currentColor" />开始训练</Button>
+          </div>
+          <div className="grid gap-3 border-t border-[var(--border)] bg-[var(--card)] p-5 text-xs leading-5 text-[var(--muted-foreground)] sm:grid-cols-3">
+            <p><strong className="block text-[var(--foreground)]">先独立回答</strong>最佳回答默认隐藏，完成作答后再对照。</p>
+            <p><strong className="block text-[var(--foreground)]">按当前设置出题</strong>题目会严格校验知识分类、技术栈和检测方向。</p>
+            <p><strong className="block text-[var(--foreground)]">完成后可复盘</strong>训练记录会用于掌握度分析和温故知新。</p>
+          </div>
+        </section>
+      </div>
+    </main>
+  );
+}
+
+function TrainingPreparingPanel({ questionGroupSize, message }: { questionGroupSize: number; message: string }) {
+  return (
+    <main className="flex-1 p-3 md:p-5">
+      <div className="mx-auto max-w-4xl">
+        <section className="panel overflow-hidden">
+          <div className="px-6 py-16 text-center md:px-10 md:py-24">
+            <span className="mx-auto grid size-14 place-items-center rounded-2xl bg-[var(--accent)] text-[var(--primary)]"><Bot className="size-7 animate-pulse" /></span>
+            <h1 className="mt-5 text-2xl font-semibold tracking-tight text-[var(--foreground)]">正在准备本题组</h1>
+            <p className="mx-auto mt-3 max-w-xl text-sm leading-6 text-[var(--muted-foreground)]">正在按当前分类、技术栈和检测方向生成 {questionGroupSize} 道新题。题目准备完成后才会进入答题页面。</p>
+            {message && <p className="mt-5 text-xs text-[var(--primary)]">{message}</p>}
+            <div className="mx-auto mt-7 h-1.5 max-w-sm overflow-hidden rounded-full bg-[var(--muted)]"><div className="h-full w-1/2 animate-pulse rounded-full bg-[var(--primary)]" /></div>
+          </div>
+        </section>
+      </div>
+    </main>
+  );
+}
+
+type TrainingProps = {
+  question: Question; questionIndex: number; totalQuestions: number; questionGroupSize: number; parallelRequests: number; trainingMode: TrainingMode; project: string;
+  reviewMode?: boolean;
+  isFavorite: boolean; onToggleFavorite: () => void;
+  category: string; difficulty: string; techStack: (typeof techStackFilters)[number];
+  detectionDirection: string;
+  onCategoryChange: (value: string) => void; onDifficultyChange: (value: string) => void;
+  onTechStackChange: (value: (typeof techStackFilters)[number]) => void;
+  onDetectionDirectionChange: (value: string) => void;
+  answer: string; setAnswer: (value: string) => void;
+  submitted: boolean;
+  bestAnswer: string; showBestAnswer: boolean; bestAnswerViewed: boolean; onToggleBestAnswer: () => void;
+  evaluating: boolean; preparingGroup: boolean; groupPreparationSource: "AI" | "本地规则" | "缓存"; groupPreparationMessage: string;
+  currentMastery?: MasteryLevel; currentMasteryStage?: MasteryStage; currentReviewSource?: "AI" | "本地规则"; currentMasteryReason?: string;
+  recording: boolean; speechProcessing: boolean; seconds: number; speechError?: string; onSubmit: () => void; onNext: () => void; onPrevious: () => void;
+  onToggleRecording: () => void; onReset: () => void;
+};
+
+function TrainingCenter(props: TrainingProps) {
+  const [manuallyExpandedSettings, setManuallyExpandedSettings] = useState(false);
+  const showTrainingSettings = shouldShowTrainingSettings(props.preparingGroup, manuallyExpandedSettings);
+  const questionReference = props.question.origin === "AI" ? props.question.reference : props.question.reference ?? webQuestionSources[props.question.category];
+  const questionTechStacks = (props.question.techStacks ?? []).map(normalizeTechStack);
+  const detectionDirections = detectionDirectionsForTechStack(props.techStack);
+  const questionDetectionDirection = hasDetectionDirections(props.techStack)
+    ? normalizeDetectionDirection(props.question.detectionDirection || inferDetectionDirection(props.question, props.techStack))
+    : "";
+  const questionPrinciple = props.question.principle || getQuestionPrinciple(props.question, props.project);
+  return (
+    <main className="flex-1 p-3 md:p-5">
+      <div className="mx-auto max-w-6xl">
+        <div className="min-w-0 space-y-4">
+          <section className="panel overflow-hidden">
+            <div className="flex flex-wrap items-center justify-between gap-3 px-4 py-3.5">
+              <div className="flex min-w-0 items-center gap-3">
+                <span className="grid size-9 shrink-0 place-items-center rounded-md bg-blue-50 text-blue-600"><Settings className="size-4" /></span>
+                <div className="min-w-0"><strong className="block text-sm font-semibold text-slate-900">{props.reviewMode ? "温故知新复习" : "训练设置"}</strong><p className="mt-0.5 truncate text-xs text-slate-500">{props.reviewMode ? "按复习优先级重新组织回答" : `${props.trainingMode} · ${props.category} · ${props.difficulty} · ${props.techStack}${props.detectionDirection !== "随机方向" && hasDetectionDirections(props.techStack) ? ` · ${props.detectionDirection}` : ""}`}</p></div>
+              </div>
+              <Button variant="outline" size="sm" onClick={() => setManuallyExpandedSettings((value) => !value)} className="shrink-0 bg-white text-slate-700">
+                {showTrainingSettings ? "收起设置" : "调整设置"}<ChevronDown className={`transition-transform ${showTrainingSettings ? "rotate-180" : ""}`} />
+              </Button>
+            </div>
+            {showTrainingSettings && <div className="border-t border-slate-100 px-4 py-3">
+              <div className="space-y-2">
+                <div className="flex flex-wrap items-center gap-2">
+                  <span className="mr-1 w-16 shrink-0 text-xs font-medium text-slate-500">知识分类</span>
+                  {professionalCategories.map((item) => <button key={item} onClick={() => { setManuallyExpandedSettings(false); props.onCategoryChange(item); }}
+                    className={`rounded-md border px-2.5 py-1.5 text-xs transition ${props.category === item ? "border-blue-200 bg-blue-50 font-medium text-blue-700" : "border-slate-200 bg-white text-slate-600 hover:bg-slate-50"}`}>{item}</button>)}
+                </div>
+                <div className="flex flex-wrap items-center gap-2">
+                  <span className="mr-1 w-16 shrink-0 text-xs font-medium text-slate-500">难度分类</span>
+                  {difficultyFilters.map((item) => <button key={item} onClick={() => { setManuallyExpandedSettings(false); props.onDifficultyChange(item); }}
+                    className={`rounded-md border px-2.5 py-1.5 text-xs transition ${props.difficulty === item ? "border-blue-200 bg-blue-50 font-medium text-blue-700" : "border-slate-200 bg-white text-slate-600 hover:bg-slate-50"}`}>{item}</button>)}
+                </div>
+                <div className="flex flex-wrap items-center gap-2">
+                  <span className="mr-1 w-16 shrink-0 text-xs font-medium text-slate-500">技术栈</span>
+                  {techStackFilters.map((item) => <button key={item} onClick={() => { setManuallyExpandedSettings(false); props.onTechStackChange(item); }}
+                    className={`rounded-md border px-2.5 py-1.5 text-xs transition ${props.techStack === item ? "border-violet-200 bg-violet-50 font-medium text-violet-700" : "border-slate-200 bg-white text-slate-600 hover:bg-slate-50"}`}>{item}</button>)}
+                </div>
+                {detectionDirections.length > 0 && <div className="flex flex-wrap items-center gap-2">
+                  <span className="mr-1 w-16 shrink-0 text-xs font-medium text-slate-500">检测方向</span>
+                  {detectionDirections.map((item) => <button key={item} onClick={() => { setManuallyExpandedSettings(false); props.onDetectionDirectionChange(item); }}
+                    className={`rounded-md border px-2.5 py-1.5 text-xs transition ${props.detectionDirection === item ? "border-cyan-200 bg-cyan-50 font-medium text-cyan-700" : "border-slate-200 bg-white text-slate-600 hover:bg-slate-50"}`}>{item}</button>)}
+                </div>}
+              </div>
+            </div>}
+          </section>
+
+          <section className="panel p-5 md:p-6">
+            <div className={`mb-4 flex items-start gap-2 rounded-md border p-3 text-xs leading-5 ${props.preparingGroup ? "border-blue-100 bg-blue-50 text-blue-800" : props.groupPreparationSource === "AI" ? "border-emerald-100 bg-emerald-50 text-emerald-800" : "border-amber-100 bg-amber-50 text-amber-800"}`}>
+              {props.preparingGroup ? <Bot className="mt-0.5 size-4 shrink-0 animate-pulse" /> : <BookOpenCheck className="mt-0.5 size-4 shrink-0" />}
+              <span><strong className="font-semibold">{props.preparingGroup ? "正在准备本题组" : `本题组已准备（${props.groupPreparationSource === "AI" ? "AI生成题组" : props.groupPreparationSource === "缓存" ? "本机缓存" : "本地题库"}）`}</strong><span className="ml-1">{props.groupPreparationMessage}</span></span>
+            </div>
+            <div className="flex flex-wrap items-center gap-2">
+              <Badge className="rounded-md bg-blue-50 text-blue-700 hover:bg-blue-50">{props.reviewMode ? "温故知新" : props.question.type} · 第 {props.questionIndex + 1} 题</Badge>
+              <Badge variant="outline" className="rounded-md border-amber-200 bg-amber-50 text-amber-700">{props.question.difficulty}</Badge>
+              <Badge variant="outline" className="rounded-md border-slate-200 bg-slate-50 text-slate-600">{props.question.category}</Badge>
+              {props.question.source === "专业" && questionTechStacks.map((stack) => <Badge key={stack} variant="outline" className="rounded-md border-violet-200 bg-violet-50 text-violet-700">{stack}</Badge>)}
+              {questionDetectionDirection && <Badge variant="outline" className="rounded-md border-cyan-200 bg-cyan-50 text-cyan-700">{questionDetectionDirection}</Badge>}
+              <Badge variant="outline" className={`rounded-md ${props.question.origin === "AI" ? "border-violet-200 bg-violet-50 text-violet-700" : props.question.source === "专业" ? "border-blue-200 bg-blue-50 text-blue-700" : "border-emerald-200 bg-emerald-50 text-emerald-700"}`}>{props.question.origin === "AI" ? "AI生成" : props.question.source === "专业" ? "本地题库" : "本地项目"}</Badge>
+              {props.question.origin === "AI" && props.question.sourceType && <Badge variant="outline" className="rounded-md border-violet-200 bg-violet-50 text-violet-700">{props.question.sourceType}</Badge>}
+              {props.question.origin === "AI" ? (
+                <span className="inline-flex min-w-0 items-center gap-1 text-xs text-slate-500"><Bot className="size-3.5 shrink-0 text-violet-600" /><span>来源：AI 生成</span></span>
+              ) : props.question.source === "专业" && (
+                <span className="inline-flex min-w-0 items-center gap-1 text-xs text-slate-500"><Globe2 className="size-3.5 shrink-0 text-blue-600" /><span className="truncate">来源：{questionReference?.title ?? "机器视觉面试题库"}</span>{questionReference && <a href={questionReference.url} target="_blank" rel="noreferrer" className="shrink-0 font-medium text-blue-700 hover:underline">查看来源 ↗</a>}</span>
+              )}
+              <span className="ml-auto text-xs text-slate-400">当前题组 {props.questionIndex + 1}/{props.totalQuestions}</span>
+            </div>
+            <Progress value={((props.questionIndex + 1) / props.totalQuestions) * 100} className="mt-4 h-1.5" aria-label={`题组进度 ${props.questionIndex + 1}/${props.totalQuestions}`} />
+            <div className="mt-5 flex items-start gap-4">
+              <h1 className="min-w-0 flex-1 text-xl font-semibold leading-8 tracking-tight text-slate-950 md:text-3xl md:leading-10">{props.question.title}</h1>
+              <button type="button" onClick={props.onToggleFavorite} aria-pressed={props.isFavorite} aria-label={props.isFavorite ? "取消收藏本题" : "收藏本题"} title={props.isFavorite ? "取消收藏" : "收藏题目"}
+                className={`grid size-10 shrink-0 place-items-center rounded-md border transition ${props.isFavorite ? "border-amber-200 bg-amber-50 text-amber-500 hover:bg-amber-100" : "border-slate-200 bg-white text-slate-400 hover:border-amber-200 hover:bg-amber-50 hover:text-amber-500"}`}>
+                <Star className="size-5" fill={props.isFavorite ? "currentColor" : "none"} />
+              </button>
+            </div>
+            <div className="mt-4 flex flex-wrap gap-2">{props.question.tags.map((tag) => <span key={tag} className="rounded-md border border-slate-200 bg-slate-50 px-2.5 py-1 text-xs text-slate-600">{tag}</span>)}</div>
+            {props.question.source !== "专业" && props.question.origin !== "AI" && (
+              <div className="mt-5 flex items-start gap-2 rounded-md border border-emerald-100 bg-emerald-50/60 p-3 text-xs leading-5 text-slate-600">
+                <HardDrive className="mt-0.5 size-4 shrink-0 text-emerald-600" />
+                <span><strong className="font-medium text-emerald-800">本地提问依据：</strong>{props.question.basis ?? projectQuestionBasis[props.question.title] ?? `来自“${props.project}”项目资料中的技术方案与职责记录`}</span>
+              </div>
+            )}
+          </section>
+
+          <section className="panel">
+            <div className="flex items-center justify-between border-b border-slate-200 px-5 py-4">
+              <div><h2 className="font-semibold text-slate-900">我的回答</h2><p className="mt-0.5 text-xs text-slate-500">先给结论，再结合原理、步骤、验证和边界说明</p></div>
+              <Button variant="ghost" size="sm" onClick={props.onReset} className="text-slate-500"><RotateCcw />重置</Button>
+            </div>
+            <div className="flex flex-col gap-4 border-b border-slate-200 bg-slate-50/70 px-5 py-4 sm:flex-row sm:items-center">
+              <Button variant={props.recording ? "outline" : "default"} size="icon-lg" onClick={props.onToggleRecording} disabled={props.preparingGroup || props.evaluating || props.submitted || props.speechProcessing}
+                className={props.recording ? "border-red-200 text-red-600 hover:bg-red-50" : "bg-red-600 hover:bg-red-700"} aria-label={props.recording ? "停止录音" : "开始录音"}>
+                {props.recording ? <Pause /> : props.speechProcessing ? <Bot className="animate-pulse" /> : <Mic />}
+              </Button>
+              <div className="flex min-w-0 flex-1 items-center gap-3">
+                <div className="flex h-9 flex-1 items-center gap-[3px] overflow-hidden" aria-label="录音波形">
+                  {Array.from({ length: 52 }).map((_, i) => <i key={i} className={`wavebar ${props.recording ? "wavebar-active" : ""}`} style={{ height: `${8 + ((i * 13) % 25)}px`, animationDelay: `${i * 28}ms` }} />)}
+                </div>
+                <span className="font-mono text-sm font-medium tabular-nums text-slate-600">{formatTime(props.seconds)}</span>
+              </div>
+              <span className="text-xs text-slate-500">{props.recording ? "录音中，停止后由 Whisper 识别…" : props.speechProcessing ? "Whisper 识别中…" : "点击麦克风开始（会清空上次语音）"}</span>
+            </div>
+            {props.speechError && <div className="border-b border-rose-100 bg-rose-50 px-5 py-2.5 text-xs leading-5 text-rose-700">{props.speechError}</div>}
+            <div className="p-5">
+              <Textarea value={props.answer} disabled={props.preparingGroup || props.evaluating || props.submitted} onChange={(e) => props.setAnswer(e.target.value)}
+                placeholder="先写结论，再按“原理 / 步骤 / 项目证据 / 边界条件”组织回答……"
+                className="min-h-60 resize-y border-slate-200 bg-white p-4 text-base leading-8 shadow-none focus-visible:border-blue-400 focus-visible:ring-2 focus-visible:ring-blue-100 md:min-h-64" />
+              <div className="sticky bottom-3 z-20 mt-4 -mx-5 -mb-5 border-t border-slate-200 bg-white/95 px-5 py-4 shadow-[0_-8px_18px_-16px_rgba(15,23,42,0.45)] backdrop-blur supports-[backdrop-filter]:bg-white/80">
+                <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                  <span className="text-xs text-slate-400">字数：{props.answer.length} · 建议 120–300 字</span>
+                  <div className="flex flex-wrap gap-2 sm:justify-end">
+                    <Button onClick={props.onPrevious} disabled={props.questionIndex === 0 || props.evaluating || props.preparingGroup} variant="outline" className="min-w-28 border-slate-200 bg-white text-slate-700 hover:bg-slate-50"><ChevronLeft />上一题</Button>
+                    <Button onClick={props.onSubmit} disabled={props.answer.trim().length === 0 || props.submitted || props.evaluating || props.preparingGroup} className="min-w-28 bg-blue-600 hover:bg-blue-700"><Check />{props.evaluating ? "题组评审中…" : props.submitted ? "已完成回答" : "回答完成"}</Button>
+                    <Button onClick={props.onNext} disabled={props.submitted || props.evaluating || props.preparingGroup} variant="outline" className="min-w-28 border-blue-200 bg-white text-blue-700 hover:bg-blue-50"><ChevronRight />{props.submitted ? (props.questionIndex >= props.totalQuestions - 1 ? "完成题组" : "进入下一题") : (props.questionIndex >= props.totalQuestions - 1 ? "跳过并查看复盘" : "跳过此题")}</Button>
+                  </div>
+                </div>
+              </div>
+              {props.evaluating && <div className="mt-4 flex items-center gap-2 rounded-md border border-blue-100 bg-blue-50 p-3 text-sm text-blue-800"><Bot className="size-4 animate-pulse" />题组已完成，正在统一比较最佳回答与本组回答的关键要点…</div>}
+              {props.submitted && !props.evaluating && !props.currentReviewSource && <div className="mt-4 flex items-center gap-2 rounded-md border border-slate-200 bg-slate-50 p-3 text-sm text-slate-600"><BookOpenCheck className="size-4" />回答已保存，完成整个题组后统一评审。</div>}
+              {props.submitted && props.currentMastery && <div className={`mt-4 rounded-md border p-3 text-sm ${masteryStageClass(props.currentMasteryStage)}`}><div className="flex flex-wrap items-center gap-2"><strong>本题掌握阶段：{props.currentMasteryStage ?? normalizeMasteryStage(props.currentMastery)}</strong><Badge variant="outline" className={`rounded-md ${masteryStageClass(props.currentMasteryStage)}`}>{props.currentReviewSource === "AI" ? "AI审阅" : "本地规则兜底"}</Badge></div>{props.currentMasteryReason && <p className="mt-1.5 leading-6">{props.currentMasteryReason}</p>}</div>}
+            </div>
+          </section>
+
+          <section className="panel overflow-hidden">
+            <button onClick={props.onToggleBestAnswer} className="flex w-full items-center gap-3 px-5 py-4 text-left transition hover:bg-slate-50" aria-expanded={props.showBestAnswer}>
+              <span className="grid size-9 shrink-0 place-items-center rounded-md bg-violet-50 text-violet-600"><BookOpen className="size-4" /></span>
+              <span className="min-w-0 flex-1">
+                <strong className="block text-sm font-semibold text-slate-900">最佳回答</strong>
+                <span className="mt-0.5 block text-xs text-slate-500">{props.showBestAnswer ? "参考答案已展开，可与自己的回答逐项对照" : "默认隐藏，建议先独立作答后再查看"}</span>
+              </span>
+              {props.bestAnswerViewed && <Badge variant="outline" className="hidden rounded-md border-violet-200 bg-violet-50 text-violet-700 sm:inline-flex">已学习</Badge>}
+              <span className="flex items-center gap-1.5 text-xs font-medium text-violet-700">{props.showBestAnswer ? <><EyeOff className="size-4" />收起答案</> : <><Eye className="size-4" />查看答案</>}</span>
+            </button>
+            {props.showBestAnswer && (
+              <div className="border-t border-violet-100 bg-violet-50/45 px-5 py-5">
+                <div className="flex gap-3">
+                  <span className="mt-0.5 grid size-6 shrink-0 place-items-center rounded-full bg-violet-600 text-xs font-semibold text-white">A</span>
+                  <div>
+                    <div className="mb-4 rounded-md border border-blue-200 bg-blue-50/70 p-3"><p className="text-xs font-semibold text-blue-700">回答思路</p><p className="mt-2 text-sm leading-6 text-slate-700">{props.question.hint}</p></div>
+                    <div className="mb-4 rounded-md border border-violet-200 bg-white/70 p-3"><p className="text-xs font-semibold text-violet-700">关键词要点</p><div className="mt-2 flex flex-wrap gap-2">{props.question.keywords.map((keyword) => <span key={keyword} className="rounded-md bg-violet-100 px-2 py-1 text-xs text-violet-800">{keyword}</span>)}</div></div>
+                    <p className="text-xs font-semibold text-violet-700">标准回答重点</p><p className="mt-2 whitespace-pre-line text-[15px] leading-8 text-slate-800">{props.bestAnswer}</p>
+                    <p className="mt-4 flex items-center gap-2 border-t border-violet-100 pt-3 text-xs text-slate-500">
+                      <CircleAlert className="size-3.5 text-amber-500" />
+                      专业答案根据题库要点整理，面试时应使用自己的语言表达。
+                    </p>
+                  </div>
+                </div>
+              </div>
+            )}
+          </section>
+
+          {questionPrinciple && <section className="panel overflow-hidden">
+            <details className="group">
+              <summary className="flex cursor-pointer list-none items-center gap-3 px-5 py-4 text-left hover:bg-slate-50">
+                <span className="grid size-9 shrink-0 place-items-center rounded-md bg-slate-100 text-slate-600"><Lightbulb className="size-4" /></span>
+                <span className="min-w-0 flex-1"><strong className="block text-sm font-semibold text-slate-900">技术原理</strong><span className="mt-0.5 block text-xs text-slate-500">默认隐藏，点击查看本题背后的算法或工程机制</span></span>
+                <ChevronDown className="size-4 text-slate-400 transition-transform group-open:rotate-180" />
+              </summary>
+              <div className="border-t border-slate-200 bg-slate-50/60 px-5 py-4"><p className="whitespace-pre-line text-sm leading-7 text-slate-700">{questionPrinciple}</p></div>
+            </details>
+          </section>}
+
+        </div>
+      </div>
+    </main>
+  );
+}
+
+function GroupReview({ answers, totalQuestions, mode, reviewMode, evaluating, reviewSource, reviewSummary, onRestart, onRetry }: {
+  answers: SessionAnswer[]; totalQuestions: number; mode: TrainingMode;
+  reviewMode?: boolean;
+  evaluating: boolean;
+  reviewSource: "AI" | "本地规则" | "未评审"; reviewSummary: string;
+  onRestart: () => void; onRetry: (index: number) => void;
+}) {
+  const answeredCount = answers.filter((item) => item.status === "answered").length;
+  const skippedCount = answers.filter((item) => item.status === "skipped").length;
+  const reviewedAnswers = answers.filter((item) => item.reviewStatus === "reviewed");
+  const reviewReadyCount = reviewedAnswers.filter((item) => item.status === "answered" && item.mastery !== "低").length;
+  const stillWeakCount = reviewedAnswers.filter((item) => item.status === "skipped" || item.mastery === "低").length;
+  const priorities = Array.from(new Set(reviewedAnswers.flatMap((item) => item.review.suggestions))).slice(0, 4);
+  if (evaluating) return <main className="flex-1 p-3 md:p-5">
+    <div className="mx-auto max-w-3xl">
+      <section className="panel overflow-hidden">
+        <div className="border-b border-blue-100 bg-blue-50 px-5 py-8 text-center md:px-8">
+          <span className="mx-auto grid size-12 place-items-center rounded-full bg-blue-600 text-white"><Bot className="size-6 animate-pulse" /></span>
+          <p className="mt-4 text-sm font-medium text-blue-700">题组已完成</p>
+          <h1 className="mt-2 text-2xl font-semibold tracking-tight text-slate-950">正在审阅本题组</h1>
+          <p className="mx-auto mt-3 max-w-xl text-sm leading-6 text-slate-600">正在将每道回答与最佳回答逐项对照，检查是否覆盖关键知识点，不按字数打分。</p>
+        </div>
+        <div className="flex items-center justify-center gap-3 px-5 py-6 text-sm text-slate-600"><span className="size-2 animate-pulse rounded-full bg-blue-600" />正在生成题组总结和逐题改进建议…</div>
+      </section>
+    </div>
+  </main>;
+  return <main className="flex-1 p-3 md:p-5">
+    <div className="mx-auto max-w-6xl space-y-4">
+      <section className="panel overflow-hidden">
+            <div className="flex flex-col gap-5 border-b border-slate-200 bg-slate-950 px-5 py-6 text-white md:flex-row md:items-center md:justify-between md:px-7">
+          <div>
+            <div className="flex items-center gap-2 text-sm text-blue-300"><BookOpenCheck className="size-4" />{reviewMode ? "温故知新 · 复习完成" : `${mode} · 题组复盘`}</div>
+            <h1 className="mt-2 text-2xl font-semibold tracking-tight">{reviewMode ? "复习完成，检查掌握度是否提升" : reviewSource === "未评审" ? "题组完成，回答已保存" : "题组复盘：检查回答是否覆盖关键内容"}</h1>
+            <p className="mt-2 text-sm leading-6 text-slate-300">{reviewSummary || (reviewSource === "未评审" ? "当前已关闭回答评审；重新开启后，新完成的题组将进行统一评审。" : "系统将每道题的回答与最佳回答对照，只指出未覆盖的关键内容，不按字数打分。")}</p>
+          </div>
+          <Button onClick={onRestart} className="shrink-0 bg-white text-slate-900 hover:bg-slate-100"><RotateCcw />{reviewMode ? "再次复习本队列" : "进入下一题组"}</Button>
+        </div>
+        <div className={`grid gap-px bg-slate-200 ${reviewMode ? "sm:grid-cols-5" : "sm:grid-cols-3"}`}>
+          {[
+            ["题组题目", `${totalQuestions} 道`],
+            ["完成作答", `${answeredCount} 道`],
+            ["跳过待补", `${skippedCount} 道`],
+            ...(reviewMode ? [["复习达标", `${reviewReadyCount} 道`], ["仍需强化", `${stillWeakCount} 道`]] : []),
+          ].map(([label, value]) => <div key={label} className="bg-white px-5 py-4"><p className="text-xs text-slate-500">{label}</p><p className="mt-1 text-xl font-semibold text-slate-900">{value}</p></div>)}
+        </div>
+      </section>
+
+      {reviewSource !== "未评审" && <section className="panel p-5 md:p-6">
+        <div className="flex items-center gap-3">
+          <span className="grid size-9 place-items-center rounded-md bg-amber-50 text-amber-600"><Target className="size-4" /></span>
+          <div><h2 className="font-semibold text-slate-900">下一轮优先改进</h2><p className="mt-0.5 text-xs text-slate-500">先处理最影响面试官判断的内容，而不是追求一个抽象分数</p></div>
+        </div>
+        <div className="mt-4 grid gap-3 md:grid-cols-2">
+          {(priorities.length ? priorities : ["本题组回答较完整，下一轮尝试把每题压缩到 1–2 分钟，并保持结论先行。"]).map((item, index) =>
+            <div key={item} className="flex gap-3 rounded-lg border border-amber-200 bg-amber-50/70 p-4 text-sm leading-6 text-amber-950">
+              <span className="grid size-6 shrink-0 place-items-center rounded-full bg-amber-500 text-xs font-semibold text-white">{index + 1}</span><span>{item}</span>
+            </div>)}
+        </div>
+      </section>}
+
+      <section className="panel overflow-hidden">
+        <div className="border-b border-slate-200 px-5 py-4"><h2 className="font-semibold text-slate-900">逐题回答审阅</h2><p className="mt-1 text-xs text-slate-500">展开题目，查看回答不足、修改提示和参考回答</p></div>
+        <Accordion type="multiple" className="divide-y divide-slate-100">
+          {answers.map((item, index) => <AccordionItem key={`${item.question.title}-${index}`} value={`review-${index}`} className="border-0 px-5">
+            <AccordionTrigger className="py-5 hover:no-underline">
+              <div className="flex min-w-0 flex-1 items-center gap-3 pr-3 text-left">
+                <span className={`grid size-9 shrink-0 place-items-center rounded-full text-sm font-semibold ${item.status === "answered" ? "bg-emerald-50 text-emerald-700" : "bg-slate-100 text-slate-500"}`}>{index + 1}</span>
+                <span className="min-w-0 flex-1"><strong className="block text-sm font-semibold text-slate-900">{item.question.title}</strong><span className="mt-1 block text-xs font-normal text-slate-500">{item.status === "answered" ? `已作答 · ${item.answer.length} 字 · 用时 ${formatTime(item.seconds)}` : "已跳过 · 建议优先补答"}</span></span>
+                <div className="flex shrink-0 items-center gap-2">
+                  {item.reviewStatus === "reviewed" && <><Badge variant="outline" className={`hidden rounded-md sm:inline-flex ${masteryStageClass(item.masteryStage ?? normalizeMasteryStage(item.mastery))}`}>掌握阶段：{item.masteryStage ?? normalizeMasteryStage(item.mastery)}</Badge>
+                  {item.reviewSource && <Badge variant="outline" className="hidden rounded-md border-slate-200 bg-slate-50 text-slate-600 sm:inline-flex">{item.reviewSource === "AI" ? "AI审阅" : "本地规则"}</Badge>}
+                  <Badge variant="outline" className={`hidden rounded-md sm:inline-flex ${item.review.issues.length ? "border-amber-200 bg-amber-50 text-amber-700" : "border-emerald-200 bg-emerald-50 text-emerald-700"}`}>{item.review.issues.length ? `${item.review.issues.length} 项待改进` : "回答完整"}</Badge></>}
+                  {item.reviewStatus !== "reviewed" && <Badge variant="outline" className="hidden rounded-md border-slate-200 bg-slate-50 text-slate-600 sm:inline-flex">未评审</Badge>}
+                </div>
+              </div>
+            </AccordionTrigger>
+            <AccordionContent className="pb-5">
+              <div className="grid gap-4 lg:grid-cols-2">
+                <div className="space-y-4">
+                  <div className="rounded-lg border border-slate-200 bg-slate-50 p-4"><p className="text-xs font-semibold text-slate-500">我的回答</p><p className="mt-2 whitespace-pre-line text-sm leading-7 text-slate-700">{item.answer || "本题未作答"}</p></div>
+                  {item.reviewStatus === "reviewed" && item.review.strengths.length > 0 && <div><h3 className="flex items-center gap-2 text-sm font-semibold text-emerald-800"><CircleCheck className="size-4" />已覆盖的关键内容</h3><ul className="mt-2 space-y-2">{item.review.strengths.map((text) => <li key={text} className="rounded-md border border-emerald-100 bg-emerald-50 p-3 text-sm leading-6 text-emerald-900">{text}</li>)}</ul></div>}
+                </div>
+                <div className="space-y-4">
+                  {item.reviewStatus === "reviewed" ? <><div><h3 className="flex items-center gap-2 text-sm font-semibold text-amber-800"><CircleAlert className="size-4" />未覆盖的关键内容</h3><ul className="mt-2 space-y-2">{item.review.issues.map((text) => <li key={text} className="rounded-md border border-amber-200 bg-amber-50 p-3 text-sm leading-6 text-amber-950">{text}</li>)}</ul>{item.review.criticalMissingPoints?.length ? <p className="mt-2 rounded-md border border-rose-200 bg-rose-50 p-3 text-xs leading-5 text-rose-800"><strong>必答关键点：</strong>{item.review.criticalMissingPoints.join("、")}</p> : null}</div>
+                  <div><h3 className="flex items-center gap-2 text-sm font-semibold text-blue-800"><Lightbulb className="size-4" />下一次应该补充</h3><ol className="mt-2 space-y-2">{item.review.suggestions.map((text, suggestionIndex) => <li key={text} className="flex gap-2 rounded-md border border-blue-100 bg-blue-50 p-3 text-sm leading-6 text-blue-950"><span className="font-semibold text-blue-600">{suggestionIndex + 1}.</span><span>{text}</span></li>)}</ol></div></> : <div className="rounded-lg border border-slate-200 bg-slate-50 p-4 text-sm text-slate-600">当前未进行回答评审。</div>}
+                </div>
+              </div>
+              <div className="mt-4 rounded-lg border border-violet-100 bg-violet-50/60 p-4"><p className="text-xs font-semibold text-violet-700">标准回答重点</p><div className="mt-2 flex flex-wrap gap-2">{item.question.keywords.map((keyword) => <span key={keyword} className="rounded-md bg-violet-100 px-2 py-1 text-xs text-violet-800">{keyword}</span>)}</div><p className="mt-3 whitespace-pre-line text-sm leading-7 text-slate-700">{item.bestAnswer}</p></div>
+              {item.question.principle && <details className="mt-3 rounded-lg border border-slate-200 bg-slate-50/70 p-4 group"><summary className="flex cursor-pointer list-none items-center gap-2 text-sm font-semibold text-slate-700"><Lightbulb className="size-4 text-slate-500" />技术原理（默认隐藏）<ChevronDown className="ml-auto size-4 text-slate-400 transition-transform group-open:rotate-180" /></summary><p className="mt-3 whitespace-pre-line border-t border-slate-200 pt-3 text-sm leading-7 text-slate-700">{item.question.principle}</p></details>}
+              {item.masteryReason && <div className="mt-4 rounded-lg border border-slate-200 bg-slate-50 p-4"><p className="text-xs font-semibold text-slate-600">掌握度判断依据</p><p className="mt-2 text-sm leading-6 text-slate-700">{item.masteryReason}</p></div>}
+              <Button variant="outline" size="sm" onClick={() => onRetry(index)} className="mt-4 bg-white"><RotateCcw />重新回答这道题</Button>
+            </AccordionContent>
+          </AccordionItem>)}
+        </Accordion>
+      </section>
+    </div>
+  </main>;
+}
+
+function PageShell({ title, subtitle, children }: { title: string; subtitle: string; children: React.ReactNode }) {
+  return <main className="flex-1 p-4 md:p-6"><div className="mx-auto max-w-6xl"><div className="mb-6"><h1 className="text-2xl font-semibold tracking-tight text-slate-950">{title}</h1><p className="mt-1 text-sm text-slate-500">{subtitle}</p></div>{children}</div></main>;
+}
+
+type ProjectManagementProps = {
+  project: string;
+  setProject: (value: string) => void;
+  projects: ProjectConfig[];
+  onProjectsChange: (projects: ProjectConfig[]) => void;
+};
+
+type ProjectDraft = { id?: string; name: string; category: string; progress: number };
+
+function ProjectManagement({ project, setProject, projects: projectItems, onProjectsChange }: ProjectManagementProps) {
+  const [projectView, setProjectView] = useState<"card" | "list">("card");
+  const [projectDraft, setProjectDraft] = useState<ProjectDraft | null>(null);
+  const [projectFormError, setProjectFormError] = useState("");
+
+  useEffect(() => {
+    const savedView = localStorage.getItem("vision-interview-project-view");
+    if (savedView === "card" || savedView === "list") setProjectView(savedView);
+  }, []);
+
+
+  function changeProjectView(view: "card" | "list") {
+    setProjectView(view);
+    localStorage.setItem("vision-interview-project-view", view);
+  }
+
+  function openCreateProject() {
+    setProjectDraft({ name: "", category: "", progress: 0 });
+    setProjectFormError("");
+  }
+
+  function openEditProject(item: ProjectConfig) {
+    setProject(item.name);
+    setProjectDraft({ id: item.id, name: item.name, category: item.category, progress: item.progress });
+    setProjectFormError("");
+  }
+
+  function saveProjectDraft() {
+    if (!projectDraft) return;
+    const name = projectDraft.name.trim();
+    const category = projectDraft.category.trim() || "未分类";
+    if (!name) {
+      setProjectFormError("请填写项目名称。");
+      return;
+    }
+    const duplicate = projectItems.some((item) => item.name === name && item.id !== projectDraft.id);
+    if (duplicate) {
+      setProjectFormError("项目名称已存在，请换一个名称。");
+      return;
+    }
+    if (projectDraft.id) {
+      const previous = projectItems.find((item) => item.id === projectDraft.id);
+      const nextProjects = projectItems.map((item) => item.id === projectDraft.id ? { ...item, name, category, progress: Math.max(0, Math.min(100, Math.round(projectDraft.progress))) } : item);
+      onProjectsChange(nextProjects);
+      if (previous && previous.name !== name && project === previous.name) setProject(name);
+    } else {
+      const next: ProjectConfig = { id: `project-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 7)}`, name, category, progress: Math.max(0, Math.min(100, Math.round(projectDraft.progress))) };
+      onProjectsChange([...projectItems, next]);
+      setProject(name);
+    }
+    setProjectDraft(null);
+    setProjectFormError("");
+  }
+
+  function deleteProject(item: ProjectConfig) {
+    if (projectItems.length <= 1) {
+      setProjectFormError("至少保留一个项目，无法删除最后一个项目。");
+      return;
+    }
+    if (!window.confirm(`确定从项目管理中删除“${item.name}”吗？这不会删除磁盘中的项目文件。`)) return;
+    const nextProjects = projectItems.filter((candidate) => candidate.id !== item.id);
+    onProjectsChange(nextProjects);
+    if (project === item.name) setProject(nextProjects[0].name);
+  }
+
+  return <PageShell title="项目管理" subtitle="集中管理面试项目，开始学习会使用当前选中的项目生成答辩题。">
+    <div className="mb-5 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+      <div><div className="flex items-center gap-2"><span className="grid size-9 place-items-center rounded-lg bg-blue-600 text-white"><FolderKanban className="size-4" /></span><div><p className="text-sm font-semibold text-slate-900">我的项目</p><p className="text-xs text-slate-500">{projectItems.length} 个项目 · 自动备份到 GitHub</p></div></div></div>
+      <Button type="button" onClick={openCreateProject} className="w-fit bg-blue-600 hover:bg-blue-700"><Plus />添加项目</Button>
+    </div>
+    {projectFormError && !projectDraft && <p className="mb-4 flex items-center gap-2 rounded-md border border-rose-100 bg-rose-50 px-3 py-2 text-xs text-rose-700"><CircleAlert className="size-4" />{projectFormError}</p>}
+    {projectDraft && <section className="panel mb-5 border-blue-200 bg-blue-50/45 p-5">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between"><div><h2 className="font-semibold text-slate-900">{projectDraft.id ? "编辑项目" : "添加项目"}</h2><p className="mt-1 text-xs leading-5 text-slate-500">项目名称和分类用于组织项目答辩题，档案完整度用于记录准备进度。</p></div><button type="button" onClick={() => { setProjectDraft(null); setProjectFormError(""); }} className="w-fit rounded px-2 py-1 text-xs text-slate-500 hover:bg-white hover:text-slate-800">取消</button></div>
+      <div className="mt-4 grid gap-3 md:grid-cols-3">
+        <label className="space-y-2 text-sm font-medium text-slate-700"><span>项目名称</span><Input value={projectDraft.name} onChange={(event) => setProjectDraft((current) => current && { ...current, name: event.target.value })} placeholder="例如：手机玻璃外观检测" className="bg-white" /></label>
+        <label className="space-y-2 text-sm font-medium text-slate-700"><span>项目分类</span><Input value={projectDraft.category} onChange={(event) => setProjectDraft((current) => current && { ...current, category: event.target.value })} placeholder="例如：外观检测、点胶引导" className="bg-white" /></label>
+        <label className="space-y-2 text-sm font-medium text-slate-700"><span>档案完整度（{projectDraft.progress}%）</span><Input type="number" min={0} max={100} value={projectDraft.progress} onChange={(event) => setProjectDraft((current) => current && { ...current, progress: Number(event.target.value) || 0 })} className="bg-white" /></label>
+      </div>
+      {projectFormError && <p className="mt-3 flex items-center gap-2 text-xs text-rose-600"><CircleAlert className="size-4" />{projectFormError}</p>}
+      <div className="mt-4 flex justify-end"><Button type="button" onClick={saveProjectDraft} className="bg-blue-600 hover:bg-blue-700"><Save />保存项目</Button></div>
+    </section>}
+
+    <section className="panel overflow-hidden">
+      <div className="flex flex-col gap-3 border-b border-slate-200 px-5 py-4 sm:flex-row sm:items-center sm:justify-between"><div><h2 className="font-semibold text-slate-900">项目列表</h2><p className="mt-1 text-xs text-slate-500">选择项目后会将其设为当前项目，用于后续项目答辩训练。</p></div><div className="flex items-center gap-1 rounded-md border border-slate-200 bg-slate-50 p-1"><button type="button" onClick={() => changeProjectView("card")} aria-pressed={projectView === "card"} className={`rounded px-2.5 py-1.5 text-xs ${projectView === "card" ? "bg-white font-medium text-blue-700 shadow-sm" : "text-slate-500 hover:text-slate-800"}`}><FolderKanban className="mr-1 inline size-3.5" />卡片</button><button type="button" onClick={() => changeProjectView("list")} aria-pressed={projectView === "list"} className={`rounded px-2.5 py-1.5 text-xs ${projectView === "list" ? "bg-white font-medium text-blue-700 shadow-sm" : "text-slate-500 hover:text-slate-800"}`}><ListTree className="mr-1 inline size-3.5" />列表</button></div></div>
+      {projectItems.length === 0 ? <div className="grid min-h-40 place-items-center p-8 text-center text-sm text-slate-500">还没有项目，请先添加一个项目。</div> : projectView === "card" ? <div className="grid gap-4 p-5 md:grid-cols-2">
+        {projectItems.map((item) => <div key={item.id} className={`rounded-lg border bg-white transition ${project === item.name ? "border-blue-300 ring-2 ring-blue-500/15" : "border-slate-200 hover:border-blue-200"}`}>
+          <button type="button" onClick={() => setProject(item.name)} className="w-full p-5 text-left"><div className="flex items-start justify-between gap-3"><span className={`grid size-10 place-items-center rounded-lg ${project === item.name ? "bg-blue-600 text-white" : "bg-blue-50 text-blue-600"}`}><FolderKanban className="size-5" /></span>{project === item.name && <Badge className="bg-blue-600">当前项目</Badge>}</div><h3 className="mt-5 font-semibold text-slate-900">{item.name}</h3><p className="mt-1 text-sm text-slate-500">{item.category} · 已整理需求、方案、难点与结果</p><div className="mt-4 flex items-center gap-3"><Progress value={item.progress} className="h-1.5 flex-1 bg-slate-100 [&_[data-slot=progress-indicator]]:bg-blue-600" /><span className="text-xs font-medium text-slate-600">{item.progress}%</span></div></button>
+          <div className="flex justify-end gap-1 border-t border-slate-100 px-4 py-2"><button type="button" onClick={() => openEditProject(item)} className="inline-flex items-center gap-1 rounded px-2 py-1 text-xs text-slate-500 hover:bg-slate-100 hover:text-slate-800"><Pencil className="size-3.5" />编辑</button><button type="button" onClick={() => deleteProject(item)} className="inline-flex items-center gap-1 rounded px-2 py-1 text-xs text-rose-600 hover:bg-rose-50"><Trash2 className="size-3.5" />删除</button></div>
+        </div>)}
+      </div> : <div className="divide-y divide-slate-100">
+        {projectItems.map((item) => <div key={item.id} className={`flex flex-col gap-3 px-5 py-4 sm:flex-row sm:items-center ${project === item.name ? "bg-blue-50/45" : "bg-white"}`}><button type="button" onClick={() => setProject(item.name)} className="flex min-w-0 flex-1 items-center gap-3 text-left"><span className={`grid size-9 shrink-0 place-items-center rounded-md ${project === item.name ? "bg-blue-600 text-white" : "bg-slate-100 text-slate-600"}`}><FolderKanban className="size-4" /></span><span className="min-w-0 flex-1"><span className="flex flex-wrap items-center gap-2"><strong className="text-sm font-semibold text-slate-900">{item.name}</strong>{project === item.name && <Badge className="bg-blue-600">当前项目</Badge>}</span><span className="mt-1 block truncate text-xs text-slate-500">{item.category}</span></span><span className="hidden w-32 items-center gap-2 md:flex"><Progress value={item.progress} className="h-1.5 flex-1 bg-slate-100 [&_[data-slot=progress-indicator]]:bg-blue-600" /><span className="text-xs text-slate-500">{item.progress}%</span></span></button><div className="flex shrink-0 justify-end gap-1"><button type="button" onClick={() => openEditProject(item)} className="inline-flex items-center gap-1 rounded px-2 py-1 text-xs text-slate-500 hover:bg-slate-100 hover:text-slate-800"><Pencil className="size-3.5" />编辑</button><button type="button" onClick={() => deleteProject(item)} className="inline-flex items-center gap-1 rounded px-2 py-1 text-xs text-rose-600 hover:bg-rose-50"><Trash2 className="size-3.5" />删除</button></div></div>)}
+      </div>}
+    </section>
+
+  </PageShell>;
+}
+
+type QuestionBankPageProps = {
+  questions: QuestionBankViewItem[];
+  favorites: Question[];
+  onToggleFavorite: (question: Question) => void;
+  remoteState: "loading" | "ready" | "local-only" | "error";
+  remoteError: string;
+};
+
+function QuestionBankPage({ questions, favorites, onToggleFavorite, remoteState, remoteError }: QuestionBankPageProps) {
+  const [query, setQuery] = useState("");
+  const [sourceFilter, setSourceFilter] = useState<QuestionBankSourceFilter>("全部");
+  const filteredQuestions = useMemo(() => filterQuestionBankItems(questions, query, sourceFilter), [questions, query, sourceFilter]);
+  const groups = useMemo(() => groupQuestionBankItems(filteredQuestions), [filteredQuestions]);
+  const categories = new Set(questions.map((item) => item.category));
+  const aiCount = questions.filter((item) => item.origin === "AI").length;
+  const sourceOptions: Array<{ value: QuestionBankSourceFilter; label: string }> = [
+    { value: "全部", label: "全部题目" },
+    { value: "专业", label: "专业知识" },
+    { value: "AI", label: "AI 生成" },
+  ];
+
+  return <PageShell title="题库" subtitle="按知识分类浏览内置题库与 AI 生成题目，展开题目即可查看完整回答要点。">
+    <div className="grid gap-3 sm:grid-cols-4">
+      {[
+        { label: "全部题目", value: questions.length, icon: Library, tone: "bg-blue-50 text-blue-600" },
+        { label: "分类数量", value: categories.size, icon: ListTree, tone: "bg-violet-50 text-violet-600" },
+        { label: "AI 生成", value: aiCount, icon: Sparkles, tone: "bg-amber-50 text-amber-600" },
+        { label: "内置题库", value: questions.length - aiCount, icon: BookOpen, tone: "bg-emerald-50 text-emerald-600" },
+      ].map((metric) => <section key={metric.label} className="panel flex items-center gap-3 p-4"><span className={`grid size-9 place-items-center rounded-lg ${metric.tone}`}><metric.icon className="size-4" /></span><div><p className="text-2xl font-semibold tracking-tight text-slate-950">{metric.value}</p><p className="text-xs text-slate-500">{metric.label}</p></div></section>)}
+    </div>
+
+    <section className="panel mt-5 overflow-hidden">
+      <div className="flex flex-col gap-4 border-b border-slate-200 px-5 py-4 lg:flex-row lg:items-center lg:justify-between">
+        <div><h2 className="font-semibold text-slate-900">分类题库</h2><p className="mt-1 text-xs text-slate-500">当前显示 {filteredQuestions.length} 道题 · {groups.length} 个分类</p></div>
+        <div className="flex w-full flex-col gap-2 sm:flex-row lg:w-auto">
+          <Input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="搜索题目、分类、标签或关键词" className="w-full bg-white sm:w-72" />
+          <div className="flex flex-wrap items-center gap-1 rounded-md border border-slate-200 bg-slate-50 p-1">
+            {sourceOptions.map((option) => <button key={option.value} type="button" onClick={() => setSourceFilter(option.value)} aria-pressed={sourceFilter === option.value} className={`rounded px-2.5 py-1.5 text-xs transition ${sourceFilter === option.value ? "bg-white font-medium text-blue-700 shadow-sm" : "text-slate-500 hover:text-slate-800"}`}>{option.label}</button>)}
+          </div>
+        </div>
+      </div>
+      {remoteState === "loading" && <p className="border-b border-blue-100 bg-blue-50/60 px-5 py-2.5 text-xs text-blue-700">正在读取 GitHub 中的 AI 题库…</p>}
+      {remoteState === "local-only" && <p className="border-b border-amber-100 bg-amber-50/70 px-5 py-2.5 text-xs text-amber-700">GitHub 题库未配置，当前显示内置题库和本地待同步题目。</p>}
+      {remoteState === "error" && <p className="border-b border-rose-100 bg-rose-50 px-5 py-2.5 text-xs text-rose-700">GitHub AI 题库暂时读取失败，当前仍显示本地题库。{remoteError ? ` ${remoteError}` : ""}</p>}
+      {groups.length === 0 ? <div className="grid min-h-52 place-items-center p-8 text-center"><Library className="size-8 text-slate-300" /><p className="mt-3 text-sm font-medium text-slate-700">没有匹配的题目</p><p className="mt-1 text-xs text-slate-500">请调整搜索关键词或来源筛选。</p></div> : <Accordion type="multiple" defaultValue={groups.map(([category]) => category)} className="divide-y divide-slate-100">
+        {groups.map(([category, entries]) => <AccordionItem key={category} value={category} className="border-0">
+          <AccordionTrigger className="px-5 py-4 hover:no-underline"><div className="flex min-w-0 items-center gap-3 text-left"><span className="grid size-8 shrink-0 place-items-center rounded-md bg-blue-50 text-blue-600"><ListTree className="size-4" /></span><span className="min-w-0"><span className="block truncate font-semibold text-slate-900">{category}</span><span className="mt-0.5 block text-xs font-normal text-slate-500">{entries.length} 道题 · {entries.filter((entry) => entry.origin === "AI").length} 道 AI 题目</span></span></div></AccordionTrigger>
+          <AccordionContent className="px-5 pb-5"><div className="space-y-3">
+            {entries.map((entry, index) => <article key={`${category}-${entry.title}`} className="rounded-lg border border-slate-200 bg-white p-4 shadow-sm">
+              <div className="flex flex-col gap-3 lg:flex-row lg:items-start lg:justify-between"><div className="min-w-0"><div className="flex items-start gap-3"><span className="grid size-7 shrink-0 place-items-center rounded bg-slate-800 text-xs font-semibold text-white">{index + 1}</span><h3 className="min-w-0 flex-1 text-sm font-semibold leading-6 text-slate-900">{entry.title}</h3><button type="button" onClick={() => onToggleFavorite(entry as Question)} aria-pressed={isFavoriteQuestion(favorites, entry)} aria-label={isFavoriteQuestion(favorites, entry) ? `取消收藏：${entry.title}` : `收藏：${entry.title}`} title={isFavoriteQuestion(favorites, entry) ? "取消收藏" : "收藏题目"} className={`grid size-8 shrink-0 place-items-center rounded-md border transition ${isFavoriteQuestion(favorites, entry) ? "border-amber-200 bg-amber-50 text-amber-500" : "border-slate-200 bg-white text-slate-400 hover:border-amber-200 hover:bg-amber-50 hover:text-amber-500"}`}><Star className="size-4" fill={isFavoriteQuestion(favorites, entry) ? "currentColor" : "none"} /></button></div><div className="mt-2 flex flex-wrap gap-1.5 pl-10"><Badge variant="outline" className="rounded-md border-blue-200 bg-blue-50 text-blue-700">{entry.source === "专业" ? "专业知识" : "项目答辩"}</Badge><Badge variant="outline" className={`rounded-md ${entry.origin === "AI" ? "border-violet-200 bg-violet-50 text-violet-700" : "border-slate-200 bg-slate-50 text-slate-600"}`}>{entry.origin === "AI" ? "AI 生成" : "内置题库"}</Badge>{entry.sourceType && <Badge variant="outline" className="rounded-md border-violet-200 bg-violet-50 text-violet-700">{entry.sourceType}</Badge>}<Badge variant="outline" className="rounded-md border-amber-200 bg-amber-50 text-amber-700">{entry.difficulty}</Badge>{entry.techStacks?.map((stack) => <Badge key={stack} variant="outline" className="rounded-md border-slate-200 text-slate-600">{stack}</Badge>)}{entry.detectionDirection && <Badge variant="outline" className="rounded-md border-cyan-200 bg-cyan-50 text-cyan-700">{entry.detectionDirection}</Badge>}</div></div><span className="shrink-0 text-xs text-slate-400">{entry.type}</span></div>
+              {entry.tags.length > 0 && <p className="mt-3 pl-10 text-xs leading-5 text-slate-500">标签：{entry.tags.join("、")}</p>}
+              {entry.knowledgePoints?.length && <p className="mt-1 pl-10 text-xs leading-5 text-slate-500">知识点：{entry.knowledgePoints.join("、")}</p>}
+              <details className="mt-3 border-t border-slate-100 pt-3 pl-10"><summary className="cursor-pointer text-xs font-medium text-blue-700 hover:text-blue-800">查看答案与追问</summary><div className="mt-3 space-y-3 text-sm leading-6 text-slate-700"><div><p className="text-xs font-semibold text-slate-500">标准答案</p><p className="mt-1 whitespace-pre-wrap">{entry.bestAnswer || "暂无标准答案"}</p></div><div><p className="text-xs font-semibold text-slate-500">原理</p><p className="mt-1 whitespace-pre-wrap">{entry.principle || "暂无原理说明"}</p></div><div><p className="text-xs font-semibold text-slate-500">回答提示</p><p className="mt-1 whitespace-pre-wrap">{entry.hint || "暂无提示"}</p></div><div><p className="text-xs font-semibold text-slate-500">追问</p><p className="mt-1 whitespace-pre-wrap">{entry.followUp || "暂无追问"}</p></div>{entry.keywords.length > 0 && <div><p className="text-xs font-semibold text-slate-500">关键词</p><p className="mt-1">{entry.keywords.join("、")}</p></div>}{entry.reference && <div><p className="text-xs font-semibold text-slate-500">参考资料</p><a href={entry.reference.url} target="_blank" rel="noreferrer" className="mt-1 inline-block text-blue-700 hover:underline">{entry.reference.title}</a>{entry.reference.snippet && <p className="mt-1 text-xs leading-5 text-slate-500">{entry.reference.snippet}</p>}</div>}</div></details>
+            </article>)}
+          </div></AccordionContent>
+        </AccordionItem>)}
+      </Accordion>}
+    </section>
+  </PageShell>;
+}
+
+function FavoritesPage({ questions, onToggleFavorite }: { questions: Question[]; onToggleFavorite: (question: Question) => void }) {
+  const [query, setQuery] = useState("");
+  const [sourceFilter, setSourceFilter] = useState<QuestionBankSourceFilter>("全部");
+  const filteredQuestions = useMemo(() => filterFavoriteQuestions(questions, query, sourceFilter), [questions, query, sourceFilter]);
+  const groups = useMemo(() => groupFavoriteQuestions(filteredQuestions), [filteredQuestions]);
+  const sourceOptions: Array<{ value: QuestionBankSourceFilter; label: string }> = [
+    { value: "全部", label: "全部收藏" },
+    { value: "专业", label: "专业知识" },
+    { value: "AI", label: "AI 生成" },
+  ];
+
+  return <PageShell title="收藏夹" subtitle="把需要反复练习的题目归档到这里，按分类集中复习。">
+    <div className="grid gap-3 sm:grid-cols-3">
+      {[
+        { label: "收藏题目", value: questions.length, icon: Star, tone: "bg-amber-50 text-amber-600" },
+        { label: "知识分类", value: new Set(questions.map((item) => item.category)).size, icon: ListTree, tone: "bg-blue-50 text-blue-600" },
+        { label: "AI 题目", value: questions.filter((item) => item.origin === "AI").length, icon: Sparkles, tone: "bg-violet-50 text-violet-600" },
+      ].map((metric) => <section key={metric.label} className="panel flex items-center gap-3 p-4"><span className={`grid size-9 place-items-center rounded-lg ${metric.tone}`}><metric.icon className="size-4" fill={metric.label === "收藏题目" ? "currentColor" : "none"} /></span><div><p className="text-2xl font-semibold tracking-tight text-slate-950">{metric.value}</p><p className="text-xs text-slate-500">{metric.label}</p></div></section>)}
+    </div>
+
+    <section className="panel mt-5 overflow-hidden">
+      <div className="flex flex-col gap-4 border-b border-slate-200 px-5 py-4 lg:flex-row lg:items-center lg:justify-between">
+        <div><h2 className="font-semibold text-slate-900">已收藏题目</h2><p className="mt-1 text-xs text-slate-500">当前显示 {filteredQuestions.length} 道题 · {groups.length} 个分类</p></div>
+        <div className="flex w-full flex-col gap-2 sm:flex-row lg:w-auto">
+          <Input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="搜索题目、分类、标签或知识点" className="w-full bg-white sm:w-72" />
+          <div className="flex flex-wrap items-center gap-1 rounded-md border border-slate-200 bg-slate-50 p-1">
+            {sourceOptions.map((option) => <button key={option.value} type="button" onClick={() => setSourceFilter(option.value)} aria-pressed={sourceFilter === option.value} className={`rounded px-2.5 py-1.5 text-xs transition ${sourceFilter === option.value ? "bg-white font-medium text-blue-700 shadow-sm" : "text-slate-500 hover:text-slate-800"}`}>{option.label}</button>)}
+          </div>
+        </div>
+      </div>
+      {groups.length === 0 ? <div className="grid min-h-56 place-items-center p-8 text-center"><div><Star className="mx-auto size-9 text-slate-300" /><p className="mt-3 text-sm font-medium text-slate-700">还没有收藏题目</p><p className="mt-1 text-xs leading-5 text-slate-500">在开始学习或题库页面点击题目右侧的星标，即可归档到这里。</p></div></div> : <Accordion type="multiple" defaultValue={groups.map(([category]) => category)} className="divide-y divide-slate-100">
+        {groups.map(([category, entries]) => <AccordionItem key={category} value={category} className="border-0">
+          <AccordionTrigger className="px-5 py-4 hover:no-underline"><div className="flex min-w-0 items-center gap-3 text-left"><span className="grid size-8 shrink-0 place-items-center rounded-md bg-amber-50 text-amber-600"><Star className="size-4" fill="currentColor" /></span><span className="min-w-0"><span className="block truncate font-semibold text-slate-900">{category}</span><span className="mt-0.5 block text-xs font-normal text-slate-500">{entries.length} 道收藏题目</span></span></div></AccordionTrigger>
+          <AccordionContent className="px-5 pb-5"><div className="space-y-3">
+            {entries.map((entry, index) => <article key={`${category}-${entry.title}`} className="rounded-lg border border-slate-200 bg-white p-4 shadow-sm">
+              <div className="flex items-start gap-3"><span className="grid size-7 shrink-0 place-items-center rounded bg-slate-800 text-xs font-semibold text-white">{index + 1}</span><div className="min-w-0 flex-1"><h3 className="text-sm font-semibold leading-6 text-slate-900">{entry.title}</h3><div className="mt-2 flex flex-wrap gap-1.5"><Badge variant="outline" className="rounded-md border-blue-200 bg-blue-50 text-blue-700">{entry.source === "专业" ? "专业知识" : "项目答辩"}</Badge><Badge variant="outline" className={`rounded-md ${entry.origin === "AI" ? "border-violet-200 bg-violet-50 text-violet-700" : "border-slate-200 bg-slate-50 text-slate-600"}`}>{entry.origin === "AI" ? "AI 生成" : "内置题库"}</Badge><Badge variant="outline" className="rounded-md border-amber-200 bg-amber-50 text-amber-700">{entry.difficulty}</Badge><span className="text-xs leading-6 text-slate-400">{entry.type}</span></div></div><button type="button" onClick={() => onToggleFavorite(entry as Question)} aria-label={`取消收藏：${entry.title}`} title="取消收藏" className="grid size-8 shrink-0 place-items-center rounded-md border border-amber-200 bg-amber-50 text-amber-500 transition hover:bg-amber-100"><Star className="size-4" fill="currentColor" /></button></div>
+              {(entry.tags.length > 0 || entry.knowledgePoints?.length) && <p className="mt-3 pl-10 text-xs leading-5 text-slate-500">{entry.tags.length > 0 ? `标签：${entry.tags.join("、")}` : ""}{entry.tags.length > 0 && entry.knowledgePoints?.length ? " · " : ""}{entry.knowledgePoints?.length ? `知识点：${entry.knowledgePoints.join("、")}` : ""}</p>}
+              <details className="mt-3 border-t border-slate-100 pt-3 pl-10"><summary className="cursor-pointer text-xs font-medium text-blue-700 hover:text-blue-800">查看答案与追问</summary><div className="mt-3 space-y-3 text-sm leading-6 text-slate-700"><div><p className="text-xs font-semibold text-slate-500">标准答案</p><p className="mt-1 whitespace-pre-wrap">{entry.bestAnswer || "暂无标准答案"}</p></div><div><p className="text-xs font-semibold text-slate-500">原理</p><p className="mt-1 whitespace-pre-wrap">{entry.principle || "暂无原理说明"}</p></div><div><p className="text-xs font-semibold text-slate-500">回答提示</p><p className="mt-1 whitespace-pre-wrap">{entry.hint || "暂无提示"}</p></div><div><p className="text-xs font-semibold text-slate-500">追问</p><p className="mt-1 whitespace-pre-wrap">{entry.followUp || "暂无追问"}</p></div>{entry.reference && <div><p className="text-xs font-semibold text-slate-500">参考资料</p><a href={entry.reference.url} target="_blank" rel="noreferrer" className="mt-1 inline-block text-blue-700 hover:underline">{entry.reference.title}</a>{entry.reference.snippet && <p className="mt-1 text-xs leading-5 text-slate-500">{entry.reference.snippet}</p>}</div>}</div></details>
+            </article>)}
+          </div></AccordionContent>
+        </AccordionItem>)}
+      </Accordion>}
+    </section>
+  </PageShell>;
+}
+
+function PersonalCenterPage({ records }: { records: TrainingRecord[] }) {
+  const categorizedRecords = useMemo(() => normalizeTrainingRecords(records).map((record) => ({
+    ...record,
+    category: record.category || questionBank.find((question) => question.title === record.question)?.category || "待分类",
+  })), [records]);
+  const analysis = useMemo(() => analyzeLearningMastery(categorizedRecords), [categorizedRecords]);
+  const plan = useMemo(() => createImprovementPlan(analysis), [analysis]);
+  const metrics = [
+    { label: "有效学习记录", value: analysis.totalRecords, note: `${analysis.answeredCount} 次完成回答`, icon: BookOpen, tone: "bg-blue-50 text-blue-600" },
+    { label: "平均得分", value: analysis.averageScore === null ? "—" : analysis.averageScore, note: "仅统计有评分的回答", icon: BarChart3, tone: "bg-violet-50 text-violet-600" },
+    { label: "最高掌握阶段", value: analysis.masteryStage ?? "—", note: analysis.masteryStage ? `已掌握 ${analysis.masteryStageCounts?.已掌握 ?? 0} 次 · 熟练 ${analysis.masteryStageCounts?.熟练 ?? 0} 次` : `高掌握度 ${analysis.masteryCounts.高} 条记录`, icon: CircleCheck, tone: "bg-emerald-50 text-emerald-600" },
+    { label: "学习天数", value: analysis.studyDays, note: `低掌握度 ${analysis.masteryCounts.低} 条记录`, icon: Clock3, tone: "bg-amber-50 text-amber-600" },
+  ];
+  const masteryLegend: Array<{ label: MasteryLevel; value: number; tone: string }> = [
+    { label: "高", value: analysis.masteryCounts.高, tone: "bg-emerald-500" },
+    { label: "中", value: analysis.masteryCounts.中, tone: "bg-amber-400" },
+    { label: "低", value: analysis.masteryCounts.低, tone: "bg-rose-500" },
+  ];
+
+  return <PageShell title="个人中心" subtitle="根据你的学习记录分析知识掌握程度，并生成下一阶段的专项提升计划。">
+    <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+      {metrics.map((metric) => <section key={metric.label} className="panel flex items-start gap-3 p-4">
+        <span className={`grid size-9 shrink-0 place-items-center rounded-lg ${metric.tone}`}><metric.icon className="size-4" /></span>
+        <div className="min-w-0"><p className="text-2xl font-semibold tracking-tight text-slate-950">{metric.value}</p><p className="mt-0.5 text-xs font-medium text-slate-700">{metric.label}</p><p className="mt-1 text-[11px] text-slate-500">{metric.note}</p></div>
+      </section>)}
+    </div>
+
+    {analysis.totalRecords === 0 ? <section className="panel mt-5 grid min-h-64 place-items-center p-8 text-center">
+      <div><UserRound className="mx-auto size-9 text-slate-300" /><h2 className="mt-3 font-semibold text-slate-900">完成训练后生成你的学习画像</h2><p className="mt-1 max-w-md text-sm leading-6 text-slate-500">个人中心会按知识分类汇总掌握度、审阅问题和得分趋势。先完成一道专业知识题，就能看到专属分析。</p></div>
+    </section> : <>
+      <section className="panel mt-5 overflow-hidden">
+        <div className="flex flex-col gap-4 border-b border-slate-200 px-5 py-4 sm:flex-row sm:items-center sm:justify-between">
+          <div><h2 className="font-semibold text-slate-900">知识掌握概览</h2><p className="mt-1 text-xs text-slate-500">按题目分类汇总，掌握度来自每次回答的 AI 或本地规则审阅。</p></div>
+          <div className="flex flex-wrap gap-3 text-xs text-slate-500">{masteryLegend.map((item) => <span key={item.label} className="inline-flex items-center gap-1.5"><span className={`size-2 rounded-full ${item.tone}`} />{item.label}掌握 {item.value}</span>)}</div>
+        </div>
+        <div className="divide-y divide-slate-100">
+          {analysis.categories.map((item) => {
+            const masteryTone = item.masteryStage ? masteryStageClass(item.masteryStage as MasteryStage) : item.mastery === "高" ? "border-emerald-200 bg-emerald-50 text-emerald-700" : item.mastery === "中" ? "border-amber-200 bg-amber-50 text-amber-700" : "border-rose-200 bg-rose-50 text-rose-700";
+            return <article key={item.category} className="px-5 py-4">
+              <div className="flex flex-col gap-3 lg:flex-row lg:items-center">
+                <div className="min-w-0 flex-1"><div className="flex flex-wrap items-center gap-2"><h3 className="font-medium text-slate-900">{item.category}</h3><Badge variant="outline" className={`rounded-md ${masteryTone}`}>{item.masteryStage ? `最高掌握阶段：${item.masteryStage}` : `掌握度：${item.mastery}`}</Badge></div><p className="mt-1 text-xs text-slate-500">{item.attempts} 次练习 · 完成 {item.answeredCount} 次 · 跳过 {item.skippedCount} 次 · 平均得分 {item.averageScore === null ? "—" : item.averageScore}</p></div>
+                <div className="w-full lg:w-72"><div className="mb-1.5 flex items-center justify-between text-[11px] text-slate-500"><span>掌握指数</span><strong className="text-slate-700">{item.masteryScore}%</strong></div><Progress value={item.masteryScore} className="h-2" /></div>
+              </div>
+              {(item.issues.length > 0 || item.suggestions.length > 0) && <div className="mt-3 grid gap-2 text-xs sm:grid-cols-2"><div className="rounded-md border border-amber-100 bg-amber-50/60 px-3 py-2 leading-5 text-amber-900"><strong className="font-medium">集中问题：</strong>{item.issues.length ? item.issues.join("；") : "暂无具体问题"}</div><div className="rounded-md border border-blue-100 bg-blue-50/60 px-3 py-2 leading-5 text-blue-900"><strong className="font-medium">建议动作：</strong>{item.suggestions.length ? item.suggestions.join("；") : "继续保持并增加边界条件说明"}</div></div>}
+            </article>;
+          })}
+        </div>
+      </section>
+
+      <section className="mt-5 grid gap-4 lg:grid-cols-[1fr_280px]">
+        <div className="panel overflow-hidden"><div className="border-b border-slate-200 px-5 py-4"><h2 className="font-semibold text-slate-900">专属提升计划</h2><p className="mt-1 text-xs text-slate-500">优先安排最薄弱的三个知识分类，完成目标后会随新记录自动更新。</p></div>
+          {plan.length === 0 ? <div className="p-6 text-sm leading-6 text-emerald-800"><div className="flex items-center gap-2 font-medium"><CircleCheck className="size-4" />当前没有需要优先补强的知识分类</div><p className="mt-2 text-emerald-700">继续保持练习，系统会在新的审阅结果产生后重新评估。</p></div> : <div className="divide-y divide-slate-100">{plan.map((item, index) => <article key={item.category} className="p-5"><div className="flex items-start gap-3"><span className={`grid size-8 shrink-0 place-items-center rounded-md text-sm font-semibold ${item.priority === "高" ? "bg-rose-50 text-rose-600" : "bg-amber-50 text-amber-600"}`}>{index + 1}</span><div className="min-w-0 flex-1"><div className="flex flex-wrap items-center gap-2"><h3 className="font-medium text-slate-900">{item.title}</h3><Badge variant="outline" className={`rounded-md ${item.priority === "高" ? "border-rose-200 bg-rose-50 text-rose-700" : "border-amber-200 bg-amber-50 text-amber-700"}`}>{item.priority}优先级</Badge></div><p className="mt-2 text-sm leading-6 text-slate-600">{item.reason}</p><ol className="mt-3 space-y-2">{item.actions.map((action, actionIndex) => <li key={action} className="flex gap-2 text-sm leading-6 text-slate-700"><span className="font-semibold text-blue-600">{actionIndex + 1}.</span><span>{action}</span></li>)}</ol><p className="mt-3 rounded-md border border-blue-100 bg-blue-50/60 px-3 py-2 text-xs leading-5 text-blue-900"><strong className="font-medium">完成标准：</strong>{item.target}</p></div></div></article>)}</div>}
+        </div>
+        <aside className="panel h-fit p-5"><Target className="size-6 text-blue-600" /><h2 className="mt-4 font-semibold text-slate-900">分析说明</h2><p className="mt-2 text-sm leading-6 text-slate-600">掌握阶段依据最佳回答关键点覆盖情况，并要求同一知识类通过不同题型验证后才会从“部分掌握”晋级到“已掌握”和“熟练”；不按字数打分。</p><div className="mt-4 rounded-md border border-slate-200 bg-slate-50 p-3 text-xs leading-5 text-slate-600">当前分析 {analysis.categories.length} 个知识分类，共 {analysis.totalRecords} 条有效学习记录。</div></aside>
+      </section>
+    </>}
+  </PageShell>;
+}
+
+function ReviewCenter({ records, onStart }: { records: TrainingRecord[]; onStart: (startTitle?: string, questionTitles?: string[]) => void }) {
+  const [query, setQuery] = useState("");
+  const [priorityFilter, setPriorityFilter] = useState<"全部" | "高" | "中">("全部");
+  const [categoryFilter, setCategoryFilter] = useState("全部分类");
+  const queue = buildReviewQueue(normalizeTrainingRecords(records));
+  const summary = summarizeReviewQueue(queue);
+  const categories = Array.from(new Set(queue.map((item) => item.category || "待分类")));
+  const filteredQueue = queue.filter((item) => {
+    const searchText = `${item.question} ${item.category ?? ""} ${item.reviewIssues?.join(" ") ?? ""} ${item.reviewSuggestions?.join(" ") ?? ""}`.toLocaleLowerCase();
+    return (priorityFilter === "全部" || item.priority === priorityFilter)
+      && (categoryFilter === "全部分类" || (item.category || "待分类") === categoryFilter)
+      && (!query.trim() || searchText.includes(query.trim().toLocaleLowerCase()));
+  });
+  const firstTitle = filteredQueue[0]?.question;
+  return <PageShell title="温故知新" subtitle="把低掌握、跳过和存在审阅问题的题目组成复习任务，重新回答后验证掌握度是否提升。">
+    <div className="grid gap-3 sm:grid-cols-3">
+      {[
+        { label: "待复习题目", value: summary.total, icon: Target, tone: "bg-blue-50 text-blue-600" },
+        { label: "高优先级", value: summary.high, icon: CircleAlert, tone: "bg-rose-50 text-rose-600" },
+        { label: "涉及分类", value: summary.categories, icon: ListTree, tone: "bg-violet-50 text-violet-600" },
+      ].map((metric) => <section key={metric.label} className="panel flex items-center gap-3 p-4"><span className={`grid size-9 place-items-center rounded-lg ${metric.tone}`}><metric.icon className="size-4" /></span><div><p className="text-2xl font-semibold tracking-tight text-slate-950">{metric.value}</p><p className="text-xs text-slate-500">{metric.label}</p></div></section>)}
+    </div>
+
+    <section className="panel mt-5 overflow-hidden">
+      <div className="flex flex-col gap-4 border-b border-slate-200 px-5 py-4 lg:flex-row lg:items-center lg:justify-between">
+        <div><h2 className="font-semibold text-slate-900">复习任务队列</h2><p className="mt-1 text-xs text-slate-500">优先处理高优先级题目；点击单题可从指定题目开始复习。</p></div>
+        <Button onClick={() => onStart(firstTitle, filteredQueue.map((item) => item.question))} disabled={!firstTitle} className="bg-blue-600 hover:bg-blue-700"><Play />开始本轮复习{filteredQueue.length ? `（${filteredQueue.length} 题）` : ""}</Button>
+      </div>
+      <div className="flex flex-col gap-2 border-b border-slate-200 bg-slate-50/70 p-4 sm:flex-row">
+        <Input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="搜索题目、分类或改进问题" className="bg-white sm:flex-1" />
+        <NativeSelect value={categoryFilter} onChange={(event) => setCategoryFilter(event.target.value)} className="bg-white sm:w-44"><NativeSelectOption value="全部分类">全部分类</NativeSelectOption>{categories.map((category) => <NativeSelectOption key={category} value={category}>{category}</NativeSelectOption>)}</NativeSelect>
+        <div className="flex items-center gap-1 rounded-md border border-slate-200 bg-white p-1">{(["全部", "高", "中"] as const).map((value) => <button key={value} type="button" onClick={() => setPriorityFilter(value)} aria-pressed={priorityFilter === value} className={`rounded px-2.5 py-1.5 text-xs transition ${priorityFilter === value ? "bg-blue-50 font-medium text-blue-700" : "text-slate-500 hover:text-slate-800"}`}>{value === "全部" ? "全部优先级" : `${value}优先级`}</button>)}</div>
       </div>
       {summary.total === 0 ? <div className="grid min-h-56 place-items-center p-8 text-center"><div><CircleCheck className="mx-auto size-8 text-emerald-500" /><h2 className="mt-3 font-medium text-slate-900">暂无待复习题目</h2><p className="mt-1 text-sm text-slate-500">完成训练后，系统会根据掌握度和审阅结果自动建立复习任务。</p></div></div>
         : filteredQueue.length === 0 ? <div className="grid min-h-40 place-items-center p-8 text-center text-sm text-slate-500">当前筛选条件下没有复习任务。</div>
@@ -2241,7 +3991,7 @@ function SettingsPage() {
   }
 
   function persistWebSourceWhitelist(nextValues: WebSourceWhitelistEntry[]) {
-    const next = normalizeWebSourceWhitelist(nextValues);
+    const next = normalizeWebSourceWhitelist([...nextValues, ...readWebSourceWhitelist(null)]);
     localStorage.setItem(WEB_SOURCE_WHITELIST_STORAGE_KEY, JSON.stringify(next));
     setWebSourceWhitelist(next);
     setSaved(false);
@@ -2326,11 +4076,13 @@ function SettingsPage() {
   }
 
   function removeWhitelistEntry(entry: WebSourceWhitelistEntry) {
+    if (entry.fixed) return;
     if (!window.confirm(`确定删除白名单网址“${entry.url}”吗？`)) return;
     persistWebSourceWhitelist(webSourceWhitelist.filter((item) => item.id !== entry.id));
   }
 
   function toggleWhitelistEntry(entry: WebSourceWhitelistEntry) {
+    if (entry.fixed) return;
     persistWebSourceWhitelist(webSourceWhitelist.map((item) => item.id === entry.id ? { ...item, enabled: !item.enabled } : item));
   }
 
@@ -2871,10 +4623,10 @@ function SettingsPage() {
                 <span className="grid size-8 shrink-0 cursor-grab place-items-center rounded-md bg-slate-100 text-slate-400 active:cursor-grabbing" title="拖动调整顺序" aria-label="拖动调整顺序"><GripVertical className="size-4" /></span>
                 <span className="grid size-7 shrink-0 place-items-center rounded-md bg-blue-50 text-xs font-semibold text-blue-700">{index + 1}</span>
                 <div className="min-w-0 flex-1"><p className={`truncate text-sm font-semibold ${entry.enabled ? "text-slate-800" : "text-slate-400 line-through"}`}>{entry.displayName || "未命名网站"}</p><p className={`mt-1 truncate font-mono text-xs ${entry.enabled ? "text-slate-600" : "text-slate-400 line-through"}`}>{entry.url}</p><div className="mt-1 flex flex-wrap items-center gap-2 text-[11px]"><span className={`inline-flex items-center gap-1 ${entry.available === false ? "text-rose-600" : "text-emerald-700"}`}>{entry.available === false ? <CircleAlert className="size-3" /> : <CircleCheck className="size-3" />}{entry.available === false ? "不可用" : "可用"}</span><span className="text-slate-400">{entry.enabled ? "参与联网检索" : "已停用"}</span>{entry.lastCheckedAt && <span className="text-slate-400">检测于 {new Date(entry.lastCheckedAt).toLocaleString()}</span>}</div>{entry.checkError && <p className="mt-1 truncate text-[11px] text-rose-600" title={entry.checkError}>{entry.checkError}</p>}</div>
-                <label className="flex shrink-0 items-center gap-2 text-xs text-slate-600"><span>{entry.enabled ? "启用" : "停用"}</span><Switch checked={entry.enabled} onCheckedChange={() => toggleWhitelistEntry(entry)} aria-label={`${entry.enabled ? "停用" : "启用"} ${entry.displayName || entry.url}`} /></label>
+                <label className="flex shrink-0 items-center gap-2 text-xs text-slate-600"><span>{entry.fixed ? "固定启用" : entry.enabled ? "启用" : "停用"}</span><Switch checked={entry.enabled} disabled={entry.fixed} onCheckedChange={() => toggleWhitelistEntry(entry)} aria-label={`${entry.enabled ? "停用" : "启用"} ${entry.displayName || entry.url}`} /></label>
                 <button type="button" onClick={() => void recheckWhitelistEntry(entry)} disabled={whitelistCheckingId === entry.id} className="inline-flex shrink-0 items-center gap-1 rounded px-2 py-1 text-xs text-blue-700 hover:bg-blue-50 disabled:opacity-50"><RotateCcw className={`size-3.5 ${whitelistCheckingId === entry.id ? "animate-spin" : ""}`} />{whitelistCheckingId === entry.id ? "检测中" : "重新检测"}</button>
-                <button type="button" onClick={() => openEditWhitelistEntry(entry)} className="inline-flex shrink-0 items-center gap-1 rounded px-2 py-1 text-xs text-slate-500 hover:bg-slate-100 hover:text-slate-800"><Pencil className="size-3.5" />编辑</button>
-                <button type="button" onClick={() => removeWhitelistEntry(entry)} className="inline-flex shrink-0 items-center gap-1 rounded px-2 py-1 text-xs text-rose-600 hover:bg-rose-50"><Trash2 className="size-3.5" />删除</button>
+                <button type="button" onClick={() => openEditWhitelistEntry(entry)} disabled={entry.fixed} className="inline-flex shrink-0 items-center gap-1 rounded px-2 py-1 text-xs text-slate-500 hover:bg-slate-100 hover:text-slate-800 disabled:cursor-not-allowed disabled:opacity-50"><Pencil className="size-3.5" />编辑</button>
+                <button type="button" onClick={() => removeWhitelistEntry(entry)} disabled={entry.fixed} title={entry.fixed ? "系统固定白名单不可删除" : undefined} className="inline-flex shrink-0 items-center gap-1 rounded px-2 py-1 text-xs text-rose-600 hover:bg-rose-50 disabled:cursor-not-allowed disabled:opacity-50"><Trash2 className="size-3.5" />{entry.fixed ? "固定" : "删除"}</button>
               </div>)}
             </div> : <div className="rounded-lg border border-dashed border-slate-300 bg-slate-50/60 p-8 text-center"><Globe2 className="mx-auto size-8 text-slate-300" /><p className="mt-3 text-sm font-medium text-slate-600">暂未添加网址白名单</p><p className="mt-1 text-xs text-slate-500">添加常用官方文档或 GitHub 项目地址后，联网题目会优先从这些来源检索。</p></div>}
           </div>

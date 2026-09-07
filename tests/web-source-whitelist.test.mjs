@@ -131,9 +131,10 @@ test("reads a persisted whitelist without allowing malformed values through", ()
       ]);
     },
   };
-  assert.deepEqual(readWebSourceWhitelist(storage), [
-    { id: "valid", url: "https://docs.example.com/", enabled: true },
-  ]);
+  const whitelist = readWebSourceWhitelist(storage);
+  assert.deepEqual(whitelist[0], { id: "valid", url: "https://docs.example.com/", enabled: true });
+  assert.ok(whitelist.some((entry) => entry.url === "https://blog.csdn.net/" && entry.fixed));
+  assert.ok(!whitelist.some((entry) => entry.url === "javascript:alert(1)"));
 });
 
 test("retrieves whitelist queries in configured order and ranks their results first", async () => {

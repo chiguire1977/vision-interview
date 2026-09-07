@@ -4,14 +4,44 @@ const SEARCH_ENDPOINT = "https://html.duckduckgo.com/html/";
 const SEARCH_USER_AGENT = "VisionInterview-web-research";
 const MAX_QUERY_LENGTH = 320;
 const MAX_RESULTS = 8;
+const SEARCH_CACHE_TTL_MS = 15 * 60 * 1000;
+const SEARCH_CACHE_LIMIT = 200;
 
 type SearchSource = { title: string; url: string; snippet: string };
+type SearchCacheEntry = { savedAt: number; sources: SearchSource[] };
+const searchCache = new Map<string, SearchCacheEntry>();
 
 function json(body: Record<string, unknown>, status = 200) {
   return Response.json(body, {
     status,
     headers: { "Cache-Control": "no-store" },
   });
+}
+
+function cacheKey(query: string) {
+  return query.trim().toLocaleLowerCase().replace(/\s+/g, " ");
+}
+
+function readSearchCache(query: string) {
+  const key = cacheKey(query);
+  const entry = searchCache.get(key);
+  if (!entry) return null;
+  if (Date.now() - entry.savedAt > SEARCH_CACHE_TTL_MS) {
+    searchCache.delete(key);
+    return null;
+  }
+  return entry.sources;
+}
+
+function writeSearchCache(query: string, sources: SearchSource[]) {
+  const key = cacheKey(query);
+  searchCache.delete(key);
+  searchCache.set(key, { savedAt: Date.now(), sources });
+  while (searchCache.size > SEARCH_CACHE_LIMIT) {
+    const oldest = searchCache.keys().next().value;
+    if (typeof oldest !== "string") break;
+    searchCache.delete(oldest);
+  }
 }
 
 function decodeHtml(value: string) {
@@ -81,6 +111,9 @@ export async function POST(request: Request) {
     const query = typeof body.query === "string" ? body.query.trim().slice(0, MAX_QUERY_LENGTH) : "";
     if (!query) return json({ ok: false, message: "缺少网络检索关键词。" }, 400);
 
+    const cached = readSearchCache(query);
+    if (cached) return json({ ok: true, query, sources: cached, cached: true });
+
     const endpoint = `${SEARCH_ENDPOINT}?q=${encodeURIComponent(query)}`;
     const response = await fetch(endpoint, {
       headers: {
@@ -97,7 +130,8 @@ export async function POST(request: Request) {
     if (!response.ok) return json({ ok: false, message: `网络检索失败（HTTP ${response.status}）。` }, 502);
 
     const sources = parseSearchResults(await response.text());
-    return json({ ok: true, query, sources });
+    if (sources.length) writeSearchCache(query, sources);
+    return json({ ok: true, query, sources, cached: false });
   } catch (error) {
     const message = error instanceof Error && error.name === "TimeoutError"
       ? "网络检索超时，请稍后重试。"

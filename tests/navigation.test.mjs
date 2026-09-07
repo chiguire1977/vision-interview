@@ -95,3 +95,9 @@ test("whitelist settings validate URLs before saving and expose availability wit
   assert.match(page, /available !== false/);
   assert.match(page, /<Switch checked=\{entry\.enabled\}/);
 });
+
+test("whitelist settings keep fixed sources enabled and protected from deletion", () => {
+  const page = readFileSync(fileURLToPath(new URL("../app/page.tsx", import.meta.url)), "utf8");
+  assert.match(page, /entry\.fixed/);
+  assert.match(page, /系统固定白名单不可删除/);
+});

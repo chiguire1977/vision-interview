@@ -63,3 +63,30 @@ test("web search route reports upstream failures without exposing response bodie
   assert.equal(body.ok, false);
   assert.doesNotMatch(JSON.stringify(body), /secret upstream detail/);
 });
+
+test("web search route caches repeated queries in the server process", async () => {
+  const route = await vite.ssrLoadModule("/app/api/web-search/route.ts");
+  let upstreamCalls = 0;
+  globalThis.fetch = async () => {
+    upstreamCalls += 1;
+    return new Response(`
+      <a class="result__a" href="https://docs.example.com/cache">Cached result</a>
+      <a class="result__snippet">Cached snippet</a>
+    `, { status: 200, headers: { "content-type": "text/html" } });
+  };
+
+  const createRequest = () => new Request("http://localhost/api/web-search", {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify({ query: "缓存测试-unique" }),
+  });
+  const first = await route.POST(createRequest());
+  const second = await route.POST(createRequest());
+  const firstBody = await first.json();
+  const secondBody = await second.json();
+
+  assert.equal(upstreamCalls, 1);
+  assert.equal(firstBody.cached, false);
+  assert.equal(secondBody.cached, true);
+  assert.deepEqual(secondBody.sources, firstBody.sources);
+});
