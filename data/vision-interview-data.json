@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-07T02:13:26.402Z",
+  "updatedAt": "2026-09-07T02:13:33.703Z",
   "data": {
     "vision-interview-records": [
       {
@@ -3783,12 +3783,28 @@
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
       {
-        "id": "1788747208196-6k441ftc",
-        "timestamp": "2026-09-07T02:13:28.196Z",
+        "id": "1788747213313-bfijr175",
+        "timestamp": "2026-09-07T02:13:33.313Z",
+        "level": "ERROR",
+        "kind": "system",
+        "event": "backup.push.failed",
+        "message": "运行数据备份失败",
+        "context": {
+          "status": 502,
+          "reason": "GitHub 备份失败（HTTP 409）：{\"message\":\"is at c6fee4fd0d702803dc466c87802810969995d8f0 but expected a4a1ef1cd4cabb6f11e2f2be692aca1d995da857\",\"documentation_url\":\"https://docs.github.com/rest/repos/contents#create-or-update-file-contents\",\"status\":\"409\"}"
+        }
+      },
+      {
+        "id": "1788747207690-1jxp2ydw",
+        "timestamp": "2026-09-07T02:13:27.690Z",
         "level": "INFO",
         "kind": "system",
-        "event": "backup.close.flush",
-        "message": "页面关闭或进入后台，提交最后一次备份"
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "bd38b35fb319"
+        }
       },
       {
         "id": "1788747207081-vp9kgpzl",
@@ -17199,18 +17215,6 @@
           "sourceMode": "network",
           "adaptiveQuestions": false,
           "focusCategories": []
-        }
-      },
-      {
-        "id": "1788343734229-kjj3f7re",
-        "timestamp": "2026-09-02T10:08:54.229Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "dbada1282bad"
         }
       }
     ],
