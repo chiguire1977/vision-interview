@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-07T03:51:37.736Z",
+  "updatedAt": "2026-09-07T03:51:38.359Z",
   "data": {
     "vision-interview-records": [
       {
@@ -3786,12 +3786,46 @@
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
       {
-        "id": "1788753095894-kjtaxfo0",
-        "timestamp": "2026-09-07T03:51:35.894Z",
+        "id": "1788753080952-su8gu7aj",
+        "timestamp": "2026-09-07T03:51:20.952Z",
         "level": "INFO",
         "kind": "system",
-        "event": "backup.close.flush",
-        "message": "页面关闭或进入后台，提交最后一次备份"
+        "sessionId": "1788752989218-16nqofqp",
+        "event": "question-bank.cache.saved",
+        "message": "AI 题库已完成远程同步",
+        "context": {
+          "questionCount": 10,
+          "pendingCount": 0
+        }
+      },
+      {
+        "id": "1788753080947-n49eh5ph",
+        "timestamp": "2026-09-07T03:51:20.947Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788752989218-16nqofqp",
+        "event": "github.backup.succeeded",
+        "message": "数据已成功备份到 GitHub",
+        "context": {
+          "operation": "ai-question-bank",
+          "entryCount": 10,
+          "pendingCount": 0,
+          "totalCount": 242,
+          "status": 200,
+          "complete": true
+        }
+      },
+      {
+        "id": "1788753078765-id9e1zw9",
+        "timestamp": "2026-09-07T03:51:18.765Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "8b3f5f676e54"
+        }
       },
       {
         "id": "1788753074948-fwvsopo7",
@@ -18144,32 +18178,6 @@
         "kind": "system",
         "event": "backup.close.flush",
         "message": "页面关闭或进入后台，提交最后一次备份"
-      },
-      {
-        "id": "1788746697864-ds30xae5",
-        "timestamp": "2026-09-07T02:04:57.864Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "2389f9ce829a"
-        }
-      },
-      {
-        "id": "1788746691758-63xbgdxt",
-        "timestamp": "2026-09-07T02:04:51.758Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788746689812-jhfj1mlw",
-        "event": "question-bank.remote.loaded",
-        "message": "GitHub AI 历史题库加载完成",
-        "context": {
-          "questionCount": 210,
-          "githubQuestionCount": 210,
-          "pendingCount": 0
-        }
       }
     ],
     "vision-interview-web-source-whitelist": [
