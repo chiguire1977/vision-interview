@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-07T02:07:23.827Z",
+  "updatedAt": "2026-09-07T02:07:32.843Z",
   "data": {
     "vision-interview-records": [
       {
@@ -3548,6 +3548,32 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788746851789-1528ib4c",
+        "timestamp": "2026-09-07T02:07:31.789Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1788746842203-uy66lq2n",
+        "event": "ai.connection-test.started",
+        "message": "开始真实聊天连接测试",
+        "context": {
+          "provider": "openai",
+          "model": "gpt-5.6-sol",
+          "upstreamFormat": "responses"
+        }
+      },
+      {
+        "id": "1788746848482-81pjjje4",
+        "timestamp": "2026-09-07T02:07:28.482Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "96f1523e2fd1"
+        }
+      },
       {
         "id": "1788746844131-50ezpsdv",
         "timestamp": "2026-09-07T02:07:24.131Z",
@@ -17033,35 +17059,6 @@
         "context": {
           "reason": "change",
           "commit": "179d9c76c53c"
-        }
-      },
-      {
-        "id": "1788343693101-beqqhg2g",
-        "timestamp": "2026-09-02T10:08:13.101Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788343468196-zjzo0dai",
-        "event": "question-bank.ai-request.duration",
-        "message": "单个并行 AI 请求完成",
-        "context": {
-          "attempt": 4,
-          "workerIndex": 1,
-          "parallelRequests": 4,
-          "requestedCount": 1,
-          "receivedCount": 1,
-          "durationMs": 31995
-        }
-      },
-      {
-        "id": "1788343670166-6c3kzins",
-        "timestamp": "2026-09-02T10:07:50.166Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "450e49bb13c6"
         }
       }
     ],
