@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-09T05:51:15.279Z",
+  "updatedAt": "2026-09-09T05:51:22.010Z",
   "data": {
     "vision-interview-records": [
       {
@@ -3785,6 +3785,26 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1788933084527-m00k0gvx",
+        "timestamp": "2026-09-09T05:51:24.527Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "706668c75241"
+        }
+      },
+      {
+        "id": "1788933079931-xj0mu8c1",
+        "timestamp": "2026-09-09T05:51:19.931Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.close.flush",
+        "message": "页面关闭或进入后台，提交最后一次备份"
+      },
       {
         "id": "1788933078005-0ribjnml",
         "timestamp": "2026-09-09T05:51:18.005Z",
@@ -18189,42 +18209,6 @@
           "requestedCount": 2,
           "durationMs": 15190,
           "error": "AI 请求超时，请稍后重试。"
-        }
-      },
-      {
-        "id": "1788748889839-epyy4q4h",
-        "timestamp": "2026-09-07T02:41:29.839Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788748699983-pgd6193m",
-        "event": "question-bank.ai-request.failed",
-        "message": "单个并行 AI 请求失败",
-        "context": {
-          "attempt": 2,
-          "workerIndex": 1,
-          "parallelRequests": 4,
-          "requestedCount": 2,
-          "durationMs": 15160,
-          "error": "AI 请求超时，请稍后重试。"
-        }
-      },
-      {
-        "id": "1788748888038-4kspehue",
-        "timestamp": "2026-09-07T02:41:28.038Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788748699983-pgd6193m",
-        "event": "question-bank.web-search.completed",
-        "message": "本轮联网检索完成",
-        "context": {
-          "attempt": 4,
-          "query": "机器视觉 面试知识点 HALCON 传统 2D 视觉 仅限二维图像处理，排除 3D、三维、点云、深度图、法线估计、平面拟合、立体视觉、结构光和双目 原理 工程实践",
-          "sourceCount": 8,
-          "cached": true,
-          "parallelRequests": 4,
-          "requestedCount": 10,
-          "durationMs": 4,
-          "sharedAcrossWorkers": true
         }
       }
     ],
