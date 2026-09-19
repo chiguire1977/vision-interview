@@ -17,6 +17,7 @@ test("keeps knowledge categories and technology stacks as separate dimensions", 
     "相机镜头光源",
     "C#与软件架构",
     "通讯协议",
+    "其他",
   ]);
   assert.deepEqual(TECH_STACKS, ["HALCON", "OpenCV", "VisionPro", "C#", "WPF"]);
   assert.notEqual(KNOWLEDGE_CATEGORIES.includes("HALCON"), true);
@@ -26,6 +27,11 @@ test("keeps knowledge categories and technology stacks as separate dimensions", 
 test("normalizes legacy category and technology-stack labels", () => {
   assert.equal(normalizeKnowledgeCategory("PLC与现场"), "通讯协议");
   assert.equal(normalizeKnowledgeCategory("通讯协议"), "通讯协议");
+  assert.equal(normalizeKnowledgeCategory("Blob 分析"), "边缘与特征");
+  assert.equal(normalizeKnowledgeCategory("图像分割与区域分析"), "边缘与特征");
+  assert.equal(normalizeKnowledgeCategory(" plc 通讯 "), "通讯协议");
+  assert.equal(normalizeKnowledgeCategory("AI 自由分类"), "其他");
+  assert.equal(normalizeKnowledgeCategory(""), "其他");
   assert.equal(normalizeTechStack("C#视觉开发"), "C#");
   assert.equal(normalizeTechStack("C#"), "C#");
   assert.equal(normalizeTechStack("通用原理"), "通用原理");

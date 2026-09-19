@@ -56,12 +56,15 @@ import {
   buildLearningFocus,
   buildLearningFocusPrompt,
   prioritizeQuestionCandidates,
+  recommendDifficultyAdjustment,
 } from "@/lib/adaptive-question-focus.mjs";
 import {
   buildReviewQueue,
+  scheduleReview,
   selectReviewQuestions,
   summarizeReviewQueue,
 } from "@/lib/review-queue.mjs";
+import { normalizeTrainingRecord as normalizeTrainingRecordData } from "@/lib/training-records.mjs";
 import { primaryNavigationLabels, utilityNavigationLabels } from "@/lib/navigation.mjs";
 import { analyzeLearningMastery, createImprovementPlan } from "@/lib/personal-center.mjs";
 import { createGitHubBackupLog } from "@/lib/backup-log.mjs";
@@ -240,14 +243,17 @@ type TrainingRecord = {
   questionType?: string;
   attemptId?: string;
   answerKeywords?: string[]; principle?: string;
+  reviewCount?: number; reviewLevel?: number; easeFactor?: number; nextReviewAt?: string;
+  skipReason?: "太难" | "不感兴趣" | "稍后再学";
 };
 type AnswerReview = { strengths: string[]; issues: string[]; suggestions: string[]; missing: string[]; coveredPoints?: string[]; criticalMissingPoints?: string[]; criticalCoveredPoints?: string[] };
 type SessionAnswer = {
-  question: Question; answer: string; seconds: number; status: "answered" | "skipped";
+  question: Question; answer: string; status: "answered" | "skipped";
   bestAnswer: string; review: AnswerReview; mastery: MasteryLevel; masteryStage?: MasteryStage;
   reviewStatus: "pending" | "reviewed";
   masteryReason?: string; reviewSource?: "AI" | "本地规则";
   attemptId?: string;
+  skipReason?: "太难" | "不感兴趣" | "稍后再学";
 };
 type ProjectConfig = {
   id: string;
@@ -1125,6 +1131,7 @@ async function prepareQuestionGroup(
             signal: aiSignal,
             body: JSON.stringify({
               provider,
+              sessionId: activeRuntimeSessionId || undefined,
               upstreamFormat,
               baseUrl,
               model,
@@ -1150,6 +1157,7 @@ async function prepareQuestionGroup(
                 trainingMode: selection.trainingMode,
                 requestedSource,
                 category: selection.category,
+                allowedCategories: KNOWLEDGE_CATEGORIES,
                 difficulty: selection.difficulty,
                 techStack: selection.techStack,
                 detectionDirection: selection.detectionDirection,
@@ -1200,7 +1208,7 @@ async function prepareQuestionGroup(
                   questions: [{
                     title: "完整面试题",
                     type: "算法原理/工程实践/现场故障/项目深挖等",
-                    category: "题目分类",
+                    category: `只能从以下枚举选择：${KNOWLEDGE_CATEGORIES.join("、")}`,
                     source: requestedSource === "项目" ? "项目" : "专业",
                     sourceType: requestedSource === "项目" ? "项目资料" : "官方文档整理/AI知识整理",
                     knowledgePoints: ["核心知识点", "工程应用边界"],
@@ -1222,8 +1230,18 @@ async function prepareQuestionGroup(
               ],
             }),
           });
-          const result = await response.json() as { ok?: boolean; content?: string; message?: string };
+          const result = await response.json() as { ok?: boolean; content?: string; message?: string; status?: number; errorType?: string; retryable?: boolean; provider?: string; model?: string; attempt?: number; elapsedMs?: number; upstreamMessage?: string };
           if (!response.ok || !result.ok || !result.content) {
+            recordRuntimeEvent("WARN", "question-bank.ai-request.upstream-failed", result.message || "AI 题组生成失败", {
+              status: result.status ?? response.status,
+              errorType: result.errorType ?? "unknown",
+              retryable: result.retryable ?? false,
+              provider: result.provider ?? provider,
+              model: result.model ?? model,
+              attempt: result.attempt ?? attempt,
+              elapsedMs: result.elapsedMs ?? Math.round(performance.now() - generationStartedAt),
+              upstreamMessage: result.upstreamMessage ?? "",
+            });
             throw new Error(result.message || "AI 题组生成失败");
           }
           const rawQuestions = parsePreparedQuestions(result.content);
@@ -1427,10 +1445,6 @@ function recordRuntimeEvent(level: RuntimeLogLevel, event: string, message: stri
   }
 }
 
-function formatTime(seconds: number) {
-  return `${Math.floor(seconds / 60).toString().padStart(2, "0")}:${(seconds % 60).toString().padStart(2, "0")}`;
-}
-
 function createAttemptId() {
   return `${Date.now()}-${Math.random().toString(16).slice(2)}`;
 }
@@ -1487,7 +1501,9 @@ function normalizeTrainingRecords(value: unknown): TrainingRecord[] {
       principle: previous.principle || record.principle,
     });
   }
-  return Array.from(unique.values());
+  return Array.from(unique.values())
+    .map((record) => normalizeTrainingRecordData(record))
+    .filter(Boolean) as TrainingRecord[];
 }
 
 function emptyAnswerReview(): AnswerReview {
@@ -1638,7 +1654,7 @@ async function evaluateAnswerWithAi(question: Question, answer: string, bestAnsw
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        provider, upstreamFormat: resolveAiUpstreamFormat(baseUrl, model, preferences.upstreamFormat), baseUrl, model, maxTokens: 1000, temperature: 0.1, ...(apiKey ? { apiKey } : {}),
+        provider, sessionId: activeRuntimeSessionId || undefined, upstreamFormat: resolveAiUpstreamFormat(baseUrl, model, preferences.upstreamFormat), baseUrl, model, maxTokens: 1000, temperature: 0.1, ...(apiKey ? { apiKey } : {}),
         messages: [
           {
             role: "system",
@@ -1761,7 +1777,7 @@ async function evaluateQuestionGroupWithAi(answers: SessionAnswer[]): Promise<Gr
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        provider, upstreamFormat: resolveAiUpstreamFormat(baseUrl, model, preferences.upstreamFormat), baseUrl, model, maxTokens: 2600, temperature: 0.1, ...(apiKey ? { apiKey } : {}),
+        provider, sessionId: activeRuntimeSessionId || undefined, upstreamFormat: resolveAiUpstreamFormat(baseUrl, model, preferences.upstreamFormat), baseUrl, model, maxTokens: 2600, temperature: 0.1, ...(apiKey ? { apiKey } : {}),
         messages: [
           {
             role: "system",
@@ -1843,7 +1859,6 @@ export default function Home() {
   const [showBestAnswer, setShowBestAnswer] = useState(false);
   const [bestAnswerViewed, setBestAnswerViewed] = useState(false);
   const [recording, setRecording] = useState(false);
-  const [seconds, setSeconds] = useState(0);
   const [records, setRecords] = useState<TrainingRecord[]>([]);
   const [favoriteQuestions, setFavoriteQuestions] = useState<Question[]>([]);
   const [remoteQuestionBank, setRemoteQuestionBank] = useState<unknown[]>([]);
@@ -2066,7 +2081,6 @@ export default function Home() {
     setEvaluating(false);
     setShowBestAnswer(false);
     setBestAnswerViewed(false);
-    setSeconds(0);
     setActiveNav("开始学习");
     recordRuntimeEvent("INFO", "review.started", "温故知新复习任务已开始", {
       total: selected.length,
@@ -2163,7 +2177,6 @@ export default function Home() {
     setEvaluating(false);
     setShowBestAnswer(false);
     setBestAnswerViewed(false);
-    setSeconds(0);
     setGroupPreparationSource("本地规则");
     setGroupPreparationMessage("");
     setActiveNav("开始学习");
@@ -2187,7 +2200,6 @@ export default function Home() {
       return;
     }
     setAnswer("");
-    setSeconds(0);
     setSpeechError("");
     speechChunksRef.current = [];
     try {
@@ -2237,12 +2249,6 @@ export default function Home() {
     window.addEventListener("vision-interview-backup-loaded", loadFavorites);
     return () => window.removeEventListener("vision-interview-backup-loaded", loadFavorites);
   }, []);
-
-  useEffect(() => {
-    if (!recording) return;
-    const timer = window.setInterval(() => setSeconds((value) => value + 1), 1000);
-    return () => clearInterval(timer);
-  }, [recording]);
 
   useEffect(() => () => stopRecording(), []);
 
@@ -2432,9 +2438,10 @@ export default function Home() {
         delete merged.masteryReason;
         delete merged.reviewSource;
       }
+      const normalizedMerged = normalizeTrainingRecordData(merged) as TrainingRecord;
       const next = existingIndex >= 0
-        ? clean.map((item, index) => index === existingIndex ? merged : item)
-        : [merged, ...clean].slice(0, 100);
+        ? clean.map((item, index) => index === existingIndex ? normalizedMerged : item)
+        : [normalizedMerged, ...clean].slice(0, 100);
       localStorage.setItem("vision-interview-records", JSON.stringify(next));
       return next;
     });
@@ -2508,7 +2515,7 @@ export default function Home() {
     const nextIndex = questionIndex + 1;
     const nextItem = savedAnswers.find((entry) => entry.question.title === groupQuestions[nextIndex]?.title);
     setQuestionIndex(nextIndex);
-    setAnswer(nextItem?.answer ?? ""); setSubmitted(false); setShowBestAnswer(false); setBestAnswerViewed(false); setSeconds(nextItem?.seconds ?? 0);
+    setAnswer(nextItem?.answer ?? ""); setSubmitted(false); setShowBestAnswer(false); setBestAnswerViewed(false);
   }
 
   function previousQuestion() {
@@ -2521,7 +2528,6 @@ export default function Home() {
     setSubmitted(false);
     setShowBestAnswer(false);
     setBestAnswerViewed(false);
-    setSeconds(previousItem?.seconds ?? 0);
   }
 
   async function saveSessionAnswer(item: SessionAnswer) {
@@ -2533,7 +2539,7 @@ export default function Home() {
     appendRecord({
       question: item.question.title, project, date: now.toLocaleDateString("zh-CN"),
       timestamp: now.toLocaleString("zh-CN"), action: item.status === "skipped" ? "跳过题目" : "完成答题", mode: trainingMode,
-      category: item.question.category, source: item.question.source, seconds: item.seconds, answer: item.answer,
+      category: item.question.category, source: item.question.source, answer: item.answer,
       bestAnswer: item.bestAnswer, bestAnswerViewed, reviewStatus: "pending",
       answerKeywords: item.question.keywords, principle: item.question.principle || getQuestionPrinciple(item.question, project),
       knowledgeKey: item.question.blueprint?.knowledgeKey || buildQuestionBlueprint(item.question).knowledgeKey,
@@ -2558,13 +2564,12 @@ export default function Home() {
     stopRecording();
     const bestAnswer = getBestAnswer(question, project);
     const sessionItem: SessionAnswer = {
-      question, answer: answer.trim(), seconds, status: "answered",
+      question, answer: answer.trim(), status: "answered",
       bestAnswer, review: emptyAnswerReview(), mastery: "低", reviewStatus: "pending", attemptId: createAttemptId(),
     };
     await saveSessionAnswer(sessionItem);
     recordRuntimeEvent("INFO", "answer.submit.completed", "回答已保存，已进入下一题或题组评审", {
       question: question.title,
-      seconds,
     });
   }
 
@@ -2592,14 +2597,17 @@ export default function Home() {
       setSessionAnswers(savedAnswers);
       const now = new Date();
       for (const item of savedAnswers) {
+        const scheduled = scheduleReview(records.find((record) => record.question === item.question.title), "forgotten", now);
         appendRecord({
+          ...scheduled,
           question: item.question.title, project, date: now.toLocaleDateString("zh-CN"),
           timestamp: now.toLocaleString("zh-CN"), action: item.status === "skipped" ? "跳过题目" : "完成答题", mode: trainingMode,
-          category: item.question.category, source: item.question.source, seconds: item.seconds, answer: item.answer,
+          category: item.question.category, source: item.question.source, answer: item.answer,
           bestAnswer: item.bestAnswer, reviewStatus: "disabled",
           answerKeywords: item.question.keywords, principle: item.question.principle || getQuestionPrinciple(item.question, project),
           knowledgeKey: item.question.blueprint?.knowledgeKey || buildQuestionBlueprint(item.question).knowledgeKey,
           questionType: item.question.type, attemptId: item.attemptId,
+          skipReason: item.skipReason,
         });
       }
       setGroupReviewSummary("已关闭回答评审，本题组仅保存回答内容。");
@@ -2620,38 +2628,47 @@ export default function Home() {
     setGroupCompleted(true);
     const now = new Date();
     for (const item of evaluatedAnswers) {
+      const outcome = item.masteryStage === "已掌握" || item.masteryStage === "熟练" ? "remembered" : item.masteryStage === "部分掌握" ? "partial" : "forgotten";
+      const scheduled = scheduleReview(records.find((record) => record.question === item.question.title), outcome, now);
       appendRecord({
+        ...scheduled,
         question: item.question.title, project, date: now.toLocaleDateString("zh-CN"),
         timestamp: now.toLocaleString("zh-CN"), action: item.status === "skipped" ? "跳过题目" : "完成答题", mode: trainingMode,
-        category: item.question.category, source: item.question.source, seconds: item.seconds, answer: item.answer,
+        category: item.question.category, source: item.question.source, answer: item.answer,
         bestAnswer: item.bestAnswer, reviewIssues: item.review.issues, reviewSuggestions: item.review.suggestions,
         mastery: item.mastery, masteryUpdatedAt: now.toLocaleString("zh-CN"), masteryReason: item.masteryReason, reviewSource: item.reviewSource, reviewStatus: "reviewed",
         answerKeywords: item.question.keywords, principle: item.question.principle || getQuestionPrinciple(item.question, project),
         masteryStage: item.masteryStage, knowledgeKey: item.question.blueprint?.knowledgeKey || buildQuestionBlueprint(item.question).knowledgeKey,
-        questionType: item.question.type, attemptId: item.attemptId,
+        questionType: item.question.type, attemptId: item.attemptId, skipReason: item.skipReason,
       });
     }
     recordRuntimeEvent("INFO", "group.review.completed", "题组统一评审完成", { reviewSource: evaluation.source, questionCount: evaluation.answers.length });
   }
 
-  async function nextQuestion() {
+  async function nextQuestion(skipReason: "太难" | "不感兴趣" | "稍后再学" = "稍后再学") {
     if (preparingGroup || evaluating) return;
     const skipped: SessionAnswer = {
-      question, answer: "", seconds, status: "skipped",
-      bestAnswer: getBestAnswer(question, project), review: emptyAnswerReview(), mastery: "低", reviewStatus: "pending", attemptId: createAttemptId(),
+      question, answer: "", status: "skipped",
+      bestAnswer: getBestAnswer(question, project), review: emptyAnswerReview(), mastery: "低", reviewStatus: "pending", attemptId: createAttemptId(), skipReason,
     };
     recordRuntimeEvent("WARN", "answer.skipped", "当前题目已跳过", {
       question: question.title,
       mode: trainingMode,
       project,
+      skipReason,
     });
+    if (recommendDifficultyAdjustment([{ action: "跳过题目", skipReason, date: new Date().toISOString() }, ...records]) === "降低难度") {
+      const recommendation = "你已连续 3 次因题目太难而跳过，建议下一题组切换为“基础”难度。";
+      setGroupPreparationMessage((current) => current.includes(recommendation) ? current : `${current} ${recommendation}`.trim());
+      recordRuntimeEvent("INFO", "training.difficulty-recommended", recommendation, { currentDifficulty: difficulty, recommendedDifficulty: "基础" });
+    }
     await saveSessionAnswer(skipped);
   }
 
   function restartGroup() {
     stopRecording();
     setGroupCompleted(false); setGroupReviewSummary(""); setGroupReviewSource("未评审"); setSessionAnswers([]); setQuestionIndex(0); setAnswer(""); setSubmitted(false); setEvaluating(false);
-    setShowBestAnswer(false); setBestAnswerViewed(false); setRecording(false); setSeconds(0);
+    setShowBestAnswer(false); setBestAnswerViewed(false); setRecording(false);
     if (reviewSessionActive && reviewSessionQuestions?.length) {
       setPreparingGroup(false);
       setGroupPreparationSource("本地规则");
@@ -2666,7 +2683,7 @@ export default function Home() {
     stopRecording();
     const previous = sessionAnswers.find((item) => item.question.title === groupQuestions[index]?.title);
     setGroupCompleted(false); setGroupReviewSummary(""); setGroupReviewSource("未评审"); setQuestionIndex(index); setAnswer(previous?.answer ?? ""); setSubmitted(false); setEvaluating(false);
-    setShowBestAnswer(false); setBestAnswerViewed(false); setRecording(false); setSeconds(0);
+    setShowBestAnswer(false); setBestAnswerViewed(false); setRecording(false);
   }
 
   return (
@@ -2737,18 +2754,18 @@ export default function Home() {
         ) : <TrainingCenter question={question} questionIndex={questionIndex} totalQuestions={groupQuestions.length} questionGroupSize={questionGroupSettings.questionGroupSize} parallelRequests={questionGroupSettings.parallelRequests} reviewMode={reviewSessionActive}
           trainingMode={trainingMode} category={category} difficulty={difficulty} techStack={techStack} detectionDirection={detectionDirection} project={project}
           isFavorite={isFavoriteQuestion(favoriteQuestions, question)} onToggleFavorite={() => toggleFavorite(question)}
-          onCategoryChange={(value) => { setReviewSessionActive(false); setReviewSessionQuestions(null); setCategory(value); setQuestionIndex(0); setAnswer(""); setSubmitted(false); setEvaluating(false); setPreparedGroupQuestions(null); setPreparingGroup(true); setSeconds(0); setSessionAnswers([]); setGroupCompleted(false); setGroupRound(0); }}
-          onDifficultyChange={(value) => { setReviewSessionActive(false); setReviewSessionQuestions(null); setDifficulty(value); setQuestionIndex(0); setAnswer(""); setSubmitted(false); setEvaluating(false); setPreparedGroupQuestions(null); setPreparingGroup(true); setSeconds(0); setSessionAnswers([]); setGroupCompleted(false); setGroupRound(0); }}
-          onTechStackChange={(value) => { setReviewSessionActive(false); setReviewSessionQuestions(null); setTechStack(value); setDetectionDirection("随机方向"); setQuestionIndex(0); setAnswer(""); setSubmitted(false); setEvaluating(false); setPreparedGroupQuestions(null); setPreparingGroup(true); setShowBestAnswer(false); setSeconds(0); setSessionAnswers([]); setGroupCompleted(false); setGroupRound(0); }}
-          onDetectionDirectionChange={(value) => { setReviewSessionActive(false); setReviewSessionQuestions(null); setDetectionDirection(value); setQuestionIndex(0); setAnswer(""); setSubmitted(false); setEvaluating(false); setPreparedGroupQuestions(null); setPreparingGroup(true); setShowBestAnswer(false); setSeconds(0); setSessionAnswers([]); setGroupCompleted(false); setGroupRound(0); }}
-          answer={answer} setAnswer={setAnswer} submitted={submitted} recording={recording} speechProcessing={speechProcessing} seconds={seconds} speechError={speechError}
+          onCategoryChange={(value) => { setReviewSessionActive(false); setReviewSessionQuestions(null); setCategory(value); setQuestionIndex(0); setAnswer(""); setSubmitted(false); setEvaluating(false); setPreparedGroupQuestions(null); setPreparingGroup(true); setSessionAnswers([]); setGroupCompleted(false); setGroupRound(0); }}
+          onDifficultyChange={(value) => { setReviewSessionActive(false); setReviewSessionQuestions(null); setDifficulty(value); setQuestionIndex(0); setAnswer(""); setSubmitted(false); setEvaluating(false); setPreparedGroupQuestions(null); setPreparingGroup(true); setSessionAnswers([]); setGroupCompleted(false); setGroupRound(0); }}
+          onTechStackChange={(value) => { setReviewSessionActive(false); setReviewSessionQuestions(null); setTechStack(value); setDetectionDirection("随机方向"); setQuestionIndex(0); setAnswer(""); setSubmitted(false); setEvaluating(false); setPreparedGroupQuestions(null); setPreparingGroup(true); setShowBestAnswer(false); setSessionAnswers([]); setGroupCompleted(false); setGroupRound(0); }}
+          onDetectionDirectionChange={(value) => { setReviewSessionActive(false); setReviewSessionQuestions(null); setDetectionDirection(value); setQuestionIndex(0); setAnswer(""); setSubmitted(false); setEvaluating(false); setPreparedGroupQuestions(null); setPreparingGroup(true); setShowBestAnswer(false); setSessionAnswers([]); setGroupCompleted(false); setGroupRound(0); }}
+          answer={answer} setAnswer={setAnswer} submitted={submitted} recording={recording} speechProcessing={speechProcessing} speechError={speechError}
           bestAnswer={getBestAnswer(question, project)} showBestAnswer={showBestAnswer} bestAnswerViewed={bestAnswerViewed} onToggleBestAnswer={toggleBestAnswer}
           evaluating={evaluating} preparingGroup={preparingGroup} groupPreparationSource={groupPreparationSource} groupPreparationMessage={groupPreparationMessage}
           onReturnToSelection={returnToTrainingSelection}
           currentMastery={currentEvaluation?.reviewStatus === "reviewed" ? currentEvaluation.mastery : undefined} currentMasteryStage={currentEvaluation?.reviewStatus === "reviewed" ? currentEvaluation.masteryStage : undefined} currentReviewSource={currentEvaluation?.reviewStatus === "reviewed" ? currentEvaluation.reviewSource : undefined} currentMasteryReason={currentEvaluation?.reviewStatus === "reviewed" ? currentEvaluation.masteryReason : undefined}
           onSubmit={submitAnswer} onNext={nextQuestion} onPrevious={previousQuestion}
           onToggleRecording={toggleRecording}
-          onReset={() => { stopRecording(); setSpeechError(""); setAnswer(""); setSubmitted(false); setEvaluating(false); setShowBestAnswer(false); setBestAnswerViewed(false); setSeconds(0); }} />)}
+          onReset={() => { stopRecording(); setSpeechError(""); setAnswer(""); setSubmitted(false); setEvaluating(false); setShowBestAnswer(false); setBestAnswerViewed(false); }} />)}
         {activeNav === "个人中心" && <PersonalCenterPage records={records} />}
         {activeNav === "题库" && <QuestionBankPage questions={allQuestionBank} favorites={favoriteQuestions} onToggleFavorite={toggleFavorite} remoteState={questionBankRemoteState} remoteError={questionBankRemoteError} />}
         {activeNav === "收藏夹" && <FavoritesPage questions={favoriteQuestions} onToggleFavorite={toggleFavorite} />}
@@ -2861,7 +2878,7 @@ type TrainingProps = {
   evaluating: boolean; preparingGroup: boolean; groupPreparationSource: "AI" | "本地规则" | "缓存"; groupPreparationMessage: string;
   onReturnToSelection: () => void;
   currentMastery?: MasteryLevel; currentMasteryStage?: MasteryStage; currentReviewSource?: "AI" | "本地规则"; currentMasteryReason?: string;
-  recording: boolean; speechProcessing: boolean; seconds: number; speechError?: string; onSubmit: () => void; onNext: () => void; onPrevious: () => void;
+  recording: boolean; speechProcessing: boolean; speechError?: string; onSubmit: () => void; onNext: (reason?: "太难" | "不感兴趣" | "稍后再学") => void; onPrevious: () => void;
   onToggleRecording: () => void; onReset: () => void;
 };
 
@@ -2875,6 +2892,27 @@ function TrainingCenter(props: TrainingProps) {
     ? normalizeDetectionDirection(props.question.detectionDirection || inferDetectionDirection(props.question, props.techStack))
     : "";
   const questionPrinciple = props.question.principle || getQuestionPrinciple(props.question, props.project);
+  useEffect(() => {
+    const handleShortcut = (event: KeyboardEvent) => {
+      const target = event.target as HTMLElement | null;
+      const editing = target?.tagName === "INPUT" || target?.tagName === "TEXTAREA" || target?.isContentEditable;
+      const interactive = Boolean(target?.closest("button, a, select, [role='button'], [role='menu'], [role='dialog']"));
+      const modalOpen = Boolean(document.querySelector("[role='dialog'][data-state='open'], [aria-modal='true']"));
+      if (event.isComposing || event.repeat || modalOpen) return;
+      if ((event.ctrlKey || event.metaKey) && event.key === "Enter") {
+        event.preventDefault();
+        props.onSubmit();
+        return;
+      }
+      if (editing || interactive || event.ctrlKey || event.metaKey || event.altKey) return;
+      if (event.key === "ArrowLeft") { event.preventDefault(); props.onPrevious(); }
+      else if (event.key === "ArrowRight") { event.preventDefault(); props.onNext("稍后再学"); }
+      else if (event.key.toLowerCase() === "s") { event.preventDefault(); props.onNext("稍后再学"); }
+      else if (event.key.toLowerCase() === "b") { event.preventDefault(); props.onToggleBestAnswer(); }
+    };
+    window.addEventListener("keydown", handleShortcut);
+    return () => window.removeEventListener("keydown", handleShortcut);
+  }, [props]);
   return (
     <main className="flex-1 p-3 md:p-5">
       <div className="mx-auto max-w-6xl">
@@ -2969,7 +3007,6 @@ function TrainingCenter(props: TrainingProps) {
                 <div className="flex h-9 flex-1 items-center gap-[3px] overflow-hidden" aria-label="录音波形">
                   {Array.from({ length: 52 }).map((_, i) => <i key={i} className={`wavebar ${props.recording ? "wavebar-active" : ""}`} style={{ height: `${8 + ((i * 13) % 25)}px`, animationDelay: `${i * 28}ms` }} />)}
                 </div>
-                <span className="font-mono text-sm font-medium tabular-nums text-slate-600">{formatTime(props.seconds)}</span>
               </div>
               <span className="text-xs text-slate-500">{props.recording ? "录音中，停止后由 Whisper 识别…" : props.speechProcessing ? "Whisper 识别中…" : "点击麦克风开始（会清空上次语音）"}</span>
             </div>
@@ -2984,9 +3021,12 @@ function TrainingCenter(props: TrainingProps) {
                   <div className="flex flex-wrap gap-2 sm:justify-end">
                     <Button onClick={props.onPrevious} disabled={props.questionIndex === 0 || props.evaluating || props.preparingGroup} variant="outline" className="min-w-28 border-slate-200 bg-white text-slate-700 hover:bg-slate-50"><ChevronLeft />上一题</Button>
                     <Button onClick={props.onSubmit} disabled={props.answer.trim().length === 0 || props.submitted || props.evaluating || props.preparingGroup} className="min-w-28 bg-blue-600 hover:bg-blue-700"><Check />{props.evaluating ? "题组评审中…" : props.submitted ? "已完成回答" : "回答完成"}</Button>
-                    <Button onClick={props.onNext} disabled={props.submitted || props.evaluating || props.preparingGroup} variant="outline" className="min-w-28 border-blue-200 bg-white text-blue-700 hover:bg-blue-50"><ChevronRight />{props.submitted ? (props.questionIndex >= props.totalQuestions - 1 ? "完成题组" : "进入下一题") : (props.questionIndex >= props.totalQuestions - 1 ? "跳过并查看复盘" : "跳过此题")}</Button>
+                    <Button onClick={() => props.onNext("稍后再学")} disabled={props.submitted || props.evaluating || props.preparingGroup} variant="outline" className="min-w-28 border-blue-200 bg-white text-blue-700 hover:bg-blue-50"><ChevronRight />稍后再学</Button>
+                    <Button onClick={() => props.onNext("太难")} disabled={props.submitted || props.evaluating || props.preparingGroup} variant="outline" className="border-amber-200 bg-white text-amber-700 hover:bg-amber-50">太难</Button>
+                    <Button onClick={() => props.onNext("不感兴趣")} disabled={props.submitted || props.evaluating || props.preparingGroup} variant="ghost" className="text-slate-500">不感兴趣</Button>
                   </div>
                 </div>
+                <p className="mt-2 text-[11px] text-slate-400">快捷键：Ctrl/Cmd+Enter 提交 · ←/→ 切题 · S 稍后再学 · B 查看答案</p>
               </div>
               {props.evaluating && <div className="mt-4 flex items-center gap-2 rounded-md border border-blue-100 bg-blue-50 p-3 text-sm text-blue-800"><Bot className="size-4 animate-pulse" />题组已完成，正在统一比较最佳回答与本组回答的关键要点…</div>}
               {props.submitted && !props.evaluating && !props.currentReviewSource && <div className="mt-4 flex items-center gap-2 rounded-md border border-slate-200 bg-slate-50 p-3 text-sm text-slate-600"><BookOpenCheck className="size-4" />回答已保存，完成整个题组后统一评审。</div>}
@@ -3109,7 +3149,7 @@ function GroupReview({ answers, totalQuestions, mode, reviewMode, evaluating, re
             <AccordionTrigger className="py-5 hover:no-underline">
               <div className="flex min-w-0 flex-1 items-center gap-3 pr-3 text-left">
                 <span className={`grid size-9 shrink-0 place-items-center rounded-full text-sm font-semibold ${item.status === "answered" ? "bg-emerald-50 text-emerald-700" : "bg-slate-100 text-slate-500"}`}>{index + 1}</span>
-                <span className="min-w-0 flex-1"><strong className="block text-sm font-semibold text-slate-900">{item.question.title}</strong><span className="mt-1 block text-xs font-normal text-slate-500">{item.status === "answered" ? `已作答 · ${item.answer.length} 字 · 用时 ${formatTime(item.seconds)}` : "已跳过 · 建议优先补答"}</span></span>
+                <span className="min-w-0 flex-1"><strong className="block text-sm font-semibold text-slate-900">{item.question.title}</strong><span className="mt-1 block text-xs font-normal text-slate-500">{item.status === "answered" ? `已作答 · ${item.answer.length} 字` : `已跳过 · ${item.skipReason || "建议优先补答"}`}</span></span>
                 <div className="flex shrink-0 items-center gap-2">
                   {item.reviewStatus === "reviewed" && <><Badge variant="outline" className={`hidden rounded-md sm:inline-flex ${masteryStageClass(item.masteryStage ?? normalizeMasteryStage(item.mastery))}`}>掌握阶段：{item.masteryStage ?? normalizeMasteryStage(item.mastery)}</Badge>
                   {item.reviewSource && <Badge variant="outline" className="hidden rounded-md border-slate-200 bg-slate-50 text-slate-600 sm:inline-flex">{item.reviewSource === "AI" ? "AI审阅" : "本地规则"}</Badge>}
@@ -3367,14 +3407,15 @@ function PersonalCenterPage({ records }: { records: TrainingRecord[] }) {
   const plan = useMemo(() => createImprovementPlan(analysis), [analysis]);
   const metrics = [
     { label: "有效学习记录", value: analysis.totalRecords, note: `${analysis.answeredCount} 次完成回答`, icon: BookOpen, tone: "bg-blue-50 text-blue-600" },
-    { label: "平均得分", value: analysis.averageScore === null ? "—" : analysis.averageScore, note: "仅统计有评分的回答", icon: BarChart3, tone: "bg-violet-50 text-violet-600" },
-    { label: "最高掌握阶段", value: analysis.masteryStage ?? "—", note: analysis.masteryStage ? `已掌握 ${analysis.masteryStageCounts?.已掌握 ?? 0} 次 · 熟练 ${analysis.masteryStageCounts?.熟练 ?? 0} 次` : `高掌握度 ${analysis.masteryCounts.高} 条记录`, icon: CircleCheck, tone: "bg-emerald-50 text-emerald-600" },
-    { label: "学习天数", value: analysis.studyDays, note: `低掌握度 ${analysis.masteryCounts.低} 条记录`, icon: Clock3, tone: "bg-amber-50 text-amber-600" },
+    { label: "今日待复习", value: buildReviewQueue(categorizedRecords).length, note: "按间隔复习计划自动生成", icon: RotateCcw, tone: "bg-violet-50 text-violet-600" },
+    { label: "最高掌握阶段", value: analysis.masteryStage ?? "—", note: `已掌握 ${analysis.masteryStageCounts.已掌握} 次 · 熟练 ${analysis.masteryStageCounts.熟练} 次`, icon: CircleCheck, tone: "bg-emerald-50 text-emerald-600" },
+    { label: "学习天数", value: analysis.studyDays, note: `未掌握 ${analysis.masteryStageCounts.未掌握} 条记录`, icon: Clock3, tone: "bg-amber-50 text-amber-600" },
   ];
-  const masteryLegend: Array<{ label: MasteryLevel; value: number; tone: string }> = [
-    { label: "高", value: analysis.masteryCounts.高, tone: "bg-emerald-500" },
-    { label: "中", value: analysis.masteryCounts.中, tone: "bg-amber-400" },
-    { label: "低", value: analysis.masteryCounts.低, tone: "bg-rose-500" },
+  const masteryLegend: Array<{ label: MasteryStage; value: number; tone: string }> = [
+    { label: "熟练", value: analysis.masteryStageCounts.熟练, tone: "bg-emerald-600" },
+    { label: "已掌握", value: analysis.masteryStageCounts.已掌握, tone: "bg-emerald-400" },
+    { label: "部分掌握", value: analysis.masteryStageCounts.部分掌握, tone: "bg-amber-400" },
+    { label: "未掌握", value: analysis.masteryStageCounts.未掌握, tone: "bg-rose-500" },
   ];
 
   return <PageShell title="个人中心" subtitle="根据你的学习记录分析知识掌握程度，并生成下一阶段的专项提升计划。">
@@ -3386,20 +3427,20 @@ function PersonalCenterPage({ records }: { records: TrainingRecord[] }) {
     </div>
 
     {analysis.totalRecords === 0 ? <section className="panel mt-5 grid min-h-64 place-items-center p-8 text-center">
-      <div><UserRound className="mx-auto size-9 text-slate-300" /><h2 className="mt-3 font-semibold text-slate-900">完成训练后生成你的学习画像</h2><p className="mt-1 max-w-md text-sm leading-6 text-slate-500">个人中心会按知识分类汇总掌握度、审阅问题和得分趋势。先完成一道专业知识题，就能看到专属分析。</p></div>
+      <div><UserRound className="mx-auto size-9 text-slate-300" /><h2 className="mt-3 font-semibold text-slate-900">完成训练后生成你的学习画像</h2><p className="mt-1 max-w-md text-sm leading-6 text-slate-500">个人中心会按知识分类汇总掌握阶段与审阅问题。先完成一道专业知识题，就能看到专属分析。</p></div>
     </section> : <>
       <section className="panel mt-5 overflow-hidden">
         <div className="flex flex-col gap-4 border-b border-slate-200 px-5 py-4 sm:flex-row sm:items-center sm:justify-between">
           <div><h2 className="font-semibold text-slate-900">知识掌握概览</h2><p className="mt-1 text-xs text-slate-500">按题目分类汇总，掌握度来自每次回答的 AI 或本地规则审阅。</p></div>
-          <div className="flex flex-wrap gap-3 text-xs text-slate-500">{masteryLegend.map((item) => <span key={item.label} className="inline-flex items-center gap-1.5"><span className={`size-2 rounded-full ${item.tone}`} />{item.label}掌握 {item.value}</span>)}</div>
+          <div className="flex flex-wrap gap-3 text-xs text-slate-500">{masteryLegend.map((item) => <span key={item.label} className="inline-flex items-center gap-1.5"><span className={`size-2 rounded-full ${item.tone}`} />{item.label} {item.value}</span>)}</div>
         </div>
         <div className="divide-y divide-slate-100">
           {analysis.categories.map((item) => {
-            const masteryTone = item.masteryStage ? masteryStageClass(item.masteryStage as MasteryStage) : item.mastery === "高" ? "border-emerald-200 bg-emerald-50 text-emerald-700" : item.mastery === "中" ? "border-amber-200 bg-amber-50 text-amber-700" : "border-rose-200 bg-rose-50 text-rose-700";
+            const masteryTone = masteryStageClass(item.masteryStage as MasteryStage);
             return <article key={item.category} className="px-5 py-4">
               <div className="flex flex-col gap-3 lg:flex-row lg:items-center">
-                <div className="min-w-0 flex-1"><div className="flex flex-wrap items-center gap-2"><h3 className="font-medium text-slate-900">{item.category}</h3><Badge variant="outline" className={`rounded-md ${masteryTone}`}>{item.masteryStage ? `最高掌握阶段：${item.masteryStage}` : `掌握度：${item.mastery}`}</Badge></div><p className="mt-1 text-xs text-slate-500">{item.attempts} 次练习 · 完成 {item.answeredCount} 次 · 跳过 {item.skippedCount} 次 · 平均得分 {item.averageScore === null ? "—" : item.averageScore}</p></div>
-                <div className="w-full lg:w-72"><div className="mb-1.5 flex items-center justify-between text-[11px] text-slate-500"><span>掌握指数</span><strong className="text-slate-700">{item.masteryScore}%</strong></div><Progress value={item.masteryScore} className="h-2" /></div>
+                <div className="min-w-0 flex-1"><div className="flex flex-wrap items-center gap-2"><h3 className="font-medium text-slate-900">{item.category}</h3><Badge variant="outline" className={`rounded-md ${masteryTone}`}>当前掌握阶段：{item.masteryStage}</Badge></div><p className="mt-1 text-xs text-slate-500">{item.attempts} 次练习 · 完成 {item.answeredCount} 次 · 跳过 {item.skippedCount} 次</p></div>
+                <div className="flex flex-wrap gap-1.5 text-[11px] text-slate-500"><span>未掌握 {item.masteryStageCounts.未掌握}</span><span>· 部分掌握 {item.masteryStageCounts.部分掌握}</span><span>· 已掌握 {item.masteryStageCounts.已掌握}</span><span>· 熟练 {item.masteryStageCounts.熟练}</span></div>
               </div>
               {(item.issues.length > 0 || item.suggestions.length > 0) && <div className="mt-3 grid gap-2 text-xs sm:grid-cols-2"><div className="rounded-md border border-amber-100 bg-amber-50/60 px-3 py-2 leading-5 text-amber-900"><strong className="font-medium">集中问题：</strong>{item.issues.length ? item.issues.join("；") : "暂无具体问题"}</div><div className="rounded-md border border-blue-100 bg-blue-50/60 px-3 py-2 leading-5 text-blue-900"><strong className="font-medium">建议动作：</strong>{item.suggestions.length ? item.suggestions.join("；") : "继续保持并增加边界条件说明"}</div></div>}
             </article>;
@@ -3434,7 +3475,7 @@ function ReviewCenter({ records, onStart }: { records: TrainingRecord[]; onStart
   return <PageShell title="温故知新" subtitle="把低掌握、跳过和存在审阅问题的题目组成复习任务，重新回答后验证掌握度是否提升。">
     <div className="grid gap-3 sm:grid-cols-3">
       {[
-        { label: "待复习题目", value: summary.total, icon: Target, tone: "bg-blue-50 text-blue-600" },
+        { label: "今日待复习", value: summary.total, icon: Target, tone: "bg-blue-50 text-blue-600" },
         { label: "高优先级", value: summary.high, icon: CircleAlert, tone: "bg-rose-50 text-rose-600" },
         { label: "涉及分类", value: summary.categories, icon: ListTree, tone: "bg-violet-50 text-violet-600" },
       ].map((metric) => <section key={metric.label} className="panel flex items-center gap-3 p-4"><span className={`grid size-9 place-items-center rounded-lg ${metric.tone}`}><metric.icon className="size-4" /></span><div><p className="text-2xl font-semibold tracking-tight text-slate-950">{metric.value}</p><p className="text-xs text-slate-500">{metric.label}</p></div></section>)}
@@ -3454,10 +3495,10 @@ function ReviewCenter({ records, onStart }: { records: TrainingRecord[]; onStart
         : filteredQueue.length === 0 ? <div className="grid min-h-40 place-items-center p-8 text-center text-sm text-slate-500">当前筛选条件下没有复习任务。</div>
           : <div className="divide-y divide-slate-100">{filteredQueue.map((item) => {
             const issue = item.reviewIssues?.[0] || item.reviewSuggestions?.[0] || "重新组织回答并补充关键知识点";
-            const masteryTone = item.mastery === "低" ? "border-rose-200 bg-rose-50 text-rose-700" : "border-amber-200 bg-amber-50 text-amber-700";
+            const masteryTone = masteryStageClass(item.masteryStage as MasteryStage);
             return <article key={getRecordKey(item)} className="flex flex-col gap-3 px-5 py-4 lg:flex-row lg:items-center">
               <span className={`grid size-9 shrink-0 place-items-center rounded-md ${item.priority === "高" ? "bg-rose-50 text-rose-600" : "bg-amber-50 text-amber-600"}`}><Target className="size-4" /></span>
-              <div className="min-w-0 flex-1"><div className="flex flex-wrap items-center gap-2"><h3 className="font-medium text-slate-900">{item.question}</h3><Badge variant="outline" className={`rounded-md ${item.priority === "高" ? "border-rose-200 bg-rose-50 text-rose-700" : "border-amber-200 bg-amber-50 text-amber-700"}`}>{item.priority}优先级</Badge><Badge variant="outline" className={`rounded-md ${masteryTone}`}>掌握度：{item.mastery === "低" ? "低" : "中"}</Badge><Badge variant="outline" className="rounded-md border-slate-200 bg-slate-50 text-slate-600">{item.category || "待分类"}</Badge></div><p className="mt-1.5 line-clamp-2 text-xs leading-5 text-slate-500">{item.reason} · {issue} · 最近学习：{item.date || item.timestamp || "—"}</p></div>
+              <div className="min-w-0 flex-1"><div className="flex flex-wrap items-center gap-2"><h3 className="font-medium text-slate-900">{item.question}</h3><Badge variant="outline" className={`rounded-md ${item.priority === "高" ? "border-rose-200 bg-rose-50 text-rose-700" : "border-amber-200 bg-amber-50 text-amber-700"}`}>{item.priority}优先级</Badge><Badge variant="outline" className={`rounded-md ${masteryTone}`}>{item.masteryStage}</Badge><Badge variant="outline" className="rounded-md border-slate-200 bg-slate-50 text-slate-600">{item.category || "待分类"}</Badge></div><p className="mt-1.5 line-clamp-2 text-xs leading-5 text-slate-500">{item.reason} · {issue} · 下次复习：{item.nextReviewAt ? new Date(item.nextReviewAt).toLocaleString("zh-CN") : "现在"}</p></div>
               <Button variant="outline" size="sm" onClick={() => onStart(item.question)} className="shrink-0 bg-white"><RotateCcw />从此题开始</Button>
             </article>;
           })}</div>}
@@ -3652,7 +3693,7 @@ function TrainingReport({ records, onUploadRecords }: { records: TrainingRecord[
             <AccordionContent className="pb-5">
               <div className="overflow-hidden rounded-lg border border-slate-200 bg-slate-50/60">
                 {group.records.map((record, i) => {
-                  const hasIssues = Boolean(record.mastery === "低" || record.reviewIssues?.length);
+                  const hasIssues = Boolean(record.masteryStage === "未掌握" || record.reviewIssues?.length);
                   const recordId = record.id ?? `${group.key}-${i}`;
                   const expanded = expandedRecordId === recordId;
                   const question = questionBank.find((item) => item.title === record.question);
@@ -3662,7 +3703,7 @@ function TrainingReport({ records, onUploadRecords }: { records: TrainingRecord[
                   return <div key={recordId} className="grid gap-3 border-b border-slate-200 px-4 py-3 last:border-b-0 lg:grid-cols-[1fr_240px] lg:items-center">
                     <div className="min-w-0">
                       <div className="flex flex-wrap items-center gap-2"><Badge variant="outline" className={`rounded-md ${record.action === "跳过题目" ? "border-rose-200 bg-rose-50 text-rose-700" : "border-blue-200 bg-blue-50 text-blue-700"}`}>{record.action === "跳过题目" ? "跳过题目" : "完成答题"}</Badge><span className="truncate text-sm font-medium text-slate-800">{record.question}</span></div>
-                      <p className="mt-1.5 text-xs text-slate-500">{record.timestamp ?? record.date}{typeof record.seconds === "number" ? ` · 用时 ${formatTime(record.seconds)}` : ""}</p>
+                      <p className="mt-1.5 text-xs text-slate-500">{record.timestamp ?? record.date}</p>
                       {record.answer && <p className="mt-1.5 line-clamp-1 text-xs text-slate-400">我的回答：{record.answer}</p>}
                     </div>
                     <div className="flex flex-wrap items-center justify-start gap-2 lg:justify-end">
@@ -4275,6 +4316,7 @@ function SettingsPage() {
         body: JSON.stringify({
           provider: preferences.provider,
           upstreamFormat,
+          sessionId: activeRuntimeSessionId || undefined,
           baseUrl,
           model: preferences.model,
           maxTokens: 64,
@@ -4283,7 +4325,7 @@ function SettingsPage() {
           messages: [{ role: "user", content: "请只回复：连接成功" }],
         }),
       });
-      const result = await response.json() as { ok?: boolean; content?: string; message?: string; format?: string };
+      const result = await response.json() as { ok?: boolean; content?: string; message?: string; format?: string; errorType?: string; retryable?: boolean; attempt?: number; elapsedMs?: number; upstreamMessage?: string };
       const durationMs = Math.round(performance.now() - startedAt);
       if (result.ok && result.content?.trim()) {
         if (apiKey.trim()) sessionStorage.setItem(`vision-interview-ai-key-${preferences.provider}`, apiKey.trim());
@@ -4306,6 +4348,11 @@ function SettingsPage() {
           upstreamFormat: result.format || upstreamFormat,
           status: response.status,
           durationMs,
+          errorType: result.errorType ?? "unknown",
+          retryable: result.retryable ?? false,
+          attempt: result.attempt ?? 1,
+          elapsedMs: result.elapsedMs ?? durationMs,
+          upstreamMessage: result.upstreamMessage ?? "",
         });
         setTestResult({ ok: false, message: `真实聊天测试失败：${message}` });
       }

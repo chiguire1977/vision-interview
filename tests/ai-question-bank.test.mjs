@@ -260,9 +260,9 @@ test("renders sanitized AI question archive entries as readable markdown", () =>
   ], "2026-08-31T01:05:00.000Z");
 
   assert.match(markdown, /^# AI 生成题库/m);
-  assert.match(markdown, /^## Matching/m);
+  assert.match(markdown, /^## 模板与定位/m);
   assert.match(markdown, /### 1\. Why subtract the NCC mean\?/);
-  assert.match(markdown, /- \*\*分类\*\*：Matching/);
+  assert.match(markdown, /- \*\*分类\*\*：模板与定位/);
   assert.match(markdown, /### 最佳答案\n\nA complete standard answer\./);
   assert.match(markdown, /### 原理\n\nA complete technical principle\./);
   assert.doesNotMatch(markdown, /apiKey|must-not-be-rendered/);

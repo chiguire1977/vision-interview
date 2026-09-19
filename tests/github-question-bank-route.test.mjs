@@ -92,7 +92,7 @@ test("question bank sync creates the GitHub archive through the contents API", a
     const markdownBody = JSON.parse(markdownPut.init.body);
     const markdown = Buffer.from(markdownBody.content, "base64").toString("utf8");
     assert.match(markdown, /^# AI 生成题库/m);
-    assert.match(markdown, /^## Matching/m);
+    assert.match(markdown, /^## 模板与定位/m);
     assert.match(markdown, /### 1\. Q1/);
     assert.match(markdown, /### 2\. Q2/);
   } finally {

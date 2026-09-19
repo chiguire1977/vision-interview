@@ -16,32 +16,31 @@ test("analyzeLearningMastery groups records by knowledge category and summarizes
   assert.equal(analysis.totalRecords, 3);
   assert.equal(analysis.answeredCount, 2);
   assert.equal(analysis.skippedCount, 1);
-  assert.equal(analysis.averageScore, 74);
-  assert.deepEqual(analysis.masteryCounts, { 低: 1, 中: 1, 高: 1 });
+  assert.equal("averageScore" in analysis, false);
+  assert.deepEqual(analysis.masteryStageCounts, { 未掌握: 1, 部分掌握: 1, 已掌握: 1, 熟练: 0 });
   assert.deepEqual(analysis.categories.map((item) => item.category), ["标定与坐标", "图像处理基础"]);
   assert.deepEqual(analysis.categories[0], {
     category: "标定与坐标",
     attempts: 1,
     answeredCount: 0,
     skippedCount: 1,
-    averageScore: null,
-    mastery: "低",
-    masteryScore: 0,
-    masteryCounts: { 低: 1, 中: 0, 高: 0 },
+    masteryStage: "未掌握",
+    masteryStageCounts: { 未掌握: 1, 部分掌握: 0, 已掌握: 0, 熟练: 0 },
     issues: ["遗漏坐标变换关系"],
     suggestions: [],
     latestDate: "2026-08-29",
   });
 });
 
-test("analyzeLearningMastery does not invent scores when records have no score", () => {
+test("analyzeLearningMastery uses masteryStage as the single mastery system", () => {
   const analysis = analyzeLearningMastery([
     { question: "Q1", category: "边缘与特征", mastery: "中", action: "完成答题", date: "2026-08-31" },
   ]);
 
-  assert.equal(analysis.averageScore, null);
-  assert.equal(analysis.categories[0].averageScore, null);
-  assert.equal(analysis.categories[0].mastery, "中");
+  assert.equal("averageScore" in analysis, false);
+  assert.equal("mastery" in analysis.categories[0], false);
+  assert.equal("masteryScore" in analysis.categories[0], false);
+  assert.equal(analysis.categories[0].masteryStage, "部分掌握");
 });
 
 test("createImprovementPlan prioritizes weak categories and turns review data into actions", () => {
@@ -58,7 +57,7 @@ test("createImprovementPlan prioritizes weak categories and turns review data in
   assert.equal(plan[0].priority, "高");
   assert.match(plan[0].reason, /坐标变换关系/);
   assert.match(plan[0].actions.join(" "), /标定误差分析/);
-  assert.equal(plan[0].target, "连续完成 3 道本分类题目，并将掌握度提升到中及以上");
+  assert.equal(plan[0].target, "连续完成 3 道本分类题目，并将掌握阶段提升到部分掌握");
 });
 
 test("createImprovementPlan returns an empty plan without learning records", () => {

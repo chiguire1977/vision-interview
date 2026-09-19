@@ -4,6 +4,7 @@ import {
   buildLearningFocus,
   buildLearningFocusPrompt,
   prioritizeQuestionCandidates,
+  recommendDifficultyAdjustment,
 } from "../lib/adaptive-question-focus.mjs";
 
 test("only low, medium, skipped and reviewed records create an active focus", () => {
@@ -58,4 +59,24 @@ test("prompt describes the focus as a constraint for targeted generation", () =>
   assert.match(prompt, /模板与定位/);
   assert.match(prompt, /低掌握/);
   assert.match(prompt, /变式/);
+});
+
+test("skip reasons avoid reinforcing disinterest and suggest easier questions after repeated difficulty skips", () => {
+  const focus = buildLearningFocus([
+    { question: "不想学", category: "通讯协议", masteryStage: "未掌握", action: "跳过题目", skipReason: "不感兴趣" },
+    { question: "稍后", category: "相机镜头光源", masteryStage: "未掌握", action: "跳过题目", skipReason: "稍后再学" },
+    { question: "太难 1", category: "标定与坐标", masteryStage: "未掌握", action: "跳过题目", skipReason: "太难", date: "2026-09-19T10:00:00.000Z" },
+  ]);
+  assert.deepEqual(focus.categories.map((item) => item.category), ["标定与坐标"]);
+  assert.equal(recommendDifficultyAdjustment([
+    { action: "跳过题目", skipReason: "太难", date: "2026-09-19T10:00:00.000Z" },
+    { action: "跳过题目", skipReason: "太难", date: "2026-09-19T09:00:00.000Z" },
+    { action: "跳过题目", skipReason: "太难", date: "2026-09-19T08:00:00.000Z" },
+  ]), "降低难度");
+  assert.equal(recommendDifficultyAdjustment([
+    { action: "跳过题目", skipReason: "太难", date: "2026-09-19T10:00:00.000Z" },
+    { action: "完成答题", date: "2026-09-19T09:30:00.000Z" },
+    { action: "跳过题目", skipReason: "太难", date: "2026-09-19T09:00:00.000Z" },
+    { action: "跳过题目", skipReason: "太难", date: "2026-09-19T08:00:00.000Z" },
+  ]), null);
 });

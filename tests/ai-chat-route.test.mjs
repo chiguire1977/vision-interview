@@ -137,11 +137,41 @@ test("AI chat route reports upstream timeouts as gateway timeouts", async () => 
     }));
     assert.equal(response.status, 504);
     assert.equal(timeoutMs, 15000);
-    assert.deepEqual(await response.json(), { ok: false, message: "AI 请求超时，请稍后重试。" });
+    const payload = await response.json();
+    assert.equal(payload.ok, false);
+    assert.equal(payload.message, "AI 请求超时，请稍后重试。");
+    assert.equal(payload.status, 504);
+    assert.equal(payload.errorType, "timeout");
+    assert.equal(payload.provider, "deepseek");
+    assert.equal(payload.model, "test-model");
+    assert.ok(payload.attempt >= 1);
+    assert.ok(payload.elapsedMs >= 0);
   } finally {
     globalThis.fetch = previousFetch;
     AbortSignal.timeout = previousTimeout;
     if (previousKey === undefined) delete process.env.DEEPSEEK_API_KEY;
     else process.env.DEEPSEEK_API_KEY = previousKey;
+  }
+});
+
+test("AI chat route retries invalid successful payloads", async () => {
+  const route = await vite.ssrLoadModule("/app/api/ai/chat/route.ts");
+  const previousFetch = globalThis.fetch;
+  let attempts = 0;
+  globalThis.fetch = async () => {
+    attempts += 1;
+    if (attempts < 3) return new Response("not-json", { status: 200 });
+    return Response.json({ choices: [{ message: { content: "recovered" } }] });
+  };
+  try {
+    const response = await route.POST(new Request("http://localhost/api/ai/chat", {
+      method: "POST", headers: { "content-type": "application/json" },
+      body: JSON.stringify({ provider: "custom", sessionId: "retry-session", baseUrl: "https://example.com/v1", apiKey: "test", model: "model", messages: [{ role: "user", content: "hello" }] }),
+    }));
+    assert.equal(response.status, 200);
+    assert.equal(attempts, 3);
+    assert.equal((await response.json()).content, "recovered");
+  } finally {
+    globalThis.fetch = previousFetch;
   }
 });

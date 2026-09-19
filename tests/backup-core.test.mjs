@@ -744,3 +744,49 @@ test("saveBackupToGitHub replaces deleted provider settings when requested", asy
     deepseek: { model: "deepseek-v4-flash" },
   });
 });
+
+test("saveBackupToGitHub blocks non-empty to empty collapse and writes a recoverable bak", async () => {
+  const encodeArchive = (archive) => Buffer.from(JSON.stringify(archive), "utf8").toString("base64");
+  const requests = [];
+  const currentContent = encodeArchive({ version: 2, data: { "vision-interview-records": [{ question: "Keep me" }] } });
+  const fetchImpl = async (url, init = {}) => {
+    requests.push({ url: String(url), init });
+    if (String(url).includes(".bak") && init.method === "GET") return new Response("not found", { status: 404 });
+    if (String(url).includes(".bak") && init.method === "PUT") return Response.json({ commit: { sha: "bak-sha" } });
+    return Response.json({ sha: "current-sha", encoding: "base64", content: currentContent });
+  };
+
+  await assert.rejects(() => saveBackupToGitHub({
+    fetchImpl,
+    token: "server-secret",
+    owner: "chiguire1977",
+    repo: "vision-interview",
+    branch: "main",
+    path: "data/vision-interview-data.json",
+    data: {},
+    now: "2026-09-19T12:00:00.000Z",
+  }), /已阻止空备份覆盖非空数据/);
+  assert.ok(requests.some((request) => request.url.includes("vision-interview-data.json.bak") && request.init.method === "PUT"));
+  assert.equal(requests.some((request) => request.url.includes("vision-interview-data.json?") && request.init.method === "PUT"), false);
+});
+
+test("saveBackupToGitHub blocks an authoritative collection collapse even when other data remains", async () => {
+  const encodeArchive = (archive) => Buffer.from(JSON.stringify(archive), "utf8").toString("base64");
+  const requests = [];
+  const currentContent = encodeArchive({ version: 2, data: {
+    "vision-interview-records": [{ question: "Keep me" }],
+    "vision-interview-project-view": "card",
+  } });
+  const fetchImpl = async (url, init = {}) => {
+    requests.push({ url: String(url), init });
+    if (String(url).includes(".bak") && init.method === "GET") return new Response("not found", { status: 404 });
+    if (String(url).includes(".bak") && init.method === "PUT") return Response.json({ commit: { sha: "bak-sha" } });
+    return Response.json({ sha: "current-sha", encoding: "base64", content: currentContent });
+  };
+  await assert.rejects(() => saveBackupToGitHub({
+    fetchImpl, token: "server-secret", owner: "chiguire1977", repo: "vision-interview", branch: "main",
+    path: "data/vision-interview-data.json", data: { "vision-interview-records": [] }, merge: true,
+    replaceKeys: ["vision-interview-records"], now: "2026-09-19T12:00:00.000Z",
+  }), /vision-interview-records/);
+  assert.ok(requests.some((request) => request.url.includes(".bak") && request.init.method === "PUT"));
+});

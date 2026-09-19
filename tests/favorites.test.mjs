@@ -58,5 +58,5 @@ test("favorite questions can be searched and grouped by category", () => {
   ];
   assert.deepEqual(filterFavoriteQuestions(values, "ocr", "全部").map((item) => item.title), ["HALCON 深度 OCR"]);
   assert.deepEqual(filterFavoriteQuestions(values, "", "项目").map((item) => item.title), ["九点标定步骤"]);
-  assert.deepEqual(groupFavoriteQuestions(values).map(([category, entries]) => [category, entries.length]), [["字符识别", 1], ["图像处理基础", 1], ["标定与坐标", 1]].sort((a, b) => String(a[0]).localeCompare(String(b[0]), "zh-CN")));
+  assert.deepEqual(groupFavoriteQuestions(values).map(([category, entries]) => [category, entries.length]), [["模板与定位", 1], ["图像处理基础", 1], ["标定与坐标", 1]].sort((a, b) => String(a[0]).localeCompare(String(b[0]), "zh-CN")));
 });

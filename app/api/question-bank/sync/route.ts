@@ -199,6 +199,7 @@ export async function POST(request: Request) {
         ? [...grouped.keys()]
         : [...new Set(incoming.flatMap((entry) => questionBankArchiveSlugs(entry)))];
       const changedFiles: string[] = [];
+      const markdownWarnings: string[] = [];
       let lastCommit: string | null = null;
       let conflicted = false;
 
@@ -233,10 +234,14 @@ export async function POST(request: Request) {
           encodeBase64Utf8(createQuestionBankMarkdown(questions, updatedAt)),
           `Backup AI question bank Markdown (${slug})`,
         );
-        if (markdownResponse.status === 409 || markdownResponse.status === 422) { conflicted = true; break; }
+        if (markdownResponse.status === 409 || markdownResponse.status === 422) {
+          markdownWarnings.push(`${markdownPath}: GitHub Markdown archive conflicted; JSON remains canonical.`);
+          continue;
+        }
         if (!markdownResponse.ok) {
           const detail = await markdownResponse.text().catch(() => "");
-          return Response.json({ ok: false, archived: false, reason: "github_markdown_write_failed", message: `GitHub Markdown archive write failed (HTTP ${markdownResponse.status})${detail ? `: ${detail.slice(0, 240)}` : ""}` }, { status: 502 });
+          markdownWarnings.push(`${markdownPath}: Markdown derivation failed (HTTP ${markdownResponse.status})${detail ? `: ${detail.slice(0, 120)}` : ""}`);
+          continue;
         }
         lastCommit = await commitSha(markdownResponse) || lastCommit;
         changedFiles.push(markdownPath);
@@ -255,6 +260,7 @@ export async function POST(request: Request) {
         markdownPath: config.markdownPath,
         complete,
         changedFiles,
+        markdownWarnings,
       }, { headers: { "Cache-Control": "no-store" } });
     }
 
