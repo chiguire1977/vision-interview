@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-19T12:29:53.806Z",
+  "updatedAt": "2026-09-19T12:30:00.134Z",
   "data": {
     "vision-interview-records": [
       {
@@ -3701,6 +3701,18 @@
     },
     "vision-interview-project-view": "card",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1789821001777-dns8pwcl",
+        "timestamp": "2026-09-19T12:30:01.777Z",
+        "level": "ERROR",
+        "kind": "system",
+        "event": "backup.push.failed",
+        "message": "运行数据备份失败",
+        "context": {
+          "status": 502,
+          "reason": "GitHub 备份失败（HTTP 409）：{\"message\":\"is at 8abe20dcc56d50108194f8367a09a25c3898996f but expected 6f90e3c191dfb6b88bbeb08217ac5df83ce2749f\",\"documentation_url\":\"https://docs.github.com/rest/repos/contents#create-or-update-file-contents\",\"status\":\"409\"}"
+        }
+      },
       {
         "id": "1789820996125-8zvrerfp",
         "timestamp": "2026-09-19T12:29:56.125Z",
@@ -17602,22 +17614,6 @@
           "query": "机器视觉 面试知识点 图像预处理 边缘与特征 故障排查 模板与定位 梯度算子 非极大值抑制 双阈值 亚像素精度 本题未作答 原理 工程实践",
           "sourceCount": 0,
           "workerIndex": 2,
-          "parallelRequests": 3
-        }
-      },
-      {
-        "id": "1788263495176-kevu4n1h",
-        "timestamp": "2026-09-01T11:51:35.176Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788263483957-mm21h73k",
-        "event": "question-bank.web-search.completed",
-        "message": "本轮联网检索完成",
-        "context": {
-          "attempt": 2,
-          "query": "机器视觉 面试知识点 图像预处理 边缘与特征 故障排查 模板与定位 梯度算子 非极大值抑制 双阈值 亚像素精度 本题未作答 原理 工程实践",
-          "sourceCount": 0,
-          "workerIndex": 1,
           "parallelRequests": 3
         }
       }
