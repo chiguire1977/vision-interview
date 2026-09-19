@@ -33,6 +33,11 @@ test("builds a Chat Completions request", () => {
   });
 });
 
+test("enables JSON mode for question-generation requests", () => {
+  const request = buildAiUpstreamRequest({ ...common, format: "chat-completions", jsonMode: true });
+  assert.deepEqual(JSON.parse(request.init.body).response_format, { type: "json_object" });
+});
+
 test("builds a Responses request with input messages and output budget", () => {
   const request = buildAiUpstreamRequest({ ...common, format: "responses" });
   assert.equal(request.endpoint, "https://opencode.ai/zen/go/v1/responses");

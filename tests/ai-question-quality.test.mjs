@@ -8,6 +8,9 @@ import {
   buildKnowledgeCoverageMatrix,
   isQuestionGenerationPayload,
   filterGeneratedQuestionContent,
+  parseJsonRobust,
+  validateQuestionTerminology,
+  buildInterviewQuestionJsonSchema,
 } from "../lib/ai-question-quality.mjs";
 
 test("prioritizes authoritative sources and filters bad URLs / duplicate domains", () => {
@@ -74,4 +77,32 @@ test("filters a completed AI JSON payload through the shared coverage matrix", (
   assert.equal(filtered.acceptedCount, 2);
   assert.deepEqual(JSON.parse(filtered.content).questions.map((q) => q.title), ["A", "B"]);
   assert.equal(filtered.matrix.length, 2);
+});
+
+test("repairs common JSON mode fallbacks and recovers complete questions from truncation", () => {
+  const repaired = parseJsonRobust('说明文字 {"questions":[{"title":"中文“引号”题","tags":["阈值"],},]}');
+  assert.equal(repaired.questions.length, 1);
+  assert.equal(repaired.questions[0].title, "中文\"引号\"题");
+
+  const partial = parseJsonRobust('{"questions":[{"title":"第一题","bestAnswer":"完整"},{"title":"第二题"');
+  assert.equal(partial.partial, true);
+  assert.deepEqual(partial.questions.map((question) => question.title), ["第一题"]);
+});
+
+test("flags suspicious cross-stack or unknown HALCON terminology for human review", () => {
+  assert.deepEqual(validateQuestionTerminology({
+    techStacks: ["HALCON"],
+    title: "如何调整 find_shape_model 参数",
+    bestAnswer: "不要在 HALCON 题目中调用 cv2.threshold，再检查 mystery_operator 的参数。",
+    principle: "",
+  }), ["可疑 HALCON 算子：mystery_operator", "HALCON 题目中出现 OpenCV API"]);
+  assert.deepEqual(validateQuestionTerminology({ techStacks: ["OpenCV"], title: "cv2.threshold", bestAnswer: "" }), []);
+});
+
+test("locks generated question categories in the strict provider schema", () => {
+  const schema = buildInterviewQuestionJsonSchema(["图像处理基础", "通讯协议"]);
+  const question = schema.properties.questions.items;
+  assert.deepEqual(question.properties.category.enum, ["图像处理基础", "通讯协议"]);
+  assert.equal(question.properties.source.enum.includes("项目"), true);
+  assert.equal(question.properties.reference.type.includes("null"), true);
 });

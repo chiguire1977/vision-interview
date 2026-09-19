@@ -21,10 +21,10 @@ test("retries transient upstream failures with exponential backoff", async () =>
     attempts += 1;
     if (attempts < 3) return new Response("busy", { status: 503 });
     return Response.json({ ok: true });
-  }, { retries: 2, sleep: async (ms) => waits.push(ms) });
+  }, { retries: 2, jitter: () => 0, sleep: async (ms) => waits.push(ms) });
   assert.equal(result.response.status, 200);
   assert.equal(result.attempt, 3);
-  assert.deepEqual(waits, [250, 500]);
+  assert.deepEqual(waits, [1000, 2000]);
 });
 
 test("does not retry authentication or validation failures", async () => {

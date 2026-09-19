@@ -38,6 +38,8 @@ type ChatBody = {
   maxTokens?: number;
   temperature?: number;
   upstreamFormat?: string;
+  jsonMode?: boolean;
+  jsonSchema?: Record<string, unknown>;
 };
 
 export async function POST(request: Request) {
@@ -69,6 +71,8 @@ export async function POST(request: Request) {
       maxTokens: body.maxTokens,
       temperature: body.temperature,
       provider,
+      jsonMode: body.jsonMode,
+      jsonSchema: body.jsonSchema,
     });
     if (!providerCircuit.canRequest(circuitKey)) {
       return Response.json({ ok: false, message: "AI 服务暂时不可用，已自动切换为本地题库。", status: 503, errorType: "circuit_open", retryable: false, provider, model, attempt: 0, elapsedMs: Date.now() - startedAt, upstreamMessage: "" }, { status: 503 });
@@ -113,6 +117,10 @@ export async function POST(request: Request) {
       return Response.json({ ok: false, message: "AI 服务暂时不可用，已自动切换为本地题库。", status: response.status, errorType: result.errorType, retryable: result.retryable, provider, model, attempt, elapsedMs: Date.now() - startedAt, upstreamMessage }, { status: 502 });
     }
     const content = extractAiContent(format, payload);
+    const firstChoice = Array.isArray(payload.choices) && payload.choices[0] && typeof payload.choices[0] === "object"
+      ? payload.choices[0] as Record<string, unknown>
+      : null;
+    const finishReason = typeof firstChoice?.finish_reason === "string" ? firstChoice.finish_reason : undefined;
     if (!content) {
       const choices = Array.isArray(payload.choices) ? payload.choices : [];
       const firstChoice = choices[0] && typeof choices[0] === "object" ? choices[0] as Record<string, unknown> : null;
@@ -122,7 +130,7 @@ export async function POST(request: Request) {
       return Response.json({ ok: false, message: hint, status: 502, errorType: "invalid_response", retryable: true, provider, model, attempt, elapsedMs: Date.now() - startedAt, upstreamMessage: hint, format }, { status: 502 });
     }
     providerCircuit.recordSuccess(circuitKey);
-    return Response.json({ ok: true, content }, { headers: { "Cache-Control": "no-store" } });
+    return Response.json({ ok: true, content, ...(finishReason ? { finishReason } : {}) }, { headers: { "Cache-Control": "no-store" } });
   } catch (error) {
     const failure = classifyAiFailure(0, error);
     const isTimeout = failure.errorType === "timeout";
