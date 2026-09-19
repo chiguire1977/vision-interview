@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-19T09:37:34.653Z",
+  "updatedAt": "2026-09-19T09:37:41.132Z",
   "data": {
     "vision-interview-records": [
       {
@@ -3701,6 +3701,30 @@
     },
     "vision-interview-project-view": "card",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1789810661365-zxv3nddk",
+        "timestamp": "2026-09-19T09:37:41.365Z",
+        "level": "ERROR",
+        "kind": "system",
+        "event": "backup.push.failed",
+        "message": "运行数据备份失败",
+        "context": {
+          "status": 502,
+          "reason": "GitHub 备份失败（HTTP 409）：{\"message\":\"data/vision-interview-data.json does not match 9081a8e9acc90db5d04eb3461c914e3da3901ddb\",\"documentation_url\":\"https://docs.github.com/rest/repos/contents#create-or-update-file-contents\",\"status\":\"409\"}"
+        }
+      },
+      {
+        "id": "1789810661218-7oczezdq",
+        "timestamp": "2026-09-19T09:37:41.218Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "bebc1b19cd0d"
+        }
+      },
       {
         "id": "1789810653860-e7okvud9",
         "timestamp": "2026-09-19T09:37:33.860Z",
@@ -18110,38 +18134,6 @@
         "context": {
           "reason": "change",
           "commit": "cf50b5606cca"
-        }
-      },
-      {
-        "id": "1788263182687-grmlmqqu",
-        "timestamp": "2026-09-01T11:46:22.687Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788263146744-2u5x96li",
-        "event": "question-bank.web-search.failed",
-        "message": "signal timed out",
-        "context": {
-          "attempt": 2,
-          "query": "机器视觉 面试知识点 原理 工程实践",
-          "continueToAi": true,
-          "workerIndex": 3,
-          "parallelRequests": 3
-        }
-      },
-      {
-        "id": "1788263182681-3kf07mqc",
-        "timestamp": "2026-09-01T11:46:22.681Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788263146744-2u5x96li",
-        "event": "question-bank.web-search.failed",
-        "message": "signal timed out",
-        "context": {
-          "attempt": 2,
-          "query": "机器视觉 面试知识点 原理 工程实践",
-          "continueToAi": true,
-          "workerIndex": 2,
-          "parallelRequests": 3
         }
       }
     ],
