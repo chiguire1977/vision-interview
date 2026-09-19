@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-19T13:21:24.530Z",
+  "updatedAt": "2026-09-19T13:21:27.990Z",
   "data": {
     "vision-interview-records": [
       {
@@ -3701,6 +3701,44 @@
     },
     "vision-interview-project-view": "card",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1789824090280-yrjzlyrq",
+        "timestamp": "2026-09-19T13:21:30.280Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "3c0957c4a348"
+        }
+      },
+      {
+        "id": "1789824090267-5xi10uku",
+        "timestamp": "2026-09-19T13:21:30.267Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1789824088310-ynfk7w50",
+        "event": "question-bank.remote.loaded",
+        "message": "GitHub AI 历史题库加载完成",
+        "context": {
+          "questionCount": 260,
+          "githubQuestionCount": 260,
+          "pendingCount": 0
+        }
+      },
+      {
+        "id": "1789824088305-ojimfthd",
+        "timestamp": "2026-09-19T13:21:28.305Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.startup.loaded",
+        "message": "启动配置加载完成",
+        "context": {
+          "source": "github",
+          "updatedAt": "2026-09-19T13:03:08.791Z"
+        }
+      },
       {
         "id": "1789824081425-njwo46yc",
         "timestamp": "2026-09-19T13:21:21.425Z",
@@ -16984,42 +17022,6 @@
           "adaptiveQuestions": false,
           "focusCategories": []
         }
-      },
-      {
-        "id": "1788263795919-8sxswove",
-        "timestamp": "2026-09-01T11:56:35.919Z",
-        "level": "WARN",
-        "kind": "system",
-        "event": "backup.close.deferred",
-        "message": "上次关闭时部分超大数据已延期，将由本次自动备份补交",
-        "context": {
-          "detail": {
-            "keys": [],
-            "entries": {
-              "vision-interview-runtime-logs": 873
-            }
-          }
-        }
-      },
-      {
-        "id": "1788263795915-17x8xbhy",
-        "timestamp": "2026-09-01T11:56:35.915Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.startup.loaded",
-        "message": "启动配置加载完成",
-        "context": {
-          "source": "github",
-          "updatedAt": "2026-09-01T11:54:37.977Z"
-        }
-      },
-      {
-        "id": "1788263561272-htosmwmd",
-        "timestamp": "2026-09-01T11:52:41.272Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.close.flush",
-        "message": "页面关闭或进入后台，提交最后一次备份"
       }
     ],
     "vision-interview-web-source-whitelist": [
