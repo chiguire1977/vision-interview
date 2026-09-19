@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-09T06:09:56.689Z",
+  "updatedAt": "2026-09-19T01:45:04.363Z",
   "data": {
     "vision-interview-records": [
       {
@@ -3785,6 +3785,40 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1789782309088-wjc12bwx",
+        "timestamp": "2026-09-19T01:45:09.088Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.close.flush",
+        "message": "页面关闭或进入后台，提交最后一次备份"
+      },
+      {
+        "id": "1789782308660-iq1yvg96",
+        "timestamp": "2026-09-19T01:45:08.660Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1789782307164-70a0ksum",
+        "event": "question-bank.remote.loaded",
+        "message": "GitHub AI 历史题库加载完成",
+        "context": {
+          "questionCount": 260,
+          "githubQuestionCount": 260,
+          "pendingCount": 0
+        }
+      },
+      {
+        "id": "1789782307158-e6d5yzzm",
+        "timestamp": "2026-09-19T01:45:07.158Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.startup.loaded",
+        "message": "启动配置加载完成",
+        "context": {
+          "source": "github",
+          "updatedAt": "2026-09-09T06:09:56.689Z"
+        }
+      },
       {
         "id": "1788934193212-23w7pli6",
         "timestamp": "2026-09-09T06:09:53.212Z",
@@ -18115,52 +18149,6 @@
           "requestedCount": 3,
           "durationMs": 15187,
           "error": "AI 请求超时，请稍后重试。"
-        }
-      },
-      {
-        "id": "1788748903212-g965pvcq",
-        "timestamp": "2026-09-07T02:41:43.212Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788748699983-pgd6193m",
-        "event": "question-bank.ai-request.failed",
-        "message": "单个并行 AI 请求失败",
-        "context": {
-          "attempt": 4,
-          "workerIndex": 1,
-          "parallelRequests": 4,
-          "requestedCount": 3,
-          "durationMs": 15170,
-          "error": "AI 请求超时，请稍后重试。"
-        }
-      },
-      {
-        "id": "1788748900112-vhgzoa55",
-        "timestamp": "2026-09-07T02:41:40.112Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788748699983-pgd6193m",
-        "event": "question-bank.ai-request.duration",
-        "message": "单个并行 AI 请求完成",
-        "context": {
-          "attempt": 3,
-          "workerIndex": 3,
-          "parallelRequests": 4,
-          "requestedCount": 1,
-          "receivedCount": 1,
-          "durationMs": 10215
-        }
-      },
-      {
-        "id": "1788748900040-4tcjhutf",
-        "timestamp": "2026-09-07T02:41:40.040Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "b4da74ec8db6"
         }
       }
     ],
