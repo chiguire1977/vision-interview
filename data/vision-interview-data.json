@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-20T05:11:14.614Z",
+  "updatedAt": "2026-09-20T05:11:17.798Z",
   "data": {
     "vision-interview-records": [
       {
@@ -3780,6 +3780,120 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1789881078713-aefe0hnl",
+        "timestamp": "2026-09-20T05:11:18.713Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "7413989e3251"
+        }
+      },
+      {
+        "id": "1789881078306-ofonz58r",
+        "timestamp": "2026-09-20T05:11:18.306Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1789880904612-9fovbrzt",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 3,
+          "query": "机器视觉 面试知识点 HALCON 传统 2D 视觉 仅限二维图像处理，排除 3D、三维、点云、深度图、法线估计、平面拟合、立体视觉、结构光和双目 原理 工程实践 (面试 OR 面试题 OR 面试问题 OR 题目 OR 知识点 OR 原理 OR 教程 OR 工程实践 OR 排障)",
+          "mode": "专业知识",
+          "excludedCount": 20,
+          "parallelRequests": 4,
+          "requestedCount": 10
+        }
+      },
+      {
+        "id": "1789881078304-8ob83as2",
+        "timestamp": "2026-09-20T05:11:18.304Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1789880904612-9fovbrzt",
+        "event": "question-bank.ai-request.completed",
+        "message": "第 2/6 轮：AI 已返回 9/10 道有效题目，继续补齐…",
+        "context": {
+          "attempt": 2,
+          "maxAttempts": 6,
+          "collectedCount": 9,
+          "targetCount": 10,
+          "parallelRequests": 4,
+          "requestedCount": 3
+        }
+      },
+      {
+        "id": "1789881078300-w2xtjixx",
+        "timestamp": "2026-09-20T05:11:18.300Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1789880904612-9fovbrzt",
+        "event": "question-bank.ai-request.duration",
+        "message": "单个并行 AI 请求完成",
+        "context": {
+          "attempt": 2,
+          "workerIndex": 2,
+          "parallelRequests": 4,
+          "requestedCount": 1,
+          "receivedCount": 1,
+          "durationMs": 5082
+        }
+      },
+      {
+        "id": "1789881078297-wsivcyuv",
+        "timestamp": "2026-09-20T05:11:18.297Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1789880904612-9fovbrzt",
+        "event": "question.terminology.review",
+        "message": "AI 题目包含待人工确认的技术术语",
+        "context": {
+          "attempt": 2,
+          "workerIndex": 2,
+          "title": "在 HALCON 传统 2D 视觉方案中，面对光照不均的金属表面字符检测，你会选择全局阈值分割还是局部自适应阈值分割？请从原理、参数调整和工程取舍角度说明理由。",
+          "issues": [
+            "可疑 HALCON 算子：dyn_threshold"
+          ]
+        }
+      },
+      {
+        "id": "1789881078221-6l70nnvj",
+        "timestamp": "2026-09-20T05:11:18.221Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1789880904612-9fovbrzt",
+        "event": "question-bank.ai-request.duration",
+        "message": "单个并行 AI 请求完成",
+        "context": {
+          "attempt": 2,
+          "workerIndex": 3,
+          "parallelRequests": 4,
+          "requestedCount": 1,
+          "receivedCount": 1,
+          "durationMs": 4999
+        }
+      },
+      {
+        "id": "1789881077858-3iiejg33",
+        "timestamp": "2026-09-20T05:11:17.858Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1789880904612-9fovbrzt",
+        "event": "question-bank.ai-request.duration",
+        "message": "单个并行 AI 请求完成",
+        "context": {
+          "attempt": 2,
+          "workerIndex": 1,
+          "parallelRequests": 4,
+          "requestedCount": 1,
+          "receivedCount": 1,
+          "durationMs": 4643
+        }
+      },
       {
         "id": "1789881073218-aagaktkt",
         "timestamp": "2026-09-20T05:11:13.218Z",
@@ -18421,114 +18535,6 @@
         "context": {
           "generatedCount": 9,
           "persistedCount": 0
-        }
-      },
-      {
-        "id": "1788750049169-7xvge6cj",
-        "timestamp": "2026-09-07T03:00:49.169Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788749906722-jt1tgeok",
-        "event": "question-bank.network.partial-fallback",
-        "message": "联网获得的完整题目数量不足，已使用题库补足",
-        "context": {
-          "aiCount": 9,
-          "fallbackCount": 1,
-          "targetCount": 10
-        }
-      },
-      {
-        "id": "1788750049162-zr72uii6",
-        "timestamp": "2026-09-07T03:00:49.162Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788749906722-jt1tgeok",
-        "event": "question-bank.ai-request.duration",
-        "message": "单个并行 AI 请求完成",
-        "context": {
-          "attempt": 6,
-          "workerIndex": 1,
-          "parallelRequests": 4,
-          "requestedCount": 1,
-          "receivedCount": 1,
-          "durationMs": 12890
-        }
-      },
-      {
-        "id": "1788750048269-krk6rty3",
-        "timestamp": "2026-09-07T03:00:48.269Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788749906722-jt1tgeok",
-        "event": "question-group.prepare.started",
-        "message": "开始准备题组",
-        "context": {
-          "project": "机器视觉专业知识",
-          "mode": "专业知识",
-          "questionCount": 10,
-          "sourceMode": "network",
-          "adaptiveQuestions": false,
-          "focusCategories": []
-        }
-      },
-      {
-        "id": "1788750045464-ptbcx9s6",
-        "timestamp": "2026-09-07T03:00:45.464Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "a2ef69d28c14"
-        }
-      },
-      {
-        "id": "1788750041850-wwvtvx3b",
-        "timestamp": "2026-09-07T03:00:41.850Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "1a9ed9197d04"
-        }
-      },
-      {
-        "id": "1788750036264-6lefedvy",
-        "timestamp": "2026-09-07T03:00:36.264Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788749906722-jt1tgeok",
-        "event": "question-bank.web-search.completed",
-        "message": "本轮联网检索完成",
-        "context": {
-          "attempt": 6,
-          "query": "机器视觉 面试知识点 HALCON 传统 2D 视觉 仅限二维图像处理，排除 3D、三维、点云、深度图、法线估计、平面拟合、立体视觉、结构光和双目 原理 工程实践",
-          "sourceCount": 8,
-          "cached": true,
-          "parallelRequests": 4,
-          "requestedCount": 10,
-          "durationMs": 10,
-          "sharedAcrossWorkers": true
-        }
-      },
-      {
-        "id": "1788750036255-rrjbjnt6",
-        "timestamp": "2026-09-07T03:00:36.255Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788749906722-jt1tgeok",
-        "event": "question-bank.web-search.started",
-        "message": "开始联网检索本轮题目资料",
-        "context": {
-          "attempt": 6,
-          "query": "机器视觉 面试知识点 HALCON 传统 2D 视觉 仅限二维图像处理，排除 3D、三维、点云、深度图、法线估计、平面拟合、立体视觉、结构光和双目 原理 工程实践",
-          "mode": "专业知识",
-          "excludedCount": 22,
-          "parallelRequests": 4,
-          "requestedCount": 10
         }
       }
     ],
