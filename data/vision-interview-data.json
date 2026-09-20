@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-20T05:10:25.688Z",
+  "updatedAt": "2026-09-20T05:10:28.773Z",
   "data": {
     "vision-interview-records": [
       {
@@ -3780,6 +3780,105 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1789881029667-szdjvx0o",
+        "timestamp": "2026-09-20T05:10:29.667Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "07d9b9816ba6"
+        }
+      },
+      {
+        "id": "1789881027752-3kdni97a",
+        "timestamp": "2026-09-20T05:10:27.752Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1789880904612-9fovbrzt",
+        "event": "question-bank.ai-request.started",
+        "message": "第 1/6 轮（并行 4/4）：正在请求 AI 生成题目（2 道）…",
+        "context": {
+          "attempt": 1,
+          "maxAttempts": 6,
+          "collectedCount": 11,
+          "workerIndex": 4,
+          "parallelRequests": 4,
+          "requestedCount": 2
+        }
+      },
+      {
+        "id": "1789881027749-pqza2jzk",
+        "timestamp": "2026-09-20T05:10:27.749Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1789880904612-9fovbrzt",
+        "event": "question-bank.ai-request.started",
+        "message": "第 1/6 轮（并行 3/4）：正在请求 AI 生成题目（2 道）…",
+        "context": {
+          "attempt": 1,
+          "maxAttempts": 6,
+          "collectedCount": 11,
+          "workerIndex": 3,
+          "parallelRequests": 4,
+          "requestedCount": 2
+        }
+      },
+      {
+        "id": "1789881027746-w3x9w5i2",
+        "timestamp": "2026-09-20T05:10:27.746Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1789880904612-9fovbrzt",
+        "event": "question-bank.ai-request.started",
+        "message": "第 1/6 轮（并行 2/4）：正在请求 AI 生成题目（3 道）…",
+        "context": {
+          "attempt": 1,
+          "maxAttempts": 6,
+          "collectedCount": 11,
+          "workerIndex": 2,
+          "parallelRequests": 4,
+          "requestedCount": 3
+        }
+      },
+      {
+        "id": "1789881027742-a0wts8op",
+        "timestamp": "2026-09-20T05:10:27.742Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1789880904612-9fovbrzt",
+        "event": "question-bank.ai-request.started",
+        "message": "第 1/6 轮（并行 1/4）：正在请求 AI 生成题目（3 道）…",
+        "context": {
+          "attempt": 1,
+          "maxAttempts": 6,
+          "collectedCount": 11,
+          "workerIndex": 1,
+          "parallelRequests": 4,
+          "requestedCount": 3
+        }
+      },
+      {
+        "id": "1789881027739-db5i77fx",
+        "timestamp": "2026-09-20T05:10:27.739Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1789880904612-9fovbrzt",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 1,
+          "query": "机器视觉 面试知识点 HALCON 传统 2D 视觉 仅限二维图像处理，排除 3D、三维、点云、深度图、法线估计、平面拟合、立体视觉、结构光和双目 原理 工程实践 (面试 OR 面试题 OR 面试问题 OR 题目 OR 知识点 OR 原理 OR 教程 OR 工程实践 OR 排障)",
+          "sourceCount": 0,
+          "cached": false,
+          "parallelRequests": 4,
+          "requestedCount": 10,
+          "durationMs": 1323,
+          "sharedAcrossWorkers": true
+        }
+      },
       {
         "id": "1789881026417-w19rq942",
         "timestamp": "2026-09-20T05:10:26.417Z",
@@ -18149,85 +18248,6 @@
           "question": "在HALCON中，使用全局阈值分割（threshold）与局部自适应阈值分割（dyn_threshold）有何区别？在光照不均匀的2D视觉检测中如何选择？",
           "mode": "专业知识",
           "project": "机器视觉专业知识"
-        }
-      },
-      {
-        "id": "1788749259570-i56p1lfu",
-        "timestamp": "2026-09-07T02:47:39.570Z",
-        "level": "WARN",
-        "kind": "user",
-        "sessionId": "1788748699983-pgd6193m",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "在HALCON中，基于形状的模板匹配与基于相关性的模板匹配在原理和适用场景上有何区别？如何根据项目需求选择？",
-          "mode": "专业知识",
-          "project": "机器视觉专业知识"
-        }
-      },
-      {
-        "id": "1788749258971-wxotq2yi",
-        "timestamp": "2026-09-07T02:47:38.971Z",
-        "level": "WARN",
-        "kind": "user",
-        "sessionId": "1788748699983-pgd6193m",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "在HALCON中，使用create_shape_model创建模板时，如何确定angle_start和angle_extent参数？如果目标在图像中可能旋转任意角度，应如何设置？",
-          "mode": "专业知识",
-          "project": "机器视觉专业知识"
-        }
-      },
-      {
-        "id": "1788749258780-yc27daow",
-        "timestamp": "2026-09-07T02:47:38.780Z",
-        "level": "WARN",
-        "kind": "user",
-        "sessionId": "1788748699983-pgd6193m",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "在HALCON中，如何通过设置find_shape_model的参数来平衡匹配速度与精度？请结合金字塔层级（num_levels）和贪婪度（greediness）说明。",
-          "mode": "专业知识",
-          "project": "机器视觉专业知识"
-        }
-      },
-      {
-        "id": "1788749251802-w94rrvm2",
-        "timestamp": "2026-09-07T02:47:31.802Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "fa02bc9d73d3"
-        }
-      },
-      {
-        "id": "1788749248416-177g337u",
-        "timestamp": "2026-09-07T02:47:28.416Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "305a7adb7745"
-        }
-      },
-      {
-        "id": "1788749247637-cr4w9x3i",
-        "timestamp": "2026-09-07T02:47:27.637Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788748699983-pgd6193m",
-        "event": "question-group.prepare.completed",
-        "message": "AI 题组已准备完成。",
-        "context": {
-          "source": "AI",
-          "questionCount": 10
         }
       }
     ],
