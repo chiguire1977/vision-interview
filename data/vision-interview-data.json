@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-20T05:11:53.116Z",
+  "updatedAt": "2026-09-20T05:11:58.679Z",
   "data": {
     "vision-interview-records": [
       {
@@ -3780,6 +3780,48 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1789881118752-cg3a0ub4",
+        "timestamp": "2026-09-20T05:11:58.752Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1789880904612-9fovbrzt",
+        "event": "question-bank.cache.saved",
+        "message": "AI 题库已完成远程同步",
+        "context": {
+          "questionCount": 9,
+          "pendingCount": 0
+        }
+      },
+      {
+        "id": "1789881118748-udkk065l",
+        "timestamp": "2026-09-20T05:11:58.748Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1789880904612-9fovbrzt",
+        "event": "github.backup.succeeded",
+        "message": "数据已成功备份到 GitHub",
+        "context": {
+          "operation": "ai-question-bank",
+          "entryCount": 9,
+          "pendingCount": 0,
+          "totalCount": 269,
+          "status": 200,
+          "complete": true
+        }
+      },
+      {
+        "id": "1789881117769-mxljtmq3",
+        "timestamp": "2026-09-20T05:11:57.769Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "0ca606885087"
+        }
+      },
       {
         "id": "1789881114101-x15eu89a",
         "timestamp": "2026-09-20T05:11:54.101Z",
@@ -18575,48 +18617,6 @@
         "message": "当前题目已跳过",
         "context": {
           "question": "在HALCON中，当使用threshold进行全局阈值分割时，若目标与背景灰度接近且存在噪声，如何通过预处理步骤改善分割效果？请结合中值滤波与高斯滤波的差异说明选择依据。",
-          "mode": "专业知识",
-          "project": "机器视觉专业知识"
-        }
-      },
-      {
-        "id": "1788750187113-b5sdie2u",
-        "timestamp": "2026-09-07T03:03:07.113Z",
-        "level": "WARN",
-        "kind": "user",
-        "sessionId": "1788750175079-wr9wsuln",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "在HALCON中，如何利用灰度直方图确定阈值分割的最佳阈值？请结合工程实践说明自动阈值选择方法。",
-          "mode": "专业知识",
-          "project": "机器视觉专业知识"
-        }
-      },
-      {
-        "id": "1788750186951-pag4o2td",
-        "timestamp": "2026-09-07T03:03:06.951Z",
-        "level": "WARN",
-        "kind": "user",
-        "sessionId": "1788750175079-wr9wsuln",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "在HALCON中，要检测一个在均匀光照下灰度值稳定但形状会发生轻微形变的物体，例如橡胶密封圈。如果使用基于形状的模板匹配（create_shape_model），其泛化能力（即对形变的容忍度）主要受哪些参数影响？与基于灰度值的匹配（create_gray_model）相比，哪种方法在这种场景下更鲁棒？请从原理上分析两种方法对形变和光照的敏感度差异。",
-          "mode": "专业知识",
-          "project": "机器视觉专业知识"
-        }
-      },
-      {
-        "id": "1788750186785-6ruxzdqb",
-        "timestamp": "2026-09-07T03:03:06.785Z",
-        "level": "WARN",
-        "kind": "user",
-        "sessionId": "1788750175079-wr9wsuln",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "在HALCON中，当模板匹配目标存在旋转时，create_shape_model的AngleStart、AngleExtent和AngleStep参数应如何协同设置？现场调试时如何判断角度步长设置过大的迹象？",
           "mode": "专业知识",
           "project": "机器视觉专业知识"
         }
