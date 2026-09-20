@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-20T05:11:24.792Z",
+  "updatedAt": "2026-09-20T05:11:28.626Z",
   "data": {
     "vision-interview-records": [
       {
@@ -3780,6 +3780,105 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1789881089360-g3zgrwbs",
+        "timestamp": "2026-09-20T05:11:29.360Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "839f99538302"
+        }
+      },
+      {
+        "id": "1789881089251-z17mkqad",
+        "timestamp": "2026-09-20T05:11:29.251Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1789880904612-9fovbrzt",
+        "event": "question-bank.ai-request.started",
+        "message": "第 4/6 轮（并行 1/4）：正在请求 AI 生成题目（1 道）…",
+        "context": {
+          "attempt": 4,
+          "maxAttempts": 6,
+          "collectedCount": 20,
+          "workerIndex": 1,
+          "parallelRequests": 4,
+          "requestedCount": 1
+        }
+      },
+      {
+        "id": "1789881089247-d5v3hw10",
+        "timestamp": "2026-09-20T05:11:29.247Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1789880904612-9fovbrzt",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 4,
+          "query": "机器视觉 面试知识点 HALCON 传统 2D 视觉 仅限二维图像处理，排除 3D、三维、点云、深度图、法线估计、平面拟合、立体视觉、结构光和双目 原理 工程实践 (面试 OR 面试题 OR 面试问题 OR 题目 OR 知识点 OR 原理 OR 教程 OR 工程实践 OR 排障)",
+          "sourceCount": 0,
+          "cached": false,
+          "parallelRequests": 4,
+          "requestedCount": 10,
+          "durationMs": 1384,
+          "sharedAcrossWorkers": true
+        }
+      },
+      {
+        "id": "1789881087863-7qecokzz",
+        "timestamp": "2026-09-20T05:11:27.863Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1789880904612-9fovbrzt",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 4,
+          "query": "机器视觉 面试知识点 HALCON 传统 2D 视觉 仅限二维图像处理，排除 3D、三维、点云、深度图、法线估计、平面拟合、立体视觉、结构光和双目 原理 工程实践 (面试 OR 面试题 OR 面试问题 OR 题目 OR 知识点 OR 原理 OR 教程 OR 工程实践 OR 排障)",
+          "mode": "专业知识",
+          "excludedCount": 20,
+          "parallelRequests": 4,
+          "requestedCount": 10
+        }
+      },
+      {
+        "id": "1789881087860-7ucpwcir",
+        "timestamp": "2026-09-20T05:11:27.860Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1789880904612-9fovbrzt",
+        "event": "question-bank.ai-request.completed",
+        "message": "第 3/6 轮：AI 已返回 9/10 道有效题目，继续补齐…",
+        "context": {
+          "attempt": 3,
+          "maxAttempts": 6,
+          "collectedCount": 9,
+          "targetCount": 10,
+          "parallelRequests": 4,
+          "requestedCount": 1
+        }
+      },
+      {
+        "id": "1789881087856-knf5zobq",
+        "timestamp": "2026-09-20T05:11:27.856Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1789880904612-9fovbrzt",
+        "event": "question-bank.ai-request.duration",
+        "message": "单个并行 AI 请求完成",
+        "context": {
+          "attempt": 3,
+          "workerIndex": 1,
+          "parallelRequests": 4,
+          "requestedCount": 1,
+          "receivedCount": 1,
+          "durationMs": 4386
+        }
+      },
       {
         "id": "1789881083466-s12n4i16",
         "timestamp": "2026-09-20T05:11:23.466Z",
@@ -18470,82 +18569,6 @@
           "mode": "专业知识",
           "project": "机器视觉专业知识"
         }
-      },
-      {
-        "id": "1788750167072-6o2ehttn",
-        "timestamp": "2026-09-07T03:02:47.072Z",
-        "level": "WARN",
-        "kind": "user",
-        "sessionId": "1788749906722-jt1tgeok",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "在HALCON的Blob分析中，若目标区域与背景灰度接近且存在粘连，你会如何设计区域分割与特征筛选流程？请说明关键算子选择及参数调整策略。",
-          "mode": "专业知识",
-          "project": "机器视觉专业知识"
-        }
-      },
-      {
-        "id": "1788750166880-iq8wlm0d",
-        "timestamp": "2026-09-07T03:02:46.880Z",
-        "level": "WARN",
-        "kind": "user",
-        "sessionId": "1788749906722-jt1tgeok",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "在HALCON的Blob分析流程中，当目标与背景灰度接近时，你会如何设计图像预处理步骤来增强对比度，并说明各步骤对后续阈值分割稳定性的影响？",
-          "mode": "专业知识",
-          "project": "机器视觉专业知识"
-        }
-      },
-      {
-        "id": "1788750166700-lle5qght",
-        "timestamp": "2026-09-07T03:02:46.700Z",
-        "level": "WARN",
-        "kind": "user",
-        "sessionId": "1788749906722-jt1tgeok",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "在HALCON中，如何利用灰度直方图进行阈值分割并处理光照不均问题？",
-          "mode": "专业知识",
-          "project": "机器视觉专业知识"
-        }
-      },
-      {
-        "id": "1788750166527-moyct7o0",
-        "timestamp": "2026-09-07T03:02:46.527Z",
-        "level": "WARN",
-        "kind": "user",
-        "sessionId": "1788749906722-jt1tgeok",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "在HALCON中，如何通过调整算子参数来优化基于形状的模板匹配在工业场景中的性能与精度？",
-          "mode": "专业知识",
-          "project": "机器视觉专业知识"
-        }
-      },
-      {
-        "id": "1788750069003-7x3xo60s",
-        "timestamp": "2026-09-07T03:01:09.003Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "68e8a1bed438"
-        }
-      },
-      {
-        "id": "1788750061279-v2y8tjyo",
-        "timestamp": "2026-09-07T03:01:01.279Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.close.flush",
-        "message": "页面关闭或进入后台，提交最后一次备份"
       }
     ],
     "vision-interview-web-source-whitelist": [
