@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-20T05:11:28.626Z",
+  "updatedAt": "2026-09-20T05:11:35.326Z",
   "data": {
     "vision-interview-records": [
       {
@@ -3780,6 +3780,69 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1789881093778-y8l2eya2",
+        "timestamp": "2026-09-20T05:11:33.778Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1789880904612-9fovbrzt",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 5,
+          "query": "机器视觉 面试知识点 HALCON 传统 2D 视觉 仅限二维图像处理，排除 3D、三维、点云、深度图、法线估计、平面拟合、立体视觉、结构光和双目 原理 工程实践 (面试 OR 面试题 OR 面试问题 OR 题目 OR 知识点 OR 原理 OR 教程 OR 工程实践 OR 排障)",
+          "mode": "专业知识",
+          "excludedCount": 20,
+          "parallelRequests": 4,
+          "requestedCount": 10
+        }
+      },
+      {
+        "id": "1789881093775-l9cusn5y",
+        "timestamp": "2026-09-20T05:11:33.775Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1789880904612-9fovbrzt",
+        "event": "question-bank.ai-request.completed",
+        "message": "第 4/6 轮：AI 已返回 9/10 道有效题目，继续补齐…",
+        "context": {
+          "attempt": 4,
+          "maxAttempts": 6,
+          "collectedCount": 9,
+          "targetCount": 10,
+          "parallelRequests": 4,
+          "requestedCount": 1
+        }
+      },
+      {
+        "id": "1789881093771-4cipowr7",
+        "timestamp": "2026-09-20T05:11:33.771Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1789880904612-9fovbrzt",
+        "event": "question-bank.ai-request.duration",
+        "message": "单个并行 AI 请求完成",
+        "context": {
+          "attempt": 4,
+          "workerIndex": 1,
+          "parallelRequests": 4,
+          "requestedCount": 1,
+          "receivedCount": 1,
+          "durationMs": 4516
+        }
+      },
+      {
+        "id": "1789881092725-lnudi76t",
+        "timestamp": "2026-09-20T05:11:32.725Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "9b2c2362984d"
+        }
+      },
       {
         "id": "1789881089360-g3zgrwbs",
         "timestamp": "2026-09-20T05:11:29.360Z",
@@ -18510,62 +18573,6 @@
         "message": "当前题目已跳过",
         "context": {
           "question": "在HALCON中，区域（Region）与XLD（亚像素轮廓）是两种核心数据结构。请从数据模型、内存表达和典型应用场景三个层面，阐述它们的本质区别，并说明在什么情况下必须将区域转换为XLD进行后续处理？",
-          "mode": "专业知识",
-          "project": "机器视觉专业知识"
-        }
-      },
-      {
-        "id": "1788750168221-cm2a0hdc",
-        "timestamp": "2026-09-07T03:02:48.221Z",
-        "level": "WARN",
-        "kind": "user",
-        "sessionId": "1788749906722-jt1tgeok",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "在HALCON的模板匹配项目中，如何通过金字塔层级（NumLevels）和贪婪度（Greediness）的配合来提升匹配速度，同时保证定位精度和鲁棒性？请结合工程落地中的实际调参策略说明。",
-          "mode": "专业知识",
-          "project": "机器视觉专业知识"
-        }
-      },
-      {
-        "id": "1788750167919-s8kkv464",
-        "timestamp": "2026-09-07T03:02:47.919Z",
-        "level": "WARN",
-        "kind": "user",
-        "sessionId": "1788749906722-jt1tgeok",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "在HALCON中，针对同一检测任务，你会如何权衡基于形状的模板匹配与基于组件的模板匹配（Component-Based Matching）的选型？请从算法原理、适用场景和工程实践角度展开。",
-          "mode": "专业知识",
-          "project": "机器视觉专业知识"
-        }
-      },
-      {
-        "id": "1788750167711-srtq2der",
-        "timestamp": "2026-09-07T03:02:47.711Z",
-        "level": "WARN",
-        "kind": "user",
-        "sessionId": "1788749906722-jt1tgeok",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "在HALCON的模板匹配中，如何设置角度步长（AngleStep）以平衡搜索空间与匹配精度？",
-          "mode": "专业知识",
-          "project": "机器视觉专业知识"
-        }
-      },
-      {
-        "id": "1788750167512-492eiwl3",
-        "timestamp": "2026-09-07T03:02:47.512Z",
-        "level": "WARN",
-        "kind": "user",
-        "sessionId": "1788749906722-jt1tgeok",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "在HALCON中，为什么基于形状的模板匹配（如create_shape_model）对线性光照变化不敏感？请从算法原理角度解释，并说明其在实际工程中的适用边界。",
           "mode": "专业知识",
           "project": "机器视觉专业知识"
         }
