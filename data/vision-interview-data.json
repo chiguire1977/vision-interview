@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-20T05:11:01.796Z",
+  "updatedAt": "2026-09-20T05:11:05.564Z",
   "data": {
     "vision-interview-records": [
       {
@@ -3780,6 +3780,138 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1789881066284-29zl9bhn",
+        "timestamp": "2026-09-20T05:11:06.284Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "163017c6d382"
+        }
+      },
+      {
+        "id": "1789881063889-7xv3zf5a",
+        "timestamp": "2026-09-20T05:11:03.889Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1789880904612-9fovbrzt",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 2,
+          "query": "机器视觉 面试知识点 HALCON 传统 2D 视觉 仅限二维图像处理，排除 3D、三维、点云、深度图、法线估计、平面拟合、立体视觉、结构光和双目 原理 工程实践 (面试 OR 面试题 OR 面试问题 OR 题目 OR 知识点 OR 原理 OR 教程 OR 工程实践 OR 排障)",
+          "mode": "专业知识",
+          "excludedCount": 18,
+          "parallelRequests": 4,
+          "requestedCount": 10
+        }
+      },
+      {
+        "id": "1789881063886-3yjp6qrb",
+        "timestamp": "2026-09-20T05:11:03.886Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1789880904612-9fovbrzt",
+        "event": "question-bank.ai-request.completed",
+        "message": "第 1/6 轮：AI 已返回 7/10 道有效题目，继续补齐…",
+        "context": {
+          "attempt": 1,
+          "maxAttempts": 6,
+          "collectedCount": 7,
+          "targetCount": 10,
+          "parallelRequests": 4,
+          "requestedCount": 10
+        }
+      },
+      {
+        "id": "1789881063882-qcdvv3c2",
+        "timestamp": "2026-09-20T05:11:03.882Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1789880904612-9fovbrzt",
+        "event": "question-bank.ai-request.duration",
+        "message": "单个并行 AI 请求完成",
+        "context": {
+          "attempt": 1,
+          "workerIndex": 2,
+          "parallelRequests": 4,
+          "requestedCount": 3,
+          "receivedCount": 3,
+          "durationMs": 11474
+        }
+      },
+      {
+        "id": "1789881063879-4tq4tvjv",
+        "timestamp": "2026-09-20T05:11:03.879Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1789880904612-9fovbrzt",
+        "event": "question.terminology.review",
+        "message": "AI 题目包含待人工确认的技术术语",
+        "context": {
+          "attempt": 1,
+          "workerIndex": 2,
+          "title": "在 HALCON 中，使用 create_shape_model 进行形状模板匹配时，如何根据目标尺寸和图像分辨率设置金字塔层数（NumLevels）和角度步长（AngleStep）？请说明参数对匹配速度和精度的影响。",
+          "issues": [
+            "可疑 HALCON 算子：determine_shape_model_params"
+          ]
+        }
+      },
+      {
+        "id": "1789881063876-69jhfkwg",
+        "timestamp": "2026-09-20T05:11:03.876Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1789880904612-9fovbrzt",
+        "event": "question.terminology.review",
+        "message": "AI 题目包含待人工确认的技术术语",
+        "context": {
+          "attempt": 1,
+          "workerIndex": 2,
+          "title": "在 HALCON 中，使用 threshold 算子进行全局阈值分割时，如何根据图像灰度直方图确定合适的阈值？请说明直方图分析在参数选择中的作用及边界情况。",
+          "issues": [
+            "可疑 HALCON 算子：gray_histo",
+            "可疑 HALCON 算子：dyn_threshold"
+          ]
+        }
+      },
+      {
+        "id": "1789881063805-dueq0qlt",
+        "timestamp": "2026-09-20T05:11:03.805Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1789880904612-9fovbrzt",
+        "event": "question-bank.ai-request.duration",
+        "message": "单个并行 AI 请求完成",
+        "context": {
+          "attempt": 1,
+          "workerIndex": 1,
+          "parallelRequests": 4,
+          "requestedCount": 3,
+          "receivedCount": 3,
+          "durationMs": 11401
+        }
+      },
+      {
+        "id": "1789881063802-vw5kpaj1",
+        "timestamp": "2026-09-20T05:11:03.802Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1789880904612-9fovbrzt",
+        "event": "question.terminology.review",
+        "message": "AI 题目包含待人工确认的技术术语",
+        "context": {
+          "attempt": 1,
+          "workerIndex": 1,
+          "title": "在HALCON中，为什么对同一幅图像使用不同的插值方式（如'nearest_neighbor'与'bilinear'）进行仿射变换后，边缘提取结果会出现差异？请从原理上解释。",
+          "issues": [
+            "可疑 HALCON 算子：nearest_neighbor"
+          ]
+        }
+      },
       {
         "id": "1789881061812-ca7n0ruk",
         "timestamp": "2026-09-20T05:11:01.812Z",
@@ -18381,129 +18513,6 @@
         "context": {
           "reason": "change",
           "commit": "cc6cbf2b3f7b"
-        }
-      },
-      {
-        "id": "1788750029226-xa6gq32r",
-        "timestamp": "2026-09-07T03:00:29.226Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788749906722-jt1tgeok",
-        "event": "question-group.prepare.started",
-        "message": "开始准备题组",
-        "context": {
-          "project": "机器视觉专业知识",
-          "mode": "专业知识",
-          "questionCount": 10,
-          "sourceMode": "network",
-          "adaptiveQuestions": false,
-          "focusCategories": []
-        }
-      },
-      {
-        "id": "1788750027137-yk4zogav",
-        "timestamp": "2026-09-07T03:00:27.137Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "52b63b84b2bb"
-        }
-      },
-      {
-        "id": "1788750025265-eaj7fgcx",
-        "timestamp": "2026-09-07T03:00:25.265Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788749906722-jt1tgeok",
-        "event": "question-bank.web-search.completed",
-        "message": "本轮联网检索完成",
-        "context": {
-          "attempt": 5,
-          "query": "机器视觉 面试知识点 HALCON 传统 2D 视觉 仅限二维图像处理，排除 3D、三维、点云、深度图、法线估计、平面拟合、立体视觉、结构光和双目 原理 工程实践",
-          "sourceCount": 8,
-          "cached": true,
-          "parallelRequests": 4,
-          "requestedCount": 10,
-          "durationMs": 3,
-          "sharedAcrossWorkers": true
-        }
-      },
-      {
-        "id": "1788750025262-wbdwnacj",
-        "timestamp": "2026-09-07T03:00:25.262Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788749906722-jt1tgeok",
-        "event": "question-bank.web-search.started",
-        "message": "开始联网检索本轮题目资料",
-        "context": {
-          "attempt": 5,
-          "query": "机器视觉 面试知识点 HALCON 传统 2D 视觉 仅限二维图像处理，排除 3D、三维、点云、深度图、法线估计、平面拟合、立体视觉、结构光和双目 原理 工程实践",
-          "mode": "专业知识",
-          "excludedCount": 22,
-          "parallelRequests": 4,
-          "requestedCount": 10
-        }
-      },
-      {
-        "id": "1788750025258-t8xn5zw2",
-        "timestamp": "2026-09-07T03:00:25.258Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788749906722-jt1tgeok",
-        "event": "question-bank.ai-request.duration",
-        "message": "单个并行 AI 请求完成",
-        "context": {
-          "attempt": 4,
-          "workerIndex": 1,
-          "parallelRequests": 4,
-          "requestedCount": 1,
-          "receivedCount": 1,
-          "durationMs": 11819
-        }
-      },
-      {
-        "id": "1788750021082-rua06p52",
-        "timestamp": "2026-09-07T03:00:21.082Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788749906722-jt1tgeok",
-        "event": "question-bank.ai-request.duration",
-        "message": "单个并行 AI 请求完成",
-        "context": {
-          "attempt": 4,
-          "workerIndex": 2,
-          "parallelRequests": 4,
-          "requestedCount": 1,
-          "receivedCount": 1,
-          "durationMs": 7642
-        }
-      },
-      {
-        "id": "1788750018692-1ck3cm32",
-        "timestamp": "2026-09-07T03:00:18.692Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "8f59446df5d9"
-        }
-      },
-      {
-        "id": "1788750014942-7q6vmltc",
-        "timestamp": "2026-09-07T03:00:14.942Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "8eb0dfed3d6e"
         }
       }
     ],
