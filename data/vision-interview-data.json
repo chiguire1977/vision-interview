@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-20T05:11:38.506Z",
+  "updatedAt": "2026-09-20T05:11:45.715Z",
   "data": {
     "vision-interview-records": [
       {
@@ -3780,6 +3780,87 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1789881103822-4ar2573m",
+        "timestamp": "2026-09-20T05:11:43.822Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1789880904612-9fovbrzt",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 6,
+          "query": "机器视觉 面试知识点 HALCON 传统 2D 视觉 仅限二维图像处理，排除 3D、三维、点云、深度图、法线估计、平面拟合、立体视觉、结构光和双目 原理 工程实践 (面试 OR 面试题 OR 面试问题 OR 题目 OR 知识点 OR 原理 OR 教程 OR 工程实践 OR 排障)",
+          "mode": "专业知识",
+          "excludedCount": 20,
+          "parallelRequests": 4,
+          "requestedCount": 10
+        }
+      },
+      {
+        "id": "1789881103818-8rmjoq10",
+        "timestamp": "2026-09-20T05:11:43.818Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1789880904612-9fovbrzt",
+        "event": "question-bank.ai-request.completed",
+        "message": "第 5/6 轮：AI 已返回 9/10 道有效题目，继续补齐…",
+        "context": {
+          "attempt": 5,
+          "maxAttempts": 6,
+          "collectedCount": 9,
+          "targetCount": 10,
+          "parallelRequests": 4,
+          "requestedCount": 1
+        }
+      },
+      {
+        "id": "1789881103813-wq27581v",
+        "timestamp": "2026-09-20T05:11:43.813Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1789880904612-9fovbrzt",
+        "event": "question-bank.ai-request.duration",
+        "message": "单个并行 AI 请求完成",
+        "context": {
+          "attempt": 5,
+          "workerIndex": 1,
+          "parallelRequests": 4,
+          "requestedCount": 1,
+          "receivedCount": 1,
+          "durationMs": 4849
+        }
+      },
+      {
+        "id": "1789881103810-vh961ut0",
+        "timestamp": "2026-09-20T05:11:43.810Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1789880904612-9fovbrzt",
+        "event": "question.terminology.review",
+        "message": "AI 题目包含待人工确认的技术术语",
+        "context": {
+          "attempt": 5,
+          "workerIndex": 1,
+          "title": "在HALCON二维视觉检测中，面对光照不均的金属表面字符检测，你会选择全局阈值分割还是局部自适应阈值分割？请从原理、参数调整和工程取舍角度说明理由。",
+          "issues": [
+            "可疑 HALCON 算子：dyn_threshold",
+            "可疑 HALCON 算子：mean_image"
+          ]
+        }
+      },
+      {
+        "id": "1789881103534-t8ytxlo7",
+        "timestamp": "2026-09-20T05:11:43.534Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "9a2f2f4a7581"
+        }
+      },
       {
         "id": "1789881099408-r0bvceki",
         "timestamp": "2026-09-20T05:11:39.408Z",
@@ -18528,64 +18609,6 @@
         "context": {
           "reason": "change",
           "commit": "9f4e67bf7af7"
-        }
-      },
-      {
-        "id": "1788750177037-h97t6fbu",
-        "timestamp": "2026-09-07T03:02:57.037Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788750175079-wr9wsuln",
-        "event": "question-bank.remote.loaded",
-        "message": "GitHub AI 历史题库加载完成",
-        "context": {
-          "questionCount": 210,
-          "githubQuestionCount": 210,
-          "pendingCount": 0
-        }
-      },
-      {
-        "id": "1788750175070-jkj01tzw",
-        "timestamp": "2026-09-07T03:02:55.070Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.startup.loaded",
-        "message": "启动配置加载完成",
-        "context": {
-          "source": "github",
-          "updatedAt": "2026-09-07T03:02:49.187Z"
-        }
-      },
-      {
-        "id": "1788750173459-q5nzscei",
-        "timestamp": "2026-09-07T03:02:53.459Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.close.flush",
-        "message": "页面关闭或进入后台，提交最后一次备份"
-      },
-      {
-        "id": "1788750173457-mwflfpk1",
-        "timestamp": "2026-09-07T03:02:53.457Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788749906722-jt1tgeok",
-        "event": "group.review.completed",
-        "message": "题组统一评审完成",
-        "context": {
-          "reviewSource": "本地规则",
-          "questionCount": 10
-        }
-      },
-      {
-        "id": "1788750173453-apireby9",
-        "timestamp": "2026-09-07T03:02:53.453Z",
-        "level": "ERROR",
-        "kind": "system",
-        "event": "backup.push.failed",
-        "message": "运行数据备份请求失败",
-        "context": {
-          "error": "Failed to fetch"
         }
       }
     ],
