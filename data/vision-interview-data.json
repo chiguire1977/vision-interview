@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-20T05:09:33.248Z",
+  "updatedAt": "2026-09-20T05:09:38.843Z",
   "data": {
     "vision-interview-records": [
       {
@@ -3780,6 +3780,176 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1789880979639-n5bjsa10",
+        "timestamp": "2026-09-20T05:09:39.639Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "5f71bf445952"
+        }
+      },
+      {
+        "id": "1789880976827-1ofzyixy",
+        "timestamp": "2026-09-20T05:09:36.827Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1789880904612-9fovbrzt",
+        "event": "question-bank.ai-request.started",
+        "message": "第 2/6 轮（并行 2/4）：正在请求 AI 生成题目（1 道）…",
+        "context": {
+          "attempt": 2,
+          "maxAttempts": 6,
+          "collectedCount": 19,
+          "workerIndex": 2,
+          "parallelRequests": 4,
+          "requestedCount": 1
+        }
+      },
+      {
+        "id": "1789880976822-uwhz8zml",
+        "timestamp": "2026-09-20T05:09:36.822Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1789880904612-9fovbrzt",
+        "event": "question-bank.ai-request.started",
+        "message": "第 2/6 轮（并行 1/4）：正在请求 AI 生成题目（1 道）…",
+        "context": {
+          "attempt": 2,
+          "maxAttempts": 6,
+          "collectedCount": 19,
+          "workerIndex": 1,
+          "parallelRequests": 4,
+          "requestedCount": 1
+        }
+      },
+      {
+        "id": "1789880976817-571o1dze",
+        "timestamp": "2026-09-20T05:09:36.817Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1789880904612-9fovbrzt",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 2,
+          "query": "机器视觉 面试知识点 HALCON 传统 2D 视觉 仅限二维图像处理，排除 3D、三维、点云、深度图、法线估计、平面拟合、立体视觉、结构光和双目 原理 工程实践 (面试 OR 面试题 OR 面试问题 OR 题目 OR 知识点 OR 原理 OR 教程 OR 工程实践 OR 排障)",
+          "sourceCount": 0,
+          "cached": false,
+          "parallelRequests": 4,
+          "requestedCount": 10,
+          "durationMs": 4789,
+          "sharedAcrossWorkers": true
+        }
+      },
+      {
+        "id": "1789880972028-muv0del0",
+        "timestamp": "2026-09-20T05:09:32.028Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1789880904612-9fovbrzt",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 2,
+          "query": "机器视觉 面试知识点 HALCON 传统 2D 视觉 仅限二维图像处理，排除 3D、三维、点云、深度图、法线估计、平面拟合、立体视觉、结构光和双目 原理 工程实践 (面试 OR 面试题 OR 面试问题 OR 题目 OR 知识点 OR 原理 OR 教程 OR 工程实践 OR 排障)",
+          "mode": "专业知识",
+          "excludedCount": 19,
+          "parallelRequests": 4,
+          "requestedCount": 10
+        }
+      },
+      {
+        "id": "1789880972018-cccdlr9m",
+        "timestamp": "2026-09-20T05:09:32.018Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1789880904612-9fovbrzt",
+        "event": "question-bank.ai-request.completed",
+        "message": "第 1/6 轮：AI 已返回 8/10 道有效题目，继续补齐…",
+        "context": {
+          "attempt": 1,
+          "maxAttempts": 6,
+          "collectedCount": 8,
+          "targetCount": 10,
+          "parallelRequests": 4,
+          "requestedCount": 10
+        }
+      },
+      {
+        "id": "1789880972013-90eaaog3",
+        "timestamp": "2026-09-20T05:09:32.013Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1789880904612-9fovbrzt",
+        "event": "question-bank.ai-request.duration",
+        "message": "单个并行 AI 请求完成",
+        "context": {
+          "attempt": 1,
+          "workerIndex": 1,
+          "parallelRequests": 4,
+          "requestedCount": 3,
+          "receivedCount": 3,
+          "durationMs": 11584
+        }
+      },
+      {
+        "id": "1789880972010-j60gaam3",
+        "timestamp": "2026-09-20T05:09:32.010Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1789880904612-9fovbrzt",
+        "event": "question.terminology.review",
+        "message": "AI 题目包含待人工确认的技术术语",
+        "context": {
+          "attempt": 1,
+          "workerIndex": 1,
+          "title": "在HALCON中，使用sub_image进行背景校正时，为什么常配合scale_image或convert_image_type使用？请从灰度映射角度解释其必要性。",
+          "issues": [
+            "可疑 HALCON 算子：sub_image",
+            "可疑 HALCON 算子：scale_image",
+            "可疑 HALCON 算子：convert_image_type"
+          ]
+        }
+      },
+      {
+        "id": "1789880971771-8kr5aspj",
+        "timestamp": "2026-09-20T05:09:31.771Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1789880904612-9fovbrzt",
+        "event": "question-bank.ai-request.duration",
+        "message": "单个并行 AI 请求完成",
+        "context": {
+          "attempt": 1,
+          "workerIndex": 2,
+          "parallelRequests": 4,
+          "requestedCount": 3,
+          "receivedCount": 3,
+          "durationMs": 11339
+        }
+      },
+      {
+        "id": "1789880971767-5ofnioo0",
+        "timestamp": "2026-09-20T05:09:31.767Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1789880904612-9fovbrzt",
+        "event": "question.terminology.review",
+        "message": "AI 题目包含待人工确认的技术术语",
+        "context": {
+          "attempt": 1,
+          "workerIndex": 2,
+          "title": "在HALCON中，使用threshold算子进行全局阈值分割时，为什么对光照不均匀的图像容易产生断裂或误检？请从灰度分布和阈值选择角度解释，并给出一种基于图像预处理的改进思路。",
+          "issues": [
+            "可疑 HALCON 算子：gray_opening",
+            "可疑 HALCON 算子：dyn_threshold"
+          ]
+        }
+      },
       {
         "id": "1789880971568-7533ugs7",
         "timestamp": "2026-09-20T05:09:31.568Z",
@@ -17988,121 +18158,6 @@
         "context": {
           "reason": "change",
           "commit": "97f714ee44f4"
-        }
-      },
-      {
-        "id": "1788749173779-ec7ib9l9",
-        "timestamp": "2026-09-07T02:46:13.779Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "0c31394edf82"
-        }
-      },
-      {
-        "id": "1788749173492-gexzbh3l",
-        "timestamp": "2026-09-07T02:46:13.492Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.close.flush",
-        "message": "页面关闭或进入后台，提交最后一次备份"
-      },
-      {
-        "id": "1788749169338-vu3i9py1",
-        "timestamp": "2026-09-07T02:46:09.338Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788748699983-pgd6193m",
-        "event": "group.review.started",
-        "message": "题组已完成，开始统一评审"
-      },
-      {
-        "id": "1788749169334-y21jmln6",
-        "timestamp": "2026-09-07T02:46:09.334Z",
-        "level": "WARN",
-        "kind": "user",
-        "sessionId": "1788748699983-pgd6193m",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "在HALCON中，图像类型（如byte、uint2、int1）对后续图像处理结果有何影响？请以阈值分割为例说明。",
-          "mode": "专业知识",
-          "project": "机器视觉专业知识"
-        }
-      },
-      {
-        "id": "1788749168624-cpike4zu",
-        "timestamp": "2026-09-07T02:46:08.624Z",
-        "level": "WARN",
-        "kind": "user",
-        "sessionId": "1788748699983-pgd6193m",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "在HALCON中，使用create_shape_model创建形状模板时，参数NumLevels、AngleStart、AngleExtent和AngleStep如何影响匹配速度与精度？请从金字塔搜索与角度步长的原理出发，说明在实际二维定位项目中如何权衡这些参数。",
-          "mode": "专业知识",
-          "project": "机器视觉专业知识"
-        }
-      },
-      {
-        "id": "1788749167974-x6aqr59s",
-        "timestamp": "2026-09-07T02:46:07.974Z",
-        "level": "WARN",
-        "kind": "user",
-        "sessionId": "1788748699983-pgd6193m",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "请解释HALCON中基于形状的模板匹配（create_shape_model）的工作原理，并说明其为何对线性光照变化不敏感？",
-          "mode": "专业知识",
-          "project": "机器视觉专业知识"
-        }
-      },
-      {
-        "id": "1788748992656-jr3v1doq",
-        "timestamp": "2026-09-07T02:43:12.656Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "4336b34158a3"
-        }
-      },
-      {
-        "id": "1788748986586-208a72yj",
-        "timestamp": "2026-09-07T02:43:06.586Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.close.flush",
-        "message": "页面关闭或进入后台，提交最后一次备份"
-      },
-      {
-        "id": "1788748961707-y37lxq3j",
-        "timestamp": "2026-09-07T02:42:41.707Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "bab17dacd08c"
-        }
-      },
-      {
-        "id": "1788748958628-079pstbz",
-        "timestamp": "2026-09-07T02:42:38.628Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "6a46cec6295b"
         }
       }
     ],
