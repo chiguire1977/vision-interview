@@ -1,11 +1,11 @@
 {
   "version": 1,
-  "updatedAt": "2026-09-07T06:13:25.087Z",
+  "updatedAt": "2026-09-20T05:11:51.147Z",
   "questions": [
     {
       "title": "在 HALCON 中，基于形状的模板匹配（shape-based matching）常用于定位工件。请说明金字塔层数、最小分数（MinScore）、最大重叠（MaxOverlap）和贪婪度（Greediness）这几个参数对匹配速度和鲁棒性的影响，并说明现场调试时如何取舍。",
       "type": "工程实践",
-      "category": "模板匹配",
+      "category": "模板与定位",
       "source": "专业",
       "sourceType": "AI知识整理",
       "knowledgePoints": [
@@ -49,7 +49,7 @@
     {
       "title": "在HALCON中，基于形状的模板匹配（find_shape_model）在搜索时主要受哪些参数影响？如何针对遮挡场景调整参数？",
       "type": "工程实践",
-      "category": "模板匹配",
+      "category": "模板与定位",
       "source": "专业",
       "sourceType": "官方文档整理",
       "knowledgePoints": [
@@ -92,7 +92,7 @@
     {
       "title": "在HALCON中，使用Blob分析进行缺陷检测时，如何选择合适的阈值分割方法？请说明全局阈值、局部阈值和动态阈值在实际应用中的区别与选择依据。",
       "type": "工程实践",
-      "category": "图像分割",
+      "category": "边缘与特征",
       "source": "专业",
       "sourceType": "官方文档整理",
       "knowledgePoints": [
@@ -134,7 +134,7 @@
     {
       "title": "在 HALCON 中，threshold 和 dyn_threshold 都用于图像分割，请解释两者的原理差异，并说明在光照不均匀场景下为什么 dyn_threshold 更可靠？如果必须使用 threshold，应如何预处理？",
       "type": "算法原理",
-      "category": "图像分割",
+      "category": "边缘与特征",
       "source": "专业",
       "sourceType": "技术教程整理",
       "knowledgePoints": [
@@ -177,7 +177,7 @@
     {
       "title": "在 HALCON 中，dyn_threshold 算子用于动态阈值分割。请解释其工作原理，并说明 Offset 参数和 LightDark 参数对分割结果的影响。现场处理光照不均匀的工件表面时，如何选择合适的 Offset 值？",
       "type": "算法原理",
-      "category": "图像分割",
+      "category": "边缘与特征",
       "source": "专业",
       "sourceType": "AI知识整理",
       "knowledgePoints": [
@@ -222,7 +222,7 @@
     {
       "title": "在 HALCON 中，使用 threshold 算子进行图像分割时，如何根据灰度直方图确定最佳阈值？请比较全局阈值、Otsu 和自适应阈值（如 dyn_threshold）的适用场景。",
       "type": "算法原理",
-      "category": "图像处理",
+      "category": "图像处理基础",
       "source": "专业",
       "sourceType": "AI知识整理",
       "knowledgePoints": [
@@ -264,7 +264,7 @@
     {
       "title": "在 HALCON 中，使用 measure_pos 进行边缘对测量时，测量卡尺的宽度、Sigma 和阈值参数分别如何影响测量结果？当被测物体边缘模糊或对比度低时，应优先调整哪个参数？",
       "type": "工程实践",
-      "category": "图像测量",
+      "category": "其他",
       "source": "专业",
       "sourceType": "AI知识整理",
       "knowledgePoints": [
@@ -307,7 +307,7 @@
     {
       "title": "HALCON 中基于点云的 3D 表面匹配（find_surface_model）是如何工作的？为什么需要估计法线？RANSAC 在其中起什么作用？",
       "type": "算法原理",
-      "category": "算法原理",
+      "category": "其他",
       "source": "专业",
       "sourceType": "AI知识整理",
       "knowledgePoints": [
@@ -352,7 +352,7 @@
     {
       "title": "在 HALCON 模板匹配中，当光照变化或反光导致匹配不稳定时，你会如何调整参数或预处理？请说明 MinScore、金字塔和图像预处理的作用。",
       "type": "工程实践",
-      "category": "工程实践",
+      "category": "其他",
       "source": "专业",
       "sourceType": "AI知识整理",
       "knowledgePoints": [
@@ -397,7 +397,7 @@
     {
       "title": "在 HALCON 中，使用 3D 点云进行物体定位或表面检测时，为什么通常需要先估计点云法线？请说明法线估计的常用方法及其在后续处理中的作用。",
       "type": "算法原理",
-      "category": "算法原理",
+      "category": "其他",
       "source": "专业",
       "sourceType": "AI知识整理",
       "knowledgePoints": [
@@ -443,7 +443,7 @@
     {
       "title": "在 HALCON 中，一个实时视觉检测程序运行速度不达标，你会从哪些方面进行性能优化？请结合 ROI、金字塔和异步采集说明。",
       "type": "工程实践",
-      "category": "工程实践",
+      "category": "其他",
       "source": "专业",
       "sourceType": "AI知识整理",
       "knowledgePoints": [
@@ -489,7 +489,7 @@
     {
       "title": "在 HALCON 中，如何从深度图生成点云并估计法线？如何使用 RANSAC 分割多个平面？",
       "type": "算法原理",
-      "category": "算法原理",
+      "category": "其他",
       "source": "专业",
       "sourceType": "AI知识整理",
       "knowledgePoints": [
@@ -534,7 +534,7 @@
     {
       "title": "在 HALCON 形状匹配中，如何通过 ROI、金字塔层级和异步采集来提升运行速度？请说明原理和注意事项。",
       "type": "工程实践",
-      "category": "工程实践",
+      "category": "其他",
       "source": "专业",
       "sourceType": "AI知识整理",
       "knowledgePoints": [
@@ -579,7 +579,7 @@
     {
       "title": "在HALCON中，CLAHE（限制对比度自适应直方图均衡化）的clip limit和tile size参数如何影响增强效果？在什么场景下需要调整这些参数？",
       "type": "算法原理",
-      "category": "图像预处理",
+      "category": "其他",
       "source": "专业",
       "sourceType": "AI知识整理",
       "knowledgePoints": [
@@ -623,7 +623,7 @@
     {
       "title": "在 HALCON 中，点云法线估计通常基于 PCA（主成分分析）方法。请说明 PCA 法线估计的基本原理，并解释邻域半径（或 k 邻域）的大小对法线估计结果的影响。",
       "type": "算法原理",
-      "category": "算法原理",
+      "category": "其他",
       "source": "专业",
       "sourceType": "AI知识整理",
       "knowledgePoints": [
@@ -667,7 +667,7 @@
     {
       "title": "在 HALCON 中使用 find_surface_model 进行 3D 物体定位时，法线估计的邻域半径参数对匹配结果有什么影响？请结合 PCA 法线估计原理说明。",
       "type": "算法原理",
-      "category": "算法原理",
+      "category": "其他",
       "source": "专业",
       "sourceType": "AI知识整理",
       "knowledgePoints": [
@@ -712,7 +712,7 @@
     {
       "title": "在HALCON中，使用点云进行平面拟合时，RANSAC算法的作用是什么？如何通过法线估计和find_surface_model实现？",
       "type": "算法原理",
-      "category": "算法原理",
+      "category": "其他",
       "source": "专业",
       "sourceType": "AI知识整理",
       "knowledgePoints": [
@@ -757,7 +757,7 @@
     {
       "title": "在实际3D视觉测量项目中，点云数据量大导致处理速度慢，你会如何优化？",
       "type": "工程实践",
-      "category": "工程实践",
+      "category": "其他",
       "source": "专业",
       "sourceType": "AI知识整理",
       "knowledgePoints": [
@@ -802,7 +802,7 @@
     {
       "title": "在HALCON 3D视觉测量中，使用find_surface_model进行表面匹配前，为什么需要对点云进行法线估计？法线估计的邻域半径参数对匹配结果有何影响？",
       "type": "算法原理",
-      "category": "算法原理",
+      "category": "其他",
       "source": "专业",
       "sourceType": "AI知识整理",
       "knowledgePoints": [
@@ -847,7 +847,7 @@
     {
       "title": "HALCON中如何通过算子实现相机采集与图像预处理？",
       "type": "工程实践",
-      "category": "图像采集与预处理",
+      "category": "其他",
       "source": "专业",
       "sourceType": "官方文档整理",
       "knowledgePoints": [
@@ -890,7 +890,7 @@
     {
       "title": "HALCON基于形状的模板匹配中，如何设置参数以应对旋转和缩放？",
       "type": "算法原理",
-      "category": "模板匹配",
+      "category": "模板与定位",
       "source": "专业",
       "sourceType": "技术教程整理",
       "knowledgePoints": [
@@ -933,7 +933,7 @@
     {
       "title": "HALCON 中如何配置 GigE Vision 相机并完成连续图像采集？",
       "type": "工程实践",
-      "category": "图像采集",
+      "category": "其他",
       "source": "专业",
       "sourceType": "官方文档整理",
       "knowledgePoints": [
@@ -977,7 +977,7 @@
     {
       "title": "在 HALCON 中，如何使用 Blob 分析提取图像中的连通区域并筛选目标？",
       "type": "算法原理",
-      "category": "图像分析",
+      "category": "其他",
       "source": "专业",
       "sourceType": "官方文档整理",
       "knowledgePoints": [
@@ -1065,7 +1065,7 @@
     {
       "title": "HALCON模板匹配中NumLevels和AngleStep参数对匹配性能与精度的影响",
       "type": "工程实践",
-      "category": "模板匹配",
+      "category": "模板与定位",
       "source": "专业",
       "sourceType": "AI知识整理",
       "knowledgePoints": [
@@ -1109,7 +1109,7 @@
     {
       "title": "HALCON 中 HImage、HObject 与 HTuple 的区别及图像数据在算子链中的传递方式",
       "type": "算法原理",
-      "category": "HALCON 编程基础",
+      "category": "其他",
       "source": "专业",
       "sourceType": "AI知识整理",
       "knowledgePoints": [
@@ -1152,7 +1152,7 @@
     {
       "title": "HALCON 中 Blob 分析的标准流程：threshold、connection、select_shape 的作用与参数影响",
       "type": "工程实践",
-      "category": "图像分割",
+      "category": "边缘与特征",
       "source": "专业",
       "sourceType": "AI知识整理",
       "knowledgePoints": [
@@ -1241,7 +1241,7 @@
     {
       "title": "HALCON中如何根据图像噪声类型选择合适的滤波算子？请比较median_image、smooth_image和gauss_filter的适用场景及参数影响。",
       "type": "工程实践",
-      "category": "图像处理",
+      "category": "图像处理基础",
       "source": "专业",
       "sourceType": "官方文档整理",
       "knowledgePoints": [
@@ -1286,7 +1286,7 @@
     {
       "title": "HALCON中阈值分割与Blob分析：当目标与背景灰度差异不明显时如何调整分割策略？",
       "type": "算法原理",
-      "category": "图像分割",
+      "category": "边缘与特征",
       "source": "专业",
       "sourceType": "官方文档整理",
       "knowledgePoints": [
@@ -1331,7 +1331,7 @@
     {
       "title": "HALCON中create_shape_model关键参数对匹配性能的影响",
       "type": "算法原理",
-      "category": "模板匹配",
+      "category": "模板与定位",
       "source": "专业",
       "sourceType": "官方文档整理",
       "knowledgePoints": [
@@ -1376,7 +1376,7 @@
     {
       "title": "HALCON 中阈值分割算子 threshold 的灰度范围参数应如何确定？如果目标与背景灰度重叠，仅靠阈值分割无法分离，你会如何调整处理流程？",
       "type": "算法原理",
-      "category": "图像分割",
+      "category": "边缘与特征",
       "source": "专业",
       "sourceType": "AI知识整理",
       "knowledgePoints": [
@@ -1420,7 +1420,7 @@
     {
       "title": "在 HALCON 中执行 Blob 分析（连通域分析）的标准流程是什么？如何通过特征筛选去除干扰区域？",
       "type": "工程实践",
-      "category": "Blob分析",
+      "category": "边缘与特征",
       "source": "专业",
       "sourceType": "AI知识整理",
       "knowledgePoints": [
@@ -1465,7 +1465,7 @@
     {
       "title": "在 HALCON 中，使用 threshold 算子进行阈值分割时，如何选择合适的阈值？如果现场光照不均匀，直接使用全局阈值效果不佳，有哪些改进方法？",
       "type": "算法原理",
-      "category": "图像分割",
+      "category": "边缘与特征",
       "source": "专业",
       "sourceType": "AI知识整理",
       "knowledgePoints": [
@@ -1511,7 +1511,7 @@
     {
       "title": "在 HALCON 中，什么是 ROI（感兴趣区域）？如何通过 reduce_domain 算子缩小处理范围？这样做对图像处理效率有什么影响？",
       "type": "工程实践",
-      "category": "区域处理",
+      "category": "边缘与特征",
       "source": "专业",
       "sourceType": "AI知识整理",
       "knowledgePoints": [
@@ -1558,7 +1558,7 @@
     {
       "title": "HALCON 中阈值分割的阈值选择方法有哪些？在光照变化时如何保证分割稳定？",
       "type": "工程实践",
-      "category": "图像分割",
+      "category": "边缘与特征",
       "source": "专业",
       "sourceType": "官方文档整理",
       "knowledgePoints": [
@@ -1600,7 +1600,7 @@
     {
       "title": "HALCON 中 Blob 分析的基本流程是什么？如何用特征筛选去除干扰区域？",
       "type": "工程实践",
-      "category": "Blob分析",
+      "category": "边缘与特征",
       "source": "专业",
       "sourceType": "技术教程整理",
       "knowledgePoints": [
@@ -1642,7 +1642,7 @@
     {
       "title": "HALCON中threshold与dyn_threshold在光照不均场景下的选择与参数调整",
       "type": "工程实践",
-      "category": "图像分割",
+      "category": "边缘与特征",
       "source": "专业",
       "sourceType": "AI知识整理",
       "knowledgePoints": [
@@ -1685,7 +1685,7 @@
     {
       "title": "HALCON中Blob分析的标准流程及区域特征筛选",
       "type": "算法原理",
-      "category": "Blob分析",
+      "category": "边缘与特征",
       "source": "专业",
       "sourceType": "AI知识整理",
       "knowledgePoints": [
@@ -1728,7 +1728,7 @@
     {
       "title": "HALCON 中全局阈值分割（threshold）的原理是什么？如何根据灰度直方图确定合适的阈值？",
       "type": "算法原理",
-      "category": "图像分割",
+      "category": "边缘与特征",
       "source": "专业",
       "sourceType": "官方文档整理",
       "knowledgePoints": [
@@ -1772,7 +1772,7 @@
     {
       "title": "HALCON 中 Blob 分析的基本流程是什么？如何通过特征筛选去除干扰区域？",
       "type": "工程实践",
-      "category": "区域分析",
+      "category": "边缘与特征",
       "source": "专业",
       "sourceType": "官方文档整理",
       "knowledgePoints": [
@@ -1817,7 +1817,7 @@
     {
       "title": "HALCON 中阈值分割后区域存在大量细小噪点，如何在不影响目标区域完整性的前提下进行有效处理？请说明常用算子的选择依据和参数影响。",
       "type": "工程实践",
-      "category": "图像分割",
+      "category": "边缘与特征",
       "source": "专业",
       "sourceType": "官方文档整理",
       "knowledgePoints": [
@@ -1863,7 +1863,7 @@
     {
       "title": "在 HALCON 中，如何通过 Blob 分析实现工件定位？请说明从图像采集到输出坐标的完整流程及各步骤的作用。",
       "type": "算法原理",
-      "category": "Blob 分析",
+      "category": "边缘与特征",
       "source": "专业",
       "sourceType": "官方文档整理",
       "knowledgePoints": [
@@ -1909,7 +1909,7 @@
     {
       "title": "HALCON中全局阈值与局部阈值分割的适用场景及参数选择",
       "type": "算法原理",
-      "category": "图像分割",
+      "category": "边缘与特征",
       "source": "专业",
       "sourceType": "AI知识整理",
       "knowledgePoints": [
@@ -1952,7 +1952,7 @@
     {
       "title": "HALCON中Blob分析的标准流程与区域特征筛选",
       "type": "工程实践",
-      "category": "Blob分析",
+      "category": "边缘与特征",
       "source": "专业",
       "sourceType": "AI知识整理",
       "knowledgePoints": [
@@ -1995,7 +1995,7 @@
     {
       "title": "在HALCON中进行Blob分析时，如何合理设置阈值和最小面积参数以稳定提取目标区域？",
       "type": "工程实践",
-      "category": "图像分割",
+      "category": "边缘与特征",
       "source": "专业",
       "sourceType": "官方文档整理",
       "knowledgePoints": [
@@ -2037,7 +2037,7 @@
     {
       "title": "HALCON中基于形状的模板匹配（create_shape_model）为什么对线性光照变化不敏感？",
       "type": "算法原理",
-      "category": "模板匹配",
+      "category": "模板与定位",
       "source": "专业",
       "sourceType": "官方文档整理",
       "knowledgePoints": [
@@ -2124,7 +2124,7 @@
     {
       "title": "请简述 HALCON 中 Blob 分析的基本流程，并说明为什么在阈值分割后通常需要执行 connection 和 select_shape 操作。",
       "type": "工程实践",
-      "category": "Blob分析",
+      "category": "边缘与特征",
       "source": "专业",
       "sourceType": "AI知识整理",
       "knowledgePoints": [
@@ -2169,7 +2169,7 @@
     {
       "title": "HALCON中threshold算子如何实现图像分割？灰度直方图的作用是什么？",
       "type": "算法原理",
-      "category": "图像分割",
+      "category": "边缘与特征",
       "source": "专业",
       "sourceType": "AI知识整理",
       "knowledgePoints": [
@@ -2212,7 +2212,7 @@
     {
       "title": "HALCON中如何通过Blob分析提取目标区域？select_shape筛选区域时常用哪些特征？",
       "type": "工程实践",
-      "category": "区域分析",
+      "category": "边缘与特征",
       "source": "专业",
       "sourceType": "AI知识整理",
       "knowledgePoints": [
@@ -2256,7 +2256,7 @@
     {
       "title": "HALCON中threshold和dyn_threshold的适用场景及参数选择方法",
       "type": "算法原理",
-      "category": "图像分割",
+      "category": "边缘与特征",
       "source": "专业",
       "sourceType": "AI知识整理",
       "knowledgePoints": [
@@ -2300,7 +2300,7 @@
     {
       "title": "HALCON中Blob分析的基本流程及connection算子的作用",
       "type": "工程实践",
-      "category": "Blob分析",
+      "category": "边缘与特征",
       "source": "专业",
       "sourceType": "AI知识整理",
       "knowledgePoints": [
@@ -2344,7 +2344,7 @@
     {
       "title": "HALCON中Blob分析的标准流程与阈值参数影响",
       "type": "工程实践",
-      "category": "图像处理",
+      "category": "图像处理基础",
       "source": "专业",
       "sourceType": "AI知识整理",
       "knowledgePoints": [
@@ -2389,7 +2389,7 @@
     {
       "title": "HALCON中基于形状的模板匹配原理与参数权衡",
       "type": "算法原理",
-      "category": "模板匹配",
+      "category": "模板与定位",
       "source": "专业",
       "sourceType": "AI知识整理",
       "knowledgePoints": [
@@ -2434,7 +2434,7 @@
     {
       "title": "请简述HALCON中基于Blob分析的目标检测基本流程，并说明threshold、connection、select_shape三个算子的作用。",
       "type": "工程实践",
-      "category": "图像分割与区域分析",
+      "category": "边缘与特征",
       "source": "专业",
       "sourceType": "官方文档整理",
       "knowledgePoints": [
@@ -2478,7 +2478,7 @@
     {
       "title": "请解释HALCON中基于形状的模板匹配（Shape-Based Matching）的基本原理，并说明find_shape_model算子的主要输入和输出。",
       "type": "算法原理",
-      "category": "模板匹配",
+      "category": "模板与定位",
       "source": "专业",
       "sourceType": "官方文档整理",
       "knowledgePoints": [
@@ -2522,7 +2522,7 @@
     {
       "title": "请比较HALCON中gauss_filter和median_image两种滤波算子的原理与适用场景，并说明在传统2D视觉测量任务中如何选择。",
       "type": "算法原理",
-      "category": "图像处理",
+      "category": "图像处理基础",
       "source": "专业",
       "sourceType": "AI知识整理",
       "knowledgePoints": [
@@ -2567,7 +2567,7 @@
     {
       "title": "在HALCON基于形状的模板匹配中，金字塔层数（NumLevels）如何影响匹配性能？选择层数时需要考虑哪些因素？",
       "type": "算法原理",
-      "category": "模板匹配",
+      "category": "模板与定位",
       "source": "专业",
       "sourceType": "社区问答整理",
       "knowledgePoints": [
@@ -2614,7 +2614,7 @@
     {
       "title": "HALCON中Blob分析时如何选择阈值分割方法并避免过分割？",
       "type": "工程实践",
-      "category": "图像分割",
+      "category": "边缘与特征",
       "source": "专业",
       "sourceType": "AI知识整理",
       "knowledgePoints": [
@@ -2657,7 +2657,7 @@
     {
       "title": "HALCON中边缘提取算子edges_sub_pix的参数如何影响亚像素边缘精度？",
       "type": "算法原理",
-      "category": "边缘提取",
+      "category": "边缘与特征",
       "source": "专业",
       "sourceType": "AI知识整理",
       "knowledgePoints": [
@@ -2700,7 +2700,7 @@
     {
       "title": "HALCON中全局阈值与动态阈值分割的适用场景及参数选择",
       "type": "算法原理",
-      "category": "图像分割",
+      "category": "边缘与特征",
       "source": "专业",
       "sourceType": "AI知识整理",
       "knowledgePoints": [
@@ -2743,7 +2743,7 @@
     {
       "title": "HALCON中亚像素边缘提取参数Sigma与Threshold对轮廓精度的影响",
       "type": "算法原理",
-      "category": "边缘检测",
+      "category": "边缘与特征",
       "source": "专业",
       "sourceType": "AI知识整理",
       "knowledgePoints": [
@@ -2786,7 +2786,7 @@
     {
       "title": "HALCON 中亚像素边缘提取的原理与参数选择",
       "type": "算法原理",
-      "category": "图像处理",
+      "category": "图像处理基础",
       "source": "专业",
       "sourceType": "官方文档整理",
       "knowledgePoints": [
@@ -2829,7 +2829,7 @@
     {
       "title": "HALCON 基于形状的模板匹配在缩放与旋转场景下的工程参数调优",
       "type": "工程实践",
-      "category": "模板匹配",
+      "category": "模板与定位",
       "source": "专业",
       "sourceType": "官方文档整理",
       "knowledgePoints": [
@@ -2874,7 +2874,7 @@
     {
       "title": "HALCON中形态学开闭运算在二维缺陷检测中的参数选择与工程实践",
       "type": "算法原理/工程实践",
-      "category": "图像处理",
+      "category": "图像处理基础",
       "source": "专业",
       "sourceType": "AI知识整理",
       "knowledgePoints": [
@@ -2919,7 +2919,7 @@
     {
       "title": "HALCON中创建基于形状的模板时，如何合理设置NumLevels和Contrast参数以平衡匹配鲁棒性与速度？",
       "type": "算法原理/工程实践",
-      "category": "模板匹配",
+      "category": "模板与定位",
       "source": "专业",
       "sourceType": "官方文档整理",
       "knowledgePoints": [
@@ -2961,7 +2961,7 @@
     {
       "title": "HALCON中一维测量工具（Measure）如何实现亚像素边缘定位？其关键参数对测量结果有何影响？",
       "type": "算法原理",
-      "category": "随机类型",
+      "category": "其他",
       "source": "专业",
       "sourceType": "AI知识整理",
       "knowledgePoints": [
@@ -3006,7 +3006,7 @@
     {
       "title": "HALCON中如何利用区域特征（如面积、圆度、矩形度）对二维缺陷进行分类筛选？请结合select_shape算子说明。",
       "type": "工程实践",
-      "category": "随机类型",
+      "category": "其他",
       "source": "专业",
       "sourceType": "AI知识整理",
       "knowledgePoints": [
@@ -3096,7 +3096,7 @@
     {
       "title": "HALCON中Region（区域）和XLD（亚像素轮廓）在传统2D视觉中分别代表什么？如何将区域转换为XLD？为什么边缘提取通常使用XLD而不是Region？",
       "type": "工程实践",
-      "category": "区域与轮廓",
+      "category": "边缘与特征",
       "source": "专业",
       "sourceType": "AI知识整理",
       "knowledgePoints": [
@@ -3140,7 +3140,7 @@
     {
       "title": "HALCON中threshold算子进行图像分割时，如何根据直方图选择合适的阈值范围？",
       "type": "算法原理",
-      "category": "图像分割",
+      "category": "边缘与特征",
       "source": "专业",
       "sourceType": "AI知识整理",
       "knowledgePoints": [
@@ -3181,7 +3181,7 @@
     {
       "title": "在HALCON中使用find_shape_model进行模板匹配时，如何设置参数以兼顾速度和精度？",
       "type": "工程实践",
-      "category": "模板匹配",
+      "category": "模板与定位",
       "source": "专业",
       "sourceType": "AI知识整理",
       "knowledgePoints": [
@@ -3224,7 +3224,7 @@
     {
       "title": "在HALCON中，如何利用灰度直方图确定阈值进行Blob分析？",
       "type": "算法原理",
-      "category": "图像分割",
+      "category": "边缘与特征",
       "source": "专业",
       "sourceType": "AI知识整理",
       "knowledgePoints": [
@@ -3268,7 +3268,7 @@
     {
       "title": "在HALCON中，如何提取亚像素边缘并拟合直线？",
       "type": "工程实践",
-      "category": "边缘检测",
+      "category": "边缘与特征",
       "source": "专业",
       "sourceType": "AI知识整理",
       "knowledgePoints": [
@@ -3354,7 +3354,7 @@
     {
       "title": "在 HALCON 中，当光照变化导致固定阈值分割失效时，如何选择合适的阈值策略？请对比全局阈值与局部阈值方法的适用场景。",
       "type": "算法原理",
-      "category": "图像分割",
+      "category": "边缘与特征",
       "source": "专业",
       "sourceType": "AI知识整理",
       "knowledgePoints": [
@@ -3398,7 +3398,7 @@
     {
       "title": "HALCON 中基于形状的模板匹配（create_shape_model）为什么对光照变化和遮挡具有一定的鲁棒性？其核心原理是什么？",
       "type": "算法原理",
-      "category": "模板匹配",
+      "category": "模板与定位",
       "source": "专业",
       "sourceType": "AI知识整理",
       "knowledgePoints": [
@@ -3487,7 +3487,7 @@
     {
       "title": "在 HALCON 中做传统 2D 视觉的 BLOB 分析时，threshold、connection、select_shape 三个算子通常如何配合使用？如果目标与背景灰度接近，你会怎么调整流程？",
       "type": "算法原理",
-      "category": "图像分割",
+      "category": "边缘与特征",
       "source": "专业",
       "sourceType": "技术教程整理",
       "knowledgePoints": [
@@ -3530,7 +3530,7 @@
     {
       "title": "HALCON 的模板匹配中 create_shape_model 和 find_shape_model 的核心参数有哪些？它们对匹配速度和稳定性有什么影响？",
       "type": "算法原理",
-      "category": "模板匹配",
+      "category": "模板与定位",
       "source": "专业",
       "sourceType": "技术教程整理",
       "knowledgePoints": [
@@ -3575,7 +3575,7 @@
     {
       "title": "使用 HALCON 进行图像采集时，open_framegrabber 和 grab_image 的作用是什么？采集图像出现丢帧或花屏，你会如何排查？",
       "type": "现场故障",
-      "category": "图像采集",
+      "category": "其他",
       "source": "专业",
       "sourceType": "工程案例整理",
       "knowledgePoints": [
@@ -3620,7 +3620,7 @@
     {
       "title": "请描述HALCON中BLOB分析的基本流程，并说明如何通过特征筛选区分目标区域与噪声区域。",
       "type": "工程实践",
-      "category": "图像分割与区域分析",
+      "category": "边缘与特征",
       "source": "专业",
       "sourceType": "技术教程整理",
       "knowledgePoints": [
@@ -3666,7 +3666,7 @@
     {
       "title": "HALCON中基于形状的模板匹配（shape-based matching）的核心原理是什么？为什么它比基于灰度的匹配更鲁棒？",
       "type": "算法原理",
-      "category": "模板匹配",
+      "category": "模板与定位",
       "source": "专业",
       "sourceType": "技术教程整理",
       "knowledgePoints": [
@@ -3711,7 +3711,7 @@
     {
       "title": "在 HALCON 中，膨胀、腐蚀、开运算和闭运算分别适用于什么图像处理场景？如何选择结构元素？",
       "type": "算法原理",
-      "category": "图像处理",
+      "category": "图像处理基础",
       "source": "专业",
       "sourceType": "技术教程整理",
       "knowledgePoints": [
@@ -3754,7 +3754,7 @@
     {
       "title": "在 HALCON 中，median_image 与 gauss_filter 在图像预处理中有什么本质区别？实际项目中如何选择？",
       "type": "工程实践",
-      "category": "图像处理",
+      "category": "图像处理基础",
       "source": "专业",
       "sourceType": "技术教程整理",
       "knowledgePoints": [
@@ -3797,7 +3797,7 @@
     {
       "title": "HALCON中形态学操作（腐蚀、膨胀、开运算、闭运算）的原理是什么？在传统2D视觉中如何选择合适的形态学操作去除噪声或分离目标？",
       "type": "算法原理",
-      "category": "图像处理",
+      "category": "图像处理基础",
       "source": "专业",
       "sourceType": "技术教程整理",
       "knowledgePoints": [
@@ -3844,7 +3844,7 @@
     {
       "title": "请简述HALCON中BLOB分析的基本流程，并说明如何通过特征筛选目标区域。",
       "type": "工程实践",
-      "category": "随机类型",
+      "category": "其他",
       "source": "专业",
       "sourceType": "技术教程整理",
       "knowledgePoints": [
@@ -3888,7 +3888,7 @@
     {
       "title": "HALCON中如何提取亚像素精度边缘？请说明其原理及关键参数。",
       "type": "算法原理",
-      "category": "随机类型",
+      "category": "其他",
       "source": "专业",
       "sourceType": "官方文档整理",
       "knowledgePoints": [
@@ -3932,7 +3932,7 @@
     {
       "title": "HALCON 中 open_framegrabber 采集图像时，同步 grab_image 与异步 grab_image_async 有什么区别？实际项目中如何选择？",
       "type": "工程实践",
-      "category": "图像采集",
+      "category": "其他",
       "source": "专业",
       "sourceType": "社区问答整理",
       "knowledgePoints": [
@@ -3975,7 +3975,7 @@
     {
       "title": "HALCON 中 threshold 得到区域后，为什么通常还要用 connection 和 select_shape？请说明三者各自的作用。",
       "type": "算法原理",
-      "category": "图像分割与Blob分析",
+      "category": "边缘与特征",
       "source": "专业",
       "sourceType": "技术教程整理",
       "knowledgePoints": [
@@ -4020,7 +4020,7 @@
     {
       "title": "HALCON中形态学开运算与闭运算在二值图像处理中的作用和区别是什么？请结合典型2D视觉预处理场景说明如何选择。",
       "type": "算法原理",
-      "category": "图像处理",
+      "category": "图像处理基础",
       "source": "专业",
       "sourceType": "技术教程整理",
       "knowledgePoints": [
@@ -4064,7 +4064,7 @@
     {
       "title": "HALCON中median_image中值滤波和gauss_filter高斯滤波分别适合处理什么类型的噪声？在传统2D视觉检测中如何选择？",
       "type": "工程实践",
-      "category": "图像预处理",
+      "category": "其他",
       "source": "专业",
       "sourceType": "技术教程整理",
       "knowledgePoints": [
@@ -4108,7 +4108,7 @@
     {
       "title": "请解释HALCON中形态学腐蚀（erosion）和膨胀（dilation）的基本原理，并说明它们在传统2D视觉检测中的典型应用场景。",
       "type": "算法原理",
-      "category": "图像处理",
+      "category": "图像处理基础",
       "source": "专业",
       "sourceType": "技术教程整理",
       "knowledgePoints": [
@@ -4152,7 +4152,7 @@
     {
       "title": "HALCON中形态学操作中的开运算（opening）和闭运算（closing）分别适用于什么场景？请结合工业检测实例说明。",
       "type": "算法原理/工程实践",
-      "category": "图像处理",
+      "category": "图像处理基础",
       "source": "专业",
       "sourceType": "技术教程整理",
       "knowledgePoints": [
@@ -4197,7 +4197,7 @@
     {
       "title": "请解释HALCON中基于形状的模板匹配（shape-based matching）的基本原理，并说明创建模板时哪些关键参数会影响匹配的鲁棒性和速度？",
       "type": "算法原理",
-      "category": "算法原理",
+      "category": "其他",
       "source": "专业",
       "sourceType": "技术教程整理",
       "knowledgePoints": [
@@ -4242,7 +4242,7 @@
     {
       "title": "请说明HALCON中一维测量（1D Measuring）的基本流程，以及measure_pos算子的关键参数及其对测量结果的影响。",
       "type": "算法原理",
-      "category": "图像测量",
+      "category": "其他",
       "source": "专业",
       "sourceType": "技术教程整理",
       "knowledgePoints": [
@@ -4287,7 +4287,7 @@
     {
       "title": "在工业视觉现场，如何根据被测物特性选择光源类型并设计打光方案？",
       "type": "工程实践",
-      "category": "光学成像",
+      "category": "其他",
       "source": "专业",
       "sourceType": "工程案例整理",
       "knowledgePoints": [
@@ -4333,7 +4333,7 @@
     {
       "title": "在HALCON中，当目标与背景灰度重叠时，如何改进阈值分割效果？请列举两种以上方法。",
       "type": "工程实践",
-      "category": "图像分割",
+      "category": "边缘与特征",
       "source": "专业",
       "sourceType": "AI知识整理",
       "knowledgePoints": [
@@ -4375,7 +4375,7 @@
     {
       "title": "在 HALCON 中，用 edges_sub_pix 提取亚像素边缘时，'canny' 和 'lumen' 两种过滤器在工业测量场景下应如何选择？",
       "type": "工程实践",
-      "category": "边缘提取",
+      "category": "边缘与特征",
       "source": "专业",
       "sourceType": "技术教程整理",
       "knowledgePoints": [
@@ -4418,7 +4418,7 @@
     {
       "title": "在HALCON中，基于形状的模板匹配为什么比基于灰度值的模板匹配更适合工业场景中的目标定位？请说明其核心原理，并讨论金字塔层数和贪婪度（Greediness）对匹配速度和鲁棒性的影响。",
       "type": "算法原理",
-      "category": "模板匹配",
+      "category": "模板与定位",
       "source": "专业",
       "sourceType": "官方文档整理",
       "knowledgePoints": [
@@ -4460,7 +4460,7 @@
     {
       "title": "在机器人视觉引导中，手眼标定（Hand-Eye Calibration）的“眼在手上”与“眼在手外”两种形式有何区别？在HALCON中如何实现？标定精度受哪些因素影响？",
       "type": "算法原理/工程实践",
-      "category": "相机标定",
+      "category": "标定与坐标",
       "source": "专业",
       "sourceType": "AI知识整理",
       "knowledgePoints": [
@@ -4505,7 +4505,7 @@
     {
       "title": "在HALCON中，使用Blob分析提取目标区域时，如何选择阈值分割方法和连通域特征？请结合一个实际工程场景说明完整流程。",
       "type": "工程实践",
-      "category": "Blob分析",
+      "category": "边缘与特征",
       "source": "专业",
       "sourceType": "AI知识整理",
       "knowledgePoints": [
@@ -4551,7 +4551,7 @@
     {
       "title": "在HALCON中，基于形状的模板匹配（Shape-Based Matching）的核心原理是什么？实际工程中如何设置create_shape_model和find_shape_model的参数来平衡匹配精度与速度？",
       "type": "算法原理",
-      "category": "算法原理",
+      "category": "其他",
       "source": "专业",
       "sourceType": "技术教程整理",
       "knowledgePoints": [
@@ -4596,7 +4596,7 @@
     {
       "title": "在HALCON中，使用edges_sub_pix提取亚像素边缘时，如何选择Sigma、Alpha和Low/High参数？请结合精密测量场景说明参数调整策略。",
       "type": "工程实践",
-      "category": "图像处理",
+      "category": "图像处理基础",
       "source": "专业",
       "sourceType": "官方文档整理",
       "knowledgePoints": [
@@ -4639,7 +4639,7 @@
     {
       "title": "HALCON相机标定中，如何选择合适的标定板并评估标定结果？",
       "type": "算法原理",
-      "category": "相机标定",
+      "category": "标定与坐标",
       "source": "专业",
       "sourceType": "官方文档整理",
       "knowledgePoints": [
@@ -4683,7 +4683,7 @@
     {
       "title": "HALCON中阈值分割方法（全局阈值、局部阈值、动态阈值）如何根据场景选择？",
       "type": "算法原理",
-      "category": "图像分割",
+      "category": "边缘与特征",
       "source": "专业",
       "sourceType": "技术教程整理",
       "knowledgePoints": [
@@ -4727,7 +4727,7 @@
     {
       "title": "HALCON基于形状的模板匹配与基于灰度值的模板匹配有何区别？如何提高匹配鲁棒性？",
       "type": "工程实践",
-      "category": "模板匹配",
+      "category": "模板与定位",
       "source": "专业",
       "sourceType": "官方文档整理",
       "knowledgePoints": [
@@ -4771,7 +4771,7 @@
     {
       "title": "HALCON中edges_sub_pix算子参数对亚像素边缘提取的影响",
       "type": "算法原理",
-      "category": "边缘检测",
+      "category": "边缘与特征",
       "source": "专业",
       "sourceType": "AI知识整理",
       "knowledgePoints": [
@@ -4814,7 +4814,7 @@
     {
       "title": "HALCON形状匹配中缩放范围与贪婪度参数如何影响匹配鲁棒性？",
       "type": "算法原理",
-      "category": "模板匹配",
+      "category": "模板与定位",
       "source": "专业",
       "sourceType": "AI知识整理",
       "knowledgePoints": [
@@ -4859,7 +4859,7 @@
     {
       "title": "HALCON标定板标定后测量精度仍不达标，应从哪些环节排查？",
       "type": "现场故障",
-      "category": "相机标定",
+      "category": "标定与坐标",
       "source": "专业",
       "sourceType": "AI知识整理",
       "knowledgePoints": [
@@ -4905,7 +4905,7 @@
     {
       "title": "HALCON中Blob分析的基本流程是什么？如何利用区域特征筛选目标？",
       "type": "算法原理",
-      "category": "算法原理",
+      "category": "其他",
       "source": "专业",
       "sourceType": "技术教程整理",
       "knowledgePoints": [
@@ -4951,7 +4951,7 @@
     {
       "title": "在HALCON中，使用形态学开运算和闭运算处理二值图像时，如何选择结构元素的大小和形状？请结合缺陷检测场景说明。",
       "type": "算法原理",
-      "category": "图像处理",
+      "category": "图像处理基础",
       "source": "专业",
       "sourceType": "技术教程整理",
       "knowledgePoints": [
@@ -4996,7 +4996,7 @@
     {
       "title": "HALCON中一维测量算子measure_pos的测量原理是什么？如何利用它实现高精度几何尺寸测量？",
       "type": "算法原理",
-      "category": "测量",
+      "category": "其他",
       "source": "专业",
       "sourceType": "官方文档整理",
       "knowledgePoints": [
@@ -5040,7 +5040,7 @@
     {
       "title": "HALCON中Canny边缘检测的滞后阈值如何影响检测结果？",
       "type": "工程实践",
-      "category": "边缘检测",
+      "category": "边缘与特征",
       "source": "专业",
       "sourceType": "AI知识整理",
       "knowledgePoints": [
@@ -5083,7 +5083,7 @@
     {
       "title": "HALCON中基于形状的模板匹配与基于灰度值的模板匹配如何选择？",
       "type": "工程实践",
-      "category": "模板匹配",
+      "category": "模板与定位",
       "source": "专业",
       "sourceType": "AI知识整理",
       "knowledgePoints": [
@@ -5126,7 +5126,7 @@
     {
       "title": "HALCON中Blob分析时，如何根据图像特征选择全局阈值、局部阈值或动态阈值，并通过后处理避免过分割与欠分割？",
       "type": "工程实践",
-      "category": "图像分割与Blob分析",
+      "category": "边缘与特征",
       "source": "专业",
       "sourceType": "AI知识整理",
       "knowledgePoints": [
@@ -5170,7 +5170,7 @@
     {
       "title": "HALCON为什么能在工业机器视觉中成为事实标准？请从算子架构和开发流程角度说明。",
       "type": "工程实践",
-      "category": "机器视觉平台架构",
+      "category": "C#与软件架构",
       "source": "专业",
       "sourceType": "技术教程整理",
       "knowledgePoints": [
@@ -5213,7 +5213,7 @@
     {
       "title": "在HALCON中做表面缺陷检测时，如何选择图像预处理滤波器和形态学结构元素？请结合具体场景说明。",
       "type": "算法原理",
-      "category": "图像处理",
+      "category": "图像处理基础",
       "source": "专业",
       "sourceType": "技术教程整理",
       "knowledgePoints": [
@@ -5256,7 +5256,7 @@
     {
       "title": "在HALCON项目中，当检测节拍无法满足产线要求时，你会从哪些方面进行性能优化？请给出具体措施。",
       "type": "现场故障",
-      "category": "性能优化",
+      "category": "其他",
       "source": "专业",
       "sourceType": "工程案例整理",
       "knowledgePoints": [
@@ -5299,7 +5299,7 @@
     {
       "title": "请描述Halcon中Blob分析的标准流程，并说明目标与背景灰度接近时的改进策略",
       "type": "工程实践",
-      "category": "目标检测",
+      "category": "其他",
       "source": "专业",
       "sourceType": "技术教程整理",
       "knowledgePoints": [
@@ -5345,7 +5345,7 @@
     {
       "title": "Halcon中基于形状的模板匹配参数如何影响匹配性能？如何应对遮挡场景？",
       "type": "算法原理",
-      "category": "模板匹配",
+      "category": "模板与定位",
       "source": "专业",
       "sourceType": "技术教程整理",
       "knowledgePoints": [
@@ -5392,7 +5392,7 @@
     {
       "title": "HALCON 的算子化架构与 HDevelop 快速原型验证机制",
       "type": "算法原理",
-      "category": "HALCON 开发基础",
+      "category": "其他",
       "source": "专业",
       "sourceType": "技术教程整理",
       "knowledgePoints": [
@@ -5436,7 +5436,7 @@
     {
       "title": "HALCON 缺陷检测中形态学处理与 OCR 识别的技术路径",
       "type": "工程实践",
-      "category": "图像处理与 OCR 应用",
+      "category": "模板与定位",
       "source": "专业",
       "sourceType": "技术教程整理",
       "knowledgePoints": [
@@ -5481,7 +5481,7 @@
     {
       "title": "在HALCON的HDevelop环境中，如何高效地进行视觉算法的原型验证和性能优化？请列举至少两种性能优化手段。",
       "type": "工程实践",
-      "category": "开发环境",
+      "category": "其他",
       "source": "专业",
       "sourceType": "技术教程整理",
       "knowledgePoints": [
@@ -5524,7 +5524,7 @@
     {
       "title": "在HALCON中实现高精度尺寸测量时，如何设计一维测量流程？请说明关键步骤和影响测量精度的主要因素。",
       "type": "工程实践",
-      "category": "尺寸测量",
+      "category": "其他",
       "source": "专业",
       "sourceType": "技术教程整理",
       "knowledgePoints": [
@@ -5570,7 +5570,7 @@
     {
       "title": "在HALCON中训练自定义OCR分类器时，如何构建训练样本并评估识别性能？",
       "type": "工程实践",
-      "category": "OCR识别",
+      "category": "模板与定位",
       "source": "专业",
       "sourceType": "技术教程整理",
       "knowledgePoints": [
@@ -5615,7 +5615,7 @@
     {
       "title": "HALCON中基于形状的模板匹配如何处理旋转、缩放和光照变化？",
       "type": "算法原理",
-      "category": "模板匹配",
+      "category": "模板与定位",
       "source": "专业",
       "sourceType": "AI知识整理",
       "knowledgePoints": [
@@ -5658,7 +5658,7 @@
     {
       "title": "HALCON二维测量中相机标定的作用、流程及标定误差影响",
       "type": "工程实践",
-      "category": "相机标定",
+      "category": "标定与坐标",
       "source": "专业",
       "sourceType": "AI知识整理",
       "knowledgePoints": [
@@ -5701,7 +5701,7 @@
     {
       "title": "HALCON中Blob分析因光照变化导致阈值分割不稳定，如何优化？",
       "type": "现场故障",
-      "category": "Blob分析",
+      "category": "边缘与特征",
       "source": "专业",
       "sourceType": "AI知识整理",
       "knowledgePoints": [
@@ -5744,7 +5744,7 @@
     {
       "title": "HALCON中Blob分析流程是什么？如何通过形态学操作解决目标粘连或孔洞问题？",
       "type": "工程实践",
-      "category": "Blob分析",
+      "category": "边缘与特征",
       "source": "专业",
       "sourceType": "社区问答整理",
       "knowledgePoints": [
@@ -5790,7 +5790,7 @@
     {
       "title": "HALCON 模板匹配中为什么使用金字塔搜索？请解释其原理，并说明 score 阈值和 greediness 参数的作用。",
       "type": "算法原理",
-      "category": "模板匹配",
+      "category": "模板与定位",
       "source": "专业",
       "sourceType": "AI知识整理",
       "knowledgePoints": [
@@ -5833,7 +5833,7 @@
     {
       "title": "HALCON中edges_sub_pix算子提取亚像素边缘时，滞后阈值与平滑系数如何影响边缘检测结果？",
       "type": "算法原理",
-      "category": "图像处理",
+      "category": "图像处理基础",
       "source": "专业",
       "sourceType": "官方文档整理",
       "knowledgePoints": [
@@ -5877,7 +5877,7 @@
     {
       "title": "使用HALCON卡尺工具（如measure_pos）进行尺寸测量时，测量矩形的宽度、长度和边缘阈值对测量稳定性的影响是什么？",
       "type": "工程实践",
-      "category": "测量技术",
+      "category": "其他",
       "source": "专业",
       "sourceType": "技术教程整理",
       "knowledgePoints": [
@@ -5921,7 +5921,7 @@
     {
       "title": "HALCON中edges_sub_pix亚像素边缘提取的原理是什么？如何通过参数控制边缘提取的精度与抗噪性？",
       "type": "算法原理",
-      "category": "图像处理",
+      "category": "图像处理基础",
       "source": "专业",
       "sourceType": "AI知识整理",
       "knowledgePoints": [
@@ -5963,7 +5963,7 @@
     {
       "title": "HALCON中如何使用频域滤波进行纹理表面缺陷检测？请说明流程及高通滤波器参数选择依据。",
       "type": "算法原理",
-      "category": "图像处理",
+      "category": "图像处理基础",
       "source": "专业",
       "sourceType": "AI知识整理",
       "knowledgePoints": [
@@ -6008,7 +6008,7 @@
     {
       "title": "HALCON中使用fit_circle_contour_xld拟合圆时，如何选择拟合算法？请比较代数拟合、几何拟合和鲁棒拟合的适用场景及参数影响。",
       "type": "算法原理",
-      "category": "轮廓分析",
+      "category": "边缘与特征",
       "source": "专业",
       "sourceType": "AI知识整理",
       "knowledgePoints": [
@@ -6098,7 +6098,7 @@
     {
       "title": "HALCON 中边缘提取算子 edges_sub_pix 与 threshold_sub_pix 有何区别？在实际应用中如何选择？",
       "type": "算法原理",
-      "category": "边缘检测",
+      "category": "边缘与特征",
       "source": "专业",
       "sourceType": "AI知识整理",
       "knowledgePoints": [
@@ -6142,7 +6142,7 @@
     {
       "title": "HALCON 中创建形状模板时，create_shape_model 的 NumLevels、AngleStart、AngleExtent 和 MinContrast 参数分别影响匹配的哪些方面？",
       "type": "工程实践",
-      "category": "模板匹配",
+      "category": "模板与定位",
       "source": "专业",
       "sourceType": "AI知识整理",
       "knowledgePoints": [
@@ -6186,7 +6186,7 @@
     {
       "title": "HALCON 中如何根据图像特点选择全局阈值、局部阈值或自动阈值分割方法？",
       "type": "算法原理",
-      "category": "图像分割",
+      "category": "边缘与特征",
       "source": "专业",
       "sourceType": "AI知识整理",
       "knowledgePoints": [
@@ -6229,7 +6229,7 @@
     {
       "title": "在 HALCON 中执行 Blob 分析时，为什么通常要先用 connection 将区域拆分为连通域？",
       "type": "工程实践",
-      "category": "Blob分析",
+      "category": "边缘与特征",
       "source": "专业",
       "sourceType": "AI知识整理",
       "knowledgePoints": [
@@ -6272,7 +6272,7 @@
     {
       "title": "HALCON 中 edges_sub_pix 与 threshold 提取边缘有何本质区别？为什么需要亚像素精度？",
       "type": "算法原理",
-      "category": "边缘提取",
+      "category": "边缘与特征",
       "source": "专业",
       "sourceType": "AI知识整理",
       "knowledgePoints": [
@@ -6315,7 +6315,7 @@
     {
       "title": "在 HALCON 中，threshold 和 dyn_threshold 都用于图像分割，请说明两者的核心区别，并举例说明在光照不均匀的二维图像中应如何选择？",
       "type": "算法原理",
-      "category": "图像分割",
+      "category": "边缘与特征",
       "source": "专业",
       "sourceType": "官方文档整理",
       "knowledgePoints": [
@@ -6360,7 +6360,7 @@
     {
       "title": "HALCON中如何为threshold算子选择合适的灰度阈值？",
       "type": "算法原理",
-      "category": "图像分割",
+      "category": "边缘与特征",
       "source": "专业",
       "sourceType": "AI知识整理",
       "knowledgePoints": [
@@ -6404,7 +6404,7 @@
     {
       "title": "在 HALCON 中，对二值化后的区域进行形态学处理时，开运算和闭运算分别适用于哪些场景？请结合具体算子说明。",
       "type": "算法原理/工程实践",
-      "category": "图像处理",
+      "category": "图像处理基础",
       "source": "专业",
       "sourceType": "官方文档整理",
       "knowledgePoints": [
@@ -6450,7 +6450,7 @@
     {
       "title": "在 HALCON 中，reduce_domain 和 crop_domain 有什么区别？在模板匹配预处理中应如何选择？",
       "type": "算法原理",
-      "category": "随机类型",
+      "category": "其他",
       "source": "专业",
       "sourceType": "官方文档整理",
       "knowledgePoints": [
@@ -6989,7 +6989,7 @@
     {
       "title": "HALCON基于形状的模板匹配（shape-based matching）的核心原理是什么？create_shape_model和find_shape_model分别完成什么任务？",
       "type": "算法原理",
-      "category": "模板匹配",
+      "category": "模板与定位",
       "source": "专业",
       "sourceType": "官方文档整理",
       "knowledgePoints": [
@@ -7034,7 +7034,7 @@
     {
       "title": "在HALCON中，edges_sub_pix算子如何实现亚像素边缘提取？它与像素级边缘提取有何区别？",
       "type": "算法原理",
-      "category": "边缘提取",
+      "category": "边缘与特征",
       "source": "专业",
       "sourceType": "官方文档整理",
       "knowledgePoints": [
@@ -7079,7 +7079,7 @@
     {
       "title": "HALCON中threshold与dyn_threshold的区别及适用场景是什么？",
       "type": "算法原理",
-      "category": "图像处理",
+      "category": "图像处理基础",
       "source": "专业",
       "sourceType": "官方文档整理",
       "knowledgePoints": [
@@ -7122,7 +7122,7 @@
     {
       "title": "HALCON中Blob分析的基本流程及区域特征筛选方法是什么？",
       "type": "工程实践",
-      "category": "机器视觉基础",
+      "category": "其他",
       "source": "专业",
       "sourceType": "技术教程整理",
       "knowledgePoints": [
@@ -7165,7 +7165,7 @@
     {
       "title": "在HALCON中，请描述基于传统2D视觉的Blob分析完整流程，并说明如何选择阈值以准确分割目标区域。",
       "type": "工程实践",
-      "category": "图像分割与区域分析",
+      "category": "边缘与特征",
       "source": "专业",
       "sourceType": "AI知识整理",
       "knowledgePoints": [
@@ -7209,7 +7209,7 @@
     {
       "title": "请解释HALCON中形状匹配（create_shape_model / find_shape_model）的基本原理，并说明金字塔层数和角度范围参数对匹配性能的影响。",
       "type": "算法原理",
-      "category": "模板匹配",
+      "category": "模板与定位",
       "source": "专业",
       "sourceType": "AI知识整理",
       "knowledgePoints": [
@@ -7253,7 +7253,7 @@
     {
       "title": "请解释HALCON中形态学开运算（opening）和闭运算（closing）在传统2D视觉区域分析中的作用，并说明结构元素参数的选择原则。",
       "type": "算法原理",
-      "category": "算法原理",
+      "category": "其他",
       "source": "专业",
       "sourceType": "AI知识整理",
       "knowledgePoints": [
@@ -7298,7 +7298,7 @@
     {
       "title": "HALCON中区域（Region）和XLD轮廓（Contour）在数据结构、精度和使用场景上有哪些主要区别？",
       "type": "算法原理",
-      "category": "算法原理",
+      "category": "其他",
       "source": "专业",
       "sourceType": "AI知识整理",
       "knowledgePoints": [
@@ -7342,7 +7342,7 @@
     {
       "title": "请说明HALCON中gauss_filter和median_image两种滤波算子的原理区别，以及在传统2D视觉预处理中的适用场景。",
       "type": "算法原理",
-      "category": "随机类型",
+      "category": "其他",
       "source": "专业",
       "sourceType": "官方文档整理",
       "knowledgePoints": [
@@ -7430,7 +7430,7 @@
     {
       "title": "在HALCON中，threshold（阈值分割）算子的核心参数有哪些？如何根据直方图确定最佳阈值？",
       "type": "算法原理",
-      "category": "图像分割",
+      "category": "边缘与特征",
       "source": "专业",
       "sourceType": "官方文档整理",
       "knowledgePoints": [
@@ -7474,7 +7474,7 @@
     {
       "title": "HALCON中Blob分析（斑点分析）的典型流程是什么？每一步的目的是什么？",
       "type": "工程实践",
-      "category": "Blob分析",
+      "category": "边缘与特征",
       "source": "专业",
       "sourceType": "技术教程整理",
       "knowledgePoints": [
@@ -7518,7 +7518,7 @@
     {
       "title": "在HALCON中，如何区分图像中的连通区域？请解释connection和connected_components算子的区别，并说明各自适用的场景。",
       "type": "算法原理",
-      "category": "图像分割",
+      "category": "边缘与特征",
       "source": "专业",
       "sourceType": "官方文档整理",
       "knowledgePoints": [
@@ -7563,7 +7563,7 @@
     {
       "title": "在HALCON中，如何通过调整灰度阈值分割参数来区分目标与背景？请结合threshold算子的使用说明，阐述其原理及参数选择策略。",
       "type": "算法原理",
-      "category": "图像分割",
+      "category": "边缘与特征",
       "source": "专业",
       "sourceType": "官方文档整理",
       "knowledgePoints": [
@@ -7608,7 +7608,7 @@
     {
       "title": "在HALCON中，使用形态学开运算处理二值图像时，其核心作用是什么？请结合算子opening_rectangle和opening_circle，说明结构元素选择对处理结果的影响。",
       "type": "算法原理",
-      "category": "形态学处理",
+      "category": "图像处理基础",
       "source": "专业",
       "sourceType": "官方文档整理",
       "knowledgePoints": [
@@ -7696,7 +7696,7 @@
     {
       "title": "在HALCON中，如何使用灰度形态学（Gray Morphology）处理光照不均匀的二维图像，以改善后续阈值分割的效果？请结合gray_opening和gray_closing算子说明其原理与适用场景。",
       "type": "算法原理",
-      "category": "图像预处理",
+      "category": "其他",
       "source": "专业",
       "sourceType": "AI知识整理",
       "knowledgePoints": [
@@ -7742,7 +7742,7 @@
     {
       "title": "在HALCON中，模板匹配（Template Matching）的几种方法（如基于灰度、基于形状、基于相关性）分别适用于哪些工业场景？请结合算子选择说明其原理差异。",
       "type": "算法原理",
-      "category": "图像处理与模板匹配",
+      "category": "模板与定位",
       "source": "专业",
       "sourceType": "技术教程整理",
       "knowledgePoints": [
@@ -7791,7 +7791,7 @@
     {
       "title": "在HALCON中，如何利用灰度共生矩阵（Gray Level Co-occurrence Matrix, GLCM）进行纹理分析？请解释其核心参数（如角度、距离、灰度级数）对纹理特征的影响。",
       "type": "算法原理",
-      "category": "图像处理",
+      "category": "图像处理基础",
       "source": "专业",
       "sourceType": "技术教程整理",
       "knowledgePoints": [
@@ -7844,7 +7844,7 @@
     {
       "title": "在HALCON中，当使用阈值分割提取目标区域后，发现区域边缘存在毛刺或细小孔洞，你会如何优化处理流程？请结合形态学操作和区域后处理说明。",
       "type": "工程实践",
-      "category": "图像处理",
+      "category": "图像处理基础",
       "source": "专业",
       "sourceType": "AI知识整理（待验证）",
       "knowledgePoints": [
@@ -7921,7 +7921,7 @@
     {
       "title": "在HALCON中，如何利用灰度直方图进行阈值分割？当图像灰度分布重叠严重时，你会如何调整策略？",
       "type": "算法原理",
-      "category": "图像分割",
+      "category": "边缘与特征",
       "source": "专业",
       "sourceType": "AI知识整理（待验证）",
       "knowledgePoints": [
@@ -8075,7 +8075,7 @@
     {
       "title": "HALCON程序在工业现场偶发卡死或崩溃，如何利用算子级错误处理与日志定位问题？",
       "type": "现场故障",
-      "category": "程序控制",
+      "category": "其他",
       "source": "专业",
       "sourceType": "AI知识整理（待验证）",
       "knowledgePoints": [
@@ -8153,7 +8153,7 @@
     {
       "title": "在HALCON中，对比基于灰度直方图的全局阈值分割与基于局部邻域的动态阈值分割，两者在光照不均场景下的适用性有何本质差异？请从算法原理和工程实践角度说明各自的适用条件与局限性。",
       "type": "方案取舍与对比",
-      "category": "图像分割",
+      "category": "边缘与特征",
       "source": "专业",
       "sourceType": "AI知识整理（待验证）",
       "knowledgePoints": [
@@ -8230,7 +8230,7 @@
     {
       "title": "在HALCON中，使用开运算和闭运算处理二值区域时，两者在去除噪声和填补孔洞方面的作用有何不同？请结合工业检测实例说明如何选择结构元素形状和尺寸。",
       "type": "工程实践",
-      "category": "图像处理",
+      "category": "图像处理基础",
       "source": "专业",
       "sourceType": "AI知识整理（待验证）",
       "knowledgePoints": [
@@ -8308,7 +8308,7 @@
     {
       "title": "在HALCON中，如何理解图像金字塔在形状匹配加速中的作用？请解释其原理及对匹配精度的影响。",
       "type": "算法原理",
-      "category": "模板匹配",
+      "category": "模板与定位",
       "source": "专业",
       "sourceType": "AI知识整理（待验证）",
       "knowledgePoints": [
@@ -8381,7 +8381,7 @@
     {
       "title": "在 HALCON 中，当使用 dyn_threshold 进行局部阈值分割时，邻域参数 Offset 和 LightDark 的选择对分割结果有何影响？请结合光照不均场景说明。",
       "type": "算法原理",
-      "category": "图像分割",
+      "category": "边缘与特征",
       "source": "专业",
       "sourceType": "AI知识整理（待验证）",
       "knowledgePoints": [
@@ -8544,7 +8544,7 @@
     {
       "title": "在HALCON中，如何利用金字塔分层策略优化基于形状的模板匹配速度，同时保证定位精度？请解释其工作原理及参数调整方法。",
       "type": "算法原理",
-      "category": "算法原理",
+      "category": "其他",
       "source": "专业",
       "sourceType": "AI知识整理（待验证）",
       "knowledgePoints": [
@@ -8621,7 +8621,7 @@
     {
       "title": "在HALCON中，如何通过调整find_shape_model的Greediness参数来平衡匹配速度与鲁棒性？请解释其原理并给出实际应用建议。",
       "type": "算法原理",
-      "category": "算法原理",
+      "category": "其他",
       "source": "专业",
       "sourceType": "AI知识整理（待验证）",
       "knowledgePoints": [
@@ -8698,7 +8698,7 @@
     {
       "title": "在HALCON中，当基于形状的模板匹配在运行时偶发匹配失败或定位偏移，如何系统化排查并定位根因？",
       "type": "现场故障",
-      "category": "现场故障与排查",
+      "category": "其他",
       "source": "专业",
       "sourceType": "AI知识整理（待验证）",
       "knowledgePoints": [
@@ -8773,7 +8773,7 @@
     {
       "title": "在HALCON中，使用阈值分割提取目标区域时，现场光照突变导致分割效果不稳定，如何利用图像预处理或动态阈值方法解决？",
       "type": "现场故障",
-      "category": "现场故障与排查",
+      "category": "其他",
       "source": "专业",
       "sourceType": "AI知识整理（待验证）",
       "knowledgePoints": [
@@ -8846,7 +8846,7 @@
     {
       "title": "在HALCON中，如何利用灰度直方图确定全局阈值分割的阈值？请说明在光照不均匀时，为什么全局阈值会失效，并简述一种基于局部图像预处理的改进思路。",
       "type": "算法原理",
-      "category": "图像分割",
+      "category": "边缘与特征",
       "source": "专业",
       "sourceType": "AI知识整理（待验证）",
       "knowledgePoints": [
@@ -8925,7 +8925,7 @@
     {
       "title": "在 HALCON 中，基于形状的模板匹配（shape-based matching）的核心原理是什么？请解释为什么它比基于灰度值的模板匹配对光照变化和遮挡更鲁棒，并说明在创建模板时，num_levels 和 angle_start/angle_extent 参数分别如何影响匹配的速度与精度？",
       "type": "算法原理",
-      "category": "算法原理",
+      "category": "其他",
       "source": "专业",
       "sourceType": "AI知识整理（待验证）",
       "knowledgePoints": [
@@ -9006,7 +9006,7 @@
     {
       "title": "在HALCON中，基于形状的模板匹配与基于相关性的模板匹配在原理和适用场景上有何本质区别？为什么在工业场景中前者通常更受青睐？",
       "type": "方案取舍与对比",
-      "category": "算法原理",
+      "category": "其他",
       "source": "专业",
       "sourceType": "AI知识整理（待验证）",
       "knowledgePoints": [
@@ -9089,7 +9089,7 @@
     {
       "title": "在HALCON中，如何验证基于形状的模板匹配在项目落地中的稳定性？请设计一个验证流程，并说明关键验证指标。",
       "type": "工程实践",
-      "category": "算法原理",
+      "category": "其他",
       "source": "专业",
       "sourceType": "AI知识整理（待验证）",
       "knowledgePoints": [
@@ -9167,7 +9167,7 @@
     {
       "title": "在HALCON中，基于形状的模板匹配（shape-based matching）如何通过金字塔层数（num_levels）和旋转范围（angle_start/angle_extent）影响搜索空间与匹配速度？请解释其工程权衡。",
       "type": "算法原理",
-      "category": "算法原理",
+      "category": "其他",
       "source": "专业",
       "sourceType": "AI知识整理（待验证）",
       "knowledgePoints": [
@@ -9245,7 +9245,7 @@
     {
       "title": "在HALCON中，当基于形状的模板匹配在运行时偶发匹配失败或定位偏移，如何系统化排查并定位根因？请结合参数与边界分析。",
       "type": "现场故障",
-      "category": "现场故障与排查",
+      "category": "其他",
       "source": "专业",
       "sourceType": "AI知识整理（待验证）",
       "knowledgePoints": [
@@ -9323,7 +9323,7 @@
     {
       "title": "在HALCON中，对同一幅包含噪点和细小孔洞的二维灰度图像，如何从方案取舍与对比的角度选择开运算或闭运算进行形态学预处理？请结合工业检测实例说明。",
       "type": "算法原理",
-      "category": "图像处理",
+      "category": "图像处理基础",
       "source": "专业",
       "sourceType": "AI知识整理（待验证）",
       "knowledgePoints": [
@@ -9403,7 +9403,7 @@
     {
       "title": "在HALCON中，针对光照不均匀的二维图像进行阈值分割时，全局阈值与局部自适应阈值（如dyn_threshold）如何取舍？请从方案对比角度说明选择依据。",
       "type": "工程实践",
-      "category": "图像分割",
+      "category": "边缘与特征",
       "source": "专业",
       "sourceType": "AI知识整理（待验证）",
       "knowledgePoints": [
@@ -9478,7 +9478,7 @@
     {
       "title": "在HALCON中，模板匹配偶发失败时，如何利用日志记录和异常处理机制辅助故障复现与定位？",
       "type": "现场故障",
-      "category": "现场故障与排查",
+      "category": "其他",
       "source": "专业",
       "sourceType": "AI知识整理（待验证）",
       "knowledgePoints": [
@@ -9557,7 +9557,7 @@
     {
       "title": "HALCON中图像金字塔在形状匹配中的层级原理是什么？如何影响匹配速度与精度？",
       "type": "算法原理",
-      "category": "原理与机制",
+      "category": "其他",
       "source": "专业",
       "sourceType": "AI知识整理（待验证）",
       "knowledgePoints": [
@@ -9633,7 +9633,7 @@
     {
       "title": "HALCON中区域（Region）与XLD在几何表达上有何本质区别？各自适用什么场景？",
       "type": "算法原理",
-      "category": "原理与机制",
+      "category": "其他",
       "source": "专业",
       "sourceType": "AI知识整理（待验证）",
       "knowledgePoints": [
@@ -9710,7 +9710,7 @@
     {
       "title": "HALCON中dyn_threshold与threshold在原理上有何不同？动态阈值如何适应光照不均？",
       "type": "算法原理",
-      "category": "原理与机制",
+      "category": "其他",
       "source": "专业",
       "sourceType": "AI知识整理（待验证）",
       "knowledgePoints": [
@@ -9785,7 +9785,7 @@
     {
       "title": "在HALCON中，如何通过调整create_shape_model算子的参数来优化模板匹配的鲁棒性与速度？请结合金字塔层级、角度步长和greediness参数说明。",
       "type": "工程实践",
-      "category": "工程实践与性能",
+      "category": "其他",
       "source": "专业",
       "sourceType": "AI知识整理（待验证）",
       "knowledgePoints": [
@@ -9863,7 +9863,7 @@
     {
       "title": "在HALCON中，如何利用set_system('tsp_threads', ...)和并行处理技术优化多模板匹配的实时性能？请说明并行化策略和注意事项。",
       "type": "工程实践",
-      "category": "工程实践与性能",
+      "category": "其他",
       "source": "专业",
       "sourceType": "AI知识整理（待验证）",
       "knowledgePoints": [
@@ -9940,7 +9940,7 @@
     {
       "title": "在HALCON中，当模板匹配偶发失败时，如何利用日志记录和异常处理机制辅助故障复现与定位？",
       "type": "现场故障与排查",
-      "category": "现场故障与排查",
+      "category": "其他",
       "source": "专业",
       "sourceType": "AI知识整理（待验证）",
       "knowledgePoints": [
@@ -10019,7 +10019,7 @@
     {
       "title": "在HALCON中，针对同一检测任务，如何权衡基于形状的模板匹配与基于描述符的匹配两种方案的适用性？请从原理、鲁棒性和速度等方面对比分析。",
       "type": "方案取舍与对比",
-      "category": "工程实践与性能",
+      "category": "其他",
       "source": "专业",
       "sourceType": "AI知识整理（待验证）",
       "knowledgePoints": [
@@ -10100,7 +10100,7 @@
     {
       "title": "在HALCON中，当模板匹配的搜索角度范围设置过大时，如何通过调整AngleStep参数来平衡匹配精度与搜索效率？请解释其背后的原理。",
       "type": "算法原理",
-      "category": "原理与机制",
+      "category": "其他",
       "source": "专业",
       "sourceType": "AI知识整理（待验证）",
       "knowledgePoints": [
@@ -10181,7 +10181,7 @@
     {
       "title": "在HALCON中实现零件尺寸测量时，应如何权衡使用卡尺工具（如measure_pos）与亚像素轮廓拟合（如edges_sub_pix配合fit_line_contour_xld）两种方案？请从精度、速度、鲁棒性和开发复杂度等方面对比分析。",
       "type": "方案取舍与对比",
-      "category": "方案取舍与对比",
+      "category": "其他",
       "source": "专业",
       "sourceType": "AI知识整理（待验证）",
       "knowledgePoints": [
@@ -10263,7 +10263,7 @@
     {
       "title": "在HALCON中，如何验证基于形状的模板匹配在项目落地时的鲁棒性，并确保其在实际生产环境中稳定运行？",
       "type": "工程实践",
-      "category": "验证与项目落地",
+      "category": "其他",
       "source": "专业",
       "sourceType": "AI知识整理（待验证）",
       "knowledgePoints": [
@@ -10344,7 +10344,7 @@
     {
       "title": "在HALCON中，如何通过调整find_shape_model的MinScore和Greediness参数来平衡匹配速度与可靠性？请结合工程实践说明参数调整策略。",
       "type": "工程实践",
-      "category": "工程实践与性能",
+      "category": "其他",
       "source": "专业",
       "sourceType": "AI知识整理（待验证）",
       "knowledgePoints": [
@@ -10418,7 +10418,7 @@
     {
       "title": "在HALCON中，使用create_shape_model创建模板时，如何选择NumLevels和AngleStep参数以优化匹配性能？请说明其原理。",
       "type": "工程实践",
-      "category": "工程实践与性能",
+      "category": "其他",
       "source": "专业",
       "sourceType": "AI知识整理（待验证）",
       "knowledgePoints": [
@@ -10492,7 +10492,7 @@
     {
       "title": "在 HALCON 中，基于形状的模板匹配（shape-based matching）与基于相关性的模板匹配（correlation-based matching）在原理和适用场景上有何本质区别？请从鲁棒性、精度和速度角度对比，并说明在工业现场如何根据实际需求选择。",
       "type": "算法原理",
-      "category": "模板匹配",
+      "category": "模板与定位",
       "source": "专业",
       "sourceType": "AI知识整理（待验证）",
       "knowledgePoints": [
@@ -10569,7 +10569,7 @@
     {
       "title": "在 HALCON 中，使用基于形状的模板匹配时，若现场存在目标局部遮挡和背景干扰，应如何调整 find_shape_model 的参数（如 MinScore、Greediness、NumLevels）以获得稳定结果？请从原理上解释参数作用。",
       "type": "工程实践",
-      "category": "模板匹配",
+      "category": "模板与定位",
       "source": "专业",
       "sourceType": "AI知识整理（待验证）",
       "knowledgePoints": [
@@ -10724,7 +10724,7 @@
     {
       "title": "在HALCON中，如何利用Blob分析实现缺陷检测？请结合连通域分析和形态学后处理说明关键步骤。",
       "type": "工程实践",
-      "category": "图像分割",
+      "category": "边缘与特征",
       "source": "专业",
       "sourceType": "AI知识整理（待验证）",
       "knowledgePoints": [
@@ -10806,7 +10806,7 @@
     {
       "title": "HALCON 中，如果模板匹配在现场出现频繁误匹配（false positive）或漏匹配（false negative），你会如何系统性地排查和定位原因？请给出你的排障思路和步骤。",
       "type": "现场故障",
-      "category": "工程实践与性能",
+      "category": "其他",
       "source": "专业",
       "sourceType": "AI知识整理（待验证）",
       "knowledgePoints": [
@@ -10887,7 +10887,7 @@
     {
       "title": "在 HALCON 中，如何系统性地验证一个基于形状匹配的定位方案在项目落地时的稳定性？请从模板创建、参数设置、测试验证和现场部署四个阶段说明关键步骤与注意事项。",
       "type": "工程实践",
-      "category": "工程实践与性能",
+      "category": "其他",
       "source": "专业",
       "sourceType": "AI知识整理（待验证）",
       "knowledgePoints": [
@@ -10967,7 +10967,7 @@
     {
       "title": "在HALCON中，图像金字塔在模板匹配中是如何提升搜索效率的？其层级参数（NumLevels）对匹配结果有何影响？",
       "type": "算法原理",
-      "category": "原理与机制",
+      "category": "其他",
       "source": "专业",
       "sourceType": "AI知识整理（待验证）",
       "knowledgePoints": [
@@ -11041,7 +11041,7 @@
     {
       "title": "在HALCON中，阈值分割（threshold）与动态阈值（dyn_threshold）在原理上有什么本质区别？各自适用什么场景？",
       "type": "算法原理",
-      "category": "原理与机制",
+      "category": "其他",
       "source": "专业",
       "sourceType": "AI知识整理（待验证）",
       "knowledgePoints": [
@@ -11115,7 +11115,7 @@
     {
       "title": "在HALCON中，区域（Region）和XLD（eXtended Line Description）在数据结构和应用场景上有哪些主要区别？为什么亚像素边缘提取通常使用XLD？",
       "type": "算法原理",
-      "category": "原理与机制",
+      "category": "其他",
       "source": "专业",
       "sourceType": "AI知识整理（待验证）",
       "knowledgePoints": [
@@ -11191,7 +11191,7 @@
     {
       "title": "HALCON中模板匹配偶发失败时，如何利用日志记录和异常处理机制辅助故障复现与定位？",
       "type": "现场故障与排查",
-      "category": "现场故障与排查",
+      "category": "其他",
       "source": "专业",
       "sourceType": "AI知识整理（待验证）",
       "knowledgePoints": [
@@ -11272,7 +11272,7 @@
     {
       "title": "在工业视觉中，背光照明与同轴光照明在原理和适用场景上有何本质区别？如何根据检测目标选择？",
       "type": "方案取舍与对比",
-      "category": "成像与光学",
+      "category": "其他",
       "source": "专业",
       "sourceType": "AI知识整理（待验证）",
       "knowledgePoints": [
@@ -11352,7 +11352,7 @@
     {
       "title": "在视觉测量项目中，如何权衡硬件成本与算法复杂度来选择检测方案？请对比传统2D视觉与3D视觉的取舍。",
       "type": "方案取舍与对比",
-      "category": "系统方案设计",
+      "category": "其他",
       "source": "专业",
       "sourceType": "AI知识整理（待验证）",
       "knowledgePoints": [
@@ -11433,7 +11433,7 @@
     {
       "title": "在机器视觉项目中，如何通过离线验证和灰度发布策略来降低算法更新带来的现场风险？",
       "type": "工程实践",
-      "category": "验证与项目落地",
+      "category": "其他",
       "source": "专业",
       "sourceType": "AI知识整理（待验证）",
       "knowledgePoints": [
@@ -11514,7 +11514,7 @@
     {
       "title": "视觉项目验收时，如何量化评估检测系统的稳定性并制定长期监控计划？",
       "type": "工程实践",
-      "category": "验证与项目落地",
+      "category": "其他",
       "source": "专业",
       "sourceType": "AI知识整理（待验证）",
       "knowledgePoints": [
@@ -11594,7 +11594,7 @@
     {
       "title": "HALCON中模板匹配的Greediness参数如何影响匹配结果？在什么场景下需要调整该参数？",
       "type": "算法原理",
-      "category": "参数与边界",
+      "category": "其他",
       "source": "专业",
       "sourceType": "AI知识整理（待验证）",
       "knowledgePoints": [
@@ -11673,7 +11673,7 @@
     {
       "title": "在HALCON中，如何系统性地定位和解决模板匹配偶发失败的问题？请描述从现象到根因的完整排查流程。",
       "type": "现场故障",
-      "category": "现场故障与排查",
+      "category": "其他",
       "source": "专业",
       "sourceType": "AI知识整理（待验证）",
       "knowledgePoints": [
@@ -11753,6 +11753,698 @@
       "difficultyFilter": "随机难度",
       "techStackFilter": "随机技术栈",
       "detectionDirectionFilter": "随机方向"
+    },
+    {
+      "title": "在HALCON中，为什么对同一幅图像使用不同的插值方式（如'nearest_neighbor'与'bilinear'）进行仿射变换后，边缘提取结果会出现差异？请从原理上解释。",
+      "type": "算法原理",
+      "category": "图像处理基础",
+      "source": "专业",
+      "sourceType": "AI知识整理（待验证）",
+      "knowledgePoints": [
+        "图像插值原理",
+        "仿射变换对灰度的影响",
+        "边缘提取对灰度变化的敏感性"
+      ],
+      "difficulty": "基础",
+      "tags": [
+        "HALCON",
+        "插值",
+        "仿射变换",
+        "边缘提取"
+      ],
+      "keywords": [
+        "最近邻插值",
+        "双线性插值",
+        "灰度梯度",
+        "边缘提取",
+        "锯齿",
+        "平滑"
+      ],
+      "followUp": "如果需要在仿射变换后保持边缘的锐利度，你会选择哪种插值方式？为什么？",
+      "hint": "从插值算法如何生成新像素灰度值出发，分析其对图像高频信息（边缘）的影响，再联系边缘提取算子依赖的灰度梯度。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "detectionDirection": "传统 2D 视觉",
+      "bestAnswer": "在HALCON中，仿射变换（如affine_trans_image）需要计算新像素位置的灰度值。最近邻插值直接取最近像素的灰度，不产生新灰度值，但会导致边缘锯齿和灰度不连续；双线性插值根据周围四个像素加权平均，产生平滑过渡，但会轻微模糊边缘。边缘提取算子（如edges_sub_pix）基于灰度梯度计算，插值方式改变了梯度幅值和方向，因此最近邻插值可能产生断裂或锯齿状边缘，而双线性插值可能使边缘位置略微偏移且连续性更好。选择插值方式需权衡边缘锐利度与平滑度。",
+      "principle": "图像插值是在离散网格上重建连续信号的过程。最近邻插值相当于零阶保持，频域上会产生高频混叠；双线性插值相当于线性卷积，具有低通滤波效果，会衰减高频分量。边缘对应图像的高频信息，因此插值方式直接影响边缘的梯度幅值和定位精度。在亚像素边缘提取中，插值引入的平滑或锯齿会改变梯度分布，从而影响边缘的亚像素位置和连续性。",
+      "blueprint": {
+        "version": 1,
+        "knowledgeKey": "图像处理基础|HALCON|图像插值原理与边缘提取",
+        "corePoints": [
+          "最近邻插值直接取最近像素灰度，不产生新灰度值，但会导致锯齿和灰度不连续",
+          "双线性插值根据周围四个像素加权计算新灰度，产生平滑过渡，但会轻微模糊边缘",
+          "边缘提取算子（如edges_sub_pix）基于灰度梯度，插值方式改变梯度幅值和方向，从而影响边缘位置和连续性",
+          "必须指出最近邻插值不产生新灰度值但导致锯齿",
+          "必须指出双线性插值会平滑图像导致边缘模糊",
+          "必须说明插值方式通过改变灰度梯度影响边缘提取结果",
+          "可补充其他插值方式（如双三次）的特点",
+          "可提及在亚像素边缘提取中插值选择的重要性"
+        ],
+        "criticalPoints": [
+          "必须指出最近邻插值不产生新灰度值但导致锯齿",
+          "必须指出双线性插值会平滑图像导致边缘模糊",
+          "必须说明插值方式通过改变灰度梯度影响边缘提取结果"
+        ],
+        "supportingPoints": [
+          "可补充其他插值方式（如双三次）的特点",
+          "可提及在亚像素边缘提取中插值选择的重要性"
+        ],
+        "ability": [
+          "原理理解",
+          "参数影响分析"
+        ],
+        "scenario": "图像预处理中的几何变换与后续边缘检测",
+        "commonMistakes": [
+          "认为插值方式只影响视觉效果，不影响后续处理",
+          "混淆最近邻与双线性插值的适用场景"
+        ]
+      },
+      "basis": "术语待人工确认：可疑 HALCON 算子：nearest_neighbor；联网来源待验证。",
+      "id": "aiq-a6cbe8a6",
+      "generatedAt": "2026-09-20T05:11:51.634Z",
+      "provider": "deepseek",
+      "model": "deepseek-flash",
+      "project": "机器视觉专业知识",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "基础",
+      "techStackFilter": "HALCON",
+      "detectionDirectionFilter": "传统 2D 视觉"
+    },
+    {
+      "title": "在HALCON中，使用edges_sub_pix提取边缘时，参数Alpha对边缘定位精度和抗噪性有何影响？请结合原理说明如何根据图像质量调整该参数。",
+      "type": "算法原理",
+      "category": "边缘与特征",
+      "source": "专业",
+      "sourceType": "AI知识整理（待验证）",
+      "knowledgePoints": [
+        "Canny边缘检测原理",
+        "高斯滤波参数Alpha的作用",
+        "边缘定位精度与抗噪性的权衡"
+      ],
+      "difficulty": "基础",
+      "tags": [
+        "HALCON",
+        "edges_sub_pix",
+        "Alpha",
+        "边缘提取",
+        "Canny"
+      ],
+      "keywords": [
+        "Alpha",
+        "高斯滤波",
+        "标准差",
+        "抗噪性",
+        "定位精度",
+        "参数调整"
+      ],
+      "followUp": "如果图像同时存在噪声和细微边缘，你会如何设置Alpha和双阈值？",
+      "hint": "将Alpha理解为高斯平滑的强度，分析平滑对噪声和边缘的不同影响，再结合Canny算法的非极大值抑制和双阈值处理。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "detectionDirection": "传统 2D 视觉",
+      "bestAnswer": "在HALCON的edges_sub_pix中，Alpha是高斯滤波的标准差，用于平滑图像以抑制噪声。Alpha越大，高斯核越宽，平滑效果越强，抗噪性提高，但边缘会被模糊，定位精度下降，细微边缘可能丢失；Alpha越小，平滑弱，边缘定位精度高，但对噪声敏感，易产生伪边缘。调整原则：图像噪声大时，适当增大Alpha（如2.0~3.0）以提高抗噪性；图像清晰、噪声小时，减小Alpha（如0.5~1.0）以保留细节和定位精度。通常需结合双阈值参数，通过实验平衡边缘连续性与定位精度。",
+      "principle": "Canny边缘检测首先用高斯滤波平滑图像，Alpha即高斯函数的标准差。高斯滤波是低通滤波，Alpha越大，截止频率越低，高频噪声被抑制，但边缘的高频分量也被衰减，导致边缘模糊和定位误差。边缘定位基于梯度幅值的非极大值抑制，平滑会改变梯度分布，从而影响亚像素定位。因此Alpha的选择本质是在抗噪性和定位精度之间权衡。",
+      "blueprint": {
+        "version": 1,
+        "knowledgeKey": "边缘与特征|HALCON|edges_sub_pix参数Alpha",
+        "corePoints": [
+          "Alpha是高斯滤波的标准差，控制平滑程度",
+          "Alpha越大，平滑越强，抗噪性提高，但边缘定位精度下降，细节丢失",
+          "Alpha越小，平滑弱，定位精度高，但对噪声敏感，可能产生伪边缘",
+          "必须指出Alpha对应高斯滤波标准差",
+          "必须说明Alpha增大提高抗噪性但降低定位精度",
+          "必须给出根据图像质量调整Alpha的原则",
+          "可补充Canny算法中双阈值的作用",
+          "可提及亚像素边缘提取对Alpha的敏感性"
+        ],
+        "criticalPoints": [
+          "必须指出Alpha对应高斯滤波标准差",
+          "必须说明Alpha增大提高抗噪性但降低定位精度",
+          "必须给出根据图像质量调整Alpha的原则"
+        ],
+        "supportingPoints": [
+          "可补充Canny算法中双阈值的作用",
+          "可提及亚像素边缘提取对Alpha的敏感性"
+        ],
+        "ability": [
+          "原理理解",
+          "参数调优"
+        ],
+        "scenario": "边缘提取中的参数选择与图像质量适配",
+        "commonMistakes": [
+          "认为Alpha越大越好",
+          "忽略Alpha对亚像素定位的影响"
+        ]
+      },
+      "basis": "本题基于模型知识生成，联网来源暂未获得可验证结果，待验证并补充来源。",
+      "id": "aiq-c0ba0e65",
+      "generatedAt": "2026-09-20T05:11:51.634Z",
+      "provider": "deepseek",
+      "model": "deepseek-flash",
+      "project": "机器视觉专业知识",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "基础",
+      "techStackFilter": "HALCON",
+      "detectionDirectionFilter": "传统 2D 视觉"
+    },
+    {
+      "title": "在HALCON中，使用create_shape_model进行形状模板匹配时，为什么选择边缘点作为特征比直接使用灰度模板更有利于应对光照变化？请从原理上解释。",
+      "type": "算法原理",
+      "category": "模板与定位",
+      "source": "专业",
+      "sourceType": "AI知识整理（待验证）",
+      "knowledgePoints": [
+        "形状模板匹配原理",
+        "边缘特征对光照变化的鲁棒性",
+        "灰度模板匹配的局限性"
+      ],
+      "difficulty": "基础",
+      "tags": [
+        "HALCON",
+        "形状模板匹配",
+        "光照变化",
+        "梯度方向"
+      ],
+      "keywords": [
+        "形状模板",
+        "边缘点",
+        "梯度方向",
+        "光照变化",
+        "灰度模板",
+        "鲁棒性"
+      ],
+      "followUp": "如果光照变化是非线性的（如局部过曝），形状模板匹配是否仍然有效？如何改进？",
+      "hint": "从特征提取方式出发，对比灰度值和梯度方向对光照变化的敏感度，再联系模板匹配的相似度度量。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "detectionDirection": "传统 2D 视觉",
+      "bestAnswer": "在HALCON中，create_shape_model通过提取模板图像的边缘点，并记录每个边缘点的梯度方向作为特征。匹配时，在搜索图像上计算边缘点的梯度方向，与模板进行相似度比较。由于线性光照变化主要改变灰度幅值，而梯度方向基本保持不变，因此形状模板匹配对光照变化具有鲁棒性。相比之下，灰度模板匹配直接比较像素灰度值，光照变化会直接改变灰度分布，导致匹配失败。形状模板匹配更适合存在光照波动的工业场景，但需注意非线性光照变化仍可能影响边缘提取。",
+      "principle": "形状模板匹配的核心是使用边缘的梯度方向作为局部特征。梯度方向由图像灰度的一阶导数计算，对于线性光照变化（如整体变亮或变暗），灰度值按比例缩放或平移，但梯度方向不变。因此，基于梯度方向的相似度度量对线性光照变化不敏感。而灰度模板匹配依赖绝对灰度值，光照变化会直接改变灰度值，导致相似度下降。此外，形状模板匹配通常结合金字塔分层搜索，提高速度和抗干扰能力。",
+      "blueprint": {
+        "version": 1,
+        "knowledgeKey": "模板与定位|HALCON|形状模板匹配与光照鲁棒性",
+        "corePoints": [
+          "形状模板匹配提取边缘点，使用梯度方向作为特征",
+          "梯度方向对线性光照变化不敏感，因为光照变化主要影响灰度幅值而非方向",
+          "灰度模板匹配直接比较灰度值，对光照变化敏感",
+          "必须指出形状模板使用边缘梯度方向",
+          "必须说明梯度方向对线性光照变化不敏感",
+          "必须对比灰度模板匹配的局限性",
+          "可补充形状模板匹配对部分遮挡和杂乱的鲁棒性",
+          "可提及金字塔分层搜索加速"
+        ],
+        "criticalPoints": [
+          "必须指出形状模板使用边缘梯度方向",
+          "必须说明梯度方向对线性光照变化不敏感",
+          "必须对比灰度模板匹配的局限性"
+        ],
+        "supportingPoints": [
+          "可补充形状模板匹配对部分遮挡和杂乱的鲁棒性",
+          "可提及金字塔分层搜索加速"
+        ],
+        "ability": [
+          "原理理解",
+          "方案取舍"
+        ],
+        "scenario": "模板匹配中的光照变化适应",
+        "commonMistakes": [
+          "认为形状模板完全不受光照影响",
+          "混淆形状模板与灰度模板的适用场景"
+        ]
+      },
+      "basis": "本题基于模型知识生成，联网来源暂未获得可验证结果，待验证并补充来源。",
+      "id": "aiq-e2287512",
+      "generatedAt": "2026-09-20T05:11:51.634Z",
+      "provider": "deepseek",
+      "model": "deepseek-flash",
+      "project": "机器视觉专业知识",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "基础",
+      "techStackFilter": "HALCON",
+      "detectionDirectionFilter": "传统 2D 视觉"
+    },
+    {
+      "title": "在 HALCON 中，使用 threshold 算子进行全局阈值分割时，如何根据图像灰度直方图确定合适的阈值？请说明直方图分析在参数选择中的作用及边界情况。",
+      "type": "算法原理",
+      "category": "图像处理基础",
+      "source": "专业",
+      "sourceType": "AI知识整理（待验证）",
+      "knowledgePoints": [
+        "灰度直方图的统计意义与绘制方法",
+        "全局阈值分割的适用条件与局限性",
+        "阈值选择对分割结果的影响"
+      ],
+      "difficulty": "基础",
+      "tags": [
+        "阈值分割",
+        "直方图",
+        "参数选择"
+      ],
+      "keywords": [
+        "灰度直方图",
+        "双峰",
+        "谷底",
+        "全局阈值",
+        "光照均匀"
+      ],
+      "followUp": "如果图像直方图呈现单峰，但目标与背景仍有灰度差异，你会采用什么策略进行分割？",
+      "hint": "从直方图的统计意义出发，说明如何通过观察双峰和谷底确定阈值，并指出全局阈值的适用边界。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "detectionDirection": "传统 2D 视觉",
+      "bestAnswer": "在 HALCON 中，使用 threshold 进行全局阈值分割前，应先通过 gray_histo 计算灰度直方图。若直方图呈现明显的双峰，说明目标与背景灰度分布分离，阈值可选在双峰之间的谷底位置，使两类像素尽可能分开。若直方图单峰或双峰重叠严重，全局阈值难以有效分割，此时应考虑局部自适应阈值（如 dyn_threshold）或背景校正。此外，光照不均匀会导致直方图展宽，谷底不明显，需先进行 shading correction 或使用局部阈值。因此，直方图分析是选择全局阈值的重要依据，但需结合图像质量判断其适用性。",
+      "principle": "灰度直方图统计了图像中每个灰度级出现的像素数量，反映了灰度分布。当目标与背景灰度差异明显且各自集中时，直方图呈现双峰，谷底对应两类像素的分界灰度。选择谷底作为阈值可使分割错误率最低。但全局阈值假设整幅图像光照均匀，若光照不均，同一灰度可能对应不同区域的目标或背景，导致分割失败。因此，直方图分析是全局阈值选择的基础，但需结合光照条件判断是否适用。",
+      "blueprint": {
+        "version": 1,
+        "knowledgeKey": "图像处理基础|HALCON|灰度直方图与全局阈值选择",
+        "corePoints": [
+          "灰度直方图反映图像中不同灰度级的像素数量分布",
+          "双峰直方图时，阈值通常选在双峰之间的谷底",
+          "单峰或无明显双峰时，全局阈值分割效果差，需考虑其他方法",
+          "直方图双峰谷底作为阈值选择依据",
+          "全局阈值对光照不均匀敏感，边界情况需说明",
+          "HALCON 中 gray_histo 算子可计算直方图",
+          "阈值分割后可通过 connection 和 select_shape 进一步筛选"
+        ],
+        "criticalPoints": [
+          "直方图双峰谷底作为阈值选择依据",
+          "全局阈值对光照不均匀敏感，边界情况需说明"
+        ],
+        "supportingPoints": [
+          "HALCON 中 gray_histo 算子可计算直方图",
+          "阈值分割后可通过 connection 和 select_shape 进一步筛选"
+        ],
+        "ability": [
+          "原理理解",
+          "参数分析"
+        ],
+        "scenario": "图像中目标与背景灰度差异明显且光照均匀的场合",
+        "commonMistakes": [
+          "忽略直方图直接使用固定阈值",
+          "认为全局阈值适用于所有图像"
+        ]
+      },
+      "basis": "术语待人工确认：可疑 HALCON 算子：gray_histo；可疑 HALCON 算子：dyn_threshold；联网来源待验证。",
+      "id": "aiq-a7bd7b14",
+      "generatedAt": "2026-09-20T05:11:51.634Z",
+      "provider": "deepseek",
+      "model": "deepseek-flash",
+      "project": "机器视觉专业知识",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "基础",
+      "techStackFilter": "HALCON",
+      "detectionDirectionFilter": "传统 2D 视觉"
+    },
+    {
+      "title": "在 HALCON 中，使用 create_shape_model 进行形状模板匹配时，如何根据目标尺寸和图像分辨率设置金字塔层数（NumLevels）和角度步长（AngleStep）？请说明参数对匹配速度和精度的影响。",
+      "type": "参数影响",
+      "category": "模板与定位",
+      "source": "专业",
+      "sourceType": "AI知识整理（待验证）",
+      "knowledgePoints": [
+        "金字塔层数对搜索速度和精度的影响",
+        "角度步长与匹配精度的关系",
+        "HALCON 形状匹配参数优化策略"
+      ],
+      "difficulty": "基础",
+      "tags": [
+        "形状匹配",
+        "金字塔",
+        "角度步长",
+        "参数优化"
+      ],
+      "keywords": [
+        "create_shape_model",
+        "NumLevels",
+        "AngleStep",
+        "金字塔",
+        "匹配速度",
+        "精度"
+      ],
+      "followUp": "如果目标存在部分遮挡，你会如何调整匹配参数或策略？",
+      "hint": "从金字塔的粗定位到精定位过程，说明层数和角度步长如何影响搜索范围和精度。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "detectionDirection": "传统 2D 视觉",
+      "bestAnswer": "在 HALCON 中，create_shape_model 的 NumLevels 指定金字塔层数，层数越多，高层图像越小，搜索越快，但可能丢失小目标或细节，导致匹配失败。通常根据目标在图像中的尺寸设置，目标较大时可增加层数。AngleStep 指定角度搜索步长，步长越小，角度精度越高，但搜索时间成倍增加。对于旋转精度要求高的场景，应减小 AngleStep；若目标角度变化范围小，可限制角度范围。实际中可使用 determine_shape_model_params 自动估计参数，再根据速度和精度需求微调。",
+      "principle": "形状匹配基于金字塔分层搜索：先在低分辨率高层图像上快速找到候选位置，再逐层细化到原始图像。NumLevels 决定金字塔层数，层数多则高层图像小，搜索速度快，但高层图像可能丢失小目标特征，导致无法匹配。AngleStep 决定角度搜索的离散化程度，步长小则角度精度高，但搜索的角度数量增加，速度下降。因此，参数设置需在速度和精度之间权衡，通常根据目标尺寸、图像分辨率和允许的定位误差确定。",
+      "blueprint": {
+        "version": 1,
+        "knowledgeKey": "模板与定位|HALCON|形状匹配金字塔与角度步长",
+        "corePoints": [
+          "NumLevels 控制金字塔层数，层数越多搜索越快但可能丢失细节",
+          "AngleStep 决定角度搜索的精细度，步长越小精度越高但速度越慢",
+          "参数设置需根据目标尺寸、图像分辨率和精度要求权衡",
+          "NumLevels 和 AngleStep 对速度与精度的相反影响",
+          "根据目标尺寸和分辨率设置参数的依据",
+          "HALCON 提供 determine_shape_model_params 自动估计参数",
+          "金字塔层数过高可能导致小目标丢失"
+        ],
+        "criticalPoints": [
+          "NumLevels 和 AngleStep 对速度与精度的相反影响",
+          "根据目标尺寸和分辨率设置参数的依据"
+        ],
+        "supportingPoints": [
+          "HALCON 提供 determine_shape_model_params 自动估计参数",
+          "金字塔层数过高可能导致小目标丢失"
+        ],
+        "ability": [
+          "参数分析",
+          "方案取舍"
+        ],
+        "scenario": "需要快速定位且精度要求较高的形状匹配任务",
+        "commonMistakes": [
+          "盲目使用默认参数",
+          "认为层数越多越好"
+        ]
+      },
+      "basis": "术语待人工确认：可疑 HALCON 算子：determine_shape_model_params；联网来源待验证。",
+      "id": "aiq-40183950",
+      "generatedAt": "2026-09-20T05:11:51.634Z",
+      "provider": "deepseek",
+      "model": "deepseek-flash",
+      "project": "机器视觉专业知识",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "基础",
+      "techStackFilter": "HALCON",
+      "detectionDirectionFilter": "传统 2D 视觉"
+    },
+    {
+      "title": "在HALCON二维视觉检测中，find_shape_model匹配分数突然大幅下降，如何从现场角度排查原因？",
+      "type": "现场故障",
+      "category": "模板与定位",
+      "source": "专业",
+      "sourceType": "AI知识整理（待验证）",
+      "knowledgePoints": [
+        "形状匹配分数下降的常见原因",
+        "现场排查步骤与参数调整",
+        "模板与图像质量的关系"
+      ],
+      "difficulty": "基础",
+      "tags": [
+        "形状匹配",
+        "故障排查",
+        "参数调优"
+      ],
+      "keywords": [
+        "光照",
+        "模板更新",
+        "MinScore",
+        "搜索ROI"
+      ],
+      "followUp": "如果调整参数后分数仍不稳定，下一步你会如何系统性地定位问题？",
+      "hint": "从成像、模板、参数、机械四个维度逐一排查，强调先保证图像质量再调参。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "detectionDirection": "传统 2D 视觉",
+      "bestAnswer": "首先检查成像环节：光源是否衰减、镜头是否脏污、工件表面是否变化，这些会直接降低图像对比度。其次确认模板是否包含易变特征，必要时用当前良品重新创建模板。然后调整匹配参数：适当降低MinScore、增大Greediness或调整NumLevels以平衡速度与鲁棒性。最后检查机械定位是否偏移，确保搜索ROI覆盖目标可能出现的位置。若仍不稳定，可先做图像预处理增强边缘。",
+      "principle": "形状匹配基于边缘梯度方向相似度，分数下降通常源于图像质量退化或模板与当前目标差异增大。光照变化会改变边缘对比度，镜头污染引入模糊，机械偏移使目标超出搜索范围。通过隔离变量，从成像到算法逐层排查，可定位根本原因。",
+      "blueprint": {
+        "version": 1,
+        "knowledgeKey": "模板与定位|HALCON|形状匹配分数下降排查",
+        "corePoints": [
+          "检查光照变化、镜头污染、工件表面反光等成像因素",
+          "确认模板是否覆盖了易变特征，必要时重新制作模板",
+          "调整MinScore、Greediness、NumLevels等匹配参数",
+          "验证机械定位是否偏移导致搜索区域不包含目标",
+          "必须从成像质量（光照、镜头、工件）角度分析",
+          "必须提到模板更新或参数调整",
+          "考虑对比度不足时先做图像增强",
+          "检查搜索ROI是否合适"
+        ],
+        "criticalPoints": [
+          "必须从成像质量（光照、镜头、工件）角度分析",
+          "必须提到模板更新或参数调整"
+        ],
+        "supportingPoints": [
+          "考虑对比度不足时先做图像增强",
+          "检查搜索ROI是否合适"
+        ],
+        "ability": [
+          "故障排查能力",
+          "参数调优能力"
+        ],
+        "scenario": "产线连续运行中匹配分数骤降，导致定位失败",
+        "commonMistakes": [
+          "只调低MinScore而不分析根本原因",
+          "忽略机械振动或工件摆放变化"
+        ]
+      },
+      "basis": "本题基于模型知识生成，联网来源暂未获得可验证结果，待验证并补充来源。",
+      "id": "aiq-d9d61c79",
+      "generatedAt": "2026-09-20T05:11:51.634Z",
+      "provider": "deepseek",
+      "model": "deepseek-flash",
+      "project": "机器视觉专业知识",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "基础",
+      "techStackFilter": "HALCON",
+      "detectionDirectionFilter": "传统 2D 视觉"
+    },
+    {
+      "title": "HALCON中二维计量应用使用亚像素边缘提取时，边缘位置波动较大，如何排查并改善？",
+      "type": "现场故障",
+      "category": "边缘与特征",
+      "source": "专业",
+      "sourceType": "AI知识整理（待验证）",
+      "knowledgePoints": [
+        "亚像素边缘提取原理",
+        "边缘位置波动的影响因素",
+        "参数调整与图像预处理"
+      ],
+      "difficulty": "基础",
+      "tags": [
+        "亚像素边缘",
+        "计量",
+        "重复性"
+      ],
+      "keywords": [
+        "Sigma",
+        "Threshold",
+        "卡尺",
+        "拟合"
+      ],
+      "followUp": "如果边缘波动依然存在，如何区分是算法问题还是机械振动引起的？",
+      "hint": "从图像质量、参数、算法选择、环境四个层面分析，强调亚像素精度依赖良好成像。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "detectionDirection": "传统 2D 视觉",
+      "bestAnswer": "首先检查图像质量：边缘是否清晰、对比度是否足够，必要时调整光源或增加背光。其次调整边缘提取参数，如Sigma控制平滑程度，Threshold影响边缘点选取，可尝试减小Sigma或调整阈值。若仍波动，改用卡尺工具（如measure_pos）或对边缘点进行直线/圆拟合，利用多點平均抑制噪声。同时排除机械振动和光源闪烁，确保相机固定牢固。",
+      "principle": "亚像素边缘提取通过插值或拟合获得边缘亚像素位置，其稳定性受图像信噪比和边缘梯度影响。Sigma参数决定高斯平滑尺度，过大导致边缘模糊，过小则噪声敏感。卡尺工具沿垂直于边缘方向采样并拟合，能有效平均随机噪声，提高重复性。环境振动会直接改变边缘位置，需从物理层面隔离。",
+      "blueprint": {
+        "version": 1,
+        "knowledgeKey": "边缘与特征|HALCON|亚像素边缘波动排查",
+        "corePoints": [
+          "检查图像对比度与边缘锐利度",
+          "调整边缘提取算子的Sigma和Threshold参数",
+          "考虑使用卡尺工具或拟合方法提高稳定性",
+          "排除机械振动和光源闪烁的影响",
+          "必须分析图像质量对亚像素精度的影响",
+          "必须提到参数调整或拟合方法",
+          "可尝试多次测量取平均",
+          "检查相机是否松动或失焦"
+        ],
+        "criticalPoints": [
+          "必须分析图像质量对亚像素精度的影响",
+          "必须提到参数调整或拟合方法"
+        ],
+        "supportingPoints": [
+          "可尝试多次测量取平均",
+          "检查相机是否松动或失焦"
+        ],
+        "ability": [
+          "原理理解",
+          "参数优化能力"
+        ],
+        "scenario": "高精度尺寸测量中边缘位置重复性差",
+        "commonMistakes": [
+          "盲目更换高分辨率相机而不优化现有设置",
+          "忽略环境振动和光源稳定性"
+        ]
+      },
+      "basis": "术语待人工确认：可疑 HALCON 算子：measure_pos；联网来源待验证。",
+      "id": "aiq-312ebf38",
+      "generatedAt": "2026-09-20T05:11:51.634Z",
+      "provider": "deepseek",
+      "model": "deepseek-flash",
+      "project": "机器视觉专业知识",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "基础",
+      "techStackFilter": "HALCON",
+      "detectionDirectionFilter": "传统 2D 视觉"
+    },
+    {
+      "title": "在 HALCON 传统 2D 视觉方案中，面对光照不均的金属表面字符检测，你会选择全局阈值分割还是局部自适应阈值分割？请从原理、参数调整和工程取舍角度说明理由。",
+      "type": "方案取舍与对比",
+      "category": "图像处理基础",
+      "source": "专业",
+      "sourceType": "AI知识整理（待验证）",
+      "knowledgePoints": [
+        "全局阈值与局部自适应阈值的原理差异",
+        "光照不均对灰度分布的影响",
+        "HALCON 中 dyn_threshold 与 threshold 的适用边界",
+        "参数选择与工程稳定性权衡"
+      ],
+      "difficulty": "基础",
+      "tags": [
+        "阈值分割",
+        "光照不均",
+        "方案取舍"
+      ],
+      "keywords": [
+        "全局阈值",
+        "局部自适应阈值",
+        "dyn_threshold",
+        "光照不均",
+        "参数调整"
+      ],
+      "followUp": "如果选择 dyn_threshold，MaskSize 和 Offset 应如何根据字符笔画宽度和对比度进行初步设定？",
+      "hint": "先对比两种阈值分割的数学原理，再结合光照不均的灰度分布特点，最后从工程稳定性、节拍和维护成本给出选择。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "detectionDirection": "传统 2D 视觉",
+      "bestAnswer": "优先考虑局部自适应阈值分割。全局阈值对整幅图像使用单一门限，光照不均时字符区域灰度波动大，容易断裂或背景误检。HALCON 中 dyn_threshold 通过比较像素与邻域均值，能适应缓慢光照变化，但需合理设置 MaskSize 和 Offset：MaskSize 应大于字符笔画宽度，Offset 用于抑制噪声。若节拍允许，可先做背景校正再全局阈值，兼顾速度与稳定性。最终选择需权衡检测精度、参数调试成本和现场光照稳定性。",
+      "principle": "全局阈值基于整幅图像灰度直方图确定单一门限，假设目标和背景灰度分布可分。局部自适应阈值对每个像素计算邻域统计量（如均值或高斯加权均值），再与当前像素比较，从而补偿光照渐变。HALCON 的 dyn_threshold 即基于此原理，MaskSize 决定邻域范围，Offset 控制对弱对比度的敏感度。光照不均时，全局阈值失效，局部阈值可提升分割鲁棒性，但邻域过小会放大噪声，过大则失去局部适应性。",
+      "blueprint": {
+        "version": 1,
+        "knowledgeKey": "图像处理基础|HALCON|全局阈值与局部自适应阈值方案取舍",
+        "corePoints": [
+          "全局阈值基于整幅图像单一灰度门限，对光照均匀、背景单一场景高效稳定",
+          "局部自适应阈值根据邻域灰度动态计算门限，能抑制光照不均但引入参数敏感性和噪声放大风险",
+          "HALCON 中 threshold 对应全局阈值，dyn_threshold 对应局部动态阈值",
+          "方案取舍需综合检测精度、节拍、鲁棒性和维护成本",
+          "必须指出全局阈值在光照不均时会导致目标区域断裂或背景误检",
+          "必须说明局部自适应阈值需要合理设置 MaskSize 和 Offset 等参数",
+          "必须给出基于工程约束的明确选择倾向，而非模棱两可",
+          "可补充预处理如均值滤波或背景校正对全局阈值的改善作用"
+        ],
+        "criticalPoints": [
+          "必须指出全局阈值在光照不均时会导致目标区域断裂或背景误检",
+          "必须说明局部自适应阈值需要合理设置 MaskSize 和 Offset 等参数",
+          "必须给出基于工程约束的明确选择倾向，而非模棱两可"
+        ],
+        "supportingPoints": [
+          "可补充预处理如均值滤波或背景校正对全局阈值的改善作用",
+          "可提及局部阈值对噪声敏感，需配合平滑或形态学后处理"
+        ],
+        "ability": [
+          "原理理解",
+          "方案对比",
+          "参数分析"
+        ],
+        "scenario": "金属表面字符检测，光照不均，要求稳定分割字符区域",
+        "commonMistakes": [
+          "认为局部自适应阈值一定优于全局阈值，忽略参数调试成本",
+          "只调阈值不分析光照分布，导致过分割或欠分割",
+          "忽略 dyn_threshold 中 Offset 对弱边缘的抑制作用"
+        ]
+      },
+      "basis": "术语待人工确认：可疑 HALCON 算子：dyn_threshold；联网来源待验证。",
+      "id": "aiq-2009f55c",
+      "generatedAt": "2026-09-20T05:11:51.634Z",
+      "provider": "deepseek",
+      "model": "deepseek-flash",
+      "project": "机器视觉专业知识",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "基础",
+      "techStackFilter": "HALCON",
+      "detectionDirectionFilter": "传统 2D 视觉"
+    },
+    {
+      "title": "在HALCON二维视觉检测中，如何通过图像预处理与参数调整提升亚像素边缘提取的稳定性？请结合工程实践说明。",
+      "type": "工程实践",
+      "category": "边缘与特征",
+      "source": "专业",
+      "sourceType": "AI知识整理（待验证）",
+      "knowledgePoints": [
+        "亚像素边缘提取原理",
+        "图像预处理对边缘稳定性的影响",
+        "edges_sub_pix参数调整策略",
+        "边缘位置波动的常见原因与排查"
+      ],
+      "difficulty": "基础",
+      "tags": [
+        "亚像素边缘",
+        "图像预处理",
+        "参数优化",
+        "稳定性"
+      ],
+      "keywords": [
+        "亚像素边缘",
+        "edges_sub_pix",
+        "Alpha参数",
+        "高斯滤波",
+        "光照均匀性",
+        "机械振动"
+      ],
+      "followUp": "如果边缘位置波动呈现周期性，你会如何进一步定位问题？",
+      "hint": "从预处理、参数调整、环境因素三个层面组织回答，强调工程排查步骤。",
+      "techStacks": [
+        "HALCON"
+      ],
+      "detectionDirection": "传统 2D 视觉",
+      "bestAnswer": "在HALCON中提升亚像素边缘提取稳定性，首先需保证图像质量：采用均匀漫射光源，避免反光或阴影；必要时用gauss_filter平滑噪声，但需控制核大小以免边缘模糊。其次，调整edges_sub_pix的Alpha参数，值越大平滑越强、抗噪越好但定位精度下降，需根据图像对比度与噪声水平折中。现场排查时，可固定工件多次采集，计算边缘位置标准差；若波动大，检查光源稳定性、镜头清洁度、机械振动及相机触发同步。此外，可尝试对比度拉伸或局部阈值预处理，增强边缘梯度。最终通过实验设计确定最优参数组合。",
+      "principle": "亚像素边缘提取通过分析边缘附近灰度梯度，利用插值或拟合获得亚像素级位置。其稳定性受图像信噪比、边缘锐度及算法参数影响。高斯滤波可抑制高频噪声，但会平滑边缘导致梯度幅值下降；Alpha参数控制边缘提取算子的平滑尺度，本质是在定位精度与抗噪性之间权衡。光照不均或机械振动会引入系统性或随机性误差，需从硬件与算法两方面协同优化。",
+      "blueprint": {
+        "version": 1,
+        "knowledgeKey": "边缘与特征|HALCON|亚像素边缘提取稳定性",
+        "corePoints": [
+          "亚像素边缘提取基于灰度梯度插值，对噪声和模糊敏感",
+          "预处理如高斯滤波可抑制噪声但可能降低边缘锐度",
+          "edges_sub_pix的Alpha参数控制平滑程度，需权衡定位精度与抗噪性",
+          "边缘位置波动可能源于光照不均、镜头畸变或机械振动",
+          "必须说明预处理与参数调整对边缘稳定性的影响机制",
+          "必须给出至少一种现场排查边缘波动的思路",
+          "可提及使用亚像素边缘提取前进行图像增强或对比度拉伸",
+          "可提及通过多次测量统计边缘位置标准差来评估稳定性"
+        ],
+        "criticalPoints": [
+          "必须说明预处理与参数调整对边缘稳定性的影响机制",
+          "必须给出至少一种现场排查边缘波动的思路"
+        ],
+        "supportingPoints": [
+          "可提及使用亚像素边缘提取前进行图像增强或对比度拉伸",
+          "可提及通过多次测量统计边缘位置标准差来评估稳定性"
+        ],
+        "ability": [
+          "原理理解",
+          "工程实践",
+          "参数优化"
+        ],
+        "scenario": "二维视觉检测中需要高精度定位边缘的场合，如尺寸测量、定位引导",
+        "commonMistakes": [
+          "盲目增大滤波核导致边缘模糊",
+          "忽略光照变化对边缘提取的影响",
+          "未区分系统误差与随机误差"
+        ]
+      },
+      "basis": "本题基于模型知识生成，联网来源暂未获得可验证结果，待验证并补充来源。",
+      "id": "aiq-d20872ac",
+      "generatedAt": "2026-09-20T05:11:51.634Z",
+      "provider": "deepseek",
+      "model": "deepseek-flash",
+      "project": "机器视觉专业知识",
+      "trainingMode": "专业知识",
+      "categoryFilter": "随机类型",
+      "difficultyFilter": "基础",
+      "techStackFilter": "HALCON",
+      "detectionDirectionFilter": "传统 2D 视觉"
     }
   ]
 }
