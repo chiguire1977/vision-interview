@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-20T05:10:28.773Z",
+  "updatedAt": "2026-09-20T05:10:32.133Z",
   "data": {
     "vision-interview-records": [
       {
@@ -3780,6 +3780,227 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1789881032991-fetbrv91",
+        "timestamp": "2026-09-20T05:10:32.991Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "7a1c03ec13ba"
+        }
+      },
+      {
+        "id": "1789881030942-yno9x93m",
+        "timestamp": "2026-09-20T05:10:30.942Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1789880904612-9fovbrzt",
+        "event": "question-bank.ai-request.started",
+        "message": "第 1/6 轮（并行 4/4）：正在请求 AI 生成题目（2 道）…",
+        "context": {
+          "attempt": 1,
+          "maxAttempts": 6,
+          "collectedCount": 11,
+          "workerIndex": 4,
+          "parallelRequests": 4,
+          "requestedCount": 2
+        }
+      },
+      {
+        "id": "1789881030937-lbknz3el",
+        "timestamp": "2026-09-20T05:10:30.937Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1789880904612-9fovbrzt",
+        "event": "question-bank.ai-request.started",
+        "message": "第 1/6 轮（并行 3/4）：正在请求 AI 生成题目（2 道）…",
+        "context": {
+          "attempt": 1,
+          "maxAttempts": 6,
+          "collectedCount": 11,
+          "workerIndex": 3,
+          "parallelRequests": 4,
+          "requestedCount": 2
+        }
+      },
+      {
+        "id": "1789881030932-8x6d77ix",
+        "timestamp": "2026-09-20T05:10:30.932Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1789880904612-9fovbrzt",
+        "event": "question-bank.ai-request.started",
+        "message": "第 1/6 轮（并行 2/4）：正在请求 AI 生成题目（3 道）…",
+        "context": {
+          "attempt": 1,
+          "maxAttempts": 6,
+          "collectedCount": 11,
+          "workerIndex": 2,
+          "parallelRequests": 4,
+          "requestedCount": 3
+        }
+      },
+      {
+        "id": "1789881030928-imks8bmc",
+        "timestamp": "2026-09-20T05:10:30.928Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1789880904612-9fovbrzt",
+        "event": "question-bank.ai-request.started",
+        "message": "第 1/6 轮（并行 1/4）：正在请求 AI 生成题目（3 道）…",
+        "context": {
+          "attempt": 1,
+          "maxAttempts": 6,
+          "collectedCount": 11,
+          "workerIndex": 1,
+          "parallelRequests": 4,
+          "requestedCount": 3
+        }
+      },
+      {
+        "id": "1789881030923-t1cdwhoa",
+        "timestamp": "2026-09-20T05:10:30.923Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1789880904612-9fovbrzt",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 1,
+          "query": "机器视觉 面试知识点 HALCON 传统 2D 视觉 仅限二维图像处理，排除 3D、三维、点云、深度图、法线估计、平面拟合、立体视觉、结构光和双目 原理 工程实践 (面试 OR 面试题 OR 面试问题 OR 题目 OR 知识点 OR 原理 OR 教程 OR 工程实践 OR 排障)",
+          "sourceCount": 0,
+          "cached": false,
+          "parallelRequests": 4,
+          "requestedCount": 10,
+          "durationMs": 1155,
+          "sharedAcrossWorkers": true
+        }
+      },
+      {
+        "id": "1789881029768-9mtwv9da",
+        "timestamp": "2026-09-20T05:10:29.768Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1789880904612-9fovbrzt",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 1,
+          "query": "机器视觉 面试知识点 HALCON 传统 2D 视觉 仅限二维图像处理，排除 3D、三维、点云、深度图、法线估计、平面拟合、立体视觉、结构光和双目 原理 工程实践 (面试 OR 面试题 OR 面试问题 OR 题目 OR 知识点 OR 原理 OR 教程 OR 工程实践 OR 排障)",
+          "mode": "专业知识",
+          "excludedCount": 11,
+          "parallelRequests": 4,
+          "requestedCount": 10
+        }
+      },
+      {
+        "id": "1789881029763-a1grlo4i",
+        "timestamp": "2026-09-20T05:10:29.763Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1789880904612-9fovbrzt",
+        "event": "question-bank.ai-request.failed",
+        "message": "单个并行 AI 请求失败",
+        "context": {
+          "attempt": 1,
+          "workerIndex": 4,
+          "parallelRequests": 4,
+          "errorType": "network",
+          "provider": "deepseek",
+          "model": "deepseek-flash",
+          "elapsedMs": 2006,
+          "requestedCount": 2,
+          "receivedCount": 0,
+          "upstreamMessage": "题组生成已终止",
+          "durationMs": 2006
+        }
+      },
+      {
+        "id": "1789881029759-t514mkir",
+        "timestamp": "2026-09-20T05:10:29.758Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1789880904612-9fovbrzt",
+        "event": "question-bank.ai-request.failed",
+        "message": "单个并行 AI 请求失败",
+        "context": {
+          "attempt": 1,
+          "workerIndex": 3,
+          "parallelRequests": 4,
+          "errorType": "network",
+          "provider": "deepseek",
+          "model": "deepseek-flash",
+          "elapsedMs": 2007,
+          "requestedCount": 2,
+          "receivedCount": 0,
+          "upstreamMessage": "题组生成已终止",
+          "durationMs": 2007
+        }
+      },
+      {
+        "id": "1789881029754-uhe61uw4",
+        "timestamp": "2026-09-20T05:10:29.754Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1789880904612-9fovbrzt",
+        "event": "question-bank.ai-request.failed",
+        "message": "单个并行 AI 请求失败",
+        "context": {
+          "attempt": 1,
+          "workerIndex": 2,
+          "parallelRequests": 4,
+          "errorType": "network",
+          "provider": "deepseek",
+          "model": "deepseek-flash",
+          "elapsedMs": 2006,
+          "requestedCount": 3,
+          "receivedCount": 0,
+          "upstreamMessage": "题组生成已终止",
+          "durationMs": 2006
+        }
+      },
+      {
+        "id": "1789881029749-f6ozlfk6",
+        "timestamp": "2026-09-20T05:10:29.749Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1789880904612-9fovbrzt",
+        "event": "question-bank.ai-request.failed",
+        "message": "单个并行 AI 请求失败",
+        "context": {
+          "attempt": 1,
+          "workerIndex": 1,
+          "parallelRequests": 4,
+          "errorType": "network",
+          "provider": "deepseek",
+          "model": "deepseek-flash",
+          "elapsedMs": 2005,
+          "requestedCount": 3,
+          "receivedCount": 0,
+          "upstreamMessage": "题组生成已终止",
+          "durationMs": 2005
+        }
+      },
+      {
+        "id": "1789881029738-yor77x5j",
+        "timestamp": "2026-09-20T05:10:29.738Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1789880904612-9fovbrzt",
+        "event": "question-group.prepare.started",
+        "message": "开始准备题组",
+        "context": {
+          "project": "机器视觉专业知识",
+          "mode": "专业知识",
+          "questionCount": 10,
+          "sourceMode": "network",
+          "adaptiveQuestions": false,
+          "focusCategories": []
+        }
+      },
       {
         "id": "1789881029667-szdjvx0o",
         "timestamp": "2026-09-20T05:10:29.667Z",
@@ -18096,158 +18317,6 @@
         "context": {
           "reason": "change",
           "commit": "68d4e44d6742"
-        }
-      },
-      {
-        "id": "1788749275306-tv282137",
-        "timestamp": "2026-09-07T02:47:55.306Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788748699983-pgd6193m",
-        "event": "group.review.completed",
-        "message": "题组统一评审完成",
-        "context": {
-          "reviewSource": "AI",
-          "questionCount": 10
-        }
-      },
-      {
-        "id": "1788749270035-apiegofz",
-        "timestamp": "2026-09-07T02:47:50.035Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "e8eb9b939c68"
-        }
-      },
-      {
-        "id": "1788749268658-oh1far1s",
-        "timestamp": "2026-09-07T02:47:48.658Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.close.flush",
-        "message": "页面关闭或进入后台，提交最后一次备份"
-      },
-      {
-        "id": "1788749266352-x2n649hi",
-        "timestamp": "2026-09-07T02:47:46.352Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "66068a07eaa5"
-        }
-      },
-      {
-        "id": "1788749262292-lb9dac3j",
-        "timestamp": "2026-09-07T02:47:42.292Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788748699983-pgd6193m",
-        "event": "group.review.started",
-        "message": "题组已完成，开始统一评审"
-      },
-      {
-        "id": "1788749262288-za4zlulx",
-        "timestamp": "2026-09-07T02:47:42.288Z",
-        "level": "WARN",
-        "kind": "user",
-        "sessionId": "1788748699983-pgd6193m",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "在HALCON中，为什么要使用reduce_domain来限定图像处理区域？它和change_domain有什么区别？请举例说明在实际视觉项目中的作用。",
-          "mode": "专业知识",
-          "project": "机器视觉专业知识"
-        }
-      },
-      {
-        "id": "1788749261769-61q214b1",
-        "timestamp": "2026-09-07T02:47:41.769Z",
-        "level": "WARN",
-        "kind": "user",
-        "sessionId": "1788748699983-pgd6193m",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "在HALCON中，如何通过灰度直方图确定阈值，并利用形态学后处理提升区域提取的稳定性？请结合工程案例说明。",
-          "mode": "专业知识",
-          "project": "机器视觉专业知识"
-        }
-      },
-      {
-        "id": "1788749261318-g8d93t5m",
-        "timestamp": "2026-09-07T02:47:41.318Z",
-        "level": "WARN",
-        "kind": "user",
-        "sessionId": "1788748699983-pgd6193m",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "在HALCON中，使用阈值分割提取目标区域时，现场光照突然变化导致分割失败，应如何排查和解决？",
-          "mode": "专业知识",
-          "project": "机器视觉专业知识"
-        }
-      },
-      {
-        "id": "1788749260893-dme15p3s",
-        "timestamp": "2026-09-07T02:47:40.893Z",
-        "level": "WARN",
-        "kind": "user",
-        "sessionId": "1788748699983-pgd6193m",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "在 HALCON 中处理大尺寸图像时，如何通过设置 set_system('tile_size', ...) 来优化图像处理性能？请解释其工作原理及实际应用中的注意事项。",
-          "mode": "专业知识",
-          "project": "机器视觉专业知识"
-        }
-      },
-      {
-        "id": "1788749260544-c2r1kqo0",
-        "timestamp": "2026-09-07T02:47:40.544Z",
-        "level": "WARN",
-        "kind": "user",
-        "sessionId": "1788748699983-pgd6193m",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "HALCON中，set_system('filename_encoding', 'utf8')和set_system('temporary_dir', ...)等系统参数在实际项目中有什么作用？如何合理配置？",
-          "mode": "专业知识",
-          "project": "机器视觉专业知识"
-        }
-      },
-      {
-        "id": "1788749260148-2qwlhojw",
-        "timestamp": "2026-09-07T02:47:40.148Z",
-        "level": "WARN",
-        "kind": "user",
-        "sessionId": "1788748699983-pgd6193m",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "在HALCON中，如何基于灰度直方图确定阈值？请说明全局阈值（threshold）在光照不均匀场景下的失效原因及改进思路。",
-          "mode": "专业知识",
-          "project": "机器视觉专业知识"
-        }
-      },
-      {
-        "id": "1788749259775-bu1m9y44",
-        "timestamp": "2026-09-07T02:47:39.775Z",
-        "level": "WARN",
-        "kind": "user",
-        "sessionId": "1788748699983-pgd6193m",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "在HALCON中，使用全局阈值分割（threshold）与局部自适应阈值分割（dyn_threshold）有何区别？在光照不均匀的2D视觉检测中如何选择？",
-          "mode": "专业知识",
-          "project": "机器视觉专业知识"
         }
       }
     ],
