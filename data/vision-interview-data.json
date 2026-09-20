@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-20T05:09:26.699Z",
+  "updatedAt": "2026-09-20T05:09:32.110Z",
   "data": {
     "vision-interview-records": [
       {
@@ -3780,6 +3780,50 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1789880971375-0ufsai3x",
+        "timestamp": "2026-09-20T05:09:31.375Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.close.flush",
+        "message": "页面关闭或进入后台，提交最后一次备份"
+      },
+      {
+        "id": "1789880969160-64h0zncc",
+        "timestamp": "2026-09-20T05:09:29.160Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1789880904612-9fovbrzt",
+        "event": "question-bank.ai-request.duration",
+        "message": "单个并行 AI 请求完成",
+        "context": {
+          "attempt": 1,
+          "workerIndex": 3,
+          "parallelRequests": 4,
+          "requestedCount": 2,
+          "receivedCount": 2,
+          "durationMs": 8725
+        }
+      },
+      {
+        "id": "1789880969157-sn6qjncl",
+        "timestamp": "2026-09-20T05:09:29.157Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1789880904612-9fovbrzt",
+        "event": "question.terminology.review",
+        "message": "AI 题目包含待人工确认的技术术语",
+        "context": {
+          "attempt": 1,
+          "workerIndex": 3,
+          "title": "在HALCON中，使用edges_sub_pix提取亚像素边缘后，如何通过轮廓筛选和拟合提升测量精度？请结合工程案例说明。",
+          "issues": [
+            "可疑 HALCON 算子：select_contours_xld",
+            "可疑 HALCON 算子：fit_line_contour_xld",
+            "可疑 HALCON 算子：fit_circle_contour_xld"
+          ]
+        }
+      },
       {
         "id": "1789880967466-27ffqohb",
         "timestamp": "2026-09-20T05:09:27.466Z",
@@ -18059,46 +18103,6 @@
         "message": "当前题目已跳过",
         "context": {
           "question": "在HALCON中，使用灰度形态学（gray_opening）进行背景估计时，结构元素尺寸如何影响光照不均匀校正的效果？现场如何快速确定合适的结构元素尺寸？",
-          "mode": "专业知识",
-          "project": "机器视觉专业知识"
-        }
-      },
-      {
-        "id": "1788748954007-zntb767y",
-        "timestamp": "2026-09-07T02:42:34.007Z",
-        "level": "WARN",
-        "kind": "user",
-        "sessionId": "1788748699983-pgd6193m",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "在HALCON中，针对一个光照不均匀的二维图像场景，需要将目标区域与背景分离。请对比threshold算子与dyn_threshold算子的适用条件，并说明如何设置dyn_threshold的参数（如Offset、LightDark）来保证分割效果。",
-          "mode": "专业知识",
-          "project": "机器视觉专业知识"
-        }
-      },
-      {
-        "id": "1788748953286-gu1vcbwq",
-        "timestamp": "2026-09-07T02:42:33.286Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "4570fda54a31"
-        }
-      },
-      {
-        "id": "1788748952173-9rwkruxj",
-        "timestamp": "2026-09-07T02:42:32.173Z",
-        "level": "WARN",
-        "kind": "user",
-        "sessionId": "1788748699983-pgd6193m",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "在HALCON中，针对同一检测任务，分别使用Blob分析（阈值分割+形态学+特征筛选）与基于形状的模板匹配（create_shape_model）进行目标定位，二者在原理、适用场景和工程取舍上有何本质区别？",
           "mode": "专业知识",
           "project": "机器视觉专业知识"
         }
