@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-20T05:09:21.183Z",
+  "updatedAt": "2026-09-20T05:09:26.699Z",
   "data": {
     "vision-interview-records": [
       {
@@ -3780,6 +3780,52 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1789880967466-27ffqohb",
+        "timestamp": "2026-09-20T05:09:27.466Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1789880904612-9fovbrzt",
+        "event": "question-bank.ai-request.duration",
+        "message": "单个并行 AI 请求完成",
+        "context": {
+          "attempt": 1,
+          "workerIndex": 4,
+          "parallelRequests": 4,
+          "requestedCount": 2,
+          "receivedCount": 2,
+          "durationMs": 7028
+        }
+      },
+      {
+        "id": "1789880967464-1nnfv1il",
+        "timestamp": "2026-09-20T05:09:27.464Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1789880904612-9fovbrzt",
+        "event": "question.terminology.review",
+        "message": "AI 题目包含待人工确认的技术术语",
+        "context": {
+          "attempt": 1,
+          "workerIndex": 4,
+          "title": "在HALCON二维视觉检测中，使用edges_sub_pix提取亚像素边缘后，后续轮廓分析出现断裂或毛刺。请分析可能的原因，并说明如何通过参数调整和预处理改善边缘质量。",
+          "issues": [
+            "可疑 HALCON 算子：union_adjacent_contours_xld"
+          ]
+        }
+      },
+      {
+        "id": "1789880965735-5qn490rl",
+        "timestamp": "2026-09-20T05:09:25.735Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "84ad62b2e343"
+        }
+      },
       {
         "id": "1789880962291-w8pr7fgh",
         "timestamp": "2026-09-20T05:09:22.291Z",
@@ -18053,48 +18099,6 @@
         "message": "当前题目已跳过",
         "context": {
           "question": "在HALCON中，针对同一检测任务，分别使用Blob分析（阈值分割+形态学+特征筛选）与基于形状的模板匹配（create_shape_model）进行目标定位，二者在原理、适用场景和工程取舍上有何本质区别？",
-          "mode": "专业知识",
-          "project": "机器视觉专业知识"
-        }
-      },
-      {
-        "id": "1788748950294-163qe2ni",
-        "timestamp": "2026-09-07T02:42:30.294Z",
-        "level": "WARN",
-        "kind": "user",
-        "sessionId": "1788748699983-pgd6193m",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "在HALCON中，使用threshold算子对光照不均匀的二维图像进行全局阈值分割时，目标区域出现断裂或误检。请分析原因并提出至少两种基于图像处理的解决思路。",
-          "mode": "专业知识",
-          "project": "机器视觉专业知识"
-        }
-      },
-      {
-        "id": "1788748948887-k8dxh0vx",
-        "timestamp": "2026-09-07T02:42:28.887Z",
-        "level": "WARN",
-        "kind": "user",
-        "sessionId": "1788748699983-pgd6193m",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "在HALCON中，使用基于形状的模板匹配（create_shape_model）进行二维定位时，如果目标物体出现轻微旋转，但现场要求匹配速度尽可能快，应如何设置AngleStart、AngleExtent和AngleStep参数？请解释这些参数对搜索空间和匹配耗时的影响。",
-          "mode": "专业知识",
-          "project": "机器视觉专业知识"
-        }
-      },
-      {
-        "id": "1788748948574-d5ogdhr5",
-        "timestamp": "2026-09-07T02:42:28.573Z",
-        "level": "WARN",
-        "kind": "user",
-        "sessionId": "1788748699983-pgd6193m",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "在HALCON中，如何利用灰度直方图进行自动阈值分割？请解释threshold算子的原理，并说明在二维图像中如何选择阈值。",
           "mode": "专业知识",
           "project": "机器视觉专业知识"
         }
