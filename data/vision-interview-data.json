@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-20T05:10:16.957Z",
+  "updatedAt": "2026-09-20T05:10:20.396Z",
   "data": {
     "vision-interview-records": [
       {
@@ -3780,6 +3780,183 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1789881021285-zsgcg1gr",
+        "timestamp": "2026-09-20T05:10:21.285Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "22072eb180c9"
+        }
+      },
+      {
+        "id": "1789881020328-oi80s01p",
+        "timestamp": "2026-09-20T05:10:20.328Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1789880904612-9fovbrzt",
+        "event": "question-bank.ai-request.started",
+        "message": "第 1/6 轮（并行 4/4）：正在请求 AI 生成题目（2 道）…",
+        "context": {
+          "attempt": 1,
+          "maxAttempts": 6,
+          "collectedCount": 11,
+          "workerIndex": 4,
+          "parallelRequests": 4,
+          "requestedCount": 2
+        }
+      },
+      {
+        "id": "1789881020323-d5melcgp",
+        "timestamp": "2026-09-20T05:10:20.323Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1789880904612-9fovbrzt",
+        "event": "question-bank.ai-request.started",
+        "message": "第 1/6 轮（并行 3/4）：正在请求 AI 生成题目（2 道）…",
+        "context": {
+          "attempt": 1,
+          "maxAttempts": 6,
+          "collectedCount": 11,
+          "workerIndex": 3,
+          "parallelRequests": 4,
+          "requestedCount": 2
+        }
+      },
+      {
+        "id": "1789881020318-827wd83f",
+        "timestamp": "2026-09-20T05:10:20.318Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1789880904612-9fovbrzt",
+        "event": "question-bank.ai-request.started",
+        "message": "第 1/6 轮（并行 2/4）：正在请求 AI 生成题目（3 道）…",
+        "context": {
+          "attempt": 1,
+          "maxAttempts": 6,
+          "collectedCount": 11,
+          "workerIndex": 2,
+          "parallelRequests": 4,
+          "requestedCount": 3
+        }
+      },
+      {
+        "id": "1789881020312-hpzn1m50",
+        "timestamp": "2026-09-20T05:10:20.312Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1789880904612-9fovbrzt",
+        "event": "question-bank.ai-request.started",
+        "message": "第 1/6 轮（并行 1/4）：正在请求 AI 生成题目（3 道）…",
+        "context": {
+          "attempt": 1,
+          "maxAttempts": 6,
+          "collectedCount": 11,
+          "workerIndex": 1,
+          "parallelRequests": 4,
+          "requestedCount": 3
+        }
+      },
+      {
+        "id": "1789881020306-pjq3i3pk",
+        "timestamp": "2026-09-20T05:10:20.306Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1789880904612-9fovbrzt",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 1,
+          "query": "机器视觉 面试知识点 HALCON 传统 2D 视觉 仅限二维图像处理，排除 3D、三维、点云、深度图、法线估计、平面拟合、立体视觉、结构光和双目 原理 工程实践 (面试 OR 面试题 OR 面试问题 OR 题目 OR 知识点 OR 原理 OR 教程 OR 工程实践 OR 排障)",
+          "sourceCount": 0,
+          "cached": false,
+          "parallelRequests": 4,
+          "requestedCount": 10,
+          "durationMs": 1242,
+          "sharedAcrossWorkers": true
+        }
+      },
+      {
+        "id": "1789881019064-c15bohx7",
+        "timestamp": "2026-09-20T05:10:19.064Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1789880904612-9fovbrzt",
+        "event": "question-bank.web-search.started",
+        "message": "开始联网检索本轮题目资料",
+        "context": {
+          "attempt": 1,
+          "query": "机器视觉 面试知识点 HALCON 传统 2D 视觉 仅限二维图像处理，排除 3D、三维、点云、深度图、法线估计、平面拟合、立体视觉、结构光和双目 原理 工程实践 (面试 OR 面试题 OR 面试问题 OR 题目 OR 知识点 OR 原理 OR 教程 OR 工程实践 OR 排障)",
+          "mode": "专业知识",
+          "excludedCount": 11,
+          "parallelRequests": 4,
+          "requestedCount": 10
+        }
+      },
+      {
+        "id": "1789881019060-i2tafpqs",
+        "timestamp": "2026-09-20T05:10:19.060Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1789880904612-9fovbrzt",
+        "event": "question-bank.ai-request.failed",
+        "message": "单个并行 AI 请求失败",
+        "context": {
+          "attempt": 3,
+          "workerIndex": 2,
+          "parallelRequests": 4,
+          "errorType": "network",
+          "provider": "deepseek",
+          "model": "deepseek-flash",
+          "elapsedMs": 2833,
+          "requestedCount": 1,
+          "receivedCount": 0,
+          "upstreamMessage": "题组生成已终止",
+          "durationMs": 2833
+        }
+      },
+      {
+        "id": "1789881019054-hdmqu6v3",
+        "timestamp": "2026-09-20T05:10:19.054Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1789880904612-9fovbrzt",
+        "event": "question-bank.ai-request.failed",
+        "message": "单个并行 AI 请求失败",
+        "context": {
+          "attempt": 3,
+          "workerIndex": 1,
+          "parallelRequests": 4,
+          "errorType": "network",
+          "provider": "deepseek",
+          "model": "deepseek-flash",
+          "elapsedMs": 2833,
+          "requestedCount": 1,
+          "receivedCount": 0,
+          "upstreamMessage": "题组生成已终止",
+          "durationMs": 2833
+        }
+      },
+      {
+        "id": "1789881019043-ctmz44kv",
+        "timestamp": "2026-09-20T05:10:19.043Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1789880904612-9fovbrzt",
+        "event": "question-group.prepare.started",
+        "message": "开始准备题组",
+        "context": {
+          "project": "机器视觉专业知识",
+          "mode": "专业知识",
+          "questionCount": 10,
+          "sourceMode": "network",
+          "adaptiveQuestions": false,
+          "focusCategories": []
+        }
+      },
       {
         "id": "1789881016222-7jvcdt64",
         "timestamp": "2026-09-20T05:10:16.222Z",
@@ -18019,170 +18196,6 @@
         "context": {
           "reason": "change",
           "commit": "d684f373e4e1"
-        }
-      },
-      {
-        "id": "1788749241118-cuqgtrl0",
-        "timestamp": "2026-09-07T02:47:21.118Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788748699983-pgd6193m",
-        "event": "question-bank.web-search.completed",
-        "message": "本轮联网检索完成",
-        "context": {
-          "attempt": 6,
-          "query": "机器视觉 面试知识点 HALCON 传统 2D 视觉 仅限二维图像处理，排除 3D、三维、点云、深度图、法线估计、平面拟合、立体视觉、结构光和双目 原理 工程实践",
-          "sourceCount": 8,
-          "cached": true,
-          "parallelRequests": 4,
-          "requestedCount": 10,
-          "durationMs": 4,
-          "sharedAcrossWorkers": true
-        }
-      },
-      {
-        "id": "1788749241114-7egohbx4",
-        "timestamp": "2026-09-07T02:47:21.114Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788748699983-pgd6193m",
-        "event": "question-bank.web-search.started",
-        "message": "开始联网检索本轮题目资料",
-        "context": {
-          "attempt": 6,
-          "query": "机器视觉 面试知识点 HALCON 传统 2D 视觉 仅限二维图像处理，排除 3D、三维、点云、深度图、法线估计、平面拟合、立体视觉、结构光和双目 原理 工程实践",
-          "mode": "专业知识",
-          "excludedCount": 20,
-          "parallelRequests": 4,
-          "requestedCount": 10
-        }
-      },
-      {
-        "id": "1788749241109-iflzi0rr",
-        "timestamp": "2026-09-07T02:47:21.109Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788748699983-pgd6193m",
-        "event": "question-bank.ai-request.duration",
-        "message": "单个并行 AI 请求完成",
-        "context": {
-          "attempt": 5,
-          "workerIndex": 1,
-          "parallelRequests": 4,
-          "requestedCount": 1,
-          "receivedCount": 1,
-          "durationMs": 6333
-        }
-      },
-      {
-        "id": "1788749238373-f3cpt6qt",
-        "timestamp": "2026-09-07T02:47:18.373Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788748699983-pgd6193m",
-        "event": "question-group.prepare.started",
-        "message": "开始准备题组",
-        "context": {
-          "project": "机器视觉专业知识",
-          "mode": "专业知识",
-          "questionCount": 10,
-          "sourceMode": "network",
-          "adaptiveQuestions": false,
-          "focusCategories": []
-        }
-      },
-      {
-        "id": "1788749237888-3gxe8mpl",
-        "timestamp": "2026-09-07T02:47:17.888Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "5ec84dca4a19"
-        }
-      },
-      {
-        "id": "1788749236636-0ummi2ym",
-        "timestamp": "2026-09-07T02:47:16.636Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788748699983-pgd6193m",
-        "event": "question-group.prepare.started",
-        "message": "开始准备题组",
-        "context": {
-          "project": "机器视觉专业知识",
-          "mode": "专业知识",
-          "questionCount": 10,
-          "sourceMode": "network",
-          "adaptiveQuestions": false,
-          "focusCategories": []
-        }
-      },
-      {
-        "id": "1788749234773-zzx4gfc1",
-        "timestamp": "2026-09-07T02:47:14.773Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788748699983-pgd6193m",
-        "event": "question-bank.web-search.completed",
-        "message": "本轮联网检索完成",
-        "context": {
-          "attempt": 5,
-          "query": "机器视觉 面试知识点 HALCON 传统 2D 视觉 仅限二维图像处理，排除 3D、三维、点云、深度图、法线估计、平面拟合、立体视觉、结构光和双目 原理 工程实践",
-          "sourceCount": 8,
-          "cached": true,
-          "parallelRequests": 4,
-          "requestedCount": 10,
-          "durationMs": 5,
-          "sharedAcrossWorkers": true
-        }
-      },
-      {
-        "id": "1788749234768-7baumocm",
-        "timestamp": "2026-09-07T02:47:14.768Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788748699983-pgd6193m",
-        "event": "question-bank.web-search.started",
-        "message": "开始联网检索本轮题目资料",
-        "context": {
-          "attempt": 5,
-          "query": "机器视觉 面试知识点 HALCON 传统 2D 视觉 仅限二维图像处理，排除 3D、三维、点云、深度图、法线估计、平面拟合、立体视觉、结构光和双目 原理 工程实践",
-          "mode": "专业知识",
-          "excludedCount": 20,
-          "parallelRequests": 4,
-          "requestedCount": 10
-        }
-      },
-      {
-        "id": "1788749234762-70wuago8",
-        "timestamp": "2026-09-07T02:47:14.762Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788748699983-pgd6193m",
-        "event": "question-bank.ai-request.duration",
-        "message": "单个并行 AI 请求完成",
-        "context": {
-          "attempt": 4,
-          "workerIndex": 1,
-          "parallelRequests": 4,
-          "requestedCount": 1,
-          "receivedCount": 1,
-          "durationMs": 8691
-        }
-      },
-      {
-        "id": "1788749234329-jd7nf47s",
-        "timestamp": "2026-09-07T02:47:14.329Z",
-        "level": "INFO",
-        "kind": "system",
-        "event": "backup.push.saved",
-        "message": "运行数据已备份到 GitHub",
-        "context": {
-          "reason": "change",
-          "commit": "6a602a995704"
         }
       }
     ],
