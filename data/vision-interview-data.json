@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-20T05:09:57.281Z",
+  "updatedAt": "2026-09-20T05:09:59.028Z",
   "data": {
     "vision-interview-records": [
       {
@@ -3780,6 +3780,89 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1789880998736-pk6ggvcw",
+        "timestamp": "2026-09-20T05:09:58.736Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1789880904612-9fovbrzt",
+        "event": "question-bank.ai-request.duration",
+        "message": "单个并行 AI 请求完成",
+        "context": {
+          "attempt": 1,
+          "workerIndex": 4,
+          "parallelRequests": 4,
+          "requestedCount": 2,
+          "receivedCount": 2,
+          "durationMs": 9330
+        }
+      },
+      {
+        "id": "1789880998730-gp2h2149",
+        "timestamp": "2026-09-20T05:09:58.730Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1789880904612-9fovbrzt",
+        "event": "question.terminology.review",
+        "message": "AI 题目包含待人工确认的技术术语",
+        "context": {
+          "attempt": 1,
+          "workerIndex": 4,
+          "title": "在HALCON中，对灰度图像进行阈值分割时，目标区域出现断裂或误检，请分析原因并给出至少两种基于图像处理的解决思路。",
+          "issues": [
+            "可疑 HALCON 算子：dyn_threshold",
+            "可疑 HALCON 算子：gray_opening",
+            "可疑 HALCON 算子：sub_image"
+          ]
+        }
+      },
+      {
+        "id": "1789880996576-gel8itpt",
+        "timestamp": "2026-09-20T05:09:56.576Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1789880904612-9fovbrzt",
+        "event": "question-bank.ai-request.duration",
+        "message": "单个并行 AI 请求完成",
+        "context": {
+          "attempt": 1,
+          "workerIndex": 3,
+          "parallelRequests": 4,
+          "requestedCount": 2,
+          "receivedCount": 2,
+          "durationMs": 7174
+        }
+      },
+      {
+        "id": "1789880996570-kaa9d4ex",
+        "timestamp": "2026-09-20T05:09:56.570Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1789880904612-9fovbrzt",
+        "event": "question.terminology.review",
+        "message": "AI 题目包含待人工确认的技术术语",
+        "context": {
+          "attempt": 1,
+          "workerIndex": 3,
+          "title": "在HALCON中，如何利用灰度投影法快速检测产品边缘位置？请说明其原理与工程实现要点。",
+          "issues": [
+            "可疑 HALCON 算子：gray_projections",
+            "可疑 HALCON 算子：derivate_gauss"
+          ]
+        }
+      },
+      {
+        "id": "1789880994124-mo9dmdtv",
+        "timestamp": "2026-09-20T05:09:54.124Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "bf6f0d09a4cd"
+        }
+      },
       {
         "id": "1789880990709-s25xqqhp",
         "timestamp": "2026-09-20T05:09:50.709Z",
@@ -18105,91 +18188,6 @@
           "targetCount": 10,
           "parallelRequests": 4,
           "requestedCount": 8
-        }
-      },
-      {
-        "id": "1788749217537-573kovt6",
-        "timestamp": "2026-09-07T02:46:57.537Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788748699983-pgd6193m",
-        "event": "question-bank.attempt.failed",
-        "message": "第 2/6 轮（并行 3/4）：本轮请求失败：AI 请求超时，请稍后重试。，准备下一轮…",
-        "context": {
-          "attempt": 2,
-          "maxAttempts": 6,
-          "collectedCount": 2,
-          "workerIndex": 3,
-          "parallelRequests": 4,
-          "error": "AI 请求超时，请稍后重试。"
-        }
-      },
-      {
-        "id": "1788749217535-enqanees",
-        "timestamp": "2026-09-07T02:46:57.535Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788748699983-pgd6193m",
-        "event": "question-bank.ai-request.failed",
-        "message": "单个并行 AI 请求失败",
-        "context": {
-          "attempt": 2,
-          "workerIndex": 3,
-          "parallelRequests": 4,
-          "requestedCount": 2,
-          "durationMs": 17037,
-          "error": "AI 请求超时，请稍后重试。"
-        }
-      },
-      {
-        "id": "1788749217335-swrntpve",
-        "timestamp": "2026-09-07T02:46:57.335Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788748699983-pgd6193m",
-        "event": "question-bank.ai-request.duration",
-        "message": "单个并行 AI 请求完成",
-        "context": {
-          "attempt": 2,
-          "workerIndex": 2,
-          "parallelRequests": 4,
-          "requestedCount": 2,
-          "receivedCount": 2,
-          "durationMs": 16841
-        }
-      },
-      {
-        "id": "1788749216175-0n68qxyj",
-        "timestamp": "2026-09-07T02:46:56.175Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788748699983-pgd6193m",
-        "event": "question-bank.ai-request.duration",
-        "message": "单个并行 AI 请求完成",
-        "context": {
-          "attempt": 2,
-          "workerIndex": 4,
-          "parallelRequests": 4,
-          "requestedCount": 2,
-          "receivedCount": 1,
-          "durationMs": 15675
-        }
-      },
-      {
-        "id": "1788749216172-t7mloc7q",
-        "timestamp": "2026-09-07T02:46:56.172Z",
-        "level": "WARN",
-        "kind": "system",
-        "sessionId": "1788748699983-pgd6193m",
-        "event": "question-bank.direction-filtered",
-        "message": "AI 返回题目未通过传统 2D 视觉语义校验",
-        "context": {
-          "attempt": 2,
-          "workerIndex": 4,
-          "requestedCount": 2,
-          "receivedCount": 2,
-          "acceptedCount": 1,
-          "detectionDirection": "传统 2D 视觉"
         }
       }
     ],
