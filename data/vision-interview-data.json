@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-20T05:10:51.645Z",
+  "updatedAt": "2026-09-20T05:11:01.796Z",
   "data": {
     "vision-interview-records": [
       {
@@ -3780,6 +3780,86 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1789881061812-ca7n0ruk",
+        "timestamp": "2026-09-20T05:11:01.812Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1789880904612-9fovbrzt",
+        "event": "question-bank.ai-request.duration",
+        "message": "单个并行 AI 请求完成",
+        "context": {
+          "attempt": 1,
+          "workerIndex": 3,
+          "parallelRequests": 4,
+          "requestedCount": 2,
+          "receivedCount": 2,
+          "durationMs": 9400
+        }
+      },
+      {
+        "id": "1789881061808-8r6p4cnp",
+        "timestamp": "2026-09-20T05:11:01.808Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1789880904612-9fovbrzt",
+        "event": "question.terminology.review",
+        "message": "AI 题目包含待人工确认的技术术语",
+        "context": {
+          "attempt": 1,
+          "workerIndex": 3,
+          "title": "在HALCON中，使用edges_sub_pix提取亚像素边缘时，如何根据图像对比度和噪声水平选择滞后阈值（Low/High）？请结合工程实践说明参数调整对边缘完整性和误检的影响。",
+          "issues": [
+            "可疑 HALCON 算子：select_contours_xld"
+          ]
+        }
+      },
+      {
+        "id": "1789881059743-gqrek6l7",
+        "timestamp": "2026-09-20T05:10:59.743Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1789880904612-9fovbrzt",
+        "event": "question-bank.ai-request.duration",
+        "message": "单个并行 AI 请求完成",
+        "context": {
+          "attempt": 1,
+          "workerIndex": 4,
+          "parallelRequests": 4,
+          "requestedCount": 2,
+          "receivedCount": 2,
+          "durationMs": 7327
+        }
+      },
+      {
+        "id": "1789881059740-djm8jo02",
+        "timestamp": "2026-09-20T05:10:59.740Z",
+        "level": "WARN",
+        "kind": "system",
+        "sessionId": "1789880904612-9fovbrzt",
+        "event": "question.terminology.review",
+        "message": "AI 题目包含待人工确认的技术术语",
+        "context": {
+          "attempt": 1,
+          "workerIndex": 4,
+          "title": "HALCON中二维计量应用使用亚像素边缘提取时，边缘位置波动较大，如何排查并改善？",
+          "issues": [
+            "可疑 HALCON 算子：measure_pos"
+          ]
+        }
+      },
+      {
+        "id": "1789881055911-lc3nipdy",
+        "timestamp": "2026-09-20T05:10:55.911Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "7273c069d403"
+        }
+      },
       {
         "id": "1789881052413-gsm4byg4",
         "timestamp": "2026-09-20T05:10:52.413Z",
@@ -18424,93 +18504,6 @@
         "context": {
           "reason": "change",
           "commit": "8eb0dfed3d6e"
-        }
-      },
-      {
-        "id": "1788750013437-rx5cj313",
-        "timestamp": "2026-09-07T03:00:13.437Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788749906722-jt1tgeok",
-        "event": "question-bank.web-search.completed",
-        "message": "本轮联网检索完成",
-        "context": {
-          "attempt": 4,
-          "query": "机器视觉 面试知识点 HALCON 传统 2D 视觉 仅限二维图像处理，排除 3D、三维、点云、深度图、法线估计、平面拟合、立体视觉、结构光和双目 原理 工程实践",
-          "sourceCount": 8,
-          "cached": true,
-          "parallelRequests": 4,
-          "requestedCount": 10,
-          "durationMs": 3,
-          "sharedAcrossWorkers": true
-        }
-      },
-      {
-        "id": "1788750013434-cqetl4ih",
-        "timestamp": "2026-09-07T03:00:13.434Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788749906722-jt1tgeok",
-        "event": "question-bank.web-search.started",
-        "message": "开始联网检索本轮题目资料",
-        "context": {
-          "attempt": 4,
-          "query": "机器视觉 面试知识点 HALCON 传统 2D 视觉 仅限二维图像处理，排除 3D、三维、点云、深度图、法线估计、平面拟合、立体视觉、结构光和双目 原理 工程实践",
-          "mode": "专业知识",
-          "excludedCount": 21,
-          "parallelRequests": 4,
-          "requestedCount": 10
-        }
-      },
-      {
-        "id": "1788750013431-yqhxrivx",
-        "timestamp": "2026-09-07T03:00:13.431Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788749906722-jt1tgeok",
-        "event": "question-bank.ai-request.duration",
-        "message": "单个并行 AI 请求完成",
-        "context": {
-          "attempt": 3,
-          "workerIndex": 4,
-          "parallelRequests": 4,
-          "requestedCount": 1,
-          "receivedCount": 1,
-          "durationMs": 12624
-        }
-      },
-      {
-        "id": "1788750011742-myszdbiq",
-        "timestamp": "2026-09-07T03:00:11.742Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788749906722-jt1tgeok",
-        "event": "question-bank.ai-request.duration",
-        "message": "单个并行 AI 请求完成",
-        "context": {
-          "attempt": 3,
-          "workerIndex": 2,
-          "parallelRequests": 4,
-          "requestedCount": 1,
-          "receivedCount": 1,
-          "durationMs": 10936
-        }
-      },
-      {
-        "id": "1788750010442-qe9zhhwd",
-        "timestamp": "2026-09-07T03:00:10.442Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788749906722-jt1tgeok",
-        "event": "question-bank.ai-request.duration",
-        "message": "单个并行 AI 请求完成",
-        "context": {
-          "attempt": 3,
-          "workerIndex": 3,
-          "parallelRequests": 4,
-          "requestedCount": 1,
-          "receivedCount": 1,
-          "durationMs": 9636
         }
       }
     ],
