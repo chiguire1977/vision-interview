@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-20T05:11:35.326Z",
+  "updatedAt": "2026-09-20T05:11:38.506Z",
   "data": {
     "vision-interview-records": [
       {
@@ -3780,6 +3780,54 @@
     },
     "vision-interview-project-view": "list",
     "vision-interview-runtime-logs": [
+      {
+        "id": "1789881099408-r0bvceki",
+        "timestamp": "2026-09-20T05:11:39.408Z",
+        "level": "INFO",
+        "kind": "system",
+        "event": "backup.push.saved",
+        "message": "运行数据已备份到 GitHub",
+        "context": {
+          "reason": "change",
+          "commit": "89fbb0bf5410"
+        }
+      },
+      {
+        "id": "1789881098960-tz3cd0j3",
+        "timestamp": "2026-09-20T05:11:38.960Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1789880904612-9fovbrzt",
+        "event": "question-bank.ai-request.started",
+        "message": "第 5/6 轮（并行 1/4）：正在请求 AI 生成题目（1 道）…",
+        "context": {
+          "attempt": 5,
+          "maxAttempts": 6,
+          "collectedCount": 20,
+          "workerIndex": 1,
+          "parallelRequests": 4,
+          "requestedCount": 1
+        }
+      },
+      {
+        "id": "1789881098956-3o7kigad",
+        "timestamp": "2026-09-20T05:11:38.956Z",
+        "level": "INFO",
+        "kind": "system",
+        "sessionId": "1789880904612-9fovbrzt",
+        "event": "question-bank.web-search.completed",
+        "message": "本轮联网检索完成",
+        "context": {
+          "attempt": 5,
+          "query": "机器视觉 面试知识点 HALCON 传统 2D 视觉 仅限二维图像处理，排除 3D、三维、点云、深度图、法线估计、平面拟合、立体视觉、结构光和双目 原理 工程实践 (面试 OR 面试题 OR 面试问题 OR 题目 OR 知识点 OR 原理 OR 教程 OR 工程实践 OR 排障)",
+          "sourceCount": 0,
+          "cached": false,
+          "parallelRequests": 4,
+          "requestedCount": 10,
+          "durationMs": 5178,
+          "sharedAcrossWorkers": true
+        }
+      },
       {
         "id": "1789881093778-y8l2eya2",
         "timestamp": "2026-09-20T05:11:33.778Z",
@@ -18538,43 +18586,6 @@
         "message": "运行数据备份请求失败",
         "context": {
           "error": "Failed to fetch"
-        }
-      },
-      {
-        "id": "1788750169096-619rimgv",
-        "timestamp": "2026-09-07T03:02:49.096Z",
-        "level": "INFO",
-        "kind": "system",
-        "sessionId": "1788749906722-jt1tgeok",
-        "event": "group.review.started",
-        "message": "题组已完成，开始统一评审"
-      },
-      {
-        "id": "1788750169092-95pk64iv",
-        "timestamp": "2026-09-07T03:02:49.092Z",
-        "level": "WARN",
-        "kind": "user",
-        "sessionId": "1788749906722-jt1tgeok",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "在HALCON中，图像类型（如byte、uint2、int1）对后续图像处理结果有何影响？请以阈值分割为例说明。",
-          "mode": "专业知识",
-          "project": "机器视觉专业知识"
-        }
-      },
-      {
-        "id": "1788750168662-6xbuyls7",
-        "timestamp": "2026-09-07T03:02:48.662Z",
-        "level": "WARN",
-        "kind": "user",
-        "sessionId": "1788749906722-jt1tgeok",
-        "event": "answer.skipped",
-        "message": "当前题目已跳过",
-        "context": {
-          "question": "在HALCON中，区域（Region）与XLD（亚像素轮廓）是两种核心数据结构。请从数据模型、内存表达和典型应用场景三个层面，阐述它们的本质区别，并说明在什么情况下必须将区域转换为XLD进行后续处理？",
-          "mode": "专业知识",
-          "project": "机器视觉专业知识"
         }
       }
     ],
